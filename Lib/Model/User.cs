@@ -1,0 +1,629 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lib.Model
+{
+    public class GetUsers_Req
+    {
+        public string OrderBy { get; set; }
+        public int PgNo { get; set; }
+        public int PgSize { get; set; }
+        public string FilterType { get; set; }
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
+        public string FortunePartyCode { get; set; }
+        public string FullName { get; set; }
+        public string UserName { get; set; }
+        public string CompName { get; set; }
+        public string IsActive { get; set; }
+        public int UserType { get; set; }
+        public int UserId { get; set; }
+        public string CompanyUserCustomer { get; set; }
+    }
+    public class GetUsers_Res
+    {
+        public int iTotalRec { get; set; }
+        public long iSr { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string FullName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string CompName { get; set; }
+        public string FortunePartyCode { get; set; }
+        public string EmailId { get; set; }
+        public string EmailId_2 { get; set; }
+        public string MobileNo { get; set; }
+        public string UserTypeId { get; set; }
+        public string UserType { get; set; }
+        public int AssistBy { get; set; }
+        public int SubAssistBy { get; set; }
+        public string AssistByName { get; set; }
+        public string SubAssistByName { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
+        public int CreatedBy { get; set; }
+        public string CreatedDate { get; set; }
+        public string LastLoginDate { get; set; }
+    }
+    public class FortunePartyCode_Exist_Request
+    {
+        public int iUserId { get; set; }
+        public int FortunePartyCode { get; set; }
+    }
+    public class UserDetails_Req
+    {
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Active { get; set; }
+        public string UserType { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string CompanyName { get; set; }
+        public string FortunePartyCode { get; set; }
+        public string EmailId { get; set; }
+        public string EmailId_2 { get; set; }
+        public string MobileNo { get; set; }
+        public int AssistBy { get; set; }
+        public int SubAssistBy { get; set; }
+    }
+    public class UserType_Res
+    {
+        public int Id { get; set; }
+        public string UserType { get; set; }
+    }
+
+    public class Get_CategoryMas_Req
+    {
+        public string OrderBy { get; set; }
+        public int PgNo { get; set; }
+        public int PgSize { get; set; }
+        public bool Status { get; set; }
+    }
+    public class Get_CategoryMas_Res
+    {
+        public int iTotalRec { get; set; }
+        public long iSr { get; set; }
+        public int Cat_Id { get; set; }
+        public string Column_Name { get; set; }
+        public string Display_Name { get; set; }
+        public bool Status { get; set; }
+        public int Col_Id { get; set; }
+        public string Col_Column_Name { get; set; }
+    }
+    public class Get_Category_Value_Req
+    {
+        public string OrderBy { get; set; }
+        public int PgNo { get; set; }
+        public int PgSize { get; set; }
+        public string Cat_Name { get; set; }
+        public int Cat_Id { get; set; }
+        public int Col_Id { get; set; }
+        public bool Status { get; set; }
+    }
+    public class Get_Category_Value_Res
+    {
+        public int iTotalRec { get; set; }
+        public long iSr { get; set; }
+        public int Cat_V_Id { get; set; }
+        public string Cat_Name { get; set; }
+        public string Group_Name { get; set; }
+        public string Rapaport_Name { get; set; }
+        public string Rapnet_name { get; set; }
+        public string Synonyms { get; set; }
+        public int Order_No { get; set; }
+        public int Sort_No { get; set; }
+        public bool Status { get; set; }
+        public string Icon_Url { get; set; }
+        public int Cat_Id { get; set; }
+        public string Cat_Column_Name { get; set; }
+        public string Display_Name { get; set; }
+        public string Short_Name { get; set; }
+        public int Col_Id { get; set; }
+        public string Col_Column_Name { get; set; }
+    }
+    public class Get_PriceListCategory_Res
+    {
+        public long Id { get; set; }
+        public string Value { get; set; }
+        public int SORT_NO { get; set; }
+        public string Type { get; set; }
+        public bool isActive { get; set; }
+        public int Col_Id { get; set; }
+    }
+    
+    public class Get_Supplier_Value_Req
+    {
+        public int Sup_Id { get; set; }
+        public int Col_Id { get; set; }
+    }
+    public class Get_Supplier_Value_Res
+    {
+        public long iSr { get; set; }
+        public long Sr { get; set; }
+        public int Sup_Id { get; set; }
+        public int Cat_V_Id { get; set; }
+        public string Supp_Cat_name { get; set; }
+        public bool Status { get; set; }
+        public int Cat_Id { get; set; }
+        public string Column_Name { get; set; }
+    }
+    public class AddUpdate_Supplier_Value_Req
+    {
+        public List<Obj_AddUpdate_Supplier_Value_List> sup_val { get; set; }
+        public AddUpdate_Supplier_Value_Req()
+        {
+            sup_val = new List<Obj_AddUpdate_Supplier_Value_List>();
+        }
+    }
+    public class Obj_AddUpdate_Supplier_Value_List
+    {
+        public int Sup_Id { get; set; }
+        public int Cat_V_Id { get; set; }
+        public string Supp_Cat_name { get; set; }
+        public bool Status { get; set; }
+    }
+
+
+
+    public class Save_CategoryMas_Req
+    {
+        public int Id { get; set; }
+        public string Category_Name { get; set; }
+    }
+
+
+    public class Get_CategoryDet_Req
+    {
+        public int SupplierId { get; set; }
+        public int CategoryId { get; set; }
+    }
+    public class Get_CategoryDet_Res
+    {
+        public long iSr { get; set; }
+        public int Id { get; set; }
+        public int CategoryId { get; set; }
+        public string Category_Name { get; set; }
+        public int SupplierId { get; set; }
+        public string SupplierName { get; set; }
+        public string OurCategory { get; set; }
+        public string SuppCategory { get; set; }
+        public string SuppCategorySysnonym { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    public class Save_CategoryDet_Req
+    {
+        public List<Obj_CategoryDet_List> cate { get; set; }
+        public Save_CategoryDet_Req()
+        {
+            cate = new List<Obj_CategoryDet_List>();
+        }
+    }
+    public class Obj_CategoryDet_List
+    {
+        public int CategoryId { get; set; }
+        public int SupplierId { get; set; }
+        public string OurCategory { get; set; }
+        public string SuppCategory { get; set; }
+        public string SuppCategorySysnonym { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    public class Get_SupplierMas_Req
+    {
+        public string OrderBy { get; set; }
+        public int PgNo { get; set; }
+        public int PgSize { get; set; }
+    }
+    public class Get_SupplierMas_Res
+    {
+        public int iTotalRec { get; set; }
+        public long iSr { get; set; }
+        public int Id { get; set; }
+        public string SupplierName { get; set; }
+    }
+    public class Get_SupplierMaster_Req
+    {
+        public long Id { get; set; }
+        public string SupplierName { get; set; }
+        public int iPgNo { get; set; }
+        public int iPgSize { get; set; }
+        public string OrderBy { get; set; }
+    }
+    public class Get_SupplierMaster_Res
+    {
+        public long iTotalRec { get; set; }
+        public long iSr { get; set; }
+        public long Id { get; set; }
+        public string APIType { get; set; }
+        public string SupplierURL { get; set; }
+        public string SupplierName { get; set; }
+        public string SupplierHitUrl { get; set; }
+        public string SupplierResponseFormat { get; set; }
+        public string FileLocation { get; set; }
+        public string LocationExportType { get; set; }
+        public string RepeateveryType { get; set; }
+        public string Repeatevery { get; set; }
+        public string SupplierAPIMethod { get; set; }
+        public bool Active { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string CreateDate { get; set; }
+        public string UpdateDate { get; set; }
+        public string FileName { get; set; }
+        public bool DiscInverse { get; set; }
+        public bool NewRefNoGenerate { get; set; }
+        public bool NewDiscGenerate { get; set; }
+        public string DataGetFrom { get; set; }
+    }
+    public class Get_ColumnMaster_Res
+    {
+        public int Col_Id { get; set; }
+        public string Column_Name { get; set; }
+        public string Display_Name { get; set; }
+    }
+    public class Get_SupplierColumnSetting_Res
+    {
+        //public long iSr { get; set; }
+        //public int Id { get; set; }
+        //public int SupplierId { get; set; }
+        //public int ColumnId { get; set; }
+        //public string SupplierColumn { get; set; }
+        public long iSr { get; set; }
+        public int Col_Id { get; set; }
+        public string Column_Name { get; set; }
+        public string SupplierColumn { get; set; }
+    }
+    public class Get_SupplierColumnSetting_FromAPI_Res
+    {
+        public int Id { get; set; }
+        public string SupplierColumn { get; set; }
+    }
+    public class AddUpdate_SupplierColumnSetting_Req
+    {
+        public List<Obj_SupplierColumnSetting_List> col { get; set; }
+        public AddUpdate_SupplierColumnSetting_Req()
+        {
+            col = new List<Obj_SupplierColumnSetting_List>();
+        }
+    }
+    public class Obj_SupplierColumnSetting_List
+    {
+        public int SupplierId { get; set; }
+        public string SupplierColumn { get; set; }
+        public int ColumnId { get; set; }
+    }
+    public class Get_FancyColor_Res
+    {
+        public string ColorName { get; set; }
+        public string Type { get; set; }
+    }
+    public class Get_ParaMas_Res
+    {
+        public int Id { get; set; }
+        public string value { get; set; }
+        public string ListType { get; set; }
+        public string UrlValue { get; set; }
+        public string UrlValueHov { get; set; }
+    }
+    public class Get_PriceList_ParaMas
+    {
+        public int Id { get; set; }
+        public string Value { get; set; }
+        public string Type { get; set; }
+        public bool isActive { get; set; }
+        public string UrlValue { get; set; }
+        public string UrlValueHov { get; set; }
+    }
+    public class get_key_to_symbol
+    {
+        public string sSymbol { get; set; }
+    }
+    public class Get_Supplier_RefNo_Prefix_Req
+    {
+        public int SupplierId { get; set; }
+    }
+    public class Get_Supplier_RefNo_Prefix_Res
+    {
+        public long iSr { get; set; }
+        public int Id { get; set; }
+        public int SupplierId { get; set; }
+        public int Shape { get; set; }
+        public int Pointer { get; set; }
+        public string Prefix { get; set; }
+    }
+    public class Save_Supplier_RefNo_Prefix_Req
+    {
+        public List<Obj_Supplier_RefNo_Prefix_List> refno { get; set; }
+        public Save_Supplier_RefNo_Prefix_Req()
+        {
+            refno = new List<Obj_Supplier_RefNo_Prefix_List>();
+        }
+    }
+    public class Obj_Supplier_RefNo_Prefix_List
+    {
+        public int SupplierId { get; set; }
+        public int Shape { get; set; }
+        public int Pointer { get; set; }
+        public string Prefix { get; set; }
+    }
+    public class React_API_eq
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
+    public class Save_Supplier_Disc_Req
+    {
+        public int UserId { get; set; }
+        public int SupplierId { get; set; }
+        public List<Obj_Supplier_Disc> SuppDisc { get; set; }
+        public Save_Supplier_Disc_Req()
+        {
+            SuppDisc = new List<Obj_Supplier_Disc>();
+        }
+    }
+    public class Obj_Supplier_Disc
+    {
+        public int UserId { get; set; }
+        public string Supplier { get; set; }
+        public string SupplierId { get; set; }
+        public string Shape { get; set; }
+        public string Carat { get; set; }
+        public string ColorType { get; set; }
+        public string Color { get; set; }
+        public string INTENSITY { get; set; }
+        public string OVERTONE { get; set; }
+        public string FANCY_COLOR { get; set; }
+        public string Clarity { get; set; }
+        public string Cut { get; set; }
+        public string Polish { get; set; }
+        public string Sym { get; set; }
+        public string Fls { get; set; }
+        public string Lab { get; set; }
+        public string FromLength { get; set; }
+        public string ToLength { get; set; }
+        public string FromWidth { get; set; }
+        public string ToWidth { get; set; }
+        public string FromDepth { get; set; }
+        public string ToDepth { get; set; }
+        public string FromDepthinPer { get; set; }
+        public string ToDepthinPer { get; set; }
+        public string FromTableinPer { get; set; }
+        public string ToTableinPer { get; set; }
+        public string FromCrAng { get; set; }
+        public string ToCrAng { get; set; }
+        public string FromCrHt { get; set; }
+        public string ToCrHt { get; set; }
+        public string FromPavAng { get; set; }
+        public string ToPavAng { get; set; }
+        public string FromPavHt { get; set; }
+        public string ToPavHt { get; set; }
+        public string CheckKTS { get; set; }
+        public string UNCheckKTS { get; set; }
+        public string BGM { get; set; }
+        public string CrownBlack { get; set; }
+        public string TableBlack { get; set; }
+        public string CrownWhite { get; set; }
+        public string TableWhite { get; set; }
+        public string GoodsType { get; set; }
+        public string Image { get; set; }
+        public string Video { get; set; }
+        public string PricingMethod_1 { get; set; }
+        public string PricingSign_1 { get; set; }
+        public string Disc_1_1 { get; set; }
+        public string Value_1_1 { get; set; }
+        public string Value_1_2 { get; set; }
+        public string Value_1_3 { get; set; }
+        public string Value_1_4 { get; set; }
+        public string Speci_Additional_1 { get; set; }
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
+        public string PricingMethod_2 { get; set; }
+        public string PricingSign_2 { get; set; }
+        public string Disc_2_1 { get; set; }
+        public string Value_2_1 { get; set; }
+        public string Value_2_2 { get; set; }
+        public string Value_2_3 { get; set; }
+        public string Value_2_4 { get; set; }
+        public string PricingMethod_3 { get; set; }
+        public string PricingSign_3 { get; set; }
+        public string Disc_3_1 { get; set; }
+        public string Value_3_1 { get; set; }
+        public string Value_3_2 { get; set; }
+        public string Value_3_3 { get; set; }
+        public string Value_3_4 { get; set; }
+        public string Speci_Additional_2 { get; set; }
+        public string FromDate1 { get; set; }
+        public string ToDate1 { get; set; }
+        public string PricingMethod_4 { get; set; }
+        public string PricingSign_4 { get; set; }
+        public string Disc_4_1 { get; set; }
+        public string Value_4_1 { get; set; }
+        public string Value_4_2 { get; set; }
+        public string Value_4_3 { get; set; }
+        public string Value_4_4 { get; set; }
+    }
+    public class Get_SearchStock_Req
+    {
+        public int PgNo { get; set; }
+        public int PgSize { get; set; }
+        public string OrderBy { get; set; }
+        public string RefNo { get; set; }
+        public string SupplierId { get; set; }
+        public string Shape { get; set; }
+        public string Pointer { get; set; }
+        public string ColorType { get; set; }
+        public string Color { get; set; }
+        public string INTENSITY { get; set; }
+        public string OVERTONE { get; set; }
+        public string FANCY_COLOR { get; set; }
+        public string Clarity { get; set; }
+        public string Cut { get; set; }
+        public string Polish { get; set; }
+        public string Symm { get; set; }
+        public string Fls { get; set; }
+        public string BGM { get; set; }
+        public string Lab { get; set; }
+        public string CrownBlack { get; set; }
+        public string TableBlack { get; set; }
+        public string TableWhite { get; set; }
+        public string CrownWhite { get; set; }
+        public string TableOpen { get; set; }
+        public string CrownOpen { get; set; }
+        public string PavOpen { get; set; }
+        public string GirdleOpen { get; set; }
+
+        public string KTSBlank { get; set; }
+        public string Keytosymbol { get; set; }
+        public string CheckKTS { get; set; }
+        public string UNCheckKTS { get; set; }
+
+        public string FromDisc { get; set; }
+        public string ToDisc { get; set; }
+
+        public string FromTotAmt { get; set; }
+        public string ToTotAmt { get; set; }
+
+        public string LengthBlank { get; set; }
+        public string FromLength { get; set; }
+        public string ToLength { get; set; }
+
+        public string WidthBlank { get; set; }
+        public string FromWidth { get; set; }
+        public string ToWidth { get; set; }
+
+        public string DepthBlank { get; set; }
+        public string FromDepth { get; set; }
+        public string ToDepth { get; set; }
+
+        public string DepthPerBlank { get; set; }
+        public string FromDepthPer { get; set; }
+        public string ToDepthPer { get; set; }
+
+        public string TablePerBlank { get; set; }
+        public string FromTablePer { get; set; }
+        public string ToTablePer { get; set; }
+
+        public string Img { get; set; }
+        public string Vdo { get; set; }
+        public string Certi { get; set; }
+
+        public string CrAngBlank { get; set; }
+        public string FromCrAng { get; set; }
+        public string ToCrAng { get; set; }
+
+        public string CrHtBlank { get; set; }
+        public string FromCrHt { get; set; }
+        public string ToCrHt { get; set; }
+
+        public string PavAngBlank { get; set; }
+        public string FromPavAng { get; set; }
+        public string ToPavAng { get; set; }
+
+        public string PavHtBlank { get; set; }
+        public string FromPavHt { get; set; }
+        public string ToPavHt { get; set; }
+    }
+    public class Get_SearchStock_Res
+    {
+        public long iTotalRec { get; set; }
+        public long iSr { get; set; }
+        public int SupplierId { get; set; }
+        public string SupplierName { get; set; }
+        public string Ref_No { get; set; }
+        public string Shape { get; set; }
+        public string Color { get; set; }
+        public string Clarity { get; set; }
+        public string Cut { get; set; }
+        public string Polish { get; set; }
+        public string Symm { get; set; }
+        public string Fls { get; set; }
+        public double Cts { get; set; }
+        public string Pointer { get; set; }
+        public string Sub_Pointer { get; set; }
+        public double Base_Price_Cts { get; set; }
+        public double Rap_Rate { get; set; }
+        public double Base_Amount { get; set; }
+        public string Measurement { get; set; }
+        public double Length { get; set; }
+        public double Width { get; set; }
+        public double Depth { get; set; }
+        public double Table_Per { get; set; }
+        public double Depth_Per { get; set; }
+        public string Table_Inclusion { get; set; }
+        public string Crown_Inclusion { get; set; }
+        public string Table_Natts { get; set; }
+        public string Crown_Natts { get; set; }
+        public string Side_Inclusion { get; set; }
+        public string Side_Natts { get; set; }
+        public string Crown_Open { get; set; }
+        public string Pav_Open { get; set; }
+        public string Table_Open { get; set; }
+        public string Girdle_Open { get; set; }
+        public string Crown_Angle { get; set; }
+        public string Pav_Angle { get; set; }
+        public string Crown_Height { get; set; }
+        public string Pav_Height { get; set; }
+        public double Rap_Amount { get; set; }
+        public string Lab { get; set; }
+        public string Certificate_URL { get; set; }
+        public string Image_URL { get; set; }
+        public string Image_URL_2 { get; set; }
+        public string Image_URL_3 { get; set; }
+        public string Image_URL_4 { get; set; }
+        public string Video_URL { get; set; }
+        public string Video_URL_2 { get; set; }
+        public string Status { get; set; }
+        public string Supplier_Stone_Id { get; set; }
+        public string Location { get; set; }
+        public string Shade { get; set; }
+        public string Luster { get; set; }
+        public string Type_2A { get; set; }
+        public string Milky { get; set; }
+        public string BGM { get; set; }
+        public string Key_To_Symboll { get; set; }
+        public double RATIO { get; set; }
+        public string Supplier_Comments { get; set; }
+        public string Lab_Comments { get; set; }
+        public string Culet { get; set; }
+        public double Girdle_Per { get; set; }
+        public string Girdle_Type { get; set; }
+        public string Girdle_MM { get; set; }
+        public string Inscription { get; set; }
+        public string Culet_Condition { get; set; }
+        public string Star_Length { get; set; }
+        public string Lower_Halves { get; set; }
+        public string Stage { get; set; }
+        public string Certi_Date { get; set; }
+        public double Disc { get; set; }
+        public double Fix_Price { get; set; }
+        public string Certificate_No { get; set; }
+        public string Goods_Type { get; set; }
+        public double SUPPLIER_COST_DISC { get; set; }
+        public double SUPPLIER_COST_VALUE { get; set; }
+        public double MAX_DISC { get; set; }
+        public double MAX_VALUE { get; set; }
+        public double CUSTOMER_COST_DISC { get; set; }
+        public double CUSTOMER_COST_VALUE { get; set; }
+        public int Shape_Sr { get; set; }
+        public int Color_Sr { get; set; }
+        public int Clarity_Sr { get; set; }
+        public int Cut_Sr { get; set; }
+        public int Polish_Sr { get; set; }
+        public int Symm_Sr { get; set; }
+        public int Fls_Sr { get; set; }
+    }
+    public class Data_Get_From_File_Req
+    {
+        public int SupplierId { get; set; }
+        public string SupplierName { get; set; }
+        public string File { get; set; }
+        public string FilePath { get; set; }
+    }
+}

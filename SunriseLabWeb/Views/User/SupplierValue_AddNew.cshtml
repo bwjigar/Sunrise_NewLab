@@ -1,0 +1,304 @@
+﻿<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 api-plr cateDetail apifilter" style="display:none;">
+    <div class="myoffer-form full-acform mt-0" style="box-shadow: 0 0 3px rgb(0 0 0 / 30%);float: none;">
+        <div class="mb-3 mt-2 pull-right">
+            <button type="button" onclick="AddNewRow();" class="offer-btn"><i class="fa fa-plus"></i>Add Row</button>
+        </div>
+        <div style="width:100%;overflow-x:auto">
+            <table id="tbl" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th width="3%">Sr.</th>
+                        <th width="20%">Category Value <span class="reqvalidation">*</span></th>
+                        <th width="20%">Synonyms <span class="reqvalidation">*</span></th>
+                        <th width="3%">Status</th>
+                        <th width="3%">Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="tblbody" class="fl-sec-form">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mb-3 mt-2 pull-right DeleteAll" style="margin-left: 6px;">
+            <button type="button" onclick="DeleteAll();" class="offer-btn">Delete All</button>
+        </div>
+
+        <div class="mb-3 mt-2 pull-right">
+            <button type="button" onclick="Save();" class="offer-btn">Save</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        $("#tblbody").on('click', '.RemoveCate', function () {
+            $(this).closest('tr').remove();
+            if (parseInt($("#tbl #tblbody").find('tr').length) == 0) {
+                AddNewRow();
+            }
+            row_cnt = 1;
+            row = 1;
+            $("#tbl #tblbody tr").each(function () {
+                $(this).find("td:eq(0)").html(row_cnt);
+                row_cnt += 1;
+                row += 1;
+            });
+            if (row > 0) {
+                row = parseInt(row) - 1;
+            }
+        });
+    });
+    var CategoryValue_List = "";
+    function Master_Get() {
+        var obj = {};
+        obj.Col_Id = hdn_Col_Id;
+
+        $.ajax({
+            url: "/User/Get_Category_Value",
+            async: false,
+            type: "POST",
+            data: { req: obj },
+            success: function (data, textStatus, jqXHR) {
+                if (data.Status == "1" && data.Data != null) {
+                    CategoryValue_List = data.Data;
+
+                    //$("#CateMas_ddl_CategoryName").html("<option value=''>Select</option>");
+                    //_(data.Data).each(function (obj, i) {
+                    //    $("#CateMas_ddl_CategoryName").append("<option value=\"" + obj.Cat_Id + "\">" + obj.Cat_Column_Name + "</option>");
+                    //});
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+            }
+        });
+    }
+    function AddNewRow() {
+        row = parseInt(row) + 1;
+
+        var CategoryValue = "<option value=''>Select</option>";
+        _(CategoryValue_List).each(function (obj, i) {
+            CategoryValue += "<option value=\"" + obj.Cat_V_Id + "\">" + obj.Cat_Name + "</option>";
+        });
+
+        var tbl_html =
+            '<tr>' +
+            '<td class="tblbody_sr">' + row + '</td>' +
+            '<td><select class="form-control input-sm CategoryValue" tabindex="1">' + CategoryValue + '</select></td>' +
+            '<td><input type="text" class="form-control Synonyms" maxlength="50" autocomplete="off"></td>' +
+            '<td><input type="checkbox" class="Status" checked></td>' +
+            '<td style="width: 50px"><i style="cursor:pointer;" class="error RemoveCate"><img src="/Content/images/trash-delete-icon.png" style="width: 20px;" /></i></td>' +
+            '</tr>';
+
+        if (parseInt($("#tbl #tblbody").find('tr').length) == 0) {
+            $('#tbl #tblbody').html(tbl_html);
+        }
+        else {
+            $('#tbl #tblbody > tr').eq(0).before(tbl_html);
+        }
+
+        row_cnt = 1;
+        row = 1;
+        $("#tbl #tblbody tr").each(function () {
+            $(this).find("td:eq(0)").html(row_cnt);
+            row_cnt += 1;
+            row += 1;
+        });
+        if (row > 0) {
+            row = parseInt(row) - 1;
+        }
+    }
+    function GetSearch() {
+        $(".cateDetail").hide();
+        $(".DeleteAll").hide();
+        $('#tblbody').html("");
+        row = $('#tblbody').find('tr').length;
+        row_cnt = 0;
+
+        if (hdn_Col_Id != "") {
+            loaderShow();
+            var obj = {};
+            obj.Sup_Id = $("#ddl_SupplierName").val();
+            obj.Col_Id = hdn_Col_Id;
+
+            $.ajax({
+                url: "/User/Get_Supplier_Value",
+                async: false,
+                type: "POST",
+                data: { req: obj },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.Message.indexOf('Something Went wrong') > -1) {
+                        MoveToErrorPage(0);
+                    }
+                    $(".cateDetail").show();
+
+                    if (data != null && data.Data.length > 0) {
+                        _(data.Data).each(function (_obj, i) {
+                            row = parseInt(row) + 1;
+
+                            var CategoryValue = "<option value=''>Select</option>";
+                            _(CategoryValue_List).each(function (__obj, i) {
+                                CategoryValue += "<option value=\"" + __obj.Cat_V_Id + "\"" + (parseInt(_obj.Cat_V_Id) == parseInt(__obj.Cat_V_Id) ? 'Selected' : '') + ">" + __obj.Cat_Name + "</option>";
+                            });
+
+                            $('#tblbody').append(
+                                "<tr>" +
+                                "<td class='tblbody_sr'>" + row + "</td>" +
+                                "<td><select class='form-control input-sm CategoryValue' tabindex='1'>" + CategoryValue + "</select></td>" +
+                                "<td><input value=\"" + (_obj.Supp_Cat_name != null ? _obj.Supp_Cat_name : '') + "\" type='text' class='form-control Synonyms' maxlength='50' autocomplete='off'></td>" +
+                                "<td><input type='checkbox' class='Status' " + (_obj.Status == true ? 'checked' : '') + "></td>" +
+                                "<td style='width: 50px'><i style='cursor:pointer;' class='error RemoveCate'><img src='/Content/images/trash-delete-icon.png' style='width: 20px;' /></i></td>" +
+                                "</tr>"
+                            );
+                        });
+                        $(".DeleteAll").show();
+                    }
+                    else {
+                        AddNewRow();
+                    }
+                    loaderHide();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    loaderHide();
+                }
+            });
+        }
+        else {
+            $(".cateDetail").hide();
+        }
+    }
+
+    var ErrorMsg = [];
+    var GetError = function () {
+        ErrorMsg = [];
+        var CategoryValue = false, Synonyms = false;
+        $("#tbl #tblbody tr").each(function () {
+            if ($(this).find('.CategoryValue').val() == "") {
+                CategoryValue = true;
+            }
+            if ($(this).find('.Synonyms').val() == "") {
+                Synonyms = true;
+            }
+        });
+
+        if (CategoryValue == true) {
+            ErrorMsg.push({
+                'Error': "Please Select CategoryValue.",
+            });
+        }
+        if (Synonyms == true) {
+            ErrorMsg.push({
+                'Error': "Please Enter Synonyms.",
+            });
+        }
+
+        return ErrorMsg;
+    }
+    var Save = function () {
+        ErrorMsg = GetError();
+        var arr = [];
+        $("#tbl #tblbody tr").each(function () {
+            arr.push({
+                SupplierName: $("#ddl_SupplierName").val(),
+                CategoryValue: $(this).find('.CategoryValue').val()
+            });
+        });
+        var arr1 = arr.map(JSON.stringify).filter((e, i, a) => i != a.indexOf(e)).map(JSON.parse);
+        var arr2 = arr1.map(JSON.stringify).filter((e, i, a) => i === a.indexOf(e)).map(JSON.parse);
+
+        if (ErrorMsg.length > 0 || arr2.length > 0) {
+            $("#divError").empty();
+            ErrorMsg.forEach(function (item) {
+                $("#divError").append('<li>' + item.Error + '</li>');
+            });
+            arr2.forEach(function (item) {
+                $("#divError").append('<li>You can not set dublicate Category Value.</li>');
+            });
+            $("#ErrorModel").modal("show");
+        }
+        //else if (arr2.length > 0) {
+        //    $("#divError").empty();
+        //    arr2.forEach(function (item) {
+        //        $("#divError").append('<li>You can not set multiple ' + item.OurCategory + ' Base Category in ' + item.SupplierName + ' Supplier.</li>');
+        //    });
+        //    $("#ErrorModel").modal("show");
+        //}
+        else {
+            var list = [];
+            $("#tbl #tblbody tr").each(function () {
+                list.push({
+                    Sup_Id: $("#ddl_SupplierName").val(),
+                    Cat_V_Id: $(this).find('.CategoryValue').val(),
+                    Supp_Cat_name: $(this).find('.Synonyms').val(),
+                    Status: $(this).find('.Status').is(":checked") //$("#chk_Active").is(":checked")
+                });
+            });
+            var obj = {};
+            obj.sup_val = list;
+
+            loaderShow();
+
+            $.ajax({
+                url: '/User/AddUpdate_Supplier_Value',
+                type: "POST",
+                data: { req: obj },
+                success: function (data) {
+                    loaderHide();
+                    if (data.Status == "1") {
+                        toastr.success(data.Message);
+                        $(".DeleteAll").show();
+                    }
+                    else {
+                        if (data.Message.indexOf('Something Went wrong') > -1) {
+                            MoveToErrorPage(0);
+                        }
+                        toastr.error(data.Message);
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    loaderHide();
+                }
+            });
+        }
+    }
+    var DeleteAll = function () {
+        $("#DeleteAll").modal("show");
+        $("#DeleteAll .modal-body li").html("Are You Sure You Want To Delete All " + $(".tab_" + hdn_Col_Id).html() + " Category of " + $("#ddl_SupplierName option:selected").text() + " ?");
+    }
+    var ClearRemoveModel = function () {
+        $("#DeleteAll").modal("hide");
+    }
+    var Delete = function () {
+        if ($("#ddl_SupplierName").val() != "" && hdn_Col_Id != "") {
+            debugger
+            var obj = {};
+            obj.Col_Id = hdn_Col_Id;
+            obj.Sup_Id = $("#ddl_SupplierName").val();
+
+            loaderShow();
+
+            $.ajax({
+                url: '/User/Delete_Supplier_Value',
+                type: "POST",
+                data: { req: obj },
+                success: function (data) {
+                    loaderHide();
+                    if (data.Status == "1") {
+                        toastr.success(data.Message);
+                        $("#DeleteAll").modal("hide");
+                        GetSearch();
+                    }
+                    else {
+                        if (data.Message.indexOf('Something Went wrong') > -1) {
+                            MoveToErrorPage(0);
+                        }
+                        toastr.error(data.Message);
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    loaderHide();
+                }
+            });
+        }
+    }
+
+</script>

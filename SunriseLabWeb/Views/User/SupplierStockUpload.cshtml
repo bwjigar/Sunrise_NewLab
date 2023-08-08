@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Supplier's Stock Upload From File";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<input type="hidden" id="hdn_Id" value="" />
+
+<div class="container-fluid order-history-section manage-user">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="order-title">
+                <h2>Stock Upload From Supplier's File <span style="font-size: 12px;color: red;">(.XLSX, .XLS, .CSV)</span></h2>
+            </div>
+        </div>
+    </div>
+    <div class="order-history-data admin muser gridview apicol-head">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="col-xl-4 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
+                    <div class="order-company-name common-order">
+                        <div class="offer-label">Supplier Name: <span style="color:red;">*</span></div>
+                        <select class="form-control select2" id="DdlSupplierName" name="DdlSupplierName" onchange="onchange_SupplierName()">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
+                    <div class="order-company-name common-order">
+                        <div class="offer-label">File Upload: <span style="color:red;">*</span></div>
+                        <input accept=".xlsx,.xls,.csv" type="file" id="file_upload" name="file_upload" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 float-left">
+                    <ul class="offer-inbtn">
+                        <li class="mr-2">
+                            <button onclick="Stock_Upload();" class="save offer-btn" id="Stock_Upload_btn"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;Stock Upload</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/js/Pages/SupplierStockUpload.js"></script>
+}
+
