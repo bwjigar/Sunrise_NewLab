@@ -421,6 +421,7 @@ namespace Lib.Model
         public string Value_1_2 { get; set; }
         public string Value_1_3 { get; set; }
         public string Value_1_4 { get; set; }
+        public string Value_1_5 { get; set; }
         public string Speci_Additional_1 { get; set; }
         public string FromDate { get; set; }
         public string ToDate { get; set; }
@@ -431,6 +432,7 @@ namespace Lib.Model
         public string Value_2_2 { get; set; }
         public string Value_2_3 { get; set; }
         public string Value_2_4 { get; set; }
+        public string Value_2_5 { get; set; }
         public string PricingMethod_3 { get; set; }
         public string PricingSign_3 { get; set; }
         public string Disc_3_1 { get; set; }
@@ -438,6 +440,7 @@ namespace Lib.Model
         public string Value_3_2 { get; set; }
         public string Value_3_3 { get; set; }
         public string Value_3_4 { get; set; }
+        public string Value_3_5 { get; set; }
         public string Speci_Additional_2 { get; set; }
         public string FromDate1 { get; set; }
         public string ToDate1 { get; set; }
@@ -448,6 +451,7 @@ namespace Lib.Model
         public string Value_4_2 { get; set; }
         public string Value_4_3 { get; set; }
         public string Value_4_4 { get; set; }
+        public string Value_4_5 { get; set; }
     }
     public class Get_SearchStock_Req
     {

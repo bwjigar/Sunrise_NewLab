@@ -467,6 +467,7 @@ namespace API.Controllers
                 dt.Columns.Add("Value_1_2", typeof(string));
                 dt.Columns.Add("Value_1_3", typeof(string));
                 dt.Columns.Add("Value_1_4", typeof(string));
+                dt.Columns.Add("Value_1_5", typeof(string));
                 dt.Columns.Add("Speci_Additional_1", typeof(string));
                 dt.Columns.Add("FromDate", typeof(string));
                 dt.Columns.Add("ToDate", typeof(string));
@@ -477,6 +478,7 @@ namespace API.Controllers
                 dt.Columns.Add("Value_2_2", typeof(string));
                 dt.Columns.Add("Value_2_3", typeof(string));
                 dt.Columns.Add("Value_2_4", typeof(string));
+                dt.Columns.Add("Value_2_5", typeof(string));
 
 
                 if (req.SuppDisc.Count() > 0)
@@ -534,6 +536,7 @@ namespace API.Controllers
                         dr["Value_1_2"] = req.SuppDisc[i].Value_1_2;
                         dr["Value_1_3"] = req.SuppDisc[i].Value_1_3;
                         dr["Value_1_4"] = req.SuppDisc[i].Value_1_4;
+                        dr["Value_1_5"] = req.SuppDisc[i].Value_1_5;
                         dr["Speci_Additional_1"] = req.SuppDisc[i].Speci_Additional_1;
                         dr["FromDate"] = req.SuppDisc[i].FromDate;
                         dr["ToDate"] = req.SuppDisc[i].ToDate;
@@ -544,6 +547,7 @@ namespace API.Controllers
                         dr["Value_2_2"] = req.SuppDisc[i].Value_2_2;
                         dr["Value_2_3"] = req.SuppDisc[i].Value_2_3;
                         dr["Value_2_4"] = req.SuppDisc[i].Value_2_4;
+                        dr["Value_2_5"] = req.SuppDisc[i].Value_2_5;
 
                         dt.Rows.Add(dr);
                     }
@@ -955,6 +959,7 @@ namespace API.Controllers
                 dt.Columns.Add("Value_1_2", typeof(string));
                 dt.Columns.Add("Value_1_3", typeof(string));
                 dt.Columns.Add("Value_1_4", typeof(string));
+                dt.Columns.Add("Value_1_5", typeof(string));
                 dt.Columns.Add("Speci_Additional_1", typeof(string));
                 dt.Columns.Add("FromDate", typeof(string));
                 dt.Columns.Add("ToDate", typeof(string));
@@ -965,6 +970,7 @@ namespace API.Controllers
                 dt.Columns.Add("Value_2_2", typeof(string));
                 dt.Columns.Add("Value_2_3", typeof(string));
                 dt.Columns.Add("Value_2_4", typeof(string));
+                dt.Columns.Add("Value_2_5", typeof(string));
                 dt.Columns.Add("PricingMethod_3", typeof(string));
                 dt.Columns.Add("PricingSign_3", typeof(string));
                 dt.Columns.Add("Disc_3_1", typeof(string));
@@ -972,6 +978,7 @@ namespace API.Controllers
                 dt.Columns.Add("Value_3_2", typeof(string));
                 dt.Columns.Add("Value_3_3", typeof(string));
                 dt.Columns.Add("Value_3_4", typeof(string));
+                dt.Columns.Add("Value_3_5", typeof(string));
                 dt.Columns.Add("Speci_Additional_2", typeof(string));
                 dt.Columns.Add("FromDate1", typeof(string));
                 dt.Columns.Add("ToDate1", typeof(string));
@@ -982,6 +989,7 @@ namespace API.Controllers
                 dt.Columns.Add("Value_4_2", typeof(string));
                 dt.Columns.Add("Value_4_3", typeof(string));
                 dt.Columns.Add("Value_4_4", typeof(string));
+                dt.Columns.Add("Value_4_5", typeof(string));
 
                 if (req.SuppDisc.Count() > 0)
                 {
@@ -1038,6 +1046,7 @@ namespace API.Controllers
                         dr["Value_1_2"] = req.SuppDisc[i].Value_1_2;
                         dr["Value_1_3"] = req.SuppDisc[i].Value_1_3;
                         dr["Value_1_4"] = req.SuppDisc[i].Value_1_4;
+                        dr["Value_1_5"] = req.SuppDisc[i].Value_1_5;
                         dr["Speci_Additional_1"] = req.SuppDisc[i].Speci_Additional_1;
                         dr["FromDate"] = req.SuppDisc[i].FromDate;
                         dr["ToDate"] = req.SuppDisc[i].ToDate;
@@ -1048,6 +1057,7 @@ namespace API.Controllers
                         dr["Value_2_2"] = req.SuppDisc[i].Value_2_2;
                         dr["Value_2_3"] = req.SuppDisc[i].Value_2_3;
                         dr["Value_2_4"] = req.SuppDisc[i].Value_2_4;
+                        dr["Value_2_5"] = req.SuppDisc[i].Value_2_5;
                         dr["PricingMethod_3"] = req.SuppDisc[i].PricingMethod_3;
                         dr["PricingSign_3"] = req.SuppDisc[i].PricingSign_3;
                         dr["Disc_3_1"] = req.SuppDisc[i].Disc_3_1;
@@ -1055,6 +1065,7 @@ namespace API.Controllers
                         dr["Value_3_2"] = req.SuppDisc[i].Value_3_2;
                         dr["Value_3_3"] = req.SuppDisc[i].Value_3_3;
                         dr["Value_3_4"] = req.SuppDisc[i].Value_3_4;
+                        dr["Value_3_5"] = req.SuppDisc[i].Value_3_5;
                         dr["Speci_Additional_2"] = req.SuppDisc[i].Speci_Additional_2;
                         dr["FromDate1"] = req.SuppDisc[i].FromDate1;
                         dr["ToDate1"] = req.SuppDisc[i].ToDate1;
@@ -1065,6 +1076,7 @@ namespace API.Controllers
                         dr["Value_4_2"] = req.SuppDisc[i].Value_4_2;
                         dr["Value_4_3"] = req.SuppDisc[i].Value_4_3;
                         dr["Value_4_4"] = req.SuppDisc[i].Value_4_4;
+                        dr["Value_4_5"] = req.SuppDisc[i].Value_4_5;
 
                         dt.Rows.Add(dr);
                     }

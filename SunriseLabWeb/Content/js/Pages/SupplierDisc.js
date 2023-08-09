@@ -372,6 +372,7 @@ $(document).ready(function () {
                     $("#txtValue_3_2").val($("#txtValue_1_2").val());
                     $("#txtValue_3_3").val($("#txtValue_1_3").val());
                     $("#txtValue_3_4").val($("#txtValue_1_4").val());
+                    $("#txtValue_3_5").val($("#txtValue_1_5").val());
                 }
             //}
             $("#PricingSign_3").val($("#PricingSign_1").val());
@@ -396,6 +397,7 @@ $(document).ready(function () {
                     $("#txtValue_4_2").val($("#txtValue_2_2").val());
                     $("#txtValue_4_3").val($("#txtValue_2_3").val());
                     $("#txtValue_4_4").val($("#txtValue_2_4").val());
+                    $("#txtValue_4_5").val($("#txtValue_2_5").val());
                 }
             //}
             $("#PricingSign_4").val($("#PricingSign_2").val());
@@ -405,13 +407,30 @@ $(document).ready(function () {
         }
     });
 });
-function checkValue(textbox) {
+function checkValue(textbox, type, id) {
     const value = textbox.value.trim();
     const numericValue = parseFloat(value);
     if (numericValue >= 0 && numericValue <= 100) {
         textbox.value = NullReplaceDecimal4ToFixed(numericValue);
+        if (type != "" && id != "") {
+            type = parseInt(type);
+            id = parseInt(id);
+            for (var i = id-1; i <= 5 && i != 0; i--) {
+                if ($("#txtValue_" + type + "_" + i).val() == "") {
+                    $("#txtValue_" + type + "_" + id).val("");
+                }
+            }
+        }
+        
     } else {
         textbox.value = '';
+        if (type != "" && id != "") {
+            type = parseInt(type);
+            id = parseInt(id);
+            for (var i = id+1; i <= 5 && i != 0; i++) {
+                $("#txtValue_" + type + "_" + i).val("");
+            }
+        }
     }
 }
 function Get_API_StockFilter() {
@@ -468,7 +487,7 @@ function Get_API_StockFilter() {
                     if (data.Data[k].Col_Id == 49) {
                         KeyToSymbolList.push(data.Data[k]);
                     }
-                    if (data.Data[k].Col_Id == 67) {
+                    if (data.Data[k].Col_Id == 66) {
                         GoodsTypeList.push(data.Data[k]);
                     }
                 }
@@ -658,6 +677,7 @@ function PricingMethodDDL(type) {
         document.getElementById("txtValue_" + type + "_2").disabled = true;
         document.getElementById("txtValue_" + type + "_3").disabled = true;
         document.getElementById("txtValue_" + type + "_4").disabled = true;
+        document.getElementById("txtValue_" + type + "_5").disabled = true;
         document.getElementById("txtDisc_" + type + "_1").disabled = true;
 
         $("#PricingSign_" + type).val("=");
@@ -673,6 +693,7 @@ function PricingMethodDDL(type) {
             document.getElementById("txtValue_" + type + "_2").disabled = true;
             document.getElementById("txtValue_" + type + "_3").disabled = true;
             document.getElementById("txtValue_" + type + "_4").disabled = true;
+            document.getElementById("txtValue_" + type + "_5").disabled = true;
 
             $(".txtDisc_" + type).show();
             $(".txtValue_" + type).hide();
@@ -687,6 +708,7 @@ function PricingMethodDDL(type) {
             document.getElementById("txtValue_" + type + "_2").disabled = false;
             document.getElementById("txtValue_" + type + "_3").disabled = false;
             document.getElementById("txtValue_" + type + "_4").disabled = false;
+            document.getElementById("txtValue_" + type + "_5").disabled = false;
             document.getElementById("txtDisc_" + type + "_1").disabled = true;
 
             $(".txtDisc_" + type).hide();
@@ -706,6 +728,7 @@ function pricing_reset(type) {
     $("#txtValue_" + type + "_2").val("");
     $("#txtValue_" + type + "_3").val("");
     $("#txtValue_" + type + "_4").val("");
+    $("#txtValue_" + type + "_5").val("");
 }
 var ItemClicked = function (ParameterLabel, item, c, curritem) {
     var list = [];
@@ -1095,7 +1118,6 @@ function Reset_API_Filter() {
     $(".VdAll").prop("checked", true);
 
 
-
     for (var j = 1; j <= 4; j++) {
         $("#PricingMethod_" + j).val("");
         $("#PricingSign_" + j).val("=");
@@ -1108,12 +1130,14 @@ function Reset_API_Filter() {
         $("#txtValue_" + j + "_2").val("");
         $("#txtValue_" + j + "_3").val("");
         $("#txtValue_" + j + "_4").val("");
+        $("#txtValue_" + j + "_5").val("");
 
         document.getElementById("txtDisc_" + j + "_1").disabled = true;
         document.getElementById("txtValue_" + j + "_1").disabled = true;
         document.getElementById("txtValue_" + j + "_2").disabled = true;
         document.getElementById("txtValue_" + j + "_3").disabled = true;
         document.getElementById("txtValue_" + j + "_4").disabled = true;
+        document.getElementById("txtValue_" + j + "_5").disabled = true;
         $("#lblPMErr_" + j).hide();
         $("#lblPMErr_" + j).html("");
     }
@@ -1809,12 +1833,13 @@ function DisValValid(pricing_method, evt, type) {
     }
 }
 function LenCheckr(pricing_method, type) {
-    var lblPMErr, txtValue1, txtValue2, txtValue3, txtValue4, txtDisc1;
+    var lblPMErr, txtValue1, txtValue2, txtValue3, txtValue4, txtValue5, txtDisc1;
     lblPMErr = "lblPMErr_" + type;
     txtValue1 = "txtValue_" + type + "_1";
     txtValue2 = "txtValue_" + type + "_2";
     txtValue3 = "txtValue_" + type + "_3";
     txtValue4 = "txtValue_" + type + "_4";
+    txtValue5 = "txtValue_" + type + "_5";
     txtDisc1 = "txtDisc_" + type + "_1";
 
     if (pricing_method == "Value") {
@@ -1893,6 +1918,25 @@ function LenCheckr(pricing_method, type) {
             $("#" + lblPMErr).html("");
             $("#" + lblPMErr).hide();
         }
+
+        if (parseFloat($("#" + txtValue5).val()) > 100 || parseFloat($("#" + txtValue5).val()) < 0) {
+            setTimeout(function () {
+                $("#" + lblPMErr).html("Allowed only 0.00 to 100 percentage.");
+                $("#" + lblPMErr).show();
+            }, 50);
+            return $("#" + txtValue5).val("");
+        }
+        else if (parseFloat($("#" + txtValue5).val()) == NaN) {
+            setTimeout(function () {
+                $("#" + lblPMErr).html("Allowed only 0.00 to 100 percentage.");
+                $("#" + lblPMErr).show();
+            }, 50);
+            return $("#" + txtValue5).val("");
+        }
+        else {
+            $("#" + lblPMErr).html("");
+            $("#" + lblPMErr).hide();
+        }
     }
     if (pricing_method == "Disc") {
         if (parseFloat($("#" + txtDisc1).val()) < -100 || parseFloat($("#" + txtDisc1).val()) > -0) {
@@ -1928,12 +1972,12 @@ function HTML_CREATE(
     FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
     FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
     Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
-    PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4,
+    PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
     Chk_Speci_Additional_1, txtFromDate, txtToDate,
-    PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4,
-    PricingMethod_3, PricingSign_3, txtDisc_3_1, txtValue_3_1, txtValue_3_2, txtValue_3_3, txtValue_3_4,
+    PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5,
+    PricingMethod_3, PricingSign_3, txtDisc_3_1, txtValue_3_1, txtValue_3_2, txtValue_3_3, txtValue_3_4, txtValue_3_5,
     Chk_Speci_Additional_2, txtFromDate1, txtToDate1,
-    PricingMethod_4, PricingSign_4, txtDisc_4_1, txtValue_4_1, txtValue_4_2, txtValue_4_3, txtValue_4_4,
+    PricingMethod_4, PricingSign_4, txtDisc_4_1, txtValue_4_1, txtValue_4_2, txtValue_4_3, txtValue_4_4, txtValue_4_5,
     new_id) {
 
     var html = "<tr class='tr11'>";
@@ -1989,6 +2033,7 @@ function HTML_CREATE(
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_2'>" + txtValue_1_2 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_3'>" + txtValue_1_3 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_4'>" + txtValue_1_4 + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_5'>" + txtValue_1_5 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria Chk_Speci_Additional_1'>" + Chk_Speci_Additional_1 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtFromDate'>" + txtFromDate + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtToDate'>" + txtToDate + "</span></td>";
@@ -1999,6 +2044,7 @@ function HTML_CREATE(
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_2'>" + txtValue_2_2 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_3'>" + txtValue_2_3 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_4'>" + txtValue_2_4 + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_5'>" + txtValue_2_5 + "</span></td>";
 
     html += "<td style='display:none;'><span class='Fi-Criteria PricingMethod_3'>" + PricingMethod_3 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria PricingSign_3'>" + PricingSign_3 + "</span></td>";
@@ -2007,6 +2053,7 @@ function HTML_CREATE(
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_3_2'>" + txtValue_3_2 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_3_3'>" + txtValue_3_3 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_3_4'>" + txtValue_3_4 + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria txtValue_3_5'>" + txtValue_3_5 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria Chk_Speci_Additional_2'>" + Chk_Speci_Additional_2 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtFromDate1'>" + txtFromDate1 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtToDate1'>" + txtToDate1 + "</span></td>";
@@ -2017,6 +2064,7 @@ function HTML_CREATE(
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_4_2'>" + txtValue_4_2 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_4_3'>" + txtValue_4_3 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_4_4'>" + txtValue_4_4 + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria txtValue_4_5'>" + txtValue_4_5 + "</span></td>";
 
     html += "<td><span class='Fi-Criteria _PricingMethod_1'>" + (PricingMethod_1 == "Disc" ? 'Discount' : 'Value') + "</span></td>";
     html += "<td><span class='Fi-Criteria _PricingSign_1'>" + PricingSign_1 + "</span></td>";
@@ -2032,6 +2080,7 @@ function HTML_CREATE(
         html += (txtValue_1_2 == "" && txtValue_1_2 != "0" ? '<span class="Fi-Criteria _txtValue_1_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_2 + '</span>');
         html += (txtValue_1_3 == "" && txtValue_1_3 != "0" ? '<span class="Fi-Criteria _txtValue_1_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_3 + '</span>');
         html += (txtValue_1_4 == "" && txtValue_1_4 != "0" ? '<span class="Fi-Criteria _txtValue_1_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_4 + '</span>');
+        html += (txtValue_1_5 == "" && txtValue_1_5 != "0" ? '<span class="Fi-Criteria _txtValue_1_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_5 + '</span>');
     }
     html += "</div>";
     html += "</td>";
@@ -2053,6 +2102,7 @@ function HTML_CREATE(
         html += (txtValue_2_2 == "" && txtValue_2_2 != "0" ? '<span class="Fi-Criteria _txtValue_2_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_2 + '</span>');
         html += (txtValue_2_3 == "" && txtValue_2_3 != "0" ? '<span class="Fi-Criteria _txtValue_2_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_3 + '</span>');
         html += (txtValue_2_4 == "" && txtValue_2_4 != "0" ? '<span class="Fi-Criteria _txtValue_2_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_4 + '</span>');
+        html += (txtValue_2_5 == "" && txtValue_2_5 != "0" ? '<span class="Fi-Criteria _txtValue_2_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_5 + '</span>');
     }
     html += "</div>";
     html += "</td>";
@@ -2072,6 +2122,7 @@ function HTML_CREATE(
         html += (txtValue_3_2 == "" && txtValue_3_2 != "0" ? '<span class="Fi-Criteria _txtValue_3_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_3_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_3_2 + '</span>');
         html += (txtValue_3_3 == "" && txtValue_3_3 != "0" ? '<span class="Fi-Criteria _txtValue_3_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_3_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_3_3 + '</span>');
         html += (txtValue_3_4 == "" && txtValue_3_4 != "0" ? '<span class="Fi-Criteria _txtValue_3_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_3_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_3_4 + '</span>');
+        html += (txtValue_3_5 == "" && txtValue_3_5 != "0" ? '<span class="Fi-Criteria _txtValue_3_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_3_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_3_5 + '</span>');
     }
     html += "</div>";
     html += "</td>";
@@ -2093,6 +2144,7 @@ function HTML_CREATE(
         html += (txtValue_4_2 == "" && txtValue_4_2 != "0" ? '<span class="Fi-Criteria _txtValue_4_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_4_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_4_2 + '</span>');
         html += (txtValue_4_3 == "" && txtValue_4_3 != "0" ? '<span class="Fi-Criteria _txtValue_4_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_4_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_4_3 + '</span>');
         html += (txtValue_4_4 == "" && txtValue_4_4 != "0" ? '<span class="Fi-Criteria _txtValue_4_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_4_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_4_4 + '</span>');
+        html += (txtValue_4_5 == "" && txtValue_4_5 != "0" ? '<span class="Fi-Criteria _txtValue_4_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_4_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_4_5 + '</span>');
     }
     html += "</div>";
     html += "</td>";
@@ -2127,7 +2179,7 @@ var GetError = function () {
             }
         }
         else if ($("#PricingMethod_1").val() == "Value") {
-            if ($("#txtValue_1_1").val() == "" && $("#txtValue_1_2").val() == "" && $("#txtValue_1_3").val() == "" && $("#txtValue_1_4").val() == "") {
+            if ($("#txtValue_1_1").val() == "" && $("#txtValue_1_2").val() == "" && $("#txtValue_1_3").val() == "" && $("#txtValue_1_4").val() == "" && $("#txtValue_1_5").val() == "") {
                 ErrorMsg.push({
                     'Error': "Please Enter SUPPLIER COST DISC > COMMON DISC > Value.",
                 });
@@ -2151,7 +2203,7 @@ var GetError = function () {
             }
         }
         else if ($("#PricingMethod_2").val() == "Value") {
-            if ($("#txtValue_2_1").val() == "" && $("#txtValue_2_2").val() == "" && $("#txtValue_2_3").val() == "" && $("#txtValue_2_4").val() == "") {
+            if ($("#txtValue_2_1").val() == "" && $("#txtValue_2_2").val() == "" && $("#txtValue_2_3").val() == "" && $("#txtValue_2_4").val() == "" && $("#txtValue_2_5").val() == "") {
                 ErrorMsg.push({
                     'Error': "Please Enter SUPPLIER COST DISC > SPECIAL DISC > Value.",
                 });
@@ -2173,7 +2225,7 @@ var GetError = function () {
             }
         }
         else if ($("#PricingMethod_3").val() == "Value") {
-            if ($("#txtValue_3_1").val() == "" && $("#txtValue_3_2").val() == "" && $("#txtValue_3_3").val() == "" && $("#txtValue_3_4").val() == "") {
+            if ($("#txtValue_3_1").val() == "" && $("#txtValue_3_2").val() == "" && $("#txtValue_3_3").val() == "" && $("#txtValue_3_4").val() == "" && $("#txtValue_3_5").val() == "") {
                 ErrorMsg.push({
                     'Error': "Please Enter MAX DISC > COMMON DISC > Value.",
                 });
@@ -2198,7 +2250,7 @@ var GetError = function () {
             }
         }
         else if ($("#PricingMethod_4").val() == "Value") {
-            if ($("#txtValue_4_1").val() == "" && $("#txtValue_4_2").val() == "" && $("#txtValue_4_3").val() == "" && $("#txtValue_4_4").val() == "") {
+            if ($("#txtValue_4_1").val() == "" && $("#txtValue_4_2").val() == "" && $("#txtValue_4_3").val() == "" && $("#txtValue_4_4").val() == "" && $("#txtValue_4_5").val() == "") {
                 ErrorMsg.push({
                     'Error': "Please Enter MAX DISC > SPECIAL DISC > Value.",
                 });
@@ -2283,6 +2335,7 @@ var AddNewRow = function () {
             var txtValue_1_2 = NullReplaceDecimal4ToFixed($("#txtValue_1_2").val());
             var txtValue_1_3 = NullReplaceDecimal4ToFixed($("#txtValue_1_3").val());
             var txtValue_1_4 = NullReplaceDecimal4ToFixed($("#txtValue_1_4").val());
+            var txtValue_1_5 = NullReplaceDecimal4ToFixed($("#txtValue_1_5").val());
             var Chk_Speci_Additional_1 = document.getElementById("Chk_Speci_Additional_1").checked;
             var txtFromDate = $("#txtFromDate").val();
             var txtToDate = $("#txtToDate").val();
@@ -2293,6 +2346,7 @@ var AddNewRow = function () {
             var txtValue_2_2 = NullReplaceDecimal4ToFixed($("#txtValue_2_2").val());
             var txtValue_2_3 = NullReplaceDecimal4ToFixed($("#txtValue_2_3").val());
             var txtValue_2_4 = NullReplaceDecimal4ToFixed($("#txtValue_2_4").val());
+            var txtValue_2_5 = NullReplaceDecimal4ToFixed($("#txtValue_2_5").val());
 
             var PricingMethod_3 = $("#PricingMethod_3").val();
             var PricingSign_3 = $("#PricingSign_3").val();
@@ -2301,6 +2355,7 @@ var AddNewRow = function () {
             var txtValue_3_2 = NullReplaceDecimal4ToFixed($("#txtValue_3_2").val());
             var txtValue_3_3 = NullReplaceDecimal4ToFixed($("#txtValue_3_3").val());
             var txtValue_3_4 = NullReplaceDecimal4ToFixed($("#txtValue_3_4").val());
+            var txtValue_3_5 = NullReplaceDecimal4ToFixed($("#txtValue_3_5").val());
             var Chk_Speci_Additional_2 = document.getElementById("Chk_Speci_Additional_2").checked;
             var txtFromDate1 = $("#txtFromDate1").val();
             var txtToDate1 = $("#txtToDate1").val();
@@ -2311,6 +2366,7 @@ var AddNewRow = function () {
             var txtValue_4_2 = NullReplaceDecimal4ToFixed($("#txtValue_4_2").val());
             var txtValue_4_3 = NullReplaceDecimal4ToFixed($("#txtValue_4_3").val());
             var txtValue_4_4 = NullReplaceDecimal4ToFixed($("#txtValue_4_4").val());
+            var txtValue_4_5 = NullReplaceDecimal4ToFixed($("#txtValue_4_5").val());
 
 
             //var html = "<tr class='tr11'>";
@@ -2491,12 +2547,12 @@ var AddNewRow = function () {
                 FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
                 FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
                 Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
-                PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4,
+                PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
                 Chk_Speci_Additional_1, txtFromDate, txtToDate,
-                PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4,
-                PricingMethod_3, PricingSign_3, txtDisc_3_1, txtValue_3_1, txtValue_3_2, txtValue_3_3, txtValue_3_4,
+                PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5,
+                PricingMethod_3, PricingSign_3, txtDisc_3_1, txtValue_3_1, txtValue_3_2, txtValue_3_3, txtValue_3_4, txtValue_3_5,
                 Chk_Speci_Additional_2, txtFromDate1, txtToDate1,
-                PricingMethod_4, PricingSign_4, txtDisc_4_1, txtValue_4_1, txtValue_4_2, txtValue_4_3, txtValue_4_4,
+                PricingMethod_4, PricingSign_4, txtDisc_4_1, txtValue_4_1, txtValue_4_2, txtValue_4_3, txtValue_4_4, txtValue_4_5,
                 new_id);
 
             $("#tblFilters #tblBodyFilters").append(html);
@@ -2641,6 +2697,7 @@ function UpdateRow() {
                 var txtValue_1_2 = NullReplaceDecimal4ToFixed($("#txtValue_1_2").val());
                 var txtValue_1_3 = NullReplaceDecimal4ToFixed($("#txtValue_1_3").val());
                 var txtValue_1_4 = NullReplaceDecimal4ToFixed($("#txtValue_1_4").val());
+                var txtValue_1_5 = NullReplaceDecimal4ToFixed($("#txtValue_1_5").val());
                 var Chk_Speci_Additional_1 = document.getElementById("Chk_Speci_Additional_1").checked;
                 var txtFromDate = $("#txtFromDate").val();
                 var txtToDate = $("#txtToDate").val();
@@ -2651,6 +2708,7 @@ function UpdateRow() {
                 var txtValue_2_2 = NullReplaceDecimal4ToFixed($("#txtValue_2_2").val());
                 var txtValue_2_3 = NullReplaceDecimal4ToFixed($("#txtValue_2_3").val());
                 var txtValue_2_4 = NullReplaceDecimal4ToFixed($("#txtValue_2_4").val());
+                var txtValue_2_5 = NullReplaceDecimal4ToFixed($("#txtValue_2_5").val());
 
                 var PricingMethod_3 = $("#PricingMethod_3").val();
                 var PricingSign_3 = $("#PricingSign_3").val();
@@ -2659,6 +2717,7 @@ function UpdateRow() {
                 var txtValue_3_2 = NullReplaceDecimal4ToFixed($("#txtValue_3_2").val());
                 var txtValue_3_3 = NullReplaceDecimal4ToFixed($("#txtValue_3_3").val());
                 var txtValue_3_4 = NullReplaceDecimal4ToFixed($("#txtValue_3_4").val());
+                var txtValue_3_5 = NullReplaceDecimal4ToFixed($("#txtValue_3_5").val());
                 var Chk_Speci_Additional_2 = document.getElementById("Chk_Speci_Additional_2").checked;
                 var txtFromDate1 = $("#txtFromDate1").val();
                 var txtToDate1 = $("#txtToDate1").val();
@@ -2669,6 +2728,7 @@ function UpdateRow() {
                 var txtValue_4_2 = NullReplaceDecimal4ToFixed($("#txtValue_4_2").val());
                 var txtValue_4_3 = NullReplaceDecimal4ToFixed($("#txtValue_4_3").val());
                 var txtValue_4_4 = NullReplaceDecimal4ToFixed($("#txtValue_4_4").val());
+                var txtValue_4_5 = NullReplaceDecimal4ToFixed($("#txtValue_4_5").val());
 
                 $(this).find('.PricingMethod_1').html(PricingMethod_1);
                 $(this).find('.PricingSign_1').html(PricingSign_1);
@@ -2677,6 +2737,7 @@ function UpdateRow() {
                 $(this).find('.txtValue_1_2').html(txtValue_1_2);
                 $(this).find('.txtValue_1_3').html(txtValue_1_3);
                 $(this).find('.txtValue_1_4').html(txtValue_1_4);
+                $(this).find('.txtValue_1_5').html(txtValue_1_5);
                 $(this).find('.Chk_Speci_Additional_1').html(Chk_Speci_Additional_1);
                 $(this).find('.txtFromDate').html(txtFromDate);
                 $(this).find('.txtToDate').html(txtToDate);
@@ -2687,6 +2748,7 @@ function UpdateRow() {
                 $(this).find('.txtValue_2_2').html(txtValue_2_2);
                 $(this).find('.txtValue_2_3').html(txtValue_2_3);
                 $(this).find('.txtValue_2_4').html(txtValue_2_4);
+                $(this).find('.txtValue_2_5').html(txtValue_2_5);
 
                 $(this).find('.PricingMethod_3').html(PricingMethod_3);
                 $(this).find('.PricingSign_3').html(PricingSign_3);
@@ -2695,6 +2757,7 @@ function UpdateRow() {
                 $(this).find('.txtValue_3_2').html(txtValue_3_2);
                 $(this).find('.txtValue_3_3').html(txtValue_3_3);
                 $(this).find('.txtValue_3_4').html(txtValue_3_4);
+                $(this).find('.txtValue_3_5').html(txtValue_3_5);
                 $(this).find('.Chk_Speci_Additional_2').html(Chk_Speci_Additional_2);
                 $(this).find('.txtFromDate1').html(txtFromDate1);
                 $(this).find('.txtToDate1').html(txtToDate1);
@@ -2705,6 +2768,7 @@ function UpdateRow() {
                 $(this).find('.txtValue_4_2').html(txtValue_4_2);
                 $(this).find('.txtValue_4_3').html(txtValue_4_3);
                 $(this).find('.txtValue_4_4').html(txtValue_4_4);
+                $(this).find('.txtValue_4_5').html(txtValue_4_5);
 
                 $(this).find('._PricingMethod_1').html((PricingMethod_1 == "Disc" ? 'Discount' : 'Value'));
                 $(this).find('._PricingSign_1').html(PricingSign_1);
@@ -2718,6 +2782,7 @@ function UpdateRow() {
                     html += (txtValue_1_2 == "" && txtValue_1_2 != "0" ? '<span class="Fi-Criteria _txtValue_1_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_2 + '</span>');
                     html += (txtValue_1_3 == "" && txtValue_1_3 != "0" ? '<span class="Fi-Criteria _txtValue_1_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_3 + '</span>');
                     html += (txtValue_1_4 == "" && txtValue_1_4 != "0" ? '<span class="Fi-Criteria _txtValue_1_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_4 + '</span>');
+                    html += (txtValue_1_5 == "" && txtValue_1_5 != "0" ? '<span class="Fi-Criteria _txtValue_1_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_5 + '</span>');
                 }
                 $(this).find('.Pricing_1').html(html);
 
@@ -2736,6 +2801,7 @@ function UpdateRow() {
                     html += (txtValue_2_2 == "" && txtValue_2_2 != "0" ? '<span class="Fi-Criteria _txtValue_2_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_2 + '</span>');
                     html += (txtValue_2_3 == "" && txtValue_2_3 != "0" ? '<span class="Fi-Criteria _txtValue_2_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_3 + '</span>');
                     html += (txtValue_2_4 == "" && txtValue_2_4 != "0" ? '<span class="Fi-Criteria _txtValue_2_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_4 + '</span>');
+                    html += (txtValue_2_5 == "" && txtValue_2_5 != "0" ? '<span class="Fi-Criteria _txtValue_2_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_5 + '</span>');
                 }
                 $(this).find('.Pricing_2').html(html);
 
@@ -2751,6 +2817,7 @@ function UpdateRow() {
                     html += (txtValue_3_2 == "" && txtValue_3_2 != "0" ? '<span class="Fi-Criteria _txtValue_3_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_3_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_3_2 + '</span>');
                     html += (txtValue_3_3 == "" && txtValue_3_3 != "0" ? '<span class="Fi-Criteria _txtValue_3_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_3_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_3_3 + '</span>');
                     html += (txtValue_3_4 == "" && txtValue_3_4 != "0" ? '<span class="Fi-Criteria _txtValue_3_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_3_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_3_4 + '</span>');
+                    html += (txtValue_3_5 == "" && txtValue_3_5 != "0" ? '<span class="Fi-Criteria _txtValue_3_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_3_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_3_5 + '</span>');
                 }
                 $(this).find('.Pricing_3').html(html);
 
@@ -2769,6 +2836,7 @@ function UpdateRow() {
                     html += (txtValue_4_2 == "" && txtValue_4_2 != "0" ? '<span class="Fi-Criteria _txtValue_4_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_4_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_4_2 + '</span>');
                     html += (txtValue_4_3 == "" && txtValue_4_3 != "0" ? '<span class="Fi-Criteria _txtValue_4_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_4_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_4_3 + '</span>');
                     html += (txtValue_4_4 == "" && txtValue_4_4 != "0" ? '<span class="Fi-Criteria _txtValue_4_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_4_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_4_4 + '</span>');
+                    html += (txtValue_4_5 == "" && txtValue_4_5 != "0" ? '<span class="Fi-Criteria _txtValue_4_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_4_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_4_5 + '</span>');
                 }
                 $(this).find('.Pricing_4').html(html);
 
@@ -3099,6 +3167,7 @@ function EditCriteria(new_id) {
                 var txtValue_1_2 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_1_2').html());
                 var txtValue_1_3 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_1_3').html());
                 var txtValue_1_4 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_1_4').html());
+                var txtValue_1_5 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_1_5').html());
 
                 var Chk_Speci_Additional_1 = $(this).find('.Chk_Speci_Additional_1').html();
 
@@ -3111,6 +3180,7 @@ function EditCriteria(new_id) {
                 var txtValue_2_2 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_2_2').html());
                 var txtValue_2_3 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_2_3').html());
                 var txtValue_2_4 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_2_4').html());
+                var txtValue_2_5 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_2_5').html());
 
 
                 $("#PricingMethod_1").val(PricingMethod_1);
@@ -3126,6 +3196,7 @@ function EditCriteria(new_id) {
                     $("#txtValue_1_2").val(txtValue_1_2);
                     $("#txtValue_1_3").val(txtValue_1_3);
                     $("#txtValue_1_4").val(txtValue_1_4);
+                    $("#txtValue_1_5").val(txtValue_1_5);
                 }
 
                 document.getElementById("Chk_Speci_Additional_1").checked = (Chk_Speci_Additional_1 == "true" ? true : false);
@@ -3152,6 +3223,7 @@ function EditCriteria(new_id) {
                     $("#txtValue_2_2").val(txtValue_2_2);
                     $("#txtValue_2_3").val(txtValue_2_3);
                     $("#txtValue_2_4").val(txtValue_2_4);
+                    $("#txtValue_2_5").val(txtValue_2_5);
                 }
 
                 var PricingMethod_3 = $(this).find('.PricingMethod_3').html();
@@ -3161,6 +3233,7 @@ function EditCriteria(new_id) {
                 var txtValue_3_2 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_3_2').html());
                 var txtValue_3_3 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_3_3').html());
                 var txtValue_3_4 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_3_4').html());
+                var txtValue_3_5 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_3_5').html());
 
                 var Chk_Speci_Additional_2 = $(this).find('.Chk_Speci_Additional_2').html();
 
@@ -3173,6 +3246,7 @@ function EditCriteria(new_id) {
                 var txtValue_4_2 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_4_2').html());
                 var txtValue_4_3 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_4_3').html());
                 var txtValue_4_4 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_4_4').html());
+                var txtValue_4_5 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_4_5').html());
 
 
                 $("#PricingMethod_3").val(PricingMethod_3);
@@ -3188,6 +3262,7 @@ function EditCriteria(new_id) {
                     $("#txtValue_3_2").val(txtValue_3_2);
                     $("#txtValue_3_3").val(txtValue_3_3);
                     $("#txtValue_3_4").val(txtValue_3_4);
+                    $("#txtValue_3_5").val(txtValue_3_5);
                 }
 
                 document.getElementById("Chk_Speci_Additional_2").checked = (Chk_Speci_Additional_2 == "true" ? true : false);
@@ -3214,6 +3289,7 @@ function EditCriteria(new_id) {
                     $("#txtValue_4_2").val(txtValue_4_2);
                     $("#txtValue_4_3").val(txtValue_4_3);
                     $("#txtValue_4_4").val(txtValue_4_4);
+                    $("#txtValue_4_5").val(txtValue_4_5);
                 }
 
                 SetSearchParameter();
@@ -3310,6 +3386,7 @@ function SaveData() {
                 Value_1_2: $(this).find('.txtValue_1_2').html(),
                 Value_1_3: $(this).find('.txtValue_1_3').html(),
                 Value_1_4: $(this).find('.txtValue_1_4').html(),
+                Value_1_5: $(this).find('.txtValue_1_5').html(),
                 Speci_Additional_1: ($(this).find('.Chk_Speci_Additional_1').html() == 'true' ? 1 : 0),
                 FromDate: ($(this).find('.PricingMethod_2').html() != "" ? $(this).find('.txtFromDate').html() : ''),
                 ToDate: ($(this).find('.PricingMethod_2').html() != "" ? $(this).find('.txtToDate').html() : ''),
@@ -3320,6 +3397,7 @@ function SaveData() {
                 Value_2_2: $(this).find('.txtValue_2_2').html(),
                 Value_2_3: $(this).find('.txtValue_2_3').html(),
                 Value_2_4: $(this).find('.txtValue_2_4').html(),
+                Value_2_5: $(this).find('.txtValue_2_5').html(),
                 PricingMethod_3: $(this).find('.PricingMethod_3').html(),
                 PricingSign_3: $(this).find('.PricingSign_3').html(),
                 Disc_3_1: $(this).find('.txtDisc_3_1').html(),
@@ -3327,6 +3405,7 @@ function SaveData() {
                 Value_3_2: $(this).find('.txtValue_3_2').html(),
                 Value_3_3: $(this).find('.txtValue_3_3').html(),
                 Value_3_4: $(this).find('.txtValue_3_4').html(),
+                Value_3_5: $(this).find('.txtValue_3_5').html(),
                 Speci_Additional_2: ($(this).find('.Chk_Speci_Additional_2').html() == 'true' ? 1 : 0),
                 FromDate1: ($(this).find('.PricingMethod_4').html() != "" ? $(this).find('.txtFromDate1').html() : ''),
                 ToDate1: ($(this).find('.PricingMethod_4').html() != "" ? $(this).find('.txtToDate1').html() : ''),
@@ -3336,7 +3415,8 @@ function SaveData() {
                 Value_4_1: $(this).find('.txtValue_4_1').html(),
                 Value_4_2: $(this).find('.txtValue_4_2').html(),
                 Value_4_3: $(this).find('.txtValue_4_3').html(),
-                Value_4_4: $(this).find('.txtValue_4_4').html()
+                Value_4_4: $(this).find('.txtValue_4_4').html(),
+                Value_4_5: $(this).find('.txtValue_4_5').html()
             });
         });
 
@@ -3467,6 +3547,7 @@ function Get_Supplier_Disc() {
                         var txtValue_1_2 = NullReplaceDecimal4ToFixed(itm.Value_1_2);
                         var txtValue_1_3 = NullReplaceDecimal4ToFixed(itm.Value_1_3);
                         var txtValue_1_4 = NullReplaceDecimal4ToFixed(itm.Value_1_4);
+                        var txtValue_1_5 = NullReplaceDecimal4ToFixed(itm.Value_1_5);
                         var Chk_Speci_Additional_1 = (NullReplace(itm.Speci_Additional_1) == "1" ? true : false);
                         var txtFromDate = NullReplace(itm.FromDate);
                         var txtToDate = NullReplace(itm.ToDate);
@@ -3477,6 +3558,7 @@ function Get_Supplier_Disc() {
                         var txtValue_2_2 = NullReplaceDecimal4ToFixed(itm.Value_2_2);
                         var txtValue_2_3 = NullReplaceDecimal4ToFixed(itm.Value_2_3);
                         var txtValue_2_4 = NullReplaceDecimal4ToFixed(itm.Value_2_4);
+                        var txtValue_2_5 = NullReplaceDecimal4ToFixed(itm.Value_2_5);
 
                         var PricingMethod_3 = NullReplace(itm.PricingMethod_3);
                         var PricingSign_3 = NullReplace(itm.PricingSign_3);
@@ -3485,6 +3567,7 @@ function Get_Supplier_Disc() {
                         var txtValue_3_2 = NullReplaceDecimal4ToFixed(itm.Value_3_2);
                         var txtValue_3_3 = NullReplaceDecimal4ToFixed(itm.Value_3_3);
                         var txtValue_3_4 = NullReplaceDecimal4ToFixed(itm.Value_3_4);
+                        var txtValue_3_5 = NullReplaceDecimal4ToFixed(itm.Value_3_5);
                         var Chk_Speci_Additional_2 = (NullReplace(itm.Speci_Additional_2) == "1" ? true : false);
                         var txtFromDate1 = NullReplace(itm.FromDate1);
                         var txtToDate1 = NullReplace(itm.ToDate1);
@@ -3495,6 +3578,7 @@ function Get_Supplier_Disc() {
                         var txtValue_4_2 = NullReplaceDecimal4ToFixed(itm.Value_4_2);
                         var txtValue_4_3 = NullReplaceDecimal4ToFixed(itm.Value_4_3);
                         var txtValue_4_4 = NullReplaceDecimal4ToFixed(itm.Value_4_4);
+                        var txtValue_4_5 = NullReplaceDecimal4ToFixed(itm.Value_4_5);
 
                         //html += "<tr class='tr11'>";
                         //html += "<th class='Row Fi-Criteria' style=''></th>";
@@ -3613,10 +3697,10 @@ function Get_Supplier_Disc() {
                         html += HTML_CREATE(Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab, FromLength, ToLength,
                             FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng, FromCrHt, ToCrHt, FromPavAng,
                             ToPavAng, FromPavHt, ToPavHt, Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
-                            PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, Chk_Speci_Additional_1, txtFromDate, txtToDate,
-                            PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, PricingMethod_3, PricingSign_3, txtDisc_3_1, txtValue_3_1,
-                            txtValue_3_2, txtValue_3_3, txtValue_3_4, Chk_Speci_Additional_2, txtFromDate1, txtToDate1, PricingMethod_4, PricingSign_4, txtDisc_4_1, txtValue_4_1,
-                            txtValue_4_2, txtValue_4_3, txtValue_4_4, new_id);
+                            PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5, Chk_Speci_Additional_1, txtFromDate, txtToDate,
+                            PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5, PricingMethod_3, PricingSign_3, txtDisc_3_1, txtValue_3_1,
+                            txtValue_3_2, txtValue_3_3, txtValue_3_4, txtValue_3_5, Chk_Speci_Additional_2, txtFromDate1, txtToDate1, PricingMethod_4, PricingSign_4, txtDisc_4_1, txtValue_4_1,
+                            txtValue_4_2, txtValue_4_3, txtValue_4_4, txtValue_4_5, new_id);
                     });
 
                     $("#tblFilters #tblBodyFilters").html(html);
