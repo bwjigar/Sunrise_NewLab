@@ -164,7 +164,8 @@ var columnDefs = [
     { headerName: "Rap Amount ($)", field: "Rap_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } },
     { headerName: "Base Price Cts ($)", field: "Base_Price_Cts", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Base_Price_Cts", params); } },
     { headerName: "Base Amount ($)", field: "Base_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); } },
-
+    
+    { headerName: "Base Disc (%)", field: "Disc", width: 85, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Disc", params); } },
     { headerName: "Supplier Final Disc (%)", field: "SUPPLIER_COST_DISC", width: 85, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("SUPPLIER_COST_DISC", params); } },
     { headerName: "Supplier Final Amt ($)", field: "SUPPLIER_COST_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("SUPPLIER_COST_VALUE", params); } },
     { headerName: "Supplier Max Disc (%)", field: "MAX_DISC", width: 85, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("MAX_DISC", params); } },
@@ -216,7 +217,7 @@ function cellStyle(field, params) {
         if (params.data.Cut == '3EX' && (field == 'Cut' || field == 'Polish' || field == 'Symm')) {
             return { 'font-size': '11px', 'font-weight': 'bold' };
         }
-        else if (field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE" || field == "MAX_DISC" || field == "MAX_VALUE" || field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE") {
+        else if (field == "Disc" || field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE" || field == "MAX_DISC" || field == "MAX_VALUE" || field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE") {
             return { 'color': 'red', 'font-weight': 'bold', 'font-size': '11px', 'text-align': 'center' };
         }
         else if (field == "Cts" || field == "Rap_Rate" || field == "Rap_Amount" || field == "Base_Price_Cts" || field == "RATIO" || field == "Length" || field == "Width" || field == "Depth" ||

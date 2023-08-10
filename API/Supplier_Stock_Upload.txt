@@ -1424,3 +1424,123 @@ Data Response Format Changed Cannot access child value on Newtonsoft.Json.Linq.J
 SUCCESS 4632 Stock Upload Has Been Successfully From JP Supplier's Web API, Log Time : 07-08-2023 06:19:28 PM
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 SUCCESS 13880 Stock Upload Has Been Successfully From SRK EXPORTS Supplier's File, Log Time : 08-08-2023 08:52:55 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+DN Supplier Stock Upload Failed, Log Time : 09-08-2023 05:05:13 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 1564 Stock Upload Has Been Successfully From DN Supplier's Web API, Log Time : 09-08-2023 05:06:22 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+DN Supplier Stock Upload Failed, Log Time : 10-08-2023 10:10:34 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+DN Supplier Stock Upload Failed, Log Time : 10-08-2023 10:11:00 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+DN Supplier Stock Upload Failed, Log Time : 10-08-2023 10:13:55 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+PROMISING Supplier Stock Upload Failed, Log Time : 10-08-2023 10:23:05 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+JOY Supplier Stock Upload Failed, Log Time : 10-08-2023 10:23:14 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SHAIRUGEMS ALL Supplier Stock Upload Failed, Log Time : 10-08-2023 10:24:19 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7309 Stock Upload Has Been Successfully From STAR LIGHT Supplier's Web API, Log Time : 10-08-2023 10:25:43 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+PROMISING Supplier Stock Upload Failed, Log Time : 10-08-2023 11:22:58 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+JOY Supplier Stock Upload Failed, Log Time : 10-08-2023 11:23:07 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 245ERROR LINE : 66 ERROR MESSAGE : Conversion failed when converting the nvarchar value '5000.0' to data type int., Log Time : 10-08-2023 11:24:08 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 245ERROR LINE : 66 ERROR MESSAGE : Conversion failed when converting the nvarchar value '2900.0' to data type int., Log Time : 10-08-2023 11:24:44 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+PROMISING Supplier Stock Upload Failed, Log Time : 10-08-2023 11:26:38 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+PROMISING Supplier Stock Upload Failed, Log Time : 10-08-2023 11:28:36 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7436 Stock Upload Has Been Successfully From PROMISING Supplier's Web API, Log Time : 10-08-2023 11:34:42 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 979 Stock Upload Has Been Successfully From JOY Supplier's Web API, Log Time : 10-08-2023 11:40:23 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7436 Stock Upload Has Been Successfully From PROMISING Supplier's Web API, Log Time : 10-08-2023 11:41:46 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 978 Stock Upload Has Been Successfully From JOY Supplier's Web API, Log Time : 10-08-2023 12:14:10 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7435 Stock Upload Has Been Successfully From PROMISING Supplier's Web API, Log Time : 10-08-2023 12:15:32 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 978 Stock Upload Has Been Successfully From JOY Supplier's Web API, Log Time : 10-08-2023 12:17:49 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7435 Stock Upload Has Been Successfully From PROMISING Supplier's Web API, Log Time : 10-08-2023 12:19:10 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 245ERROR LINE : 66 ERROR MESSAGE : Conversion failed when converting the nvarchar value '7286.0' to data type int., Log Time : 10-08-2023 12:31:20 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 245ERROR LINE : 66 ERROR MESSAGE : Conversion failed when converting the nvarchar value '2500.00' to data type int., Log Time : 10-08-2023 12:31:33 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 245ERROR LINE : 66 ERROR MESSAGE : Conversion failed when converting the nvarchar value '9800.00' to data type int., Log Time : 10-08-2023 12:32:19 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 1683 Stock Upload Has Been Successfully From NAROLA Supplier's Web API, Log Time : 10-08-2023 12:32:40 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 2559 Stock Upload Has Been Successfully From ANGEL START Supplier's Web API, Log Time : 10-08-2023 12:33:00 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 245ERROR LINE : 66 ERROR MESSAGE : Conversion failed when converting the nvarchar value '1900.0' to data type int., Log Time : 10-08-2023 12:33:06 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 245ERROR LINE : 66 ERROR MESSAGE : Conversion failed when converting the nvarchar value '4800.0' to data type int., Log Time : 10-08-2023 12:34:34 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 245ERROR LINE : 66 ERROR MESSAGE : Conversion failed when converting the nvarchar value '9300.0' to data type int., Log Time : 10-08-2023 12:35:24 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+Column Setting Not Configured Properly From RAJESH EXPORT Supplier's Web API, Log Time : 10-08-2023 12:35:33 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 245ERROR LINE : 66 ERROR MESSAGE : Conversion failed when converting the nvarchar value '3600.0' to data type int., Log Time : 10-08-2023 12:36:36 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 3389 Stock Upload Has Been Successfully From JODHANI Supplier's Web API, Log Time : 10-08-2023 12:37:03 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 245ERROR LINE : 66 ERROR MESSAGE : Conversion failed when converting the nvarchar value '4900.0' to data type int., Log Time : 10-08-2023 12:37:39 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 245ERROR LINE : 66 ERROR MESSAGE : Conversion failed when converting the nvarchar value '1470.00' to data type int., Log Time : 10-08-2023 12:38:22 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 1561 Stock Upload Has Been Successfully From DN Supplier's Web API, Log Time : 10-08-2023 12:43:04 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ANKIT GEMS Supplier Stock Upload Failed, Log Time : 10-08-2023 12:47:58 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+PROMISING Supplier Stock Upload Failed, Log Time : 10-08-2023 12:49:24 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+Column Setting Not Configured Properly From SUZY DIAM Supplier's Web API, Log Time : 10-08-2023 12:49:40 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 4050 Stock Upload Has Been Successfully From VAIBHAV GEMS Supplier's Web API, Log Time : 10-08-2023 12:50:30 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 1670 Stock Upload Has Been Successfully From NAROLA Supplier's Web API, Log Time : 10-08-2023 12:50:52 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 2559 Stock Upload Has Been Successfully From ANGEL START Supplier's Web API, Log Time : 10-08-2023 12:51:11 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 106 Stock Upload Has Been Successfully From PRINCESS DIAM Supplier's Web API, Log Time : 10-08-2023 12:51:17 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 16212 Stock Upload Has Been Successfully From DHARAM Supplier's Web API, Log Time : 10-08-2023 12:56:35 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 978 Stock Upload Has Been Successfully From JOY Supplier's Web API, Log Time : 10-08-2023 12:56:48 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7230 Stock Upload Has Been Successfully From SHIVAM Supplier's Web API, Log Time : 10-08-2023 12:58:18 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7787 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 10-08-2023 01:00:18 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+Column Setting Not Configured Properly From RAJESH EXPORT Supplier's Web API, Log Time : 10-08-2023 01:00:28 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 6229 Stock Upload Has Been Successfully From PRINCESS INDIA Supplier's Web API, Log Time : 10-08-2023 01:02:07 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 3586 Stock Upload Has Been Successfully From JODHANI Supplier's Web API, Log Time : 10-08-2023 01:02:41 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 6380 Stock Upload Has Been Successfully From DIAMART Supplier's Web API, Log Time : 10-08-2023 01:03:54 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8448 Stock Upload Has Been Successfully From KBS Supplier's Web API, Log Time : 10-08-2023 01:05:41 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 4716 Stock Upload Has Been Successfully From VENUS JEWEL Supplier's Web API, Log Time : 10-08-2023 01:09:02 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7406 Stock Upload Has Been Successfully From STAR LIGHT Supplier's Web API, Log Time : 10-08-2023 01:10:29 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+Data Response Format Changed Cannot access child value on Newtonsoft.Json.Linq.JValue.  From JP Supplier's Web API, Log Time : 10-08-2023 01:10:32 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 4162 Stock Upload Has Been Successfully From FINE STAR Supplier's Web API, Log Time : 10-08-2023 01:11:22 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 5 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 10-08-2023 01:11:29 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 15857 Stock Upload Has Been Successfully From ANKIT GEMS Supplier's Web API, Log Time : 10-08-2023 01:18:58 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7484 Stock Upload Has Been Successfully From PROMISING Supplier's Web API, Log Time : 10-08-2023 01:20:25 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 4988 Stock Upload Has Been Successfully From JP Supplier's Web API, Log Time : 10-08-2023 01:21:20 PM

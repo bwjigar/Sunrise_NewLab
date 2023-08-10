@@ -2309,6 +2309,7 @@ namespace API.Controllers
                 para.Add(db.CreateParam("DiscInverse", DbType.Boolean, ParameterDirection.Input, res.DiscInverse));
                 para.Add(db.CreateParam("NewRefNoGenerate", DbType.Boolean, ParameterDirection.Input, res.NewRefNoGenerate));
                 para.Add(db.CreateParam("NewDiscGenerate", DbType.Boolean, ParameterDirection.Input, res.NewDiscGenerate));
+                para.Add(db.CreateParam("DataGetFrom", DbType.String, ParameterDirection.Input, res.DataGetFrom));
                 if (!string.IsNullOrEmpty(res.SupplierAPIMethod))
                 {
                     para.Add(db.CreateParam("SupplierAPIMethod", DbType.String, ParameterDirection.Input, res.SupplierAPIMethod));
