@@ -62,7 +62,8 @@ var columnDefs = [
     { headerName: "DataGetFrom", field: "DataGetFrom", hide: true },
 
     { headerName: "Sr", field: "iSr", tooltip: function (params) { return (params.value); }, sortable: false, width: 40 },
-    { headerName: "Action", field: "bIsAction", tooltip: function (params) { return (params.value); }, width: 50, cellRenderer: 'deltaIndicator', sortable: false },
+    { headerName: "Action", field: "Action", tooltip: function (params) { return (params.value); }, width: 50, cellRenderer: 'Action', sortable: false },
+    { headerName: "Stock Upload", field: "StockUpload", tooltip: function (params) { return (params.value); }, width: 65, cellRenderer: 'StockUpload', sortable: false },
     { headerName: "Supplier Name", field: "SupplierName", tooltip: function (params) { return (params.value); }, width: 250 },
     { headerName: "API Type", field: "APIType", sortable: true, width: 58, cellRenderer: APIType, },
     { headerName: "Supplier URL", field: "SupplierURL", width: 630, cellRenderer: SupplierURL },
@@ -91,11 +92,21 @@ function Status(params) {
         return "<span class='No'> No </span>";
     }
 }
-var deltaIndicator = function (params) {
+var Action = function (params) {
     var element = "";
-    element = '<a title="Edit" onclick="EditView(\'' + params.data.Id + '\')" ><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 17px;cursor:pointer;"></i></a>';
+    element = '<a title="Edit" onclick="EditView(\'' + params.data.Id + '\')" ><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 18px;cursor:pointer;"></i></a>';
     //element += '&nbsp;&nbsp;<a title="Delete" onclick="DeleteView(\'' + params.data.Id + '\')"><i class="fa fa-trash-o" aria-hidden="true" style="cursor:pointer;"></i></a>';
     return element;
+}
+var StockUpload = function (params) {debugger
+    var element = "";
+    if (params.data.DataGetFrom == "WEB_API_FTP") {
+        element = '<a title="Stock Upload" onclick="StockUploadView(\'' + params.data.Id + '\')" ><i class="fa fa-upload" aria-hidden="true" style="font-size: 18px;cursor:pointer;"></i></a>';
+    }
+    return element;
+}
+function StockUploadView(Id) {
+
 }
 function EditView(Id) {
     debugger
@@ -209,7 +220,8 @@ function GetSearch() {
             }
         },
         components: {
-            deltaIndicator: deltaIndicator,
+            Action: Action,
+            StockUpload: StockUpload
         },
         pagination: true,
         icons: {
