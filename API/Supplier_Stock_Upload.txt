@@ -1544,3 +1544,45 @@ SUCCESS 15857 Stock Upload Has Been Successfully From ANKIT GEMS Supplier's Web 
 SUCCESS 7484 Stock Upload Has Been Successfully From PROMISING Supplier's Web API, Log Time : 10-08-2023 01:20:25 PM
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 SUCCESS 4988 Stock Upload Has Been Successfully From JP Supplier's Web API, Log Time : 10-08-2023 01:21:20 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 976 Stock Upload Has Been Successfully From JOY Supplier's Web API, Log Time : 11-08-2023 09:19:19 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 975 Stock Upload Has Been Successfully From JOY Supplier's Web API, Log Time : 11-08-2023 09:57:02 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 975 Stock Upload Has Been Successfully From JOY Supplier's Web API, Log Time : 11-08-2023 09:58:32 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 975 Stock Upload Has Been Successfully From JOY Supplier's Web API, Log Time : 11-08-2023 09:59:25 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 975 Stock Upload Has Been Successfully From JOY Supplier's Web API, Log Time : 11-08-2023 10:01:55 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 974 Stock Upload Has Been Successfully From JOY Supplier's Web API, Log Time : 11-08-2023 12:40:29 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7838 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 11-08-2023 12:47:34 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 3587 Stock Upload Has Been Successfully From JODHANI Supplier's Web API, Log Time : 11-08-2023 12:48:07 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+Data not Found From SHAIRUGEMS ALL Supplier's Web API, Log Time : 11-08-2023 01:42:46 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7834 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 11-08-2023 01:46:37 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7834 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 11-08-2023 01:49:51 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7727 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 14-08-2023 02:06:44 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+Column Setting Not Configured Properly From SUZY DIAM Supplier's Web API, Log Time : 14-08-2023 02:15:02 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+Column Setting Not Configured Properly From SUZY DIAM Supplier's Web API, Log Time : 14-08-2023 02:19:59 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7724 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 14-08-2023 02:22:25 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+Column Setting Not Configured Properly From SUZY DIAM Supplier's Web API, Log Time : 14-08-2023 02:23:25 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+Column Setting Not Configured Properly From SUZY DIAM Supplier's Web API, Log Time : 14-08-2023 02:25:22 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7723 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 14-08-2023 02:28:47 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7723 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 14-08-2023 02:40:02 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 1554 Stock Upload Has Been Successfully From DN Supplier's Web API, Log Time : 14-08-2023 03:30:05 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7673 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 14-08-2023 03:32:34 PM

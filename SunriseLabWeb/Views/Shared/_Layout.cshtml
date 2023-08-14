@@ -492,18 +492,23 @@ var loaderHide = function () {
         //    return (value != null && value != "" ? (parseFloat(value).toFixed(digit)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") : "");
         //}
         function NullReplaceCommaPointDecimalToFixed(number, digit) {
-            var parts = parseFloat(number).toFixed(digit).toString().split('.');
-            var integerPart = parts[0];
-            var decimalPart = parts[1] || ''; // Handle the case when there's no decimal part
+            if (number != "" && number != null) {
+                var parts = parseFloat(number).toFixed(digit).toString().split('.');
+                var integerPart = parts[0];
+                var decimalPart = parts[1] || ''; // Handle the case when there's no decimal part
 
-            // Add commas to the integer part
-            var formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                // Add commas to the integer part
+                var formattedIntegerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-            // Combine the formatted integer part and the decimal part
-            //var formattedValue = parseFloat(formattedIntegerPart + (decimalPart.length > 0 ? '.' + decimalPart : '')).toFixed(digit);
-            var formattedValue = formattedIntegerPart + (decimalPart.length > 0 ? '.' + decimalPart : '');
+                // Combine the formatted integer part and the decimal part
+                //var formattedValue = parseFloat(formattedIntegerPart + (decimalPart.length > 0 ? '.' + decimalPart : '')).toFixed(digit);
+                var formattedValue = formattedIntegerPart + (decimalPart.length > 0 ? '.' + decimalPart : '');
 
-            return formattedValue;
+                return formattedValue;
+            }
+            else {
+                return "";
+            }
         }
 
     </script>

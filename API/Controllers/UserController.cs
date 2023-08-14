@@ -24,7 +24,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Microsoft.VisualBasic.FileIO;
 using System.Data.OleDb;
- 
+
 
 
 namespace API.Controllers
@@ -2960,6 +2960,78 @@ namespace API.Controllers
             }
             try
             {
+                DataTable Stock_dt = SearchStock(req);
+
+                List<Get_SearchStock_Res> List_Res = new List<Get_SearchStock_Res>();
+                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
+                {
+                    List_Res = Stock_dt.ToList<Get_SearchStock_Res>();
+                }
+
+                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                {
+                    Data = List_Res,
+                    Message = "SUCCESS",
+                    Status = "1"
+                });
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_PriceListCategory_Res>
+                {
+                    Data = new List<Get_PriceListCategory_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Excel_SearchStock([FromBody] JObject data)
+        {
+            Get_SearchStock_Req req = new Get_SearchStock_Req();
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok("Input Parameters are not in the proper format");
+            }
+            try
+            {
+                DataTable Stock_dt = SearchStock(req);
+
+                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
+                {
+                    string filename = req.Type + " " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string _path = ConfigurationManager.AppSettings["data"];
+                    _path = _path.Replace("Temp", "ExcelFile");
+                    string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
+
+                    EpExcelExport.Buyer_Excel(Stock_dt, realpath, realpath + filename + ".xlsx");
+
+                    string _strxml = _path + filename + ".xlsx";
+                    return Ok(_strxml);
+                }
+                else
+                {
+                    return Ok("No Stock found as per filter criteria !");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                throw ex;
+            }
+        }
+        [NonAction]
+        private DataTable SearchStock(Get_SearchStock_Req req)
+        {
+            try
+            {
                 Database db = new Database();
                 List<IDbDataParameter> para = new List<IDbDataParameter>();
                 if (req.PgNo > 0)
@@ -3484,32 +3556,14 @@ namespace API.Controllers
                 }
 
                 DataTable Stock_dt = db.ExecuteSP("Get_SearchStock", para.ToArray(), false);
-
-                List<Get_SearchStock_Res> List_Res = new List<Get_SearchStock_Res>();
-                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
-                {
-                    List_Res = Stock_dt.ToList<Get_SearchStock_Res>();
-                }
-
-                return Ok(new ServiceResponse<Get_SearchStock_Res>
-                {
-                    Data = List_Res,
-                    Message = "SUCCESS",
-                    Status = "1"
-                });
+                return Stock_dt;
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
-                return Ok(new ServiceResponse<Get_PriceListCategory_Res>
-                {
-                    Data = new List<Get_PriceListCategory_Res>(),
-                    Message = "Something Went wrong.\nPlease try again later",
-                    Status = "0"
-                });
+                Common.InsertErrorLog(ex, null, null);
+                return null;
             }
         }
-
         [HttpPost]
         public IHttpActionResult get_UserType()
         {
@@ -3568,7 +3622,11 @@ namespace API.Controllers
         }
         public static string RemoveNonNumericAndDotAndNegativeCharacters(string input)
         {
-            return new Regex("[^0-9.-]").Replace(input, "");
+            //return new Regex("[^0-9.-]").Replace(input, "");
+            string pattern = "[^0-9.-]";
+            Regex regex = new Regex(pattern);
+            string result = regex.Replace(input, "");
+            return result;
         }
         public static void removingGreenTagWarning(ExcelWorksheet template1, string address)
         {
@@ -3994,11 +4052,38 @@ namespace API.Controllers
 
                                     String InputLRJson = (new JavaScriptSerializer()).Serialize(sgl);
 
-                                    WebClient client = new WebClient();
-                                    client.Headers.Add("Content-type", "application/json");
-                                    client.Encoding = Encoding.UTF8;
-                                    json = client.UploadString("https://shairugems.net:8011/api/Buyer/login", "POST", InputLRJson);
-                                    client.Dispose();
+                                    //WebClient client = new WebClient();
+                                    //client.Headers.Add("Content-type", "application/json");
+                                    //client.Encoding = Encoding.UTF8;
+                                    //json = client.UploadString("https://shairugems.net:8011/api/Buyer/login", "POST", InputLRJson);
+                                    //client.Dispose();
+
+                                    WebRequest request = WebRequest.Create("https://shairugems.net:8011/api/Buyer/login");
+                                    request.Method = "POST";
+                                    request.Timeout = 7200000; //2 Hour in milliseconds
+                                    byte[] byteArray = Encoding.UTF8.GetBytes(InputLRJson);
+                                    //request.ContentType = "application/x-www-form-urlencoded";
+                                    request.ContentType = "application/json";
+                                    //request.Headers.Add("Authorization", "Bearer " + AccessToken);
+                                    request.ContentLength = byteArray.Length;
+
+                                    //Here is the Business end of the code...
+                                    Stream dataStream = request.GetRequestStream();
+                                    dataStream.Write(byteArray, 0, byteArray.Length);
+                                    dataStream.Close();
+
+                                    //and here is the response.
+                                    WebResponse response = request.GetResponse();
+
+                                    Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+                                    dataStream = response.GetResponseStream();
+                                    StreamReader reader = new StreamReader(dataStream);
+                                    json = reader.ReadToEnd();
+                                    Console.WriteLine(json);
+                                    reader.Close();
+                                    dataStream.Close();
+                                    response.Close();
+                                    request.Abort();
                                 }
                                 catch (Exception ex)
                                 {
@@ -4029,11 +4114,38 @@ namespace API.Controllers
 
                                         String InputSRJson = (new JavaScriptSerializer()).Serialize(sgr);
 
-                                        WebClient client1 = new WebClient();
-                                        client1.Headers.Add("Content-type", "application/json");
-                                        client1.Encoding = Encoding.UTF8;
-                                        json = client1.UploadString("https://shairugems.net:8011/api/Buyer/GetStockData", "POST", InputSRJson);
-                                        client1.Dispose();
+                                        //WebClient client1 = new WebClient();
+                                        //client1.Headers.Add("Content-type", "application/json");
+                                        //client1.Encoding = Encoding.UTF8;
+                                        //json = client1.UploadString("https://shairugems.net:8011/api/Buyer/GetStockData", "POST", InputSRJson);
+                                        //client1.Dispose();
+
+                                        WebRequest request1 = WebRequest.Create("https://shairugems.net:8011/api/Buyer/GetStockData");
+                                        request1.Method = "POST";
+                                        request1.Timeout = 7200000; //2 Hour in milliseconds
+                                        byte[] byteArray1 = Encoding.UTF8.GetBytes(InputSRJson);
+                                        request1.ContentType = "application/json";
+                                        //request1.ContentType = "application/x-www-form-urlencoded";
+                                        //request1.Headers.Add("Authorization", "Bearer " + Token);
+                                        request1.ContentLength = byteArray1.Length;
+
+                                        //Here is the Business end of the code...
+                                        Stream dataStream1 = request1.GetRequestStream();
+                                        dataStream1.Write(byteArray1, 0, byteArray1.Length);
+                                        dataStream1.Close();
+
+                                        //and here is the response.
+                                        WebResponse response1 = request1.GetResponse();
+
+                                        Console.WriteLine(((HttpWebResponse)response1).StatusDescription);
+                                        dataStream1 = response1.GetResponseStream();
+                                        StreamReader reader1 = new StreamReader(dataStream1);
+                                        json = reader1.ReadToEnd();
+                                        Console.WriteLine(json);
+                                        reader1.Close();
+                                        dataStream1.Close();
+                                        response1.Close();
+                                        request1.Abort();
                                     }
                                     catch (Exception ex)
                                     {
@@ -5700,6 +5812,8 @@ namespace API.Controllers
                     Final_dt.Rows.Add(Final_row);
                 }
 
+                //DataRow[] dra = Final_dt.Select("[Certificate No] = '2428377211'");
+
                 if (Final_dt != null && Final_dt.Rows.Count > 0)
                 {
                     foreach (DataColumn column in Final_dt.Columns)
@@ -5725,7 +5839,8 @@ namespace API.Controllers
 
                                     foreach (string str4 in strArray)
                                     {
-                                        if (str.Contains(str4))
+                                        //if (str.Contains(str4))
+                                        if (str.ToUpper() == str4.ToUpper() || str4.ToUpper() == "BLANK")
                                         {
                                             Final_row[column.ColumnName] = str2;
                                         }
@@ -5735,6 +5850,7 @@ namespace API.Controllers
                         }
                     }
                 }
+                //DataRow[] dra1 = Final_dt.Select("[Certificate No] = '2428377211'");
                 return Final_dt;
             }
             catch (Exception)
@@ -5814,8 +5930,17 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IHttpActionResult AddUpdate_SupplierStock()
+        public IHttpActionResult AddUpdate_SupplierStock([FromBody] JObject data)
         {
+            VendorResponse obj = new VendorResponse();
+
+            if (!string.IsNullOrEmpty(Convert.ToString(data)))
+            {
+                JObject test1 = JObject.Parse(data.ToString());
+                obj = JsonConvert.DeserializeObject<VendorResponse>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+            }
+
+            string Return_Msg = "", Return_Status = "";
             int SupplierId = 0;
             long dt_SuppRes_COUNT = 0;
             string Message = string.Empty, Exception = string.Empty;
@@ -5834,6 +5959,11 @@ namespace API.Controllers
                 Database db = new Database();
                 List<IDbDataParameter> para;
                 para = new List<IDbDataParameter>();
+
+                if (!string.IsNullOrEmpty(obj.SUPPLIER))
+                    para.Add(db.CreateParam("SupplierId", DbType.Int32, ParameterDirection.Input, obj.SUPPLIER));
+                else
+                    para.Add(db.CreateParam("SupplierId", DbType.Int32, ParameterDirection.Input, DBNull.Value));
 
                 DataTable dtSuppl = db.ExecuteSP("Get_SupplierMasterScheduler", para.ToArray(), false);
 
@@ -5924,6 +6054,8 @@ namespace API.Controllers
 
                                         if (SupStkUploadDT != null && SupStkUploadDT.Rows.Count > 0)
                                         {
+                                            Return_Msg = SupStkUploadDT.Rows[0]["Message"].ToString(); 
+                                            
                                             sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
                                             sb.Append(SupStkUploadDT.Rows[0]["Message"].ToString() + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                                             sb.AppendLine("");
@@ -5932,6 +6064,12 @@ namespace API.Controllers
 
                                             if (SupStkUploadDT.Rows[0]["Status"].ToString() == "1")
                                             {
+                                                if (!string.IsNullOrEmpty(Return_Msg))
+                                                {
+                                                    Return_Msg = RemoveBeforeWord(Return_Msg, "Stock");
+                                                }
+                                                Return_Status = "1";
+
                                                 if (Convert.ToString(dtSuppl.Rows[i]["APIType"]) == "WEB_API")
                                                 {
                                                     if (!Directory.Exists(tempPath))
@@ -6064,15 +6202,19 @@ namespace API.Controllers
                                             }
                                             else
                                             {
-                                                ApiLog(SupplierId, true, SupStkUploadDT.Rows[0]["Message"].ToString());
+                                                Return_Status = "0"; 
+                                                ApiLog(SupplierId, false, SupStkUploadDT.Rows[0]["Message"].ToString());
                                             }
                                         }
                                         else
                                         {
-                                            ApiLog(SupplierId, false, dtSuppl.Rows[i]["SupplierName"].ToString() + " Supplier Stock Upload Failed");
+                                            Return_Msg = dtSuppl.Rows[i]["SupplierName"].ToString() + " Supplier Stock Upload Failed";
+                                            Return_Status = "0";
+
+                                            ApiLog(SupplierId, false, Return_Msg);
 
                                             sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                                            sb.Append(dtSuppl.Rows[i]["SupplierName"].ToString() + " Supplier Stock Upload Failed, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                                            sb.Append(Return_Msg + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                                             sb.AppendLine("");
                                             File.AppendAllText(path, sb.ToString());
                                             sb.Clear();
@@ -6080,9 +6222,12 @@ namespace API.Controllers
                                     }
                                     else
                                     {
-                                        ApiLog(SupplierId, false, "Column Setting Mapping Failed From " + dtSuppl.Rows[i]["SupplierName"].ToString() + " Supplier's " + stockFrom);
+                                        Return_Msg = "Column Setting Mapping Failed From " + dtSuppl.Rows[i]["SupplierName"].ToString() + " Supplier's " + stockFrom;
+                                        Return_Status = "0";
+                                        ApiLog(SupplierId, false, Return_Msg);
+
                                         sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                                        sb.Append("Column Setting Mapping Failed From " + dtSuppl.Rows[i]["SupplierName"].ToString() + " Supplier's " + stockFrom + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                                        sb.Append(Return_Msg + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                                         sb.AppendLine("");
                                         File.AppendAllText(path, sb.ToString());
                                         sb.Clear();
@@ -6091,8 +6236,10 @@ namespace API.Controllers
                                 else
                                 {
                                     string _msg = ((Message != "ERROR") ? (Message + ((!string.IsNullOrEmpty(Exception)) ? " " + Exception + " " : "") + " From " + dtSuppl.Rows[i]["SupplierName"].ToString() + " Supplier's " + stockFrom) : ("Stock Not Found From " + dtSuppl.Rows[i]["SupplierName"].ToString() + " Supplier's " + stockFrom));
-
+                                    Return_Msg = _msg;
+                                    Return_Status = "0";
                                     ApiLog(SupplierId, false, _msg);
+
                                     sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
                                     sb.Append(_msg + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                                     sb.AppendLine("");
@@ -6102,9 +6249,12 @@ namespace API.Controllers
                             }
                             else
                             {
-                                ApiLog(SupplierId, false, "Column Setting Not Found From " + dtSuppl.Rows[i]["SupplierName"].ToString() + " Supplier's " + stockFrom);
+                                Return_Msg = "Column Setting Not Found From " + dtSuppl.Rows[i]["SupplierName"].ToString() + " Supplier's " + stockFrom;
+                                Return_Status = "0";
+                                ApiLog(SupplierId, false, Return_Msg);
+
                                 sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                                sb.Append("Column Setting Not Found From " + dtSuppl.Rows[i]["SupplierName"].ToString() + " Supplier's " + stockFrom + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                                sb.Append(Return_Msg + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                                 sb.AppendLine("");
                                 File.AppendAllText(path, sb.ToString());
                                 sb.Clear();
@@ -6113,8 +6263,11 @@ namespace API.Controllers
                         }
                         catch (Exception ex)
                         {
+                            Return_Msg = ex.Message.ToString() + " " + ex.StackTrace.ToString() + " From " + stockFrom;
+                            Return_Status = "0";
                             Supplier_Start_End(SupplierId, "End");
                             ApiLog(SupplierId, false, ex.Message.ToString() + " " + ex.StackTrace.ToString() + " From " + stockFrom);
+
                             sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
                             sb.Append(ex.Message.ToString() + " " + ex.StackTrace.ToString() + " From " + stockFrom + ", Log Time: " + DateTime.Now.ToString("dd -MM-yyyy hh:mm:ss tt"));
                             sb.AppendLine("");
@@ -6129,20 +6282,35 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
+                Return_Msg = ex.Message.ToString() + " " + ex.StackTrace.ToString();
+                Return_Status = "0";
                 sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
                 sb.Append(ex.Message.ToString() + " " + ex.StackTrace.ToString() + ", Log Time: " + DateTime.Now.ToString("dd -MM-yyyy hh:mm:ss tt"));
                 sb.AppendLine("");
                 File.AppendAllText(path, sb.ToString());
                 sb.Clear();
             }
+
             return Ok(new CommonResponse
             {
-                Message = "",
-                Status = "",
+                Message = Return_Msg,
+                Status = Return_Status,
                 Error = ""
             });
         }
+        public static string RemoveBeforeWord(string input, string word)
+        {
+            int index = input.IndexOf(word);
 
+            if (index >= 0)
+            {
+                return input.Substring(index);
+            }
+            else
+            {
+                return input;
+            }
+        }
         [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult AddUpdate_SupplierStock_FromFile([FromBody] JObject data)

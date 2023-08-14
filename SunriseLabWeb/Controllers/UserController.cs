@@ -395,6 +395,13 @@ namespace SunriseLabWeb_New.Controllers
             ServiceResponse<Get_SearchStock_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Excel_SearchStock(Get_SearchStock_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Excel_SearchStock, inputJson);
+            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult CustomerPriceList()
         {
             return View();
@@ -434,6 +441,13 @@ namespace SunriseLabWeb_New.Controllers
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.Get_Customer_Stock_Disc, inputJson);
             ServiceResponse<Obj_Supplier_Disc> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Obj_Supplier_Disc>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult AddUpdate_SupplierStock_FromSupplier(VendorResponse req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.AddUpdate_SupplierStock, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
     }

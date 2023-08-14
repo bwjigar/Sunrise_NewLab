@@ -533,6 +533,8 @@ namespace Lib.Model
         public string PavHtBlank { get; set; }
         public string FromPavHt { get; set; }
         public string ToPavHt { get; set; }
+
+        public string Type { get; set; }
     }
     public class Get_SearchStock_Res
     {
@@ -606,6 +608,7 @@ namespace Lib.Model
         public string Stage { get; set; }
         public string Certi_Date { get; set; }
         public double Disc { get; set; }
+        public double Value { get; set; }
         public double Fix_Price { get; set; }
         public string Certificate_No { get; set; }
         public string Goods_Type { get; set; }
@@ -622,6 +625,22 @@ namespace Lib.Model
         public int Polish_Sr { get; set; }
         public int Symm_Sr { get; set; }
         public int Fls_Sr { get; set; }
+        public int Rank { get; set; }
+        public string Supplier_Status { get; set; }
+        public string Buyer_Name { get; set; }
+        public double Bid_Disc { get; set; }
+        public double Bid_Amt { get; set; }
+        public double Bid_Ct { get; set; }
+        public double Avg_Stock_Disc { get; set; }
+        public int Avg_Stock_Pcs { get; set; }
+        public double Avg_Pur_Disc { get; set; }
+        public int Avg_Pur_Pcs { get; set; }
+        public double Avg_Sales_Disc { get; set; }
+        public int Sales_Pcs { get; set; }
+        public string KTS_Grade { get; set; }
+        public string Comm_Grade { get; set; }
+        public string Zone { get; set; }
+        public string Para_Grade { get; set; }
     }
     public class Data_Get_From_File_Req
     {

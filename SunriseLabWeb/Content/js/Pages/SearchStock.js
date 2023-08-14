@@ -1,5 +1,7 @@
 ﻿var FortuneCodeValid = true;
 var FortuneCodeValid_Msg = "";
+var Type = "";
+var OrderBy = "";
 var Rowdata = [];
 var pgSize = 200;
 var showEntryHtml = '<div class="show_entry"><label>'
@@ -138,6 +140,22 @@ var columnDefs = [];
 //    //{ headerName: "Polish_Sr", field: "Polish_Sr", hide: true },
 //    //{ headerName: "Symm_Sr", field: "Symm_Sr", hide: true },
 //    //{ headerName: "Fls_Sr", field: "Fls_Sr", hide: true },
+//    //{ headerName: "Rank", field: "Rank", hide: true },
+//    //{ headerName: "Supplier_Status", field: "Supplier_Status", hide: true },
+//    //{ headerName: "Buyer_Name", field: "Buyer_Name", hide: true },
+//    //{ headerName: "Bid_Disc", field: "Bid_Disc", hide: true },
+//    //{ headerName: "Bid_Amt", field: "Bid_Amt", hide: true },
+//    //{ headerName: "Bid_Ct", field: "Bid_Ct", hide: true },
+//    //{ headerName: "Avg_Stock_Disc", field: "Avg_Stock_Disc", hide: true },
+//    //{ headerName: "Avg_Stock_Pcs", field: "Avg_Stock_Pcs", hide: true },
+//    //{ headerName: "Avg_Pur_Disc", field: "Avg_Pur_Disc", hide: true },
+//    //{ headerName: "Avg_Pur_Pcs", field: "Avg_Pur_Pcs", hide: true },
+//    //{ headerName: "Avg_Sales_Disc", field: "Avg_Sales_Disc", hide: true },
+//    //{ headerName: "Sales_Pcs", field: "Sales_Pcs", hide: true },
+//    //{ headerName: "KTS_Grade", field: "KTS_Grade", hide: true },
+//    //{ headerName: "Comm_Grade", field: "Comm_Grade", hide: true },
+//    //{ headerName: "Zone", field: "Zone", hide: true },
+//    //{ headerName: "Para_Grade", field: "Para_Grade", hide: true },
 
 //    {
 //        headerName: "", field: "",
@@ -165,7 +183,7 @@ var columnDefs = [];
 //    { headerName: "Rap Amount ($)", field: "Rap_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } },
 //    { headerName: "Base Price Cts ($)", field: "Base_Price_Cts", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Base_Price_Cts", params); } },
 //    { headerName: "Base Amount ($)", field: "Base_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); } },
-    
+
 //    { headerName: "Base Disc (%)", field: "Disc", width: 85, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Disc", params); } },
 //    { headerName: "Supplier Final Disc (%)", field: "SUPPLIER_COST_DISC", width: 85, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("SUPPLIER_COST_DISC", params); } },
 //    { headerName: "Supplier Final Amt ($)", field: "SUPPLIER_COST_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("SUPPLIER_COST_VALUE", params); } },
@@ -218,7 +236,7 @@ function cellStyle(field, params) {
         if (params.data.Cut == '3EX' && (field == 'Cut' || field == 'Polish' || field == 'Symm')) {
             return { 'font-size': '11px', 'font-weight': 'bold' };
         }
-        else if (field == "Disc" || field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE" || field == "MAX_DISC" || field == "MAX_VALUE" || field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE") {
+        else if (field == "Disc" || field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE" || field == "MAX_DISC" || field == "MAX_VALUE" || field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE" || field == "Bid_Disc" || field == "Bid_Amt" || field == "Avg_Stock_Disc" || field == "Avg_Pur_Disc" || field == "Avg_Sales_Disc") {
             return { 'color': 'red', 'font-weight': 'bold', 'font-size': '11px', 'text-align': 'center' };
         }
         else if (field == "Cts" || field == "Rap_Rate" || field == "Rap_Amount" || field == "Base_Price_Cts" || field == "RATIO" || field == "Length" || field == "Width" || field == "Depth" ||
@@ -250,6 +268,7 @@ function onPageSizeChanged() {
     GetHoldDataGrid();
 }
 function BuyerList() {
+    Type = "Buyer List";
     columnDefs = [
         {
             headerName: "", field: "",
@@ -263,48 +282,66 @@ function BuyerList() {
         },
         { headerName: "VIEW", field: "Imag_Video_Certi", width: 90, cellRenderer: Imag_Video_Certi, suppressSorting: true, suppressMenu: true, sortable: false },
         { headerName: "Lab", field: "Lab", width: 50, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab", params); } },
-        { headerName: "Ref No", field: "Ref_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("RefNo", params); } },
+        { headerName: "Supplier Name", field: "SupplierName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierName", params); } },
+        { headerName: "Rank", field: "Rank", width: 50, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 0); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Rank", params); } },
+        { headerName: "Supplier Status", field: "Supplier_Status", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Status", params); } },
+        { headerName: "Buyer Name", field: "Buyer_Name", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Buyer_Name", params); } },
+        { headerName: "Status", field: "Status", width: 50, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Status", params); } },
         { headerName: "Supplier Stone Id", field: "Supplier_Stone_Id", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Stone_Id", params); } },
         { headerName: "Certificate No", field: "Certificate_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Certificate_No", params); } },
         { headerName: "Shape", field: "Shape", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Shape", params); } },
-        { headerName: "Supplier Name", field: "SupplierName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierName", params); } },
         { headerName: "Pointer", field: "Pointer", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Pointer", params); } },
         { headerName: "Sub Pointer", field: "Sub_Pointer", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Sub_Pointer", params); } },
         { headerName: "Color", field: "Color", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Color", params); } },
         { headerName: "Clarity", field: "Clarity", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Clarity", params); } },
         { headerName: "Cts", field: "Cts", width: 70, tooltip: function (params) { return parseFloat(params.value).toFixed(2) }, cellRenderer: function (params) { return parseFloat(params.value).toFixed(2) }, cellStyle: function (params) { return cellStyle("Cts", params); } },
-        { headerName: "Rap Rate ($)", field: "Rap_Rate", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Rate", params); } },
-        { headerName: "Rap Amount ($)", field: "Rap_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } },
-        { headerName: "Base Price Cts ($)", field: "Base_Price_Cts", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Base_Price_Cts", params); } },
-        { headerName: "Base Amount ($)", field: "Base_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); } },
 
-        { headerName: "Base Disc (%)", field: "Disc", width: 85, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Disc", params); } },
-        { headerName: "Supplier Final Disc (%)", field: "SUPPLIER_COST_DISC", width: 85, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("SUPPLIER_COST_DISC", params); } },
-        { headerName: "Supplier Final Amt ($)", field: "SUPPLIER_COST_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("SUPPLIER_COST_VALUE", params); } },
-        { headerName: "Supplier Max Disc (%)", field: "MAX_DISC", width: 85, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("MAX_DISC", params); } },
-        { headerName: "Supplier Max Amt ($)", field: "MAX_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("MAX_VALUE", params); } },
-        { headerName: "Offer Disc (%)", field: "CUSTOMER_COST_DISC", width: 85, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("MAX_VALUE", params); } },
-        { headerName: "Offer Amt ($)", field: "CUSTOMER_COST_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("MAX_VALUE", params); } },
+        { headerName: "Rap Rate", field: "Rap_Rate", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Rate", params); } },
+        { headerName: "Rap Value", field: "Rap_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } },
+
+        { headerName: "Supplier Base Offer(%)", field: "Disc", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Disc", params); } },
+        { headerName: "Supplier Base Offer Value($)", field: "Value", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Disc", params); } },
+
+        { headerName: "Supplier Final Disc(%)", field: "SUPPLIER_COST_DISC", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("SUPPLIER_COST_DISC", params); } },
+        { headerName: "Supplier Final Value($)", field: "SUPPLIER_COST_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("SUPPLIER_COST_VALUE", params); } },
+
+        { headerName: "Supplier Final Disc. With Max Slab(%)", field: "MAX_DISC", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("MAX_DISC", params); } },
+        { headerName: "Supplier Final Value With Max Slab($)", field: "MAX_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("MAX_VALUE", params); } },
+
+        { headerName: "Bid Disc(%)", field: "Bid_Disc", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Bid_Disc", params); } },
+        { headerName: "Bid Amt", field: "Bid_Amt", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Bid_Amt", params); } },
+        { headerName: "Bid/Ct", field: "Bid_Ct", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Bid_Ct", params); } },
+
+        { headerName: "Avg. Stock Disc(%)", field: "Avg_Stock_Disc", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Avg_Stock_Disc", params); } },
+        { headerName: "Avg. Stock Pcs", field: "Avg_Stock_Pcs", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 0); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Avg_Stock_Pcs", params); } },
+
+        { headerName: "Avg. Pur. Disc(%)", field: "Avg_Pur_Disc", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Avg_Pur_Disc", params); } },
+        { headerName: "Avg. Pur. Pcs", field: "Avg_Pur_Pcs", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 0); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Avg_Pur_Pcs", params); } },
+
+        { headerName: "Avg. Sales Disc(%)", field: "Avg_Sales_Disc", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Avg_Sales_Disc", params); } },
+        { headerName: "Sales Pcs", field: "Sales_Pcs", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 0); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Sales_Pcs", params); } },
+
+        { headerName: "KTS Grade", field: "KTS_Grade", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("KTS_Grade", params); } },
+        { headerName: "Comm. Grade", field: "Comm_Grade", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Comm_Grade", params); } },
+        { headerName: "Zone", field: "Zone", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Zone", params); } },
+        { headerName: "Para. Grade", field: "Para_Grade", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Para_Grade", params); } },
 
         { headerName: "Cut", field: "Cut", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Cut", params); } },
         { headerName: "Polish", field: "Polish", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Polish", params); } },
         { headerName: "Symm", field: "Symm", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Symm", params); } },
         { headerName: "Fls", field: "Fls", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Fls", params); } },
-        { headerName: "Key To Symboll", field: "Key_To_Symboll", width: 300, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Key_To_Symboll", params); } },
-
-        { headerName: "RATIO", field: "RATIO", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("RATIO", params); } },
+        { headerName: "Key To Symbol", field: "Key_To_Symboll", width: 300, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Key_To_Symboll", params); } },
+        { headerName: "Ratio", field: "RATIO", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("RATIO", params); } },
         { headerName: "Length", field: "Length", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Length", params); } },
         { headerName: "Width", field: "Width", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Width", params); } },
         { headerName: "Depth", field: "Depth", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Depth", params); } },
-        { headerName: "Measurement", field: "Measurement", width: 130, tooltip: function (params) { return (params.value); } },
-        { headerName: "Depth Per", field: "Depth_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Depth_Per", params); } },
-        { headerName: "Table Per", field: "Table_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Table_Per", params); } },
-        { headerName: "Crown Angle", field: "Crown_Angle", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Crown_Angle", params); } },
-        { headerName: "Pav Angle", field: "Pav_Angle", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Pav_Angle", params); } },
-        { headerName: "Crown Height", field: "Crown_Height", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Crown_Height", params); } },
-        { headerName: "Pav Height", field: "Pav_Height", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Pav_Height", params); } },
-        { headerName: "Girdle Per", field: "Girdle_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Girdle_Per", params); } },
-
+        { headerName: "Depth(%)", field: "Depth_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Depth_Per", params); } },
+        { headerName: "Table(%)", field: "Table_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Table_Per", params); } },
+        { headerName: "Crown Ang", field: "Crown_Angle", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Crown_Angle", params); } },
+        { headerName: "Crown Hgt", field: "Crown_Height", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Crown_Height", params); } },
+        { headerName: "Pavilion Ang", field: "Pav_Angle", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Pav_Angle", params); } },
+        { headerName: "Pavilion Hgt", field: "Pav_Height", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Pav_Height", params); } },
+        { headerName: "Girdle(%)", field: "Girdle_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Girdle_Per", params); } },
         { headerName: "Luster", field: "Luster", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Luster", params); } },
         { headerName: "Type 2A", field: "Type_2A", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Type_2A", params); } },
         { headerName: "Table Inclusion", field: "Table_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Inclusion", params); } },
@@ -314,14 +351,22 @@ function BuyerList() {
         { headerName: "Culet", field: "Culet", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Culet", params); } },
         { headerName: "Lab Comments", field: "Lab_Comments", width: 300, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab_Comments", params); } },
         { headerName: "Supplier Comments", field: "Supplier_Comments", width: 300, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Comments", params); } },
+        { headerName: "Table Open", field: "Table_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Open", params); } },
         { headerName: "Crown Open", field: "Crown_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Open", params); } },
         { headerName: "Pav Open", field: "Pav_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Pav_Open", params); } },
-        { headerName: "Table Open", field: "Table_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Open", params); } },
         { headerName: "Girdle Open", field: "Girdle_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Girdle_Open", params); } },
         { headerName: "Shade", field: "Shade", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Shade", params); } },
         { headerName: "Milky", field: "Milky", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Milky", params); } },
-        { headerName: "Status", field: "Status", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Status", params); } },
-        { headerName: "Location", field: "Location", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Location", params); } },
+
+
+
+        //{ headerName: "Ref No", field: "Ref_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("RefNo", params); } },
+        //{ headerName: "Base Price Cts ($)", field: "Base_Price_Cts", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Base_Price_Cts", params); } },
+        //{ headerName: "Base Amount ($)", field: "Base_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); } },
+        //{ headerName: "Offer Disc (%)", field: "CUSTOMER_COST_DISC", width: 85, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("MAX_VALUE", params); } },
+        //{ headerName: "Offer Amt ($)", field: "CUSTOMER_COST_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("MAX_VALUE", params); } },
+        //{ headerName: "Measurement", field: "Measurement", width: 130, tooltip: function (params) { return (params.value); } },
+        //{ headerName: "Location", field: "Location", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Location", params); } },
     ];
     Search();
 }
@@ -413,143 +458,14 @@ const datasource1 = {
     getRows(params) {
         var PageNo = gridOptions.api.paginationGetCurrentPage() + 1;
         var obj = {};
-        
-        var SizeLst = "";
-        var CaratType = "";
-        
-        var lst = _.filter(CaratList, function (e) { return e.isActive == true });
-        if (($('#txtfromcarat').val() != "" && parseFloat($('#txtfromcarat').val()) > 0) && ($('#txttocarat').val() != "" && parseFloat($('#txttocarat').val()) > 0)) {
-            NewSizeGroup();
-        }
-        if (SizeGroupList.length != 0) {
-            SizeLst = _.pluck(SizeGroupList, 'Size').join(",");
-            CaratType = 'Specific';
-        }
-        if (lst.length != 0) {
-            SizeLst = _.pluck(_.filter(CaratList, function (e) { return e.isActive == true }), 'Value').join(",");
-            CaratType = 'General';
-        }
-
-        var refno = $("#txtRefNo").val().replace(/ /g, ',');
-        var supplier = $('#ddlSupplierId').val().join(",");
-        var shapeLst = _.pluck(_.filter(ShapeList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var colorLst = _.pluck(_.filter(ColorList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var clarityLst = _.pluck(_.filter(ClarityList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var labLst = _.pluck(_.filter(LabList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var cutLst = _.pluck(_.filter(CutList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var polishLst = _.pluck(_.filter(PolishList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var symLst = _.pluck(_.filter(SymList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var fluoLst = _.pluck(_.filter(FlouList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var bgmLst = _.pluck(_.filter(BGMList, function (e) { return e.isActive == true }), 'Value').join(",");
-
-        var tblincLst = _.pluck(_.filter(TblInclList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var tblnattsLst = _.pluck(_.filter(TblNattsList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var crwincLst = _.pluck(_.filter(CrwnInclList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var crwnattsLst = _.pluck(_.filter(CrwnNattsList, function (e) { return e.isActive == true }), 'Value').join(",");
-
-        var tableopen = _.pluck(_.filter(TableOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var crownopen = _.pluck(_.filter(CrownOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var pavopen = _.pluck(_.filter(PavOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
-        var girdleopen = _.pluck(_.filter(GirdleOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
-
-        var KeyToSymLst_Check = _.pluck(CheckKeyToSymbolList, 'Symbol').join(",");
-        var KeyToSymLst_uncheck = _.pluck(UnCheckKeyToSymbolList, 'Symbol').join(",");
-
-        
-        obj.PgNo = PageNo;
-        obj.PgSize = pgSize;
+        debugger
+        OrderBy = "";
         if (params.request.sortModel.length > 0) {
-            obj.OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
+            OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
         }
 
-        obj.RefNo = refno
-        obj.SupplierId = supplier;
-        obj.Shape = shapeLst;
-        obj.Pointer = SizeLst;
-        obj.ColorType = Color_Type;
-
-        if (Color_Type == "Fancy") {
-            obj.Color = "";
-            obj.INTENSITY = _.pluck(Check_Color_1, 'Symbol').join(",");
-            obj.OVERTONE = _.pluck(Check_Color_2, 'Symbol').join(",");
-            obj.FANCY_COLOR = _.pluck(Check_Color_3, 'Symbol').join(",");
-        }
-        else if (Color_Type == "Regular") {
-            obj.Color = colorLst;
-            obj.INTENSITY = "";
-            obj.OVERTONE = "";
-            obj.FANCY_COLOR = "";
-        }
-
-        obj.Clarity = clarityLst;
-        obj.Cut = cutLst;
-        obj.Polish = polishLst;
-        obj.Symm = symLst;
-        obj.Fls = fluoLst;
-        obj.BGM = bgmLst;
-        obj.Lab = labLst;
-
-        obj.CrownBlack = crwnattsLst;
-        obj.TableBlack = tblnattsLst;
-        obj.CrownWhite = crwincLst;
-        obj.TableWhite = tblincLst;
-
-        obj.TableOpen = tableopen;
-        obj.CrownOpen = crownopen;
-        obj.PavOpen = pavopen;
-        obj.GirdleOpen = girdleopen;
-
-        obj.KTSBlank = (KTSBlank == true ? true : "");
-        obj.Keytosymbol = KeyToSymLst_Check + '-' + KeyToSymLst_uncheck;
-        obj.CheckKTS = KeyToSymLst_Check;
-        obj.UNCheckKTS = KeyToSymLst_uncheck;
-
-        obj.FromDisc = $('#FromDiscount').val();
-        obj.ToDisc = $('#ToDiscount').val();
-
-        obj.FromTotAmt = $('#FromTotalAmt').val();
-        obj.ToTotAmt = $('#ToTotalAmt').val();
-
-        obj.LengthBlank = (LengthBlank == true ? true : "");
-        obj.FromLength = $('#FromLength').val();
-        obj.ToLength = $('#ToLength').val();
-
-        obj.WidthBlank = (WidthBlank == true ? true : "");
-        obj.FromWidth = $('#FromWidth').val();
-        obj.ToWidth = $('#ToWidth').val();
-
-        obj.DepthBlank = (DepthBlank == true ? true : "");
-        obj.FromDepth = $('#FromDepth').val();
-        obj.ToDepth = $('#ToDepth').val();
-
-        obj.DepthPerBlank = (DepthPerBlank == true ? true : "");
-        obj.FromDepthPer = $('#FromDepthPer').val();
-        obj.ToDepthPer = $('#ToDepthPer').val();
-
-        obj.TablePerBlank = (TablePerBlank == true ? true : "");
-        obj.FromTablePer = $('#FromTablePer').val();
-        obj.ToTablePer = $('#ToTablePer').val();
-
-        obj.Img = $('#SearchImage').hasClass('active') ? "YES" : "";
-        obj.Vdo = $('#SearchVideo').hasClass('active') ? "YES" : "";
-        obj.Certi = $('#SearchCerti').hasClass('active') ? "YES" : "";
-
-        obj.CrAngBlank = (CrAngBlank == true ? true : "");
-        obj.FromCrAng = $('#FromCrAng').val();
-        obj.ToCrAng = $('#ToCrAng').val();
-
-        obj.CrHtBlank = (CrHtBlank == true ? true : "");
-        obj.FromCrHt = $('#FromCrHt').val();
-        obj.ToCrHt = $('#ToCrHt').val();
-
-        obj.PavAngBlank = (PavAngBlank == true ? true : "");
-        obj.FromPavAng = $('#FromPavAng').val();
-        obj.ToPavAng = $('#ToPavAng').val();
-
-        obj.PavHtBlank = (PavHtBlank == true ? true : "");
-        obj.FromPavHt = $('#FromPavHt').val();
-        obj.ToPavHt = $('#ToPavHt').val();
-
+        obj = ObjectCreate(PageNo, pgSize, OrderBy);
+        debugger
         Rowdata = [];
         $.ajax({
             url: "/User/Get_SearchStock",
@@ -588,6 +504,178 @@ const datasource1 = {
         });
     }
 };
+function ExcelDownload() {
+    debugger
+    loaderShow();
+    setTimeout(function () {
+        var obj = {};
+        obj = ObjectCreate("", "", OrderBy);
+        debugger
+        $.ajax({
+            url: "/User/Excel_SearchStock",
+            async: false,
+            type: "POST",
+            data: { req: obj },
+            success: function (data, textStatus, jqXHR) {
+                debugger
+                loaderHide();
+                if (data.search('.xlsx') == -1) {
+                    if (data.indexOf('Something Went wrong') > -1) {
+                        MoveToErrorPage(0);
+                    }
+                    toastr.error(data);
+                } else {
+                    location.href = data;
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                loaderHide();
+            }
+        });
+    }, 50);
+}
+
+function ObjectCreate(PageNo, pgSize, OrderBy) {
+    var obj = {};
+
+    var SizeLst = "";
+    var CaratType = "";
+
+    var lst = _.filter(CaratList, function (e) { return e.isActive == true });
+    if (($('#txtfromcarat').val() != "" && parseFloat($('#txtfromcarat').val()) > 0) && ($('#txttocarat').val() != "" && parseFloat($('#txttocarat').val()) > 0)) {
+        NewSizeGroup();
+    }
+    if (SizeGroupList.length != 0) {
+        SizeLst = _.pluck(SizeGroupList, 'Size').join(",");
+        CaratType = 'Specific';
+    }
+    if (lst.length != 0) {
+        SizeLst = _.pluck(_.filter(CaratList, function (e) { return e.isActive == true }), 'Value').join(",");
+        CaratType = 'General';
+    }
+
+    var refno = $("#txtRefNo").val().replace(/ /g, ',');
+    var supplier = $('#ddlSupplierId').val().join(",");
+    var shapeLst = _.pluck(_.filter(ShapeList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var colorLst = _.pluck(_.filter(ColorList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var clarityLst = _.pluck(_.filter(ClarityList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var labLst = _.pluck(_.filter(LabList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var cutLst = _.pluck(_.filter(CutList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var polishLst = _.pluck(_.filter(PolishList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var symLst = _.pluck(_.filter(SymList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var fluoLst = _.pluck(_.filter(FlouList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var bgmLst = _.pluck(_.filter(BGMList, function (e) { return e.isActive == true }), 'Value').join(",");
+
+    var tblincLst = _.pluck(_.filter(TblInclList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var tblnattsLst = _.pluck(_.filter(TblNattsList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var crwincLst = _.pluck(_.filter(CrwnInclList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var crwnattsLst = _.pluck(_.filter(CrwnNattsList, function (e) { return e.isActive == true }), 'Value').join(",");
+
+    var tableopen = _.pluck(_.filter(TableOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var crownopen = _.pluck(_.filter(CrownOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var pavopen = _.pluck(_.filter(PavOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var girdleopen = _.pluck(_.filter(GirdleOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+
+    var KeyToSymLst_Check = _.pluck(CheckKeyToSymbolList, 'Symbol').join(",");
+    var KeyToSymLst_uncheck = _.pluck(UnCheckKeyToSymbolList, 'Symbol').join(",");
+
+
+    obj.PgNo = PageNo;
+    obj.PgSize = pgSize;
+    obj.OrderBy = OrderBy;
+
+    obj.RefNo = refno
+    obj.SupplierId = supplier;
+    obj.Shape = shapeLst;
+    obj.Pointer = SizeLst;
+    obj.ColorType = Color_Type;
+
+    if (Color_Type == "Fancy") {
+        obj.Color = "";
+        obj.INTENSITY = _.pluck(Check_Color_1, 'Symbol').join(",");
+        obj.OVERTONE = _.pluck(Check_Color_2, 'Symbol').join(",");
+        obj.FANCY_COLOR = _.pluck(Check_Color_3, 'Symbol').join(",");
+    }
+    else if (Color_Type == "Regular") {
+        obj.Color = colorLst;
+        obj.INTENSITY = "";
+        obj.OVERTONE = "";
+        obj.FANCY_COLOR = "";
+    }
+
+    obj.Clarity = clarityLst;
+    obj.Cut = cutLst;
+    obj.Polish = polishLst;
+    obj.Symm = symLst;
+    obj.Fls = fluoLst;
+    obj.BGM = bgmLst;
+    obj.Lab = labLst;
+
+    obj.CrownBlack = crwnattsLst;
+    obj.TableBlack = tblnattsLst;
+    obj.CrownWhite = crwincLst;
+    obj.TableWhite = tblincLst;
+
+    obj.TableOpen = tableopen;
+    obj.CrownOpen = crownopen;
+    obj.PavOpen = pavopen;
+    obj.GirdleOpen = girdleopen;
+
+    obj.KTSBlank = (KTSBlank == true ? true : "");
+    obj.Keytosymbol = KeyToSymLst_Check + '-' + KeyToSymLst_uncheck;
+    obj.CheckKTS = KeyToSymLst_Check;
+    obj.UNCheckKTS = KeyToSymLst_uncheck;
+
+    obj.FromDisc = $('#FromDiscount').val();
+    obj.ToDisc = $('#ToDiscount').val();
+
+    obj.FromTotAmt = $('#FromTotalAmt').val();
+    obj.ToTotAmt = $('#ToTotalAmt').val();
+
+    obj.LengthBlank = (LengthBlank == true ? true : "");
+    obj.FromLength = $('#FromLength').val();
+    obj.ToLength = $('#ToLength').val();
+
+    obj.WidthBlank = (WidthBlank == true ? true : "");
+    obj.FromWidth = $('#FromWidth').val();
+    obj.ToWidth = $('#ToWidth').val();
+
+    obj.DepthBlank = (DepthBlank == true ? true : "");
+    obj.FromDepth = $('#FromDepth').val();
+    obj.ToDepth = $('#ToDepth').val();
+
+    obj.DepthPerBlank = (DepthPerBlank == true ? true : "");
+    obj.FromDepthPer = $('#FromDepthPer').val();
+    obj.ToDepthPer = $('#ToDepthPer').val();
+
+    obj.TablePerBlank = (TablePerBlank == true ? true : "");
+    obj.FromTablePer = $('#FromTablePer').val();
+    obj.ToTablePer = $('#ToTablePer').val();
+
+    obj.Img = $('#SearchImage').hasClass('active') ? "YES" : "";
+    obj.Vdo = $('#SearchVideo').hasClass('active') ? "YES" : "";
+    obj.Certi = $('#SearchCerti').hasClass('active') ? "YES" : "";
+
+    obj.CrAngBlank = (CrAngBlank == true ? true : "");
+    obj.FromCrAng = $('#FromCrAng').val();
+    obj.ToCrAng = $('#ToCrAng').val();
+
+    obj.CrHtBlank = (CrHtBlank == true ? true : "");
+    obj.FromCrHt = $('#FromCrHt').val();
+    obj.ToCrHt = $('#ToCrHt').val();
+
+    obj.PavAngBlank = (PavAngBlank == true ? true : "");
+    obj.FromPavAng = $('#FromPavAng').val();
+    obj.ToPavAng = $('#ToPavAng').val();
+
+    obj.PavHtBlank = (PavHtBlank == true ? true : "");
+    obj.FromPavHt = $('#FromPavHt').val();
+    obj.ToPavHt = $('#ToPavHt').val();
+
+    obj.Type = Type;
+
+    return obj;
+}
 
 function onGridReady(params) {
     if (navigator.userAgent.indexOf('Windows') > -1) {
@@ -2104,7 +2192,7 @@ function Reset() {
     _(GirdleOpenList).each(function (girdleopen, i) {
         $('#searchgirdleopen').append('<li onclick="SetActive(\'GIRDLEOPEN\',\'' + girdleopen.Value + '\')">' + girdleopen.Value + '</li>');
     });
-    
+
     $('#txtfromcarat').val("");
     $('#txttocarat').val("");
 

@@ -98,7 +98,7 @@ var Action = function (params) {
     //element += '&nbsp;&nbsp;<a title="Delete" onclick="DeleteView(\'' + params.data.Id + '\')"><i class="fa fa-trash-o" aria-hidden="true" style="cursor:pointer;"></i></a>';
     return element;
 }
-var StockUpload = function (params) {debugger
+var StockUpload = function (params) {
     var element = "";
     if (params.data.DataGetFrom == "WEB_API_FTP") {
         element = '<a title="Stock Upload" onclick="StockUploadView(\'' + params.data.Id + '\')" ><i class="fa fa-upload" aria-hidden="true" style="font-size: 18px;cursor:pointer;"></i></a>';
@@ -106,7 +106,30 @@ var StockUpload = function (params) {debugger
     return element;
 }
 function StockUploadView(Id) {
-
+    var obj = {};
+    obj.SUPPLIER = Id;
+    debugger
+    loaderShow();
+    setTimeout(function () {
+        $.ajax({
+            url: '/User/AddUpdate_SupplierStock_FromSupplier',
+            type: "POST",
+            data: { req: obj },
+            success: function (data) {
+                debugger
+                loaderHide();
+                if (data.Status == "1") {
+                    toastr.success(data.Message);
+                }
+                else {
+                    toastr.error(data.Message);
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                loaderHide();
+            }
+        });
+    }, 50);
 }
 function EditView(Id) {
     debugger
@@ -413,7 +436,7 @@ function Clear() {
     document.getElementById("DiscInverse").checked = false;
     document.getElementById("NewRefNoGenerate").checked = false;
     document.getElementById("NewDiscGenerate").checked = false;
-    
+
     $("#txtUserName").val("");
     $("#txtPassword").val("");
 }
@@ -505,7 +528,8 @@ var Save = function () {
         });
         $("#ErrorModel").modal("show");
     }
-    else {debugger
+    else {
+        debugger
         var obj = {};
         obj.Id = $("#hdn_Id").val();
         obj.APIType = API_Type;

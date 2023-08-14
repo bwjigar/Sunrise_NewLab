@@ -63,6 +63,8 @@ namespace SunriseLabWeb_New.Data
         public static string Get_Supplier_Disc = "/User/Get_Supplier_Disc";
         
         public static string Get_SearchStock = "/User/Get_SearchStock";
+        public static string Excel_SearchStock = "/User/Excel_SearchStock";
+        
         public static string AddUpdate_Customer_Disc = "/User/AddUpdate_Customer_Disc";
         public static string Get_Customer_Disc = "/User/Get_Customer_Disc";
 
