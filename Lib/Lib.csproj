@@ -93,7 +93,34 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="bin\Debug\Lib.dll.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Lib.dll" />
+    <Content Include="bin\Debug\Lib.pdb" />
+    <Content Include="bin\Debug\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\Debug\System.Net.Http.Formatting.xml" />
+    <Content Include="bin\Debug\System.Web.Helpers.dll" />
+    <Content Include="bin\Debug\System.Web.Helpers.xml" />
+    <Content Include="bin\Debug\System.Web.Http.dll" />
+    <Content Include="bin\Debug\System.Web.Http.xml" />
+    <Content Include="bin\Debug\System.Web.Mvc.dll" />
+    <Content Include="bin\Debug\System.Web.Mvc.xml" />
+    <Content Include="bin\Debug\System.Web.Razor.dll" />
+    <Content Include="bin\Debug\System.Web.Razor.xml" />
+    <Content Include="bin\Debug\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\Debug\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\Debug\System.Web.WebPages.dll" />
+    <Content Include="bin\Debug\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\Debug\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\Debug\System.Web.WebPages.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
