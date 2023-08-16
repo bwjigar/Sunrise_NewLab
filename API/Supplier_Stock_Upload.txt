@@ -1586,3 +1586,7 @@ SUCCESS 7723 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's W
 SUCCESS 1554 Stock Upload Has Been Successfully From DN Supplier's Web API, Log Time : 14-08-2023 03:30:05 PM
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 SUCCESS 7673 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 14-08-2023 03:32:34 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 4275 Stock Upload Has Been Successfully From JP Supplier's Web API, Log Time : 16-08-2023 09:41:48 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 15900 Stock Upload Has Been Successfully From ANKIT GEMS Supplier's Web API, Log Time : 16-08-2023 10:16:09 AM

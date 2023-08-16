@@ -550,18 +550,18 @@ namespace Lib.Model
         public string Polish { get; set; }
         public string Symm { get; set; }
         public string Fls { get; set; }
-        public double Cts { get; set; }
+        public decimal Cts { get; set; }
         public string Pointer { get; set; }
         public string Sub_Pointer { get; set; }
-        public double Base_Price_Cts { get; set; }
-        public double Rap_Rate { get; set; }
-        public double Base_Amount { get; set; }
+        public decimal Base_Price_Cts { get; set; }
+        public decimal Rap_Rate { get; set; }
+        public decimal Base_Amount { get; set; }
         public string Measurement { get; set; }
-        public double Length { get; set; }
-        public double Width { get; set; }
-        public double Depth { get; set; }
-        public double Table_Per { get; set; }
-        public double Depth_Per { get; set; }
+        public decimal Length { get; set; }
+        public decimal Width { get; set; }
+        public decimal Depth { get; set; }
+        public decimal Table_Per { get; set; }
+        public decimal Depth_Per { get; set; }
         public string Table_Inclusion { get; set; }
         public string Crown_Inclusion { get; set; }
         public string Table_Natts { get; set; }
@@ -572,11 +572,11 @@ namespace Lib.Model
         public string Pav_Open { get; set; }
         public string Table_Open { get; set; }
         public string Girdle_Open { get; set; }
-        public string Crown_Angle { get; set; }
-        public string Pav_Angle { get; set; }
-        public string Crown_Height { get; set; }
-        public string Pav_Height { get; set; }
-        public double Rap_Amount { get; set; }
+        public decimal Crown_Angle { get; set; }
+        public decimal Pav_Angle { get; set; }
+        public decimal Crown_Height { get; set; }
+        public decimal Pav_Height { get; set; }
+        public decimal Rap_Amount { get; set; }
         public string Lab { get; set; }
         public string Certificate_URL { get; set; }
         public string Image_URL { get; set; }
@@ -594,11 +594,11 @@ namespace Lib.Model
         public string Milky { get; set; }
         public string BGM { get; set; }
         public string Key_To_Symboll { get; set; }
-        public double RATIO { get; set; }
+        public decimal RATIO { get; set; }
         public string Supplier_Comments { get; set; }
         public string Lab_Comments { get; set; }
         public string Culet { get; set; }
-        public double Girdle_Per { get; set; }
+        public decimal Girdle_Per { get; set; }
         public string Girdle_Type { get; set; }
         public string Girdle_MM { get; set; }
         public string Inscription { get; set; }
@@ -607,17 +607,17 @@ namespace Lib.Model
         public string Lower_Halves { get; set; }
         public string Stage { get; set; }
         public string Certi_Date { get; set; }
-        public double Disc { get; set; }
-        public double Value { get; set; }
-        public double Fix_Price { get; set; }
+        public decimal Disc { get; set; }
+        public decimal Value { get; set; }
+        public decimal Fix_Price { get; set; }
         public string Certificate_No { get; set; }
         public string Goods_Type { get; set; }
-        public double SUPPLIER_COST_DISC { get; set; }
-        public double SUPPLIER_COST_VALUE { get; set; }
-        public double MAX_DISC { get; set; }
-        public double MAX_VALUE { get; set; }
-        public double CUSTOMER_COST_DISC { get; set; }
-        public double CUSTOMER_COST_VALUE { get; set; }
+        public decimal SUPPLIER_COST_DISC { get; set; }
+        public decimal SUPPLIER_COST_VALUE { get; set; }
+        public decimal MAX_DISC { get; set; }
+        public decimal MAX_VALUE { get; set; }
+        public decimal CUSTOMER_COST_DISC { get; set; }
+        public decimal CUSTOMER_COST_VALUE { get; set; }
         public int Shape_Sr { get; set; }
         public int Color_Sr { get; set; }
         public int Clarity_Sr { get; set; }
@@ -628,14 +628,14 @@ namespace Lib.Model
         public int Rank { get; set; }
         public string Supplier_Status { get; set; }
         public string Buyer_Name { get; set; }
-        public double Bid_Disc { get; set; }
-        public double Bid_Amt { get; set; }
-        public double Bid_Ct { get; set; }
-        public double Avg_Stock_Disc { get; set; }
+        public decimal Bid_Disc { get; set; }
+        public decimal Bid_Amt { get; set; }
+        public decimal Bid_Ct { get; set; }
+        public decimal Avg_Stock_Disc { get; set; }
         public int Avg_Stock_Pcs { get; set; }
-        public double Avg_Pur_Disc { get; set; }
+        public decimal Avg_Pur_Disc { get; set; }
         public int Avg_Pur_Pcs { get; set; }
-        public double Avg_Sales_Disc { get; set; }
+        public decimal Avg_Sales_Disc { get; set; }
         public int Sales_Pcs { get; set; }
         public string KTS_Grade { get; set; }
         public string Comm_Grade { get; set; }

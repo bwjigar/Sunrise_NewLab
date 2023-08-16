@@ -5669,16 +5669,16 @@ namespace API.Controllers
                         Final_row["Girdle Open"] = (Final_row["Girdle Open"].ToString() == "") ? null : Final_row["Girdle Open"];
 
                         Final_row["Crown Angle"] = ((SuppCol_row["Column_Name"].ToString() != "Crown Angle") || (SuppCol_row["SupplierColumn"].ToString() == "")) ? Final_row["Crown Angle"].ToString() : row[SuppCol_row["SupplierColumn"].ToString()].ToString();
-                        Final_row["Crown Angle"] = (Final_row["Crown Angle"].ToString() == "") ? null : Final_row["Crown Angle"];
+                        Final_row["Crown Angle"] = (Final_row["Crown Angle"].ToString() == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Crown Angle"]));
 
                         Final_row["Pav Angle"] = ((SuppCol_row["Column_Name"].ToString() != "Pav Angle") || (SuppCol_row["SupplierColumn"].ToString() == "")) ? Final_row["Pav Angle"].ToString() : row[SuppCol_row["SupplierColumn"].ToString()].ToString();
-                        Final_row["Pav Angle"] = (Final_row["Pav Angle"].ToString() == "") ? null : Final_row["Pav Angle"];
+                        Final_row["Pav Angle"] = (Final_row["Pav Angle"].ToString() == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Pav Angle"]));
 
                         Final_row["Crown Height"] = ((SuppCol_row["Column_Name"].ToString() != "Crown Height") || (SuppCol_row["SupplierColumn"].ToString() == "")) ? Final_row["Crown Height"].ToString() : row[SuppCol_row["SupplierColumn"].ToString()].ToString();
-                        Final_row["Crown Height"] = (Final_row["Crown Height"].ToString() == "") ? null : Final_row["Crown Height"];
+                        Final_row["Crown Height"] = (Final_row["Crown Height"].ToString() == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Crown Height"]));
 
                         Final_row["Pav Height"] = ((SuppCol_row["Column_Name"].ToString() != "Pav Height") || (SuppCol_row["SupplierColumn"].ToString() == "")) ? Final_row["Pav Height"].ToString() : row[SuppCol_row["SupplierColumn"].ToString()].ToString();
-                        Final_row["Pav Height"] = (Final_row["Pav Height"].ToString() == "") ? null : Final_row["Pav Height"];
+                        Final_row["Pav Height"] = (Final_row["Pav Height"].ToString() == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Pav Height"]));
 
                         Final_row["Rap Amount"] = ((SuppCol_row["Column_Name"].ToString() != "Rap Amount") || (SuppCol_row["SupplierColumn"].ToString() == "")) ? Final_row["Rap Amount"].ToString() : row[SuppCol_row["SupplierColumn"].ToString()].ToString();
                         Final_row["Rap Amount"] = (Final_row["Rap Amount"].ToString() == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Rap Amount"]));
