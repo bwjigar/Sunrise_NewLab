@@ -84,6 +84,7 @@ namespace Lib.Model
         public int PgNo { get; set; }
         public int PgSize { get; set; }
         public bool Status { get; set; }
+        public string Not_Col_Id { get; set; }
     }
     public class Get_CategoryMas_Res
     {

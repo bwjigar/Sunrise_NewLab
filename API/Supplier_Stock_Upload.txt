@@ -1590,3 +1590,9 @@ SUCCESS 7673 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's W
 SUCCESS 4275 Stock Upload Has Been Successfully From JP Supplier's Web API, Log Time : 16-08-2023 09:41:48 AM
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 SUCCESS 15900 Stock Upload Has Been Successfully From ANKIT GEMS Supplier's Web API, Log Time : 16-08-2023 10:16:09 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 537ERROR LINE : 66 ERROR MESSAGE : Invalid length parameter passed to the LEFT or SUBSTRING function., Log Time : 16-08-2023 01:54:32 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 1536 Stock Upload Has Been Successfully From DN Supplier's Web API, Log Time : 16-08-2023 02:32:27 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 1536 Stock Upload Has Been Successfully From DN Supplier's Web API, Log Time : 16-08-2023 02:34:42 PM

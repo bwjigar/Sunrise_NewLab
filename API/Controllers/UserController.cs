@@ -357,6 +357,11 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("PgSize", DbType.Int32, ParameterDirection.Input, DBNull.Value));
 
+                if (!string.IsNullOrEmpty(Req.Not_Col_Id))
+                    para.Add(db.CreateParam("Not_Col_Id", DbType.String, ParameterDirection.Input, Req.Not_Col_Id));
+                else
+                    para.Add(db.CreateParam("Not_Col_Id", DbType.String, ParameterDirection.Input, DBNull.Value));
+
                 DataTable dt = db.ExecuteSP("Get_Category_Master", para.ToArray(), false);
 
                 if (dt != null && dt.Rows.Count > 0)
@@ -5839,8 +5844,7 @@ namespace API.Controllers
 
                                     foreach (string str4 in strArray)
                                     {
-                                        //if (str.Contains(str4))
-                                        if (str.ToUpper() == str4.ToUpper() || str4.ToUpper() == "BLANK")
+                                        if (str.Trim().ToUpper() == str4.Trim().ToUpper() || str4.Trim().ToUpper() == "BLANK")
                                         {
                                             Final_row[column.ColumnName] = str2;
                                         }
