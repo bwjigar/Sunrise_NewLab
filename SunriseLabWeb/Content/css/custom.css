@@ -16,7 +16,7 @@ span ul.flat-icon-ul li {
 
 span ul.flat-icon-ul {
     padding: 0;
-    margin: 0;
+    margin: -1px;
 }
 
 .activeStatus span {

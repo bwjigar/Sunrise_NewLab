@@ -3016,7 +3016,18 @@ namespace API.Controllers
                     _path = _path.Replace("Temp", "ExcelFile");
                     string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
 
-                    EpExcelExport.Buyer_Excel(Stock_dt, realpath, realpath + filename + ".xlsx");
+                    if (req.Type == "Buyer List")
+                    {
+                        EpExcelExport.Buyer_Excel(Stock_dt, realpath, realpath + filename + ".xlsx");
+                    }
+                    else if (req.Type == "Supplier List")
+                    {
+                        EpExcelExport.Supplier_Excel(Stock_dt, realpath, realpath + filename + ".xlsx");
+                    }
+                    else if (req.Type == "Customer List")
+                    {
+                        
+                    }
 
                     string _strxml = _path + filename + ".xlsx";
                     return Ok(_strxml);
@@ -3040,526 +3051,331 @@ namespace API.Controllers
             {
                 Database db = new Database();
                 List<IDbDataParameter> para = new List<IDbDataParameter>();
+                
                 if (req.PgNo > 0)
-                {
                     para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, req.PgNo));
-                }
                 else
-                {
                     para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (req.PgSize > 0)
-                {
                     para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, req.PgSize));
-                }
                 else
-                {
                     para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.OrderBy))
-                {
                     para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, req.OrderBy));
-                }
                 else
-                {
                     para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.RefNo))
-                {
                     para.Add(db.CreateParam("RefNo", DbType.String, ParameterDirection.Input, req.RefNo));
-                }
                 else
-                {
                     para.Add(db.CreateParam("RefNo", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.SupplierId))
-                {
                     para.Add(db.CreateParam("SupplierId", DbType.String, ParameterDirection.Input, req.SupplierId));
-                }
                 else
-                {
                     para.Add(db.CreateParam("SupplierId", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.Shape))
-                {
                     para.Add(db.CreateParam("Shape", DbType.String, ParameterDirection.Input, req.Shape));
-                }
                 else
-                {
                     para.Add(db.CreateParam("Shape", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.Pointer))
-                {
                     para.Add(db.CreateParam("Pointer", DbType.String, ParameterDirection.Input, req.Pointer));
-                }
                 else
-                {
                     para.Add(db.CreateParam("Pointer", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.ColorType))
-                {
                     para.Add(db.CreateParam("ColorType", DbType.String, ParameterDirection.Input, req.ColorType));
-                }
                 else
-                {
                     para.Add(db.CreateParam("ColorType", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.Color))
-                {
                     para.Add(db.CreateParam("Color", DbType.String, ParameterDirection.Input, req.Color));
-                }
                 else
-                {
                     para.Add(db.CreateParam("Color", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.INTENSITY))
-                {
                     para.Add(db.CreateParam("INTENSITY", DbType.String, ParameterDirection.Input, req.INTENSITY));
-                }
                 else
-                {
                     para.Add(db.CreateParam("INTENSITY", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.OVERTONE))
-                {
                     para.Add(db.CreateParam("OVERTONE", DbType.String, ParameterDirection.Input, req.OVERTONE));
-                }
                 else
-                {
                     para.Add(db.CreateParam("OVERTONE", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.FANCY_COLOR))
-                {
                     para.Add(db.CreateParam("FANCY_COLOR", DbType.String, ParameterDirection.Input, req.FANCY_COLOR));
-                }
                 else
-                {
                     para.Add(db.CreateParam("FANCY_COLOR", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.Clarity))
-                {
                     para.Add(db.CreateParam("Clarity", DbType.String, ParameterDirection.Input, req.Clarity));
-                }
                 else
-                {
                     para.Add(db.CreateParam("Clarity", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.Cut))
-                {
                     para.Add(db.CreateParam("Cut", DbType.String, ParameterDirection.Input, req.Cut));
-                }
                 else
-                {
                     para.Add(db.CreateParam("Cut", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.Polish))
-                {
                     para.Add(db.CreateParam("Polish", DbType.String, ParameterDirection.Input, req.Polish));
-                }
                 else
-                {
                     para.Add(db.CreateParam("Polish", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.Symm))
-                {
                     para.Add(db.CreateParam("Symm", DbType.String, ParameterDirection.Input, req.Symm));
-                }
                 else
-                {
                     para.Add(db.CreateParam("Symm", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.Fls))
-                {
                     para.Add(db.CreateParam("Fls", DbType.String, ParameterDirection.Input, req.Fls));
-                }
                 else
-                {
                     para.Add(db.CreateParam("Fls", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.BGM))
-                {
                     para.Add(db.CreateParam("BGM", DbType.String, ParameterDirection.Input, req.BGM));
-                }
                 else
-                {
                     para.Add(db.CreateParam("BGM", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.Lab))
-                {
                     para.Add(db.CreateParam("Lab", DbType.String, ParameterDirection.Input, req.Lab));
-                }
                 else
-                {
                     para.Add(db.CreateParam("Lab", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.CrownBlack))
-                {
                     para.Add(db.CreateParam("CrownBlack", DbType.String, ParameterDirection.Input, req.CrownBlack));
-                }
                 else
-                {
                     para.Add(db.CreateParam("CrownBlack", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.TableBlack))
-                {
                     para.Add(db.CreateParam("TableBlack", DbType.String, ParameterDirection.Input, req.TableBlack));
-                }
                 else
-                {
                     para.Add(db.CreateParam("TableBlack", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.TableWhite))
-                {
                     para.Add(db.CreateParam("TableWhite", DbType.String, ParameterDirection.Input, req.TableWhite));
-                }
                 else
-                {
                     para.Add(db.CreateParam("TableWhite", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.CrownWhite))
-                {
                     para.Add(db.CreateParam("CrownWhite", DbType.String, ParameterDirection.Input, req.CrownWhite));
-                }
                 else
-                {
                     para.Add(db.CreateParam("CrownWhite", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.TableOpen))
-                {
                     para.Add(db.CreateParam("TableOpen", DbType.String, ParameterDirection.Input, req.TableOpen));
-                }
                 else
-                {
                     para.Add(db.CreateParam("TableOpen", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.CrownOpen))
-                {
                     para.Add(db.CreateParam("CrownOpen", DbType.String, ParameterDirection.Input, req.CrownOpen));
-                }
                 else
-                {
                     para.Add(db.CreateParam("CrownOpen", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.PavOpen))
-                {
                     para.Add(db.CreateParam("PavOpen", DbType.String, ParameterDirection.Input, req.PavOpen));
-                }
                 else
-                {
                     para.Add(db.CreateParam("PavOpen", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.GirdleOpen))
-                {
                     para.Add(db.CreateParam("GirdleOpen", DbType.String, ParameterDirection.Input, req.GirdleOpen));
-                }
                 else
-                {
                     para.Add(db.CreateParam("GirdleOpen", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.KTSBlank))
-                {
                     para.Add(db.CreateParam("KTSBlank", DbType.Boolean, ParameterDirection.Input, req.KTSBlank));
-                }
                 else
-                {
                     para.Add(db.CreateParam("KTSBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.Keytosymbol))
-                {
                     para.Add(db.CreateParam("Keytosymbol", DbType.String, ParameterDirection.Input, req.Keytosymbol));
-                }
                 else
-                {
                     para.Add(db.CreateParam("Keytosymbol", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.CheckKTS))
-                {
                     para.Add(db.CreateParam("CheckKTS", DbType.String, ParameterDirection.Input, req.CheckKTS));
-                }
                 else
-                {
                     para.Add(db.CreateParam("CheckKTS", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.UNCheckKTS))
-                {
                     para.Add(db.CreateParam("UNCheckKTS", DbType.String, ParameterDirection.Input, req.UNCheckKTS));
-                }
                 else
-                {
                     para.Add(db.CreateParam("UNCheckKTS", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.FromDisc))
-                {
                     para.Add(db.CreateParam("FromDisc", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromDisc)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("FromDisc", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.ToDisc))
-                {
                     para.Add(db.CreateParam("ToDisc", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToDisc)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("ToDisc", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.FromTotAmt))
-                {
                     para.Add(db.CreateParam("FromTotAmt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromTotAmt)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("FromTotAmt", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.ToTotAmt))
-                {
                     para.Add(db.CreateParam("ToTotAmt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToTotAmt)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("ToTotAmt", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.LengthBlank))
-                {
                     para.Add(db.CreateParam("LengthBlank", DbType.Boolean, ParameterDirection.Input, req.LengthBlank));
-                }
                 else
-                {
                     para.Add(db.CreateParam("LengthBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.FromLength))
-                {
                     para.Add(db.CreateParam("FromLength", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromLength)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("FromLength", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.ToLength))
-                {
                     para.Add(db.CreateParam("ToLength", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToLength)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("ToLength", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.WidthBlank))
-                {
                     para.Add(db.CreateParam("WidthBlank", DbType.Boolean, ParameterDirection.Input, req.WidthBlank));
-                }
                 else
-                {
                     para.Add(db.CreateParam("WidthBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.FromWidth))
-                {
                     para.Add(db.CreateParam("FromWidth", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromWidth)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("FromWidth", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.ToWidth))
-                {
                     para.Add(db.CreateParam("ToWidth", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToWidth)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("ToWidth", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.DepthBlank))
-                {
                     para.Add(db.CreateParam("DepthBlank", DbType.Boolean, ParameterDirection.Input, req.DepthBlank));
-                }
                 else
-                {
                     para.Add(db.CreateParam("DepthBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.FromDepth))
-                {
                     para.Add(db.CreateParam("FromDepth", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromDepth)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("FromDepth", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.ToDepth))
-                {
                     para.Add(db.CreateParam("ToDepth", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToDepth)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("ToDepth", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.DepthPerBlank))
-                {
                     para.Add(db.CreateParam("DepthPerBlank", DbType.Boolean, ParameterDirection.Input, req.DepthPerBlank));
-                }
                 else
-                {
                     para.Add(db.CreateParam("DepthPerBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.FromDepthPer))
-                {
                     para.Add(db.CreateParam("FromDepthPer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromDepthPer)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("FromDepthPer", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.ToDepthPer))
-                {
                     para.Add(db.CreateParam("ToDepthPer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToDepthPer)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("ToDepthPer", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.TablePerBlank))
-                {
                     para.Add(db.CreateParam("TablePerBlank", DbType.Boolean, ParameterDirection.Input, req.TablePerBlank));
-                }
                 else
-                {
                     para.Add(db.CreateParam("TablePerBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.FromTablePer))
-                {
                     para.Add(db.CreateParam("FromTablePer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromTablePer)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("FromTablePer", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.ToTablePer))
-                {
                     para.Add(db.CreateParam("ToTablePer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToTablePer)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("ToTablePer", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.Img))
-                {
                     para.Add(db.CreateParam("Img", DbType.String, ParameterDirection.Input, req.Img));
-                }
                 else
-                {
                     para.Add(db.CreateParam("Img", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.Vdo))
-                {
                     para.Add(db.CreateParam("Vdo", DbType.String, ParameterDirection.Input, req.Vdo));
-                }
                 else
-                {
                     para.Add(db.CreateParam("Vdo", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.Certi))
-                {
                     para.Add(db.CreateParam("Certi", DbType.String, ParameterDirection.Input, req.Certi));
-                }
                 else
-                {
                     para.Add(db.CreateParam("Certi", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.CrAngBlank))
-                {
                     para.Add(db.CreateParam("CrAngBlank", DbType.Boolean, ParameterDirection.Input, req.CrAngBlank));
-                }
                 else
-                {
                     para.Add(db.CreateParam("CrAngBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.FromCrAng))
-                {
                     para.Add(db.CreateParam("FromCrAng", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromCrAng)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("FromCrAng", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.ToCrAng))
-                {
                     para.Add(db.CreateParam("ToCrAng", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToCrAng)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("ToCrAng", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.CrHtBlank))
-                {
                     para.Add(db.CreateParam("CrHtBlank", DbType.Boolean, ParameterDirection.Input, req.CrHtBlank));
-                }
                 else
-                {
                     para.Add(db.CreateParam("CrHtBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.FromCrHt))
-                {
                     para.Add(db.CreateParam("FromCrHt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromCrHt)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("FromCrHt", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.ToCrHt))
-                {
                     para.Add(db.CreateParam("ToCrHt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToCrHt)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("ToCrHt", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.PavAngBlank))
-                {
                     para.Add(db.CreateParam("PavAngBlank", DbType.Boolean, ParameterDirection.Input, req.PavAngBlank));
-                }
                 else
-                {
                     para.Add(db.CreateParam("PavAngBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.FromPavAng))
-                {
                     para.Add(db.CreateParam("FromPavAng", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromPavAng)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("FromPavAng", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.ToPavAng))
-                {
                     para.Add(db.CreateParam("ToPavAng", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToPavAng)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("ToPavAng", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.PavHtBlank))
-                {
                     para.Add(db.CreateParam("PavHtBlank", DbType.Boolean, ParameterDirection.Input, req.PavHtBlank));
-                }
                 else
-                {
                     para.Add(db.CreateParam("PavHtBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.FromPavHt))
-                {
                     para.Add(db.CreateParam("FromPavHt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromPavHt)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("FromPavHt", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
+                
                 if (!string.IsNullOrEmpty(req.ToPavHt))
-                {
                     para.Add(db.CreateParam("ToPavHt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToPavHt)));
-                }
                 else
-                {
                     para.Add(db.CreateParam("ToPavHt", DbType.String, ParameterDirection.Input, DBNull.Value));
-                }
 
                 DataTable Stock_dt = db.ExecuteSP("Get_SearchStock", para.ToArray(), false);
                 return Stock_dt;

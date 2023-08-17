@@ -267,7 +267,72 @@ function onPageSizeChanged() {
     pgSize = Number(value);
     GetHoldDataGrid();
 }
+
+function SupplierList() {
+    $("#li_excel").show();
+    Type = "Supplier List";
+    columnDefs = [
+        {
+            headerName: "", field: "",
+            headerCheckboxSelection: true,
+            checkboxSelection: true, width: 28,
+            suppressSorting: true,
+            suppressMenu: true,
+            headerCheckboxSelectionFilteredOnly: true,
+            headerCellRenderer: selectAllRendererDetail,
+            suppressMovable: false
+        },
+        { headerName: "Ref No", field: "Ref_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("RefNo", params); } },
+        { headerName: "Lab", field: "Lab", width: 50, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab", params); } },
+        { headerName: "VIEW", field: "Imag_Video_Certi", width: 90, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, false); }, suppressSorting: true, suppressMenu: true, sortable: false },
+        { headerName: "Supplier Stone Id", field: "Supplier_Stone_Id", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Stone_Id", params); } },
+        { headerName: "Certificate No", field: "Certificate_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Certificate_No", params); } },
+        { headerName: "Supplier Name", field: "SupplierName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierName", params); } },
+        { headerName: "Shape", field: "Shape", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Shape", params); } },
+        { headerName: "Pointer", field: "Pointer", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Pointer", params); } },
+        { headerName: "BGM", field: "BGM", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("BGM", params); } },
+        { headerName: "Color", field: "Color", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Color", params); } },
+        { headerName: "Clarity", field: "Clarity", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Clarity", params); } },
+        { headerName: "Cts", field: "Cts", width: 70, tooltip: function (params) { return parseFloat(params.value).toFixed(2) }, cellRenderer: function (params) { return parseFloat(params.value).toFixed(2) }, cellStyle: function (params) { return cellStyle("Cts", params); } },
+        { headerName: "Rap Rate", field: "Rap_Rate", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Rate", params); } },
+        { headerName: "Rap Amount", field: "Rap_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } },
+        { headerName: "Supplier Cost Disc(%)", field: "SUPPLIER_COST_DISC", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("SUPPLIER_COST_DISC", params); } },
+        { headerName: "Supplier Cost Value($)", field: "SUPPLIER_COST_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("SUPPLIER_COST_VALUE", params); } },
+        { headerName: "Sunrise Disc(%)", field: "CUSTOMER_COST_DISC", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_DISC", params); } },
+        { headerName: "Sunrise Value US($)", field: "CUSTOMER_COST_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_VALUE", params); } },
+        { headerName: "Supplier Base Offer(%)", field: "Disc", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Disc", params); } },
+        { headerName: "Supplier Base Offer Value($)", field: "Value", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Disc", params); } },
+        { headerName: "Cut", field: "Cut", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Cut", params); } },
+        { headerName: "Polish", field: "Polish", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Polish", params); } },
+        { headerName: "Symm", field: "Symm", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Symm", params); } },
+        { headerName: "Fls", field: "Fls", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Fls", params); } },
+        { headerName: "Length", field: "Length", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Length", params); } },
+        { headerName: "Width", field: "Width", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Width", params); } },
+        { headerName: "Depth", field: "Depth", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Depth", params); } },
+        { headerName: "Depth(%)", field: "Depth_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Depth_Per", params); } },
+        { headerName: "Table(%)", field: "Table_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Table_Per", params); } },
+        { headerName: "Key To Symbol", field: "Key_To_Symboll", width: 300, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Key_To_Symboll", params); } },
+        { headerName: "Lab Comments", field: "Lab_Comments", width: 300, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab_Comments", params); } },
+        { headerName: "Girdle(%)", field: "Girdle_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Girdle_Per", params); } },
+        { headerName: "Crown Angle", field: "Crown_Angle", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Crown_Angle", params); } },
+        { headerName: "Crown Height", field: "Crown_Height", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Crown_Height", params); } },
+        { headerName: "Pavilion Angle", field: "Pav_Angle", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Pav_Angle", params); } },
+        { headerName: "Pavilion Height", field: "Pav_Height", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Pav_Height", params); } },
+        { headerName: "Table Natts", field: "Table_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Natts", params); } },
+        { headerName: "Crown Natts", field: "Crown_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Natts", params); } },
+        { headerName: "Table Inclusion", field: "Table_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Inclusion", params); } },
+        { headerName: "Crown Inclusion", field: "Crown_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Inclusion", params); } },
+        { headerName: "Culet", field: "Culet", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Culet", params); } },
+        { headerName: "Table Open", field: "Table_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Open", params); } },
+        { headerName: "Crown Open", field: "Crown_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Open", params); } },
+        { headerName: "Pav Open", field: "Pav_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Pav_Open", params); } },
+        { headerName: "Girdle Open", field: "Girdle_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Girdle_Open", params); } },
+
+    ];
+    Search();
+}
 function BuyerList() {
+    $("#li_excel").show();
     Type = "Buyer List";
     columnDefs = [
         { headerName: "Ref No", field: "Ref_No", hide: true, width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("RefNo", params); } },
@@ -281,7 +346,7 @@ function BuyerList() {
             headerCellRenderer: selectAllRendererDetail,
             suppressMovable: false
         },
-        { headerName: "VIEW", field: "Imag_Video_Certi", width: 90, cellRenderer: Imag_Video_Certi, suppressSorting: true, suppressMenu: true, sortable: false },
+        { headerName: "VIEW", field: "Imag_Video_Certi", width: 90, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false },
         { headerName: "Lab", field: "Lab", width: 50, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab", params); } },
         { headerName: "Supplier Name", field: "SupplierName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierName", params); } },
         { headerName: "Rank", field: "Rank", width: 50, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 0); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Rank", params); } },
@@ -298,7 +363,7 @@ function BuyerList() {
         { headerName: "Cts", field: "Cts", width: 70, tooltip: function (params) { return parseFloat(params.value).toFixed(2) }, cellRenderer: function (params) { return parseFloat(params.value).toFixed(2) }, cellStyle: function (params) { return cellStyle("Cts", params); } },
 
         { headerName: "Rap Rate", field: "Rap_Rate", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Rate", params); } },
-        { headerName: "Rap Value", field: "Rap_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } },
+        { headerName: "Rap Amount", field: "Rap_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } },
 
         { headerName: "Supplier Base Offer(%)", field: "Disc", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Disc", params); } },
         { headerName: "Supplier Base Offer Value($)", field: "Value", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Disc", params); } },
@@ -338,10 +403,10 @@ function BuyerList() {
         { headerName: "Depth", field: "Depth", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Depth", params); } },
         { headerName: "Depth(%)", field: "Depth_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Depth_Per", params); } },
         { headerName: "Table(%)", field: "Table_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Table_Per", params); } },
-        { headerName: "Crown Ang", field: "Crown_Angle", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Crown_Angle", params); } },
-        { headerName: "Crown Hgt", field: "Crown_Height", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Crown_Height", params); } },
-        { headerName: "Pavilion Ang", field: "Pav_Angle", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Pav_Angle", params); } },
-        { headerName: "Pavilion Hgt", field: "Pav_Height", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Pav_Height", params); } },
+        { headerName: "Crown Angle", field: "Crown_Angle", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Crown_Angle", params); } },
+        { headerName: "Crown Height", field: "Crown_Height", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Crown_Height", params); } },
+        { headerName: "Pavilion Angle", field: "Pav_Angle", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Pav_Angle", params); } },
+        { headerName: "Pavilion Height", field: "Pav_Height", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Pav_Height", params); } },
         { headerName: "Girdle(%)", field: "Girdle_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Girdle_Per", params); } },
         { headerName: "Luster", field: "Luster", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Luster", params); } },
         { headerName: "Type 2A", field: "Type_2A", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Type_2A", params); } },
@@ -372,6 +437,7 @@ function BuyerList() {
     Search();
 }
 function CustomerList() {
+    $("#li_excel").hide();
     Type = "Customer List";
     columnDefs = [
         {
@@ -384,7 +450,7 @@ function CustomerList() {
             headerCellRenderer: selectAllRendererDetail,
             suppressMovable: false
         },
-        { headerName: "VIEW", field: "Imag_Video_Certi", width: 90, cellRenderer: Imag_Video_Certi, suppressSorting: true, suppressMenu: true, sortable: false },
+        { headerName: "VIEW", field: "Imag_Video_Certi", width: 90, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false },
         { headerName: "Ref No", field: "Ref_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("RefNo", params); } },
         { headerName: "Lab", field: "Lab", width: 50, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab", params); } },        
         { headerName: "Shape", field: "Shape", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Shape", params); } },        
@@ -394,7 +460,7 @@ function CustomerList() {
         { headerName: "Clarity", field: "Clarity", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Clarity", params); } },
         { headerName: "Cts", field: "Cts", width: 70, tooltip: function (params) { return parseFloat(params.value).toFixed(2) }, cellRenderer: function (params) { return parseFloat(params.value).toFixed(2) }, cellStyle: function (params) { return cellStyle("Cts", params); } },
         { headerName: "Rap Rate ($)", field: "Rap_Rate", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Rate", params); } },
-        { headerName: "Rap Value", field: "Rap_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } },
+        { headerName: "Rap Amount", field: "Rap_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } },
         { headerName: "Offer Disc(%)", field: "Disc", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Disc", params); } },
         { headerName: "Offer Value($)", field: "Value", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Value", params); } },
         { headerName: "Price Cts", field: "Base_Price_Cts", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Base_Price_Cts", params); } },
@@ -419,7 +485,6 @@ function CustomerList() {
         { headerName: "Table Inclusion", field: "Table_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Inclusion", params); } },
         { headerName: "Crown Inclusion", field: "Crown_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Inclusion", params); } },
         { headerName: "Culet", field: "Culet", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Culet", params); } },
-        
         { headerName: "Table Open", field: "Table_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Open", params); } },
         { headerName: "Girdle Open", field: "Girdle_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Girdle_Open", params); } },
         { headerName: "Crown Open", field: "Crown_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Open", params); } },
@@ -427,6 +492,7 @@ function CustomerList() {
     ];
     Search();
 }
+
 function Search() {
     $("#divFilter").hide();
     $("#divGridView").show();
@@ -512,14 +578,13 @@ const datasource1 = {
     getRows(params) {
         var PageNo = gridOptions.api.paginationGetCurrentPage() + 1;
         var obj = {};
-        debugger
         OrderBy = "";
         if (params.request.sortModel.length > 0) {
             OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
         }
 
         obj = ObjectCreate(PageNo, pgSize, OrderBy);
-        debugger
+        
         Rowdata = [];
         $.ajax({
             url: "/User/Get_SearchStock",
@@ -527,6 +592,7 @@ const datasource1 = {
             type: "POST",
             data: { req: obj },
             success: function (data, textStatus, jqXHR) {
+                debugger
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
@@ -559,12 +625,11 @@ const datasource1 = {
     }
 };
 function ExcelDownload() {
-    debugger
     loaderShow();
     setTimeout(function () {
         var obj = {};
         obj = ObjectCreate("", "", OrderBy);
-        debugger
+        
         $.ajax({
             url: "/User/Excel_SearchStock",
             async: false,
@@ -881,7 +946,7 @@ function gridOptions_Selected_Calculation(data) {
     //});
 
 }
-function Imag_Video_Certi(params) {
+function Imag_Video_Certi(params, Img, Vdo, Cert) {
     if (params.data == undefined) {
         return '';
     }
@@ -890,35 +955,49 @@ function Imag_Video_Certi(params) {
     var movie_url = (params.data.Video_URL == null ? "" : params.data.Video_URL);
     var certi_url = (params.data.Certificate_URL == null ? "" : params.data.Certificate_URL);
 
-    if (image_url != "") {
-        image_url = '<li><a href="' + image_url + '" target="_blank" title="View Diamond Image">' +
-            '<img src="../Content/images/frame.svg" class="frame-icon"></a></li>';
+    if (Img == true) {
+        if (image_url != "") {
+            image_url = '<li><a href="' + image_url + '" target="_blank" title="View Diamond Image">' +
+                '<img src="../Content/images/frame.svg" class="frame-icon"></a></li>';
+        }
+        else {
+            image_url = '<li><a href="javascript:void(0);" title="View Diamond Image">' +
+                '<img src="../Content/images/image-not-available.svg" class="frame-icon"></a></li>';
+        }
     }
     else {
-        image_url = '<li><a href="javascript:void(0);" title="View Diamond Image">' +
-            '<img src="../Content/images/image-not-available.svg" class="frame-icon"></a></li>';
+        image_url = "";
     }
 
-    if (movie_url != "") {
-        movie_url = '<li><a href="' + movie_url + '" target="_blank" title="View Diamond Video">' +
-            '<img src="../Content/images/video-recording.svg" class="frame-icon"></a></li>';
+    if (Vdo == true) {
+        if (movie_url != "") {
+            movie_url = '<li><a href="' + movie_url + '" target="_blank" title="View Diamond Video">' +
+                '<img src="../Content/images/video-recording.svg" class="frame-icon"></a></li>';
+        }
+        else {
+            movie_url = '<li><a href="javascript:void(0);" title="View Diamond Video">' +
+                '<img src="../Content/images/video-recording-not-available.svg" class="frame-icon"></a></li>';
+        }
     }
     else {
-        movie_url = '<li><a href="javascript:void(0);" title="View Diamond Video">' +
-            '<img src="../Content/images/video-recording-not-available.svg" class="frame-icon"></a></li>';
+        movie_url = "";
     }
 
-    if (certi_url != "") {
-        certi_url = '<li><a href="' + certi_url + '" target="_blank" title="View Diamond Certificate">' +
-            '<img src="../Content/images/medal.svg" class="medal-icon"></a></li>';
+    if (Cert == true) {
+        if (certi_url != "") {
+            certi_url = '<li><a href="' + certi_url + '" target="_blank" title="View Diamond Certificate">' +
+                '<img src="../Content/images/medal.svg" class="medal-icon"></a></li>';
+        }
+        else {
+            certi_url = '<li><a href="javascript:void(0);" title="View Diamond Certificate">' +
+                '<img src="../Content/images/medal-not-available.svg" class="medal-icon"></a></li>';
+        }
     }
     else {
-        certi_url = '<li><a href="javascript:void(0);" title="View Diamond Certificate">' +
-            '<img src="../Content/images/medal-not-available.svg" class="medal-icon"></a></li>';
+        certi_url = "";
     }
 
     var data = ('<ul class="flat-icon-ul">' + image_url + movie_url + certi_url + '</ul>');
-
     return data;
 }
 function onSelectionChanged(event) {
@@ -1499,6 +1578,12 @@ $(document).ready(function () {
             $('#customRadio4').prop('checked', true);
         } else {
             $('#customRadio3').prop('checked', true);
+        }
+    });
+
+    $('.numeric_value').on('paste', function (event) {
+        if (event.originalEvent.clipboardData.getData('Text').match(/[^\d]/)) {
+            event.preventDefault();
         }
     });
 });
@@ -2478,14 +2563,25 @@ function CommaSeperated_list(e) {
     //    return false;
     //}
 }
-var LeaveTextBox = function (ele, fromid, toid) {
-    $("#" + fromid).val($("#" + fromid).val() == "" ? "0.00" : $("#" + fromid).val() == undefined ? "0.00" : parseFloat($("#" + fromid).val()).toFixed(2));
-    $("#" + toid).val($("#" + toid).val() == "" ? "0.00" : $("#" + toid).val() == undefined ? "0.00" : parseFloat($("#" + toid).val()).toFixed(2));
-
-    var fromvalue = parseFloat($("#" + fromid).val()).toFixed(2) == "" ? 0 : parseFloat($("#" + fromid).val()).toFixed(2);
-    var tovalue = parseFloat($("#" + toid).val()).toFixed(2) == "" ? 0 : parseFloat($("#" + toid).val()).toFixed(2);
+function checkValue(textbox, point) {
+    const value = textbox.value.trim();
+    const numericValue = parseFloat(value).toFixed(point);
+    if (isNaN(numericValue)) {
+        textbox.value = '';
+    }
+    else {
+        textbox.value = numericValue;
+    }
+}
+var LeaveTextBox = function (ele, fromid, toid, point) {
+    $("#" + fromid).val($("#" + fromid).val() == "" ? "0.00" : $("#" + fromid).val() == undefined ? "0.00" : parseFloat($("#" + fromid).val()).toFixed(point));
+    $("#" + toid).val($("#" + toid).val() == "" ? "0.00" : $("#" + toid).val() == undefined ? "0.00" : parseFloat($("#" + toid).val()).toFixed(point));
+    
+    var fromvalue = parseFloat($("#" + fromid).val()).toFixed(point) == "" ? 0 : parseFloat($("#" + fromid).val()).toFixed(point);
+    var tovalue = parseFloat($("#" + toid).val()).toFixed(point) == "" ? 0 : parseFloat($("#" + toid).val()).toFixed(point);
+    
     if (ele == "FROM") {
-        if (parseFloat(parseFloat(fromvalue).toFixed(2)) > parseFloat(parseFloat(tovalue).toFixed(2))) {
+        if (parseFloat(parseFloat(fromvalue).toFixed(point)) > parseFloat(parseFloat(tovalue).toFixed(point))) {
             $("#" + toid).val(fromvalue);
             if (fromvalue == 0) {
                 $("#" + fromid).val("");
@@ -2494,7 +2590,7 @@ var LeaveTextBox = function (ele, fromid, toid) {
         }
     }
     else if (ele == "TO") {
-        if (parseFloat(parseFloat(tovalue).toFixed(2)) < parseFloat(parseFloat(fromvalue).toFixed(2))) {
+        if (parseFloat(parseFloat(tovalue).toFixed(point)) < parseFloat(parseFloat(fromvalue).toFixed(point))) {
             $("#" + fromid).val($("#" + toid).val());
             if (tovalue == 0) {
                 $("#" + fromid).val("");

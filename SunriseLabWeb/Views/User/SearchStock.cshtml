@@ -761,8 +761,8 @@
     <ul class="part2 ul-b">
         <li class="label">Supplier Final Disc (%) :</li>
         <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromDiscount','ToDiscount');" onkeypress="return numvalid(event)" id="FromDiscount" class="numeric" maxlength="6" type="text"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromDiscount','ToDiscount');" onkeypress="return numvalid(event)" id="ToDiscount" class="numeric" maxlength="6" type="text"><span class="from-to">To</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromDiscount','ToDiscount', 4);" id="FromDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromDiscount','ToDiscount', 4);" id="ToDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
 </div>
                         </ul>
                     </div>
@@ -770,8 +770,8 @@
     <ul class="part2 ul-b">
         <li class="label">Supplier Final Amt ($) :</li>
         <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromTotalAmt','ToTotalAmt');" onkeypress="return numvalid(event)" id="FromTotalAmt" class="numeric" maxlength="6" type="text"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromTotalAmt','ToTotalAmt');" onkeypress="return numvalid(event)" id="ToTotalAmt" class="numeric" maxlength="6" type="text"><span class="from-to">To</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromTotalAmt','ToTotalAmt', 4);" onkeypress="return numvalid(event)" id="FromTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">From</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromTotalAmt','ToTotalAmt', 4);" onkeypress="return numvalid(event)" id="ToTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">To</span></li>
 </div>
                         </ul>
                     </div>
@@ -780,8 +780,8 @@
     <ul class="part2 ul-b">
         <li class="label">Length :</li>
         <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromLength','ToLength');" onkeypress="return numvalid(event)" id="FromLength" class="numeric" maxlength="6" type="text"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromLength','ToLength');" onkeypress="return numvalid(event)" id="ToLength" class="numeric" maxlength="6" type="text"><span class="from-to">To</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromLength','ToLength', 2);" onkeypress="return numvalid(event)" id="FromLength" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromLength','ToLength', 2);" onkeypress="return numvalid(event)" id="ToLength" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
         <div id="divLengthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
         <li id="LengthBlank" onclick="SetActive('LengthBlank','BLANK')">BLANK</li>
 </div>
@@ -792,8 +792,8 @@
     <ul class="part2 ul-b">
         <li class="label">Width :</li>
         <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromWidth','ToWidth');" onkeypress="return numvalid(event)" id="FromWidth" class="numeric" maxlength="6" type="text"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromWidth','ToWidth');" onkeypress="return numvalid(event)" id="ToWidth" class="numeric" maxlength="6" type="text"><span class="from-to">To</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromWidth','ToWidth', 2);" onkeypress="return numvalid(event)" id="FromWidth" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromWidth','ToWidth', 2);" onkeypress="return numvalid(event)" id="ToWidth" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
         <div id="divWidthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
         <li id="WidthBlank" onclick="SetActive('WidthBlank','BLANK')">BLANK</li>
 </div>
@@ -804,8 +804,8 @@
     <ul class="part2 ul-b">
         <li class="label">Depth :</li>
         <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromDepth','ToDepth');" onkeypress="return numvalid(event)" id="FromDepth" class="numeric" maxlength="6" type="text"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromDepth','ToDepth');" onkeypress="return numvalid(event)" id="ToDepth" class="numeric" maxlength="6" type="text"><span class="from-to">To</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromDepth','ToDepth', 2);" onkeypress="return numvalid(event)" id="FromDepth" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromDepth','ToDepth', 2);" onkeypress="return numvalid(event)" id="ToDepth" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
         <div id="divDepthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
         <li id="DepthBlank" onclick="SetActive('DepthBlank','BLANK')">BLANK</li>
 </div>
@@ -816,8 +816,8 @@
     <ul class="part2 ul-b">
         <li class="label">Depth Per :</li>
         <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromDepthPer','ToDepthPer');" onkeypress="return numvalid(event)" id="FromDepthPer" class="numeric" maxlength="6" type="text"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromDepthPer','ToDepthPer');" onkeypress="return numvalid(event)" id="ToDepthPer" class="numeric" maxlength="6" type="text"><span class="from-to">To</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromDepthPer','ToDepthPer', 2);" onkeypress="return numvalid(event)" id="FromDepthPer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromDepthPer','ToDepthPer', 2);" onkeypress="return numvalid(event)" id="ToDepthPer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
         <div id="divDepthPerBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
         <li id="DepthPerBlank" onclick="SetActive('DepthPerBlank','BLANK')">BLANK</li>
 </div>
@@ -828,8 +828,8 @@
     <ul class="part2 ul-b">
         <li class="label">Table Per :</li>
         <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromTablePer','ToTablePer');" onkeypress="return numvalid(event)" id="FromTablePer" class="numeric" maxlength="6" type="text"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromTablePer','ToTablePer');" onkeypress="return numvalid(event)" id="ToTablePer" class="numeric" maxlength="6" type="text"><span class="from-to">To</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromTablePer','ToTablePer', 2);" onkeypress="return numvalid(event)" id="FromTablePer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromTablePer','ToTablePer', 2);" onkeypress="return numvalid(event)" id="ToTablePer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
         <div id="divTablePerBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
         <li id="TablePerBlank" onclick="SetActive('TablePerBlank','BLANK')">BLANK</li>
 </div>
@@ -850,8 +850,8 @@
     <ul class="part2 ul-b">
         <li class="label">Cr Ang :</li>
         <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" id="FromCrAng" class="numeric" maxlength="6" type="text"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" id="ToCrAng" class="numeric" maxlength="6" type="text"><span class="from-to">To</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" id="FromCrAng" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" id="ToCrAng" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
         <div id="divCrAngBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
         <li id="CrAngBlank" onclick="SetActive('CrAngBlank','BLANK')">BLANK</li>
 </div>
@@ -862,8 +862,8 @@
     <ul class="part2 ul-b">
         <li class="label">Cr Ht :</li>
         <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" id="FromCrHt" class="numeric" maxlength="6" type="text"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" id="ToCrHt" class="numeric" maxlength="6" type="text"><span class="from-to">To</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" id="FromCrHt" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" id="ToCrHt" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
         <div id="divCrHtBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
         <li id="CrHtBlank" onclick="SetActive('CrHtBlank','BLANK')">BLANK</li>
 </div>
@@ -874,8 +874,8 @@
     <ul class="part2 ul-b">
         <li class="label">Pav Ang :</li>
         <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" id="FromPavAng" class="numeric" maxlength="6" type="text"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" id="ToPavAng" class="numeric" maxlength="6" type="text"><span class="from-to">To</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" id="FromPavAng" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" id="ToPavAng" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
         <div id="divPavAngBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
         <li id="PavAngBlank" onclick="SetActive('PavAngBlank','BLANK')">BLANK</li>
 </div>
@@ -886,8 +886,8 @@
     <ul class="part2 ul-b pavht">
         <li class="label">Pav Ht :</li>
         <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromPavHt','ToPavHt');" onkeypress="return numvalid(event)" id="FromPavHt" class="numeric" type="text"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromPavHt','ToPavHt');" onkeypress="return numvalid(event)" id="ToPavHt" class="numeric" type="text"><span class="from-to">To</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromPavHt','ToPavHt');" onkeypress="return numvalid(event)" id="FromPavHt" class="numeric_value" type="text" autocomplete="off"><span class="from-to">From</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromPavHt','ToPavHt');" onkeypress="return numvalid(event)" id="ToPavHt" class="numeric_value" type="text" autocomplete="off"><span class="from-to">To</span></li>
         <div id="divPavHtBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
         <li id="PavHtBlank" onclick="SetActive('PavHtBlank','BLANK')">BLANK</li>
 </div>
@@ -900,27 +900,28 @@
 <div class="bottom-button-bar text-right">
     <ul class="two">
         @*@if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 9 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 15
-            || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 39 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 10) // Nilesh, Ankit Shah, Sandeep, jigijiga
-        {
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
-            if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 9 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 15) // Nilesh, Ankit Shah
+                || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 39 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 10) // Nilesh, Ankit Shah, Sandeep, jigijiga
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
+                if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 9 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 15) // Nilesh, Ankit Shah
+                {
+                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
+                }
+            }
+            else if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 2528) //mehta_ritesh
             {
                 <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
             }
-        }
-        else if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 2528) //mehta_ritesh
-        {
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
-        }
-        else
-        {
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Customer');"><i class="fa fa-search" aria-hidden="true"></i>Customer</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Supplier');"><i class="fa fa-search" aria-hidden="true"></i>Supplier</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(1);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
-        }*@
+            else
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Customer');"><i class="fa fa-search" aria-hidden="true"></i>Customer</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Supplier');"><i class="fa fa-search" aria-hidden="true"></i>Supplier</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(1);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
+            }*@
+        <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="SupplierList();"><i class="fa fa-search" aria-hidden="true"></i>Supplier List</a></li>
         <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Customer List</a></li>
         <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="BuyerList();"><i class="fa fa-search" aria-hidden="true"></i>Buyer List</a></li>
         <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Reset();"><i class="fa fa-refresh" aria-hidden="true"></i>Reset</a></li>
@@ -951,7 +952,7 @@
         <div class="col-md-2 result-three pull-right" style="margin-top: -20px;">
             <ul class="pull-right">
                 <li><a class="effect-one" onclick="SetModifyParameter();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Modify"><i class="flaticon-edit"></i></a></li>
-                <li><a class="effect-one" onclick="ExcelDownload();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel"><i class="flaticon-file"></i></a></li>
+                <li id="li_excel"><a class="effect-one" onclick="ExcelDownload();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel"><i class="flaticon-file"></i></a></li>
                 <li style="display:none;"><a class="effect-one" onclick="ByRequestCart();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Buy Cart"><i class="flaticon-shopping-cart"></i></a></li>
                 <li style="display:none;"><a class="effect-one" onclick="Download();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel"><i class="fa fa-file-excel-o"></i></a></li>
                 @*<li>
