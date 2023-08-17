@@ -1,0 +1,13 @@
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ORA-06550: line 1, column 7:
+PLS-00201: identifier 'GET_RAP' must be declared
+ORA-06550: line 1, column 7:
+PL/SQL: Statement ignored, Log Time : 16-08-2023 06:40:30 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+RapaPort Data Upload in Issue, Log Time : 16-08-2023 06:53:16 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+RapaPort Data Upload in Issue, Log Time : 16-08-2023 06:55:50 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 3608 RapaPort Data Found, process time 16-Aug-2023 06:55:58 PM to 16-Aug-2023 06:56:20 PM, Log Time : 16-08-2023 06:56:20 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 3608 RapaPort Data Found, process time 17-Aug-2023 10:00:49 AM to 17-Aug-2023 10:01:07 AM, Log Time : 17-08-2023 10:01:07 AM

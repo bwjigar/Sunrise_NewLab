@@ -51,6 +51,8 @@ namespace SunriseLabWeb_New.Data
         public static string Get_FancyColor = "/User/Get_FancyColor";
 
         public static string AddUpdate_SupplierStock = "/User/AddUpdate_SupplierStock";
+        public static string RapaPort_Data_Upload_Ora = "/User/RapaPort_Data_Upload_Ora";
+        
 
         public static string Get_ParaMas = "/User/Get_ParaMas";
         public static string Get_PriceList_ParaMas = "/User/Get_PriceList_ParaMas";

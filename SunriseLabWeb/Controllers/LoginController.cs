@@ -181,7 +181,17 @@ namespace SunriseLabWeb_New.Controllers
             API _api = new API();
             _api.CallAPIWithoutToken(Constants.AddUpdate_SupplierStock, string.Empty);
         }
-
+        public JsonResult RapaPort_Data_Upload_Ora()
+        {
+            Thread APIGet = new Thread(RapaPort_Data_Upload_Ora_Thread);
+            APIGet.Start();
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        public static void RapaPort_Data_Upload_Ora_Thread()
+        {
+            API _api = new API();
+            _api.CallAPIWithoutToken(Constants.RapaPort_Data_Upload_Ora, string.Empty);
+        }
 
         public JsonResult API_RESPONSE_CHECK()
         {

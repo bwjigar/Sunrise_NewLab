@@ -1596,3 +1596,29 @@ ERROR NUMBER : 537ERROR LINE : 66 ERROR MESSAGE : Invalid length parameter passe
 SUCCESS 1536 Stock Upload Has Been Successfully From DN Supplier's Web API, Log Time : 16-08-2023 02:32:27 PM
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 SUCCESS 1536 Stock Upload Has Been Successfully From DN Supplier's Web API, Log Time : 16-08-2023 02:34:42 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 1535 Stock Upload Has Been Successfully From DN Supplier's Web API, Log Time : 16-08-2023 04:46:34 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 15886 Stock Upload Has Been Successfully From ANKIT GEMS Supplier's Web API, Log Time : 16-08-2023 05:45:33 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 413 Stock Upload Has Been Successfully From ANKIT GEMS Supplier's Web API, Log Time : 16-08-2023 05:49:33 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 1524 Stock Upload Has Been Successfully From DN Supplier's Web API, Log Time : 16-08-2023 06:10:59 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 245ERROR LINE : 66 ERROR MESSAGE : Conversion failed when converting the nvarchar value '2300.00' to data type int., Log Time : 17-08-2023 09:48:47 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 1523 Stock Upload Has Been Successfully From DN Supplier's Web API, Log Time : 17-08-2023 09:56:50 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 1523 Stock Upload Has Been Successfully From DN Supplier's Web API, Log Time : 17-08-2023 09:59:07 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 1523 Stock Upload Has Been Successfully From DN Supplier's Web API, Log Time : 17-08-2023 10:03:06 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7348 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 17-08-2023 10:05:37 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7348 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 17-08-2023 10:09:49 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7348 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 17-08-2023 10:12:35 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7259 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 17-08-2023 10:14:54 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7347 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 17-08-2023 10:17:34 AM
