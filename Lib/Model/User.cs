@@ -49,6 +49,7 @@ namespace Lib.Model
         public int CreatedBy { get; set; }
         public string CreatedDate { get; set; }
         public string LastLoginDate { get; set; }
+        public string UserTypeList { get; set; }
     }
     public class FortunePartyCode_Exist_Request
     {
@@ -649,5 +650,32 @@ namespace Lib.Model
         public string SupplierName { get; set; }
         public string File { get; set; }
         public string FilePath { get; set; }
+    }
+    public class Get_ColumnSetting_UserWise_Res
+    {
+        public int Id { get; set; }
+        public string Type { get; set; }
+        public string Column_Name { get; set; }
+        public long OrderBy { get; set; }
+        public bool Visible { get; set; }
+        public bool Access { get; set; }
+    }
+    public class Save_ColumnSetting_UserWise
+    {
+        public List<Obj_ColumnSetting_UserWise> BUYER { get; set; }
+        public List<Obj_ColumnSetting_UserWise> SUPPLIER { get; set; }
+        public List<Obj_ColumnSetting_UserWise> CUSTOMER { get; set; }
+        public Save_ColumnSetting_UserWise()
+        {
+            BUYER = new List<Obj_ColumnSetting_UserWise>();
+            SUPPLIER = new List<Obj_ColumnSetting_UserWise>();
+            CUSTOMER = new List<Obj_ColumnSetting_UserWise>();
+        }
+    }
+    public class Obj_ColumnSetting_UserWise
+    {
+        public int UserId { get; set; }
+        public int Id { get; set; }
+        public int OrderBy { get; set; }
     }
 }

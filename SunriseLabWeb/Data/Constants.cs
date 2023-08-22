@@ -52,8 +52,10 @@ namespace SunriseLabWeb_New.Data
 
         public static string AddUpdate_SupplierStock = "/User/AddUpdate_SupplierStock";
         public static string RapaPort_Data_Upload_Ora = "/User/RapaPort_Data_Upload_Ora";
-        
 
+        public static string Get_ColumnSetting_UserWise = "/User/Get_ColumnSetting_UserWise";
+        public static string AddUpdate_ColumnSetting_UserWise = "/User/AddUpdate_ColumnSetting_UserWise";
+        
         public static string Get_ParaMas = "/User/Get_ParaMas";
         public static string Get_PriceList_ParaMas = "/User/Get_PriceList_ParaMas";
         public static string get_key_to_symbol = "/User/get_key_to_symbol";

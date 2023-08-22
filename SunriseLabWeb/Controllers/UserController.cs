@@ -450,5 +450,23 @@ namespace SunriseLabWeb_New.Controllers
             CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult ColumnSetting()
+        {
+            return View();
+        }
+        public JsonResult Get_ColumnSetting_UserWise(GetUsers_Res req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Get_ColumnSetting_UserWise, inputJson);
+            ServiceResponse<Get_ColumnSetting_UserWise_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_ColumnSetting_UserWise_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult AddUpdate_ColumnSetting_UserWise(Save_ColumnSetting_UserWise req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.AddUpdate_ColumnSetting_UserWise, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
     }
 }

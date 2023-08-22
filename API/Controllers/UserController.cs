@@ -6451,5 +6451,182 @@ namespace API.Controllers
         }
 
         #endregion
+
+        [HttpPost]
+        public IHttpActionResult Get_ColumnSetting_UserWise([FromBody] JObject data)
+        {
+            GetUsers_Res req = new GetUsers_Res();
+            try
+            {
+                req = JsonConvert.DeserializeObject<GetUsers_Res>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_ColumnSetting_UserWise_Res>
+                {
+                    Data = new List<Get_ColumnSetting_UserWise_Res>(),
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+
+            }
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para;
+                para = new List<IDbDataParameter>();
+
+                if (req.UserId > 0)
+                    para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+                else
+                    para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, DBNull.Value));
+
+                DataTable dt = db.ExecuteSP("Get_ColumnSetting_UserWise", para.ToArray(), false);
+
+                List<Get_ColumnSetting_UserWise_Res> List_Res = new List<Get_ColumnSetting_UserWise_Res>();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    List_Res = DataTableExtension.ToList<Get_ColumnSetting_UserWise_Res>(dt);
+                }
+
+                return Ok(new ServiceResponse<Get_ColumnSetting_UserWise_Res>
+                {
+                    Data = List_Res,
+                    Message = "SUCCESS",
+                    Status = "1"
+                });
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_ColumnSetting_UserWise_Res>
+                {
+                    Data = new List<Get_ColumnSetting_UserWise_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult AddUpdate_ColumnSetting_UserWise([FromBody] JObject data)
+        {
+            Save_ColumnSetting_UserWise req = new Save_ColumnSetting_UserWise();
+            try
+            {
+                req = JsonConvert.DeserializeObject<Save_ColumnSetting_UserWise>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+
+            try
+            {
+                Database db = new Database();
+                CommonResponse resp = new CommonResponse();
+                List<IDbDataParameter> para;
+
+                DataTable dt = new DataTable();
+                
+                dt.Columns.Add("UserId", typeof(int));
+                dt.Columns.Add("Id", typeof(int));
+                dt.Columns.Add("OrderBy", typeof(int));
+
+                if (req.BUYER.Count() > 0)
+                {
+                    db = new Database();
+                    para = new List<IDbDataParameter>();
+                    para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.BUYER[0].UserId));
+                    para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "BUYER"));
+                    db.ExecuteSP("Delete_ColumnSetting_UserWise", para.ToArray(), false);
+
+                    for (int i = 0; i < req.BUYER.Count(); i++)
+                    {
+                        DataRow dr = dt.NewRow();
+
+                        dr["UserId"] = req.BUYER[i].UserId;
+                        dr["Id"] = req.BUYER[i].Id;
+                        dr["OrderBy"] = req.BUYER[i].OrderBy;
+
+                        dt.Rows.Add(dr);
+                    }
+                }
+
+                if (req.SUPPLIER.Count() > 0)
+                {
+                    db = new Database();
+                    para = new List<IDbDataParameter>();
+                    para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.SUPPLIER[0].UserId));
+                    para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "SUPPLIER"));
+                    db.ExecuteSP("Delete_ColumnSetting_UserWise", para.ToArray(), false); 
+                    
+                    for (int i = 0; i < req.SUPPLIER.Count(); i++)
+                    {
+                        DataRow dr = dt.NewRow();
+
+                        dr["UserId"] = req.SUPPLIER[i].UserId;
+                        dr["Id"] = req.SUPPLIER[i].Id;
+                        dr["OrderBy"] = req.SUPPLIER[i].OrderBy;
+
+                        dt.Rows.Add(dr);
+                    }
+                }
+
+                if (req.CUSTOMER.Count() > 0)
+                {
+                    db = new Database();
+                    para = new List<IDbDataParameter>();
+                    para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.CUSTOMER[0].UserId));
+                    para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "CUSTOMER"));
+                    db.ExecuteSP("Delete_ColumnSetting_UserWise", para.ToArray(), false); 
+                    
+                    for (int i = 0; i < req.CUSTOMER.Count(); i++)
+                    {
+                        DataRow dr = dt.NewRow();
+
+                        dr["UserId"] = req.CUSTOMER[i].UserId;
+                        dr["Id"] = req.CUSTOMER[i].Id;
+                        dr["OrderBy"] = req.CUSTOMER[i].OrderBy;
+
+                        dt.Rows.Add(dr);
+                    }
+                }
+
+                
+                DataTable dtData = new DataTable();
+                List<SqlParameter> para1 = new List<SqlParameter>();
+                db = new Database();
+                SqlParameter param = new SqlParameter("table", SqlDbType.Structured);
+                param.Value = dt;
+                para1.Add(param);
+
+                dtData = db.ExecuteSP("AddUpdate_ColumnSetting_UserWise", para1.ToArray(), false);
+
+                if (dtData != null && dtData.Rows.Count > 0)
+                {
+                    resp.Status = dtData.Rows[0]["Status"].ToString();
+                    resp.Message = dtData.Rows[0]["Message"].ToString();
+
+                }
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = ex.StackTrace,
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
     }
 }
