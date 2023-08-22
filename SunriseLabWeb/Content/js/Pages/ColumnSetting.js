@@ -62,7 +62,7 @@ function onchange_User() {
     if ($("#DdlUser").val() != "") {
         var obj = {};
         obj.UserId = $("#DdlUser").val();
-        
+
         loaderShow();
         $.ajax({
             url: '/User/Get_ColumnSetting_UserWise',
@@ -73,13 +73,13 @@ function onchange_User() {
                     BUYERList = _.filter(data.Data, function (e) { return (e.Type == "BUYER" && e.Access == true) });
                     SUPPLIERList = _.filter(data.Data, function (e) { return (e.Type == "SUPPLIER" && e.Access == true) });
                     CUSTOMERList = _.filter(data.Data, function (e) { return (e.Type == "CUSTOMER" && e.Access == true) });
-
+                    
                     if (BUYERList.length > 0 || SUPPLIERList.length > 0 || CUSTOMERList.length > 0) {
                         $("#div_Columns").show();
                         $("#Save_btn").show();
                     }
                     var html = "";
-                    
+
                     if (BUYERList.length > 0) {
                         $("#div_Buyer").show();
                         html = "";
@@ -87,29 +87,29 @@ function onchange_User() {
                             html += "";
                             html += '<tr>'
                             html += '<td><i style="cursor: move;" class="fa fa-bars" aria-hidden="true"></i><input type="hidden" class="hidden" value="' + item.Id + '" />';
-                            html += '<td id="lblFieldName" class="onbinding">' + item.Column_Name +'</td>';
-                            html += '<td id="lblOrder" class="ColumnOrder onbinding">' + item.OrderBy + '</td>';
+                            html += '<td id="lblFieldName" class="onbinding">' + item.Column_Name + '</td>';
+                            html += '<td id="lblOrder" class="ColumnOrder onbinding" style="text-align: center;">' + item.OrderBy + '</td>';
                             html += '<td><center>';
                             if (item.Visible == true) {
                                 html += '<img src="/Content/images/chebox-fill.png" class="chebox-fill-1 img-block" id="chebox_fillImg_1_' + item.Id + '" onclick="chebox_fill(1, ' + item.Id + ')" style="cursor:pointer;width: 20px;" />';
-                                html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty-1 img-none" id="chebox_emptyImg_1_' + item.Id + '" onclick="chebox_empty(1, ' + item.Id + ')" style="cursor:pointer;width: 20px;margin-bottom: 7px;" />';
+                                html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty-1 img-none" id="chebox_emptyImg_1_' + item.Id + '" onclick="chebox_empty(1, ' + item.Id + ')" style="cursor:pointer;width: 20px;" />';
                             }
                             else {
                                 html += '<img src="/Content/images/chebox-fill.png" class="chebox-fill-1 img-none" id="chebox_fillImg_1_' + item.Id + '" onclick="chebox_fill(1, ' + item.Id + ')" style="cursor:pointer;width: 20px;" />';
-                                html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty-1 img-block" id="chebox_emptyImg_1_' + item.Id + '" onclick="chebox_empty(1, ' + item.Id + ')" style="cursor:pointer;width: 20px;margin-bottom: 7px;" />';
+                                html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty-1 img-block" id="chebox_emptyImg_1_' + item.Id + '" onclick="chebox_empty(1, ' + item.Id + ')" style="cursor:pointer;width: 20px;" />';
                             }
                             html += '</center></td>';
                             html += '</tr>';
                         });
 
                         $("#mytable_Buyer #myTableBody").html(html);
-
+                        header_checkuncheck("1");
                     }
                     else {
                         $("#div_Buyer").hide();
                         $("#mytable_Buyer #myTableBody").html("");
                     }
-                    
+
                     if (SUPPLIERList.length > 0) {
                         $("#div_Employee").show();
                         html = "";
@@ -118,27 +118,28 @@ function onchange_User() {
                             html += '<tr>'
                             html += '<td><i style="cursor: move;" class="fa fa-bars" aria-hidden="true"></i><input type="hidden" class="hidden" value="' + item.Id + '" />';
                             html += '<td id="lblFieldName" class="onbinding">' + item.Column_Name + '</td>';
-                            html += '<td id="lblOrder" class="ColumnOrder onbinding">' + item.OrderBy + '</td>';
+                            html += '<td id="lblOrder" class="ColumnOrder onbinding" style="text-align: center;">' + item.OrderBy + '</td>';
                             html += '<td><center>';
                             if (item.Visible == true) {
                                 html += '<img src="/Content/images/chebox-fill.png" class="chebox-fill-2 img-block" id="chebox_fillImg_2_' + item.Id + '" onclick="chebox_fill(2, ' + item.Id + ')" style="cursor:pointer;width: 20px;" />';
-                                html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty-2 img-none" id="chebox_emptyImg_2_' + item.Id + '" onclick="chebox_empty(2, ' + item.Id + ')" style="cursor:pointer;width: 20px;margin-bottom: 7px;" />';
+                                html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty-2 img-none" id="chebox_emptyImg_2_' + item.Id + '" onclick="chebox_empty(2, ' + item.Id + ')" style="cursor:pointer;width: 20px;" />';
                             }
                             else {
                                 html += '<img src="/Content/images/chebox-fill.png" class="chebox-fill-2 img-none" id="chebox_fillImg_2_' + item.Id + '" onclick="chebox_fill(2, ' + item.Id + ')" style="cursor:pointer;width: 20px;" />';
-                                html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty-2 img-block" id="chebox_emptyImg_2_' + item.Id + '" onclick="chebox_empty(2, ' + item.Id + ')" style="cursor:pointer;width: 20px;margin-bottom: 7px;" />';
+                                html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty-2 img-block" id="chebox_emptyImg_2_' + item.Id + '" onclick="chebox_empty(2, ' + item.Id + ')" style="cursor:pointer;width: 20px;" />';
                             }
                             html += '</center></td>';
                             html += '</tr>';
                         });
 
                         $("#mytable_Employee #myTableBody").html(html);
+                        header_checkuncheck("2");
                     }
                     else {
                         $("#div_Employee").hide();
                         $("#mytable_Employee #myTableBody").html("");
                     }
-                    
+
                     if (CUSTOMERList.length > 0) {
                         $("#div_Customer").show();
                         html = "";
@@ -147,21 +148,22 @@ function onchange_User() {
                             html += '<tr>'
                             html += '<td><i style="cursor: move;" class="fa fa-bars" aria-hidden="true"></i><input type="hidden" class="hidden" value="' + item.Id + '" />';
                             html += '<td id="lblFieldName" class="onbinding">' + item.Column_Name + '</td>';
-                            html += '<td id="lblOrder" class="ColumnOrder onbinding">' + item.OrderBy + '</td>';
+                            html += '<td id="lblOrder" class="ColumnOrder onbinding" style="text-align: center;">' + item.OrderBy + '</td>';
                             html += '<td><center>';
                             if (item.Visible == true) {
                                 html += '<img src="/Content/images/chebox-fill.png" class="chebox-fill-3 img-block" id="chebox_fillImg_3_' + item.Id + '" onclick="chebox_fill(3, ' + item.Id + ')" style="cursor:pointer;width: 20px;" />';
-                                html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty-3 img-none" id="chebox_emptyImg_3_' + item.Id + '" onclick="chebox_empty(3, ' + item.Id + ')" style="cursor:pointer;width: 20px;margin-bottom: 7px;" />';
+                                html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty-3 img-none" id="chebox_emptyImg_3_' + item.Id + '" onclick="chebox_empty(3, ' + item.Id + ')" style="cursor:pointer;width: 20px;" />';
                             }
                             else {
                                 html += '<img src="/Content/images/chebox-fill.png" class="chebox-fill-3 img-none" id="chebox_fillImg_3_' + item.Id + '" onclick="chebox_fill(3, ' + item.Id + ')" style="cursor:pointer;width: 20px;" />';
-                                html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty-3 img-block" id="chebox_emptyImg_3_' + item.Id + '" onclick="chebox_empty(3, ' + item.Id + ')" style="cursor:pointer;width: 20px;margin-bottom: 7px;" />';
+                                html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty-3 img-block" id="chebox_emptyImg_3_' + item.Id + '" onclick="chebox_empty(3, ' + item.Id + ')" style="cursor:pointer;width: 20px;" />';
                             }
                             html += '</center></td>';
                             html += '</tr>';
                         });
 
                         $("#mytable_Customer #myTableBody").html(html);
+                        header_checkuncheck("3");
                     }
                     else {
                         $("#div_Customer").hide();
@@ -203,6 +205,8 @@ function chebox_fill(type, icolumnId) {
 
         $("#chebox_emptyImg_" + type + "_" + icolumnId).removeClass('img-none');
         $("#chebox_emptyImg_" + type + "_" + icolumnId).addClass('img-block');
+
+        header_checkuncheck(type);
     }
 }
 function chebox_empty(type, icolumnId) {
@@ -225,6 +229,43 @@ function chebox_empty(type, icolumnId) {
 
         $("#chebox_emptyImg_" + type + "_" + icolumnId).addClass('img-none');
         $("#chebox_emptyImg_" + type + "_" + icolumnId).removeClass('img-block');
+
+        header_checkuncheck(type);
+    }
+}
+function header_checkuncheck(type) {
+    var tot = 0, tblname = '', existlist = [];
+    if (type == "1") {
+        tblname = "mytable_Buyer";
+        existlist = BUYERList;
+    }
+    if (type == "2") {
+        tblname = "mytable_Employee";
+        existlist = SUPPLIERList;
+    }
+    if (type == "3") {
+        tblname = "mytable_Customer";
+        existlist = CUSTOMERList;
+    }
+
+    $("#" + tblname + " #myTableBody tr").each(function () {
+        var Id = $(this).find('input[type="hidden"]').val();
+        if ($('#chebox_fillImg_' + type + '_' + Id).hasClass('img-block')) {
+            tot += parseInt(1);
+        }
+    });
+
+    if (existlist.length == tot) {
+        $("#chebox_fillImg_Header_" + type).addClass('img-block');
+        $("#chebox_fillImg_Header_" + type).removeClass('img-none');
+        $("#chebox_emptyImg_Header_" + type).addClass('img-none');
+        $("#chebox_emptyImg_Header_" + type).removeClass('img-block');
+    }
+    else {
+        $("#chebox_fillImg_Header_" + type).addClass('img-none');
+        $("#chebox_fillImg_Header_" + type).removeClass('img-block');
+        $("#chebox_emptyImg_Header_" + type).addClass('img-block');
+        $("#chebox_emptyImg_Header_" + type).removeClass('img-none');
     }
 }
 function SetTableOrder(type) {
@@ -278,7 +319,7 @@ function SaveData() {
                     OrderBy: OrderBy
                 });
             }
-        }); 
+        });
         if (SUPPLIERSave.length == 0) {
             toastr.warning("Please Select Minimum 1 Column in Employee !");
             return;
@@ -296,7 +337,7 @@ function SaveData() {
                     OrderBy: OrderBy
                 });
             }
-        }); 
+        });
         if (CUSTOMERSave.length == 0) {
             toastr.warning("Please Select Minimum 1 Column in Customer !");
             return;
