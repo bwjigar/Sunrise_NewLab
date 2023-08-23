@@ -468,5 +468,12 @@ namespace SunriseLabWeb_New.Controllers
             CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Get_SearchStock_ColumnSetting(Get_SearchStock_ColumnSetting_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Get_SearchStock_ColumnSetting, inputJson);
+            ServiceResponse<Get_SearchStock_ColumnSetting_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_ColumnSetting_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
     }
 }

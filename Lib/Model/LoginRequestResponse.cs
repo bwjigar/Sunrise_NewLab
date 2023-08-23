@@ -72,6 +72,7 @@ namespace Lib.Model
         public int AssistBy { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public string UserTypeList { get; set; }
     }
     public class IP_Wise_Login_Detail
     {

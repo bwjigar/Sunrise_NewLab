@@ -678,4 +678,15 @@ namespace Lib.Model
         public int Id { get; set; }
         public int OrderBy { get; set; }
     }
+    public class Get_SearchStock_ColumnSetting_Req
+    {
+        public int UserId { get; set; }
+        public string Type { get; set; }
+    }
+    public class Get_SearchStock_ColumnSetting_Res
+    {
+        public long OrderBy { get; set; }
+        public string Type { get; set; }
+        public string Column_Name { get; set; }
+    }
 }

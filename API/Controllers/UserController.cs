@@ -6628,5 +6628,62 @@ namespace API.Controllers
                 });
             }
         }
+        [HttpPost]
+        public IHttpActionResult Get_SearchStock_ColumnSetting([FromBody] JObject data)
+        {
+            Get_SearchStock_ColumnSetting_Req req = new Get_SearchStock_ColumnSetting_Req();
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_SearchStock_ColumnSetting_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_SearchStock_ColumnSetting_Res>
+                {
+                    Data = new List<Get_SearchStock_ColumnSetting_Res>(),
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+
+            }
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para;
+                para = new List<IDbDataParameter>();
+                
+                req.UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+                para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, req.Type));
+
+                DataTable dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                List<Get_SearchStock_ColumnSetting_Res> List_Res = new List<Get_SearchStock_ColumnSetting_Res>();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    List_Res = DataTableExtension.ToList<Get_SearchStock_ColumnSetting_Res>(dt);
+                }
+
+                return Ok(new ServiceResponse<Get_SearchStock_ColumnSetting_Res>
+                {
+                    Data = List_Res,
+                    Message = "SUCCESS",
+                    Status = "1"
+                });
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_SearchStock_ColumnSetting_Res>
+                {
+                    Data = new List<Get_SearchStock_ColumnSetting_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
     }
 }
