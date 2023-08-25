@@ -3018,15 +3018,50 @@ namespace API.Controllers
 
                     if (req.Type == "Buyer List")
                     {
-                        EpExcelExport.Buyer_Excel(Stock_dt, realpath, realpath + filename + ".xlsx");
+                        Database db = new Database();
+                        List<IDbDataParameter> para;
+                        para = new List<IDbDataParameter>();
+
+                        int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
+                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "BUYER"));
+
+                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                        //EpExcelExport.Buyer_Excel(Stock_dt, realpath, realpath + filename + ".xlsx");
+                        EpExcelExport.Buyer_Excel_New(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
                     }
                     else if (req.Type == "Supplier List")
                     {
-                        EpExcelExport.Supplier_Excel(Stock_dt, realpath, realpath + filename + ".xlsx");
+                        Database db = new Database();
+                        List<IDbDataParameter> para;
+                        para = new List<IDbDataParameter>();
+
+                        int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
+                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "SUPPLIER"));
+
+                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                        //EpExcelExport.Supplier_Excel(Stock_dt, realpath, realpath + filename + ".xlsx");
+                        EpExcelExport.Supplier_Excel_New(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
                     }
                     else if (req.Type == "Customer List")
                     {
-                        
+                        Database db = new Database();
+                        List<IDbDataParameter> para;
+                        para = new List<IDbDataParameter>();
+
+                        int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
+                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "CUSTOMER"));
+
+                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                        EpExcelExport.Customer_Excel_New(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
                     }
 
                     string _strxml = _path + filename + ".xlsx";

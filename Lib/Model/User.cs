@@ -688,5 +688,6 @@ namespace Lib.Model
         public long OrderBy { get; set; }
         public string Type { get; set; }
         public string Column_Name { get; set; }
+        public decimal ExcelWidth { get; set; }
     }
 }

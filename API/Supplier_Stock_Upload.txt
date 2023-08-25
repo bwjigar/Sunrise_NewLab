@@ -1624,3 +1624,9 @@ SUCCESS 7259 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's W
 SUCCESS 7347 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 17-08-2023 10:17:34 AM
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 SUCCESS 5 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 22-08-2023 01:03:36 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 5 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 23-08-2023 12:32:59 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7308 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 25-08-2023 08:52:20 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7365 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 25-08-2023 03:43:33 PM
