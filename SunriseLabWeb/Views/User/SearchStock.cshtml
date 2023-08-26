@@ -925,17 +925,23 @@
         @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Admin" || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Buyer")
         {
             <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="BuyerList();"><i class="fa fa-search" aria-hidden="true"></i>Buyer List</a></li>
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(1);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer Excel</a></li>
             <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="SupplierList();"><i class="fa fa-search" aria-hidden="true"></i>Supplier List</a></li>
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
             <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Customer List</a></li>
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
         }
         else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Employee")
         {
             <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="SupplierList();"><i class="fa fa-search" aria-hidden="true"></i>Supplier List</a></li>
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
             <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Customer List</a></li>
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
         }
         else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Customer")
         {
             <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Customer List</a></li>
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
         }
         <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Reset();"><i class="fa fa-refresh" aria-hidden="true"></i>Reset</a></li>
     </ul>

@@ -26,11 +26,15 @@ namespace SunriseLabWeb_New.Filter
                 }
                 else if (SessionFacade.UserSession != null)
                 {
+                    string UserTypeId = SessionFacade.UserSession.UserTypeId;
                     string cntlr = filterContext.RouteData.Values["controller"].ToString();
                     string act = filterContext.RouteData.Values["action"].ToString();
-                    if (cntlr == "User" && act == "Manage")
+                    
+                    if ((cntlr == "User" && act == "Manage") || (cntlr == "User" && act == "SupplierMas") || (cntlr == "User" && act == "Category")
+                         || (cntlr == "User" && act == "SupplierValue") || (cntlr == "User" && act == "SupplierColumnSetting") 
+                         || (cntlr == "User" && act == "SupplierColumnSettingFromFile") || (cntlr == "User" && act == "SupplierPriceList"))
                     {
-                        if (!SessionFacade.UserSession.UserTypeId.Contains("1"))
+                        if (!(UserTypeId.Contains("1") || UserTypeId.Contains("4")))
                             filterContext.Result = new RedirectResult("~/Login/Index");
                     }
                 }

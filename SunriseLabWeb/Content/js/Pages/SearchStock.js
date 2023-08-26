@@ -836,6 +836,21 @@ const datasource1 = {
         });
     }
 };
+function ExcelFilter(type) {
+    Type = "";
+    if (type == "1") {
+        Type = "Buyer List";
+    }
+    else if (type == "2") {
+        Type = "Supplier List";
+    }
+    else if (type == "3") {
+        Type = "Customer List";
+    }
+    if (Type != "") {
+        ExcelDownload();
+    }
+}
 function ExcelDownload() {
     loaderShow();
     setTimeout(function () {

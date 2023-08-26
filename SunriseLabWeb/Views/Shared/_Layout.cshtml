@@ -264,7 +264,7 @@
                             DashBoard
                         </a>
                     </li>
-                    @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1"))
+                    @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
                     {
                         <li>
                             <a href="@Url.Action("Manage", "User")">
@@ -332,6 +332,15 @@
                                 User Wise Column Setting
                             </a>
                         </li>
+                        <li>
+                            <a href="@Url.Action("SearchStock", "User")">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                                Search Stock
+                            </a>
+                        </li>
+                    }
+                    else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
+                    {
                         <li>
                             <a href="@Url.Action("SearchStock", "User")">
                                 <i class="fa fa-search" aria-hidden="true"></i>

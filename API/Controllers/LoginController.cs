@@ -70,28 +70,29 @@ namespace API.Controllers
 
                 DataTable dt = db.ExecuteSP("Check_Login", para.ToArray(), false);
 
-                DataTable dts = null;
-
-                if (dt.Rows[0]["User_Code"].ToString().Length == 0)
+                if (dt != null && dt.Rows.Count > 0)
                 {
-                    resp = new LoginResponse();
-                    resp.Status = "0";
+                    if (dt.Rows[0]["User_Code"].ToString().Length == 0)
+                    {
+                        resp = new LoginResponse();
+                        resp.Status = "0";
 
-                    int AssistId = (dt.Rows[0]["AssistBy"] != null && dt.Rows[0]["AssistBy"].ToString() != "") ? Convert.ToInt32(dt.Rows[0]["AssistBy"].ToString()) : 0;
-                    string AssistDetail = GetAssistDetail(AssistId);
+                        int AssistId = (dt.Rows[0]["AssistBy"] != null && dt.Rows[0]["AssistBy"].ToString() != "") ? Convert.ToInt32(dt.Rows[0]["AssistBy"].ToString()) : 0;
+                        string AssistDetail = GetAssistDetail(AssistId);
 
-                    resp.Message = "<div style=\"color:red\">User Name '" + UserName + "' or Password is Wrong, Kindly Contact : </div>" + AssistDetail;
-                }
-                else
-                {
-                    resp = new LoginResponse();
-                    resp.UserName = UserName;
-                    resp.Status = "1";
-                    resp.Message = "SUCCESS";
-                    resp.UserID = Convert.ToInt32(dt.Rows[0]["User_Code"]);
-                    resp.UserTypeId = dt.Rows[0]["UserTypeId"].ToString();
-                    resp.UserType = dt.Rows[0]["UserType"].ToString();
-                    resp.TransID = Convert.ToInt32(dt.Rows[0]["Trans_Id"]);
+                        resp.Message = "<div style=\"color:red\">User Name '" + UserName + "' or Password is Wrong, Kindly Contact : </div>" + AssistDetail;
+                    }
+                    else
+                    {
+                        resp = new LoginResponse();
+                        resp.UserName = UserName;
+                        resp.Status = "1";
+                        resp.Message = "SUCCESS";
+                        resp.UserID = Convert.ToInt32(dt.Rows[0]["User_Code"]);
+                        resp.UserTypeId = dt.Rows[0]["UserTypeId"].ToString();
+                        resp.UserType = dt.Rows[0]["UserType"].ToString();
+                        resp.TransID = Convert.ToInt32(dt.Rows[0]["Trans_Id"]);
+                    }
                 }
             }
             catch (Exception ex)
