@@ -795,7 +795,7 @@ const datasource1 = {
             OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
         }
 
-        obj = ObjectCreate(PageNo, pgSize, OrderBy);
+        obj = ObjectCreate(PageNo, pgSize, OrderBy, '');
 
         Rowdata = [];
         $.ajax({
@@ -848,14 +848,14 @@ function ExcelFilter(type) {
         Type = "Customer List";
     }
     if (Type != "") {
-        ExcelDownload();
+        ExcelDownload('Filter');
     }
 }
-function ExcelDownload() {
+function ExcelDownload(where) {
     loaderShow();
     setTimeout(function () {
         var obj = {};
-        obj = ObjectCreate("", "", OrderBy);
+        obj = ObjectCreate("", "", OrderBy, where);
 
         $.ajax({
             url: "/User/Excel_SearchStock",
@@ -881,7 +881,7 @@ function ExcelDownload() {
     }, 50);
 }
 
-function ObjectCreate(PageNo, pgSize, OrderBy) {
+function ObjectCreate(PageNo, pgSize, OrderBy, where) {
     var obj = {};
 
     var SizeLst = "";
@@ -901,7 +901,7 @@ function ObjectCreate(PageNo, pgSize, OrderBy) {
     }
 
     var refno = $("#txtRefNo").val().replace(/ /g, ',');
-    var Selected_Ref_No = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'Ref_No').join(",")
+    var Selected_Ref_No = (where == 'Filter' ? '' : _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'Ref_No').join(","));
     var supplier = $('#ddlSupplierId').val().join(",");
     var shapeLst = _.pluck(_.filter(ShapeList, function (e) { return e.isActive == true }), 'Value').join(",");
     var colorLst = _.pluck(_.filter(ColorList, function (e) { return e.isActive == true }), 'Value').join(",");
