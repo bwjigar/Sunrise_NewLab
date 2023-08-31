@@ -136,7 +136,7 @@ namespace SunriseLabWeb_New.Controllers
             CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(_data, JsonRequestBehavior.AllowGet);
         }
-       
+
         public ActionResult SupplierMas()
         {
             return View();
@@ -205,14 +205,14 @@ namespace SunriseLabWeb_New.Controllers
                     string ProjectName = ConfigurationManager.AppSettings["ProjectName"];
                     string APIName = ConfigurationManager.AppSettings["APIName"];
 
-                    folder = folder.Replace("\\"+ ProjectName + "\\", "\\"+ APIName + "\\");
+                    folder = folder.Replace("\\" + ProjectName + "\\", "\\" + APIName + "\\");
 
                     HttpFileCollectionBase files = Request.Files;
                     for (int i = 0; i < files.Count; i++)
                     {
                         HttpPostedFileBase file = files[i];
                         string fname = file.FileName;
-                        string NewFileName = req.SupplierId +"_ColSetting_"+ Guid.NewGuid() + Path.GetExtension(fname).ToLower();
+                        string NewFileName = req.SupplierId + "_ColSetting_" + Guid.NewGuid() + Path.GetExtension(fname).ToLower();
 
                         string savePath = Path.Combine(folder, NewFileName);
                         file.SaveAs(savePath);

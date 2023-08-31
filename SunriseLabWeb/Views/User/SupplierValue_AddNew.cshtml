@@ -8,8 +8,8 @@
                 <thead>
                     <tr>
                         <th width="3%">Sr.</th>
-                        <th width="20%">Category Value <span class="reqvalidation">*</span></th>
-                        <th width="20%">Synonyms <span class="reqvalidation">*</span></th>
+                        <th width="25%">Synonyms <span class="reqvalidation">*</span></th>
+                        <th width="15%">Category Value <span class="reqvalidation">*</span></th>
                         <th width="3%">Status</th>
                         <th width="3%">Delete</th>
                     </tr>
@@ -83,8 +83,8 @@
         var tbl_html =
             '<tr>' +
             '<td class="tblbody_sr">' + row + '</td>' +
+            '<td><textarea type="text" class="form-control Synonyms" maxlength="300" autocomplete="off"></textarea></td>' +
             '<td><select class="form-control input-sm CategoryValue" tabindex="1">' + CategoryValue + '</select></td>' +
-            '<td><input type="text" class="form-control Synonyms" maxlength="50" autocomplete="off"></td>' +
             '<td><input type="checkbox" class="Status" checked></td>' +
             '<td style="width: 50px"><i style="cursor:pointer;" class="error RemoveCate"><img src="/Content/images/trash-delete-icon.png" style="width: 20px;" /></i></td>' +
             '</tr>';
@@ -143,8 +143,8 @@
                             $('#tblbody').append(
                                 "<tr>" +
                                 "<td class='tblbody_sr'>" + row + "</td>" +
+                                "<td><textarea type='text' class='form-control Synonyms' maxlength='300' autocomplete='off'>" + (_obj.Supp_Cat_name != null ? _obj.Supp_Cat_name : '') + "</textarea></td>" +
                                 "<td><select class='form-control input-sm CategoryValue' tabindex='1'>" + CategoryValue + "</select></td>" +
-                                "<td><input value=\"" + (_obj.Supp_Cat_name != null ? _obj.Supp_Cat_name : '') + "\" type='text' class='form-control Synonyms' maxlength='50' autocomplete='off'></td>" +
                                 "<td><input type='checkbox' class='Status' " + (_obj.Status == true ? 'checked' : '') + "></td>" +
                                 "<td style='width: 50px'><i style='cursor:pointer;' class='error RemoveCate'><img src='/Content/images/trash-delete-icon.png' style='width: 20px;' /></i></td>" +
                                 "</tr>"
@@ -172,22 +172,22 @@
         ErrorMsg = [];
         var CategoryValue = false, Synonyms = false;
         $("#tbl #tblbody tr").each(function () {
-            if ($(this).find('.CategoryValue').val() == "") {
-                CategoryValue = true;
-            }
             if ($(this).find('.Synonyms').val() == "") {
                 Synonyms = true;
             }
+            if ($(this).find('.CategoryValue').val() == "") {
+                CategoryValue = true;
+            }
         });
 
-        if (CategoryValue == true) {
-            ErrorMsg.push({
-                'Error': "Please Select CategoryValue.",
-            });
-        }
         if (Synonyms == true) {
             ErrorMsg.push({
                 'Error': "Please Enter Synonyms.",
+            });
+        }
+        if (CategoryValue == true) {
+            ErrorMsg.push({
+                'Error': "Please Select CategoryValue.",
             });
         }
 

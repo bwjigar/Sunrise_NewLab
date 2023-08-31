@@ -57,7 +57,7 @@ namespace SunriseLabWeb_New.Controllers
                 {
                     OAuthErrorMsg _authErrorMsg = new OAuthErrorMsg();
                     _authErrorMsg = (new JavaScriptSerializer()).Deserialize<OAuthErrorMsg>(_response);
-                    
+
                     TempData["Message"] = _authErrorMsg.error_description;
                 }
                 else
@@ -161,7 +161,7 @@ namespace SunriseLabWeb_New.Controllers
             string _response = _api.CallAPIWithoutToken(Constants.LogoutWithoutToken, "");
 
             ViewData["URL"] = ConfigurationManager.AppSettings["SunriseLabWeb_New_URL"];
-            
+
             return View();
         }
         public JsonResult LoginCheck()

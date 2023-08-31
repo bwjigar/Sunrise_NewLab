@@ -12,11 +12,11 @@ namespace SunriseLabWeb_New.Data
         public static string IP_Wise_Login_Detail = "/Login/IP_Wise_Login_Detail";
         public static string LogoutWithoutToken = "/Login/LogoutWithoutToken";
 
-        
+
         public static string FortunePartyCode_Exist = "/User/FortunePartyCode_Exist";
         public static string SaveUserData = "/User/SaveUserData";
         public static string get_UserType = "/User/get_UserType";
-        
+
         public static string GetUsers = "/User/GetUsers";
         public static string Get_CategoryMas = "/User/Get_CategoryMas";
         public static string AddUpdate_CategoryMas = "/User/AddUpdate_CategoryMas";
@@ -27,7 +27,7 @@ namespace SunriseLabWeb_New.Data
         public static string Get_Supplier_Value = "/User/Get_Supplier_Value";
         public static string AddUpdate_Supplier_Value = "/User/AddUpdate_Supplier_Value";
         public static string Delete_Supplier_Value = "/User/Delete_Supplier_Value";
-        
+
 
         public static string Get_CategoryDet = "/User/Get_CategoryDet";
         public static string AddUpdate_CategoryDet = "/User/AddUpdate_CategoryDet";
@@ -39,14 +39,14 @@ namespace SunriseLabWeb_New.Data
         public static string Get_SupplierColumnSetting_FromAPI = "/User/Get_SupplierColumnSetting_FromAPI";
         public static string AddUpdate_SupplierColumnSetting = "/User/AddUpdate_SupplierColumnSetting";
         public static string Delete_SupplierColumnSetting = "/User/Delete_SupplierColumnSetting";
-        
+
         public static string Get_Data_From_File = "/User/Get_Data_From_File";
         public static string Get_SupplierColumnSetting_FromFile = "/User/Get_SupplierColumnSetting_FromFile";
         public static string AddUpdate_SupplierColumnSetting_FromFile = "/User/AddUpdate_SupplierColumnSetting_FromFile";
         public static string Delete_SupplierColumnSetting_FromFile = "/User/Delete_SupplierColumnSetting_FromFile";
         public static string AddUpdate_SupplierStock_FromFile = "/User/AddUpdate_SupplierStock_FromFile";
 
-        
+
 
         public static string Get_FancyColor = "/User/Get_FancyColor";
 
@@ -66,10 +66,10 @@ namespace SunriseLabWeb_New.Data
 
         public static string AddUpdate_Supplier_Disc = "/User/AddUpdate_Supplier_Disc";
         public static string Get_Supplier_Disc = "/User/Get_Supplier_Disc";
-        
+
         public static string Get_SearchStock = "/User/Get_SearchStock";
         public static string Excel_SearchStock = "/User/Excel_SearchStock";
-        
+
         public static string AddUpdate_Customer_Disc = "/User/AddUpdate_Customer_Disc";
         public static string Get_Customer_Disc = "/User/Get_Customer_Disc";
 

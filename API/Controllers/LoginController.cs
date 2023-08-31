@@ -20,7 +20,7 @@ namespace API.Controllers
     {
         [AllowAnonymous]
         [HttpPost]
-        public IHttpActionResult Login([FromBody]JObject data)
+        public IHttpActionResult Login([FromBody] JObject data)
         {
             LoginRequest loginRequest = new LoginRequest();
             try
@@ -160,7 +160,7 @@ namespace API.Controllers
             return "<div style=\"color:red\">User Is Not Active, Please Contact : </div>" + AssistDetail;
         }
         [HttpPost]
-        public IHttpActionResult GetKeyAccountData([FromBody]JObject data)
+        public IHttpActionResult GetKeyAccountData([FromBody] JObject data)
         {
             LoginRequest loginRequest = new LoginRequest();
             try
@@ -211,7 +211,7 @@ namespace API.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public IHttpActionResult IP_Wise_Login_Detail([FromBody]JObject data)
+        public IHttpActionResult IP_Wise_Login_Detail([FromBody] JObject data)
         {
             IP_Wise_Login_Detail ip_wise_login_detailrequest = new IP_Wise_Login_Detail();
             try
@@ -253,10 +253,11 @@ namespace API.Controllers
                 System.Data.DataTable dtData = db.ExecuteSP("IP_Wise_Login_Detail_Stored_CRUD", para.ToArray(), false);
                 List<IP_Wise_Login_Detail> ListResponses = new List<IP_Wise_Login_Detail>();
 
-                if (dtData != null && dtData.Rows.Count > 0) {
-                   ListResponses = DataTableExtension.ToList<IP_Wise_Login_Detail>(dtData);
+                if (dtData != null && dtData.Rows.Count > 0)
+                {
+                    ListResponses = DataTableExtension.ToList<IP_Wise_Login_Detail>(dtData);
                 }
-                
+
                 return Ok(new ServiceResponse<IP_Wise_Login_Detail>
                 {
                     Data = ListResponses,

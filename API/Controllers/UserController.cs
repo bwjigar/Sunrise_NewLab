@@ -26,8 +26,6 @@ using Microsoft.VisualBasic.FileIO;
 using System.Data.OleDb;
 using Oracle.DataAccess.Client;
 
-
-
 namespace API.Controllers
 {
     [Authorize]
@@ -3086,327 +3084,327 @@ namespace API.Controllers
             {
                 Database db = new Database();
                 List<IDbDataParameter> para = new List<IDbDataParameter>();
-                
+
                 if (req.PgNo > 0)
                     para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, req.PgNo));
                 else
                     para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (req.PgSize > 0)
                     para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, req.PgSize));
                 else
                     para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.OrderBy))
                     para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, req.OrderBy));
                 else
                     para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.RefNo))
                     para.Add(db.CreateParam("RefNo", DbType.String, ParameterDirection.Input, req.RefNo));
                 else
                     para.Add(db.CreateParam("RefNo", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.SupplierId))
                     para.Add(db.CreateParam("SupplierId", DbType.String, ParameterDirection.Input, req.SupplierId));
                 else
                     para.Add(db.CreateParam("SupplierId", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Shape))
                     para.Add(db.CreateParam("Shape", DbType.String, ParameterDirection.Input, req.Shape));
                 else
                     para.Add(db.CreateParam("Shape", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Pointer))
                     para.Add(db.CreateParam("Pointer", DbType.String, ParameterDirection.Input, req.Pointer));
                 else
                     para.Add(db.CreateParam("Pointer", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.ColorType))
                     para.Add(db.CreateParam("ColorType", DbType.String, ParameterDirection.Input, req.ColorType));
                 else
                     para.Add(db.CreateParam("ColorType", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Color))
                     para.Add(db.CreateParam("Color", DbType.String, ParameterDirection.Input, req.Color));
                 else
                     para.Add(db.CreateParam("Color", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.INTENSITY))
                     para.Add(db.CreateParam("INTENSITY", DbType.String, ParameterDirection.Input, req.INTENSITY));
                 else
                     para.Add(db.CreateParam("INTENSITY", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.OVERTONE))
                     para.Add(db.CreateParam("OVERTONE", DbType.String, ParameterDirection.Input, req.OVERTONE));
                 else
                     para.Add(db.CreateParam("OVERTONE", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.FANCY_COLOR))
                     para.Add(db.CreateParam("FANCY_COLOR", DbType.String, ParameterDirection.Input, req.FANCY_COLOR));
                 else
                     para.Add(db.CreateParam("FANCY_COLOR", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Clarity))
                     para.Add(db.CreateParam("Clarity", DbType.String, ParameterDirection.Input, req.Clarity));
                 else
                     para.Add(db.CreateParam("Clarity", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Cut))
                     para.Add(db.CreateParam("Cut", DbType.String, ParameterDirection.Input, req.Cut));
                 else
                     para.Add(db.CreateParam("Cut", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Polish))
                     para.Add(db.CreateParam("Polish", DbType.String, ParameterDirection.Input, req.Polish));
                 else
                     para.Add(db.CreateParam("Polish", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Symm))
                     para.Add(db.CreateParam("Symm", DbType.String, ParameterDirection.Input, req.Symm));
                 else
                     para.Add(db.CreateParam("Symm", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Fls))
                     para.Add(db.CreateParam("Fls", DbType.String, ParameterDirection.Input, req.Fls));
                 else
                     para.Add(db.CreateParam("Fls", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.BGM))
                     para.Add(db.CreateParam("BGM", DbType.String, ParameterDirection.Input, req.BGM));
                 else
                     para.Add(db.CreateParam("BGM", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Lab))
                     para.Add(db.CreateParam("Lab", DbType.String, ParameterDirection.Input, req.Lab));
                 else
                     para.Add(db.CreateParam("Lab", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.CrownBlack))
                     para.Add(db.CreateParam("CrownBlack", DbType.String, ParameterDirection.Input, req.CrownBlack));
                 else
                     para.Add(db.CreateParam("CrownBlack", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.TableBlack))
                     para.Add(db.CreateParam("TableBlack", DbType.String, ParameterDirection.Input, req.TableBlack));
                 else
                     para.Add(db.CreateParam("TableBlack", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.TableWhite))
                     para.Add(db.CreateParam("TableWhite", DbType.String, ParameterDirection.Input, req.TableWhite));
                 else
                     para.Add(db.CreateParam("TableWhite", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.CrownWhite))
                     para.Add(db.CreateParam("CrownWhite", DbType.String, ParameterDirection.Input, req.CrownWhite));
                 else
                     para.Add(db.CreateParam("CrownWhite", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.TableOpen))
                     para.Add(db.CreateParam("TableOpen", DbType.String, ParameterDirection.Input, req.TableOpen));
                 else
                     para.Add(db.CreateParam("TableOpen", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.CrownOpen))
                     para.Add(db.CreateParam("CrownOpen", DbType.String, ParameterDirection.Input, req.CrownOpen));
                 else
                     para.Add(db.CreateParam("CrownOpen", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.PavOpen))
                     para.Add(db.CreateParam("PavOpen", DbType.String, ParameterDirection.Input, req.PavOpen));
                 else
                     para.Add(db.CreateParam("PavOpen", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.GirdleOpen))
                     para.Add(db.CreateParam("GirdleOpen", DbType.String, ParameterDirection.Input, req.GirdleOpen));
                 else
                     para.Add(db.CreateParam("GirdleOpen", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.KTSBlank))
                     para.Add(db.CreateParam("KTSBlank", DbType.Boolean, ParameterDirection.Input, req.KTSBlank));
                 else
                     para.Add(db.CreateParam("KTSBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Keytosymbol))
                     para.Add(db.CreateParam("Keytosymbol", DbType.String, ParameterDirection.Input, req.Keytosymbol));
                 else
                     para.Add(db.CreateParam("Keytosymbol", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.CheckKTS))
                     para.Add(db.CreateParam("CheckKTS", DbType.String, ParameterDirection.Input, req.CheckKTS));
                 else
                     para.Add(db.CreateParam("CheckKTS", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.UNCheckKTS))
                     para.Add(db.CreateParam("UNCheckKTS", DbType.String, ParameterDirection.Input, req.UNCheckKTS));
                 else
                     para.Add(db.CreateParam("UNCheckKTS", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.FromDisc))
                     para.Add(db.CreateParam("FromDisc", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromDisc)));
                 else
                     para.Add(db.CreateParam("FromDisc", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.ToDisc))
                     para.Add(db.CreateParam("ToDisc", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToDisc)));
                 else
                     para.Add(db.CreateParam("ToDisc", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.FromTotAmt))
                     para.Add(db.CreateParam("FromTotAmt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromTotAmt)));
                 else
                     para.Add(db.CreateParam("FromTotAmt", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.ToTotAmt))
                     para.Add(db.CreateParam("ToTotAmt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToTotAmt)));
                 else
                     para.Add(db.CreateParam("ToTotAmt", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.LengthBlank))
                     para.Add(db.CreateParam("LengthBlank", DbType.Boolean, ParameterDirection.Input, req.LengthBlank));
                 else
                     para.Add(db.CreateParam("LengthBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.FromLength))
                     para.Add(db.CreateParam("FromLength", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromLength)));
                 else
                     para.Add(db.CreateParam("FromLength", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.ToLength))
                     para.Add(db.CreateParam("ToLength", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToLength)));
                 else
                     para.Add(db.CreateParam("ToLength", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.WidthBlank))
                     para.Add(db.CreateParam("WidthBlank", DbType.Boolean, ParameterDirection.Input, req.WidthBlank));
                 else
                     para.Add(db.CreateParam("WidthBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.FromWidth))
                     para.Add(db.CreateParam("FromWidth", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromWidth)));
                 else
                     para.Add(db.CreateParam("FromWidth", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.ToWidth))
                     para.Add(db.CreateParam("ToWidth", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToWidth)));
                 else
                     para.Add(db.CreateParam("ToWidth", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.DepthBlank))
                     para.Add(db.CreateParam("DepthBlank", DbType.Boolean, ParameterDirection.Input, req.DepthBlank));
                 else
                     para.Add(db.CreateParam("DepthBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.FromDepth))
                     para.Add(db.CreateParam("FromDepth", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromDepth)));
                 else
                     para.Add(db.CreateParam("FromDepth", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.ToDepth))
                     para.Add(db.CreateParam("ToDepth", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToDepth)));
                 else
                     para.Add(db.CreateParam("ToDepth", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.DepthPerBlank))
                     para.Add(db.CreateParam("DepthPerBlank", DbType.Boolean, ParameterDirection.Input, req.DepthPerBlank));
                 else
                     para.Add(db.CreateParam("DepthPerBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.FromDepthPer))
                     para.Add(db.CreateParam("FromDepthPer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromDepthPer)));
                 else
                     para.Add(db.CreateParam("FromDepthPer", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.ToDepthPer))
                     para.Add(db.CreateParam("ToDepthPer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToDepthPer)));
                 else
                     para.Add(db.CreateParam("ToDepthPer", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.TablePerBlank))
                     para.Add(db.CreateParam("TablePerBlank", DbType.Boolean, ParameterDirection.Input, req.TablePerBlank));
                 else
                     para.Add(db.CreateParam("TablePerBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.FromTablePer))
                     para.Add(db.CreateParam("FromTablePer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromTablePer)));
                 else
                     para.Add(db.CreateParam("FromTablePer", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.ToTablePer))
                     para.Add(db.CreateParam("ToTablePer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToTablePer)));
                 else
                     para.Add(db.CreateParam("ToTablePer", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Img))
                     para.Add(db.CreateParam("Img", DbType.String, ParameterDirection.Input, req.Img));
                 else
                     para.Add(db.CreateParam("Img", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Vdo))
                     para.Add(db.CreateParam("Vdo", DbType.String, ParameterDirection.Input, req.Vdo));
                 else
                     para.Add(db.CreateParam("Vdo", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Certi))
                     para.Add(db.CreateParam("Certi", DbType.String, ParameterDirection.Input, req.Certi));
                 else
                     para.Add(db.CreateParam("Certi", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.CrAngBlank))
                     para.Add(db.CreateParam("CrAngBlank", DbType.Boolean, ParameterDirection.Input, req.CrAngBlank));
                 else
                     para.Add(db.CreateParam("CrAngBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.FromCrAng))
                     para.Add(db.CreateParam("FromCrAng", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromCrAng)));
                 else
                     para.Add(db.CreateParam("FromCrAng", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.ToCrAng))
                     para.Add(db.CreateParam("ToCrAng", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToCrAng)));
                 else
                     para.Add(db.CreateParam("ToCrAng", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.CrHtBlank))
                     para.Add(db.CreateParam("CrHtBlank", DbType.Boolean, ParameterDirection.Input, req.CrHtBlank));
                 else
                     para.Add(db.CreateParam("CrHtBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.FromCrHt))
                     para.Add(db.CreateParam("FromCrHt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromCrHt)));
                 else
                     para.Add(db.CreateParam("FromCrHt", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.ToCrHt))
                     para.Add(db.CreateParam("ToCrHt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToCrHt)));
                 else
                     para.Add(db.CreateParam("ToCrHt", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.PavAngBlank))
                     para.Add(db.CreateParam("PavAngBlank", DbType.Boolean, ParameterDirection.Input, req.PavAngBlank));
                 else
                     para.Add(db.CreateParam("PavAngBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.FromPavAng))
                     para.Add(db.CreateParam("FromPavAng", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromPavAng)));
                 else
                     para.Add(db.CreateParam("FromPavAng", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.ToPavAng))
                     para.Add(db.CreateParam("ToPavAng", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToPavAng)));
                 else
                     para.Add(db.CreateParam("ToPavAng", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.PavHtBlank))
                     para.Add(db.CreateParam("PavHtBlank", DbType.Boolean, ParameterDirection.Input, req.PavHtBlank));
                 else
                     para.Add(db.CreateParam("PavHtBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.FromPavHt))
                     para.Add(db.CreateParam("FromPavHt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromPavHt)));
                 else
                     para.Add(db.CreateParam("FromPavHt", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.ToPavHt))
                     para.Add(db.CreateParam("ToPavHt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToPavHt)));
                 else
@@ -3483,6 +3481,7 @@ namespace API.Controllers
             string pattern = "[^0-9.-]";
             Regex regex = new Regex(pattern);
             string result = regex.Replace(input, "");
+            result = (result == "-" ? "" : result);
             return result;
         }
         public static void removingGreenTagWarning(ExcelWorksheet template1, string address)
@@ -5275,9 +5274,9 @@ namespace API.Controllers
                     }
                     else if (SupplierResponseFormat.ToUpper() == "TEXT")
                     {
+                        string json = "";
                         if (SupplierAPIMethod.ToUpper() == "POST")
                         {
-                            string json = "";
                             if (SupplierURL.ToUpper() == "HTTPS://SS.SRK.BEST/V1/STOCKSHARING/SERVICES")
                             {
                                 try
@@ -5288,6 +5287,45 @@ namespace API.Controllers
                                     request1.ContentType = "text/plain";
                                     request1.Headers.Add("X-ACCESS-KEY", "627d44bd-c286-49cc-ab95-ce83fdb12934");
 
+
+                                    WebResponse response1 = request1.GetResponse();
+                                    using (var reader1 = new StreamReader(response1.GetResponseStream()))
+                                    {
+                                        json = reader1.ReadToEnd();
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    return ("API Not Working", ex.Message, null);
+                                }
+
+                                try
+                                {
+                                    if (!string.IsNullOrEmpty(json))
+                                    {
+                                        dt_APIRes = ConvertCSVtoDataTable(json);
+                                    }
+                                    else
+                                    {
+                                        return ("Data not Found", string.Empty, null);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    return ("Data Response Format Changed", ex.Message, null);
+                                }
+                            }
+                        }
+                        else if (SupplierAPIMethod.ToUpper() == "GET")
+                        {
+                            if (SupplierURL.ToUpper() == "HTTPS://WEBSVR.JBBROS.COM/JBAPI.ASPX")
+                            {
+                                try
+                                {
+                                    HttpWebRequest request1 = (HttpWebRequest)WebRequest.Create("https://websvr.jbbros.com/jbapi.aspx?UserId=SUNRISEDIAMONDS&APIKey=90F2D641-7968-4BB4-BA69-E323F732AF01&Action=F&Shape=ALL&CaratFrom=0.01&CaratTo=99.99&Color=ALL&Purity=ALL&Lab=GIA,HRD,IGI");
+                                    request1.Method = "GET";
+                                    request1.Timeout = 7200000; //2 Hour in milliseconds
+                                    //request1.ContentType = "text/plain";
 
                                     WebResponse response1 = request1.GetResponse();
                                     using (var reader1 = new StreamReader(response1.GetResponseStream()))
@@ -5619,10 +5657,10 @@ namespace API.Controllers
                         Final_row["Culet Condition"] = (Final_row["Culet Condition"].ToString() == "") ? null : Final_row["Culet Condition"];
 
                         Final_row["Star Length"] = ((SuppCol_row["Column_Name"].ToString() != "Star Length") || (SuppCol_row["SupplierColumn"].ToString() == "")) ? Final_row["Star Length"].ToString() : row[SuppCol_row["SupplierColumn"].ToString()].ToString();
-                        Final_row["Star Length"] = (Final_row["Star Length"].ToString() == "") ? null : Final_row["Star Length"];
+                        Final_row["Star Length"] = (Final_row["Star Length"].ToString() == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Star Length"]));
 
                         Final_row["Lower Halves"] = ((SuppCol_row["Column_Name"].ToString() != "Lower Halves") || (SuppCol_row["SupplierColumn"].ToString() == "")) ? Final_row["Lower Halves"].ToString() : row[SuppCol_row["SupplierColumn"].ToString()].ToString();
-                        Final_row["Lower Halves"] = (Final_row["Lower Halves"].ToString() == "") ? null : Final_row["Lower Halves"];
+                        Final_row["Lower Halves"] = (Final_row["Lower Halves"].ToString() == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Lower Halves"]));
 
                         Final_row["Stage"] = ((SuppCol_row["Column_Name"].ToString() != "Stage") || (SuppCol_row["SupplierColumn"].ToString() == "")) ? Final_row["Stage"].ToString() : row[SuppCol_row["SupplierColumn"].ToString()].ToString();
                         Final_row["Stage"] = (Final_row["Stage"].ToString() == "") ? null : Final_row["Stage"];
@@ -5910,8 +5948,8 @@ namespace API.Controllers
 
                                         if (SupStkUploadDT != null && SupStkUploadDT.Rows.Count > 0)
                                         {
-                                            Return_Msg = SupStkUploadDT.Rows[0]["Message"].ToString(); 
-                                            
+                                            Return_Msg = SupStkUploadDT.Rows[0]["Message"].ToString();
+
                                             sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
                                             sb.Append(SupStkUploadDT.Rows[0]["Message"].ToString() + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                                             sb.AppendLine("");
@@ -6058,7 +6096,7 @@ namespace API.Controllers
                                             }
                                             else
                                             {
-                                                Return_Status = "0"; 
+                                                Return_Status = "0";
                                                 ApiLog(SupplierId, false, SupStkUploadDT.Rows[0]["Message"].ToString());
                                             }
                                         }
@@ -6569,7 +6607,7 @@ namespace API.Controllers
                 List<IDbDataParameter> para;
 
                 DataTable dt = new DataTable();
-                
+
                 dt.Columns.Add("UserId", typeof(int));
                 dt.Columns.Add("Id", typeof(int));
                 dt.Columns.Add("OrderBy", typeof(int));
@@ -6600,8 +6638,8 @@ namespace API.Controllers
                     para = new List<IDbDataParameter>();
                     para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.SUPPLIER[0].UserId));
                     para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "SUPPLIER"));
-                    db.ExecuteSP("Delete_ColumnSetting_UserWise", para.ToArray(), false); 
-                    
+                    db.ExecuteSP("Delete_ColumnSetting_UserWise", para.ToArray(), false);
+
                     for (int i = 0; i < req.SUPPLIER.Count(); i++)
                     {
                         DataRow dr = dt.NewRow();
@@ -6620,8 +6658,8 @@ namespace API.Controllers
                     para = new List<IDbDataParameter>();
                     para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.CUSTOMER[0].UserId));
                     para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "CUSTOMER"));
-                    db.ExecuteSP("Delete_ColumnSetting_UserWise", para.ToArray(), false); 
-                    
+                    db.ExecuteSP("Delete_ColumnSetting_UserWise", para.ToArray(), false);
+
                     for (int i = 0; i < req.CUSTOMER.Count(); i++)
                     {
                         DataRow dr = dt.NewRow();
@@ -6634,7 +6672,7 @@ namespace API.Controllers
                     }
                 }
 
-                
+
                 DataTable dtData = new DataTable();
                 List<SqlParameter> para1 = new List<SqlParameter>();
                 db = new Database();
@@ -6687,7 +6725,7 @@ namespace API.Controllers
                 Database db = new Database();
                 List<IDbDataParameter> para;
                 para = new List<IDbDataParameter>();
-                
+
                 req.UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
 
                 para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
