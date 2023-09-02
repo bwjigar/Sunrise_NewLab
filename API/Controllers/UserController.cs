@@ -1902,7 +1902,8 @@ namespace API.Controllers
                 }
                 else if (str == ".xlsx")
                 {
-                    string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Req.FilePath + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    //string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Req.FilePath + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Req.FilePath + ";Extended Properties='Excel 12.0 Xml;HDR=YES;IMEX=1;'";
                     Stock_dt = ConvertXSLXtoDataTable("", connString);
                 }
                 else if (str == ".csv")
@@ -3570,7 +3571,8 @@ namespace API.Controllers
                     {
                         try
                         {
-                            string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                            //string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                            string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileLocation + ";Extended Properties='Excel 12.0 Xml;HDR=YES;IMEX=1;'";
                             dt_APIRes = ConvertXSLXtoDataTable("", connString);
                         }
                         catch (Exception ex)
@@ -5800,25 +5802,39 @@ namespace API.Controllers
         }
         public static DataTable ConvertXSLXtoDataTable(string strFilePath, string connString)
         {
-            OleDbConnection connection = new OleDbConnection(connString);
-            DataTable table = new DataTable();
-            connection.Open();
-            object[] restrictions = new object[4];
-            restrictions[3] = "TABLE";
-            string str = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, restrictions).Rows[0]["TABLE_NAME"].ToString();
-            using (OleDbCommand command = new OleDbCommand("SELECT * FROM [" + str + "]", connection))
-            {
-                OleDbDataAdapter adapter = new OleDbDataAdapter
-                {
-                    SelectCommand = command
-                };
-                DataSet dataSet = new DataSet();
-                adapter.Fill(dataSet);
-                table = dataSet.Tables[0];
-            }
-            connection.Close();
+            //OleDbConnection connection = new OleDbConnection(connString);
+            //DataTable table = new DataTable();
+            //connection.Open();
+            //object[] restrictions = new object[4];
+            //restrictions[3] = "TABLE";
+            //string str = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, restrictions).Rows[0]["TABLE_NAME"].ToString();
+            //using (OleDbCommand command = new OleDbCommand("SELECT * FROM [" + str + "]", connection))
+            //{
+            //    OleDbDataAdapter adapter = new OleDbDataAdapter
+            //    {
+            //        SelectCommand = command
+            //    };
+            //    DataSet dataSet = new DataSet();
+            //    adapter.Fill(dataSet);
+            //    table = dataSet.Tables[0];
+            //}
+            //connection.Close();
 
-            return table;
+            //return table;
+            DataTable dataTable = new DataTable();
+
+            using (OleDbConnection connection = new OleDbConnection(connString))
+            {
+                connection.Open();
+                string str = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).Rows[0]["TABLE_NAME"].ToString();
+                using (OleDbDataAdapter adapter = new OleDbDataAdapter("SELECT * FROM [" + str + "]", connection))
+                {
+                    adapter.Fill(dataTable);
+                }
+                connection.Close();
+            }
+
+            return dataTable;
         }
 
 
@@ -6244,7 +6260,8 @@ namespace API.Controllers
                 }
                 else if (str2 == ".xlsx")
                 {
-                    string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + req.FilePath + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    //string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + req.FilePath + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                    string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + req.FilePath + ";Extended Properties='Excel 12.0 Xml;HDR=YES;IMEX=1;'";
                     Stock_dt = ConvertXSLXtoDataTable("", connString);
                 }
                 else if (str2 == ".csv")
@@ -6896,6 +6913,7 @@ namespace API.Controllers
                 paramList.Add(param1);
 
                 System.Data.DataTable dt = oracleDbAccess.CallSP("get_stock_disc", paramList);
+                //stock_disc_gt_clg
 
                 int Count = 0;
                 if (dt != null && dt.Rows.Count > 0)
