@@ -1632,3 +1632,17 @@ SUCCESS 7308 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's W
 SUCCESS 7365 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 25-08-2023 03:43:33 PM
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 SUCCESS 7391 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 26-08-2023 09:15:26 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 32461 Stock Upload Has Been Successfully From Vishindas Holaram (Lakhi) Supplier's File, Log Time : 31-08-2023 11:00:22 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7939 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 31-08-2023 11:50:56 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7930 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 31-08-2023 12:48:18 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+32493, Log Time : 31-08-2023 02:05:34 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 32461 Stock Upload Has Been Successfully From Vishindas Holaram (Lakhi) Supplier's File, Log Time : 31-08-2023 02:08:28 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SHAIRUGEMS ALL Supplier Stock Upload Failed, Log Time : 01-09-2023 04:29:26 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7694 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 01-09-2023 04:33:15 PM

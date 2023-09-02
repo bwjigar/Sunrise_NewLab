@@ -6413,117 +6413,7 @@ namespace API.Controllers
             });
         }
 
-        #region Task Scheduler : RapaPort_Data_Upload_Ora
-
-        [AllowAnonymous]
-        [HttpPost]
-        public IHttpActionResult RapaPort_Data_Upload_Ora()
-        {
-            string path = HttpContext.Current.Server.MapPath("~/RapaPort_Data_Upload_From_Oracle_Log.txt");
-            if (!File.Exists(@"" + path + ""))
-            {
-                File.Create(@"" + path + "").Dispose();
-            }
-            StringBuilder sb = new StringBuilder();
-
-            try
-            {
-                string fromtime = string.Format("{0:dd-MMM-yyyy hh:mm:ss tt}", DateTime.Now);
-
-                Database db = new Database(Request);
-
-                Oracle_DBAccess oracleDbAccess = new Oracle_DBAccess();
-                List<OracleParameter> paramList = new List<OracleParameter>();
-
-                OracleParameter param1 = new OracleParameter("vrec", OracleDbType.RefCursor);
-                param1.Direction = ParameterDirection.Output;
-                paramList.Add(param1);
-
-                System.Data.DataTable dt = oracleDbAccess.CallSP("get_rap", paramList);
-
-                int Count = 0;
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    Count = dt.Rows.Count;
-
-                    List<SqlParameter> para = new List<SqlParameter>();
-
-                    SqlParameter param = new SqlParameter("tableInq", SqlDbType.Structured);
-                    param.Value = dt;
-                    para.Add(param);
-
-                    DataTable dt1 = db.ExecuteSP("RapaPort_Data_Ora_Insert", para.ToArray(), false);
-
-                    string Message = string.Empty;
-                    if (dt1 != null && dt1.Rows.Count > 0)
-                    {
-                        Message = dt1.Rows[0]["Message"].ToString();
-                    }
-                    string totime = string.Format("{0:dd-MMM-yyyy hh:mm:ss tt}", DateTime.Now);
-
-                    if (Message == "SUCCESS")
-                    {
-                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                        sb.Append(Message + " " + Count + " RapaPort Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
-                        sb.AppendLine("");
-                        File.AppendAllText(path, sb.ToString());
-                        sb.Clear();
-                        return Ok(new CommonResponse
-                        {
-                            Message = Message + " " + Count + " RapaPort Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
-                            Status = "1",
-                            Error = ""
-                        });
-                    }
-                    else
-                    {
-                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                        sb.Append("RapaPort Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
-                        sb.AppendLine("");
-                        File.AppendAllText(path, sb.ToString());
-                        sb.Clear();
-                        return Ok(new CommonResponse
-                        {
-                            Message = "RapaPort Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
-                            Status = "1",
-                            Error = ""
-                        });
-                    }
-                }
-                else
-                {
-                    sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                    sb.Append("No RapaPort Data Found From Oracle, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
-                    sb.AppendLine("");
-                    File.AppendAllText(path, sb.ToString());
-                    sb.Clear();
-                    return Ok(new CommonResponse
-                    {
-                        Message = "No RapaPort Data Found From Oracle",
-                        Status = "1",
-                        Error = ""
-                    });
-                }
-
-            }
-            catch (Exception ex)
-            {
-                sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                sb.Append(ex.Message + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
-                sb.AppendLine("");
-                File.AppendAllText(path, sb.ToString());
-                sb.Clear();
-                return Ok(new CommonResponse
-                {
-                    Message = ex.Message,
-                    Status = "0",
-                    Error = ex.StackTrace
-                });
-            }
-
-        }
-
-        #endregion
+        
 
         [HttpPost]
         public IHttpActionResult Get_ColumnSetting_UserWise([FromBody] JObject data)
@@ -6758,5 +6648,556 @@ namespace API.Controllers
                 });
             }
         }
+
+        #region Task Scheduler : Data Upload From Oracle
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult RapaPort_Data_Upload_Ora()
+        {
+            string path = HttpContext.Current.Server.MapPath("~/RapaPort_Data_Upload_From_Oracle_Log.txt");
+            if (!File.Exists(@"" + path + ""))
+            {
+                File.Create(@"" + path + "").Dispose();
+            }
+            StringBuilder sb = new StringBuilder();
+
+            try
+            {
+                string fromtime = string.Format("{0:dd-MMM-yyyy hh:mm:ss tt}", DateTime.Now);
+
+                Database db = new Database(Request);
+
+                Oracle_DBAccess oracleDbAccess = new Oracle_DBAccess();
+                List<OracleParameter> paramList = new List<OracleParameter>();
+
+                OracleParameter param1 = new OracleParameter("vrec", OracleDbType.RefCursor);
+                param1.Direction = ParameterDirection.Output;
+                paramList.Add(param1);
+
+                System.Data.DataTable dt = oracleDbAccess.CallSP("get_rap", paramList);
+
+                int Count = 0;
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    Count = dt.Rows.Count;
+
+                    List<SqlParameter> para = new List<SqlParameter>();
+
+                    SqlParameter param = new SqlParameter("tableInq", SqlDbType.Structured);
+                    param.Value = dt;
+                    para.Add(param);
+
+                    DataTable dt1 = db.ExecuteSP("RapaPort_Data_Ora_Insert", para.ToArray(), false);
+
+                    string Message = string.Empty;
+                    if (dt1 != null && dt1.Rows.Count > 0)
+                    {
+                        Message = dt1.Rows[0]["Message"].ToString();
+                    }
+                    string totime = string.Format("{0:dd-MMM-yyyy hh:mm:ss tt}", DateTime.Now);
+
+                    if (Message == "SUCCESS")
+                    {
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append(Message + " " + Count + " RapaPort Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
+                        return Ok(new CommonResponse
+                        {
+                            Message = Message + " " + Count + " RapaPort Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
+                            Status = "1",
+                            Error = ""
+                        });
+                    }
+                    else
+                    {
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append("RapaPort Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
+                        return Ok(new CommonResponse
+                        {
+                            Message = "RapaPort Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
+                            Status = "1",
+                            Error = ""
+                        });
+                    }
+                }
+                else
+                {
+                    sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                    sb.Append("No RapaPort Data Found From Oracle, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                    sb.AppendLine("");
+                    File.AppendAllText(path, sb.ToString());
+                    sb.Clear();
+                    return Ok(new CommonResponse
+                    {
+                        Message = "No RapaPort Data Found From Oracle",
+                        Status = "1",
+                        Error = ""
+                    });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                sb.Append(ex.Message + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                sb.AppendLine("");
+                File.AppendAllText(path, sb.ToString());
+                sb.Clear();
+                return Ok(new CommonResponse
+                {
+                    Message = ex.Message,
+                    Status = "0",
+                    Error = ex.StackTrace
+                });
+            }
+
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult get_stock_disc_Ora()
+        {
+            string path = HttpContext.Current.Server.MapPath("~/get_stock_disc_Upload_From_Oracle_Log.txt");
+            if (!File.Exists(@"" + path + ""))
+            {
+                File.Create(@"" + path + "").Dispose();
+            }
+            StringBuilder sb = new StringBuilder();
+
+            try
+            {
+                string fromtime = string.Format("{0:dd-MMM-yyyy hh:mm:ss tt}", DateTime.Now);
+                DateTime date = DateTime.Now;
+
+                Database db = new Database(Request);
+
+                Oracle_DBAccess oracleDbAccess = new Oracle_DBAccess();
+                List<OracleParameter> paramList = new List<OracleParameter>();
+
+                OracleParameter param1 = new OracleParameter("p_for_comp", OracleDbType.Int32);
+                param1.Value = 1;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_for_date", OracleDbType.Date);
+                param1.Value = string.Format("{0:dd-MMM-yyyy}", date);
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_pointer_flag", OracleDbType.NVarchar2);
+                param1.Value = "N";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_color_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_purity_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_cut_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_fls_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_shade_grp", OracleDbType.NVarchar2);
+                param1.Value = "WHITE";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_shape", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_sub_pointer", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_kts", OracleDbType.NVarchar2);
+                param1.Value = "N";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_kts_word", OracleDbType.NVarchar2);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_from_length", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_to_length", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_from_width", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_to_width", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_from_depth", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_to_depth", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_from_table_per", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_to_table_per", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_from_depth_per", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_to_depth_per", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_clarity_grade", OracleDbType.NVarchar2);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("vrec", OracleDbType.RefCursor);
+                param1.Direction = ParameterDirection.Output;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_luster_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_shade_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_all_luster", OracleDbType.NVarchar2);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1); 
+                
+                param1 = new OracleParameter("p_kts_grade_flag", OracleDbType.NVarchar2);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_stone_clarity_flag", OracleDbType.NVarchar2);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                System.Data.DataTable dt = oracleDbAccess.CallSP("get_stock_disc", paramList);
+
+                int Count = 0;
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    Count = dt.Rows.Count;
+
+                    List<SqlParameter> para = new List<SqlParameter>();
+
+                    SqlParameter param = new SqlParameter("tableInq", SqlDbType.Structured);
+                    param.Value = dt;
+                    para.Add(param);
+
+                    DataTable dt1 = db.ExecuteSP("get_stock_disc_ora_Insert", para.ToArray(), false);
+
+                    string Message = string.Empty;
+                    if (dt1 != null && dt1.Rows.Count > 0)
+                    {
+                        Message = dt1.Rows[0]["Message"].ToString();
+                    }
+                    string totime = string.Format("{0:dd-MMM-yyyy hh:mm:ss tt}", DateTime.Now);
+
+                    if (Message == "SUCCESS")
+                    {
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append(Message + " " + Count + " get_stock_disc Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
+                        return Ok(new CommonResponse
+                        {
+                            Message = Message + " " + Count + " get_stock_disc Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
+                            Status = "1",
+                            Error = ""
+                        });
+                    }
+                    else
+                    {
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append("get_stock_disc Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
+                        return Ok(new CommonResponse
+                        {
+                            Message = "get_stock_disc Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
+                            Status = "1",
+                            Error = ""
+                        });
+                    }
+                }
+                else
+                {
+                    sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                    sb.Append("No get_stock_disc Data Found From Oracle, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                    sb.AppendLine("");
+                    File.AppendAllText(path, sb.ToString());
+                    sb.Clear();
+                    return Ok(new CommonResponse
+                    {
+                        Message = "No get_stock_disc Data Found From Oracle",
+                        Status = "1",
+                        Error = ""
+                    });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                sb.Append(ex.Message + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                sb.AppendLine("");
+                File.AppendAllText(path, sb.ToString());
+                sb.Clear();
+                return Ok(new CommonResponse
+                {
+                    Message = ex.Message,
+                    Status = "0",
+                    Error = ex.StackTrace
+                });
+            }
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult get_sal_disc_new_Ora()
+        {
+            string path = HttpContext.Current.Server.MapPath("~/get_sal_disc_new_Upload_From_Oracle_Log.txt");
+            if (!File.Exists(@"" + path + ""))
+            {
+                File.Create(@"" + path + "").Dispose();
+            }
+            StringBuilder sb = new StringBuilder();
+
+            try
+            {
+                string fromtime = string.Format("{0:dd-MMM-yyyy hh:mm:ss tt}", DateTime.Now);
+                DateTime from_date = DateTime.Now.AddDays(-31);
+                DateTime to_date = DateTime.Now;
+
+                Database db = new Database(Request);
+
+                Oracle_DBAccess oracleDbAccess = new Oracle_DBAccess();
+                List<OracleParameter> paramList = new List<OracleParameter>();
+
+                OracleParameter param1 = new OracleParameter("p_from_date", OracleDbType.Date);
+                param1.Value = string.Format("{0:dd-MMM-yyyy}", from_date);
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_to_date", OracleDbType.Date);
+                param1.Value = string.Format("{0:dd-MMM-yyyy}", to_date);
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_pointer_flag", OracleDbType.NVarchar2);
+                param1.Value = "N";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_color_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_purity_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_cut_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_fls_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_shade_grp", OracleDbType.NVarchar2);
+                param1.Value = "WHITE";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_shape", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_subpointer_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_kts", OracleDbType.NVarchar2);
+                param1.Value = "N";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_kts_word", OracleDbType.NVarchar2);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_from_length", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_to_length", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_from_width", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_to_width", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_from_depth", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_to_depth", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_from_table_per", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_to_table_per", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_from_depth_per", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_to_depth_per", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_clarity_grade", OracleDbType.NVarchar2);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("vrec", OracleDbType.RefCursor);
+                param1.Direction = ParameterDirection.Output;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_kts_grd_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_stone_clarity_flag", OracleDbType.NVarchar2);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_shade_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1); 
+                
+                param1 = new OracleParameter("p_luster_flag", OracleDbType.NVarchar2);
+                param1.Value = "Y";
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("p_pre_sold_flag", OracleDbType.NVarchar2);
+                param1.Value = "B";
+                paramList.Add(param1);
+
+                System.Data.DataTable dt = oracleDbAccess.CallSP("get_sal_disc_new", paramList);
+
+                int Count = 0;
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    Count = dt.Rows.Count;
+
+                    List<SqlParameter> para = new List<SqlParameter>();
+
+                    SqlParameter param = new SqlParameter("tableInq", SqlDbType.Structured);
+                    param.Value = dt;
+                    para.Add(param);
+
+                    DataTable dt1 = db.ExecuteSP("get_sal_disc_new_ora_Insert", para.ToArray(), false);
+
+                    string Message = string.Empty;
+                    if (dt1 != null && dt1.Rows.Count > 0)
+                    {
+                        Message = dt1.Rows[0]["Message"].ToString();
+                    }
+                    string totime = string.Format("{0:dd-MMM-yyyy hh:mm:ss tt}", DateTime.Now);
+
+                    if (Message == "SUCCESS")
+                    {
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append(Message + " " + Count + " get_sal_disc_new Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
+                        return Ok(new CommonResponse
+                        {
+                            Message = Message + " " + Count + " get_sal_disc_new Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
+                            Status = "1",
+                            Error = ""
+                        });
+                    }
+                    else
+                    {
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append("get_sal_disc_new Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
+                        return Ok(new CommonResponse
+                        {
+                            Message = "get_sal_disc_new Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
+                            Status = "1",
+                            Error = ""
+                        });
+                    }
+                }
+                else
+                {
+                    sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                    sb.Append("No get_sal_disc_new Data Found From Oracle, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                    sb.AppendLine("");
+                    File.AppendAllText(path, sb.ToString());
+                    sb.Clear();
+                    return Ok(new CommonResponse
+                    {
+                        Message = "No get_sal_disc_new Data Found From Oracle",
+                        Status = "1",
+                        Error = ""
+                    });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                sb.Append(ex.Message + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                sb.AppendLine("");
+                File.AppendAllText(path, sb.ToString());
+                sb.Clear();
+                return Ok(new CommonResponse
+                {
+                    Message = ex.Message,
+                    Status = "0",
+                    Error = ex.StackTrace
+                });
+            }
+        }
+
+        #endregion
     }
 }

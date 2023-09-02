@@ -987,6 +987,11 @@ namespace API
                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Avg_Stock_Disc"]) : ((Double?)null)) : null);
 
                                     worksheet.Cells[inwrkrow, kk].Style.Numberformat.Format = "#,##0.0000";
+
+                                    worksheet.Cells[inwrkrow, kk].Style.Font.Bold = true;
+                                    worksheet.Cells[inwrkrow, kk].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    worksheet.Cells[inwrkrow, kk].Style.Fill.BackgroundColor.SetColor(colFromHex_Dis);
+                                    worksheet.Cells[inwrkrow, kk].Style.Font.Color.SetColor(System.Drawing.Color.Red);
                                 }
                                 else if (Column_Name == "Avg. Stock Pcs")
                                 {
@@ -1015,6 +1020,11 @@ namespace API
                                         Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Avg_Sales_Disc"]) : ((Double?)null)) : null);
 
                                     worksheet.Cells[inwrkrow, kk].Style.Numberformat.Format = "#,##0.0000";
+
+                                    worksheet.Cells[inwrkrow, kk].Style.Font.Bold = true;
+                                    worksheet.Cells[inwrkrow, kk].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    worksheet.Cells[inwrkrow, kk].Style.Fill.BackgroundColor.SetColor(colFromHex_Dis);
+                                    worksheet.Cells[inwrkrow, kk].Style.Font.Color.SetColor(System.Drawing.Color.Red);
                                 }
                                 else if (Column_Name == "Sales Pcs")
                                 {
