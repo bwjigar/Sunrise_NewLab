@@ -227,6 +227,38 @@ namespace SunriseLabWeb_New.Controllers
             API _api = new API();
             _api.CallAPIWithoutToken(Constants.get_sal_disc_new_Ora, string.Empty);
         }
-
+        public JsonResult get_stock_kts_Ora()
+        {
+            Thread APIGet = new Thread(get_stock_kts_Ora_Thread);
+            APIGet.Start();
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        public static void get_stock_kts_Ora_Thread()
+        {
+            API _api = new API();
+            _api.CallAPIWithoutToken(Constants.get_stock_kts_Ora, string.Empty);
+        }
+        public JsonResult get_sal_clg_new_Ora()
+        {
+            Thread APIGet = new Thread(get_sal_clg_new_Ora_Thread);
+            APIGet.Start();
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        public static void get_sal_clg_new_Ora_Thread()
+        {
+            API _api = new API();
+            _api.CallAPIWithoutToken(Constants.get_sal_clg_new_Ora, string.Empty);
+        }
+        public JsonResult get_pur_disc_Ora()
+        {
+            Thread APIGet = new Thread(get_pur_disc_Ora_Thread);
+            APIGet.Start();
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        public static void get_pur_disc_Ora_Thread()
+        {
+            API _api = new API();
+            _api.CallAPIWithoutToken(Constants.get_pur_disc_Ora, string.Empty);
+        }
     }
 }

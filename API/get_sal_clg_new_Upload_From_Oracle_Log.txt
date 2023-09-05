@@ -1,0 +1,2 @@
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 1036 get_sal_clg_new Data Found, process time 02-Sep-2023 04:38:42 PM to 02-Sep-2023 04:38:48 PM, Log Time : 02-09-2023 04:38:48 PM

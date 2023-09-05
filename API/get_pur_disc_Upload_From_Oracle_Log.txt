@@ -1,0 +1,2 @@
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 378 get_pur_disc Data Found, process time 04-Sep-2023 12:42:54 PM to 04-Sep-2023 12:43:54 PM, Log Time : 04-09-2023 12:43:56 PM
