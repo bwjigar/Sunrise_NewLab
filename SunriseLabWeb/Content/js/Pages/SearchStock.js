@@ -2134,7 +2134,9 @@ function GetTransId() {
         success: function (data, textStatus, jqXHR) {
             if (data != null && data.Data.length > 0) {
                 for (var k in data.Data) {
-                    $("#ddlSupplierId").append("<option value='" + data.Data[k].Id + "'>" + data.Data[k].SupplierName + "</option>");
+                    if (data.Data[k].Active == true) {
+                        $("#ddlSupplierId").append("<option value='" + data.Data[k].Id + "'>" + data.Data[k].SupplierName + "</option>");
+                    }
                 }
             }
             ddlTransObj = $('#ddlSupplierId').multiselect({
