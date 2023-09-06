@@ -3028,8 +3028,7 @@ namespace API.Controllers
 
                         DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
 
-                        //EpExcelExport.Buyer_Excel(Stock_dt, realpath, realpath + filename + ".xlsx");
-                        EpExcelExport.Buyer_Excel_New(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+                        EpExcelExport.Buyer_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
                     }
                     else if (req.Type == "Supplier List")
                     {
@@ -3044,8 +3043,7 @@ namespace API.Controllers
 
                         DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
 
-                        //EpExcelExport.Supplier_Excel(Stock_dt, realpath, realpath + filename + ".xlsx");
-                        EpExcelExport.Supplier_Excel_New(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+                        EpExcelExport.Supplier_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
                     }
                     else if (req.Type == "Customer List")
                     {
@@ -3060,7 +3058,7 @@ namespace API.Controllers
 
                         DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
 
-                        EpExcelExport.Customer_Excel_New(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+                        EpExcelExport.Customer_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
                     }
 
                     string _strxml = _path + filename + ".xlsx";
@@ -4052,11 +4050,38 @@ namespace API.Controllers
 
                                     String InputLRJson = (new JavaScriptSerializer()).Serialize(sgl);
 
-                                    WebClient client = new WebClient();
-                                    client.Headers.Add("Content-type", "application/json");
-                                    client.Encoding = Encoding.UTF8;
-                                    json = client.UploadString("https://shairugems.net:8011/api/Buyer/login", "POST", InputLRJson);
-                                    client.Dispose();
+                                    //WebClient client = new WebClient();
+                                    //client.Headers.Add("Content-type", "application/json");
+                                    //client.Encoding = Encoding.UTF8;
+                                    //json = client.UploadString("https://shairugems.net:8011/api/Buyer/login", "POST", InputLRJson);
+                                    //client.Dispose();
+
+                                    WebRequest request = WebRequest.Create("https://shairugems.net:8011/api/Buyer/login");
+                                    request.Method = "POST";
+                                    request.Timeout = 7200000; //2 Hour in milliseconds
+                                    byte[] byteArray = Encoding.UTF8.GetBytes(InputLRJson);
+                                    //request.ContentType = "application/x-www-form-urlencoded";
+                                    request.ContentType = "application/json";
+                                    //request.Headers.Add("Authorization", "Bearer " + AccessToken);
+                                    request.ContentLength = byteArray.Length;
+
+                                    //Here is the Business end of the code...
+                                    Stream dataStream = request.GetRequestStream();
+                                    dataStream.Write(byteArray, 0, byteArray.Length);
+                                    dataStream.Close();
+
+                                    //and here is the response.
+                                    WebResponse response = request.GetResponse();
+
+                                    Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+                                    dataStream = response.GetResponseStream();
+                                    StreamReader reader = new StreamReader(dataStream);
+                                    json = reader.ReadToEnd();
+                                    Console.WriteLine(json);
+                                    reader.Close();
+                                    dataStream.Close();
+                                    response.Close();
+                                    request.Abort();
                                 }
                                 catch (Exception ex)
                                 {
@@ -4064,9 +4089,12 @@ namespace API.Controllers
                                 }
 
                                 SGLoginResponse sglr = new SGLoginResponse();
+
+
                                 try
                                 {
                                     sglr = (new JavaScriptSerializer()).Deserialize<SGLoginResponse>(json);
+
                                 }
                                 catch (Exception ex)
                                 {
@@ -4075,6 +4103,7 @@ namespace API.Controllers
 
                                 if (!string.IsNullOrEmpty(sglr.TokenId))
                                 {
+
                                     try
                                     {
                                         SGStockRequest sgr = new SGStockRequest();
@@ -4083,11 +4112,38 @@ namespace API.Controllers
 
                                         String InputSRJson = (new JavaScriptSerializer()).Serialize(sgr);
 
-                                        WebClient client1 = new WebClient();
-                                        client1.Headers.Add("Content-type", "application/json");
-                                        client1.Encoding = Encoding.UTF8;
-                                        json = client1.UploadString("https://shairugems.net:8011/api/Buyer/GetStockDataIndia", "POST", InputSRJson);
-                                        client1.Dispose();
+                                        //WebClient client1 = new WebClient();
+                                        //client1.Headers.Add("Content-type", "application/json");
+                                        //client1.Encoding = Encoding.UTF8;
+                                        //json = client1.UploadString("https://shairugems.net:8011/api/Buyer/GetStockDataIndia", "POST", InputSRJson);
+                                        //client1.Dispose();
+
+                                        WebRequest request1 = WebRequest.Create("https://shairugems.net:8011/api/Buyer/GetStockDataIndia");
+                                        request1.Method = "POST";
+                                        request1.Timeout = 7200000; //2 Hour in milliseconds
+                                        byte[] byteArray1 = Encoding.UTF8.GetBytes(InputSRJson);
+                                        request1.ContentType = "application/json";
+                                        //request1.ContentType = "application/x-www-form-urlencoded";
+                                        //request1.Headers.Add("Authorization", "Bearer " + Token);
+                                        request1.ContentLength = byteArray1.Length;
+
+                                        //Here is the Business end of the code...
+                                        Stream dataStream1 = request1.GetRequestStream();
+                                        dataStream1.Write(byteArray1, 0, byteArray1.Length);
+                                        dataStream1.Close();
+
+                                        //and here is the response.
+                                        WebResponse response1 = request1.GetResponse();
+
+                                        Console.WriteLine(((HttpWebResponse)response1).StatusDescription);
+                                        dataStream1 = response1.GetResponseStream();
+                                        StreamReader reader1 = new StreamReader(dataStream1);
+                                        json = reader1.ReadToEnd();
+                                        Console.WriteLine(json);
+                                        reader1.Close();
+                                        dataStream1.Close();
+                                        response1.Close();
+                                        request1.Abort();
                                     }
                                     catch (Exception ex)
                                     {
@@ -4122,6 +4178,90 @@ namespace API.Controllers
                                 {
                                     return ("Token is not Exists", string.Empty, null);
                                 }
+                                
+                                
+                                
+                                //try
+                                //{
+                                //    string Name = UserName;
+                                //    string password = Password;
+
+                                //    SGLoginRequest sgl = new SGLoginRequest();
+                                //    sgl.UserName = Name;
+                                //    sgl.Password = password;
+
+                                //    String InputLRJson = (new JavaScriptSerializer()).Serialize(sgl);
+
+                                //    WebClient client = new WebClient();
+                                //    client.Headers.Add("Content-type", "application/json");
+                                //    client.Encoding = Encoding.UTF8;
+                                //    json = client.UploadString("https://shairugems.net:8011/api/Buyer/login", "POST", InputLRJson);
+                                //    client.Dispose();
+                                //}
+                                //catch (Exception ex)
+                                //{
+                                //    return ("API Not Working", ex.Message, null);
+                                //}
+
+                                //SGLoginResponse sglr = new SGLoginResponse();
+                                //try
+                                //{
+                                //    sglr = (new JavaScriptSerializer()).Deserialize<SGLoginResponse>(json);
+                                //}
+                                //catch (Exception ex)
+                                //{
+                                //    return ("Data Response Format Changed", ex.Message, null);
+                                //}
+
+                                //if (!string.IsNullOrEmpty(sglr.TokenId))
+                                //{
+                                //    try
+                                //    {
+                                //        SGStockRequest sgr = new SGStockRequest();
+                                //        sgr.UserId = sglr.UserId;
+                                //        sgr.TokenId = sglr.TokenId;
+
+                                //        String InputSRJson = (new JavaScriptSerializer()).Serialize(sgr);
+
+                                //        WebClient client1 = new WebClient();
+                                //        client1.Headers.Add("Content-type", "application/json");
+                                //        client1.Encoding = Encoding.UTF8;
+                                //        json = client1.UploadString("https://shairugems.net:8011/api/Buyer/GetStockDataIndia", "POST", InputSRJson);
+                                //        client1.Dispose();
+                                //    }
+                                //    catch (Exception ex)
+                                //    {
+                                //        return ("API Not Working", ex.Message, null);
+                                //    }
+
+                                //    try
+                                //    {
+                                //        var settings = new JsonSerializerSettings() { ContractResolver = new NullToEmptyStringResolver() };
+                                //        var json_1 = JsonConvert.DeserializeObject<SGStockResponse>(json, settings);
+
+                                //        //json_1=json_1.r
+                                //        json = JsonConvert.SerializeObject(json_1.Data, settings);
+                                //        json = json.Replace("[", "").Replace("]", "");
+                                //        json = json.Replace("null", "");
+
+                                //        if (!string.IsNullOrEmpty(json))
+                                //        {
+                                //            dt_APIRes = jDt.JsonStringToDataTable(json);
+                                //        }
+                                //        else
+                                //        {
+                                //            return ("Data not Found", string.Empty, null);
+                                //        }
+                                //    }
+                                //    catch (Exception ex)
+                                //    {
+                                //        return ("Data Response Format Changed", ex.Message, null);
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    return ("Token is not Exists", string.Empty, null);
+                                //}
                             }
                             else if (SupplierURL.ToUpper() == "HTTPS://SHAIRUGEMS.NET:8011/API/BUYER/GETSTOCKDATADUBAI")
                             {
@@ -4136,11 +4276,38 @@ namespace API.Controllers
 
                                     String InputLRJson = (new JavaScriptSerializer()).Serialize(sgl);
 
-                                    WebClient client = new WebClient();
-                                    client.Headers.Add("Content-type", "application/json");
-                                    client.Encoding = Encoding.UTF8;
-                                    json = client.UploadString("https://shairugems.net:8011/api/Buyer/login", "POST", InputLRJson);
-                                    client.Dispose();
+                                    //WebClient client = new WebClient();
+                                    //client.Headers.Add("Content-type", "application/json");
+                                    //client.Encoding = Encoding.UTF8;
+                                    //json = client.UploadString("https://shairugems.net:8011/api/Buyer/login", "POST", InputLRJson);
+                                    //client.Dispose();
+
+                                    WebRequest request = WebRequest.Create("https://shairugems.net:8011/api/Buyer/login");
+                                    request.Method = "POST";
+                                    request.Timeout = 7200000; //2 Hour in milliseconds
+                                    byte[] byteArray = Encoding.UTF8.GetBytes(InputLRJson);
+                                    //request.ContentType = "application/x-www-form-urlencoded";
+                                    request.ContentType = "application/json";
+                                    //request.Headers.Add("Authorization", "Bearer " + AccessToken);
+                                    request.ContentLength = byteArray.Length;
+
+                                    //Here is the Business end of the code...
+                                    Stream dataStream = request.GetRequestStream();
+                                    dataStream.Write(byteArray, 0, byteArray.Length);
+                                    dataStream.Close();
+
+                                    //and here is the response.
+                                    WebResponse response = request.GetResponse();
+
+                                    Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+                                    dataStream = response.GetResponseStream();
+                                    StreamReader reader = new StreamReader(dataStream);
+                                    json = reader.ReadToEnd();
+                                    Console.WriteLine(json);
+                                    reader.Close();
+                                    dataStream.Close();
+                                    response.Close();
+                                    request.Abort();
                                 }
                                 catch (Exception ex)
                                 {
@@ -4148,9 +4315,12 @@ namespace API.Controllers
                                 }
 
                                 SGLoginResponse sglr = new SGLoginResponse();
+
+
                                 try
                                 {
                                     sglr = (new JavaScriptSerializer()).Deserialize<SGLoginResponse>(json);
+
                                 }
                                 catch (Exception ex)
                                 {
@@ -4159,6 +4329,7 @@ namespace API.Controllers
 
                                 if (!string.IsNullOrEmpty(sglr.TokenId))
                                 {
+
                                     try
                                     {
                                         SGStockRequest sgr = new SGStockRequest();
@@ -4167,11 +4338,38 @@ namespace API.Controllers
 
                                         String InputSRJson = (new JavaScriptSerializer()).Serialize(sgr);
 
-                                        WebClient client1 = new WebClient();
-                                        client1.Headers.Add("Content-type", "application/json");
-                                        client1.Encoding = Encoding.UTF8;
-                                        json = client1.UploadString("https://shairugems.net:8011/api/Buyer/GetStockDataDubai", "POST", InputSRJson);
-                                        client1.Dispose();
+                                        //WebClient client1 = new WebClient();
+                                        //client1.Headers.Add("Content-type", "application/json");
+                                        //client1.Encoding = Encoding.UTF8;
+                                        //json = client1.UploadString("https://shairugems.net:8011/api/Buyer/GetStockDataDubai", "POST", InputSRJson);
+                                        //client1.Dispose();
+
+                                        WebRequest request1 = WebRequest.Create("https://shairugems.net:8011/api/Buyer/GetStockDataDubai");
+                                        request1.Method = "POST";
+                                        request1.Timeout = 7200000; //2 Hour in milliseconds
+                                        byte[] byteArray1 = Encoding.UTF8.GetBytes(InputSRJson);
+                                        request1.ContentType = "application/json";
+                                        //request1.ContentType = "application/x-www-form-urlencoded";
+                                        //request1.Headers.Add("Authorization", "Bearer " + Token);
+                                        request1.ContentLength = byteArray1.Length;
+
+                                        //Here is the Business end of the code...
+                                        Stream dataStream1 = request1.GetRequestStream();
+                                        dataStream1.Write(byteArray1, 0, byteArray1.Length);
+                                        dataStream1.Close();
+
+                                        //and here is the response.
+                                        WebResponse response1 = request1.GetResponse();
+
+                                        Console.WriteLine(((HttpWebResponse)response1).StatusDescription);
+                                        dataStream1 = response1.GetResponseStream();
+                                        StreamReader reader1 = new StreamReader(dataStream1);
+                                        json = reader1.ReadToEnd();
+                                        Console.WriteLine(json);
+                                        reader1.Close();
+                                        dataStream1.Close();
+                                        response1.Close();
+                                        request1.Abort();
                                     }
                                     catch (Exception ex)
                                     {
@@ -4206,7 +4404,90 @@ namespace API.Controllers
                                 {
                                     return ("Token is not Exists", string.Empty, null);
                                 }
+                                
+                                
+                                
+                                //try
+                                //{
+                                //    string Name = UserName;
+                                //    string password = Password;
 
+                                //    SGLoginRequest sgl = new SGLoginRequest();
+                                //    sgl.UserName = Name;
+                                //    sgl.Password = password;
+
+                                //    String InputLRJson = (new JavaScriptSerializer()).Serialize(sgl);
+
+                                //    WebClient client = new WebClient();
+                                //    client.Headers.Add("Content-type", "application/json");
+                                //    client.Encoding = Encoding.UTF8;
+                                //    json = client.UploadString("https://shairugems.net:8011/api/Buyer/login", "POST", InputLRJson);
+                                //    client.Dispose();
+                                //}
+                                //catch (Exception ex)
+                                //{
+                                //    return ("API Not Working", ex.Message, null);
+                                //}
+
+                                //SGLoginResponse sglr = new SGLoginResponse();
+                                //try
+                                //{
+                                //    sglr = (new JavaScriptSerializer()).Deserialize<SGLoginResponse>(json);
+                                //}
+                                //catch (Exception ex)
+                                //{
+                                //    return ("Data Response Format Changed", ex.Message, null);
+                                //}
+
+                                //if (!string.IsNullOrEmpty(sglr.TokenId))
+                                //{
+                                //    try
+                                //    {
+                                //        SGStockRequest sgr = new SGStockRequest();
+                                //        sgr.UserId = sglr.UserId;
+                                //        sgr.TokenId = sglr.TokenId;
+
+                                //        String InputSRJson = (new JavaScriptSerializer()).Serialize(sgr);
+
+                                //        WebClient client1 = new WebClient();
+                                //        client1.Headers.Add("Content-type", "application/json");
+                                //        client1.Encoding = Encoding.UTF8;
+                                //        json = client1.UploadString("https://shairugems.net:8011/api/Buyer/GetStockDataDubai", "POST", InputSRJson);
+                                //        client1.Dispose();
+                                //    }
+                                //    catch (Exception ex)
+                                //    {
+                                //        return ("API Not Working", ex.Message, null);
+                                //    }
+
+                                //    try
+                                //    {
+                                //        var settings = new JsonSerializerSettings() { ContractResolver = new NullToEmptyStringResolver() };
+                                //        var json_1 = JsonConvert.DeserializeObject<SGStockResponse>(json, settings);
+
+                                //        //json_1=json_1.r
+                                //        json = JsonConvert.SerializeObject(json_1.Data, settings);
+                                //        json = json.Replace("[", "").Replace("]", "");
+                                //        json = json.Replace("null", "");
+
+                                //        if (!string.IsNullOrEmpty(json))
+                                //        {
+                                //            dt_APIRes = jDt.JsonStringToDataTable(json);
+                                //        }
+                                //        else
+                                //        {
+                                //            return ("Data not Found", string.Empty, null);
+                                //        }
+                                //    }
+                                //    catch (Exception ex)
+                                //    {
+                                //        return ("Data Response Format Changed", ex.Message, null);
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    return ("Token is not Exists", string.Empty, null);
+                                //}
                             }
                             else if (SupplierURL.ToUpper() == "HTTP://PDHK.DIAMX.NET/API/STOCKSEARCH?APITOKEN=3C0DB41E-7B79-48C4-8CBD-1F718DB7263A")
                             {

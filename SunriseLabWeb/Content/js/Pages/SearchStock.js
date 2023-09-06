@@ -70,7 +70,8 @@ function cellStyle(field, params) {
         }
         else if (field == "Cts" || field == "Rap_Rate" || field == "Rap_Amount" || field == "Base_Price_Cts" || field == "RATIO" || field == "Length" ||
             field == "Width" || field == "Depth" || field == "Depth_Per" || field == "Table_Per" || field == "Crown_Angle" || field == "Pav_Angle" ||
-            field == "Crown_Height" || field == "Pav_Height" || field == "Girdle_Per" || field == "RANK" || field == "Avg_Stock_Pcs" || field == "Avg_Sales_Disc") {
+            field == "Crown_Height" || field == "Pav_Height" || field == "Girdle_Per" || field == "RANK" || field == "Avg_Stock_Pcs" || field == "Avg_Pur_Pcs" ||
+            field == "Sales_Pcs") {
             return { 'color': '#003d66', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
         }
         else {
@@ -423,7 +424,7 @@ function BuyerList() {
                         columnDefs.push({ headerName: "Zone", field: "Zone", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Zone", params); } });
                     }
                     else if (item.Column_Name == "Para. Grade") {
-                        columnDefs.push({ headerName: "Para. Grade", field: "Para_Grade", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 4); }, cellStyle: function (params) { return cellStyle("Para_Grade", params); } });
+                        columnDefs.push({ headerName: "Para. Grade", field: "Para_Grade", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Para_Grade", params); } });
                     }
                     else if (item.Column_Name == "Cut") {
                         columnDefs.push({ headerName: "Cut", field: "Cut", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Cut", params); } });
