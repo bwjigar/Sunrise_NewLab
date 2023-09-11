@@ -2339,6 +2339,20 @@ namespace API.Controllers
                 {
                     para.Add(db.CreateParam("Password", DbType.String, ParameterDirection.Input, DBNull.Value));
                 }
+
+                para.Add(db.CreateParam("Image", DbType.Boolean, ParameterDirection.Input, res.Image));
+                para.Add(db.CreateParam("Video", DbType.Boolean, ParameterDirection.Input, res.Video));
+                para.Add(db.CreateParam("Certi", DbType.Boolean, ParameterDirection.Input, res.Certi));
+
+                if (!string.IsNullOrEmpty(res.DocumentViewType))
+                {
+                    para.Add(db.CreateParam("DocumentViewType", DbType.String, ParameterDirection.Input, res.DocumentViewType));
+                }
+                else
+                {
+                    para.Add(db.CreateParam("DocumentViewType", DbType.String, ParameterDirection.Input, DBNull.Value));
+                }
+
                 DataTable dt = db.ExecuteSP("AddUpdate_SupplierMaster", para.ToArray(), false);
 
                 if (dt != null && dt.Rows.Count > 0)

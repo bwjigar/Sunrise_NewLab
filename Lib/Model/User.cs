@@ -252,6 +252,7 @@ namespace Lib.Model
         public string LocationExportType { get; set; }
         public string RepeateveryType { get; set; }
         public string Repeatevery { get; set; }
+        public string AutoUploadStock { get; set; }
         public string SupplierAPIMethod { get; set; }
         public bool Active { get; set; }
         public string UserName { get; set; }
@@ -263,6 +264,10 @@ namespace Lib.Model
         public bool NewRefNoGenerate { get; set; }
         public bool NewDiscGenerate { get; set; }
         public string DataGetFrom { get; set; }
+        public bool Image { get; set; }
+        public bool Video { get; set; }
+        public bool Certi { get; set; }
+        public string DocumentViewType { get; set; }
     }
     public class Get_ColumnMaster_Res
     {

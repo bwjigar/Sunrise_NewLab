@@ -60,17 +60,25 @@ var columnDefs = [
     { headerName: "FileName", field: "FileName", hide: true },
     { headerName: "DiscInverse", field: "DiscInverse", hide: true },
     { headerName: "DataGetFrom", field: "DataGetFrom", hide: true },
+    { headerName: "Image", field: "Image", hide: true },
+    { headerName: "Video", field: "Video", hide: true },
+    { headerName: "Certi", field: "Certi", hide: true },
+    { headerName: "DocumentViewType", field: "DocumentViewType", hide: true },
 
     { headerName: "Sr", field: "iSr", tooltip: function (params) { return (params.value); }, sortable: false, width: 40 },
     { headerName: "Action", field: "Action", tooltip: function (params) { return (params.value); }, width: 50, cellRenderer: 'Action', sortable: false },
-    { headerName: "Stock Upload", field: "StockUpload", tooltip: function (params) { return (params.value); }, width: 65, cellRenderer: 'StockUpload', sortable: false },
-    { headerName: "Supplier Name", field: "SupplierName", tooltip: function (params) { return (params.value); }, width: 250 },
-    { headerName: "API Type", field: "APIType", sortable: true, width: 58, cellRenderer: APIType, },
-    { headerName: "Supplier URL", field: "SupplierURL", width: 630, cellRenderer: SupplierURL },
-    { headerName: "New RefNo Gen", field: "NewRefNoGenerate", sortable: true, width: 70, cellRenderer: Status, },
-    { headerName: "New Disc Gen", field: "NewDiscGenerate", sortable: true, width: 70, cellRenderer: Status, },
-    { headerName: "Active", field: "Active", sortable: true, width: 58, cellRenderer: Status, },
-    { headerName: "Last Updated", field: "UpdateDate", tooltip: function (params) { return (params.value); }, width: 150 },
+    { headerName: "Upload Stock", field: "StockUpload", width: 60, cellRenderer: 'StockUpload', sortable: false },
+    { headerName: "Supplier Name", field: "SupplierName", tooltip: function (params) { return (params.value); }, width: 280 },
+    { headerName: "API Type", field: "APIType", width: 63, cellRenderer: APIType, },
+    { headerName: "Auto Upload Stock", field: "AutoUploadStock", width: 120, sortable: false },
+    { headerName: "Supplier URL", field: "SupplierURL", width: 630, cellRenderer: SupplierURL,hide:true },
+    { headerName: "Active", field: "Active", width: 58, cellRenderer: Status, },
+    { headerName: "New RefNo Gen", field: "NewRefNoGenerate", width: 70, cellRenderer: Status, },
+    { headerName: "New Disc Gen", field: "NewDiscGenerate", width: 70, cellRenderer: Status, },
+    { headerName: "Display Image", field: "Image", width: 65, cellRenderer: Status, },
+    { headerName: "Display Video", field: "Video", width: 65, cellRenderer: Status, },
+    { headerName: "Display Certi", field: "Certi", width: 65, cellRenderer: Status, },
+    { headerName: "Last Updated", field: "UpdateDate", width: 130 },
 ];
 
 function SupplierURL(params) {
@@ -150,6 +158,10 @@ function EditView(Id) {
         document.getElementById("DiscInverse").checked = data[0].DiscInverse;
         document.getElementById("NewRefNoGenerate").checked = data[0].NewRefNoGenerate;
         document.getElementById("NewDiscGenerate").checked = data[0].NewDiscGenerate;
+        document.getElementById("Image").checked = data[0].Image;
+        document.getElementById("Video").checked = data[0].Video;
+        document.getElementById("Certi").checked = data[0].Certi;
+        $("#txtDocViewType").val(data[0].DocumentViewType);
 
         if (data[0].APIType == "WEB_API") {
             document.getElementById("WEB_API").checked = true;
@@ -354,6 +366,9 @@ function WEBAPI_View() {
     $(".DIS_IVS").show();
     $(".N_RF_GEN").show();
     $(".N_DIS_GEN").show();
+    $(".DATA_GET_FROM").show();
+    $(".DIS_IN_GRID_EXL").show();
+    $(".DOC_VIEW_TYP").show();
 }
 function FTP_View() {
     $(".SP_NM").show();
@@ -371,6 +386,9 @@ function FTP_View() {
     $(".DIS_IVS").show();
     $(".N_RF_GEN").show();
     $(".N_DIS_GEN").show();
+    $(".DATA_GET_FROM").show();
+    $(".DIS_IN_GRID_EXL").show();
+    $(".DOC_VIEW_TYP").show();
 }
 
 var API_Type = "WEB_API", DATA_GET_FROM = "WEB_API_FTP";
@@ -436,6 +454,10 @@ function Clear() {
     document.getElementById("DiscInverse").checked = false;
     document.getElementById("NewRefNoGenerate").checked = false;
     document.getElementById("NewDiscGenerate").checked = false;
+    document.getElementById("Image").checked = true;
+    document.getElementById("Video").checked = true;
+    document.getElementById("Certi").checked = true;
+    $("#txtDocViewType").val("");
 
     $("#txtUserName").val("");
     $("#txtPassword").val("");
@@ -540,6 +562,10 @@ var Save = function () {
         obj.DiscInverse = document.getElementById("DiscInverse").checked;
         obj.NewRefNoGenerate = document.getElementById("NewRefNoGenerate").checked;
         obj.NewDiscGenerate = document.getElementById("NewDiscGenerate").checked;
+        obj.Image = document.getElementById("Image").checked;
+        obj.Video = document.getElementById("Video").checked;
+        obj.Certi = document.getElementById("Certi").checked;
+        obj.DocumentViewType = $("#txtDocViewType").val();
         obj.DataGetFrom = DATA_GET_FROM;
 
         if (API_Type == "WEB_API") {

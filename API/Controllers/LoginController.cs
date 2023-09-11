@@ -66,7 +66,11 @@ namespace API.Controllers
 
                 para.Add(db.CreateParam("Username", DbType.String, ParameterDirection.Input, UserName.ToUpper()));
                 para.Add(db.CreateParam("Password", DbType.String, ParameterDirection.Input, Password));
-                para.Add(db.CreateParam("IP_Add", DbType.String, ParameterDirection.Input, IpAddress));
+
+                if (!string.IsNullOrEmpty(IpAddress))
+                    para.Add(db.CreateParam("IP_Add", DbType.String, ParameterDirection.Input, IpAddress));
+                else
+                    para.Add(db.CreateParam("IP_Add", DbType.String, ParameterDirection.Input, DBNull.Value));
 
                 DataTable dt = db.ExecuteSP("Check_Login", para.ToArray(), false);
 

@@ -525,7 +525,22 @@ var loaderHide = function () {
                 return "";
             }
         }
-
+        function Lab(params) {
+            if (params.data.Certificate_No != "") {
+                if (params.value == "GIA") {
+                    return '<a href="http://www.gia.edu/cs/Satellite?pagename=GST%2FDispatcher&childpagename=GIA%2FPage%2FReportCheck&c=Page&cid=1355954554547&reportno=' + params.data.Certificate_No + '" target="_blank" style="text-decoration: underline; color :blue;">' + params.value + '</a>';
+                }
+                else if (params.value == "HRD") {
+                    return '<a href="https://my.hrdantwerp.com/?id=34&record_number=' + params.data.Certificate_No + '" target="_blank" style="text-decoration: underline; color :blue;">' + params.value + '</a>';
+                }
+                else if (params.value == "IGI") {
+                    return '<a href="https://www.igi.org/reports/verify-your-report?r=' + params.data.Certificate_No + '" target="_blank" style="text-decoration: underline; color :blue;">' + params.value + '</a>';
+                }
+                else {
+                    return params.value;
+                }
+            }
+        }
     </script>
 </body>
 
