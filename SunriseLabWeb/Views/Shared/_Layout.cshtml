@@ -39,7 +39,16 @@
             z-index: 9999;
             top: 0;
         }
-
+        .loading-overlay-stk-uplod {
+            display: none;
+            background: rgb(26 26 26);
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+        }
         .error {
             color: red;
         }
@@ -52,7 +61,14 @@
             left: 50%;
             transform: translate( -50%, -50% );
         }
-
+        .loading-overlay-image-container-stk-uplod {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            top: 35%;
+            left: 50%;
+            transform: translate( -50%, -50% );
+        }
         .loading-overlay-img {
             width: 50px;
             height: 50px;
@@ -80,7 +96,12 @@
             border-radius: 5px;
             /*background-color:#fff;*/
         }
-
+        .loading-overlay-img3-stk-uplod {
+            width: 217px;
+            height: auto;
+            border-radius: 5px;
+            background-color: #fff;
+        }
         .loading-overlay-img-spinner {
             width: 38px;
             height: auto;
@@ -247,6 +268,10 @@
     <div class="loading-overlay-image-container">
         <img src="~/Content/images/Loader2.gif" class="loading-overlay-img3" />
     </div>
+    <div class="loading-overlay-stk-uplod"></div>
+    <div class="loading-overlay-image-container-stk-uplod">
+        <img src="~/Content/images/loader4.gif" class="loading-overlay-img3-stk-uplod" />
+    </div>
     <input type="hidden" id="hdn_UserId" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.UserId" />
     <input type="hidden" id="hdn_UserType" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId" />
     <div class="wrapper">
@@ -315,11 +340,11 @@
                             </a>
                         </li>
                         @*<li>
-                <a href="@Url.Action("StockDiscMgt", "User")">
-                    <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
-                    Stock & Disc Mgt
-                </a>
-            </li>*@
+                                <a href="@Url.Action("StockDiscMgt", "User")">
+                                    <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                                    Stock & Disc Mgt
+                                </a>
+                            </li>*@
                         <li>
                             <a href="@Url.Action("SupplierStockUpload", "User")">
                                 <i class="fa fa-upload" aria-hidden="true"></i>
@@ -432,15 +457,23 @@
                 }
             });
         });
-        var loaderShow = function () {
+var loaderShow = function () {
     $('.loading-overlay-image-container').show();
     $('.loading-overlay').show();
 }
+        var loaderShow_stk_upload = function () {
+            $('.loading-overlay-image-container-stk-uplod').show();
+            $('.loading-overlay-stk-uplod').show();
+        }
 
 var loaderHide = function () {
     $('.loading-overlay-image-container').hide();
     $('.loading-overlay').hide();
-}
+        }
+        var loaderHide_stk_upload = function () {
+            $('.loading-overlay-image-container-stk-uplod').hide();
+            $('.loading-overlay-stk-uplod').hide();
+        }
         function MoveToErrorPage(data_Status) {
             var flag = false;
             data_Status = String(data_Status);

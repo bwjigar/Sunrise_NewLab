@@ -117,7 +117,7 @@ function StockUploadView(Id) {
     var obj = {};
     obj.SUPPLIER = Id;
     debugger
-    loaderShow();
+    loaderShow_stk_upload();
     setTimeout(function () {
         $.ajax({
             url: '/User/AddUpdate_SupplierStock_FromSupplier',
@@ -125,7 +125,7 @@ function StockUploadView(Id) {
             data: { req: obj },
             success: function (data) {
                 debugger
-                loaderHide();
+                loaderHide_stk_upload();
                 if (data.Status == "1") {
                     toastr.success(data.Message);
                 }
@@ -134,7 +134,7 @@ function StockUploadView(Id) {
                 }
             },
             error: function (xhr, textStatus, errorThrown) {
-                loaderHide();
+                loaderHide_stk_upload();
             }
         });
     }, 50);

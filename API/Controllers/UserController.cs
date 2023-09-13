@@ -4192,9 +4192,9 @@ namespace API.Controllers
                                 {
                                     return ("Token is not Exists", string.Empty, null);
                                 }
-                                
-                                
-                                
+
+
+
                                 //try
                                 //{
                                 //    string Name = UserName;
@@ -4418,9 +4418,9 @@ namespace API.Controllers
                                 {
                                     return ("Token is not Exists", string.Empty, null);
                                 }
-                                
-                                
-                                
+
+
+
                                 //try
                                 //{
                                 //    string Name = UserName;
@@ -5681,6 +5681,8 @@ namespace API.Controllers
             try
             {
                 Final_dt = new DataTable();
+                Final_dt.Columns.Add("Stock Type", typeof(string));
+                Final_dt.Columns.Add("Not Mapped Column", typeof(string));
                 Final_dt.Columns.Add("Stock From", typeof(string));
                 Final_dt.Columns.Add("SupplierId", typeof(string));
                 Final_dt.Columns.Add("Shape", typeof(string));
@@ -5768,6 +5770,8 @@ namespace API.Controllers
                 {
                     DataRow Final_row = Final_dt.NewRow();
 
+                    Final_row["Stock Type"] = "I";
+                    Final_row["Not Mapped Column"] = "";
                     Final_row["Stock From"] = StockFrom;
                     Final_row["SupplierId"] = SupplierId.ToString();
 
@@ -6008,33 +6012,84 @@ namespace API.Controllers
 
                 if (Final_dt != null && Final_dt.Rows.Count > 0)
                 {
-                    foreach (DataColumn column in Final_dt.Columns)
+                    db = new Database();
+                    List<IDbDataParameter> para = new List<IDbDataParameter>();
+                    DataTable CatColMas_Map_dt = db.ExecuteSP("Get_Category_Master_For_Val_Mapping", para.ToArray(), false);
+
+                    foreach (DataRow CatColMas_Map_Row in CatColMas_Map_dt.Rows)
                     {
                         db = new Database();
-                        List<IDbDataParameter> para = new List<IDbDataParameter>();
-                        para.Add(db.CreateParam("Column_Name", DbType.String, ParameterDirection.Input, column.ColumnName));
+                        para = new List<IDbDataParameter>();
+                        para.Add(db.CreateParam("Column_Name", DbType.String, ParameterDirection.Input, CatColMas_Map_Row["Column_Name"].ToString()));
                         para.Add(db.CreateParam("SupplierId", DbType.Int64, ParameterDirection.Input, SupplierId));
 
                         DataTable Synonym_dt = db.ExecuteSP("Get_Synonyms_From_Cat_Sup_Val", para.ToArray(), false);
 
                         if (Synonym_dt != null && Synonym_dt.Rows.Count > 0)
                         {
-                            foreach (DataRow Final_row in Final_dt.Rows)
+                            DataRow[] dra1 = Synonym_dt.Select("[SupplierSynonyms] IS NOT NULL");
+
+                            if (dra1.Length > 0)
                             {
-                                foreach (DataRow SuppCol_row in Synonym_dt.Rows)
+                                DataTable SuppValue_dt = dra1.CopyToDataTable();
+                                foreach (DataRow Final_row in Final_dt.Rows)
                                 {
-                                    string str = Final_row[column.ColumnName].ToString();
-                                    string str2 = SuppCol_row["Cat_Name"].ToString();
-                                    string str3 = SuppCol_row["Synonyms"].ToString();
-
-                                    string[] strArray = str3.Split(',');
-
-                                    foreach (string str4 in strArray)
+                                    bool Record_Map = false;
+                                    foreach (DataRow dt_row in SuppValue_dt.Rows)
                                     {
-                                        if (str.Trim().ToUpper() == str4.Trim().ToUpper() || str4.Trim().ToUpper() == "BLANK")
+                                        string str = Final_row[CatColMas_Map_Row["Column_Name"].ToString()].ToString();
+                                        str = (string.IsNullOrEmpty(str) ? "BLANK" : str);
+                                        string str2 = dt_row["Cat_Name"].ToString();
+                                        string str3 = dt_row["SupplierSynonyms"].ToString();
+
+                                        string[] strArray = str3.Split(',');
+
+                                        foreach (string str4 in strArray)
                                         {
-                                            Final_row[column.ColumnName] = str2;
+                                            //if (str.Trim().ToUpper() == str4.Trim().ToUpper() || str4.Trim().ToUpper() == "BLANK")
+                                            if (str.Trim().ToUpper() == str4.Trim().ToUpper())
+                                            {
+                                                Final_row[CatColMas_Map_Row["Column_Name"].ToString()] = str2;
+                                                Record_Map = true;
+                                            }
                                         }
+                                    }
+                                    if (Record_Map == false)
+                                    {
+                                        Final_row["Stock Type"] = "D";
+                                        Final_row["Not Mapped Column"] += (Final_row["Not Mapped Column"].ToString() == "" ? "" : ", ") + CatColMas_Map_Row["Column_Name"].ToString();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                foreach (DataRow Final_row in Final_dt.Rows)
+                                {
+                                    bool Record_Map = false;
+                                    foreach (DataRow SuppCol_row in Synonym_dt.Rows)
+                                    {
+                                        string str = Final_row[CatColMas_Map_Row["Column_Name"].ToString()].ToString();
+                                        str = (string.IsNullOrEmpty(str) ? "BLANK" : str);
+                                        string str2 = SuppCol_row["Cat_Name"].ToString();
+                                        //string str3 = SuppCol_row["Synonyms"].ToString();
+                                        string str3 = SuppCol_row["CategorySynonyms"].ToString();
+
+                                        string[] strArray = str3.Split(',');
+
+                                        foreach (string str4 in strArray)
+                                        {
+                                            //if (str.Trim().ToUpper() == str4.Trim().ToUpper() || str4.Trim().ToUpper() == "BLANK")
+                                            if (str.Trim().ToUpper() == str4.Trim().ToUpper())
+                                            {
+                                                Final_row[CatColMas_Map_Row["Column_Name"].ToString()] = str2;
+                                                Record_Map = true;
+                                            }
+                                        }
+                                    }
+                                    if (Record_Map == false)
+                                    {
+                                        Final_row["Stock Type"] = "D";
+                                        Final_row["Not Mapped Column"] += (Final_row["Not Mapped Column"].ToString() == "" ? "" : ", ") + CatColMas_Map_Row["Column_Name"].ToString();
                                     }
                                 }
                             }
@@ -6725,7 +6780,7 @@ namespace API.Controllers
             });
         }
 
-        
+
 
         [HttpPost]
         public IHttpActionResult Get_ColumnSetting_UserWise([FromBody] JObject data)
@@ -7197,8 +7252,8 @@ namespace API.Controllers
 
                 param1 = new OracleParameter("p_all_luster", OracleDbType.NVarchar2);
                 param1.Value = DBNull.Value;
-                paramList.Add(param1); 
-                
+                paramList.Add(param1);
+
                 param1 = new OracleParameter("p_kts_grade_flag", OracleDbType.NVarchar2);
                 param1.Value = DBNull.Value;
                 paramList.Add(param1);
@@ -7638,8 +7693,8 @@ namespace API.Controllers
 
                 param1 = new OracleParameter("p_shade_flag", OracleDbType.NVarchar2);
                 param1.Value = "Y";
-                paramList.Add(param1); 
-                
+                paramList.Add(param1);
+
                 param1 = new OracleParameter("p_luster_flag", OracleDbType.NVarchar2);
                 param1.Value = "Y";
                 paramList.Add(param1);
