@@ -48,7 +48,7 @@ function Stock_Upload() {
         debugger
         const fileInput = $('#file_upload')[0];
         if (fileInput.files.length > 0) {
-            loaderShow();
+            loaderShow_stk_upload();
             debugger
             setTimeout(function () {
                 debugger
@@ -66,7 +66,7 @@ function Stock_Upload() {
                     data: formData,
                     async: false,
                     success: function (data) {
-                        loaderHide();
+                        loaderHide_stk_upload();
                         if (data.Status == "1") {
                             debugger
                             toastr.success(data.Message);
@@ -77,7 +77,7 @@ function Stock_Upload() {
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        loaderHide();
+                        loaderHide_stk_upload();
                     }
                 });
 

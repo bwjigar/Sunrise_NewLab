@@ -610,8 +610,8 @@ namespace Lib.Model
         public string Girdle_MM { get; set; }
         public string Inscription { get; set; }
         public string Culet_Condition { get; set; }
-        public string Star_Length { get; set; }
-        public string Lower_Halves { get; set; }
+        public decimal Star_Length { get; set; }
+        public decimal Lower_Halves { get; set; }
         public string Stage { get; set; }
         public string Certi_Date { get; set; }
         public decimal Disc { get; set; }

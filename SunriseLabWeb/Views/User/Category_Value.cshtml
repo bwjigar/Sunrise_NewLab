@@ -80,7 +80,8 @@
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class="offer-label">Synonyms:<span class="reqvalidation"> * </span></div>
+                                <div class="offer-label">Synonyms:<span class="reqvalidation"> * </span><br />
+                                                                                                        <span style="font-size: 11px;color: #d62004;">(Add Multiple using Comma seprated) <br> Ex : ABC,DEF,GH</span></div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
@@ -172,8 +173,8 @@
         { headerName: "Sr", field: "iSr", tooltip: function (params) { return (params.value); }, sortable: false, width: 40 },
         { headerName: "Action", field: "bIsAction", tooltip: function (params) { return (params.value); }, width: 60, cellRenderer: CateMas_Action, sortable: false },
         { headerName: "Category Name", field: "Cat_Column_Name", tooltip: function (params) { return (params.value); }, width: 150, sortable: false },
-        { headerName: "Category Value", field: "Cat_Name", tooltip: function (params) { return (params.value); }, width: 150 },
-        { headerName: "Synonyms", field: "Synonyms", tooltip: function (params) { return (params.value); }, width: 300, sortable: false },
+        { headerName: "Category Value", field: "Cat_Name", tooltip: function (params) { return (params.value); }, width: 250 },
+        { headerName: "Synonyms", field: "Synonyms", tooltip: function (params) { return (params.value); }, width: 550, sortable: false },
         { headerName: "Status", field: "Status", sortable: true, tooltip: function (params) { return (params.value); }, width: 74, cellRenderer: CateMas_Status, },
     ];
     function CateMas_Status(params) {

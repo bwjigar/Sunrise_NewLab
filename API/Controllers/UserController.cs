@@ -6014,6 +6014,10 @@ namespace API.Controllers
                 {
                     db = new Database();
                     List<IDbDataParameter> para = new List<IDbDataParameter>();
+                    
+                    para.Add(db.CreateParam("SupplierId", DbType.Int64, ParameterDirection.Input, SupplierId));
+                    para.Add(db.CreateParam("StockFrom", DbType.String, ParameterDirection.Input, StockFrom));
+
                     DataTable CatColMas_Map_dt = db.ExecuteSP("Get_Category_Master_For_Val_Mapping", para.ToArray(), false);
 
                     foreach (DataRow CatColMas_Map_Row in CatColMas_Map_dt.Rows)
@@ -6135,19 +6139,44 @@ namespace API.Controllers
         }
         public static DataTable ConvertXLStoDataTable(string strFilePath, string connString)
         {
-            DataTable dataTable = new DataTable();
+            //DataTable dataTable = new DataTable();
 
+            //using (OleDbConnection connection = new OleDbConnection(connString))
+            //{
+            //    connection.Open();
+            //    string str = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).Rows[0]["TABLE_NAME"].ToString();
+            //    using (OleDbDataAdapter adapter = new OleDbDataAdapter("SELECT * FROM [" + str + "]", connection))
+            //    {
+            //        adapter.Fill(dataTable);
+            //    }
+            //    connection.Close();
+            //}
+
+
+            DataTable dataTable = new DataTable();
             using (OleDbConnection connection = new OleDbConnection(connString))
             {
                 connection.Open();
-                string str = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).Rows[0]["TABLE_NAME"].ToString();
-                using (OleDbDataAdapter adapter = new OleDbDataAdapter("SELECT * FROM [" + str + "]", connection))
+                // Get the list of sheet names
+                DataTable dt = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                foreach (DataRow row in dt.Rows)
                 {
-                    adapter.Fill(dataTable);
-                }
-                connection.Close();
-            }
+                    string sheetName = row["TABLE_NAME"].ToString();
+                    if (sheetName.EndsWith("$"))
+                    {
+                        // Assuming you want to keep sheets that don't end with "_Deleted"
+                        if (!sheetName.EndsWith("_Deleted$"))
+                        {
+                            // Use OleDbDataAdapter to fetch the data from the sheet
+                            OleDbDataAdapter adapter = new OleDbDataAdapter($"SELECT * FROM [{sheetName}]", connection);
 
+                            adapter.Fill(dataTable);
+
+                            // You have the data from the sheet, you can now process it as needed
+                        }
+                    }
+                }
+            }
             return dataTable;
         }
         public static DataTable ConvertXSLXtoDataTable(string strFilePath, string connString)
@@ -6171,22 +6200,49 @@ namespace API.Controllers
             //connection.Close();
 
             //return table;
-            DataTable dataTable = new DataTable();
 
+
+
+            //DataTable dataTable = new DataTable();
+
+            //using (OleDbConnection connection = new OleDbConnection(connString))
+            //{
+            //    connection.Open();
+            //    string str = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).Rows[0]["TABLE_NAME"].ToString();
+            //    using (OleDbDataAdapter adapter = new OleDbDataAdapter("SELECT * FROM [" + str + "]", connection))
+            //    {
+            //        adapter.Fill(dataTable);
+            //    }
+            //    connection.Close();
+            //}
+            
+            
+            DataTable dataTable = new DataTable();
             using (OleDbConnection connection = new OleDbConnection(connString))
             {
                 connection.Open();
-                string str = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).Rows[0]["TABLE_NAME"].ToString();
-                using (OleDbDataAdapter adapter = new OleDbDataAdapter("SELECT * FROM [" + str + "]", connection))
+                // Get the list of sheet names
+                DataTable dt = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                foreach (DataRow row in dt.Rows)
                 {
-                    adapter.Fill(dataTable);
-                }
-                connection.Close();
-            }
+                    string sheetName = row["TABLE_NAME"].ToString();
+                    if (sheetName.EndsWith("$"))
+                    {
+                        // Assuming you want to keep sheets that don't end with "_Deleted"
+                        if (!sheetName.EndsWith("_Deleted$"))
+                        {
+                            // Use OleDbDataAdapter to fetch the data from the sheet
+                            OleDbDataAdapter adapter = new OleDbDataAdapter($"SELECT * FROM [{sheetName}]", connection);
+                            
+                            adapter.Fill(dataTable);
 
+                            // You have the data from the sheet, you can now process it as needed
+                        }
+                    }
+                }
+            }
             return dataTable;
         }
-
 
         [AllowAnonymous]
         [HttpPost]
