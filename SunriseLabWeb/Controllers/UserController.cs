@@ -50,9 +50,10 @@ namespace SunriseLabWeb_New.Controllers
             ServiceResponse<UserType_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<UserType_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult Get_ColumnMaster()
+        public JsonResult Get_ColumnMaster(Get_CategoryMas_Req req)
         {
-            string response = _api.CallAPI(Constants.Get_ColumnMaster, string.Empty);
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Get_ColumnMaster, inputJson);
             ServiceResponse<Get_ColumnMaster_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_ColumnMaster_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -193,6 +194,50 @@ namespace SunriseLabWeb_New.Controllers
         public ActionResult SupplierColumnSettingFromFile()
         {
             return View();
+        }
+        public JsonResult Get_SheetName_From_File(Data_Get_From_File_Req req)
+        {
+            ServiceResponse<Get_SheetName_From_File_Res> data = new ServiceResponse<Get_SheetName_From_File_Res>();
+            try
+            {
+                if (Request.Files.Count > 0)
+                {
+                    string folder = Server.MapPath("~/Stock_File/");
+                    string ProjectName = ConfigurationManager.AppSettings["ProjectName"];
+                    string APIName = ConfigurationManager.AppSettings["APIName"];
+
+                    folder = folder.Replace("\\" + ProjectName + "\\", "\\" + APIName + "\\");
+
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        HttpPostedFileBase file = files[i];
+                        string fname = file.FileName;
+                        string NewFileName = req.SupplierId + "_SheetName_" + Guid.NewGuid() + Path.GetExtension(fname).ToLower();
+
+                        string savePath = Path.Combine(folder, NewFileName);
+                        file.SaveAs(savePath);
+
+                        req.FilePath = savePath;
+                    }
+                    string inputJson = (new JavaScriptSerializer()).Serialize(req);
+                    string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_SheetName_From_File, inputJson);
+                    data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SheetName_From_File_Res>>(response);
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    data.Message = "File Not Exists";
+                    data.Status = "0";
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                data.Message = "Message " + ex.Message + " StackTrace " + ex.StackTrace;
+                data.Status = "0";
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
         public JsonResult Get_Data_From_File(Data_Get_From_File_Req req)
         {

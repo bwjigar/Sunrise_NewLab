@@ -1873,6 +1873,61 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        public IHttpActionResult Get_SheetName_From_File([FromBody] JObject data)
+        {
+            JObject test1 = JObject.Parse(data.ToString());
+            Data_Get_From_File_Req Req = new Data_Get_From_File_Req();
+            try
+            {
+                Req = JsonConvert.DeserializeObject<Data_Get_From_File_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_SheetName_From_File_Res>
+                {
+                    Data = null,
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+            try
+            {
+                List<Get_SheetName_From_File_Res> List_Res = new List<Get_SheetName_From_File_Res>();
+
+                string str = Path.GetExtension(Req.FilePath).ToLower();
+                if (str == ".xls")
+                {
+                    string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Req.FilePath + ";Extended Properties=\"Excel 12.0;HDR=YES;\"";
+                    List_Res = Get_SheetName_From_FILE(".xls", connString);
+                }
+                else if (str == ".xlsx")
+                {
+                    string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Req.FilePath + ";Extended Properties='Excel 12.0 Xml;HDR=YES;IMEX=1;'";
+                    List_Res = Get_SheetName_From_FILE(".xlsx", connString);
+                }
+
+                return Ok(new ServiceResponse<Get_SheetName_From_File_Res>
+                {
+                    Data = List_Res,
+                    Message = "SUCCESS",
+                    Status = "1"
+                });
+
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_SheetName_From_File_Res>
+                {
+                    Data = new List<Get_SheetName_From_File_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [AllowAnonymous]
+        [HttpPost]
         public IHttpActionResult Get_Data_From_File([FromBody] JObject data)
         {
             JObject test1 = JObject.Parse(data.ToString());
@@ -1898,17 +1953,20 @@ namespace API.Controllers
                 if (str == ".xls")
                 {
                     string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Req.FilePath + ";Extended Properties=\"Excel 12.0;HDR=YES;\"";
-                    Stock_dt = ConvertXLStoDataTable("", connString);
+                    //Stock_dt = ConvertXLStoDataTable("", connString);
+                    Stock_dt = Convert_FILE_To_DataTable(".xls", connString, Req.SheetName);
                 }
                 else if (str == ".xlsx")
                 {
                     //string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Req.FilePath + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
                     string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Req.FilePath + ";Extended Properties='Excel 12.0 Xml;HDR=YES;IMEX=1;'";
-                    Stock_dt = ConvertXSLXtoDataTable("", connString);
+                    //Stock_dt = ConvertXSLXtoDataTable("", connString);
+                    Stock_dt = Convert_FILE_To_DataTable(".xlsx", connString, Req.SheetName);
                 }
                 else if (str == ".csv")
                 {
-                    Stock_dt = ConvertCSVtoDataTable(Req.FilePath);
+                    //Stock_dt = ConvertCSVtoDataTable(Req.FilePath);
+                    Stock_dt = Convert_FILE_To_DataTable(".csv", Req.FilePath, "");
                 }
 
                 List<Get_SupplierColumnSetting_FromAPI_Res> List_Res = new List<Get_SupplierColumnSetting_FromAPI_Res>();
@@ -1943,7 +2001,8 @@ namespace API.Controllers
                     return Ok(new ServiceResponse<Get_SupplierColumnSetting_FromAPI_Res>
                     {
                         Data = null,
-                        Message = "Supplier " + str + " File in Columns not found.",
+                        //Message = "Supplier " + ((str == ".xls" || str == ".xlsx") ? "Excel" : "CSV") + " File "+ ((str == ".xls" || str == ".xlsx") ? Req.SheetName.Remove(Req.SheetName.Length - 1, 1) + " Sheet " : "")+ "in Columns not found.",
+                        Message = "Columns not found From Supplier's "+ ((str == ".xls" || str == ".xlsx") ? "Excel" : "CSV") +" File"+ ((str == ".xls" || str == ".xlsx") ? " in " + Req.SheetName.Remove(Req.SheetName.Length - 1, 1)+ " Sheet." : "."),
                         Status = "2"
                     });
                 }
@@ -1954,7 +2013,7 @@ namespace API.Controllers
                 return Ok(new ServiceResponse<Get_SupplierColumnSetting_FromAPI_Res>
                 {
                     Data = new List<Get_SupplierColumnSetting_FromAPI_Res>(),
-                    Message = "Input Parameters are not in the proper format",
+                    Message = "Something Went wrong.\nPlease try again later",
                     Status = "0"
                 });
             }
@@ -2786,11 +2845,32 @@ namespace API.Controllers
         [HttpPost]
         public IHttpActionResult Get_ColumnMaster([FromBody] JObject data)
         {
+            Get_CategoryMas_Req req = new Get_CategoryMas_Req();
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_CategoryMas_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_ColumnMaster_Res>
+                {
+                    Data = null,
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+            
             try
             {
                 Database db = new Database();
                 List<IDbDataParameter> para;
                 para = new List<IDbDataParameter>();
+
+                if (!string.IsNullOrEmpty(req.Not_Col_Id))
+                    para.Add(db.CreateParam("Not_Col_Id", DbType.String, ParameterDirection.Input, req.Not_Col_Id));
+                else
+                    para.Add(db.CreateParam("Not_Col_Id", DbType.String, ParameterDirection.Input, DBNull.Value));
 
                 DataTable dt = db.ExecuteSP("Get_Column_Master", para.ToArray(), false);
 
@@ -3572,7 +3652,8 @@ namespace API.Controllers
                         try
                         {
                             string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileLocation + ";Extended Properties=\"Excel 12.0;HDR=YES;\"";
-                            dt_APIRes = ConvertXLStoDataTable("", connString);
+                            //dt_APIRes = ConvertXLStoDataTable("", connString);
+                            dt_APIRes = Convert_FILE_To_DataTable(".xls", connString, "");
                         }
                         catch (Exception ex)
                         {
@@ -3585,7 +3666,8 @@ namespace API.Controllers
                         {
                             //string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
                             string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileLocation + ";Extended Properties='Excel 12.0 Xml;HDR=YES;IMEX=1;'";
-                            dt_APIRes = ConvertXSLXtoDataTable("", connString);
+                            //dt_APIRes = ConvertXSLXtoDataTable("", connString);
+                            dt_APIRes = Convert_FILE_To_DataTable(".xlsx", connString, "");
                         }
                         catch (Exception ex)
                         {
@@ -3596,7 +3678,8 @@ namespace API.Controllers
                     {
                         try
                         {
-                            dt_APIRes = ConvertCSVtoDataTable(FileLocation);
+                            //dt_APIRes = ConvertCSVtoDataTable(FileLocation);
+                            dt_APIRes = Convert_FILE_To_DataTable(".csv", FileLocation, "");
                         }
                         catch (Exception ex)
                         {
@@ -5520,7 +5603,6 @@ namespace API.Controllers
                             }
 
                         }
-
                     }
                     else if (SupplierResponseFormat.ToUpper() == "HTML")
                     {
@@ -5600,7 +5682,8 @@ namespace API.Controllers
                                 {
                                     if (!string.IsNullOrEmpty(json))
                                     {
-                                        dt_APIRes = ConvertCSVtoDataTable(json);
+                                        //dt_APIRes = ConvertCSVtoDataTable(json);
+                                        dt_APIRes = Convert_FILE_To_DataTable(".csv", json, "");
                                     }
                                     else
                                     {
@@ -5639,7 +5722,8 @@ namespace API.Controllers
                                 {
                                     if (!string.IsNullOrEmpty(json))
                                     {
-                                        dt_APIRes = ConvertCSVtoDataTable(json);
+                                        //dt_APIRes = ConvertCSVtoDataTable(json);
+                                        dt_APIRes = Convert_FILE_To_DataTable(".csv", json, "");
                                     }
                                     else
                                     {
@@ -6014,7 +6098,7 @@ namespace API.Controllers
                 {
                     db = new Database();
                     List<IDbDataParameter> para = new List<IDbDataParameter>();
-                    
+
                     para.Add(db.CreateParam("SupplierId", DbType.Int64, ParameterDirection.Input, SupplierId));
                     para.Add(db.CreateParam("StockFrom", DbType.String, ParameterDirection.Input, StockFrom));
 
@@ -6103,11 +6187,12 @@ namespace API.Controllers
                 //DataRow[] dra1 = Final_dt.Select("[Certificate No] = '2428377211'");
                 return Final_dt;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
         }
+
         public static DataTable ConvertCSVtoDataTable(string csvFilePath)
         {
             DataTable table = new DataTable();
@@ -6215,8 +6300,8 @@ namespace API.Controllers
             //    }
             //    connection.Close();
             //}
-            
-            
+
+
             DataTable dataTable = new DataTable();
             using (OleDbConnection connection = new OleDbConnection(connString))
             {
@@ -6233,7 +6318,7 @@ namespace API.Controllers
                         {
                             // Use OleDbDataAdapter to fetch the data from the sheet
                             OleDbDataAdapter adapter = new OleDbDataAdapter($"SELECT * FROM [{sheetName}]", connection);
-                            
+
                             adapter.Fill(dataTable);
 
                             // You have the data from the sheet, you can now process it as needed
@@ -6242,6 +6327,157 @@ namespace API.Controllers
                 }
             }
             return dataTable;
+        }
+
+        public static DataTable Convert_FILE_To_DataTable(string filetype, string connString, string SheetName)
+        {
+            DataTable table = new DataTable();
+
+            if (filetype == ".xls" || filetype == ".xlsx")
+            {
+                using (OleDbConnection connection = new OleDbConnection(connString))
+                {
+                    connection.Open();
+
+                    if (SheetName == "")
+                    {
+                        DataTable dt = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            string _sheetName = row["TABLE_NAME"].ToString();
+                            if (_sheetName.EndsWith("$"))
+                            {
+                                // Assuming you want to keep sheets that don't end with "_Deleted"
+                                if (!_sheetName.EndsWith("_Deleted$"))
+                                {
+                                    // Use OleDbDataAdapter to fetch the data from the sheet
+                                    OleDbDataAdapter adapter = new OleDbDataAdapter($"SELECT * FROM [{_sheetName}]", connection);
+                                    adapter.Fill(table);
+
+                                    // You have the data from the sheet, you can now process it as needed
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (SheetName == "_ALL_SHEET_$")
+                        {
+                            List<Get_SheetName_From_File_Res> List_Res = new List<Get_SheetName_From_File_Res>();
+                            int num = 0;
+                            
+                            DataTable dt = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                            foreach (DataRow row1 in dt.Rows)
+                            {
+                                string sheetName = row1["TABLE_NAME"].ToString();
+                                if (!sheetName.EndsWith("_Deleted$") && sheetName.EndsWith("$"))
+                                {
+                                    Get_SheetName_From_File_Res Res = new Get_SheetName_From_File_Res();
+                                    Res.Id = num + 1;
+                                    Res.SheetName = sheetName;
+                                    List_Res.Add(Res);
+                                }
+                                num++;
+                            }
+                            foreach (Get_SheetName_From_File_Res row in List_Res)
+                            {
+                                DataTable new_table = new DataTable();
+                                OleDbDataAdapter adapter = new OleDbDataAdapter($"SELECT * FROM [{row.SheetName}]", connection);
+                                adapter.Fill(new_table);
+
+                                if (new_table != null && new_table.Rows.Count > 0)
+                                {
+                                    table.Merge(new_table);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            OleDbDataAdapter adapter = new OleDbDataAdapter($"SELECT * FROM [{SheetName}]", connection);
+                            adapter.Fill(table);
+                        }
+                    }
+                    connection.Close();
+
+                    // Get the list of sheet names
+                    /*
+                    DataTable dt = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        string sheetName = row["TABLE_NAME"].ToString();
+                        if (sheetName.EndsWith("$"))
+                        {
+                            // Assuming you want to keep sheets that don't end with "_Deleted"
+                            if (!sheetName.EndsWith("_Deleted$"))
+                            {
+                                // Use OleDbDataAdapter to fetch the data from the sheet
+                                //OleDbDataAdapter adapter = new OleDbDataAdapter($"SELECT * FROM [{sheetName}]", connection);
+                                OleDbDataAdapter adapter = new OleDbDataAdapter($"SELECT * FROM [{SheetName}]", connection);
+
+                                adapter.Fill(table);
+
+                                // You have the data from the sheet, you can now process it as needed
+                            }
+                        }
+                    }
+                    */
+                }
+            }
+            else if (filetype == ".csv")
+            {
+                using (TextFieldParser parser = new TextFieldParser(connString))
+                {
+                    string[] delimiters = new string[] { "," };
+                    parser.SetDelimiters(delimiters);
+                    parser.HasFieldsEnclosedInQuotes = true;
+                    string[] strArray2 = parser.ReadFields();
+                    int index = 0;
+                    while (true)
+                    {
+                        if (index >= strArray2.Length)
+                        {
+                            while (!parser.EndOfData)
+                            {
+                                string[] strArray3 = parser.ReadFields();
+                                object[] values = strArray3;
+                                table.Rows.Add(values);
+                            }
+                            break;
+                        }
+                        string columnName = strArray2[index];
+                        table.Columns.Add(columnName);
+                        index++;
+                    }
+                }
+            }
+            return table;
+        }
+        public static List<Get_SheetName_From_File_Res> Get_SheetName_From_FILE(string filetype, string connString)
+        {
+            List<Get_SheetName_From_File_Res> List_Res = new List<Get_SheetName_From_File_Res>();
+
+            if (filetype == ".xls" || filetype == ".xlsx")
+            {
+                using (OleDbConnection connection = new OleDbConnection(connString))
+                {
+                    int num = 0;
+                    connection.Open();
+                    DataTable dt = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                    foreach (DataRow row1 in dt.Rows)
+                    {
+                        string sheetName = row1["TABLE_NAME"].ToString();
+                        if (!sheetName.EndsWith("_Deleted$") && sheetName.EndsWith("$"))
+                        {
+                            Get_SheetName_From_File_Res Res = new Get_SheetName_From_File_Res();
+                            Res.Id = num + 1;
+                            Res.SheetName = sheetName.Remove(sheetName.Length - 1, 1);
+                            List_Res.Add(Res);
+                        }
+                        num++;
+                    }
+                }
+            }
+            return List_Res;
         }
 
         [AllowAnonymous]
@@ -6662,18 +6898,22 @@ namespace API.Controllers
                 if (str2 == ".xls")
                 {
                     string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + req.FilePath + ";Extended Properties=\"Excel 12.0;HDR=YES;\"";
-                    Stock_dt = ConvertXLStoDataTable("", connString);
+                    //Stock_dt = ConvertXLStoDataTable("", connString);
+                    Stock_dt = Convert_FILE_To_DataTable(".xls", connString, req.SheetName);
                 }
                 else if (str2 == ".xlsx")
                 {
                     //string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + req.FilePath + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
                     string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + req.FilePath + ";Extended Properties='Excel 12.0 Xml;HDR=YES;IMEX=1;'";
-                    Stock_dt = ConvertXSLXtoDataTable("", connString);
+                    //Stock_dt = ConvertXSLXtoDataTable("", connString);
+                    Stock_dt = Convert_FILE_To_DataTable(".xlsx", connString, req.SheetName);
                 }
                 else if (str2 == ".csv")
                 {
-                    Stock_dt = ConvertCSVtoDataTable(req.FilePath);
+                    //Stock_dt = ConvertCSVtoDataTable(req.FilePath);
+                    Stock_dt = Convert_FILE_To_DataTable(".csv", req.FilePath, "");
                 }
+                req.SheetName = req.SheetName.Replace("_ALL_SHEET_$", "ALL$");
 
                 if (Stock_dt != null && Stock_dt.Rows.Count > 0)
                 {
@@ -6717,7 +6957,7 @@ namespace API.Controllers
                                     return Ok(new CommonResponse
                                     {
                                         Error = "",
-                                        Message = "Stock Upload Has Been Successfully From " + req.SupplierName + " Supplier's File",
+                                        Message = "Stock Upload Has Been Successfully From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : "."),
                                         Status = "1"
                                     });
                                 }
@@ -6733,10 +6973,10 @@ namespace API.Controllers
                             }
                             else
                             {
-                                ApiLog(req.SupplierId, false, "Stock Upload Failed From " + req.SupplierName + " Supplier's File");
+                                ApiLog(req.SupplierId, false, "Stock Upload Failed From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : "."));
 
                                 sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                                sb.Append("Stock Upload Failed From " + req.SupplierName + " Supplier's File, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                                sb.Append("Stock Upload Failed From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : ".")+", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                                 sb.AppendLine("");
                                 File.AppendAllText(path, sb.ToString());
                                 sb.Clear();
@@ -6744,16 +6984,16 @@ namespace API.Controllers
                                 return Ok(new CommonResponse
                                 {
                                     Error = "",
-                                    Message = "Stock Upload Failed From " + req.SupplierName + " Supplier's File",
+                                    Message = "Stock Upload Failed From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : "."),
                                     Status = "0"
                                 });
                             }
                         }
                         else
                         {
-                            ApiLog(req.SupplierId, false, "Column Setting Mapping Failed From " + req.SupplierName + " Supplier's File");
+                            ApiLog(req.SupplierId, false, "Column Setting Mapping Failed From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : "."));
                             sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                            sb.Append("Column Setting Mapping Failed From " + req.SupplierName + " Supplier's File, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                            sb.Append("Column Setting Mapping Failed From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : ".")+", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                             sb.AppendLine("");
                             File.AppendAllText(path, sb.ToString());
                             sb.Clear();
@@ -6761,17 +7001,17 @@ namespace API.Controllers
                             return Ok(new CommonResponse
                             {
                                 Error = "",
-                                Message = "Column Setting Mapping Failed From " + req.SupplierName + " Supplier's File",
+                                Message = "Column Setting Mapping Failed From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : "."),
                                 Status = "0"
                             });
                         }
                     }
                     else
                     {
-                        ApiLog(req.SupplierId, false, "Column Setting Not Found From " + req.SupplierName + " Supplier's File");
+                        ApiLog(req.SupplierId, false, "Column Setting Not Found From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : "."));
 
                         sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                        sb.Append("Column Setting Not Found From " + req.SupplierName + " Supplier's File, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.Append("Column Setting Not Found From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : ".")+", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                         sb.AppendLine("");
                         File.AppendAllText(path, sb.ToString());
                         sb.Clear();
@@ -6779,17 +7019,19 @@ namespace API.Controllers
                         return Ok(new CommonResponse
                         {
                             Error = "",
-                            Message = "Column Setting Not Found From " + req.SupplierName + " Supplier's File",
+                            Message = "Column Setting Not Found From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : "."),
                             Status = "0"
                         });
                     }
                 }
                 else
                 {
-                    ApiLog(req.SupplierId, false, "Stock Not Found From " + req.SupplierName + " Supplier's File");
+                    //ApiLog(req.SupplierId, false, "Stock Not Found From " + req.SupplierName + " Supplier's File");
+                    ApiLog(req.SupplierId, false, "Stock not found From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : "."));
 
                     sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                    sb.Append("Stock Not Found From " + req.SupplierName + " Supplier's File, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                    //sb.Append("Stock Not Found From " + req.SupplierName + " Supplier's File, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                    sb.Append("Stock not found From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : ".")+", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                     sb.AppendLine("");
                     File.AppendAllText(path, sb.ToString());
                     sb.Clear();
@@ -6797,7 +7039,7 @@ namespace API.Controllers
                     return Ok(new CommonResponse
                     {
                         Error = "",
-                        Message = "Stock Not Found From " + req.SupplierName + " Supplier's File",
+                        Message = "Stock not found From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : "."),
                         Status = "0"
                     });
                 }

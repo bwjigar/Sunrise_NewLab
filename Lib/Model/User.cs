@@ -292,6 +292,11 @@ namespace Lib.Model
         public int Id { get; set; }
         public string SupplierColumn { get; set; }
     }
+    public class Get_SheetName_From_File_Res
+    {
+        public int Id { get; set; }
+        public string SheetName { get; set; }
+    }
     public class AddUpdate_SupplierColumnSetting_Req
     {
         public List<Obj_SupplierColumnSetting_List> col { get; set; }
@@ -653,6 +658,7 @@ namespace Lib.Model
     {
         public int SupplierId { get; set; }
         public string SupplierName { get; set; }
+        public string SheetName { get; set; }
         public string File { get; set; }
         public string FilePath { get; set; }
     }

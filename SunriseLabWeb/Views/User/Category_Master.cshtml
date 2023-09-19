@@ -89,12 +89,17 @@
     });
 
     function Master_Get() {
+        var obj = {};
+        obj.Not_Col_Id = "9,67,48,49,46";
+
         $.ajax({
             url: "/User/Get_ColumnMaster",
             async: false,
             type: "POST",
+            data: { req: obj },
             success: function (data, textStatus, jqXHR) {
                 if (data.Status == "1" && data.Data != null) {
+                    debugger
                     $("#CateMas_ddl_OurColumn").html("<option value=''>Select</option>");
                     _(data.Data).each(function (obj, i) {
                         $("#CateMas_ddl_OurColumn").append("<option value=\"" + obj.Col_Id + "\">" + obj.Column_Name + "</option>");

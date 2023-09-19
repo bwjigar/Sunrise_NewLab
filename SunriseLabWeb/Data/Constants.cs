@@ -40,7 +40,9 @@ namespace SunriseLabWeb_New.Data
         public static string AddUpdate_SupplierColumnSetting = "/User/AddUpdate_SupplierColumnSetting";
         public static string Delete_SupplierColumnSetting = "/User/Delete_SupplierColumnSetting";
 
+        public static string Get_SheetName_From_File = "/User/Get_SheetName_From_File";
         public static string Get_Data_From_File = "/User/Get_Data_From_File";
+        
         public static string Get_SupplierColumnSetting_FromFile = "/User/Get_SupplierColumnSetting_FromFile";
         public static string AddUpdate_SupplierColumnSetting_FromFile = "/User/AddUpdate_SupplierColumnSetting_FromFile";
         public static string Delete_SupplierColumnSetting_FromFile = "/User/Delete_SupplierColumnSetting_FromFile";

@@ -13,10 +13,10 @@
             </div>
         </div>
     </div>
-    <div class="order-history-data admin muser gridview apicol-head">
+    <div class="order-history-data admin">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <div class="col-xl-4 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
+                <div class="col-xl-5 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
                     <div class="order-company-name common-order">
                         <div class="offer-label">Supplier Name: <span style="color:red;">*</span></div>
                         <select class="form-control select2" id="DdlSupplierName" name="DdlSupplierName" onchange="onchange_SupplierName()">
@@ -29,13 +29,20 @@
                         <input accept=".xlsx,.xls,.csv" type="file" id="file_upload" name="file_upload" class="form-control" />
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 float-left">
-                    <ul class="offer-inbtn">
-                        <li class="mr-2">
-                            <button onclick="Stock_Upload();" class="save offer-btn" id="Stock_Upload_btn"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;Stock Upload</button>
-                        </li>
-                    </ul>
+                <div class="col-xl-3 col-lg-6 col-md-7 col-sm-6 col-12 float-left SheetName" style="display:none;">
+                    <div class="order-company-name common-order">
+                        <div class="offer-label">Sheet Name: <span style="color:red;">*</span></div>
+                        <select class="form-control select2" id="DdlSheetName" name="DdlSheetName">
+                        </select>
+                    </div>
                 </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <ul class="offer-inbtn pull-right mrtop src-rest-topbtn mt-2 mb-2" style="margin: 20px 54px 0;">
+                    <li class="mr-2">
+                        <button onclick="Stock_Upload();" class="save offer-btn" id="Stock_Upload_btn"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;Stock Upload</button>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
