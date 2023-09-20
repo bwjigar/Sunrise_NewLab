@@ -2433,7 +2433,52 @@ namespace API.Controllers
                 });
             }
         }
+        [HttpPost]
+        public IHttpActionResult Get_Not_Mapped_SupplierStock([FromBody] JObject data)
+        {
+            Get_SearchStock_Req req = new Get_SearchStock_Req();
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok("Input Parameters are not in the proper format");
+            }
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+                
+                para.Add(db.CreateParam("SupplierId", DbType.Int32, ParameterDirection.Input, req.SupplierId));
+                
+                DataTable Not_Mapped_dt = db.ExecuteSP("Get_Not_Mapped_SupplierStock", para.ToArray(), false);
 
+                if (Not_Mapped_dt != null && Not_Mapped_dt.Rows.Count > 0)
+                {
+                    string suppname = Convert.ToString(Not_Mapped_dt.Rows[0]["SupplierName"]);
+                    string filename = suppname + " Not Mapped Supplier Stock " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string _path = ConfigurationManager.AppSettings["data"];
+                    _path = _path.Replace("Temp", "ExcelFile");
+                    string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
+
+                    EpExcelExport.Not_Mapped_SupplierStock_Excel(Not_Mapped_dt, suppname, realpath, realpath + filename + ".xlsx");
+
+                    string _strxml = _path + filename + ".xlsx";
+                    return Ok(_strxml);
+                }
+                else
+                {
+                    return Ok("No Stock found !");
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                throw ex;
+            }
+        }
         [HttpPost]
         public IHttpActionResult GetUsers([FromBody] JObject data)
         {
@@ -6115,70 +6160,33 @@ namespace API.Controllers
 
                         if (Synonym_dt != null && Synonym_dt.Rows.Count > 0)
                         {
-                            DataRow[] dra1 = Synonym_dt.Select("[SupplierSynonyms] IS NOT NULL");
-
-                            if (dra1.Length > 0)
+                            foreach (DataRow Final_row in Final_dt.Rows)
                             {
-                                DataTable SuppValue_dt = dra1.CopyToDataTable();
-                                foreach (DataRow Final_row in Final_dt.Rows)
+                                bool Record_Map = false;
+                                foreach (DataRow dt_row in Synonym_dt.Rows)
                                 {
-                                    bool Record_Map = false;
-                                    foreach (DataRow dt_row in SuppValue_dt.Rows)
+                                    string str = Final_row[CatColMas_Map_Row["Column_Name"].ToString()].ToString();
+                                    str = (string.IsNullOrEmpty(str) ? "BLANK" : str);
+
+                                    string str2 = dt_row["Cat_Name"].ToString();
+                                    string str3 = dt_row["Synonyms"].ToString();
+
+                                    string[] strArray = str3.Split(',');
+
+                                    foreach (string str4 in strArray)
                                     {
-                                        string str = Final_row[CatColMas_Map_Row["Column_Name"].ToString()].ToString();
-                                        str = (string.IsNullOrEmpty(str) ? "BLANK" : str);
-                                        string str2 = dt_row["Cat_Name"].ToString();
-                                        string str3 = dt_row["SupplierSynonyms"].ToString();
-
-                                        string[] strArray = str3.Split(',');
-
-                                        foreach (string str4 in strArray)
+                                        //if (str.Trim().ToUpper() == str4.Trim().ToUpper() || str4.Trim().ToUpper() == "BLANK")
+                                        if (str.Trim().ToUpper() == str4.Trim().ToUpper())
                                         {
-                                            //if (str.Trim().ToUpper() == str4.Trim().ToUpper() || str4.Trim().ToUpper() == "BLANK")
-                                            if (str.Trim().ToUpper() == str4.Trim().ToUpper())
-                                            {
-                                                Final_row[CatColMas_Map_Row["Column_Name"].ToString()] = str2;
-                                                Record_Map = true;
-                                            }
+                                            Final_row[CatColMas_Map_Row["Column_Name"].ToString()] = str2;
+                                            Record_Map = true;
                                         }
-                                    }
-                                    if (Record_Map == false)
-                                    {
-                                        Final_row["Stock Type"] = "D";
-                                        Final_row["Not Mapped Column"] += (Final_row["Not Mapped Column"].ToString() == "" ? "" : ", ") + CatColMas_Map_Row["Column_Name"].ToString();
                                     }
                                 }
-                            }
-                            else
-                            {
-                                foreach (DataRow Final_row in Final_dt.Rows)
+                                if (Record_Map == false)
                                 {
-                                    bool Record_Map = false;
-                                    foreach (DataRow SuppCol_row in Synonym_dt.Rows)
-                                    {
-                                        string str = Final_row[CatColMas_Map_Row["Column_Name"].ToString()].ToString();
-                                        str = (string.IsNullOrEmpty(str) ? "BLANK" : str);
-                                        string str2 = SuppCol_row["Cat_Name"].ToString();
-                                        //string str3 = SuppCol_row["Synonyms"].ToString();
-                                        string str3 = SuppCol_row["CategorySynonyms"].ToString();
-
-                                        string[] strArray = str3.Split(',');
-
-                                        foreach (string str4 in strArray)
-                                        {
-                                            //if (str.Trim().ToUpper() == str4.Trim().ToUpper() || str4.Trim().ToUpper() == "BLANK")
-                                            if (str.Trim().ToUpper() == str4.Trim().ToUpper())
-                                            {
-                                                Final_row[CatColMas_Map_Row["Column_Name"].ToString()] = str2;
-                                                Record_Map = true;
-                                            }
-                                        }
-                                    }
-                                    if (Record_Map == false)
-                                    {
-                                        Final_row["Stock Type"] = "D";
-                                        Final_row["Not Mapped Column"] += (Final_row["Not Mapped Column"].ToString() == "" ? "" : ", ") + CatColMas_Map_Row["Column_Name"].ToString();
-                                    }
+                                    Final_row["Stock Type"] = "D";
+                                    Final_row["Not Mapped Column"] += (Final_row["Not Mapped Column"].ToString() == "" ? "" : ", ") + CatColMas_Map_Row["Column_Name"].ToString();
                                 }
                             }
                         }

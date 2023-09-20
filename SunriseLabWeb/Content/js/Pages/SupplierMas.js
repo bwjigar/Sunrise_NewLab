@@ -68,10 +68,11 @@ var columnDefs = [
     { headerName: "Sr", field: "iSr", tooltip: function (params) { return (params.value); }, sortable: false, width: 40 },
     { headerName: "Action", field: "Action", tooltip: function (params) { return (params.value); }, width: 50, cellRenderer: 'Action', sortable: false },
     { headerName: "Upload Stock", field: "StockUpload", width: 60, cellRenderer: 'StockUpload', sortable: false },
+    { headerName: "Last Not Mapped Stock Download", field: "NotMappedStock", width: 120, cellRenderer: 'NotMappedStock', sortable: false },
     { headerName: "Supplier Name", field: "SupplierName", tooltip: function (params) { return (params.value); }, width: 280 },
     { headerName: "API Type", field: "APIType", width: 63, cellRenderer: APIType, },
     { headerName: "Auto Upload Stock", field: "AutoUploadStock", width: 120, sortable: false },
-    { headerName: "Supplier URL", field: "SupplierURL", width: 630, cellRenderer: SupplierURL,hide:true },
+    { headerName: "Supplier URL", field: "SupplierURL", width: 630, cellRenderer: SupplierURL, hide: true },
     { headerName: "Active", field: "Active", width: 58, cellRenderer: Status, },
     { headerName: "New RefNo Gen", field: "NewRefNoGenerate", width: 70, cellRenderer: Status, },
     { headerName: "New Disc Gen", field: "NewDiscGenerate", width: 70, cellRenderer: Status, },
@@ -113,6 +114,11 @@ var StockUpload = function (params) {
     }
     return element;
 }
+var NotMappedStock = function (params) {
+    var element = "";
+    element = '<a title="Last Not Mapped Stock Download" onclick="NotMappedStockExcelDownload(\'' + params.data.Id + '\')" ><i class="fa fa-download" aria-hidden="true" style="font-size: 18px;cursor:pointer;"></i></a>';
+    return element;
+}
 function StockUploadView(Id) {
     var obj = {};
     obj.SUPPLIER = Id;
@@ -135,6 +141,35 @@ function StockUploadView(Id) {
             },
             error: function (xhr, textStatus, errorThrown) {
                 loaderHide_stk_upload();
+            }
+        });
+    }, 50);
+}
+function NotMappedStockExcelDownload(Id) {
+    loaderShow();
+    setTimeout(function () {debugger
+        var obj = {};
+        obj.SupplierId = Id;
+        debugger
+        $.ajax({
+            url: "/User/Get_Not_Mapped_SupplierStock",
+            async: false,
+            type: "POST",
+            data: { req: obj },
+            success: function (data, textStatus, jqXHR) {
+                debugger
+                loaderHide();
+                if (data.search('.xlsx') == -1) {
+                    if (data.indexOf('Something Went wrong') > -1) {
+                        MoveToErrorPage(0);
+                    }
+                    toastr.error(data);
+                } else {
+                    location.href = data;
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                loaderHide();
             }
         });
     }, 50);
@@ -256,7 +291,8 @@ function GetSearch() {
         },
         components: {
             Action: Action,
-            StockUpload: StockUpload
+            StockUpload: StockUpload,
+            NotMappedStock: NotMappedStock
         },
         pagination: true,
         icons: {

@@ -34,6 +34,7 @@ namespace SunriseLabWeb_New.Data
         public static string Delete_CategoryDet = "/User/Delete_CategoryDet";
         public static string Get_SupplierMaster = "/User/Get_SupplierMaster";
         public static string AddUpdate_SupplierMaster = "/User/AddUpdate_SupplierMaster";
+        public static string Get_Not_Mapped_SupplierStock = "/User/Get_Not_Mapped_SupplierStock";
         public static string Get_ColumnMaster = "/User/Get_ColumnMaster";
         public static string Get_SupplierColumnSetting = "/User/Get_SupplierColumnSetting";
         public static string Get_SupplierColumnSetting_FromAPI = "/User/Get_SupplierColumnSetting_FromAPI";
