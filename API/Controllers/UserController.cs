@@ -423,6 +423,7 @@ namespace API.Controllers
                 DataTable dt = new DataTable();
 
                 dt.Columns.Add("Supplier", typeof(string));
+                dt.Columns.Add("Location", typeof(string));
                 dt.Columns.Add("Shape", typeof(string));
                 dt.Columns.Add("Carat", typeof(string));
                 dt.Columns.Add("ColorType", typeof(string));
@@ -492,6 +493,7 @@ namespace API.Controllers
                         DataRow dr = dt.NewRow();
 
                         dr["Supplier"] = req.SuppDisc[i].Supplier;
+                        dr["Location"] = req.SuppDisc[i].Location;
                         dr["Shape"] = req.SuppDisc[i].Shape;
                         dr["Carat"] = req.SuppDisc[i].Carat;
                         dr["ColorType"] = req.SuppDisc[i].ColorType;
@@ -915,6 +917,7 @@ namespace API.Controllers
                 DataTable dt = new DataTable();
 
                 dt.Columns.Add("SupplierId", typeof(string));
+                dt.Columns.Add("Location", typeof(string));
                 dt.Columns.Add("Shape", typeof(string));
                 dt.Columns.Add("Carat", typeof(string));
                 dt.Columns.Add("ColorType", typeof(string));
@@ -1002,6 +1005,7 @@ namespace API.Controllers
                         DataRow dr = dt.NewRow();
 
                         dr["SupplierId"] = req.SupplierId;
+                        dr["Location"] = req.SuppDisc[i].Location;
                         dr["Shape"] = req.SuppDisc[i].Shape;
                         dr["Carat"] = req.SuppDisc[i].Carat;
                         dr["ColorType"] = req.SuppDisc[i].ColorType;
@@ -1907,13 +1911,24 @@ namespace API.Controllers
                     List_Res = Get_SheetName_From_FILE(".xlsx", connString);
                 }
 
-                return Ok(new ServiceResponse<Get_SheetName_From_File_Res>
+                if (List_Res != null && List_Res.Count > 0)
                 {
-                    Data = List_Res,
-                    Message = "SUCCESS",
-                    Status = "1"
-                });
-
+                    return Ok(new ServiceResponse<Get_SheetName_From_File_Res>
+                    {
+                        Data = List_Res,
+                        Message = "SUCCESS",
+                        Status = "1"
+                    });
+                }
+                else
+                {
+                    return Ok(new ServiceResponse<Get_SheetName_From_File_Res>
+                    {
+                        Data = List_Res,
+                        Message = "Sheet Not Found",
+                        Status = "0"
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -2002,7 +2017,7 @@ namespace API.Controllers
                     {
                         Data = null,
                         //Message = "Supplier " + ((str == ".xls" || str == ".xlsx") ? "Excel" : "CSV") + " File "+ ((str == ".xls" || str == ".xlsx") ? Req.SheetName.Remove(Req.SheetName.Length - 1, 1) + " Sheet " : "")+ "in Columns not found.",
-                        Message = "Columns not found From Supplier's "+ ((str == ".xls" || str == ".xlsx") ? "Excel" : "CSV") +" File"+ ((str == ".xls" || str == ".xlsx") ? " in " + Req.SheetName.Remove(Req.SheetName.Length - 1, 1)+ " Sheet." : "."),
+                        Message = "Columns not found From Supplier's " + ((str == ".xls" || str == ".xlsx") ? "Excel" : "CSV") + " File" + ((str == ".xls" || str == ".xlsx") ? " in " + Req.SheetName.Remove(Req.SheetName.Length - 1, 1) + " Sheet." : "."),
                         Status = "2"
                     });
                 }
@@ -2450,9 +2465,9 @@ namespace API.Controllers
             {
                 Database db = new Database();
                 List<IDbDataParameter> para = new List<IDbDataParameter>();
-                
+
                 para.Add(db.CreateParam("SupplierId", DbType.Int32, ParameterDirection.Input, req.SupplierId));
-                
+
                 DataTable Not_Mapped_dt = db.ExecuteSP("Get_Not_Mapped_SupplierStock", para.ToArray(), false);
 
                 if (Not_Mapped_dt != null && Not_Mapped_dt.Rows.Count > 0)
@@ -2905,7 +2920,7 @@ namespace API.Controllers
                     Status = "0"
                 });
             }
-            
+
             try
             {
                 Database db = new Database();
@@ -6373,7 +6388,7 @@ namespace API.Controllers
                         {
                             List<Get_SheetName_From_File_Res> List_Res = new List<Get_SheetName_From_File_Res>();
                             int num = 0;
-                            
+
                             DataTable dt = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
                             foreach (DataRow row1 in dt.Rows)
                             {
@@ -6984,7 +6999,7 @@ namespace API.Controllers
                                 ApiLog(req.SupplierId, false, "Stock Upload Failed From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : "."));
 
                                 sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                                sb.Append("Stock Upload Failed From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : ".")+", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                                sb.Append("Stock Upload Failed From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : ".") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                                 sb.AppendLine("");
                                 File.AppendAllText(path, sb.ToString());
                                 sb.Clear();
@@ -7001,7 +7016,7 @@ namespace API.Controllers
                         {
                             ApiLog(req.SupplierId, false, "Column Setting Mapping Failed From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : "."));
                             sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                            sb.Append("Column Setting Mapping Failed From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : ".")+", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                            sb.Append("Column Setting Mapping Failed From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : ".") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                             sb.AppendLine("");
                             File.AppendAllText(path, sb.ToString());
                             sb.Clear();
@@ -7019,7 +7034,7 @@ namespace API.Controllers
                         ApiLog(req.SupplierId, false, "Column Setting Not Found From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : "."));
 
                         sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                        sb.Append("Column Setting Not Found From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : ".")+", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.Append("Column Setting Not Found From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : ".") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                         sb.AppendLine("");
                         File.AppendAllText(path, sb.ToString());
                         sb.Clear();
@@ -7039,7 +7054,7 @@ namespace API.Controllers
 
                     sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
                     //sb.Append("Stock Not Found From " + req.SupplierName + " Supplier's File, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
-                    sb.Append("Stock not found From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : ".")+", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                    sb.Append("Stock not found From " + req.SupplierName + " Supplier's File" + ((str2 == ".xls" || str2 == ".xlsx") ? " in " + req.SheetName.Remove(req.SheetName.Length - 1, 1) + " Sheet." : ".") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                     sb.AppendLine("");
                     File.AppendAllText(path, sb.ToString());
                     sb.Clear();

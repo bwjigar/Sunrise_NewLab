@@ -385,6 +385,7 @@ namespace Lib.Model
         public int UserId { get; set; }
         public string Supplier { get; set; }
         public string SupplierId { get; set; }
+        public string Location { get; set; }
         public string Shape { get; set; }
         public string Carat { get; set; }
         public string ColorType { get; set; }

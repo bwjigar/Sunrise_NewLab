@@ -105,7 +105,7 @@ function Get_SupplierColumnSetting_FromAPI() {
                                         });
 
                                         $('#myTableBody').append('<tr><td>' + (parseInt(i) + parseInt(1)) + '</td><td><input type="hidden" class="SunriseColumn" value="' + obj.Col_Id + '" />' + obj.Column_Name +
-                                            '</td><td><center><select onchange="ddlOnChange(\'' + obj.Col_Id + '\');" id="ddl_' + obj.Col_Id + '" class="col-md-6 form-control select2 SupplierColumn">' + SupplierColumn_ddl +
+                                            '</td><td><center><select style="margin-top: -9px;margin-bottom: -9px;" onchange="ddlOnChange(\'' + obj.Col_Id + '\');" id="ddl_' + obj.Col_Id + '" class="col-md-7 form-control select2 SupplierColumn">' + SupplierColumn_ddl +
                                             '</select></center></td></tr>');
                                     });
                                     $("#Save_btn").html("<i class='fa fa-save' aria-hidden='true'></i>&nbsp;" + (exists == true ? "Update" : "Save"));

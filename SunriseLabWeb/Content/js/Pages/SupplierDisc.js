@@ -442,6 +442,9 @@ function Get_API_StockFilter() {
         success: function (data, textStatus, jqXHR) {
             if (data.Status == "1" && data.Data != null) {
                 for (var k in data.Data) {
+                    if (data.Data[k].Col_Id == 44) {
+                        LocationList.push(data.Data[k]);
+                    }
                     if (data.Data[k].Col_Id == 1) {
                         ShapeList.push(data.Data[k]);
                     }
@@ -493,7 +496,9 @@ function Get_API_StockFilter() {
                 }
 
 
-
+                if (LocationList.length > 1) {
+                    LocationList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Location', isActive: false, Col_Id: 44 });
+                }
                 if (ShapeList.length > 1) {
                     ShapeList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Shape', isActive: false, Col_Id: 1 });
                 }
@@ -865,7 +870,7 @@ var SetSearchParameter = function () {
 
     //var supplierLst = _.pluck(_.filter(SupplierList, function (e) { return e.isActive == true }), 'Value').join(",");
     var pointerLst = _.pluck(_.filter(PointerList, function (e) { return e.isActive == true }), 'Value').join(",");
-    //var locationLst = _.pluck(_.filter(LocationList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var locationLst = _.pluck(_.filter(LocationList, function (e) { return e.isActive == true }), 'Value').join(",");
     var shapeLst = _.pluck(_.filter(ShapeList, function (e) { return e.isActive == true }), 'Value').join(",");
     var colorLst = _.pluck(_.filter(ColorList, function (e) { return e.isActive == true }), 'Value').join(",");
     var clarityLst = _.pluck(_.filter(ClarityList, function (e) { return e.isActive == true }), 'Value').join(",");
@@ -883,7 +888,7 @@ var SetSearchParameter = function () {
 
     //CheckedSupplierValue = supplierLst;
     CheckedPointerValue = pointerLst;
-    //CheckedLocationValue = locationLst;
+    CheckedLocationValue = locationLst;
     CheckedShapeValue = shapeLst;
     CheckedColorValue = colorLst;
     CheckedClarityValue = clarityLst;
@@ -1968,7 +1973,7 @@ function generate_uuidv4() {
 }
 
 function HTML_CREATE(
-    Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
+    Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
     FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
     FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
     Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
@@ -1982,6 +1987,7 @@ function HTML_CREATE(
 
     var html = "<tr class='tr11'>";
     html += "<th class='Row Fi-Criteria' style=''></th>";
+    html += "<td><span class='Fi-Criteria Location'>" + Location + "</span></td>";
     html += "<td><span class='Fi-Criteria Shape'>" + Shape + "</span></td>";
     html += "<td><span class='Fi-Criteria Carat'>" + Carat + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria ColorType'>" + Color_Type + "</span></td>";
@@ -2273,6 +2279,7 @@ var AddNewRow = function () {
         else {
             var new_id = generate_uuidv4();
 
+            var Location = _.pluck(_.filter(LocationList, function (e) { return e.isActive == true }), 'Value').join(",");
             var Shape = _.pluck(_.filter(ShapeList, function (e) { return e.isActive == true }), 'Value').join(",");
             var Carat = _.pluck(_.filter(_pointerlst, function (e) { return e.isActive == true }), 'Value').join(",");
             var Color_Type = (Regular_All == true ? "Regular" : (Fancy_All == true ? "Fancy" : ""));
@@ -2543,7 +2550,7 @@ var AddNewRow = function () {
 
             //html += "</tr>";
             
-            var html = HTML_CREATE(Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
+            var html = HTML_CREATE(Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
                 FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
                 FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
                 Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
@@ -2592,6 +2599,9 @@ function UpdateRow() {
                 $(this)[0].className = '';
                 $(this).find('.EditCriteria').show();
                 $(this).find('.RemoveCriteria').show();
+
+                var Location = _.pluck(_.filter(LocationList, function (e) { return e.isActive == true }), 'Value').join(",");
+                $(this).find('.Location').html(Location);
 
                 var Shape = _.pluck(_.filter(ShapeList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.Shape').html(Shape);
@@ -2864,6 +2874,19 @@ function EditCriteria(new_id) {
                 $(this)[0].className = 'filter_tr_active';
                 $(this).find('.EditCriteria').hide();
                 $(this).find('.RemoveCriteria').hide();
+
+                var Location = $(this).find('.Location').html();
+                if (Location != "") {
+                    for (var i in Location.split(',')) {
+                        for (var j in LocationList) {
+                            if (j > 0) {
+                                if (Location.split(',')[i] == LocationList[j].Value) {
+                                    LocationList[j].isActive = true;
+                                }
+                            }
+                        }
+                    }
+                }
 
                 var Shape = $(this).find('.Shape').html();
                 if (Shape != "") {
@@ -3338,6 +3361,7 @@ function SaveData() {
         var list = [];
         $("#tblFilters #tblBodyFilters tr").each(function () {
             list.push({
+                Location: $(this).find('.Location').html(),
                 Shape: $(this).find('.Shape').html(),
                 Carat: $(this).find('.Carat').html(),
                 ColorType: $(this).find('.ColorType').html(),
@@ -3468,6 +3492,7 @@ function Get_Supplier_Disc() {
                     $.each(data.Data, function (i, itm) {
                         var new_id = generate_uuidv4();
 
+                        var Location = NullReplace(itm.Location);
                         var Shape = NullReplace(itm.Shape);
                         var Carat = NullReplace(itm.Carat);
                         var Color_Type = NullReplace(itm.ColorType);
@@ -3694,7 +3719,7 @@ function Get_Supplier_Disc() {
 
                         //html += "</tr>";
 
-                        html += HTML_CREATE(Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab, FromLength, ToLength,
+                        html += HTML_CREATE(Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab, FromLength, ToLength,
                             FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng, FromCrHt, ToCrHt, FromPavAng,
                             ToPavAng, FromPavHt, ToPavHt, Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
                             PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5, Chk_Speci_Additional_1, txtFromDate, txtToDate,
