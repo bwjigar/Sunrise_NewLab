@@ -267,7 +267,24 @@ namespace Lib.Model
         public bool Image { get; set; }
         public bool Video { get; set; }
         public bool Certi { get; set; }
-        public string DocumentViewType { get; set; }
+        public string DocViewType_Image1 { get; set; }
+        public string DocViewType_Image2 { get; set; }
+        public string DocViewType_Image3 { get; set; }
+        public string DocViewType_Image4 { get; set; }
+        public string DocViewType_Video { get; set; }
+        public string DocViewType_Certi { get; set; }
+        public string ImageURL_1 { get; set; }
+        public string ImageFormat_1 { get; set; }
+        public string ImageURL_2 { get; set; }
+        public string ImageFormat_2 { get; set; }
+        public string ImageURL_3 { get; set; }
+        public string ImageFormat_3 { get; set; }
+        public string ImageURL_4 { get; set; }
+        public string ImageFormat_4 { get; set; }
+        public string VideoURL { get; set; }
+        public string VideoFormat { get; set; }
+        public string CertiURL { get; set; }
+        public string CertiFormat { get; set; }
     }
     public class Get_ColumnMaster_Res
     {

@@ -293,35 +293,113 @@
                                     <span class="cust-chkmark"></span>
                                 </label>
                             </div>
-
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 DIS_IN_GRID_EXL">
-                                <div class="offer-label">Display in Grid & Excel:</div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 DIS_IN_GRID_EXL">
-                                <label class="cust-chk-bx text-left api-check">
-                                    <input type="checkbox" id="Image" name="Image" value="false">
-                                    <span>Image</span>
-                                </label>
-
-                                <label class="cust-chk-bx text-left api-check" style="margin-left:15px;">
-                                    <input type="checkbox" id="Video" name="Video" value="false">
-                                    <span>Video</span>
-                                </label>
-
-                                <label class="cust-chk-bx text-left api-check" style="margin-left:15px;">
-                                    <input type="checkbox" id="Certi" name="Certi" value="false">
-                                    <span>Certi</span>
-                                </label>
-                            </div>
-
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 DOC_VIEW_TYP">
-                                <div class="offer-label">Document View Type:</div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 DOC_VIEW_TYP">
-                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input autocomplete="off" class="form-control" id="txtDocViewType" maxlength="100" name="txtDocViewType" type="text">
+                            
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 cateDetail apifilter" style="margin-top: 20px;">
+                                <div class="mt-0">
+                                    <div style="width:100%;overflow-x:auto">
+                                        <table id="tbl" class="table table-bordered" style="font-size: 14px;">
+                                            <thead style="background-color: #003d66;color: white;">
+                                                <tr>
+                                                    <th width="5%" style="vertical-align: middle;">Type</th>
+                                                    <th width="55%" style="vertical-align: middle;">URL 
+                                                        <span style="font-size: 12px;">
+                                                        ( Replace 'Stone Id' to 
+                                                        <span style="color: #003d66;background-color: white;padding: 1px 5px 1px 5px;">{{SUPPLIER STONE ID}}</span>
+                                                        'Certi No' to 
+                                                        <span style="color: #003d66;background-color: white;padding: 1px 5px 1px 5px;">{{CERTIFICATE NO}}</span> 
+                                                        )
+                                                        </span>
+                                                    </th>
+                                                    <th width="8%" style="vertical-align: middle;">Display in <br>Grid & Excel</th>
+                                                    <th width="15%" style="vertical-align: middle;">Document View Type</th>
+                                                    <th width="15%" style="vertical-align: middle;">Format</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="color: #003d66;" id="tblbody" class="fl-sec-form">
+                                                <tr>
+                                                    <td><center>Image 1</center></td>
+                                                    <td><textarea id="ImageURL_1" value="" type="text" class="form-control" maxlength="400"></textarea></td>
+                                                    <td><center><input type="checkbox" id="Image" name="Image" value="false"></center></td>
+                                                    <td><input oninput="convertToUppercase('DocViewType_Image1')" autocomplete="off" class="form-control" id="DocViewType_Image1" maxlength="10" name="DocViewType_Image1" type="text"></td>
+                                                    <td>
+                                                        <select id="ImageFormat_1" class="form-control">
+                                                            <option value="">Select</option>
+                                                            <option value="Image">Image</option>
+                                                            <option value="IFrame">IFrame</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><center>Image 2</center></td>
+                                                    <td><textarea id="ImageURL_2" value="" type="text" class="form-control" maxlength="400"></textarea></td>
+                                                    <td></td>
+                                                    <td><input oninput="convertToUppercase('DocViewType_Image2')" autocomplete="off" class="form-control" id="DocViewType_Image2" maxlength="10" name="DocViewType_Image2" type="text"></td>
+                                                    <td>
+                                                        <select id="ImageFormat_2" class="form-control">
+                                                            <option value="">Select</option>
+                                                            <option value="Image">Image</option>
+                                                            <option value="IFrame">IFrame</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><center>Image 3</center></td>
+                                                    <td><textarea id="ImageURL_3" value="" type="text" class="form-control" maxlength="400"></textarea></td>
+                                                    <td></td>
+                                                    <td><input oninput="convertToUppercase('DocViewType_Image3')" autocomplete="off" class="form-control" id="DocViewType_Image3" maxlength="10" name="DocViewType_Image3" type="text"></td>
+                                                    <td>
+                                                        <select id="ImageFormat_3" class="form-control">
+                                                            <option value="">Select</option>
+                                                            <option value="Image">Image</option>
+                                                            <option value="IFrame">IFrame</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><center>Image 4</center></td>
+                                                    <td><textarea id="ImageURL_4" value="" type="text" class="form-control" maxlength="400"></textarea></td>
+                                                    <td></td>
+                                                    <td><input oninput="convertToUppercase('DocViewType_Image4')" autocomplete="off" class="form-control" id="DocViewType_Image4" maxlength="10" name="DocViewType_Image4" type="text"></td>
+                                                    <td>
+                                                        <select id="ImageFormat_4" class="form-control">
+                                                            <option value="">Select</option>
+                                                            <option value="Image">Image</option>
+                                                            <option value="IFrame">IFrame</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><center>Video</center></td>
+                                                    <td><textarea id="VideoURL" value="" type="text" class="form-control" maxlength="400"></textarea></td>
+                                                    <td><center><input type="checkbox" id="Video" name="Video" value="false"></center></td>
+                                                    <td><input oninput="convertToUppercase('DocViewType_Video')" autocomplete="off" class="form-control" id="DocViewType_Video" maxlength="10" name="DocViewType_Video" type="text"></td>
+                                                    <td>
+                                                        <select id="VideoFormat" class="form-control">
+                                                            <option value="">Select</option>
+                                                            <option value="IFrame">IFrame</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><center>Certificate</center></td>
+                                                    <td><textarea id="CertiURL" value="" type="text" class="form-control" maxlength="400"></textarea></td>
+                                                    <td><center><input type="checkbox" id="Certi" name="Certi" value="false"></center></td>
+                                                    <td><input oninput="convertToUppercase('DocViewType_Certi')" autocomplete="off" class="form-control" id="DocViewType_Certi" maxlength="10" name="DocViewType_Certi" type="text"></td>
+                                                    <td>
+                                                        <select id="CertiFormat" class="form-control">
+                                                            <option value="">Select</option>
+                                                            <option value="Image">Image</option>
+                                                            <option value="IFrame">IFrame</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
+
+
 
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 pt-2" style="border-top:1px solid #ddd;">
                                 <ul class="offer-inbtn pull-right mrtop">

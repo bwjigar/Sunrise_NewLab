@@ -196,7 +196,12 @@ function EditView(Id) {
         document.getElementById("Image").checked = data[0].Image;
         document.getElementById("Video").checked = data[0].Video;
         document.getElementById("Certi").checked = data[0].Certi;
-        $("#txtDocViewType").val(data[0].DocumentViewType);
+        $("#DocViewType_Image1").val(data[0].DocViewType_Image1);
+        $("#DocViewType_Image2").val(data[0].DocViewType_Image2);
+        $("#DocViewType_Image3").val(data[0].DocViewType_Image3);
+        $("#DocViewType_Image4").val(data[0].DocViewType_Image4);
+        $("#DocViewType_Video").val(data[0].DocViewType_Video);
+        $("#DocViewType_Certi").val(data[0].DocViewType_Certi);
 
         if (data[0].APIType == "WEB_API") {
             document.getElementById("WEB_API").checked = true;
@@ -220,10 +225,25 @@ function EditView(Id) {
 
         if (data[0].DataGetFrom == "WEB_API_FTP") {
             document.getElementById("WEB_API_FTP").checked = true;
+            DATA_GET_FROM = "WEB_API_FTP";
         }
         else if (data[0].DataGetFrom == "FILE") {
             document.getElementById("FILE").checked = true;
+            DATA_GET_FROM = "FILE";
         }
+
+        $("#ImageURL_1").val(data[0].ImageURL_1);
+        $("#ImageFormat_1").val(data[0].ImageFormat_1);
+        $("#ImageURL_2").val(data[0].ImageURL_2);
+        $("#ImageFormat_2").val(data[0].ImageFormat_2);
+        $("#ImageURL_3").val(data[0].ImageURL_3);
+        $("#ImageFormat_3").val(data[0].ImageFormat_3);
+        $("#ImageURL_4").val(data[0].ImageURL_4);
+        $("#ImageFormat_4").val(data[0].ImageFormat_4);
+        $("#VideoURL").val(data[0].VideoURL);
+        $("#VideoFormat").val(data[0].VideoFormat);
+        $("#CertiURL").val(data[0].CertiURL);
+        $("#CertiFormat").val(data[0].CertiFormat);
 
         $(".gridview").hide();
         $(".AddEdit").show();
@@ -476,6 +496,8 @@ function Back() {
     GetSearch();
 }
 function Clear() {
+    API_Type = "WEB_API", DATA_GET_FROM = "WEB_API_FTP";
+
     $("#txtURL").val("");
     $("#txtSupplierName").val("");
     $("#ddlAPIResponse").val("");
@@ -497,6 +519,26 @@ function Clear() {
 
     $("#txtUserName").val("");
     $("#txtPassword").val("");
+
+    $("#DocViewType_Image1").val("");
+    $("#DocViewType_Image2").val("");
+    $("#DocViewType_Image3").val("");
+    $("#DocViewType_Image4").val("");
+    $("#DocViewType_Video").val("");
+    $("#DocViewType_Certi").val("");
+
+    $("#ImageURL_1").val("");
+    $("#ImageFormat_1").val("");
+    $("#ImageURL_2").val("");
+    $("#ImageFormat_2").val("");
+    $("#ImageURL_3").val("");
+    $("#ImageFormat_3").val("");
+    $("#ImageURL_4").val("");
+    $("#ImageFormat_4").val("");
+    $("#VideoURL").val("");
+    $("#VideoFormat").val("");
+    $("#CertiURL").val("");
+    $("#CertiFormat").val("");
 }
 function Repeatevery() {
     if ($("#DdlRepeatevery").val() == "Minute") {
@@ -573,7 +615,84 @@ var GetError = function () {
             });
         }
     }
+    if ($("#txtDocViewType").val() == "") {
+        ErrorMsg.push({
+            'Error': "Please Enter Document View Type.",
+        });
+    }
 
+    if ($("#ImageURL_1").val() != "") {
+        if ($("#DocViewType_Image1").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter Image 1 in Document View Type.",
+            });
+        }
+        if ($("#ImageFormat_1").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Select Image Format 1.",
+            });
+        }
+    }
+    if ($("#ImageURL_2").val() != "") {
+        if ($("#DocViewType_Image2").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter Image 2 in Document View Type.",
+            });
+        }
+        if ($("#ImageFormat_2").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Select Image Format 2.",
+            });
+        }
+    }
+    if ($("#ImageURL_3").val() != "") {
+        if ($("#DocViewType_Image3").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter Image 3 in Document View Type.",
+            });
+        }
+        if ($("#ImageFormat_3").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Select Image Format 3.",
+            });
+        }
+    }
+    if ($("#ImageURL_4").val() != "") {
+        if ($("#DocViewType_Image4").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter Image 4 in Document View Type.",
+            });
+        }
+        if ($("#ImageFormat_4").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Select Image Format 4.",
+            });
+        }
+    }
+    if ($("#VideoURL").val() != "") {
+        if ($("#DocViewType_Video").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter Video in Document View Type.",
+            });
+        }
+        if ($("#VideoFormat").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Select Video Format.",
+            });
+        }
+    }
+    if ($("#CertiURL").val() != "") {
+        if ($("#DocViewType_Certi").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter Certificate in Document View Type.",
+            });
+        }
+        if ($("#CertiFormat").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Select Certificate Format.",
+            });
+        }
+    }
     return ErrorMsg;
 }
 var Save = function () {
@@ -601,7 +720,13 @@ var Save = function () {
         obj.Image = document.getElementById("Image").checked;
         obj.Video = document.getElementById("Video").checked;
         obj.Certi = document.getElementById("Certi").checked;
-        obj.DocumentViewType = $("#txtDocViewType").val();
+        obj.DocViewType_Image1 = $("#DocViewType_Image1").val();
+        obj.DocViewType_Image2 = $("#DocViewType_Image2").val();
+        obj.DocViewType_Image3 = $("#DocViewType_Image3").val();
+        obj.DocViewType_Image4 = $("#DocViewType_Image4").val();
+        obj.DocViewType_Video = $("#DocViewType_Video").val();
+        obj.DocViewType_Certi = $("#DocViewType_Certi").val();
+
         obj.DataGetFrom = DATA_GET_FROM;
 
         if (API_Type == "WEB_API") {
@@ -617,6 +742,19 @@ var Save = function () {
         else if (API_Type == "FTP") {
             obj.FileLocation = $("#txtFTPFileLocation").val();
         }
+
+        obj.ImageURL_1 = $("#ImageURL_1").val();
+        obj.ImageFormat_1 = $("#ImageFormat_1").val();
+        obj.ImageURL_2 = $("#ImageURL_2").val();
+        obj.ImageFormat_2 = $("#ImageFormat_2").val();
+        obj.ImageURL_3 = $("#ImageURL_3").val();
+        obj.ImageFormat_3 = $("#ImageFormat_3").val();
+        obj.ImageURL_4 = $("#ImageURL_4").val();
+        obj.ImageFormat_4 = $("#ImageFormat_4").val();
+        obj.VideoURL = $("#VideoURL").val();
+        obj.VideoFormat = $("#VideoFormat").val();
+        obj.CertiURL = $("#CertiURL").val();
+        obj.CertiFormat = $("#CertiFormat").val();
 
         loaderShow();
 
@@ -642,4 +780,15 @@ var Save = function () {
             }
         });
     }
+}
+function validateAlphanumeric(event) {
+    var input = event.key;
+    var regex = /^[a-zA-Z0-9]+$/;
+    if (!regex.test(input)) {
+        event.preventDefault();
+    }
+}
+function convertToUppercase(inputId) {
+    var inputElement = document.getElementById(inputId);
+    inputElement.value = inputElement.value.toUpperCase();
 }
