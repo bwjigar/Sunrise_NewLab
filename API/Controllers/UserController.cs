@@ -5961,7 +5961,7 @@ namespace API.Controllers
                 Final_dt.Columns.Add("Image URL 3", typeof(string));
                 Final_dt.Columns.Add("Image URL 4", typeof(string));
                 Final_dt.Columns.Add("Video URL", typeof(string));
-                Final_dt.Columns.Add("Video URL 2", typeof(string));
+                Final_dt.Columns.Add("DNA", typeof(string));
                 Final_dt.Columns.Add("Status", typeof(string));
                 Final_dt.Columns.Add("Supplier Stone Id", typeof(string));
                 Final_dt.Columns.Add("Location", typeof(string));
@@ -6135,8 +6135,8 @@ namespace API.Controllers
                         Final_row["Video URL"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Video URL") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Video URL"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
                         Final_row["Video URL"] = (Convert.ToString(Final_row["Video URL"]) == "") ? null : Convert.ToString(Final_row["Video URL"]);
 
-                        Final_row["Video URL 2"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Video URL 2") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Video URL 2"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Video URL 2"] = (Convert.ToString(Final_row["Video URL 2"]) == "") ? null : Convert.ToString(Final_row["Video URL 2"]);
+                        Final_row["DNA"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "DNA") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["DNA"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["DNA"] = (Convert.ToString(Final_row["DNA"]) == "") ? null : Convert.ToString(Final_row["DNA"]);
 
                         Final_row["Status"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Status") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Status"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
                         Final_row["Status"] = (Convert.ToString(Final_row["Status"]) == "") ? null : Convert.ToString(Final_row["Status"]);

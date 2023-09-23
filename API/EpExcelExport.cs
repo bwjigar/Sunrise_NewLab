@@ -2327,7 +2327,7 @@ namespace API
                     worksheet.Cells[3, 41].Value = "Image URL 3";
                     worksheet.Cells[3, 42].Value = "Image URL 4";
                     worksheet.Cells[3, 43].Value = "Video URL";
-                    worksheet.Cells[3, 44].Value = "Video URL 2";
+                    worksheet.Cells[3, 44].Value = "DNA";
                     worksheet.Cells[3, 45].Value = "Status";
                     worksheet.Cells[3, 46].Value = "Supplier Stone Id";
                     worksheet.Cells[3, 47].Value = "Location";
@@ -2766,8 +2766,8 @@ namespace API
                             worksheet.Cells[inwrkrow, 43].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 44].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Video URL 2"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Video URL 2"))
+                        worksheet.Cells[inwrkrow, 44].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["DNA"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "DNA"))
                         {
                             worksheet.Cells[inwrkrow, 44].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 44].Style.Fill.BackgroundColor.SetColor(red_bg);

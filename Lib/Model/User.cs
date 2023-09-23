@@ -614,7 +614,7 @@ namespace Lib.Model
         public string Image_URL_3 { get; set; }
         public string Image_URL_4 { get; set; }
         public string Video_URL { get; set; }
-        public string Video_URL_2 { get; set; }
+        public string DNA { get; set; }
         public string Status { get; set; }
         public string Supplier_Stone_Id { get; set; }
         public string Location { get; set; }
