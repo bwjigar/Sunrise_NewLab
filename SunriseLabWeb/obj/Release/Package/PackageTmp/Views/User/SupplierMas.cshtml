@@ -1,0 +1,468 @@
+﻿@{
+    ViewBag.Title = "Supplier Master";
+    ViewBag.ClassName = "search-contnt";
+    <link href="~/Content/css/daterangepicker.css" rel="stylesheet" />
+}
+<style>
+    .ag-paging-page-summary-panel {
+        left: 10px;
+        position: relative;
+    }
+
+    .ag-theme-balham .ag-cell {
+        white-space: normal !important;
+        line-height: inherit;
+        overflow-y: auto;
+    }
+
+    .Yes {
+        margin-bottom: 1px;
+        color: white;
+        background-color: #008000e6;
+        padding: 2px 5px;
+        border-radius: 16px;
+        font-weight: bold;
+    }
+
+    .No {
+        margin-bottom: 1px;
+        color: white;
+        background-color: #ff0000cf;
+        padding: 2px 5px;
+        border-radius: 16px;
+        font-weight: bold;
+    }
+
+    .grid_prewrap {
+        white-space: pre-wrap !important;
+    }
+</style>
+<input type="hidden" id="hdn_Id" />
+<div class="container-fluid order-history-section manage-user">
+    <input type="hidden" id="hdnDelUserId" />
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="order-title">
+                <h2 id="h2_titl">Supplier Master</h2>
+                <div class="main-header-page add-new-btn" style="float: right;" id="btn_AddNew">
+                    <a onclick="AddNew();" href="javascript:void();">
+                        <h1 style="color: green;">+ Add New</h1>
+                    </a>
+                </div>
+                <div class="main-header-page add-new-btn" style="float: right;display:none;" id="btn_Back">
+                    <a onclick="Back();" href="javascript:void();">
+                        <h1 style="color: green;">Back</h1>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="order-history-data admin muser gridview">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="col-xl-5 col-lg-6 col-md-7 col-sm-6 col-12 float-left" id="divWithoutDatetime">
+                    <div class="order-company-name common-order">
+                        <div class="offer-label">Supplier Name:</div>
+                        <input type="text" id="txt_S_SupplierName" class="form-control common-control" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-12 float-left">
+                    <div class="offer-label">&nbsp;</div>
+                    <ul class="offer-inbtn">
+                        <li class="mr-2">
+                            <button type="button" id="btnSearch" onclick="GetSearch();" class="offer-btn">
+                                <i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" id="btnReset" onclick="Reset();" class="offer-btn">
+                                <i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;Reset
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="aggrid-section gridview">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="agGrid-box-main mt-2">
+                    <div id="Cart-Gride" class="ag-theme-balham ag-fresh" style="float: left; width: 100%; height: calc(100vh - 225px);"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row AddEdit" style="display:none;">
+        <div class="col-12">
+            <div class="myoffer-form full-acform mt-0">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="row fl-sec-form">
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-12 col-xl-12">
+                                <label class="cust-chk-bx text-left api-check">
+                                    <input type="radio" id="WEB_API" checked name="API" class="onpristine onuntouched onvalid onempty chkBx" value="WEB_API">
+                                    <strong>WEB API</strong>
+                                    <span class="cust-chkmark"></span>
+                                </label>
+
+                                <label class="cust-chk-bx text-left api-check">
+                                    <input type="radio" id="FTP" name="API" class="onpristine onuntouched onvalid onempty chkBx" value="FTP">
+                                    <strong>FTP</strong>
+                                    <span class="cust-chkmark"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 SP_NM">
+                                <div class="offer-label">Supplier Name: <span style="color:red;">*</span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 SP_NM">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input autocomplete="off" class="form-control" id="txtSupplierName" name="txtSupplierName" type="text">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 URL">
+                                <div class="offer-label">URL: <span style="color:red;">*</span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 URL">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input autocomplete="off" class="form-control" id="txtURL" name="txtURL" type="text">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 FL_NM">
+                                <div class="offer-label">File Name: <span style="color:red;">*</span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 FL_NM">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input autocomplete="off" class="form-control" id="txtFileName" name="txtFileName" type="text" value="">
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 FL_LOC">
+                                <div class="offer-label">File Export Location: <span style="color:red;">*</span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 FL_LOC">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input autocomplete="off" class="form-control" id="txtFileLocation" name="txtFileLocation" type="text" value="">
+                                    <span style="font-size: 11px;font-style: normal;font-weight: 600;letter-spacing: 1px;">EX. : D:\Project\FileList</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 FL_LOC_1" style="display:none;">
+                                <div class="offer-label">File Import Location: <span style="color:red;">*</span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 FL_LOC_1" style="display:none;">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input autocomplete="off" class="form-control" id="txtFTPFileLocation" name="txtFTPFileLocation" type="text" value="">
+                                    <span style="font-size: 11px;font-style: normal;font-weight: 600;letter-spacing: 1px;">EX. : D:\Project\FileList\ABCD</span><span style="font-size: 11px; font-style: normal; font-weight: 600; letter-spacing: 1px; color: red;">(.XLSX, .XLS, .CSV)</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 USR_NM">
+                                <div class="offer-label">User Name:</div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 USR_NM">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input autocomplete="off" class="form-control" id="txtUserName" maxlength="100" name="txtUserName" type="text">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 PWD">
+                                <div class="offer-label">Password:</div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 PWD">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input autocomplete="off" class="form-control" id="txtPassword" maxlength="100" name="txtPassword" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 EX_TYP">
+                                <div class="offer-label">Export Type: <span style="color:red;">*</span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 EX_TYP">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <select class="form-control select2" id="LocationExportType" name="LocationExportType">
+                                        <option value="">Select</option>
+                                        <option value="EXCEL (.xlsx)">EXCEL (.xlsx)</option>
+                                        <option value="EXCEL (.xls)">EXCEL (.xls)</option>
+                                        <option value="CSV">CSV</option>
+                                        <option value="XML">XML</option>
+                                        <option value="JSON (File)">JSON (File)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 RPT">
+                                <div class="offer-label">Repeat Every: <span style="color:red;">*</span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 RPT">
+                                <div class="row">
+                                    <div class="col-sm-5 col-xs-6 api-plr" style="margin-left: 13px;">
+                                        <select class="form-control select2" id="DdlRepeatevery" name="DdlRepeatevery" onchange="Repeatevery();">
+                                            <option value="Minute">Minute</option>
+                                            <option value="Hour">Hour</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-5 col-xs-6 api-plr" style="float: right;">
+                                        <input type="text" id="txtMinute" name="From" value="" class="form-control" autocomplete="off" onkeypress="return isNumberKey(event)">
+                                        <input type="time" id="txtHour" name="From" value="" class="form-control" autocomplete="off" style="display:none;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 API_RES">
+                                <div class="offer-label">API Response: <span style="color:red;">*</span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 API_RES">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <select class="form-control select2" id="ddlAPIResponse" name="ddlAPIResponse">
+                                        <option value="">Select</option>
+                                        <option value="JSON">JSON</option>
+                                        <option value="XML">XML</option>
+                                        <option value="HTML">HTML</option>
+                                        <option value="TEXT">TEXT</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 API_MTD">
+                                <div class="offer-label">API Method: </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 API_MTD">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <select class="form-control select2" id="ddlAPIMethod" name="ddlAPIMethod">
+                                        <option value="">Select</option>
+                                        <option value="GET">GET</option>
+                                        <option value="POST">POST</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 API_STS">
+                                <div class="offer-label">API Status:</div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 API_STS">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input type="checkbox" id="APIStatus" name="APIStatus" value="true">
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 DIS_IVS">
+                                <div class="offer-label">Disc Inverse:</div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 DIS_IVS">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input type="checkbox" id="DiscInverse" name="DiscInverse" value="false">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 N_RF_GEN">
+                                <div class="offer-label">New Ref No Generate:</div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 N_RF_GEN">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input type="checkbox" id="NewRefNoGenerate" name="NewRefNoGenerate" value="false">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 N_DIS_GEN">
+                                <div class="offer-label">New Disc Generate:</div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 N_DIS_GEN">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input type="checkbox" id="NewDiscGenerate" name="NewRefNoGenerate" value="false">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 DATA_GET_FROM">
+                                <div class="offer-label">Data Get From:</div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 DATA_GET_FROM">
+                                <label class="cust-chk-bx text-left api-check">
+                                    <input type="radio" id="WEB_API_FTP" checked name="DATA_GET_FROM" class="onpristine onuntouched onvalid onempty chkBx" value="WEB_API_FTP">
+                                    <span>WEB API / FTP</span>
+                                    <span class="cust-chkmark"></span>
+                                </label>
+
+                                <label class="cust-chk-bx text-left api-check">
+                                    <input type="radio" id="FILE" name="DATA_GET_FROM" class="onpristine onuntouched onvalid onempty chkBx" value="FILE">
+                                    <span>FILE</span>
+                                    <span class="cust-chkmark"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 cateDetail apifilter" style="margin-top: 20px;">
+                                <div class="mt-0">
+                                    <div style="width:100%;overflow-x:auto">
+                                        <table id="tbl" class="table table-bordered" style="font-size: 14px;">
+                                            <thead style="background-color: #003d66;color: white;">
+                                                <tr>
+                                                    <th width="5%" style="vertical-align: middle;">Type</th>
+                                                    <th width="55%" style="vertical-align: middle;">URL 
+                                                        <span style="font-size: 12px;">
+                                                        ( Replace 'Stone Id' to 
+                                                        <span style="color: #003d66;background-color: white;padding: 1px 5px 1px 5px;">{{SUPPLIER STONE ID}}</span>
+                                                        'Certi No' to 
+                                                        <span style="color: #003d66;background-color: white;padding: 1px 5px 1px 5px;">{{CERTIFICATE NO}}</span> 
+                                                        )
+                                                        </span>
+                                                    </th>
+                                                    <th width="8%" style="vertical-align: middle;">Display in <br>Grid & Excel</th>
+                                                    <th width="15%" style="vertical-align: middle;">Document View Type</th>
+                                                    <th width="15%" style="vertical-align: middle;">Format</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="color: #003d66;" id="tblbody" class="fl-sec-form">
+                                                <tr>
+                                                    <td><center>Image 1</center></td>
+                                                    <td><textarea id="ImageURL_1" value="" type="text" class="form-control" maxlength="400"></textarea></td>
+                                                    <td><center><input type="checkbox" id="Image" name="Image" value="false"></center></td>
+                                                    <td><input oninput="convertToUppercase('DocViewType_Image1')" autocomplete="off" class="form-control" id="DocViewType_Image1" maxlength="10" name="DocViewType_Image1" type="text"></td>
+                                                    <td>
+                                                        <select id="ImageFormat_1" class="form-control">
+                                                            <option value="">Select</option>
+                                                            <option value="Image">Image</option>
+                                                            <option value="IFrame">IFrame</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><center>Image 2</center></td>
+                                                    <td><textarea id="ImageURL_2" value="" type="text" class="form-control" maxlength="400"></textarea></td>
+                                                    <td></td>
+                                                    <td><input oninput="convertToUppercase('DocViewType_Image2')" autocomplete="off" class="form-control" id="DocViewType_Image2" maxlength="10" name="DocViewType_Image2" type="text"></td>
+                                                    <td>
+                                                        <select id="ImageFormat_2" class="form-control">
+                                                            <option value="">Select</option>
+                                                            <option value="Image">Image</option>
+                                                            <option value="IFrame">IFrame</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><center>Image 3</center></td>
+                                                    <td><textarea id="ImageURL_3" value="" type="text" class="form-control" maxlength="400"></textarea></td>
+                                                    <td></td>
+                                                    <td><input oninput="convertToUppercase('DocViewType_Image3')" autocomplete="off" class="form-control" id="DocViewType_Image3" maxlength="10" name="DocViewType_Image3" type="text"></td>
+                                                    <td>
+                                                        <select id="ImageFormat_3" class="form-control">
+                                                            <option value="">Select</option>
+                                                            <option value="Image">Image</option>
+                                                            <option value="IFrame">IFrame</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><center>Image 4</center></td>
+                                                    <td><textarea id="ImageURL_4" value="" type="text" class="form-control" maxlength="400"></textarea></td>
+                                                    <td></td>
+                                                    <td><input oninput="convertToUppercase('DocViewType_Image4')" autocomplete="off" class="form-control" id="DocViewType_Image4" maxlength="10" name="DocViewType_Image4" type="text"></td>
+                                                    <td>
+                                                        <select id="ImageFormat_4" class="form-control">
+                                                            <option value="">Select</option>
+                                                            <option value="Image">Image</option>
+                                                            <option value="IFrame">IFrame</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><center>Video</center></td>
+                                                    <td><textarea id="VideoURL" value="" type="text" class="form-control" maxlength="400"></textarea></td>
+                                                    <td><center><input type="checkbox" id="Video" name="Video" value="false"></center></td>
+                                                    <td><input oninput="convertToUppercase('DocViewType_Video')" autocomplete="off" class="form-control" id="DocViewType_Video" maxlength="10" name="DocViewType_Video" type="text"></td>
+                                                    <td>
+                                                        <select id="VideoFormat" class="form-control">
+                                                            <option value="">Select</option>
+                                                            <option value="IFrame">IFrame</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><center>Certificate</center></td>
+                                                    <td><textarea id="CertiURL" value="" type="text" class="form-control" maxlength="400"></textarea></td>
+                                                    <td><center><input type="checkbox" id="Certi" name="Certi" value="false"></center></td>
+                                                    <td><input oninput="convertToUppercase('DocViewType_Certi')" autocomplete="off" class="form-control" id="DocViewType_Certi" maxlength="10" name="DocViewType_Certi" type="text"></td>
+                                                    <td>
+                                                        <select id="CertiFormat" class="form-control">
+                                                            <option value="">Select</option>
+                                                            <option value="Image">Image</option>
+                                                            <option value="IFrame">IFrame</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 pt-2" style="border-top:1px solid #ddd;">
+                                <ul class="offer-inbtn pull-right mrtop">
+                                    <li>
+                                        <button onclick="Save()" tabindex="12" class="offer-btn">Save</button>
+                                    </li>
+                                    <li>
+                                        <button onclick="Clear()" tabindex="13" class="offer-btn">Reset</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--------------Remove Country ------------->
+<div class="modal fade social-model" id="Remove">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Supplier</h4>
+                <button type="button" class="close" onclick="ClearRemoveModel()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <li>Are You Sure You Want To Delete This Supplier ? </li>
+            </div>
+
+            <div class="modal-footer">
+                <button id="btnSendMail" class="btn btn-primary" type="button" onclick="Delete()">Delete</button>
+                <button id="btnremove" class="btn btn-primary" type="button" onclick="ClearRemoveModel()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade social-model" id="ErrorModel">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Validation</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <div id="divError">
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="btnremove" class="btn btn-primary" type="button" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/js/wow.min.js"></script>
+    <script src="~/Content/js/moment.min.js"></script>
+    <script src="~/Content/js/daterangepicker.min.js"></script>
+    <script src="~/Content/js/ag-grid-enterprise.min.js"></script>
+    <script src="~/Content/js/Pages/SupplierMas.js"></script>
+    <script src="~/Content/js/Pages/detailCellRenderer.js"></script>
+}

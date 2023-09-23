@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "Column Setting From Supplier's File";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<input type="hidden" id="hdn_Id" value="" />
+
+<div class="container-fluid order-history-section manage-user">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="order-title">
+                <h2>Column Setting From Supplier's File <span style="font-size: 12px;color: red;">(.XLSX, .XLS, .CSV)</span></h2>
+            </div>
+        </div>
+    </div>
+    <div class="order-history-data admin">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="col-xl-5 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
+                    <div class="order-company-name common-order">
+                        <div class="offer-label">Supplier Name: <span style="color:red;">*</span></div>
+                        <select class="form-control select2" id="DdlSupplierName" name="DdlSupplierName" onchange="onchange_SupplierName()">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
+                    <div class="order-company-name common-order">
+                        <div class="offer-label">File Upload: <span style="color:red;">*</span></div>
+                        <input accept=".xlsx,.xls,.csv" type="file" id="file_upload" name="file_upload" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-7 col-sm-6 col-12 float-left SheetName" style="display:none;">
+                    <div class="order-company-name common-order">
+                        <div class="offer-label">Sheet Name: <span style="color:red;">*</span></div>
+                        <select class="form-control select2" id="DdlSheetName" name="DdlSheetName">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <ul class="offer-inbtn pull-right mrtop src-rest-topbtn mt-2 mb-2" style="margin: 20px 54px 0;">
+                    <li>
+                        <button onclick="Get_SupplierColumnSetting_FromFile();" class="save offer-btn" id="Upload_btn"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;Column Get From File</button>
+                    </li>
+                    <li class="mr-2" id="Save_btn" style="display:none;">
+                        <button onclick="SaveData();" class="save offer-btn Save_btn"><i class="fa fa-save" aria-hidden="true"></i>&nbsp;Save</button>
+                    </li>
+                    <li class="mr-2" style="display:none;" id="Delete_btn">
+                        <button onclick="Delete();" class="delete offer-btn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Delete</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="display: none;" id="TB_ColSetting">
+        <div class="col-12">
+            <div class="myoffer-form full-acform mt-0">
+                <div class="row">
+                    <div class="col-xl-8 offset-2 col-lg-8 col-md-8 col-sm-8 table-responsive" style="text-align: center;">
+                        <table id="mytable" class="table table-hover table-bordered" style="font-size: 14px;height: 345px; display: inline-block;">
+                            <thead style="background-color: #003d66;color: white;">
+                                <tr>
+                                    <th style="width: 3%;">Sr.</th>
+                                    <th style="width: 40%;">Our Column</th>
+                                    <th style="width: 60%;">Supplier Column</th>
+                                </tr>
+                            </thead>
+                            <tbody style="color: #003d66;" id="myTableBody" class="ui-sortable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade social-model" id="DeleteModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+                <button type="button" class="close" onclick="ClearRemoveModel()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <li></li>
+            </div>
+
+            <div class="modal-footer">
+                <button id="btnSendMail" class="btn btn-primary" type="button" onclick="DeleteData()">Delete</button>
+                <button id="btnremove" class="btn btn-primary" type="button" onclick="ClearRemoveModel()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/js/Pages/SupplierColumnSettingFromFile.js"></script>
+}
+
