@@ -84,51 +84,53 @@ namespace SunriseLabWeb_New.Controllers
                         TempData["Message"] = ex.Message;
                     }
 
-                    if (_data.UserID > 0)
+                    if (_data != null)
                     {
-                        SessionFacade.TokenNo = _data.access_token;
-                        inputJson = (new JavaScriptSerializer()).Serialize(input);
-                        string _keyresponse = _api.CallAPI(Constants.KeyAccountData, inputJson);
-                        ServiceResponse<KeyAccountDataResponse> _objresponse = (new JavaScriptSerializer()).Deserialize<ServiceResponse<KeyAccountDataResponse>>(_keyresponse);
-
-                        //string _imageResponse = _api.CallAPI(Constants.GetUserProfilePicture, string.Empty);
-
-                        if (_objresponse.Data != null && _objresponse.Data.Count > 0)
+                        if (_data.UserID > 0)
                         {
-                            SessionFacade.UserSession = _objresponse.Data.FirstOrDefault();
+                            SessionFacade.TokenNo = _data.access_token;
+                            inputJson = (new JavaScriptSerializer()).Serialize(input);
+                            string _keyresponse = _api.CallAPI(Constants.KeyAccountData, inputJson);
+                            ServiceResponse<KeyAccountDataResponse> _objresponse = (new JavaScriptSerializer()).Deserialize<ServiceResponse<KeyAccountDataResponse>>(_keyresponse);
 
-                            var obj = _objresponse.Data.FirstOrDefault();
+                            //string _imageResponse = _api.CallAPI(Constants.GetUserProfilePicture, string.Empty);
 
-                            Response.Cookies["Userid_DNA"].Value = obj.UserId.Value.ToString();
-
-                            var _input1 = new
+                            if (_objresponse.Data != null && _objresponse.Data.Count > 0)
                             {
-                                IPAddress = GetIpValue(),
-                                UserId = obj.UserId,
-                                Type = "STORED"
-                            };
-                            var _inputJson_1 = (new JavaScriptSerializer()).Serialize(_input1);
-                            string _Response_1 = _api.CallAPI(Constants.IP_Wise_Login_Detail, _inputJson_1);
+                                SessionFacade.UserSession = _objresponse.Data.FirstOrDefault();
 
+                                var obj = _objresponse.Data.FirstOrDefault();
+
+                                Response.Cookies["Userid_DNA"].Value = obj.UserId.Value.ToString();
+
+                                var _input1 = new
+                                {
+                                    IPAddress = GetIpValue(),
+                                    UserId = obj.UserId,
+                                    Type = "STORED"
+                                };
+                                var _inputJson_1 = (new JavaScriptSerializer()).Serialize(_input1);
+                                string _Response_1 = _api.CallAPI(Constants.IP_Wise_Login_Detail, _inputJson_1);
+
+                            }
+                            if (_obj.isRemember)
+                            {
+                                Response.Cookies["UserName"].Value = _obj.Username;
+                                Response.Cookies["Password"].Value = _obj.Password;
+                                Response.Cookies["IsRemember"].Value = _obj.isRemember.ToString();
+                            }
+
+                            //return RedirectToAction("LabList", "Lab");
+                            return RedirectToAction("Index", "DashBoard");
                         }
-                        if (_obj.isRemember)
+                        else
                         {
-                            Response.Cookies["UserName"].Value = _obj.Username;
-                            Response.Cookies["Password"].Value = _obj.Password;
-                            Response.Cookies["IsRemember"].Value = _obj.isRemember.ToString();
+                            TempData["Message"] = _data.Message;
                         }
-
-                        //return RedirectToAction("LabList", "Lab");
-                        return RedirectToAction("Index", "DashBoard");
-                    }
-                    else
-                    {
-                        TempData["Message"] = _data.Message;
                     }
                 }
             }
             return View(_obj);
-
         }
         public string GetIpValue()
         {
