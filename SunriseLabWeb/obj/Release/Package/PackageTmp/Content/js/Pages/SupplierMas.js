@@ -70,6 +70,7 @@ var columnDefs = [
     { headerName: "Upload Stock", field: "StockUpload", width: 60, cellRenderer: 'StockUpload', sortable: false },
     { headerName: "Last Not Mapped Stock Download", field: "NotMappedStock", width: 120, cellRenderer: 'NotMappedStock', sortable: false },
     { headerName: "Supplier Name", field: "SupplierName", tooltip: function (params) { return (params.value); }, width: 280 },
+    { headerName: "Short Name", field: "ShortName", tooltip: function (params) { return (params.value); }, width: 100 },
     { headerName: "API Type", field: "APIType", width: 63, cellRenderer: APIType, },
     { headerName: "Auto Upload Stock", field: "AutoUploadStock", width: 120, sortable: false },
     { headerName: "Supplier URL", field: "SupplierURL", width: 630, cellRenderer: SupplierURL, hide: true },
@@ -244,7 +245,8 @@ function EditView(Id) {
         $("#VideoFormat").val(data[0].VideoFormat);
         $("#CertiURL").val(data[0].CertiURL);
         $("#CertiFormat").val(data[0].CertiFormat);
-
+        $("#txtShortName").val(data[0].ShortName);
+        
         $(".gridview").hide();
         $(".AddEdit").show();
         $("#btn_AddNew").hide();
@@ -408,6 +410,7 @@ function contentHeight() {
 }
 function WEBAPI_View() {
     $(".SP_NM").show();
+    $(".SRT_NM").show();
     $(".URL").show();
     $(".FL_NM").show();
     $(".FL_LOC").show();
@@ -428,6 +431,7 @@ function WEBAPI_View() {
 }
 function FTP_View() {
     $(".SP_NM").show();
+    $(".SRT_NM").show();
     $(".URL").hide();
     $(".FL_NM").hide();
     $(".FL_LOC").hide();
@@ -539,6 +543,7 @@ function Clear() {
     $("#VideoFormat").val("");
     $("#CertiURL").val("");
     $("#CertiFormat").val("");
+    $("#txtShortName").val("");
 }
 function Repeatevery() {
     if ($("#DdlRepeatevery").val() == "Minute") {
@@ -560,6 +565,13 @@ var GetError = function () {
             'Error': "Please Enter Supplier Name.",
         });
     }
+
+    if ($("#txtShortName").val() == "") {
+        ErrorMsg.push({
+            'Error': "Please Enter Short Name.",
+        });
+    }
+    
 
     if (API_Type == "FTP") {
         if ($("#txtFTPFileLocation").val() == "") {
@@ -755,6 +767,8 @@ var Save = function () {
         obj.VideoFormat = $("#VideoFormat").val();
         obj.CertiURL = $("#CertiURL").val();
         obj.CertiFormat = $("#CertiFormat").val();
+        obj.ShortName = $("#txtShortName").val();
+        
 
         loaderShow();
 

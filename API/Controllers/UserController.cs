@@ -2508,6 +2508,11 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("CertiFormat", DbType.String, ParameterDirection.Input, DBNull.Value));
 
+                if (!string.IsNullOrEmpty(res.ShortName))
+                    para.Add(db.CreateParam("ShortName", DbType.String, ParameterDirection.Input, res.ShortName));
+                else
+                    para.Add(db.CreateParam("ShortName", DbType.String, ParameterDirection.Input, DBNull.Value));
+
                 DataTable dt = db.ExecuteSP("AddUpdate_SupplierMaster", para.ToArray(), false);
 
                 if (dt != null && dt.Rows.Count > 0)

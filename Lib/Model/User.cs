@@ -285,6 +285,7 @@ namespace Lib.Model
         public string VideoFormat { get; set; }
         public string CertiURL { get; set; }
         public string CertiFormat { get; set; }
+        public string ShortName { get; set; }
     }
     public class Get_ColumnMaster_Res
     {
