@@ -17,3 +17,7 @@
 /API/obj
 /Lib/obj
 /SunriseLabWeb/obj
+/SunriseLabWeb/obj/Debug
+/SunriseLabWeb/obj/Release
+/SunriseLabWeb/obj/Release
+/SunriseLabWeb/obj/Release/Package/PackageTmp/bin
