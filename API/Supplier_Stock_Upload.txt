@@ -1646,3 +1646,7 @@ SUCCESS 32461 Stock Upload Has Been Successfully From Vishindas Holaram (Lakhi) 
 SHAIRUGEMS ALL Supplier Stock Upload Failed, Log Time : 01-09-2023 04:29:26 PM
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 SUCCESS 7694 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's Web API, Log Time : 01-09-2023 04:33:15 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+No Data found as per Filter Criteria From HARDIK D Supplier's FTP, Log Time : 26-09-2023 01:14:48 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+No Data found as per Filter Criteria From JOY Supplier's Web API, Log Time : 26-09-2023 03:56:07 PM

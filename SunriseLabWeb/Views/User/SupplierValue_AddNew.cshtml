@@ -83,7 +83,7 @@
         var tbl_html =
             '<tr>' +
             '<td class="tblbody_sr">' + row + '</td>' +
-            '<td><textarea type="text" class="form-control Synonyms" maxlength="300" autocomplete="off"></textarea></td>' +
+            '<td><textarea type="text" class="form-control Synonyms" maxlength="700" autocomplete="off"></textarea></td>' +
             '<td><select class="form-control input-sm CategoryValue" tabindex="1">' + CategoryValue + '</select></td>' +
             '<td><input type="checkbox" class="Status" checked></td>' +
             '<td style="width: 50px"><i style="cursor:pointer;" class="error RemoveCate"><img src="/Content/images/trash-delete-icon.png" style="width: 20px;" /></i></td>' +
@@ -143,7 +143,7 @@
                             $('#tblbody').append(
                                 "<tr>" +
                                 "<td class='tblbody_sr'>" + row + "</td>" +
-                                "<td><textarea type='text' class='form-control Synonyms' maxlength='300' autocomplete='off'>" + (_obj.Supp_Cat_name != null ? _obj.Supp_Cat_name : '') + "</textarea></td>" +
+                                "<td><textarea type='text' class='form-control Synonyms' maxlength='700' autocomplete='off'>" + (_obj.Supp_Cat_name != null ? _obj.Supp_Cat_name : '') + "</textarea></td>" +
                                 "<td><select class='form-control input-sm CategoryValue' tabindex='1'>" + CategoryValue + "</select></td>" +
                                 "<td><input type='checkbox' class='Status' " + (_obj.Status == true ? 'checked' : '') + "></td>" +
                                 "<td style='width: 50px'><i style='cursor:pointer;' class='error RemoveCate'><img src='/Content/images/trash-delete-icon.png' style='width: 20px;' /></i></td>" +
