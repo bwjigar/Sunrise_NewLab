@@ -14,3 +14,6 @@
 /.vs/SunriseLabWeb_New/FileContentIndex/e933facf-e134-44e6-a15a-adc9839b7945.vsidx
 /.vs/SunriseLabWeb_New/FileContentIndex/edfb4468-637c-43bf-bdb1-96a64bfac6d3.vsidx
 /.vs/SunriseLabWeb_New/v17/.suo
+/API/obj
+/Lib/obj
+/SunriseLabWeb/obj

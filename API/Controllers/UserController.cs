@@ -4148,6 +4148,116 @@ namespace API.Controllers
                                     return ("Token is not Exists", string.Empty, null);
                                 }
                             }
+                            else if (SupplierURL.ToUpper() == "HTTPS://SHAIRUGEMS.NET:8011/API/BUYERV2/GETSTOCKDATA")
+                            {
+
+                                string Name = UserName;
+                                string password = Password;
+                                string inputJson = "";
+                                try
+                                {
+                                    SGLoginRequest l_req = new SGLoginRequest();
+                                    l_req.UserName = UserName; // "samit_gandhi";
+                                    l_req.Password = Password; // "missme@hk123";
+
+                                    inputJson = JsonConvert.SerializeObject(l_req);
+
+                                    WebClient client = new WebClient();
+                                    client.Headers.Add("Content-type", "application/json");
+                                    client.Encoding = Encoding.UTF8;
+                                    json = client.UploadString("https://shairugems.net:8011/api/buyerv2/login", "POST", inputJson);
+                                    client.Dispose();
+                                }
+                                catch (Exception ex)
+                                {
+                                    return ("API Not Working", ex.Message, null);
+                                }
+
+                                SGLoginResponse l_res = new SGLoginResponse();
+                                try
+                                {
+                                    l_res = (new JavaScriptSerializer()).Deserialize<SGLoginResponse>(json);
+                                }
+                                catch (Exception ex)
+                                {
+                                    return ("Data Response Format Changed", ex.Message, null);
+                                }
+
+
+                                if (!string.IsNullOrEmpty(l_res.TokenId) && !string.IsNullOrEmpty(l_res.UserId))
+                                {
+
+                                    try
+                                    {
+                                        SGStockRequest stock_req = new SGStockRequest();
+                                        stock_req.UserId = l_res.UserId;
+                                        stock_req.TokenId = l_res.TokenId;
+                                        //stock_req.StoneId = StoneId;
+
+                                        inputJson = JsonConvert.SerializeObject(stock_req);
+
+                                        WebClient client1 = new WebClient();
+                                        client1.Headers.Add("Content-type", "application/json");
+                                        client1.Encoding = Encoding.UTF8;
+                                        json = client1.UploadString("https://shairugems.net:8011/api/buyerv2/getstockdata", "POST", inputJson);
+                                        client1.Dispose();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        return ("API Not Working", ex.Message, null);
+                                    }
+
+                                    try
+                                    {
+                                        JObject o = JObject.Parse(json);
+                                        var t = string.Empty;
+                                        if (o != null)
+                                        {
+                                            var test = o;
+                                            if (test != null)
+                                            {
+                                                var test2 = test;
+                                                if (test2 != null)
+                                                {
+                                                    Console.Write(test2);
+                                                    t = test2.Root.First.First.ToString();
+                                                }
+                                            }
+                                        }
+                                        var json_1 = JsonConvert.DeserializeObject<List<dynamic>>(t);
+                                        json = JsonConvert.SerializeObject(json_1);
+                                        json = json.Replace("[", "").Replace("]", "");
+                                        json = json.Replace("null", "");
+
+
+
+                                        //var settings = new JsonSerializerSettings() { ContractResolver = new NullToEmptyStringResolver() };
+                                        //var json_1 = JsonConvert.DeserializeObject<SGStockResponse>(json, settings);
+
+                                        ////json_1=json_1.r
+                                        //json = JsonConvert.SerializeObject(json_1.Data, settings);
+                                        //json = json.Replace("[", "").Replace("]", "");
+                                        //json = json.Replace("null", "");
+
+                                        if (!string.IsNullOrEmpty(json))
+                                        {
+                                            dt_APIRes = jDt.JsonStringToDataTable(json);
+                                        }
+                                        else
+                                        {
+                                            return ("Data not Found", string.Empty, null);
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        return ("Data Response Format Changed", ex.Message, null);
+                                    }
+                                }
+                                else
+                                {
+                                    return ("Token is not Exists", string.Empty, null);
+                                }
+                            }
                             else if (SupplierURL.ToUpper() == "HTTPS://SHAIRUGEMS.NET:8011/API/BUYER/GETSTOCKDATA")
                             {
                                 try
