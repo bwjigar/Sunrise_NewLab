@@ -1650,3 +1650,37 @@ SUCCESS 7694 Stock Upload Has Been Successfully From SHAIRUGEMS ALL Supplier's W
 No Data found as per Filter Criteria From HARDIK D Supplier's FTP, Log Time : 26-09-2023 01:14:48 PM
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 No Data found as per Filter Criteria From JOY Supplier's Web API, Log Time : 26-09-2023 03:56:07 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+No Data found as per Filter Criteria From HARDIK D Supplier's FTP, Log Time : 26-09-2023 05:48:14 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+No Data found as per Filter Criteria From HARDIK D Supplier's FTP, Log Time : 26-09-2023 05:49:17 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+No Data found as per Filter Criteria From HARDIK D Supplier's FTP, Log Time : 26-09-2023 05:55:32 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+No Data found as per Filter Criteria From HARDIK D Supplier's FTP, Log Time : 26-09-2023 05:56:32 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 5 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 05:57:23 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 5 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 05:59:58 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 5 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 06:00:37 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 11 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 06:04:20 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 5 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 06:08:29 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 5 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 06:09:03 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 6 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 06:09:54 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ERROR NUMBER : 515ERROR LINE : 1157 ERROR MESSAGE : Cannot insert the value NULL into column 'CERTINO', table 'Sunrise_New_Lab.dbo.StockUpload_RefNo_His'; column does not allow nulls. INSERT fails., Log Time : 26-09-2023 06:39:57 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 6 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 06:41:19 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 5 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 06:41:50 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 06:42:26 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 06:43:52 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 06:44:27 PM

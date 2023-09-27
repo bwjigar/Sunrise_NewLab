@@ -71,7 +71,7 @@ var columnDefs = [
     { headerName: "Last Not Mapped Stock Download", field: "NotMappedStock", width: 120, cellRenderer: 'NotMappedStock', sortable: false },
     { headerName: "Supplier Name", field: "SupplierName", tooltip: function (params) { return (params.value); }, width: 280 },
     { headerName: "Short Name", field: "ShortName", tooltip: function (params) { return (params.value); }, width: 100 },
-    { headerName: "API Type", field: "APIType", width: 63, cellRenderer: APIType, },
+    { headerName: "API Type", field: "APIType", width: 90, cellRenderer: APIType, sortable: false },
     { headerName: "Auto Upload Stock", field: "AutoUploadStock", width: 120, sortable: false },
     { headerName: "Supplier URL", field: "SupplierURL", width: 630, cellRenderer: SupplierURL, hide: true },
     { headerName: "Active", field: "Active", width: 58, cellRenderer: Status, },
@@ -92,7 +92,7 @@ function SupplierURL(params) {
     }
 }
 function APIType(params) {
-    return params.value.replace("_", " ");
+    return params.value.replace("_", " ") + (params.data.DataGetFrom == "FILE" ? " (FILE)" : "");
 }
 function Status(params) {
     if (params.value == true) {
