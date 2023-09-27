@@ -39,6 +39,7 @@
             z-index: 9999;
             top: 0;
         }
+
         .loading-overlay-stk-uplod {
             display: none;
             background: rgb(26 26 26);
@@ -49,6 +50,7 @@
             top: 0;
             left: 0;
         }
+
         .error {
             color: red;
         }
@@ -61,6 +63,7 @@
             left: 50%;
             transform: translate( -50%, -50% );
         }
+
         .loading-overlay-image-container-stk-uplod {
             display: none;
             position: fixed;
@@ -69,6 +72,7 @@
             left: 50%;
             transform: translate( -50%, -50% );
         }
+
         .loading-overlay-img {
             width: 50px;
             height: 50px;
@@ -96,12 +100,14 @@
             border-radius: 5px;
             /*background-color:#fff;*/
         }
+
         .loading-overlay-img3-stk-uplod {
             width: 217px;
             height: auto;
             border-radius: 5px;
             background-color: #fff;
         }
+
         .loading-overlay-img-spinner {
             width: 38px;
             height: auto;
@@ -339,12 +345,12 @@
                                 Customer Price List
                             </a>
                         </li>
-                        @*<li>
-                                <a href="@Url.Action("StockDiscMgt", "User")">
-                                    <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
-                                    Stock & Disc Mgt
-                                </a>
-                            </li>*@
+                        <li>
+                            <a href="@Url.Action("StockDiscMgt", "User")">
+                                <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                                Stock & Disc Mgt
+                            </a>
+                        </li>
                         <li>
                             <a href="@Url.Action("SupplierStockUpload", "User")">
                                 <i class="fa fa-upload" aria-hidden="true"></i>

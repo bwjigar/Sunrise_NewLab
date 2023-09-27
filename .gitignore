@@ -8,6 +8,10 @@
 /API/Stock_File
 /API/ExcelFile
 /API/Temp/API
-/API/obj
-/Lib/obj
-/SunriseLabWeb/obj
+/API/obj/Release/
+/API/obj/
+/API/obj/Debug
+/Lib/obj/
+/Lib/obj/Debug
+/SunriseLabWeb/obj/
+/SunriseLabWeb/obj/Debug
