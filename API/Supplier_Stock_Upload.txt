@@ -1684,3 +1684,45 @@ SUCCESS 7 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log T
 SUCCESS 7 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 06:43:52 PM
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 26-09-2023 06:44:27 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+Column Setting Not Configured Properly From HARDIK D Supplier's FTP, Log Time : 27-09-2023 10:54:40 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 10:55:34 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 02:24:12 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 02:28:10 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 02:29:53 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 02:30:40 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 02:31:47 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 02:32:08 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 03:26:17 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 03:26:41 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 03:33:03 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 03:34:07 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 03:34:23 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 03:36:28 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 03:36:43 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 03:37:14 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 03:37:39 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 03:37:57 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 7 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 03:43:38 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 03:44:22 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 06:33:02 PM
