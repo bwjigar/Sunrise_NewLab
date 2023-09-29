@@ -341,7 +341,7 @@ function BuyerList() {
                         columnDefs.push({ headerName: "Buyer Name", field: "Buyer_Name", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Buyer_Name", params); } });
                     }
                     else if (item.Column_Name == "Status") {
-                        columnDefs.push({ headerName: "Status", field: "Status", width: 50, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Status", params); } });
+                        columnDefs.push({ headerName: "Status", field: "Status", width: 50, tooltip: function (params) { return (params.value); }, cellRenderer: function (params) { return ""; }, cellStyle: function (params) { return cellStyle("Status", params); } });
                     }
                     else if (item.Column_Name == "Supplier Stone Id") {
                         columnDefs.push({ headerName: "Supplier Stone Id", field: "Supplier_Stone_Id", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Stone_Id", params); } });
@@ -799,7 +799,7 @@ const datasource1 = {
         if (params.request.sortModel.length > 0) {
             OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
         }
-
+        Status
         obj = ObjectCreate(PageNo, pgSize, OrderBy, '');
 
         Rowdata = [];
@@ -2063,25 +2063,25 @@ function GetSearchParameter() {
                 });
 
                 $('#searchtableincl').html("");
-                TblInclList = _.filter(ParameterList, function (e) { return e.Type == 'Table Inclusion' });
+                TblInclList = _.filter(ParameterList, function (e) { return e.Type == 'Table White' });
                 _(TblInclList).each(function (tblincl, i) {
                     $('#searchtableincl').append('<li onclick="SetActive(\'TABLE_INCL\',\'' + tblincl.Value + '\')">' + tblincl.Value + '</li>');
                 });
 
                 $('#searchtablenatts').html("");
-                TblNattsList = _.filter(ParameterList, function (e) { return e.Type == 'Table Natts' });
+                TblNattsList = _.filter(ParameterList, function (e) { return e.Type == 'Table Black' });
                 _(TblNattsList).each(function (tblnatts, i) {
                     $('#searchtablenatts').append('<li onclick="SetActive(\'TABLE_NATTS\',\'' + tblnatts.Value + '\')">' + tblnatts.Value + '</li>');
                 });
 
                 $('#searchcrownincl').html("");
-                CrwnInclList = _.filter(ParameterList, function (e) { return e.Type == 'Crown Inclusion' });
+                CrwnInclList = _.filter(ParameterList, function (e) { return e.Type == 'Crown White' });
                 _(CrwnInclList).each(function (crwnincl, i) {
                     $('#searchcrownincl').append('<li onclick="SetActive(\'CROWN_INCL\',\'' + crwnincl.Value + '\')">' + crwnincl.Value + '</li>');
                 });
 
                 $('#searchcrownnatts').html("");
-                CrwnNattsList = _.filter(ParameterList, function (e) { return e.Type == 'Crown Natts' });
+                CrwnNattsList = _.filter(ParameterList, function (e) { return e.Type == 'Crown Black' });
                 _(CrwnNattsList).each(function (crwnnatt, i) {
                     $('#searchcrownnatts').append('<li onclick="SetActive(\'CROWN_NATTS\',\'' + crwnnatt.Value + '\')">' + crwnnatt.Value + '</li>');
                 });

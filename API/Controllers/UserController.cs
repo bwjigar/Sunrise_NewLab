@@ -6035,90 +6035,79 @@ namespace API.Controllers
                 Final_dt.Columns.Add("Not Mapped Column", typeof(string));
                 Final_dt.Columns.Add("Stock From", typeof(string));
                 Final_dt.Columns.Add("SupplierId", typeof(string));
+                Final_dt.Columns.Add("Supplier Ref No", typeof(string));
+                Final_dt.Columns.Add("Cert No", typeof(string));
                 Final_dt.Columns.Add("Shape", typeof(string));
                 Final_dt.Columns.Add("Color", typeof(string));
                 Final_dt.Columns.Add("Clarity", typeof(string));
+                Final_dt.Columns.Add("Cts", typeof(string));
                 Final_dt.Columns.Add("Cut", typeof(string));
                 Final_dt.Columns.Add("Polish", typeof(string));
                 Final_dt.Columns.Add("Symm", typeof(string));
                 Final_dt.Columns.Add("Fls", typeof(string));
-                Final_dt.Columns.Add("Cts", typeof(string));
-                Final_dt.Columns.Add("Pointer", typeof(string));
-                Final_dt.Columns.Add("Sub Pointer", typeof(string));
+                Final_dt.Columns.Add("Base Dis", typeof(string));
                 Final_dt.Columns.Add("Base Price/Ct", typeof(string));
-                Final_dt.Columns.Add("Rap Rate", typeof(string));
                 Final_dt.Columns.Add("Base Amt", typeof(string));
-                Final_dt.Columns.Add("Measurement", typeof(string));
                 Final_dt.Columns.Add("Length", typeof(string));
                 Final_dt.Columns.Add("Width", typeof(string));
                 Final_dt.Columns.Add("Depth", typeof(string));
-                Final_dt.Columns.Add("Table %", typeof(string));
+                Final_dt.Columns.Add("Measurement", typeof(string));
                 Final_dt.Columns.Add("Depth %", typeof(string));
-                Final_dt.Columns.Add("Table White", typeof(string));
-                Final_dt.Columns.Add("Crown White", typeof(string));
-                Final_dt.Columns.Add("Table Black", typeof(string));
-                Final_dt.Columns.Add("Crown Black", typeof(string));
-                Final_dt.Columns.Add("Side Inclusion", typeof(string));
-                Final_dt.Columns.Add("Side Natts", typeof(string));
-                Final_dt.Columns.Add("Crown Open", typeof(string));
-                Final_dt.Columns.Add("Pav Open", typeof(string));
-                Final_dt.Columns.Add("Table Open", typeof(string));
-                Final_dt.Columns.Add("Girdle Open", typeof(string));
+                Final_dt.Columns.Add("Table %", typeof(string));
+                Final_dt.Columns.Add("Girdle %", typeof(string));
+                Final_dt.Columns.Add("Key to Symbol", typeof(string));
+                Final_dt.Columns.Add("Comment", typeof(string));
+                Final_dt.Columns.Add("Supplier Comment", typeof(string));
+                Final_dt.Columns.Add("Lab", typeof(string));
                 Final_dt.Columns.Add("Crown Angle", typeof(string));
                 Final_dt.Columns.Add("Pav Angle", typeof(string));
                 Final_dt.Columns.Add("Crown Height", typeof(string));
                 Final_dt.Columns.Add("Pav Height", typeof(string));
-                Final_dt.Columns.Add("Rap Amount", typeof(string));
-                Final_dt.Columns.Add("Lab", typeof(string));
+                Final_dt.Columns.Add("Shade", typeof(string));
+                Final_dt.Columns.Add("Milky", typeof(string));
+                Final_dt.Columns.Add("Luster", typeof(string));
+                Final_dt.Columns.Add("Table White", typeof(string));
+                Final_dt.Columns.Add("Crown White", typeof(string));
+                Final_dt.Columns.Add("Table Black", typeof(string));
+                Final_dt.Columns.Add("Crown Black", typeof(string));
+                Final_dt.Columns.Add("Table Open", typeof(string));
+                Final_dt.Columns.Add("Crown Open", typeof(string));
+                Final_dt.Columns.Add("Pav Open", typeof(string));
+                Final_dt.Columns.Add("Girdle Open", typeof(string));
+                Final_dt.Columns.Add("Location", typeof(string));
+                Final_dt.Columns.Add("Status", typeof(string));
+                Final_dt.Columns.Add("BGM", typeof(string));
+                Final_dt.Columns.Add("Culet", typeof(string));
+                Final_dt.Columns.Add("Girdle Type", typeof(string));
+                Final_dt.Columns.Add("Girdle To", typeof(string));
+                Final_dt.Columns.Add("Girdle From", typeof(string));
+                Final_dt.Columns.Add("Girdle", typeof(string));
+                Final_dt.Columns.Add("Star Length", typeof(string));
+                Final_dt.Columns.Add("Lower HF", typeof(string));
+                Final_dt.Columns.Add("Certi Date", typeof(string));
+                Final_dt.Columns.Add("Laser Inscription", typeof(string));
+                Final_dt.Columns.Add("Fls Color", typeof(string));
+                Final_dt.Columns.Add("Fancy Color", typeof(string));
+                Final_dt.Columns.Add("Fancy Intensity", typeof(string));
+                Final_dt.Columns.Add("Fancy Overtone", typeof(string));
+                Final_dt.Columns.Add("Cert Type", typeof(string));
+                Final_dt.Columns.Add("Country of Origin", typeof(string));
+                Final_dt.Columns.Add("H&A", typeof(string));
                 Final_dt.Columns.Add("Lab URL", typeof(string));
                 Final_dt.Columns.Add("Image Real", typeof(string));
                 Final_dt.Columns.Add("Image Asset", typeof(string));
                 Final_dt.Columns.Add("Image Heart", typeof(string));
                 Final_dt.Columns.Add("Image Arrow", typeof(string));
-                Final_dt.Columns.Add("Video URL", typeof(string));
-                Final_dt.Columns.Add("DNA", typeof(string));
-                Final_dt.Columns.Add("Status", typeof(string));
-                Final_dt.Columns.Add("Supplier Ref No", typeof(string));
-                Final_dt.Columns.Add("Location", typeof(string));
-                Final_dt.Columns.Add("Shade", typeof(string));
-                Final_dt.Columns.Add("Luster", typeof(string));
-                Final_dt.Columns.Add("Cert Type", typeof(string));
-                Final_dt.Columns.Add("Milky", typeof(string));
-                Final_dt.Columns.Add("BGM", typeof(string));
-                Final_dt.Columns.Add("Key to Symbol", typeof(string));
-                Final_dt.Columns.Add("RATIO", typeof(string));
-                Final_dt.Columns.Add("Supplier Comment", typeof(string));
-                Final_dt.Columns.Add("Comment", typeof(string));
-                Final_dt.Columns.Add("Culet", typeof(string));
-                Final_dt.Columns.Add("Girdle %", typeof(string));
-                Final_dt.Columns.Add("Girdle Type", typeof(string));
-                Final_dt.Columns.Add("Girdle From", typeof(string));
-                Final_dt.Columns.Add("Laser Inscription", typeof(string));
-                Final_dt.Columns.Add("Culet Condition", typeof(string));
-                Final_dt.Columns.Add("Star Length", typeof(string));
-                Final_dt.Columns.Add("Lower HF", typeof(string));
-                Final_dt.Columns.Add("Stage", typeof(string));
-                Final_dt.Columns.Add("Certi Date", typeof(string));
-                Final_dt.Columns.Add("Base Dis", typeof(string));
-                Final_dt.Columns.Add("Fix Price", typeof(string));
-                Final_dt.Columns.Add("Cert No", typeof(string));
-                Final_dt.Columns.Add("Ref No", typeof(string));
-                Final_dt.Columns.Add("Goods Type", typeof(string));
-                Final_dt.Columns.Add("Country of Origin", typeof(string));
-                Final_dt.Columns.Add("Girdle", typeof(string));
-                Final_dt.Columns.Add("H&A", typeof(string));
-                Final_dt.Columns.Add("Fls Color", typeof(string));
-                Final_dt.Columns.Add("Fancy Color", typeof(string));
-                Final_dt.Columns.Add("Fancy Overtone", typeof(string));
-                Final_dt.Columns.Add("Fancy Intensity", typeof(string));
-                Final_dt.Columns.Add("Girdle To", typeof(string));
                 Final_dt.Columns.Add("Image URL 1", typeof(string));
                 Final_dt.Columns.Add("Image URL 2", typeof(string));
+                Final_dt.Columns.Add("Video URL", typeof(string));
                 Final_dt.Columns.Add("Video MP4", typeof(string));
+                Final_dt.Columns.Add("DNA", typeof(string));
 
-                db = new Database();
-                list = new List<IDbDataParameter>();
-                DataTable Col_dt = db.ExecuteSP("Get_Column_Master", list.ToArray(), false);
+
+                //db = new Database();
+                //list = new List<IDbDataParameter>();
+                //DataTable Col_dt = db.ExecuteSP("Get_Column_Master", list.ToArray(), false);
 
                 foreach (DataRow row in dt_APIRes.Rows)
                 {
@@ -6131,245 +6120,450 @@ namespace API.Controllers
 
                     foreach (DataRow SuppCol_row in dtSupplCol.Rows)
                     {
+                        Final_row["Supplier Ref No"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Supplier Ref No") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Supplier Ref No"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Supplier Ref No"] = (Convert.ToString(Final_row["Supplier Ref No"]) == "") ? null : Convert.ToString(Final_row["Supplier Ref No"]); 
+                        
+                        Final_row["Cert No"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Cert No") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Cert No"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Cert No"] = (Convert.ToString(Final_row["Cert No"]) == "") ? null : Convert.ToString(Final_row["Cert No"]); 
+
                         Final_row["Shape"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Shape") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Shape"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Shape"] = (Convert.ToString(Final_row["Shape"]) == "") ? null : Convert.ToString(Final_row["Shape"]);
+                        Final_row["Shape"] = (Convert.ToString(Final_row["Shape"]) == "") ? null : Convert.ToString(Final_row["Shape"]); 
 
                         Final_row["Color"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Color") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Color"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Color"] = (Convert.ToString(Final_row["Color"]) == "") ? null : Convert.ToString(Final_row["Color"]);
-
+                        Final_row["Color"] = (Convert.ToString(Final_row["Color"]) == "") ? null : Convert.ToString(Final_row["Color"]); 
+                        
                         Final_row["Clarity"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Clarity") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Clarity"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Clarity"] = (Convert.ToString(Final_row["Clarity"]) == "") ? null : Convert.ToString(Final_row["Clarity"]);
-
-                        Final_row["Cut"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Cut") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Cut"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Cut"] = (Convert.ToString(Final_row["Cut"]) == "") ? null : Convert.ToString(Final_row["Cut"]);
-
-                        Final_row["Polish"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Polish") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Polish"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Polish"] = (Convert.ToString(Final_row["Polish"]) == "") ? null : Convert.ToString(Final_row["Polish"]);
-
-                        Final_row["Symm"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Symm") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Symm"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Symm"] = (Convert.ToString(Final_row["Symm"]) == "") ? null : Convert.ToString(Final_row["Symm"]);
-
-                        Final_row["Fls"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fls") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fls"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Fls"] = (Convert.ToString(Final_row["Fls"]) == "") ? null : Convert.ToString(Final_row["Fls"]);
+                        Final_row["Clarity"] = (Convert.ToString(Final_row["Clarity"]) == "") ? null : Convert.ToString(Final_row["Clarity"]); 
 
                         Final_row["Cts"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Cts") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Cts"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Cts"] = (Convert.ToString(Final_row["Cts"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Cts"]));
+                        Final_row["Cts"] = (Convert.ToString(Final_row["Cts"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Cts"])); 
 
-                        Final_row["Pointer"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Pointer") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Pointer"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Pointer"] = (Convert.ToString(Final_row["Pointer"]) == "") ? null : Convert.ToString(Final_row["Pointer"]);
+                        Final_row["Cut"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Cut") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Cut"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Cut"] = (Convert.ToString(Final_row["Cut"]) == "") ? null : Convert.ToString(Final_row["Cut"]); 
+    
+                        Final_row["Polish"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Polish") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Polish"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Polish"] = (Convert.ToString(Final_row["Polish"]) == "") ? null : Convert.ToString(Final_row["Polish"]); 
 
-                        Final_row["Sub Pointer"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Sub Pointer") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Sub Pointer"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Sub Pointer"] = (Convert.ToString(Final_row["Sub Pointer"]) == "") ? null : Convert.ToString(Final_row["Sub Pointer"]);
-
-                        Final_row["Base Price/Ct"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Base Price/Ct") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Base Price/Ct"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Base Price/Ct"] = (Convert.ToString(Final_row["Base Price/Ct"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Base Price/Ct"]));
-
-                        Final_row["Rap Rate"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Rap Rate") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Rap Rate"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Rap Rate"] = (Convert.ToString(Final_row["Rap Rate"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Rap Rate"]));
-
-                        Final_row["Base Amt"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Base Amt") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Base Amt"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Base Amt"] = (Convert.ToString(Final_row["Base Amt"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Base Amt"]));
-
-                        Final_row["Measurement"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Measurement") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Measurement"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Measurement"] = (Convert.ToString(Final_row["Measurement"]) == "") ? null : Convert.ToString(Final_row["Measurement"]);
-
-                        Final_row["Length"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Length") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Length"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Length"] = (Convert.ToString(Final_row["Length"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Length"]));
-
-                        Final_row["Width"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Width") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Width"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Width"] = (Convert.ToString(Final_row["Width"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Width"]));
-
-                        Final_row["Depth"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Depth") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Depth"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Depth"] = (Convert.ToString(Final_row["Depth"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Depth"]));
-
-                        Final_row["Table %"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Table %") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Table %"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Table %"] = (Convert.ToString(Final_row["Table %"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Table %"]));
-
-                        Final_row["Depth %"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Depth %") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Depth %"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Depth %"] = (Convert.ToString(Final_row["Depth %"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Depth %"]));
-
-                        Final_row["Table White"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Table White") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Table White"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Table White"] = (Convert.ToString(Final_row["Table White"]) == "") ? null : Convert.ToString(Final_row["Table White"]);
-
-                        Final_row["Crown White"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown White") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown White"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Crown White"] = (Convert.ToString(Final_row["Crown White"]) == "") ? null : Convert.ToString(Final_row["Crown White"]);
-
-                        Final_row["Table Black"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Table Black") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Table Black"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Table Black"] = (Convert.ToString(Final_row["Table Black"]) == "") ? null : Convert.ToString(Final_row["Table Black"]);
-
-                        Final_row["Crown Black"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown Black") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown Black"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Crown Black"] = (Convert.ToString(Final_row["Crown Black"]) == "") ? null : Convert.ToString(Final_row["Crown Black"]);
-
-                        Final_row["Side Inclusion"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Side Inclusion") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Side Inclusion"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Side Inclusion"] = (Convert.ToString(Final_row["Side Inclusion"]) == "") ? null : Convert.ToString(Final_row["Side Inclusion"]);
-
-                        Final_row["Side Natts"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Side Natts") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Side Natts"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Side Natts"] = (Convert.ToString(Final_row["Side Natts"]) == "") ? null : Convert.ToString(Final_row["Side Natts"]);
-
-                        Final_row["Crown Open"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown Open") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown Open"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Crown Open"] = (Convert.ToString(Final_row["Crown Open"]) == "") ? null : Convert.ToString(Final_row["Crown Open"]);
-
-                        Final_row["Pav Open"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Pav Open") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Pav Open"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Pav Open"] = (Convert.ToString(Final_row["Pav Open"]) == "") ? null : Convert.ToString(Final_row["Pav Open"]);
-
-                        Final_row["Table Open"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Table Open") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Table Open"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Table Open"] = (Convert.ToString(Final_row["Table Open"]) == "") ? null : Convert.ToString(Final_row["Table Open"]);
-
-                        Final_row["Girdle Open"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle Open") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle Open"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Girdle Open"] = (Convert.ToString(Final_row["Girdle Open"]) == "") ? null : Convert.ToString(Final_row["Girdle Open"]);
-
-                        Final_row["Crown Angle"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown Angle") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown Angle"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Crown Angle"] = (Convert.ToString(Final_row["Crown Angle"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Crown Angle"]));
-
-                        Final_row["Pav Angle"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Pav Angle") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Pav Angle"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Pav Angle"] = (Convert.ToString(Final_row["Pav Angle"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Pav Angle"]));
-
-                        Final_row["Crown Height"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown Height") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown Height"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Crown Height"] = (Convert.ToString(Final_row["Crown Height"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Crown Height"]));
-
-                        Final_row["Pav Height"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Pav Height") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Pav Height"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Pav Height"] = (Convert.ToString(Final_row["Pav Height"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Pav Height"]));
-
-                        Final_row["Rap Amount"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Rap Amount") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Rap Amount"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Rap Amount"] = (Convert.ToString(Final_row["Rap Amount"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Rap Amount"]));
-
-                        Final_row["Lab"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Lab") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Lab"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Lab"] = (Convert.ToString(Final_row["Lab"]) == "") ? null : Convert.ToString(Final_row["Lab"]);
-
-                        Final_row["Lab URL"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Lab URL") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Lab URL"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Lab URL"] = (Convert.ToString(Final_row["Lab URL"]) == "") ? null : Convert.ToString(Final_row["Lab URL"]);
-
-                        Final_row["Image Real"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image Real") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image Real"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Image Real"] = (Convert.ToString(Final_row["Image Real"]) == "") ? null : Convert.ToString(Final_row["Image Real"]);
-
-                        Final_row["Image Asset"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image Asset") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image Asset"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Image Asset"] = (Convert.ToString(Final_row["Image Asset"]) == "") ? null : Convert.ToString(Final_row["Image Asset"]);
-
-                        Final_row["Image Heart"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image Heart") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image Heart"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Image Heart"] = (Convert.ToString(Final_row["Image Heart"]) == "") ? null : Convert.ToString(Final_row["Image Heart"]);
-
-                        Final_row["Image Arrow"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image Arrow") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image Arrow"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Image Arrow"] = (Convert.ToString(Final_row["Image Arrow"]) == "") ? null : Convert.ToString(Final_row["Image Arrow"]);
-
-                        Final_row["Video URL"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Video URL") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Video URL"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Video URL"] = (Convert.ToString(Final_row["Video URL"]) == "") ? null : Convert.ToString(Final_row["Video URL"]);
-
-                        Final_row["DNA"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "DNA") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["DNA"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["DNA"] = (Convert.ToString(Final_row["DNA"]) == "") ? null : Convert.ToString(Final_row["DNA"]);
-
-                        Final_row["Status"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Status") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Status"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Status"] = (Convert.ToString(Final_row["Status"]) == "") ? null : Convert.ToString(Final_row["Status"]);
-
-                        Final_row["Supplier Ref No"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Supplier Ref No") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Supplier Ref No"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])].ToString();
-                        Final_row["Supplier Ref No"] = (Convert.ToString(Final_row["Supplier Ref No"]) == "") ? null : Convert.ToString(Final_row["Supplier Ref No"]);
-
-                        Final_row["Location"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Location") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Location"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Location"] = (Convert.ToString(Final_row["Location"]) == "") ? null : Convert.ToString(Final_row["Location"]);
-
-                        Final_row["Shade"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Shade") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Shade"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Shade"] = (Convert.ToString(Final_row["Shade"]) == "") ? null : Convert.ToString(Final_row["Shade"]);
-
-                        Final_row["Luster"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Luster") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Luster"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Luster"] = (Convert.ToString(Final_row["Luster"]) == "") ? null : Convert.ToString(Final_row["Luster"]);
-
-                        Final_row["Cert Type"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Cert Type") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Cert Type"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Cert Type"] = (Convert.ToString(Final_row["Cert Type"]) == "") ? null : Convert.ToString(Final_row["Cert Type"]);
-
-                        Final_row["Milky"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Milky") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Milky"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Milky"] = (Convert.ToString(Final_row["Milky"]) == "") ? null : Convert.ToString(Final_row["Milky"]);
-
-                        Final_row["BGM"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "BGM") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["BGM"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["BGM"] = (Convert.ToString(Final_row["BGM"]) == "") ? null : Convert.ToString(Final_row["BGM"]);
-
-                        Final_row["Key to Symbol"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Key to Symbol") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Key to Symbol"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Key to Symbol"] = (Convert.ToString(Final_row["Key to Symbol"]) == "") ? null : Convert.ToString(Final_row["Key to Symbol"]);
-
-                        Final_row["RATIO"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "RATIO") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["RATIO"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["RATIO"] = (Convert.ToString(Final_row["RATIO"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["RATIO"]));
-
-                        Final_row["Supplier Comment"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Supplier Comment") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Supplier Comment"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])].ToString();
-                        Final_row["Supplier Comment"] = (Convert.ToString(Final_row["Supplier Comment"]) == "") ? null : Convert.ToString(Final_row["Supplier Comment"]);
-
-                        Final_row["Comment"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Comment") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Comment"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Comment"] = (Convert.ToString(Final_row["Comment"]) == "") ? null : Convert.ToString(Final_row["Comment"]);
-
-                        Final_row["Culet"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Culet") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Culet"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Culet"] = (Convert.ToString(Final_row["Culet"]) == "") ? null : Convert.ToString(Final_row["Culet"]);
-
-                        Final_row["Girdle %"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle %") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle %"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Girdle %"] = (Convert.ToString(Final_row["Girdle %"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Girdle %"]));
-
-                        Final_row["Girdle Type"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle Type") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle Type"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Girdle Type"] = (Convert.ToString(Final_row["Girdle Type"]) == "") ? null : Convert.ToString(Final_row["Girdle Type"]);
-
-                        Final_row["Girdle From"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle From") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle From"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Girdle From"] = (Convert.ToString(Final_row["Girdle From"]) == "") ? null : Convert.ToString(Final_row["Girdle From"]);
-
-                        Final_row["Laser Inscription"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Laser Inscription") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Laser Inscription"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Laser Inscription"] = (Convert.ToString(Final_row["Laser Inscription"]) == "") ? null : Convert.ToString(Final_row["Laser Inscription"]);
-
-                        Final_row["Culet Condition"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Culet Condition") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Culet Condition"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Culet Condition"] = (Convert.ToString(Final_row["Culet Condition"]) == "") ? null : Convert.ToString(Final_row["Culet Condition"]);
-
-                        Final_row["Star Length"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Star Length") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Star Length"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Star Length"] = (Convert.ToString(Final_row["Star Length"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Star Length"]));
-
-                        Final_row["Lower HF"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Lower HF") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Lower HF"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Lower HF"] = (Convert.ToString(Final_row["Lower HF"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Lower HF"]));
-
-                        Final_row["Stage"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Stage") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Stage"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Stage"] = (Convert.ToString(Final_row["Stage"]) == "") ? null : Convert.ToString(Final_row["Stage"]);
-
-                        Final_row["Certi Date"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Certi Date") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Certi Date"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Certi Date"] = (Convert.ToString(Final_row["Certi Date"]) == "") ? null : Convert.ToString(Final_row["Certi Date"]);
-
+                        Final_row["Symm"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Symm") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Symm"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Symm"] = (Convert.ToString(Final_row["Symm"]) == "") ? null : Convert.ToString(Final_row["Symm"]); 
+    
+                        Final_row["Fls"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fls") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fls"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Fls"] = (Convert.ToString(Final_row["Fls"]) == "") ? null : Convert.ToString(Final_row["Fls"]); 
+    
                         Final_row["Base Dis"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Base Dis") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Base Dis"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Base Dis"] = (Convert.ToString(Final_row["Base Dis"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Base Dis"]));
-
-                        Final_row["Fix Price"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fix Price") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fix Price"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Fix Price"] = (Convert.ToString(Final_row["Fix Price"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Fix Price"]));
-
-                        Final_row["Cert No"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Cert No") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Cert No"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Cert No"] = (Convert.ToString(Final_row["Cert No"]) == "") ? null : Convert.ToString(Final_row["Cert No"]);
-
-                        Final_row["Ref No"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Ref No") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Ref No"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Ref No"] = (Convert.ToString(Final_row["Ref No"]) == "") ? null : Convert.ToString(Final_row["Ref No"]);
-
-                        Final_row["Goods Type"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Goods Type") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Goods Type"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Goods Type"] = (Convert.ToString(Final_row["Goods Type"]) == "") ? null : Convert.ToString(Final_row["Goods Type"]);
-
-                        Final_row["Country of Origin"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Country of Origin") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Country of Origin"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Country of Origin"] = (Convert.ToString(Final_row["Country of Origin"]) == "") ? null : Convert.ToString(Final_row["Country of Origin"]);
-
-                        Final_row["Girdle"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Girdle"] = (Convert.ToString(Final_row["Girdle"]) == "") ? null : Convert.ToString(Final_row["Girdle"]);
-
-                        Final_row["H&A"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "H&A") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["H&A"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["H&A"] = (Convert.ToString(Final_row["H&A"]) == "") ? null : Convert.ToString(Final_row["H&A"]);
-
-                        Final_row["Fls Color"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fls Color") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fls Color"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Fls Color"] = (Convert.ToString(Final_row["Fls Color"]) == "") ? null : Convert.ToString(Final_row["Fls Color"]);
-
-                        Final_row["Fancy Color"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fancy Color") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fancy Color"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Fancy Color"] = (Convert.ToString(Final_row["Fancy Color"]) == "") ? null : Convert.ToString(Final_row["Fancy Color"]);
-
-                        Final_row["Fancy Overtone"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fancy Overtone") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fancy Overtone"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Fancy Overtone"] = (Convert.ToString(Final_row["Fancy Overtone"]) == "") ? null : Convert.ToString(Final_row["Fancy Overtone"]);
-
-                        Final_row["Fancy Intensity"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fancy Intensity") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fancy Intensity"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Fancy Intensity"] = (Convert.ToString(Final_row["Fancy Intensity"]) == "") ? null : Convert.ToString(Final_row["Fancy Intensity"]);
-
+                        Final_row["Base Dis"] = (Convert.ToString(Final_row["Base Dis"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Base Dis"])); 
+    
+                        Final_row["Base Price/Ct"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Base Price/Ct") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Base Price/Ct"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Base Price/Ct"] = (Convert.ToString(Final_row["Base Price/Ct"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Base Price/Ct"])); 
+    
+                        Final_row["Base Amt"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Base Amt") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Base Amt"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Base Amt"] = (Convert.ToString(Final_row["Base Amt"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Base Amt"])); 
+    
+                        Final_row["Length"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Length") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Length"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Length"] = (Convert.ToString(Final_row["Length"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Length"])); 
+    
+                        Final_row["Width"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Width") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Width"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Width"] = (Convert.ToString(Final_row["Width"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Width"])); 
+    
+                        Final_row["Depth"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Depth") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Depth"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Depth"] = (Convert.ToString(Final_row["Depth"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Depth"])); 
+    
+                        Final_row["Measurement"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Measurement") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Measurement"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Measurement"] = (Convert.ToString(Final_row["Measurement"]) == "") ? null : Convert.ToString(Final_row["Measurement"]); 
+    
+                        Final_row["Depth %"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Depth %") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Depth %"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Depth %"] = (Convert.ToString(Final_row["Depth %"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Depth %"])); 
+    
+                        Final_row["Table %"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Table %") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Table %"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Table %"] = (Convert.ToString(Final_row["Table %"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Table %"])); 
+    
+                        Final_row["Girdle %"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle %") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle %"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Girdle %"] = (Convert.ToString(Final_row["Girdle %"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Girdle %"])); 
+    
+                        Final_row["Key to Symbol"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Key to Symbol") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Key to Symbol"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Key to Symbol"] = (Convert.ToString(Final_row["Key to Symbol"]) == "") ? null : Convert.ToString(Final_row["Key to Symbol"]); 
+    
+                        Final_row["Comment"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Comment") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Comment"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Comment"] = (Convert.ToString(Final_row["Comment"]) == "") ? null : Convert.ToString(Final_row["Comment"]); 
+    
+                        Final_row["Supplier Comment"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Supplier Comment") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Supplier Comment"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Supplier Comment"] = (Convert.ToString(Final_row["Supplier Comment"]) == "") ? null : Convert.ToString(Final_row["Supplier Comment"]); 
+    
+                        Final_row["Lab"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Lab") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Lab"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Lab"] = (Convert.ToString(Final_row["Lab"]) == "") ? null : Convert.ToString(Final_row["Lab"]); 
+    
+                        Final_row["Crown Angle"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown Angle") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown Angle"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Crown Angle"] = (Convert.ToString(Final_row["Crown Angle"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Crown Angle"])); 
+    
+                        Final_row["Pav Angle"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Pav Angle") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Pav Angle"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Pav Angle"] = (Convert.ToString(Final_row["Pav Angle"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Pav Angle"])); 
+    
+                        Final_row["Crown Height"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown Height") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown Height"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Crown Height"] = (Convert.ToString(Final_row["Crown Height"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Crown Height"])); 
+    
+                        Final_row["Pav Height"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Pav Height") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Pav Height"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Pav Height"] = (Convert.ToString(Final_row["Pav Height"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Pav Height"])); 
+    
+                        Final_row["Shade"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Shade") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Shade"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Shade"] = (Convert.ToString(Final_row["Shade"]) == "") ? null : Convert.ToString(Final_row["Shade"]); 
+    
+                        Final_row["Milky"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Milky") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Milky"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Milky"] = (Convert.ToString(Final_row["Milky"]) == "") ? null : Convert.ToString(Final_row["Milky"]); 
+    
+                        Final_row["Luster"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Luster") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Luster"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Luster"] = (Convert.ToString(Final_row["Luster"]) == "") ? null : Convert.ToString(Final_row["Luster"]); 
+    
+                        Final_row["Table White"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Table White") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Table White"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Table White"] = (Convert.ToString(Final_row["Table White"]) == "") ? null : Convert.ToString(Final_row["Table White"]); 
+    
+                        Final_row["Crown White"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown White") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown White"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Crown White"] = (Convert.ToString(Final_row["Crown White"]) == "") ? null : Convert.ToString(Final_row["Crown White"]); 
+    
+                        Final_row["Table Black"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Table Black") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Table Black"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Table Black"] = (Convert.ToString(Final_row["Table Black"]) == "") ? null : Convert.ToString(Final_row["Table Black"]); 
+    
+                        Final_row["Crown Black"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown Black") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown Black"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Crown Black"] = (Convert.ToString(Final_row["Crown Black"]) == "") ? null : Convert.ToString(Final_row["Crown Black"]); 
+    
+                        Final_row["Table Open"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Table Open") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Table Open"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Table Open"] = (Convert.ToString(Final_row["Table Open"]) == "") ? null : Convert.ToString(Final_row["Table Open"]); 
+    
+                        Final_row["Crown Open"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown Open") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown Open"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Crown Open"] = (Convert.ToString(Final_row["Crown Open"]) == "") ? null : Convert.ToString(Final_row["Crown Open"]); 
+    
+                        Final_row["Pav Open"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Pav Open") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Pav Open"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Pav Open"] = (Convert.ToString(Final_row["Pav Open"]) == "") ? null : Convert.ToString(Final_row["Pav Open"]); 
+    
+                        Final_row["Girdle Open"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle Open") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle Open"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Girdle Open"] = (Convert.ToString(Final_row["Girdle Open"]) == "") ? null : Convert.ToString(Final_row["Girdle Open"]); 
+    
+                        Final_row["Location"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Location") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Location"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Location"] = (Convert.ToString(Final_row["Location"]) == "") ? null : Convert.ToString(Final_row["Location"]); 
+    
+                        Final_row["Status"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Status") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Status"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Status"] = (Convert.ToString(Final_row["Status"]) == "") ? null : Convert.ToString(Final_row["Status"]); 
+    
+                        Final_row["BGM"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "BGM") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["BGM"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["BGM"] = (Convert.ToString(Final_row["BGM"]) == "") ? null : Convert.ToString(Final_row["BGM"]); 
+    
+                        Final_row["Culet"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Culet") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Culet"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Culet"] = (Convert.ToString(Final_row["Culet"]) == "") ? null : Convert.ToString(Final_row["Culet"]); 
+    
+                        Final_row["Girdle Type"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle Type") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle Type"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Girdle Type"] = (Convert.ToString(Final_row["Girdle Type"]) == "") ? null : Convert.ToString(Final_row["Girdle Type"]); 
+    
                         Final_row["Girdle To"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle To") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle To"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Girdle To"] = (Convert.ToString(Final_row["Girdle To"]) == "") ? null : Convert.ToString(Final_row["Girdle To"]);
-
+                        Final_row["Girdle To"] = (Convert.ToString(Final_row["Girdle To"]) == "") ? null : Convert.ToString(Final_row["Girdle To"]); 
+    
+                        Final_row["Girdle From"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle From") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle From"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Girdle From"] = (Convert.ToString(Final_row["Girdle From"]) == "") ? null : Convert.ToString(Final_row["Girdle From"]); 
+    
+                        Final_row["Girdle"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Girdle"] = (Convert.ToString(Final_row["Girdle"]) == "") ? null : Convert.ToString(Final_row["Girdle"]); 
+    
+                        Final_row["Star Length"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Star Length") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Star Length"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Star Length"] = (Convert.ToString(Final_row["Star Length"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Star Length"])); 
+    
+                        Final_row["Lower HF"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Lower HF") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Lower HF"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Lower HF"] = (Convert.ToString(Final_row["Lower HF"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Lower HF"])); 
+    
+                        Final_row["Certi Date"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Certi Date") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Certi Date"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Certi Date"] = (Convert.ToString(Final_row["Certi Date"]) == "") ? null : Convert.ToString(Final_row["Certi Date"]); 
+    
+                        Final_row["Laser Inscription"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Laser Inscription") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Laser Inscription"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Laser Inscription"] = (Convert.ToString(Final_row["Laser Inscription"]) == "") ? null : Convert.ToString(Final_row["Laser Inscription"]); 
+    
+                        Final_row["Fls Color"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fls Color") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fls Color"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Fls Color"] = (Convert.ToString(Final_row["Fls Color"]) == "") ? null : Convert.ToString(Final_row["Fls Color"]); 
+    
+                        Final_row["Fancy Color"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fancy Color") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fancy Color"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Fancy Color"] = (Convert.ToString(Final_row["Fancy Color"]) == "") ? null : Convert.ToString(Final_row["Fancy Color"]); 
+    
+                        Final_row["Fancy Intensity"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fancy Intensity") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fancy Intensity"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Fancy Intensity"] = (Convert.ToString(Final_row["Fancy Intensity"]) == "") ? null : Convert.ToString(Final_row["Fancy Intensity"]); 
+    
+                        Final_row["Fancy Overtone"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fancy Overtone") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fancy Overtone"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Fancy Overtone"] = (Convert.ToString(Final_row["Fancy Overtone"]) == "") ? null : Convert.ToString(Final_row["Fancy Overtone"]); 
+    
+                        Final_row["Cert Type"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Cert Type") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Cert Type"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Cert Type"] = (Convert.ToString(Final_row["Cert Type"]) == "") ? null : Convert.ToString(Final_row["Cert Type"]); 
+    
+                        Final_row["Country of Origin"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Country of Origin") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Country of Origin"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Country of Origin"] = (Convert.ToString(Final_row["Country of Origin"]) == "") ? null : Convert.ToString(Final_row["Country of Origin"]); 
+    
+                        Final_row["H&A"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "H&A") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["H&A"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["H&A"] = (Convert.ToString(Final_row["H&A"]) == "") ? null : Convert.ToString(Final_row["H&A"]); 
+    
+                        Final_row["Lab URL"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Lab URL") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Lab URL"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Lab URL"] = (Convert.ToString(Final_row["Lab URL"]) == "") ? null : Convert.ToString(Final_row["Lab URL"]); 
+    
+                        Final_row["Image Real"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image Real") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image Real"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Image Real"] = (Convert.ToString(Final_row["Image Real"]) == "") ? null : Convert.ToString(Final_row["Image Real"]); 
+    
+                        Final_row["Image Asset"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image Asset") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image Asset"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Image Asset"] = (Convert.ToString(Final_row["Image Asset"]) == "") ? null : Convert.ToString(Final_row["Image Asset"]); 
+    
+                        Final_row["Image Heart"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image Heart") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image Heart"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Image Heart"] = (Convert.ToString(Final_row["Image Heart"]) == "") ? null : Convert.ToString(Final_row["Image Heart"]); 
+    
+                        Final_row["Image Arrow"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image Arrow") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image Arrow"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Image Arrow"] = (Convert.ToString(Final_row["Image Arrow"]) == "") ? null : Convert.ToString(Final_row["Image Arrow"]); 
+    
                         Final_row["Image URL 1"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image URL 1") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image URL 1"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Image URL 1"] = (Convert.ToString(Final_row["Image URL 1"]) == "") ? null : Convert.ToString(Final_row["Image URL 1"]);
-
+                        Final_row["Image URL 1"] = (Convert.ToString(Final_row["Image URL 1"]) == "") ? null : Convert.ToString(Final_row["Image URL 1"]); 
+    
                         Final_row["Image URL 2"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image URL 2") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image URL 2"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Image URL 2"] = (Convert.ToString(Final_row["Image URL 2"]) == "") ? null : Convert.ToString(Final_row["Image URL 2"]);
-
+                        Final_row["Image URL 2"] = (Convert.ToString(Final_row["Image URL 2"]) == "") ? null : Convert.ToString(Final_row["Image URL 2"]); 
+    
+                        Final_row["Video URL"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Video URL") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Video URL"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["Video URL"] = (Convert.ToString(Final_row["Video URL"]) == "") ? null : Convert.ToString(Final_row["Video URL"]); 
+    
                         Final_row["Video MP4"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Video MP4") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Video MP4"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
-                        Final_row["Video MP4"] = (Convert.ToString(Final_row["Video MP4"]) == "") ? null : Convert.ToString(Final_row["Video MP4"]);
+                        Final_row["Video MP4"] = (Convert.ToString(Final_row["Video MP4"]) == "") ? null : Convert.ToString(Final_row["Video MP4"]); 
+                        
+                        Final_row["DNA"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "DNA") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["DNA"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        Final_row["DNA"] = (Convert.ToString(Final_row["DNA"]) == "") ? null : Convert.ToString(Final_row["DNA"]); 
+
+
+                        //Final_row["Shape"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Shape") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Shape"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Shape"] = (Convert.ToString(Final_row["Shape"]) == "") ? null : Convert.ToString(Final_row["Shape"]);
+
+                        //Final_row["Color"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Color") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Color"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Color"] = (Convert.ToString(Final_row["Color"]) == "") ? null : Convert.ToString(Final_row["Color"]);
+
+                        //Final_row["Clarity"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Clarity") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Clarity"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Clarity"] = (Convert.ToString(Final_row["Clarity"]) == "") ? null : Convert.ToString(Final_row["Clarity"]);
+
+                        //Final_row["Cut"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Cut") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Cut"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Cut"] = (Convert.ToString(Final_row["Cut"]) == "") ? null : Convert.ToString(Final_row["Cut"]);
+
+                        //Final_row["Polish"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Polish") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Polish"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Polish"] = (Convert.ToString(Final_row["Polish"]) == "") ? null : Convert.ToString(Final_row["Polish"]);
+
+                        //Final_row["Symm"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Symm") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Symm"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Symm"] = (Convert.ToString(Final_row["Symm"]) == "") ? null : Convert.ToString(Final_row["Symm"]);
+
+                        //Final_row["Fls"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fls") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fls"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Fls"] = (Convert.ToString(Final_row["Fls"]) == "") ? null : Convert.ToString(Final_row["Fls"]);
+
+                        //Final_row["Cts"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Cts") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Cts"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Cts"] = (Convert.ToString(Final_row["Cts"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Cts"]));
+
+                        //Final_row["Pointer"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Pointer") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Pointer"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Pointer"] = (Convert.ToString(Final_row["Pointer"]) == "") ? null : Convert.ToString(Final_row["Pointer"]);
+
+                        //Final_row["Sub Pointer"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Sub Pointer") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Sub Pointer"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Sub Pointer"] = (Convert.ToString(Final_row["Sub Pointer"]) == "") ? null : Convert.ToString(Final_row["Sub Pointer"]);
+
+                        //Final_row["Base Price/Ct"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Base Price/Ct") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Base Price/Ct"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Base Price/Ct"] = (Convert.ToString(Final_row["Base Price/Ct"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Base Price/Ct"]));
+
+                        //Final_row["Rap Rate"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Rap Rate") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Rap Rate"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Rap Rate"] = (Convert.ToString(Final_row["Rap Rate"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Rap Rate"]));
+
+                        //Final_row["Base Amt"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Base Amt") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Base Amt"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Base Amt"] = (Convert.ToString(Final_row["Base Amt"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Base Amt"]));
+
+                        //Final_row["Measurement"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Measurement") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Measurement"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Measurement"] = (Convert.ToString(Final_row["Measurement"]) == "") ? null : Convert.ToString(Final_row["Measurement"]);
+
+                        //Final_row["Length"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Length") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Length"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Length"] = (Convert.ToString(Final_row["Length"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Length"]));
+
+                        //Final_row["Width"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Width") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Width"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Width"] = (Convert.ToString(Final_row["Width"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Width"]));
+
+                        //Final_row["Depth"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Depth") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Depth"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Depth"] = (Convert.ToString(Final_row["Depth"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Depth"]));
+
+                        //Final_row["Table %"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Table %") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Table %"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Table %"] = (Convert.ToString(Final_row["Table %"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Table %"]));
+
+                        //Final_row["Depth %"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Depth %") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Depth %"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Depth %"] = (Convert.ToString(Final_row["Depth %"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Depth %"]));
+
+                        //Final_row["Table White"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Table White") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Table White"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Table White"] = (Convert.ToString(Final_row["Table White"]) == "") ? null : Convert.ToString(Final_row["Table White"]);
+
+                        //Final_row["Crown White"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown White") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown White"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Crown White"] = (Convert.ToString(Final_row["Crown White"]) == "") ? null : Convert.ToString(Final_row["Crown White"]);
+
+                        //Final_row["Table Black"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Table Black") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Table Black"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Table Black"] = (Convert.ToString(Final_row["Table Black"]) == "") ? null : Convert.ToString(Final_row["Table Black"]);
+
+                        //Final_row["Crown Black"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown Black") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown Black"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Crown Black"] = (Convert.ToString(Final_row["Crown Black"]) == "") ? null : Convert.ToString(Final_row["Crown Black"]);
+
+                        //Final_row["Side Inclusion"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Side Inclusion") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Side Inclusion"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Side Inclusion"] = (Convert.ToString(Final_row["Side Inclusion"]) == "") ? null : Convert.ToString(Final_row["Side Inclusion"]);
+
+                        //Final_row["Side Natts"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Side Natts") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Side Natts"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Side Natts"] = (Convert.ToString(Final_row["Side Natts"]) == "") ? null : Convert.ToString(Final_row["Side Natts"]);
+
+                        //Final_row["Crown Open"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown Open") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown Open"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Crown Open"] = (Convert.ToString(Final_row["Crown Open"]) == "") ? null : Convert.ToString(Final_row["Crown Open"]);
+
+                        //Final_row["Pav Open"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Pav Open") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Pav Open"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Pav Open"] = (Convert.ToString(Final_row["Pav Open"]) == "") ? null : Convert.ToString(Final_row["Pav Open"]);
+
+                        //Final_row["Table Open"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Table Open") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Table Open"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Table Open"] = (Convert.ToString(Final_row["Table Open"]) == "") ? null : Convert.ToString(Final_row["Table Open"]);
+
+                        //Final_row["Girdle Open"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle Open") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle Open"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Girdle Open"] = (Convert.ToString(Final_row["Girdle Open"]) == "") ? null : Convert.ToString(Final_row["Girdle Open"]);
+
+                        //Final_row["Crown Angle"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown Angle") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown Angle"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Crown Angle"] = (Convert.ToString(Final_row["Crown Angle"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Crown Angle"]));
+
+                        //Final_row["Pav Angle"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Pav Angle") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Pav Angle"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Pav Angle"] = (Convert.ToString(Final_row["Pav Angle"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Pav Angle"]));
+
+                        //Final_row["Crown Height"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Crown Height") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Crown Height"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Crown Height"] = (Convert.ToString(Final_row["Crown Height"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Crown Height"]));
+
+                        //Final_row["Pav Height"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Pav Height") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Pav Height"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Pav Height"] = (Convert.ToString(Final_row["Pav Height"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Pav Height"]));
+
+                        //Final_row["Rap Amount"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Rap Amount") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Rap Amount"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Rap Amount"] = (Convert.ToString(Final_row["Rap Amount"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Rap Amount"]));
+
+                        //Final_row["Lab"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Lab") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Lab"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Lab"] = (Convert.ToString(Final_row["Lab"]) == "") ? null : Convert.ToString(Final_row["Lab"]);
+
+                        //Final_row["Lab URL"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Lab URL") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Lab URL"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Lab URL"] = (Convert.ToString(Final_row["Lab URL"]) == "") ? null : Convert.ToString(Final_row["Lab URL"]);
+
+                        //Final_row["Image Real"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image Real") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image Real"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Image Real"] = (Convert.ToString(Final_row["Image Real"]) == "") ? null : Convert.ToString(Final_row["Image Real"]);
+
+                        //Final_row["Image Asset"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image Asset") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image Asset"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Image Asset"] = (Convert.ToString(Final_row["Image Asset"]) == "") ? null : Convert.ToString(Final_row["Image Asset"]);
+
+                        //Final_row["Image Heart"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image Heart") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image Heart"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Image Heart"] = (Convert.ToString(Final_row["Image Heart"]) == "") ? null : Convert.ToString(Final_row["Image Heart"]);
+
+                        //Final_row["Image Arrow"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image Arrow") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image Arrow"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Image Arrow"] = (Convert.ToString(Final_row["Image Arrow"]) == "") ? null : Convert.ToString(Final_row["Image Arrow"]);
+
+                        //Final_row["Video URL"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Video URL") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Video URL"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Video URL"] = (Convert.ToString(Final_row["Video URL"]) == "") ? null : Convert.ToString(Final_row["Video URL"]);
+
+                        //Final_row["DNA"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "DNA") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["DNA"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["DNA"] = (Convert.ToString(Final_row["DNA"]) == "") ? null : Convert.ToString(Final_row["DNA"]);
+
+                        //Final_row["Status"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Status") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Status"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Status"] = (Convert.ToString(Final_row["Status"]) == "") ? null : Convert.ToString(Final_row["Status"]);
+
+                        //Final_row["Supplier Ref No"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Supplier Ref No") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Supplier Ref No"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])].ToString();
+                        //Final_row["Supplier Ref No"] = (Convert.ToString(Final_row["Supplier Ref No"]) == "") ? null : Convert.ToString(Final_row["Supplier Ref No"]);
+
+                        //Final_row["Location"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Location") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Location"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Location"] = (Convert.ToString(Final_row["Location"]) == "") ? null : Convert.ToString(Final_row["Location"]);
+
+                        //Final_row["Shade"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Shade") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Shade"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Shade"] = (Convert.ToString(Final_row["Shade"]) == "") ? null : Convert.ToString(Final_row["Shade"]);
+
+                        //Final_row["Luster"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Luster") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Luster"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Luster"] = (Convert.ToString(Final_row["Luster"]) == "") ? null : Convert.ToString(Final_row["Luster"]);
+
+                        //Final_row["Cert Type"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Cert Type") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Cert Type"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Cert Type"] = (Convert.ToString(Final_row["Cert Type"]) == "") ? null : Convert.ToString(Final_row["Cert Type"]);
+
+                        //Final_row["Milky"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Milky") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Milky"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Milky"] = (Convert.ToString(Final_row["Milky"]) == "") ? null : Convert.ToString(Final_row["Milky"]);
+
+                        //Final_row["BGM"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "BGM") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["BGM"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["BGM"] = (Convert.ToString(Final_row["BGM"]) == "") ? null : Convert.ToString(Final_row["BGM"]);
+
+                        //Final_row["Key to Symbol"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Key to Symbol") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Key to Symbol"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Key to Symbol"] = (Convert.ToString(Final_row["Key to Symbol"]) == "") ? null : Convert.ToString(Final_row["Key to Symbol"]);
+
+                        //Final_row["RATIO"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "RATIO") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["RATIO"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["RATIO"] = (Convert.ToString(Final_row["RATIO"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["RATIO"]));
+
+                        //Final_row["Supplier Comment"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Supplier Comment") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Supplier Comment"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])].ToString();
+                        //Final_row["Supplier Comment"] = (Convert.ToString(Final_row["Supplier Comment"]) == "") ? null : Convert.ToString(Final_row["Supplier Comment"]);
+
+                        //Final_row["Comment"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Comment") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Comment"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Comment"] = (Convert.ToString(Final_row["Comment"]) == "") ? null : Convert.ToString(Final_row["Comment"]);
+
+                        //Final_row["Culet"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Culet") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Culet"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Culet"] = (Convert.ToString(Final_row["Culet"]) == "") ? null : Convert.ToString(Final_row["Culet"]);
+
+                        //Final_row["Girdle %"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle %") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle %"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Girdle %"] = (Convert.ToString(Final_row["Girdle %"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Girdle %"]));
+
+                        //Final_row["Girdle Type"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle Type") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle Type"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Girdle Type"] = (Convert.ToString(Final_row["Girdle Type"]) == "") ? null : Convert.ToString(Final_row["Girdle Type"]);
+
+                        //Final_row["Girdle From"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle From") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle From"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Girdle From"] = (Convert.ToString(Final_row["Girdle From"]) == "") ? null : Convert.ToString(Final_row["Girdle From"]);
+
+                        //Final_row["Laser Inscription"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Laser Inscription") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Laser Inscription"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Laser Inscription"] = (Convert.ToString(Final_row["Laser Inscription"]) == "") ? null : Convert.ToString(Final_row["Laser Inscription"]);
+
+                        //Final_row["Culet Condition"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Culet Condition") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Culet Condition"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Culet Condition"] = (Convert.ToString(Final_row["Culet Condition"]) == "") ? null : Convert.ToString(Final_row["Culet Condition"]);
+
+                        //Final_row["Star Length"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Star Length") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Star Length"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Star Length"] = (Convert.ToString(Final_row["Star Length"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Star Length"]));
+
+                        //Final_row["Lower HF"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Lower HF") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Lower HF"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Lower HF"] = (Convert.ToString(Final_row["Lower HF"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Lower HF"]));
+
+                        //Final_row["Stage"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Stage") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Stage"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Stage"] = (Convert.ToString(Final_row["Stage"]) == "") ? null : Convert.ToString(Final_row["Stage"]);
+
+                        //Final_row["Certi Date"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Certi Date") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Certi Date"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Certi Date"] = (Convert.ToString(Final_row["Certi Date"]) == "") ? null : Convert.ToString(Final_row["Certi Date"]);
+
+                        //Final_row["Base Dis"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Base Dis") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Base Dis"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Base Dis"] = (Convert.ToString(Final_row["Base Dis"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Base Dis"]));
+
+                        //Final_row["Fix Price"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fix Price") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fix Price"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Fix Price"] = (Convert.ToString(Final_row["Fix Price"]) == "") ? null : RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(Final_row["Fix Price"]));
+
+                        //Final_row["Cert No"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Cert No") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Cert No"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Cert No"] = (Convert.ToString(Final_row["Cert No"]) == "") ? null : Convert.ToString(Final_row["Cert No"]);
+
+                        //Final_row["Ref No"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Ref No") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Ref No"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Ref No"] = (Convert.ToString(Final_row["Ref No"]) == "") ? null : Convert.ToString(Final_row["Ref No"]);
+
+                        //Final_row["Goods Type"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Goods Type") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Goods Type"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Goods Type"] = (Convert.ToString(Final_row["Goods Type"]) == "") ? null : Convert.ToString(Final_row["Goods Type"]);
+
+                        //Final_row["Country of Origin"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Country of Origin") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Country of Origin"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Country of Origin"] = (Convert.ToString(Final_row["Country of Origin"]) == "") ? null : Convert.ToString(Final_row["Country of Origin"]);
+
+                        //Final_row["Girdle"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Girdle"] = (Convert.ToString(Final_row["Girdle"]) == "") ? null : Convert.ToString(Final_row["Girdle"]);
+
+                        //Final_row["H&A"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "H&A") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["H&A"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["H&A"] = (Convert.ToString(Final_row["H&A"]) == "") ? null : Convert.ToString(Final_row["H&A"]);
+
+                        //Final_row["Fls Color"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fls Color") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fls Color"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Fls Color"] = (Convert.ToString(Final_row["Fls Color"]) == "") ? null : Convert.ToString(Final_row["Fls Color"]);
+
+                        //Final_row["Fancy Color"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fancy Color") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fancy Color"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Fancy Color"] = (Convert.ToString(Final_row["Fancy Color"]) == "") ? null : Convert.ToString(Final_row["Fancy Color"]);
+
+                        //Final_row["Fancy Overtone"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fancy Overtone") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fancy Overtone"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Fancy Overtone"] = (Convert.ToString(Final_row["Fancy Overtone"]) == "") ? null : Convert.ToString(Final_row["Fancy Overtone"]);
+
+                        //Final_row["Fancy Intensity"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Fancy Intensity") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Fancy Intensity"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Fancy Intensity"] = (Convert.ToString(Final_row["Fancy Intensity"]) == "") ? null : Convert.ToString(Final_row["Fancy Intensity"]);
+
+                        //Final_row["Girdle To"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Girdle To") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Girdle To"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Girdle To"] = (Convert.ToString(Final_row["Girdle To"]) == "") ? null : Convert.ToString(Final_row["Girdle To"]);
+
+                        //Final_row["Image URL 1"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image URL 1") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image URL 1"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Image URL 1"] = (Convert.ToString(Final_row["Image URL 1"]) == "") ? null : Convert.ToString(Final_row["Image URL 1"]);
+
+                        //Final_row["Image URL 2"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Image URL 2") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Image URL 2"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Image URL 2"] = (Convert.ToString(Final_row["Image URL 2"]) == "") ? null : Convert.ToString(Final_row["Image URL 2"]);
+
+                        //Final_row["Video MP4"] = ((Convert.ToString(SuppCol_row["Column_Name"]) != "Video MP4") || (Convert.ToString(SuppCol_row["SupplierColumn"]) == "")) ? Convert.ToString(Final_row["Video MP4"]) : row[Convert.ToString(SuppCol_row["SupplierColumn"])];
+                        //Final_row["Video MP4"] = (Convert.ToString(Final_row["Video MP4"]) == "") ? null : Convert.ToString(Final_row["Video MP4"]);
                     }
                     Final_dt.Rows.Add(Final_row);
                 }

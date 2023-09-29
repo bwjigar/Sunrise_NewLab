@@ -1726,3 +1726,11 @@ SUCCESS 7 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log T
 SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 03:44:22 PM
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 27-09-2023 06:33:02 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 29-09-2023 09:38:25 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 29-09-2023 10:11:06 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 29-09-2023 11:50:24 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 29-09-2023 12:57:29 PM

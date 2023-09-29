@@ -244,12 +244,13 @@ namespace API
                                 }
                                 else if (Column_Name == "Status")
                                 {
-                                    worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Status"]);
+                                    //worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Status"]);
+                                    worksheet.Cells[inwrkrow, kk].Value = "";
 
                                     worksheet.Cells[inwrkrow, kk].Style.Fill.PatternType = ExcelFillStyle.Solid;
                                     worksheet.Cells[inwrkrow, kk].Style.Fill.BackgroundColor.SetColor(I);
                                 }
-                                else if (Column_Name == "Supplier Stone Id")
+                                else if (Column_Name == "Supplier Ref No")
                                 {
                                     string Supplier_Stone_Id = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Supplier_Stone_Id"]);
                                     success1 = Int64.TryParse(Supplier_Stone_Id, out number_1);
@@ -262,7 +263,7 @@ namespace API
                                         worksheet.Cells[inwrkrow, kk].Value = Supplier_Stone_Id;
                                     }
                                 }
-                                else if (Column_Name == "Certificate No")
+                                else if (Column_Name == "Cert No")
                                 {
                                     string Certificate_No = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_No"]);
                                     success1 = Int64.TryParse(Certificate_No, out number_1);
@@ -621,23 +622,23 @@ namespace API
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Luster"]);
                                 }
-                                else if (Column_Name == "Type 2A")
+                                else if (Column_Name == "Cert Type")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Type_2A"]);
                                 }
-                                else if (Column_Name == "Table Inclusion")
+                                else if (Column_Name == "Table White")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Inclusion"]);
                                 }
-                                else if (Column_Name == "Crown Inclusion")
+                                else if (Column_Name == "Crown White")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Inclusion"]);
                                 }
-                                else if (Column_Name == "Table Natts")
+                                else if (Column_Name == "Table Black")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Natts"]);
                                 }
-                                else if (Column_Name == "Crown Natts")
+                                else if (Column_Name == "Crown Black")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Natts"]);
                                 }
@@ -645,14 +646,14 @@ namespace API
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Culet"]);
                                 }
-                                else if (Column_Name == "Lab Comments")
+                                else if (Column_Name == "Comment")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab_Comments"]);
 
                                     worksheet.Cells[inwrkrow, kk].Style.Fill.PatternType = ExcelFillStyle.Solid;
                                     worksheet.Cells[inwrkrow, kk].Style.Fill.BackgroundColor.SetColor(BL);
                                 }
-                                else if (Column_Name == "Supplier Comments")
+                                else if (Column_Name == "Supplier Comment")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Supplier_Comments"]);
                                 }
@@ -702,7 +703,7 @@ namespace API
                         {
                             kkk += 1;
 
-                            if (Column_Name == "Supplier Stone Id")
+                            if (Column_Name == "Supplier Ref No")
                             {
                                 worksheet.Cells[1, kkk].Formula = "ROUND(SUBTOTAL(103," + GetExcelColumnLetter(kkk) + "" + inStartIndex + ":" + GetExcelColumnLetter(kkk) + "" + (inwrkrow - 1) + "),2)";
                                 worksheet.Cells[1, kkk].Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -1149,7 +1150,7 @@ namespace API
                                         worksheet.Cells[inwrkrow, kk].Style.Font.Color.SetColor(Color.Blue);
                                     }
                                 }
-                                else if (Column_Name == "Supplier Stone Id")
+                                else if (Column_Name == "Supplier Ref No")
                                 {
                                     string Supplier_Stone_Id = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Supplier_Stone_Id"]);
                                     success1 = Int64.TryParse(Supplier_Stone_Id, out number_1);
@@ -1162,7 +1163,7 @@ namespace API
                                         worksheet.Cells[inwrkrow, kk].Value = Supplier_Stone_Id;
                                     }
                                 }
-                                else if (Column_Name == "Certificate No")
+                                else if (Column_Name == "Cert No")
                                 {
                                     string Certificate_No = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_No"]);
                                     success1 = Int64.TryParse(Certificate_No, out number_1);
@@ -1352,7 +1353,7 @@ namespace API
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Key_To_Symboll"]);
                                 }
-                                else if (Column_Name == "Lab Comments")
+                                else if (Column_Name == "Comment")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab_Comments"]);
                                 }
@@ -1396,19 +1397,19 @@ namespace API
 
                                     worksheet.Cells[inwrkrow, kk].Style.Numberformat.Format = "0.00";
                                 }
-                                else if (Column_Name == "Table Natts")
+                                else if (Column_Name == "Table Black")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Natts"]);
                                 }
-                                else if (Column_Name == "Crown Natts")
+                                else if (Column_Name == "Crown Black")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Natts"]);
                                 }
-                                else if (Column_Name == "Table Inclusion")
+                                else if (Column_Name == "Table White")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Inclusion"]);
                                 }
-                                else if (Column_Name == "Crown Inclusion")
+                                else if (Column_Name == "Crown White")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Inclusion"]);
                                 }
@@ -1996,7 +1997,7 @@ namespace API
 
                                     worksheet.Cells[inwrkrow, kk].Style.Numberformat.Format = "0.00";
                                 }
-                                else if (Column_Name == "Lab Comments")
+                                else if (Column_Name == "Comment")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab_Comments"]);
                                 }
@@ -2040,19 +2041,19 @@ namespace API
 
                                     worksheet.Cells[inwrkrow, kk].Style.Numberformat.Format = "0.00";
                                 }
-                                else if (Column_Name == "Table Natts")
+                                else if (Column_Name == "Table Black")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Natts"]);
                                 }
-                                else if (Column_Name == "Crown Natts")
+                                else if (Column_Name == "Crown Black")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Natts"]);
                                 }
-                                else if (Column_Name == "Table Inclusion")
+                                else if (Column_Name == "Table White")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Inclusion"]);
                                 }
-                                else if (Column_Name == "Crown Inclusion")
+                                else if (Column_Name == "Crown White")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Inclusion"]);
                                 }
@@ -2268,14 +2269,14 @@ namespace API
                     worksheet.Row(3).Style.WrapText = true;
 
 
-                    worksheet.Cells[3, 1, 3, 79].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    worksheet.Cells[3, 1, 3, 79].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
-                    worksheet.Cells[3, 1, 3, 79].Style.Font.Size = 10;
-                    worksheet.Cells[3, 1, 3, 79].Style.Font.Bold = true;
+                    worksheet.Cells[3, 1, 3, 71].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[3, 1, 3, 71].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                    worksheet.Cells[3, 1, 3, 71].Style.Font.Size = 10;
+                    worksheet.Cells[3, 1, 3, 71].Style.Font.Bold = true;
 
-                    worksheet.Cells[3, 1, 3, 79].AutoFilter = true;
+                    worksheet.Cells[3, 1, 3, 71].AutoFilter = true;
 
-                    var cellBackgroundColor1 = worksheet.Cells[3, 1, 3, 79].Style.Fill;
+                    var cellBackgroundColor1 = worksheet.Cells[3, 1, 3, 71].Style.Fill;
                     cellBackgroundColor1.PatternType = ExcelFillStyle.Solid;
                     Color colFromHex = System.Drawing.ColorTranslator.FromHtml("#d3d3d3");
                     cellBackgroundColor1.BackgroundColor.SetColor(colFromHex);
@@ -2294,77 +2295,81 @@ namespace API
                     worksheet.Cells[3, 8].Value = "Symm";
                     worksheet.Cells[3, 9].Value = "Fls";
                     worksheet.Cells[3, 10].Value = "Cts";
-                    worksheet.Cells[3, 11].Value = "Pointer";
-                    worksheet.Cells[3, 12].Value = "Sub Pointer";
-                    worksheet.Cells[3, 13].Value = "Base Price Cts";
-                    worksheet.Cells[3, 14].Value = "Rap Rate";
-                    worksheet.Cells[3, 15].Value = "Base Amount";
-                    worksheet.Cells[3, 16].Value = "Measurement";
-                    worksheet.Cells[3, 17].Value = "Length";
-                    worksheet.Cells[3, 18].Value = "Width";
-                    worksheet.Cells[3, 19].Value = "Depth";
-                    worksheet.Cells[3, 20].Value = "Table Per";
-                    worksheet.Cells[3, 21].Value = "Depth Per";
-                    worksheet.Cells[3, 22].Value = "Table Inclusion";
-                    worksheet.Cells[3, 23].Value = "Crown Inclusion";
-                    worksheet.Cells[3, 24].Value = "Table Natts";
-                    worksheet.Cells[3, 25].Value = "Crown Natts";
-                    worksheet.Cells[3, 26].Value = "Side Inclusion";
-                    worksheet.Cells[3, 27].Value = "Side Natts";
-                    worksheet.Cells[3, 28].Value = "Crown Open";
-                    worksheet.Cells[3, 29].Value = "Pav Open";
-                    worksheet.Cells[3, 30].Value = "Table Open";
-                    worksheet.Cells[3, 31].Value = "Girdle Open";
-                    worksheet.Cells[3, 32].Value = "Crown Angle";
-                    worksheet.Cells[3, 33].Value = "Pav Angle";
-                    worksheet.Cells[3, 34].Value = "Crown Height";
-                    worksheet.Cells[3, 35].Value = "Pav Height";
-                    worksheet.Cells[3, 36].Value = "Rap Amount";
-                    worksheet.Cells[3, 37].Value = "Lab";
-                    worksheet.Cells[3, 38].Value = "Certificate URL";
-                    worksheet.Cells[3, 39].Value = "Image URL";
-                    worksheet.Cells[3, 40].Value = "Image URL 2";
-                    worksheet.Cells[3, 41].Value = "Image URL 3";
-                    worksheet.Cells[3, 42].Value = "Image URL 4";
-                    worksheet.Cells[3, 43].Value = "Video URL";
-                    worksheet.Cells[3, 44].Value = "DNA";
-                    worksheet.Cells[3, 45].Value = "Status";
-                    worksheet.Cells[3, 46].Value = "Supplier Stone Id";
-                    worksheet.Cells[3, 47].Value = "Location";
-                    worksheet.Cells[3, 48].Value = "Shade";
-                    worksheet.Cells[3, 49].Value = "Luster";
-                    worksheet.Cells[3, 50].Value = "Type 2A";
-                    worksheet.Cells[3, 51].Value = "Milky";
-                    worksheet.Cells[3, 52].Value = "BGM";
-                    worksheet.Cells[3, 53].Value = "Key To Symboll";
-                    worksheet.Cells[3, 54].Value = "RATIO";
-                    worksheet.Cells[3, 55].Value = "Supplier Comments";
-                    worksheet.Cells[3, 56].Value = "Lab Comments";
-                    worksheet.Cells[3, 57].Value = "Culet";
-                    worksheet.Cells[3, 58].Value = "Girdle Per";
-                    worksheet.Cells[3, 59].Value = "Girdle Type";
-                    worksheet.Cells[3, 60].Value = "Girdle MM";
-                    worksheet.Cells[3, 61].Value = "Inscription";
-                    worksheet.Cells[3, 62].Value = "Culet Condition";
-                    worksheet.Cells[3, 63].Value = "Star Length";
-                    worksheet.Cells[3, 64].Value = "Lower Halves";
-                    worksheet.Cells[3, 65].Value = "Stage";
-                    worksheet.Cells[3, 66].Value = "Certi Date";
-                    worksheet.Cells[3, 67].Value = "Disc";
-                    worksheet.Cells[3, 68].Value = "Fix Price";
-                    worksheet.Cells[3, 69].Value = "Certificate No";
-                    worksheet.Cells[3, 70].Value = "Ref No";
-                    worksheet.Cells[3, 71].Value = "Goods Type";
-                    worksheet.Cells[3, 72].Value = "Origin";
-                    worksheet.Cells[3, 73].Value = "Girdle";
-                    worksheet.Cells[3, 74].Value = "HNA";
-                    worksheet.Cells[3, 75].Value = "Fls Color";
-                    worksheet.Cells[3, 76].Value = "Fancy Color";
-                    worksheet.Cells[3, 77].Value = "Fancy Overtone";
-                    worksheet.Cells[3, 78].Value = "Fancy Intensity";
-                    worksheet.Cells[3, 79].Value = "Stock Upload Using";
+                    //worksheet.Cells[3, 11].Value = "Pointer";
+                    //worksheet.Cells[3, 12].Value = "Sub Pointer";
+                    worksheet.Cells[3, 11].Value = "Base Price/Ct";
+                    //worksheet.Cells[3, 14].Value = "Rap Rate";
+                    worksheet.Cells[3, 12].Value = "Base Amt";
+                    worksheet.Cells[3, 13].Value = "Measurement";
+                    worksheet.Cells[3, 14].Value = "Length";
+                    worksheet.Cells[3, 15].Value = "Width";
+                    worksheet.Cells[3, 16].Value = "Depth";
+                    worksheet.Cells[3, 17].Value = "Table %";
+                    worksheet.Cells[3, 18].Value = "Depth %";
+                    worksheet.Cells[3, 19].Value = "Table White";
+                    worksheet.Cells[3, 20].Value = "Crown White";
+                    worksheet.Cells[3, 21].Value = "Table Black";
+                    worksheet.Cells[3, 22].Value = "Crown Black";
+                    //worksheet.Cells[3, 26].Value = "Side Inclusion";
+                    //worksheet.Cells[3, 27].Value = "Side Natts";
+                    worksheet.Cells[3, 23].Value = "Crown Open";
+                    worksheet.Cells[3, 24].Value = "Pav Open";
+                    worksheet.Cells[3, 25].Value = "Table Open";
+                    worksheet.Cells[3, 26].Value = "Girdle Open";
+                    worksheet.Cells[3, 27].Value = "Crown Angle";
+                    worksheet.Cells[3, 28].Value = "Pav Angle";
+                    worksheet.Cells[3, 29].Value = "Crown Height";
+                    worksheet.Cells[3, 30].Value = "Pav Height";
+                    //worksheet.Cells[3, 36].Value = "Rap Amount";
+                    worksheet.Cells[3, 31].Value = "Lab";
+                    worksheet.Cells[3, 32].Value = "Lab URL";
+                    worksheet.Cells[3, 33].Value = "Image Real";
+                    worksheet.Cells[3, 34].Value = "Image Asset";
+                    worksheet.Cells[3, 35].Value = "Image Heart";
+                    worksheet.Cells[3, 36].Value = "Image Arrow";
+                    worksheet.Cells[3, 37].Value = "Video URL";
+                    worksheet.Cells[3, 38].Value = "DNA";
+                    worksheet.Cells[3, 39].Value = "Status";
+                    worksheet.Cells[3, 40].Value = "Supplier Ref No";
+                    worksheet.Cells[3, 41].Value = "Location";
+                    worksheet.Cells[3, 42].Value = "Shade";
+                    worksheet.Cells[3, 43].Value = "Luster";
+                    worksheet.Cells[3, 44].Value = "Cert Type";
+                    worksheet.Cells[3, 45].Value = "Milky";
+                    worksheet.Cells[3, 46].Value = "BGM";
+                    worksheet.Cells[3, 47].Value = "Key to Symbol";
+                    //worksheet.Cells[3, 54].Value = "RATIO";
+                    worksheet.Cells[3, 48].Value = "Supplier Comment";
+                    worksheet.Cells[3, 49].Value = "Comment";
+                    worksheet.Cells[3, 50].Value = "Culet";
+                    worksheet.Cells[3, 51].Value = "Girdle %";
+                    worksheet.Cells[3, 52].Value = "Girdle Type";
+                    worksheet.Cells[3, 53].Value = "Girdle From";
+                    worksheet.Cells[3, 54].Value = "Laser Inscription";
+                    //worksheet.Cells[3, 62].Value = "Culet Condition";
+                    worksheet.Cells[3, 55].Value = "Star Length";
+                    worksheet.Cells[3, 56].Value = "Lower HF";
+                    //worksheet.Cells[3, 65].Value = "Stage";
+                    worksheet.Cells[3, 57].Value = "Certi Date";
+                    worksheet.Cells[3, 58].Value = "Base Dis";
+                    //worksheet.Cells[3, 68].Value = "Fix Price";
+                    worksheet.Cells[3, 59].Value = "Cert No";
+                    //worksheet.Cells[3, 70].Value = "Ref No";
+                    //worksheet.Cells[3, 71].Value = "Goods Type";
+                    worksheet.Cells[3, 60].Value = "Country of Origin";
+                    worksheet.Cells[3, 61].Value = "Girdle";
+                    worksheet.Cells[3, 62].Value = "H&A";
+                    worksheet.Cells[3, 63].Value = "Fls Color";
+                    worksheet.Cells[3, 64].Value = "Fancy Color";
+                    worksheet.Cells[3, 65].Value = "Fancy Overtone";
+                    worksheet.Cells[3, 66].Value = "Fancy Intensity";
+                    worksheet.Cells[3, 67].Value = "Girdle To";
+                    worksheet.Cells[3, 68].Value = "Image URL 1";
+                    worksheet.Cells[3, 69].Value = "Image URL 2";
+                    worksheet.Cells[3, 70].Value = "Video MP4";
+                    worksheet.Cells[3, 71].Value = "Stock Upload Using";
 
-                    ExcelStyle cellStyleHeader1 = worksheet.Cells[3, 1, 3, 79].Style;
+                    ExcelStyle cellStyleHeader1 = worksheet.Cells[3, 1, 3, 67].Style;
                     cellStyleHeader1.Border.Left.Style = cellStyleHeader1.Border.Right.Style
                             = cellStyleHeader1.Border.Top.Style = cellStyleHeader1.Border.Bottom.Style
                             = ExcelBorderStyle.Medium;
@@ -2385,7 +2390,10 @@ namespace API
                     worksheet.Cells[3, 8].AutoFitColumns(15);
                     worksheet.Cells[3, 9].AutoFitColumns(15);
                     worksheet.Cells[3, 10].AutoFitColumns(15);
+                    //worksheet.Cells[3, 11].AutoFitColumns(15);
+                    //worksheet.Cells[3, 12].AutoFitColumns(15);
                     worksheet.Cells[3, 11].AutoFitColumns(15);
+                    //worksheet.Cells[3, 14].AutoFitColumns(15);
                     worksheet.Cells[3, 12].AutoFitColumns(15);
                     worksheet.Cells[3, 13].AutoFitColumns(15);
                     worksheet.Cells[3, 14].AutoFitColumns(15);
@@ -2397,6 +2405,8 @@ namespace API
                     worksheet.Cells[3, 20].AutoFitColumns(15);
                     worksheet.Cells[3, 21].AutoFitColumns(15);
                     worksheet.Cells[3, 22].AutoFitColumns(15);
+                    //worksheet.Cells[3, 26].AutoFitColumns(15);
+                    //worksheet.Cells[3, 27].AutoFitColumns(15);
                     worksheet.Cells[3, 23].AutoFitColumns(15);
                     worksheet.Cells[3, 24].AutoFitColumns(15);
                     worksheet.Cells[3, 25].AutoFitColumns(15);
@@ -2405,6 +2415,7 @@ namespace API
                     worksheet.Cells[3, 28].AutoFitColumns(15);
                     worksheet.Cells[3, 29].AutoFitColumns(15);
                     worksheet.Cells[3, 30].AutoFitColumns(15);
+                    //worksheet.Cells[3, 36].AutoFitColumns(15);
                     worksheet.Cells[3, 31].AutoFitColumns(15);
                     worksheet.Cells[3, 32].AutoFitColumns(15);
                     worksheet.Cells[3, 33].AutoFitColumns(15);
@@ -2422,6 +2433,7 @@ namespace API
                     worksheet.Cells[3, 45].AutoFitColumns(15);
                     worksheet.Cells[3, 46].AutoFitColumns(15);
                     worksheet.Cells[3, 47].AutoFitColumns(15);
+                    //worksheet.Cells[3, 54].AutoFitColumns(15);
                     worksheet.Cells[3, 48].AutoFitColumns(15);
                     worksheet.Cells[3, 49].AutoFitColumns(15);
                     worksheet.Cells[3, 50].AutoFitColumns(15);
@@ -2429,11 +2441,16 @@ namespace API
                     worksheet.Cells[3, 52].AutoFitColumns(15);
                     worksheet.Cells[3, 53].AutoFitColumns(15);
                     worksheet.Cells[3, 54].AutoFitColumns(15);
+                    //worksheet.Cells[3, 62].AutoFitColumns(15);
                     worksheet.Cells[3, 55].AutoFitColumns(15);
                     worksheet.Cells[3, 56].AutoFitColumns(15);
+                    //worksheet.Cells[3, 65].AutoFitColumns(15);
                     worksheet.Cells[3, 57].AutoFitColumns(15);
                     worksheet.Cells[3, 58].AutoFitColumns(15);
+                    //worksheet.Cells[3, 68].AutoFitColumns(15);
                     worksheet.Cells[3, 59].AutoFitColumns(15);
+                    //worksheet.Cells[3, 70].AutoFitColumns(15);
+                    //worksheet.Cells[3, 71].AutoFitColumns(15);
                     worksheet.Cells[3, 60].AutoFitColumns(15);
                     worksheet.Cells[3, 61].AutoFitColumns(15);
                     worksheet.Cells[3, 62].AutoFitColumns(15);
@@ -2446,16 +2463,8 @@ namespace API
                     worksheet.Cells[3, 69].AutoFitColumns(15);
                     worksheet.Cells[3, 70].AutoFitColumns(15);
                     worksheet.Cells[3, 71].AutoFitColumns(15);
-                    worksheet.Cells[3, 72].AutoFitColumns(15);
-                    worksheet.Cells[3, 73].AutoFitColumns(15);
-                    worksheet.Cells[3, 74].AutoFitColumns(15);
-                    worksheet.Cells[3, 75].AutoFitColumns(15);
-                    worksheet.Cells[3, 76].AutoFitColumns(15);
-                    worksheet.Cells[3, 77].AutoFitColumns(15);
-                    worksheet.Cells[3, 78].AutoFitColumns(15);
-                    worksheet.Cells[3, 79].AutoFitColumns(15);
 
-                    worksheet.Cells[inStartIndex, 1, inEndCounter, 79].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[inStartIndex, 1, inEndCounter, 71].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                     #endregion
                     var asTitleCase = Thread.CurrentThread.CurrentCulture.TextInfo;
@@ -2535,496 +2544,523 @@ namespace API
                             worksheet.Cells[inwrkrow, 10].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 11].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pointer"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Pointer"))
+                        //worksheet.Cells[inwrkrow, 11].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pointer"]);
+                        //if (Array.Exists(NotMappedColumn, element => element.Trim() == "Pointer"))
+                        //{
+                        //    worksheet.Cells[inwrkrow, 11].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        //    worksheet.Cells[inwrkrow, 11].Style.Fill.BackgroundColor.SetColor(red_bg);
+                        //}
+
+                        //worksheet.Cells[inwrkrow, 12].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Sub Pointer"]);
+                        //if (Array.Exists(NotMappedColumn, element => element.Trim() == "Sub Pointer"))
+                        //{
+                        //    worksheet.Cells[inwrkrow, 12].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        //    worksheet.Cells[inwrkrow, 12].Style.Fill.BackgroundColor.SetColor(red_bg);
+                        //}
+
+                        worksheet.Cells[inwrkrow, 11].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Base Price/Ct"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Base Price/Ct"))
                         {
                             worksheet.Cells[inwrkrow, 11].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 11].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 12].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Sub Pointer"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Sub Pointer"))
+                        //worksheet.Cells[inwrkrow, 14].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Rap Rate"]);
+                        //if (Array.Exists(NotMappedColumn, element => element.Trim() == "Rap Rate"))
+                        //{
+                        //    worksheet.Cells[inwrkrow, 14].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        //    worksheet.Cells[inwrkrow, 14].Style.Fill.BackgroundColor.SetColor(red_bg);
+                        //}
+
+                        worksheet.Cells[inwrkrow, 12].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Base Amt"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Base Amt"))
                         {
                             worksheet.Cells[inwrkrow, 12].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 12].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 13].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Base Price Cts"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Base Price Cts"))
+                        worksheet.Cells[inwrkrow, 13].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Measurement"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Measurement"))
                         {
                             worksheet.Cells[inwrkrow, 13].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 13].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 14].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Rap Rate"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Rap Rate"))
+                        worksheet.Cells[inwrkrow, 14].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Length"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Length"))
                         {
                             worksheet.Cells[inwrkrow, 14].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 14].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 15].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Base Amount"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Base Amount"))
+                        worksheet.Cells[inwrkrow, 15].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Width"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Width"))
                         {
                             worksheet.Cells[inwrkrow, 15].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 15].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 16].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Measurement"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Measurement"))
+                        worksheet.Cells[inwrkrow, 16].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Depth"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Depth"))
                         {
                             worksheet.Cells[inwrkrow, 16].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 16].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 17].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Length"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Length"))
+                        worksheet.Cells[inwrkrow, 17].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table %"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Table %"))
                         {
                             worksheet.Cells[inwrkrow, 17].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 17].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 18].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Width"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Width"))
+                        worksheet.Cells[inwrkrow, 18].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Depth %"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Depth %"))
                         {
                             worksheet.Cells[inwrkrow, 18].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 18].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 19].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Depth"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Depth"))
+                        worksheet.Cells[inwrkrow, 19].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table White"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Table White"))
                         {
                             worksheet.Cells[inwrkrow, 19].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 19].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 20].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table Per"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Table Per"))
+                        worksheet.Cells[inwrkrow, 20].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown White"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Crown White"))
                         {
                             worksheet.Cells[inwrkrow, 20].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 20].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 21].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Depth Per"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Depth Per"))
+                        worksheet.Cells[inwrkrow, 21].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table Black"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Table Black"))
                         {
                             worksheet.Cells[inwrkrow, 21].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 21].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 22].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table Inclusion"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Table Inclusion"))
+                        worksheet.Cells[inwrkrow, 22].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown Black"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Crown Black"))
                         {
                             worksheet.Cells[inwrkrow, 22].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 22].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 23].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown Inclusion"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Crown Inclusion"))
+                        //worksheet.Cells[inwrkrow, 26].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Side Inclusion"]);
+                        //if (Array.Exists(NotMappedColumn, element => element.Trim() == "Side Inclusion"))
+                        //{
+                        //    worksheet.Cells[inwrkrow, 26].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        //    worksheet.Cells[inwrkrow, 26].Style.Fill.BackgroundColor.SetColor(red_bg);
+                        //}
+
+                        //worksheet.Cells[inwrkrow, 27].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Side Natts"]);
+                        //if (Array.Exists(NotMappedColumn, element => element.Trim() == "Side Natts"))
+                        //{
+                        //    worksheet.Cells[inwrkrow, 27].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        //    worksheet.Cells[inwrkrow, 27].Style.Fill.BackgroundColor.SetColor(red_bg);
+                        //}
+
+                        worksheet.Cells[inwrkrow, 23].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown Open"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Crown Open"))
                         {
                             worksheet.Cells[inwrkrow, 23].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 23].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 24].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table Natts"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Table Natts"))
+                        worksheet.Cells[inwrkrow, 24].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav Open"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Pav Open"))
                         {
                             worksheet.Cells[inwrkrow, 24].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 24].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 25].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown Natts"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Crown Natts"))
+                        worksheet.Cells[inwrkrow, 25].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table Open"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Table Open"))
                         {
                             worksheet.Cells[inwrkrow, 25].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 25].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 26].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Side Inclusion"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Side Inclusion"))
+                        worksheet.Cells[inwrkrow, 26].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle Open"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Girdle Open"))
                         {
                             worksheet.Cells[inwrkrow, 26].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 26].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 27].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Side Natts"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Side Natts"))
+                        worksheet.Cells[inwrkrow, 27].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown Angle"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Crown Angle"))
                         {
                             worksheet.Cells[inwrkrow, 27].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 27].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 28].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown Open"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Crown Open"))
+                        worksheet.Cells[inwrkrow, 28].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav Angle"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Pav Angle"))
                         {
                             worksheet.Cells[inwrkrow, 28].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 28].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 29].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav Open"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Pav Open"))
+                        worksheet.Cells[inwrkrow, 29].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown Height"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Crown Height"))
                         {
                             worksheet.Cells[inwrkrow, 29].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 29].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 30].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table Open"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Table Open"))
+                        worksheet.Cells[inwrkrow, 30].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav Height"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Pav Height"))
                         {
                             worksheet.Cells[inwrkrow, 30].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 30].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 31].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle Open"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Girdle Open"))
+                        //worksheet.Cells[inwrkrow, 36].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Rap Amount"]);
+                        //if (Array.Exists(NotMappedColumn, element => element.Trim() == "Rap Amount"))
+                        //{
+                        //    worksheet.Cells[inwrkrow, 36].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        //    worksheet.Cells[inwrkrow, 36].Style.Fill.BackgroundColor.SetColor(red_bg);
+                        //}
+
+                        worksheet.Cells[inwrkrow, 31].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Lab"))
                         {
                             worksheet.Cells[inwrkrow, 31].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 31].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 32].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown Angle"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Crown Angle"))
+                        worksheet.Cells[inwrkrow, 32].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab URL"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Lab URL"))
                         {
                             worksheet.Cells[inwrkrow, 32].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 32].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 33].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav Angle"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Pav Angle"))
+                        worksheet.Cells[inwrkrow, 33].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Image Real"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Image Real"))
                         {
                             worksheet.Cells[inwrkrow, 33].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 33].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 34].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown Height"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Crown Height"))
+                        worksheet.Cells[inwrkrow, 34].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Image Asset"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Image Asset"))
                         {
                             worksheet.Cells[inwrkrow, 34].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 34].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 35].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav Height"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Pav Height"))
+                        worksheet.Cells[inwrkrow, 35].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Image Heart"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Image Heart"))
                         {
                             worksheet.Cells[inwrkrow, 35].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 35].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 36].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Rap Amount"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Rap Amount"))
+                        worksheet.Cells[inwrkrow, 36].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Image Arrow"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Image Arrow"))
                         {
                             worksheet.Cells[inwrkrow, 36].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 36].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 37].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Lab"))
+                        worksheet.Cells[inwrkrow, 37].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Video URL"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Video URL"))
                         {
                             worksheet.Cells[inwrkrow, 37].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 37].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 38].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate URL"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Certificate URL"))
+                        worksheet.Cells[inwrkrow, 38].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["DNA"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "DNA"))
                         {
                             worksheet.Cells[inwrkrow, 38].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 38].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 39].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Image URL"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Image URL"))
+                        worksheet.Cells[inwrkrow, 39].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Status"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Status"))
                         {
                             worksheet.Cells[inwrkrow, 39].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 39].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 40].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Image URL 2"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Image URL 2"))
+                        worksheet.Cells[inwrkrow, 40].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Supplier Ref No"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Supplier Ref No"))
                         {
                             worksheet.Cells[inwrkrow, 40].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 40].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 41].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Image URL 3"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Image URL 3"))
+                        worksheet.Cells[inwrkrow, 41].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Location"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Location"))
                         {
                             worksheet.Cells[inwrkrow, 41].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 41].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 42].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Image URL 4"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Image URL 4"))
+                        worksheet.Cells[inwrkrow, 42].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Shade"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Shade"))
                         {
                             worksheet.Cells[inwrkrow, 42].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 42].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 43].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Video URL"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Video URL"))
+                        worksheet.Cells[inwrkrow, 43].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Luster"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Luster"))
                         {
                             worksheet.Cells[inwrkrow, 43].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 43].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 44].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["DNA"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "DNA"))
+                        worksheet.Cells[inwrkrow, 44].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Cert Type"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Cert Type"))
                         {
                             worksheet.Cells[inwrkrow, 44].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 44].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 45].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Status"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Status"))
+                        worksheet.Cells[inwrkrow, 45].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Milky"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Milky"))
                         {
                             worksheet.Cells[inwrkrow, 45].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 45].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 46].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Supplier Stone Id"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Supplier Stone Id"))
+                        worksheet.Cells[inwrkrow, 46].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["BGM"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "BGM"))
                         {
                             worksheet.Cells[inwrkrow, 46].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 46].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 47].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Location"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Location"))
+                        worksheet.Cells[inwrkrow, 47].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Key to Symbol"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Key to Symbol"))
                         {
                             worksheet.Cells[inwrkrow, 47].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 47].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 48].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Shade"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Shade"))
+                        //worksheet.Cells[inwrkrow, 54].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["RATIO"]);
+                        //if (Array.Exists(NotMappedColumn, element => element.Trim() == "RATIO"))
+                        //{
+                        //    worksheet.Cells[inwrkrow, 54].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        //    worksheet.Cells[inwrkrow, 54].Style.Fill.BackgroundColor.SetColor(red_bg);
+                        //}
+
+                        worksheet.Cells[inwrkrow, 48].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Supplier Comment"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Supplier Comment"))
                         {
                             worksheet.Cells[inwrkrow, 48].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 48].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 49].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Luster"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Luster"))
+                        worksheet.Cells[inwrkrow, 49].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Comment"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Comment"))
                         {
                             worksheet.Cells[inwrkrow, 49].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 49].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 50].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Type 2A"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Type 2A"))
+                        worksheet.Cells[inwrkrow, 50].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Culet"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Culet"))
                         {
                             worksheet.Cells[inwrkrow, 50].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 50].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 51].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Milky"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Milky"))
+                        worksheet.Cells[inwrkrow, 51].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle %"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Girdle %"))
                         {
                             worksheet.Cells[inwrkrow, 51].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 51].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 52].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["BGM"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "BGM"))
+                        worksheet.Cells[inwrkrow, 52].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle Type"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Girdle Type"))
                         {
                             worksheet.Cells[inwrkrow, 52].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 52].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 53].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Key To Symboll"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Key To Symboll"))
+                        worksheet.Cells[inwrkrow, 53].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle From"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Girdle From"))
                         {
                             worksheet.Cells[inwrkrow, 53].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 53].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 54].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["RATIO"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "RATIO"))
+                        worksheet.Cells[inwrkrow, 54].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Laser Inscription"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Laser Inscription"))
                         {
                             worksheet.Cells[inwrkrow, 54].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 54].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 55].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Supplier Comments"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Supplier Comments"))
+                        //worksheet.Cells[inwrkrow, 62].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Culet Condition"]);
+                        //if (Array.Exists(NotMappedColumn, element => element.Trim() == "Culet Condition"))
+                        //{
+                        //    worksheet.Cells[inwrkrow, 62].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        //    worksheet.Cells[inwrkrow, 62].Style.Fill.BackgroundColor.SetColor(red_bg);
+                        //}
+
+                        worksheet.Cells[inwrkrow, 55].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Star Length"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Star Length"))
                         {
                             worksheet.Cells[inwrkrow, 55].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 55].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 56].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab Comments"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Lab Comments"))
+                        worksheet.Cells[inwrkrow, 56].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lower HF"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Lower HF"))
                         {
                             worksheet.Cells[inwrkrow, 56].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 56].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 57].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Culet"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Culet"))
+                        //worksheet.Cells[inwrkrow, 65].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Stage"]);
+                        //if (Array.Exists(NotMappedColumn, element => element.Trim() == "Stage"))
+                        //{
+                        //    worksheet.Cells[inwrkrow, 65].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        //    worksheet.Cells[inwrkrow, 65].Style.Fill.BackgroundColor.SetColor(red_bg);
+                        //}
+
+                        worksheet.Cells[inwrkrow, 57].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certi Date"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Certi Date"))
                         {
                             worksheet.Cells[inwrkrow, 57].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 57].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 58].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle Per"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Girdle Per"))
+                        worksheet.Cells[inwrkrow, 58].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Base Dis"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Base Dis"))
                         {
                             worksheet.Cells[inwrkrow, 58].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 58].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 59].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle Type"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Girdle Type"))
+                        //worksheet.Cells[inwrkrow, 68].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fix Price"]);
+                        //if (Array.Exists(NotMappedColumn, element => element.Trim() == "Fix Price"))
+                        //{
+                        //    worksheet.Cells[inwrkrow, 68].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        //    worksheet.Cells[inwrkrow, 68].Style.Fill.BackgroundColor.SetColor(red_bg);
+                        //}
+
+                        worksheet.Cells[inwrkrow, 59].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Cert No"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Cert No"))
                         {
                             worksheet.Cells[inwrkrow, 59].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 59].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 60].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle MM"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Girdle MM"))
+                        //worksheet.Cells[inwrkrow, 70].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Ref No"]);
+                        //if (Array.Exists(NotMappedColumn, element => element.Trim() == "Ref No"))
+                        //{
+                        //    worksheet.Cells[inwrkrow, 70].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        //    worksheet.Cells[inwrkrow, 70].Style.Fill.BackgroundColor.SetColor(red_bg);
+                        //}
+
+                        //worksheet.Cells[inwrkrow, 71].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Goods Type"]);
+                        //if (Array.Exists(NotMappedColumn, element => element.Trim() == "Goods Type"))
+                        //{
+                        //    worksheet.Cells[inwrkrow, 71].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        //    worksheet.Cells[inwrkrow, 71].Style.Fill.BackgroundColor.SetColor(red_bg);
+                        //}
+
+                        worksheet.Cells[inwrkrow, 60].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Country of Origin"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Country of Origin"))
                         {
                             worksheet.Cells[inwrkrow, 60].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 60].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 61].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Inscription"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Inscription"))
+                        worksheet.Cells[inwrkrow, 61].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Girdle"))
                         {
                             worksheet.Cells[inwrkrow, 61].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 61].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 62].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Culet Condition"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Culet Condition"))
+                        worksheet.Cells[inwrkrow, 62].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["H&A"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "H&A"))
                         {
                             worksheet.Cells[inwrkrow, 62].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 62].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 63].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Star Length"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Star Length"))
+                        worksheet.Cells[inwrkrow, 63].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fls Color"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Fls Color"))
                         {
                             worksheet.Cells[inwrkrow, 63].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 63].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 64].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lower Halves"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Lower Halves"))
+                        worksheet.Cells[inwrkrow, 64].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fancy Color"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Fancy Color"))
                         {
                             worksheet.Cells[inwrkrow, 64].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 64].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 65].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Stage"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Stage"))
+                        worksheet.Cells[inwrkrow, 65].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fancy Overtone"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Fancy Overtone"))
                         {
                             worksheet.Cells[inwrkrow, 65].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 65].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 66].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certi Date"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Certi Date"))
+                        worksheet.Cells[inwrkrow, 66].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fancy Intensity"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Fancy Intensity"))
                         {
                             worksheet.Cells[inwrkrow, 66].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 66].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 67].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Disc"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Disc"))
+                        worksheet.Cells[inwrkrow, 67].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle To"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Girdle To"))
                         {
                             worksheet.Cells[inwrkrow, 67].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 67].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 68].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fix Price"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Fix Price"))
+                        worksheet.Cells[inwrkrow, 68].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Image URL 1"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Image URL 1"))
                         {
                             worksheet.Cells[inwrkrow, 68].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 68].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 69].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate No"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Certificate No"))
+                        worksheet.Cells[inwrkrow, 69].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Image URL 2"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Image URL 2"))
                         {
                             worksheet.Cells[inwrkrow, 69].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 69].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 70].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Ref No"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Ref No"))
+                        worksheet.Cells[inwrkrow, 70].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Video MP4"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Video MP4"))
                         {
                             worksheet.Cells[inwrkrow, 70].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 70].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 71].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Goods Type"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Goods Type"))
+                        worksheet.Cells[inwrkrow, 71].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Stock From"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Stock From"))
                         {
                             worksheet.Cells[inwrkrow, 71].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 71].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
-
-                        worksheet.Cells[inwrkrow, 72].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Origin"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Origin"))
-                        {
-                            worksheet.Cells[inwrkrow, 72].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            worksheet.Cells[inwrkrow, 72].Style.Fill.BackgroundColor.SetColor(red_bg);
-                        }
-
-                        worksheet.Cells[inwrkrow, 73].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Girdle"))
-                        {
-                            worksheet.Cells[inwrkrow, 73].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            worksheet.Cells[inwrkrow, 73].Style.Fill.BackgroundColor.SetColor(red_bg);
-                        }
-
-                        worksheet.Cells[inwrkrow, 74].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["HNA"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "HNA"))
-                        {
-                            worksheet.Cells[inwrkrow, 74].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            worksheet.Cells[inwrkrow, 74].Style.Fill.BackgroundColor.SetColor(red_bg);
-                        }
-
-                        worksheet.Cells[inwrkrow, 75].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fls Color"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Fls Color"))
-                        {
-                            worksheet.Cells[inwrkrow, 75].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            worksheet.Cells[inwrkrow, 75].Style.Fill.BackgroundColor.SetColor(red_bg);
-                        }
-
-                        worksheet.Cells[inwrkrow, 76].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fancy Color"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Fancy Color"))
-                        {
-                            worksheet.Cells[inwrkrow, 76].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            worksheet.Cells[inwrkrow, 76].Style.Fill.BackgroundColor.SetColor(red_bg);
-                        }
-
-                        worksheet.Cells[inwrkrow, 77].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fancy Overtone"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Fancy Overtone"))
-                        {
-                            worksheet.Cells[inwrkrow, 77].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            worksheet.Cells[inwrkrow, 77].Style.Fill.BackgroundColor.SetColor(red_bg);
-                        }
-
-                        worksheet.Cells[inwrkrow, 78].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fancy Intensity"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Fancy Intensity"))
-                        {
-                            worksheet.Cells[inwrkrow, 78].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            worksheet.Cells[inwrkrow, 78].Style.Fill.BackgroundColor.SetColor(red_bg);
-                        }
-
-                        worksheet.Cells[inwrkrow, 79].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Stock From"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Stock From"))
-                        {
-                            worksheet.Cells[inwrkrow, 79].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            worksheet.Cells[inwrkrow, 79].Style.Fill.BackgroundColor.SetColor(red_bg);
-                        }
-
 
                         inwrkrow++;
 
                         #endregion
                     }
 
-                    worksheet.Cells[inStartIndex, 1, (inwrkrow - 1), 79].Style.Font.Size = 9; 
+                    worksheet.Cells[inStartIndex, 1, (inwrkrow - 1), 71].Style.Font.Size = 9; 
 
                     worksheet.Cells[inStartIndex, 2, (inwrkrow - 1), 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
                     worksheet.Cells[inStartIndex, 2, (inwrkrow - 1), 2].Style.Font.Color.SetColor(red_font);
