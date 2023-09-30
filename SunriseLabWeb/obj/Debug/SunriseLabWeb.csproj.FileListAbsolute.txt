@@ -473,3 +473,4 @@ D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\SunriseLabWeb\
 D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\SunriseLabWeb\obj\Debug\SunriseLabWeb.csproj.CopyComplete
 D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\SunriseLabWeb\obj\Debug\SunriseLabWeb_New.dll
 D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\SunriseLabWeb\obj\Debug\SunriseLabWeb_New.pdb
+D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\SunriseLabWeb\obj\Debug\SunriseLabWeb.csproj.AssemblyReference.cache

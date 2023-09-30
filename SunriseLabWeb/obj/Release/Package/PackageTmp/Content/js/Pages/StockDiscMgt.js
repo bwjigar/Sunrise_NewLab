@@ -772,7 +772,7 @@ function Get_API_StockFilter() {
                     if (data.Data[k].Col_Id == 49) {
                         KeyToSymbolList.push(data.Data[k]);
                     }
-                    if (data.Data[k].Col_Id == 67) {
+                    if (data.Data[k].Col_Id == 66) {
                         GoodsTypeList.push(data.Data[k]);
                     }
                 }
@@ -821,7 +821,7 @@ function Get_API_StockFilter() {
                     TableWhiteList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Table Inclusion', isActive: false, Col_Id: 19 });
                 }
                 if (GoodsTypeList.length > 1) {
-                    GoodsTypeList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Goods Type', isActive: false, Col_Id: 67 });
+                    GoodsTypeList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Goods Type', isActive: false, Col_Id: 66 });
                 }
 
                 INTENSITY = ['W-X', 'Y-Z', 'FAINT', 'VERY LIGHT', 'LIGHT', 'FANCY LIGHT', 'FANCY', 'FANCY INTENSE', 'FANCY GREEN', 'FANCY DARK', 'FANCY DEEP', 'FANCY VIVID', 'FANCY FAINT', 'DARK'];

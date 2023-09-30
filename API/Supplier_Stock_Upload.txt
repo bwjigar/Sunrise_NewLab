@@ -1734,3 +1734,5 @@ SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log T
 SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 29-09-2023 11:50:24 AM
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 29-09-2023 12:57:29 PM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 30-09-2023 09:20:19 AM

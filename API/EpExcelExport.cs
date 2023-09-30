@@ -72,11 +72,12 @@ namespace API
 
                     #region Header Name Declaration
 
-                    worksheet.Cells[2, 1].Value = "Sr. No";
-                    worksheet.Cells[2, 1].AutoFitColumns(7);
-                    Row_Count += 1;
+                    //worksheet.Cells[2, 1].Value = "Sr. No";
+                    //worksheet.Cells[2, 1].AutoFitColumns(7);
+                    //Row_Count += 1;
 
-                    int k = 1;
+                    //int k = 1;
+                    int k = 0;
                     for (int j = 0; j < Col_dt.Rows.Count; j++)
                     {
                         string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
@@ -151,9 +152,9 @@ namespace API
                     {
                         #region Assigns Value to Cell
 
-                        worksheet.Cells[inwrkrow, 1].Value = Convert.ToInt64(dtDiamonds.Rows[i - inStartIndex]["iSr"]);
+                        //worksheet.Cells[inwrkrow, 1].Value = Convert.ToInt64(dtDiamonds.Rows[i - inStartIndex]["iSr"]);
 
-                        int kk = 1;
+                        int kk = 0;
                         for (int j = 0; j < Col_dt.Rows.Count; j++)
                         {
                             string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
@@ -690,7 +691,7 @@ namespace API
 
                     worksheet.Cells[inStartIndex, 1, (inwrkrow - 1), Row_Count].Style.Font.Size = 9;
 
-                    int kkk = 1;
+                    int kkk = 0;
                     for (int j = 0; j < Col_dt.Rows.Count; j++)
                     {
                         string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
@@ -1015,11 +1016,12 @@ namespace API
 
                     #region Header Name Declaration
 
-                    worksheet.Cells[2, 1].Value = "Sr. No";
-                    worksheet.Cells[2, 1].AutoFitColumns(7);
-                    Row_Count += 1;
+                    //worksheet.Cells[2, 1].Value = "Sr. No";
+                    //worksheet.Cells[2, 1].AutoFitColumns(7);
+                    //Row_Count += 1;
 
-                    int k = 1;
+                    //int k = 1;
+                    int k = 0;
                     for (int j = 0; j < Col_dt.Rows.Count; j++)
                     {
                         string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
@@ -1092,7 +1094,7 @@ namespace API
 
                         worksheet.Cells[inwrkrow, 1].Value = Convert.ToInt64(dtDiamonds.Rows[i - inStartIndex]["iSr"]);
 
-                        int kk = 1;
+                        int kk = 0;
                         for (int j = 0; j < Col_dt.Rows.Count; j++)
                         {
                             string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
@@ -1443,7 +1445,7 @@ namespace API
 
                     worksheet.Cells[inStartIndex, 1, (inwrkrow - 1), Row_Count].Style.Font.Size = 9;
 
-                    int kkk = 1;
+                    int kkk = 0;
                     for (int j = 0; j < Col_dt.Rows.Count; j++)
                     {
                         string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
@@ -1456,9 +1458,9 @@ namespace API
                         {
                             kkk += 1;
 
-                            if (Column_Name == "Ref No")
+                            if (Column_Name == "Supplier Ref No")
                             {
-                                worksheet.Cells[1, kkk].Formula = "ROUND(SUBTOTAL(102," + GetExcelColumnLetter(1) + "" + inStartIndex + ":" + GetExcelColumnLetter(1) + "" + (inwrkrow - 1) + "),2)";
+                                worksheet.Cells[1, kkk].Formula = "ROUND(SUBTOTAL(103," + GetExcelColumnLetter(kkk) + "" + inStartIndex + ":" + GetExcelColumnLetter(kkk) + "" + (inwrkrow - 1) + "),2)";
                                 worksheet.Cells[1, kkk].Style.Fill.PatternType = ExcelFillStyle.Solid;
                                 worksheet.Cells[1, kkk].Style.Fill.BackgroundColor.SetColor(colFromHexTotal);
                                 worksheet.Cells[1, kkk].Style.Numberformat.Format = "#,##";
@@ -1692,11 +1694,11 @@ namespace API
 
                     #region Header Name Declaration
 
-                    worksheet.Cells[2, 1].Value = "Sr. No";
-                    worksheet.Cells[2, 1].AutoFitColumns(7);
-                    Row_Count += 1;
+                    //worksheet.Cells[2, 1].Value = "Sr. No";
+                    //worksheet.Cells[2, 1].AutoFitColumns(7);
+                    //Row_Count += 1;
 
-                    int k = 1;
+                    int k = 0;
                     for (int j = 0; j < Col_dt.Rows.Count; j++)
                     {
                         string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
@@ -1771,9 +1773,9 @@ namespace API
                     {
                         #region Assigns Value to Cell
 
-                        worksheet.Cells[inwrkrow, 1].Value = Convert.ToInt64(dtDiamonds.Rows[i - inStartIndex]["iSr"]);
+                        //worksheet.Cells[inwrkrow, 1].Value = Convert.ToInt64(dtDiamonds.Rows[i - inStartIndex]["iSr"]);
 
-                        int kk = 1;
+                        int kk = 0;
                         for (int j = 0; j < Col_dt.Rows.Count; j++)
                         {
                             string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
@@ -2087,7 +2089,7 @@ namespace API
 
                     worksheet.Cells[inStartIndex, 1, (inwrkrow - 1), Row_Count].Style.Font.Size = 9;
 
-                    int kkk = 1;
+                    int kkk = 0;
                     for (int j = 0; j < Col_dt.Rows.Count; j++)
                     {
                         string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
@@ -2102,7 +2104,7 @@ namespace API
 
                             if (Column_Name == "Ref No")
                             {
-                                worksheet.Cells[1, kkk].Formula = "ROUND(SUBTOTAL(102," + GetExcelColumnLetter(1) + "" + inStartIndex + ":" + GetExcelColumnLetter(1) + "" + (inwrkrow - 1) + "),2)";
+                                worksheet.Cells[1, kkk].Formula = "ROUND(SUBTOTAL(103," + GetExcelColumnLetter(kkk) + "" + inStartIndex + ":" + GetExcelColumnLetter(kkk) + "" + (inwrkrow - 1) + "),2)";
                                 worksheet.Cells[1, kkk].Style.Fill.PatternType = ExcelFillStyle.Solid;
                                 worksheet.Cells[1, kkk].Style.Fill.BackgroundColor.SetColor(colFromHexTotal);
                                 worksheet.Cells[1, kkk].Style.Numberformat.Format = "#,##";
