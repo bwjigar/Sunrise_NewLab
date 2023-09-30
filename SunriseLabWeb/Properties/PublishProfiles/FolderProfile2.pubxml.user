@@ -141,10 +141,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/30/2023 09:00:18</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.Primitives.dll">
-      <publishTime>11/05/2016 18:57:18</publishTime>
+      <publishTime>05/11/2016 18:57:18</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.X509Certificates.dll">
-      <publishTime>11/05/2016 18:57:18</publishTime>
+      <publishTime>05/11/2016 18:57:18</publishTime>
     </File>
     <File Include="bin/roslyn/System.Text.Encoding.CodePages.dll">
       <publishTime>09/30/2023 09:00:18</publishTime>
@@ -183,10 +183,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/30/2023 09:00:18</publishTime>
     </File>
     <File Include="bin/SunriseLabWeb_New.dll">
-      <publishTime>09/30/2023 10:09:52</publishTime>
+      <publishTime>09/30/2023 16:26:52</publishTime>
     </File>
     <File Include="bin/SunriseLabWeb_New.pdb">
-      <publishTime>09/30/2023 10:09:52</publishTime>
+      <publishTime>09/30/2023 16:26:52</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>09/30/2023 09:00:20</publishTime>
@@ -876,7 +876,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/30/2023 09:00:11</publishTime>
     </File>
     <File Include="Content/js/Pages/StockDiscMgt.js">
-      <publishTime>09/30/2023 09:19:50</publishTime>
+      <publishTime>09/30/2023 16:25:54</publishTime>
     </File>
     <File Include="Content/js/Pages/SupplierColumnSetting.js">
       <publishTime>09/30/2023 09:00:11</publishTime>
@@ -1407,7 +1407,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/30/2023 09:00:11</publishTime>
     </File>
     <File Include="Views/User/StockDiscMgt.cshtml">
-      <publishTime>09/30/2023 09:00:11</publishTime>
+      <publishTime>09/30/2023 16:24:38</publishTime>
     </File>
     <File Include="Views/User/SupplierColumnSetting.cshtml">
       <publishTime>09/30/2023 09:00:11</publishTime>

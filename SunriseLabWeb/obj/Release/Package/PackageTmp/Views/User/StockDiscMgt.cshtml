@@ -216,13 +216,18 @@
     .grid_prewrap {
         white-space: pre-wrap !important;
     }
+    .val-txtbx {
+        padding: 3.5px;
+        font-size: 13px;
+        width: 110%;
+    }
 </style>
 <div class="container-fluid order-history-section manage-user apifilter">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="col-xl-7 order-title">
                 <h2 id="h2Title">Stock & Disc Management</h2>
-                <h2 id="h2AddTitle" style="display: none;">Stock & Disc Management <label style="color: #808080bd; font-size: 14px;">(Add Filter)</label></h2>
+                <h2 id="h2AddTitle" style="display: none;">Stock & Disc Management <label style="color: #808080bd; font-size: 14px;" class="addedt_fltr">(Add Filter)</label></h2>
                 <button id="btnBack" onclick="Back();" class="save offer-btn" title="Back" style="display: none;float: right;margin-top: 10px;"><i class="fa fa-undo" aria-hidden="true"></i>&nbsp;Back</button>
             </div>
             <div class="col-xl-5 input-group input-file import" style="margin-top: 7px;display:none;">
@@ -236,7 +241,7 @@
     <div class="order-history-data Filters admin" id="divSearchFilter" style="display:none;">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 float-left">
+                <div class="col-xl-5 col-lg-4 col-md-4 col-sm-6 col-12 float-left">
                     <div class="order-date common-order">
                         <div class="offer-label">Search:<span class="reqvalidation">*</span></div>
                         <input id="txtCompanyName" name="CompanyName" placeholder="Company Name / User Name / Customer Name" onkeyup="GetUserList()" type="text" class="form-control common-control" autocomplete="off">
@@ -745,11 +750,12 @@
                             <strong>Percentage : <span style="color:red;">*</span></strong>
                         </div>
                         <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
-                            <div class="col-md-3 api-plr txtDisc_1"><input onchange="checkValue(this)" type="text" id="txtDisc_1_1" class="form-control dis_val" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue_1"><input onchange="checkValue(this)" type="text" id="txtValue_1_1" class="form-control dis_val" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue_1"><input onchange="checkValue(this)" type="text" id="txtValue_1_2" class="form-control dis_val" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue_1"><input onchange="checkValue(this)" type="text" id="txtValue_1_3" class="form-control dis_val" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue_1"><input onchange="checkValue(this)" type="text" id="txtValue_1_4" class="form-control dis_val" autocomplete="off"></div>
+                            <div class="col-md-2 api-plr txtDisc_1" style="margin-right: 12px;"><input onchange="checkValue(this, '', '')" type="text" id="txtDisc_1_1" class="form-control dis_val val-txtbx" autocomplete="off"></div>
+                            <div class="col-md-2 api-plr txtValue_1" style="margin-right: 12px;"><input onchange="checkValue(this, '1', '1')" type="text" id="txtValue_1_1" class="form-control dis_val val-txtbx" autocomplete="off"></div>
+                            <div class="col-md-2 api-plr txtValue_1" style="margin-right: 12px;"><input onchange="checkValue(this, '1', '2')" type="text" id="txtValue_1_2" class="form-control dis_val val-txtbx" autocomplete="off"></div>
+                            <div class="col-md-2 api-plr txtValue_1" style="margin-right: 12px;"><input onchange="checkValue(this, '1', '3')" type="text" id="txtValue_1_3" class="form-control dis_val val-txtbx" autocomplete="off"></div>
+                            <div class="col-md-2 api-plr txtValue_1" style="margin-right: 12px;"><input onchange="checkValue(this, '1', '4')" type="text" id="txtValue_1_4" class="form-control dis_val val-txtbx" autocomplete="off"></div>
+                            <div class="col-md-2 api-plr txtValue_1" style="margin-right: 12px;"><input onchange="checkValue(this, '1', '5')" type="text" id="txtValue_1_5" class="form-control dis_val val-txtbx" autocomplete="off"></div>
                             <div class="col-md-12 api-plr">
                                 <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr_1"></label>
                             </div>
@@ -796,11 +802,12 @@
                             <strong>Percentage :</strong>
                         </div>
                         <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
-                            <div class="col-md-3 api-plr txtDisc_2"><input onchange="checkValue(this)" type="text" id="txtDisc_2_1" class="form-control dis_val" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue_2"><input onchange="checkValue(this)" type="text" id="txtValue_2_1" class="form-control dis_val" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue_2"><input onchange="checkValue(this)" type="text" id="txtValue_2_2" class="form-control dis_val" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue_2"><input onchange="checkValue(this)" type="text" id="txtValue_2_3" class="form-control dis_val" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue_2"><input onchange="checkValue(this)" type="text" id="txtValue_2_4" class="form-control dis_val" autocomplete="off"></div>
+                            <div class="col-md-2 api-plr txtDisc_2" style="margin-right: 12px;"><input onchange="checkValue(this, '', '')" type="text" id="txtDisc_2_1" class="form-control dis_val val-txtbx" autocomplete="off"></div>
+                            <div class="col-md-2 api-plr txtValue_2" style="margin-right: 12px;"><input onchange="checkValue(this, '2', '1')" type="text" id="txtValue_2_1" class="form-control dis_val val-txtbx" autocomplete="off"></div>
+                            <div class="col-md-2 api-plr txtValue_2" style="margin-right: 12px;"><input onchange="checkValue(this, '2', '2')" type="text" id="txtValue_2_2" class="form-control dis_val val-txtbx" autocomplete="off"></div>
+                            <div class="col-md-2 api-plr txtValue_2" style="margin-right: 12px;"><input onchange="checkValue(this, '2', '3')" type="text" id="txtValue_2_3" class="form-control dis_val val-txtbx" autocomplete="off"></div>
+                            <div class="col-md-2 api-plr txtValue_2" style="margin-right: 12px;"><input onchange="checkValue(this, '2', '4')" type="text" id="txtValue_2_4" class="form-control dis_val val-txtbx" autocomplete="off"></div>
+                            <div class="col-md-2 api-plr txtValue_2" style="margin-right: 12px;"><input onchange="checkValue(this, '2', '5')" type="text" id="txtValue_2_5" class="form-control dis_val val-txtbx" autocomplete="off"></div>
                             <div class="col-md-12 api-plr">
                                 <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr_2"></label>
                             </div>
@@ -829,66 +836,66 @@
             <label style="color: red;margin-left: 35px;" id="lblCustNoFound">No Filter(s) Found</label>
             <div style="width: 100%; overflow-x: auto; display: none;" id="tblFilters">
                 <table class="table table-bordered">
-                    <thead>
+                    <thead style="background-color: #003d66;color: white;">
                         <tr>
-                            <th rowspan="3">Sr.</th>
-                            <th rowspan="3">Supplier</th>
-                            <th rowspan="3">Shape</th>
-                            <th rowspan="3">Carat</th>
-                            <th rowspan="3">Color</th>
-                            <th rowspan="3">Clarity</th>
-                            <th rowspan="3">Cut</th>
-                            <th rowspan="3">Polish</th>
-                            <th rowspan="3">Sym</th>
-                            <th rowspan="3">Fls</th>
-                            <th rowspan="3">Lab</th>
-                            <th rowspan="3">From Length</th>
-                            <th rowspan="3">To Length</th>
-                            <th rowspan="3">From Width</th>
-                            <th rowspan="3">To Width</th>
-                            <th rowspan="3">From Depth</th>
-                            <th rowspan="3">To Depth</th>
-                            <th rowspan="3">From Depth(%)</th>
-                            <th rowspan="3">To Depth(%)</th>
-                            <th rowspan="3">From Table(%)</th>
-                            <th rowspan="3">To Table(%)</th>
-                            <th rowspan="3">From Cr Ang</th>
-                            <th rowspan="3">To Cr Ang</th>
-                            <th rowspan="3">From Cr Ht</th>
-                            <th rowspan="3">To Cr Ht</th>
-                            <th rowspan="3">From Pav Ang</th>
-                            <th rowspan="3">To Pav Ang</th>
-                            <th rowspan="3">From Pav Ht</th>
-                            <th rowspan="3">To Pav Ht</th>
-                            <th rowspan="3">Key to symbol</th>
-                            <th rowspan="3">BGM</th>
-                            <th rowspan="3">Crown Black</th>
-                            <th rowspan="3">Table Black</th>
-                            <th rowspan="3">Crown White</th>
-                            <th rowspan="3">Table White</th>
-                            <th rowspan="3">Goods Type</th>
-                            <th rowspan="3">Image</th>
-                            <th rowspan="3">Video</th>
-                            <th colspan="9">CUSTOMER COST DISC</th>
-                            <th rowspan="3">Action</th>
+                            <th rowspan="3" style="vertical-align: middle;">Sr.</th>
+                            <th rowspan="3" style="vertical-align: middle;">Supplier</th>
+                            <th rowspan="3" style="vertical-align: middle;">Shape</th>
+                            <th rowspan="3" style="vertical-align: middle;">Carat</th>
+                            <th rowspan="3" style="vertical-align: middle;">Color</th>
+                            <th rowspan="3" style="vertical-align: middle;">Clarity</th>
+                            <th rowspan="3" style="vertical-align: middle;">Cut</th>
+                            <th rowspan="3" style="vertical-align: middle;">Polish</th>
+                            <th rowspan="3" style="vertical-align: middle;">Sym</th>
+                            <th rowspan="3" style="vertical-align: middle;">Fls</th>
+                            <th rowspan="3" style="vertical-align: middle;">Lab</th>
+                            <th rowspan="3" style="vertical-align: middle;">From Length</th>
+                            <th rowspan="3" style="vertical-align: middle;">To Length</th>
+                            <th rowspan="3" style="vertical-align: middle;">From Width</th>
+                            <th rowspan="3" style="vertical-align: middle;">To Width</th>
+                            <th rowspan="3" style="vertical-align: middle;">From Depth</th>
+                            <th rowspan="3" style="vertical-align: middle;">To Depth</th>
+                            <th rowspan="3" style="vertical-align: middle;">From Depth(%)</th>
+                            <th rowspan="3" style="vertical-align: middle;">To Depth(%)</th>
+                            <th rowspan="3" style="vertical-align: middle;">From Table(%)</th>
+                            <th rowspan="3" style="vertical-align: middle;">To Table(%)</th>
+                            <th rowspan="3" style="vertical-align: middle;">From Cr Ang</th>
+                            <th rowspan="3" style="vertical-align: middle;">To Cr Ang</th>
+                            <th rowspan="3" style="vertical-align: middle;">From Cr Ht</th>
+                            <th rowspan="3" style="vertical-align: middle;">To Cr Ht</th>
+                            <th rowspan="3" style="vertical-align: middle;">From Pav Ang</th>
+                            <th rowspan="3" style="vertical-align: middle;">To Pav Ang</th>
+                            <th rowspan="3" style="vertical-align: middle;">From Pav Ht</th>
+                            <th rowspan="3" style="vertical-align: middle;">To Pav Ht</th>
+                            <th rowspan="3" style="vertical-align: middle;">Key to symbol</th>
+                            <th rowspan="3" style="vertical-align: middle;">BGM</th>
+                            <th rowspan="3" style="vertical-align: middle;">Crown Black</th>
+                            <th rowspan="3" style="vertical-align: middle;">Table Black</th>
+                            <th rowspan="3" style="vertical-align: middle;">Crown White</th>
+                            <th rowspan="3" style="vertical-align: middle;">Table White</th>
+                            <th rowspan="3" style="vertical-align: middle;">Goods Type</th>
+                            <th rowspan="3" style="vertical-align: middle;">Image</th>
+                            <th rowspan="3" style="vertical-align: middle;">Video</th>
+                            <th colspan="9" style="vertical-align: middle;">CUSTOMER COST DISC</th>
+                            <th rowspan="3" style="vertical-align: middle;">Action</th>
                         </tr>
                         <tr>
-                            <th colspan="3">COMMON DISC</th>
-                            <th colspan="6">SPECIAL DISC</th>
+                            <th colspan="3" style="vertical-align: middle;">COMMON DISC</th>
+                            <th colspan="6" style="vertical-align: middle;">SPECIAL DISC</th>
                         </tr>
                         <tr>
-                            <th rowspan="1">Price Method</th>
-                            <th rowspan="1">Sign</th>
-                            <th rowspan="1">Percentage</th>
-                            <th rowspan="1">Additional</th>
-                            <th rowspan="1">From Date</th>
-                            <th rowspan="1">To Date</th>
-                            <th rowspan="1">Price Method</th>
-                            <th rowspan="1">Sign</th>
-                            <th rowspan="1">Percentage</th>
+                            <th rowspan="1" style="vertical-align: middle;">Price Method</th>
+                            <th rowspan="1" style="vertical-align: middle;">Sign</th>
+                            <th rowspan="1" style="vertical-align: middle;">Percentage</th>
+                            <th rowspan="1" style="vertical-align: middle;">Additional</th>
+                            <th rowspan="1" style="vertical-align: middle;">From Date</th>
+                            <th rowspan="1" style="vertical-align: middle;">To Date</th>
+                            <th rowspan="1" style="vertical-align: middle;">Price Method</th>
+                            <th rowspan="1" style="vertical-align: middle;">Sign</th>
+                            <th rowspan="1" style="vertical-align: middle;">Percentage</th>
                         </tr>
                     </thead>
-                    <tbody id="tblBodyFilters">
+                    <tbody style="color: #003d66;" id="tblBodyFilters">
                     </tbody>
                 </table>
             </div>
@@ -897,7 +904,7 @@
         <div>
             <br />
         </div>
-        <div class="row m-0 api-full-box">
+        <div class="row m-0 api-full-box" style="display:none;">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div id="TB_ColSetting" class="tab-pane active">
                     <div class="row mg0 pd5" style="text-align: center;">
@@ -978,6 +985,9 @@
 
         <div>
             <ul class="offer-inbtn pull-right mt-3" style="margin-bottom: 15px; margin-top: 25px !important;">
+                <li class="mr-2 DeleteAll">
+                    <button onclick="DeleteAll();" type="button" class="offer-btn"><i class="fa fa-trash"></i>Delete All</button>
+                </li>
                 <li class="mr-2">
                     <button onclick="SaveData();" type="button" class="offer-btn"><i class="fa fa-save"></i>Save</button>
                 </li>
@@ -1185,6 +1195,24 @@
             <div class="modal-footer search-model-footer">
                 <button type="button" class="btn btn-primary" onclick="ResetCheckColors()">Reset</button>
                 <button type="button" class="btn btn-secondary" onclick="SetFinalColors()" data-dismiss="modal">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade social-model" id="DeleteAll">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Stock & Disc Mgt.</h4>
+                <button type="button" class="close" onclick="ClearRemoveModel()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <li></li>
+            </div>
+
+            <div class="modal-footer">
+                <button id="btnSendMail" class="btn btn-primary" type="button" onclick="Delete()">Delete</button>
+                <button id="btnremove" class="btn btn-primary" type="button" onclick="ClearRemoveModel()">Cancel</button>
             </div>
         </div>
     </div>

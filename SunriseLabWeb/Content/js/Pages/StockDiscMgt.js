@@ -706,13 +706,30 @@ $(document).ready(function () {
     //    }
     //});
 });
-function checkValue(textbox) {
+function checkValue(textbox, type, id) {
     const value = textbox.value.trim();
     const numericValue = parseFloat(value);
     if (numericValue >= 0 && numericValue <= 100) {
         textbox.value = NullReplaceDecimal4ToFixed(numericValue);
+        if (type != "" && id != "") {
+            type = parseInt(type);
+            id = parseInt(id);
+            for (var i = id - 1; i <= 5 && i != 0; i--) {
+                if ($("#txtValue_" + type + "_" + i).val() == "") {
+                    $("#txtValue_" + type + "_" + id).val("");
+                }
+            }
+        }
+
     } else {
         textbox.value = '';
+        if (type != "" && id != "") {
+            type = parseInt(type);
+            id = parseInt(id);
+            for (var i = id + 1; i <= 5 && i != 0; i++) {
+                $("#txtValue_" + type + "_" + i).val("");
+            }
+        }
     }
 }
 function Get_API_StockFilter() {
@@ -772,7 +789,7 @@ function Get_API_StockFilter() {
                     if (data.Data[k].Col_Id == 49) {
                         KeyToSymbolList.push(data.Data[k]);
                     }
-                    if (data.Data[k].Col_Id == 67) {
+                    if (data.Data[k].Col_Id == 66) {
                         GoodsTypeList.push(data.Data[k]);
                     }
                 }
@@ -821,7 +838,7 @@ function Get_API_StockFilter() {
                     TableWhiteList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Table Inclusion', isActive: false, Col_Id: 19 });
                 }
                 if (GoodsTypeList.length > 1) {
-                    GoodsTypeList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Goods Type', isActive: false, Col_Id: 67 });
+                    GoodsTypeList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Goods Type', isActive: false, Col_Id: 66 });
                 }
 
                 INTENSITY = ['W-X', 'Y-Z', 'FAINT', 'VERY LIGHT', 'LIGHT', 'FANCY LIGHT', 'FANCY', 'FANCY INTENSE', 'FANCY GREEN', 'FANCY DARK', 'FANCY DEEP', 'FANCY VIVID', 'FANCY FAINT', 'DARK'];
@@ -964,6 +981,7 @@ function PricingMethodDDL(type) {
         document.getElementById("txtValue_" + type + "_2").disabled = true;
         document.getElementById("txtValue_" + type + "_3").disabled = true;
         document.getElementById("txtValue_" + type + "_4").disabled = true;
+        document.getElementById("txtValue_" + type + "_5").disabled = true;
         document.getElementById("txtDisc_" + type + "_1").disabled = true;
 
         $("#PricingSign_" + type).val("=");
@@ -979,6 +997,7 @@ function PricingMethodDDL(type) {
             document.getElementById("txtValue_" + type + "_2").disabled = true;
             document.getElementById("txtValue_" + type + "_3").disabled = true;
             document.getElementById("txtValue_" + type + "_4").disabled = true;
+            document.getElementById("txtValue_" + type + "_5").disabled = true;
 
             $(".txtDisc_" + type).show();
             $(".txtValue_" + type).hide();
@@ -993,6 +1012,7 @@ function PricingMethodDDL(type) {
             document.getElementById("txtValue_" + type + "_2").disabled = false;
             document.getElementById("txtValue_" + type + "_3").disabled = false;
             document.getElementById("txtValue_" + type + "_4").disabled = false;
+            document.getElementById("txtValue_" + type + "_5").disabled = false;
             document.getElementById("txtDisc_" + type + "_1").disabled = true;
 
             $(".txtDisc_" + type).hide();
@@ -2234,9 +2254,9 @@ function HTML_CREATE(
     FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
     FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
     Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
-    PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4,
+    PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
     Chk_Speci_Additional_1, txtFromDate, txtToDate,
-    PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4,
+    PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5,
     new_id) {
 
     var html = "<tr class='tr11'>";
@@ -2293,6 +2313,7 @@ function HTML_CREATE(
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_2'>" + txtValue_1_2 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_3'>" + txtValue_1_3 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_4'>" + txtValue_1_4 + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_5'>" + txtValue_1_5 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria Chk_Speci_Additional_1'>" + Chk_Speci_Additional_1 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtFromDate'>" + txtFromDate + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtToDate'>" + txtToDate + "</span></td>";
@@ -2303,6 +2324,7 @@ function HTML_CREATE(
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_2'>" + txtValue_2_2 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_3'>" + txtValue_2_3 + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_4'>" + txtValue_2_4 + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_5'>" + txtValue_2_5 + "</span></td>";
 
     //html += "<td style='display:none;'><span class='Fi-Criteria PricingMethod_3'>" + PricingMethod_3 + "</span></td>";
     //html += "<td style='display:none;'><span class='Fi-Criteria PricingSign_3'>" + PricingSign_3 + "</span></td>";
@@ -2336,6 +2358,7 @@ function HTML_CREATE(
         html += (txtValue_1_2 == "" && txtValue_1_2 != "0" ? '<span class="Fi-Criteria _txtValue_1_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_2 + '</span>');
         html += (txtValue_1_3 == "" && txtValue_1_3 != "0" ? '<span class="Fi-Criteria _txtValue_1_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_3 + '</span>');
         html += (txtValue_1_4 == "" && txtValue_1_4 != "0" ? '<span class="Fi-Criteria _txtValue_1_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_4 + '</span>');
+        html += (txtValue_1_5 == "" && txtValue_1_5 != "0" ? '<span class="Fi-Criteria _txtValue_1_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_5 + '</span>');
     }
     html += "</div>";
     html += "</td>";
@@ -2357,6 +2380,7 @@ function HTML_CREATE(
         html += (txtValue_2_2 == "" && txtValue_2_2 != "0" ? '<span class="Fi-Criteria _txtValue_2_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_2 + '</span>');
         html += (txtValue_2_3 == "" && txtValue_2_3 != "0" ? '<span class="Fi-Criteria _txtValue_2_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_3 + '</span>');
         html += (txtValue_2_4 == "" && txtValue_2_4 != "0" ? '<span class="Fi-Criteria _txtValue_2_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_4 + '</span>');
+        html += (txtValue_2_5 == "" && txtValue_2_5 != "0" ? '<span class="Fi-Criteria _txtValue_2_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_5 + '</span>');
     }
     html += "</div>";
     html += "</td>";
@@ -2431,7 +2455,7 @@ var GetError = function () {
             }
         }
         else if ($("#PricingMethod_1").val() == "Value") {
-            if ($("#txtValue_1_1").val() == "" && $("#txtValue_1_2").val() == "" && $("#txtValue_1_3").val() == "" && $("#txtValue_1_4").val() == "") {
+            if ($("#txtValue_1_1").val() == "" && $("#txtValue_1_2").val() == "" && $("#txtValue_1_3").val() == "" && $("#txtValue_1_4").val() == "" && $("#txtValue_1_5").val() == "") {
                 ErrorMsg.push({
                     'Error': "Please Enter CUSTOMER COST DISC > COMMON DISC > Value.",
                 });
@@ -2455,7 +2479,7 @@ var GetError = function () {
             }
         }
         else if ($("#PricingMethod_2").val() == "Value") {
-            if ($("#txtValue_2_1").val() == "" && $("#txtValue_2_2").val() == "" && $("#txtValue_2_3").val() == "" && $("#txtValue_2_4").val() == "") {
+            if ($("#txtValue_2_1").val() == "" && $("#txtValue_2_2").val() == "" && $("#txtValue_2_3").val() == "" && $("#txtValue_2_4").val() == "" && $("#txtValue_2_5").val() == "") {
                 ErrorMsg.push({
                     'Error': "Please Enter CUSTOMER COST DISC > SPECIAL DISC > Value.",
                 });
@@ -2588,6 +2612,7 @@ var AddNewRow = function () {
             var txtValue_1_2 = NullReplaceDecimal4ToFixed($("#txtValue_1_2").val());
             var txtValue_1_3 = NullReplaceDecimal4ToFixed($("#txtValue_1_3").val());
             var txtValue_1_4 = NullReplaceDecimal4ToFixed($("#txtValue_1_4").val());
+            var txtValue_1_5 = NullReplaceDecimal4ToFixed($("#txtValue_1_5").val());
             var Chk_Speci_Additional_1 = document.getElementById("Chk_Speci_Additional_1").checked;
             var txtFromDate = $("#txtFromDate").val();
             var txtToDate = $("#txtToDate").val();
@@ -2598,6 +2623,7 @@ var AddNewRow = function () {
             var txtValue_2_2 = NullReplaceDecimal4ToFixed($("#txtValue_2_2").val());
             var txtValue_2_3 = NullReplaceDecimal4ToFixed($("#txtValue_2_3").val());
             var txtValue_2_4 = NullReplaceDecimal4ToFixed($("#txtValue_2_4").val());
+            var txtValue_2_5 = NullReplaceDecimal4ToFixed($("#txtValue_2_5").val());
 
             //var PricingMethod_3 = $("#PricingMethod_3").val();
             //var PricingSign_3 = $("#PricingSign_3").val();
@@ -2796,9 +2822,9 @@ var AddNewRow = function () {
                 FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
                 FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
                 Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
-                PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4,
+                PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
                 Chk_Speci_Additional_1, txtFromDate, txtToDate,
-                PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4,
+                PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5,
                 new_id);
 
             $("#tblFilters #tblBodyFilters").append(html);
@@ -2946,6 +2972,7 @@ function UpdateRow() {
                 var txtValue_1_2 = NullReplaceDecimal4ToFixed($("#txtValue_1_2").val());
                 var txtValue_1_3 = NullReplaceDecimal4ToFixed($("#txtValue_1_3").val());
                 var txtValue_1_4 = NullReplaceDecimal4ToFixed($("#txtValue_1_4").val());
+                var txtValue_1_5 = NullReplaceDecimal4ToFixed($("#txtValue_1_5").val());
                 var Chk_Speci_Additional_1 = document.getElementById("Chk_Speci_Additional_1").checked;
                 var txtFromDate = $("#txtFromDate").val();
                 var txtToDate = $("#txtToDate").val();
@@ -2956,6 +2983,7 @@ function UpdateRow() {
                 var txtValue_2_2 = NullReplaceDecimal4ToFixed($("#txtValue_2_2").val());
                 var txtValue_2_3 = NullReplaceDecimal4ToFixed($("#txtValue_2_3").val());
                 var txtValue_2_4 = NullReplaceDecimal4ToFixed($("#txtValue_2_4").val());
+                var txtValue_2_5 = NullReplaceDecimal4ToFixed($("#txtValue_2_5").val());
 
                 //var PricingMethod_3 = $("#PricingMethod_3").val();
                 //var PricingSign_3 = $("#PricingSign_3").val();
@@ -2982,6 +3010,7 @@ function UpdateRow() {
                 $(this).find('.txtValue_1_2').html(txtValue_1_2);
                 $(this).find('.txtValue_1_3').html(txtValue_1_3);
                 $(this).find('.txtValue_1_4').html(txtValue_1_4);
+                $(this).find('.txtValue_1_5').html(txtValue_1_5);
                 $(this).find('.Chk_Speci_Additional_1').html(Chk_Speci_Additional_1);
                 $(this).find('.txtFromDate').html(txtFromDate);
                 $(this).find('.txtToDate').html(txtToDate);
@@ -2992,6 +3021,7 @@ function UpdateRow() {
                 $(this).find('.txtValue_2_2').html(txtValue_2_2);
                 $(this).find('.txtValue_2_3').html(txtValue_2_3);
                 $(this).find('.txtValue_2_4').html(txtValue_2_4);
+                $(this).find('.txtValue_2_5').html(txtValue_2_5);
 
                 //$(this).find('.PricingMethod_3').html(PricingMethod_3);
                 //$(this).find('.PricingSign_3').html(PricingSign_3);
@@ -3023,6 +3053,7 @@ function UpdateRow() {
                     html += (txtValue_1_2 == "" && txtValue_1_2 != "0" ? '<span class="Fi-Criteria _txtValue_1_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_2 + '</span>');
                     html += (txtValue_1_3 == "" && txtValue_1_3 != "0" ? '<span class="Fi-Criteria _txtValue_1_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_3 + '</span>');
                     html += (txtValue_1_4 == "" && txtValue_1_4 != "0" ? '<span class="Fi-Criteria _txtValue_1_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_4 + '</span>');
+                    html += (txtValue_1_5 == "" && txtValue_1_5 != "0" ? '<span class="Fi-Criteria _txtValue_1_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_5 + '</span>');
                 }
                 $(this).find('.Pricing_1').html(html);
 
@@ -3041,6 +3072,7 @@ function UpdateRow() {
                     html += (txtValue_2_2 == "" && txtValue_2_2 != "0" ? '<span class="Fi-Criteria _txtValue_2_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_2 + '</span>');
                     html += (txtValue_2_3 == "" && txtValue_2_3 != "0" ? '<span class="Fi-Criteria _txtValue_2_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_3 + '</span>');
                     html += (txtValue_2_4 == "" && txtValue_2_4 != "0" ? '<span class="Fi-Criteria _txtValue_2_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_4 + '</span>');
+                    html += (txtValue_2_5 == "" && txtValue_2_5 != "0" ? '<span class="Fi-Criteria _txtValue_2_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_5" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_5 + '</span>');
                 }
                 $(this).find('.Pricing_2').html(html);
 
@@ -3418,6 +3450,7 @@ function EditCriteria(new_id) {
                 var txtValue_1_2 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_1_2').html());
                 var txtValue_1_3 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_1_3').html());
                 var txtValue_1_4 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_1_4').html());
+                var txtValue_1_5 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_1_5').html());
 
                 var Chk_Speci_Additional_1 = $(this).find('.Chk_Speci_Additional_1').html();
 
@@ -3430,6 +3463,7 @@ function EditCriteria(new_id) {
                 var txtValue_2_2 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_2_2').html());
                 var txtValue_2_3 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_2_3').html());
                 var txtValue_2_4 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_2_4').html());
+                var txtValue_2_5 = NullReplaceDecimal4ToFixed($(this).find('.txtValue_2_5').html());
 
 
                 $("#PricingMethod_1").val(PricingMethod_1);
@@ -3445,6 +3479,7 @@ function EditCriteria(new_id) {
                     $("#txtValue_1_2").val(txtValue_1_2);
                     $("#txtValue_1_3").val(txtValue_1_3);
                     $("#txtValue_1_4").val(txtValue_1_4);
+                    $("#txtValue_1_5").val(txtValue_1_5);
                 }
 
                 document.getElementById("Chk_Speci_Additional_1").checked = (Chk_Speci_Additional_1 == "true" ? true : false);
@@ -3471,6 +3506,7 @@ function EditCriteria(new_id) {
                     $("#txtValue_2_2").val(txtValue_2_2);
                     $("#txtValue_2_3").val(txtValue_2_3);
                     $("#txtValue_2_4").val(txtValue_2_4);
+                    $("#txtValue_2_5").val(txtValue_2_5);
                 }
 
                 //var PricingMethod_3 = $(this).find('.PricingMethod_3').html();
@@ -3630,6 +3666,7 @@ function SaveData() {
                 Value_1_2: $(this).find('.txtValue_1_2').html(),
                 Value_1_3: $(this).find('.txtValue_1_3').html(),
                 Value_1_4: $(this).find('.txtValue_1_4').html(),
+                Value_1_5: $(this).find('.txtValue_1_5').html(),
                 Speci_Additional_1: ($(this).find('.Chk_Speci_Additional_1').html() == 'true' ? 1 : 0),
                 FromDate: ($(this).find('.PricingMethod_2').html() != "" ? $(this).find('.txtFromDate').html() : ''),
                 ToDate: ($(this).find('.PricingMethod_2').html() != "" ? $(this).find('.txtToDate').html() : ''),
@@ -3640,6 +3677,7 @@ function SaveData() {
                 Value_2_2: $(this).find('.txtValue_2_2').html(),
                 Value_2_3: $(this).find('.txtValue_2_3').html(),
                 Value_2_4: $(this).find('.txtValue_2_4').html(),
+                Value_2_5: $(this).find('.txtValue_2_5').html(),
                 //PricingMethod_3: $(this).find('.PricingMethod_3').html(),
                 //PricingSign_3: $(this).find('.PricingSign_3').html(),
                 //Disc_3_1: $(this).find('.txtDisc_3_1').html(),
@@ -3701,6 +3739,8 @@ function Get_Customer_Stock_Disc() {
         data: { req: obj },
         success: function (data) {
             if (data.Status == "1" && data.Data.length > 0) {
+                $(".addedt_fltr").html("(Edit Filter)");
+                $(".DeleteAll").show();
                 Exists_Record = data.Data.length;
 
                 var html = "";
@@ -3787,6 +3827,7 @@ function Get_Customer_Stock_Disc() {
                     var txtValue_1_2 = NullReplaceDecimal4ToFixed(itm.Value_1_2);
                     var txtValue_1_3 = NullReplaceDecimal4ToFixed(itm.Value_1_3);
                     var txtValue_1_4 = NullReplaceDecimal4ToFixed(itm.Value_1_4);
+                    var txtValue_1_5 = NullReplaceDecimal4ToFixed(itm.Value_1_5);
                     var Chk_Speci_Additional_1 = (NullReplace(itm.Speci_Additional_1) == "1" ? true : false);
                     var txtFromDate = NullReplace(itm.FromDate);
                     var txtToDate = NullReplace(itm.ToDate);
@@ -3797,6 +3838,7 @@ function Get_Customer_Stock_Disc() {
                     var txtValue_2_2 = NullReplaceDecimal4ToFixed(itm.Value_2_2);
                     var txtValue_2_3 = NullReplaceDecimal4ToFixed(itm.Value_2_3);
                     var txtValue_2_4 = NullReplaceDecimal4ToFixed(itm.Value_2_4);
+                    var txtValue_2_5 = NullReplaceDecimal4ToFixed(itm.Value_2_5);
 
                     //var PricingMethod_3 = NullReplace(itm.PricingMethod_3);
                     //var PricingSign_3 = NullReplace(itm.PricingSign_3);
@@ -3933,8 +3975,8 @@ function Get_Customer_Stock_Disc() {
                     html += HTML_CREATE(Supplier, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab, FromLength, ToLength,
                         FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng, FromCrHt, ToCrHt, FromPavAng,
                         ToPavAng, FromPavHt, ToPavHt, Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
-                        PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, Chk_Speci_Additional_1, txtFromDate, txtToDate,
-                        PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, new_id);
+                        PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5, Chk_Speci_Additional_1, txtFromDate, txtToDate,
+                        PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5, new_id);
                 });
 
                 $("#tblFilters #tblBodyFilters").html(html);
@@ -3948,6 +3990,9 @@ function Get_Customer_Stock_Disc() {
                 });
             }
             else if (data.Status == "1" && data.Data.length == 0) {
+                $(".addedt_fltr").html("(Add Filter)");
+                $(".DeleteAll").hide();
+
                 Exists_Record = 0;
                 $("#tblFilters #tblBodyFilters").html("");
                 $("#tblFilters").hide();
@@ -4017,3 +4062,40 @@ function SetTableOrder() {
         OrderNo = OrderNo + 1;
     });
 };
+var DeleteAll = function () {
+    $("#DeleteAll").modal("show");
+    $("#DeleteAll .modal-body li").html("Are You Sure You Want To Delete All Pricing Filter of " + _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'FirstName')[0] + " " + _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'LastName')[0] +" User ?");
+}
+var ClearRemoveModel = function () {
+    $("#DeleteAll").modal("hide");
+}
+var Delete = function () {
+    var obj = {};
+    obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
+
+    loaderShow();
+    $.ajax({
+        url: '/User/AddUpdate_Customer_Stock_Disc',
+        type: "POST",
+        data: { req: obj },
+        success: function (data) {
+            loaderHide();
+            if (data.Status == "1") {
+                toastr.success(data.Message);
+                $(".DeleteAll").modal("hide");
+                ClearRemoveModel();
+                Get_Customer_Stock_Disc();
+                $(window).scrollTop(100);
+            }
+            else {
+                if (data.Message.indexOf('Something Went wrong') > -1) {
+                    MoveToErrorPage(0);
+                }
+                toastr.error(data.Message);
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            loaderHide();
+        }
+    });
+}
