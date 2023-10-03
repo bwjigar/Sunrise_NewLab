@@ -2371,7 +2371,7 @@ namespace API
                     worksheet.Cells[3, 70].Value = "Video MP4";
                     worksheet.Cells[3, 71].Value = "Stock Upload Using";
 
-                    ExcelStyle cellStyleHeader1 = worksheet.Cells[3, 1, 3, 67].Style;
+                    ExcelStyle cellStyleHeader1 = worksheet.Cells[3, 1, 3, 71].Style;
                     cellStyleHeader1.Border.Left.Style = cellStyleHeader1.Border.Right.Style
                             = cellStyleHeader1.Border.Top.Style = cellStyleHeader1.Border.Bottom.Style
                             = ExcelBorderStyle.Medium;
