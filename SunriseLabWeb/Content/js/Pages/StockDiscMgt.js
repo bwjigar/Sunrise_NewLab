@@ -744,6 +744,9 @@ function Get_API_StockFilter() {
                     if (data.Data[k].Col_Id == 0) {
                         SupplierList.push(data.Data[k]);
                     }
+                    if (data.Data[k].Col_Id == 44) {
+                        LocationList.push(data.Data[k]);
+                    }
                     if (data.Data[k].Col_Id == 1) {
                         ShapeList.push(data.Data[k]);
                     }
@@ -797,6 +800,9 @@ function Get_API_StockFilter() {
 
                 if (SupplierList.length > 1) {
                     SupplierList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Supplier', isActive: false, Col_Id: 0 });
+                }
+                if (LocationList.length > 1) {
+                    LocationList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Location', isActive: false, Col_Id: 44 });
                 }
                 if (ShapeList.length > 1) {
                     ShapeList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Shape', isActive: false, Col_Id: 1 });
@@ -1168,7 +1174,7 @@ var SetSearchParameter = function () {
 
     var supplierLst = _.pluck(_.filter(SupplierList, function (e) { return e.isActive == true }), 'Value').join(",");
     var pointerLst = _.pluck(_.filter(PointerList, function (e) { return e.isActive == true }), 'Value').join(",");
-    //var locationLst = _.pluck(_.filter(LocationList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var locationLst = _.pluck(_.filter(LocationList, function (e) { return e.isActive == true }), 'Value').join(",");
     var shapeLst = _.pluck(_.filter(ShapeList, function (e) { return e.isActive == true }), 'Value').join(",");
     var colorLst = _.pluck(_.filter(ColorList, function (e) { return e.isActive == true }), 'Value').join(",");
     var clarityLst = _.pluck(_.filter(ClarityList, function (e) { return e.isActive == true }), 'Value').join(",");
@@ -1186,7 +1192,7 @@ var SetSearchParameter = function () {
 
     CheckedSupplierValue = supplierLst;
     CheckedPointerValue = pointerLst;
-    //CheckedLocationValue = locationLst;
+    CheckedLocationValue = locationLst;
     CheckedShapeValue = shapeLst;
     CheckedColorValue = colorLst;
     CheckedClarityValue = clarityLst;
@@ -2250,7 +2256,7 @@ function generate_uuidv4() {
 }
 
 function HTML_CREATE(
-    Supplier, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
+    Supplier, Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
     FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
     FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
     Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
@@ -2262,6 +2268,7 @@ function HTML_CREATE(
     var html = "<tr class='tr11'>";
     html += "<th class='Row Fi-Criteria' style=''></th>";
     html += "<td><span class='Fi-Criteria Supplier'>" + Supplier + "</span></td>";
+    html += "<td><span class='Fi-Criteria Location'>" + Location + "</span></td>";
     html += "<td><span class='Fi-Criteria Shape'>" + Shape + "</span></td>";
     html += "<td><span class='Fi-Criteria Carat'>" + Carat + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria ColorType'>" + Color_Type + "</span></td>";
@@ -2550,6 +2557,7 @@ var AddNewRow = function () {
             var new_id = generate_uuidv4();
 
             var Supplier = _.pluck(_.filter(SupplierList, function (e) { return e.isActive == true }), 'Value').join(",");
+            var Location = _.pluck(_.filter(LocationList, function (e) { return e.isActive == true }), 'Value').join(",");
             var Shape = _.pluck(_.filter(ShapeList, function (e) { return e.isActive == true }), 'Value').join(",");
             var Carat = _.pluck(_.filter(_pointerlst, function (e) { return e.isActive == true }), 'Value').join(",");
             var Color_Type = (Regular_All == true ? "Regular" : (Fancy_All == true ? "Fancy" : ""));
@@ -2818,7 +2826,7 @@ var AddNewRow = function () {
 
             //html += "</tr>";
 
-            var html = HTML_CREATE(Supplier, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
+            var html = HTML_CREATE(Supplier, Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
                 FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
                 FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
                 Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
@@ -2867,6 +2875,9 @@ function UpdateRow() {
 
                 var Supplier = _.pluck(_.filter(SupplierList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.Supplier').html(Supplier);
+
+                var Location = _.pluck(_.filter(LocationList, function (e) { return e.isActive == true }), 'Value').join(",");
+                $(this).find('.Location').html(Location);
 
                 var Shape = _.pluck(_.filter(ShapeList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.Shape').html(Shape);
@@ -3142,6 +3153,19 @@ function EditCriteria(new_id) {
                             if (j > 0) {
                                 if (Supplier.split(',')[i] == SupplierList[j].Value) {
                                     SupplierList[j].isActive = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                var Location = $(this).find('.Location').html();
+                if (Location != "") {
+                    for (var i in Location.split(',')) {
+                        for (var j in ShapeList) {
+                            if (j > 0) {
+                                if (Location.split(',')[i] == ShapeList[j].Value) {
+                                    ShapeList[j].isActive = true;
                                 }
                             }
                         }
@@ -3618,6 +3642,7 @@ function SaveData() {
         $("#tblFilters #tblBodyFilters tr").each(function () {
             list.push({
                 Supplier: $(this).find('.Supplier').html(),
+                Location: $(this).find('.Location').html(),
                 Shape: $(this).find('.Shape').html(),
                 Carat: $(this).find('.Carat').html(),
                 ColorType: $(this).find('.ColorType').html(),
@@ -3748,6 +3773,7 @@ function Get_Customer_Stock_Disc() {
                     var new_id = generate_uuidv4();
 
                     var Supplier = NullReplace(itm.Supplier);
+                    var Location = NullReplace(itm.Location);
                     var Shape = NullReplace(itm.Shape);
                     var Carat = NullReplace(itm.Carat);
                     var Color_Type = NullReplace(itm.ColorType);
@@ -3972,7 +3998,7 @@ function Get_Customer_Stock_Disc() {
 
                     //html += "</tr>";
 
-                    html += HTML_CREATE(Supplier, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab, FromLength, ToLength,
+                    html += HTML_CREATE(Supplier, Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab, FromLength, ToLength,
                         FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng, FromCrHt, ToCrHt, FromPavAng,
                         ToPavAng, FromPavHt, ToPavHt, Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
                         PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5, Chk_Speci_Additional_1, txtFromDate, txtToDate,

@@ -287,6 +287,20 @@
                 <div class="tabboxdiv">
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
+                            <strong>Location</strong>
+                        </div>
+                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
+                            <p class="divCheckedLocationValue"></p>
+                        </div>
+                        <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center; ">
+                            <div class="list-icn">
+                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedLocationValue',LocationList)"></i>
+                                <a href="javascript:void(0);" onclick="ModalShow('Location',LocationList)"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-sm-3 col-xs-12 api-plr">
                             <strong>Shape</strong>
                         </div>
                         <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
@@ -840,6 +854,7 @@
                         <tr>
                             <th rowspan="3" style="vertical-align: middle;">Sr.</th>
                             <th rowspan="3" style="vertical-align: middle;">Supplier</th>
+                            <th rowspan="3" style="vertical-align: middle;">Location</th>
                             <th rowspan="3" style="vertical-align: middle;">Shape</th>
                             <th rowspan="3" style="vertical-align: middle;">Carat</th>
                             <th rowspan="3" style="vertical-align: middle;">Color</th>

@@ -669,6 +669,7 @@ namespace API.Controllers
                 DataTable dt = new DataTable();
                 dt.Columns.Add("UserId", typeof(string));
                 dt.Columns.Add("Supplier", typeof(string));
+                dt.Columns.Add("Location", typeof(string));
                 dt.Columns.Add("Shape", typeof(string));
                 dt.Columns.Add("Carat", typeof(string));
                 dt.Columns.Add("ColorType", typeof(string));
@@ -738,6 +739,7 @@ namespace API.Controllers
 
                         dr["UserId"] = req.UserId;
                         dr["Supplier"] = req.SuppDisc[i].Supplier;
+                        dr["Location"] = req.SuppDisc[i].Location;
                         dr["Shape"] = req.SuppDisc[i].Shape;
                         dr["Carat"] = req.SuppDisc[i].Carat;
                         dr["ColorType"] = req.SuppDisc[i].ColorType;
@@ -3337,6 +3339,10 @@ namespace API.Controllers
             {
                 Database db = new Database();
                 List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, userID));
 
                 if (req.PgNo > 0)
                     para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, req.PgNo));
