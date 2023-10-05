@@ -3922,7 +3922,173 @@ namespace API.Controllers
                                 InputPara = words[1].ToString();
                             }
 
-                            if (SupplierURL.ToUpper() == "HTTP://WWW.JPDIAM.COM/PLUGIN/APITOOL")
+                            if (SupplierURL.ToUpper() == "HTTPS://SUNRISEDIAMONDS.COM.HK:8122/API/STOCK/STOCK_GET")
+                            {
+                                string inputJson = string.Empty;
+                                try
+                                {
+                                    string Name = UserName;
+                                    string password = Password;
+
+                                    Sunrise_LoginRequest sun_l = new Sunrise_LoginRequest();
+                                    sun_l.UserName = Name;
+                                    sun_l.Password = password;
+                                    sun_l.grant_type = "password";
+
+                                    String InputLRJson = string.Join("&", sun_l.GetType()
+                                                                .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                                                                .Where(p => p.GetValue(sun_l, null) != null)
+                                        .Select(p => $"{p.Name}={Uri.EscapeDataString(p.GetValue(sun_l).ToString())}"));
+
+                                    //WebClient client = new WebClient();
+                                    //client.Headers["Content-type"] = "application/x-www-form-urlencoded";
+                                    //client.Encoding = Encoding.UTF8;
+                                    //ServicePointManager.Expect100Continue = false;
+                                    //ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                                    //json = client.UploadString("https://sunrisediamonds.com.hk:8122/api/User/Login", InputLRJson);
+
+                                    //WebClient client = new WebClient();
+                                    ////client.Headers.Add("Content-type", "application/json");
+                                    //client.Encoding = Encoding.UTF8;
+                                    //json = client.UploadString("https://sunrisediamonds.com.hk:8122/api/User/Login", "POST", InputLRJson);
+                                    //client.Dispose();
+
+                                    WebRequest request = WebRequest.Create("https://sunrisediamonds.com.hk:8122/api/User/Login");
+                                    request.Method = "POST";
+                                    request.Timeout = 7200000; //2 Hour in milliseconds
+                                    byte[] byteArray = Encoding.UTF8.GetBytes(InputLRJson);
+                                    request.ContentType = "application/x-www-form-urlencoded";
+                                    //request.Headers.Add("Authorization", "Bearer " + AccessToken);
+                                    request.ContentLength = byteArray.Length;
+
+                                    //Here is the Business end of the code...
+                                    Stream dataStream = request.GetRequestStream();
+                                    dataStream.Write(byteArray, 0, byteArray.Length);
+                                    dataStream.Close();
+
+                                    //and here is the response.
+                                    WebResponse response = request.GetResponse();
+
+                                    Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+                                    dataStream = response.GetResponseStream();
+                                    StreamReader reader = new StreamReader(dataStream);
+                                    json = reader.ReadToEnd();
+                                    Console.WriteLine(json);
+                                    reader.Close();
+                                    dataStream.Close();
+                                    response.Close();
+                                    request.Abort();
+                                }
+                                catch (Exception ex)
+                                {
+                                    return ("API Not Working", ex.Message, null);
+                                }
+
+                                Sunrise_LoginResponse sglr = new Sunrise_LoginResponse();
+
+
+                                try
+                                {
+                                    sglr = (new JavaScriptSerializer()).Deserialize<Sunrise_LoginResponse>(json);
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    return ("Data Response Format Changed", ex.Message, null);
+                                }
+
+                                if (!string.IsNullOrEmpty(sglr.access_token))
+                                {
+
+                                    try
+                                    {
+                                        //SGStockRequest sgr = new SGStockRequest();
+                                        //sgr.UserId = sglr.UserId;
+                                        //sgr.TokenId = sglr.TokenId;
+
+                                        //String InputSRJson = (new JavaScriptSerializer()).Serialize(sgr);
+
+                                        //WebClient client1 = new WebClient();
+                                        //client1.Headers.Add("Content-type", "application/json");
+                                        //client1.Encoding = Encoding.UTF8;
+                                        //json = client1.UploadString("https://shairugems.net:8011/api/Buyer/GetStockDataIndia", "POST", InputSRJson);
+                                        //client1.Dispose();
+
+                                        WebRequest request1 = WebRequest.Create("https://sunrisediamonds.com.hk:8122/api/Stock/Stock_GET");
+                                        request1.Method = "POST";
+                                        request1.Timeout = 7200000; //2 Hour in milliseconds
+                                        //byte[] byteArray1 = Encoding.UTF8.GetBytes(InputSRJson);
+                                        //request1.ContentType = "application/json";
+                                        //request1.ContentType = "application/x-www-form-urlencoded";
+                                        request1.Headers.Add("Authorization", "Bearer " + sglr.access_token);
+                                        //request1.ContentLength = byteArray1.Length;
+
+                                        //Here is the Business end of the code...
+                                        Stream dataStream1 = request1.GetRequestStream();
+                                        //dataStream1.Write(byteArray1, 0, byteArray1.Length);
+                                        dataStream1.Close();
+
+                                        //and here is the response.
+                                        WebResponse response1 = request1.GetResponse();
+
+                                        Console.WriteLine(((HttpWebResponse)response1).StatusDescription);
+                                        dataStream1 = response1.GetResponseStream();
+                                        StreamReader reader1 = new StreamReader(dataStream1);
+                                        json = reader1.ReadToEnd();
+                                        Console.WriteLine(json);
+                                        reader1.Close();
+                                        dataStream1.Close();
+                                        response1.Close();
+                                        request1.Abort();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        return ("API Not Working", ex.Message, null);
+                                    }
+
+                                    try
+                                    {
+                                        JObject o = JObject.Parse(json);
+                                        var t = string.Empty;
+                                        if (o != null)
+                                        {
+                                            var test = o;
+                                            if (test != null)
+                                            {
+                                                var test2 = test;
+                                                if (test2 != null)
+                                                {
+                                                    Console.Write(test2);
+                                                    t = test2.Root.First.First.ToString();
+                                                }
+                                            }
+                                        }
+                                        var json_1 = JsonConvert.DeserializeObject<List<dynamic>>(t);
+                                        json = JsonConvert.SerializeObject(json_1);
+                                        json = json.Replace("[", "").Replace("]", "");
+                                        json = json.Replace("null", ""); 
+                                        
+                                        if (!string.IsNullOrEmpty(json))
+                                        {
+                                            dt_APIRes = jDt.JsonStringToDataTable(json);
+                                        }
+                                        else
+                                        {
+                                            return ("Data not Found", string.Empty, null);
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        return ("Data Response Format Changed", ex.Message, null);
+                                    }
+                                }
+                                else
+                                {
+                                    return ("Token is not Exists", string.Empty, null);
+                                }
+
+                            }
+                            else if (SupplierURL.ToUpper() == "HTTP://WWW.JPDIAM.COM/PLUGIN/APITOOL")
                             {
                                 WebClient client = new WebClient();
                                 string inputJson = string.Empty;

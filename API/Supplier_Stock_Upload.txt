@@ -1736,3 +1736,5 @@ SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log T
 SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 29-09-2023 12:57:29 PM
 = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 SUCCESS 8 Stock Upload Has Been Successfully From HARDIK D Supplier's FTP, Log Time : 30-09-2023 09:20:19 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 3281 Stock Upload Has Been Successfully From SUNRISE DIAMONDS LTD Supplier's Web API, Log Time : 05-10-2023 01:04:13 PM

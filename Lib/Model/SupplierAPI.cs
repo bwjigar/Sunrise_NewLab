@@ -68,6 +68,7 @@ namespace Lib.Model
         public string TokenId { get; set; }
     }
 
+
     public class SGStockRequest
     {
         public string UserId { get; set; }
@@ -327,5 +328,15 @@ namespace Lib.Model
         public string table_scale { get; set; }
         public int stockstatus { get; set; }
         public int discountType { get; set; }
+    }
+    public class Sunrise_LoginRequest
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string grant_type { get; set; }
+    }
+    public class Sunrise_LoginResponse
+    {
+        public string access_token { get; set; }
     }
 }

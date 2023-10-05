@@ -102,4 +102,3 @@ D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\Lib\obj\Debug\
 D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\Lib\obj\Debug\Lib.csproj.CopyComplete
 D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\Lib\obj\Debug\Lib.dll
 D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\Lib\obj\Debug\Lib.pdb
-D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\Lib\obj\Debug\Lib.csproj.AssemblyReference.cache
