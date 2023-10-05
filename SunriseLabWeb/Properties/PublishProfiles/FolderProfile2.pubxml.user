@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\Project\Project_Publish\Sunrise_New_Lab_WEB</_PublishTargetUrl>
-    <History>True|2023-09-29T07:33:56.7442828Z;True|2023-09-25T14:33:02.4896778+05:30;True|2023-09-25T12:14:45.4607552+05:30;True|2023-09-18T10:34:11.6588828+05:30;True|2023-09-13T12:42:41.4118335+05:30;True|2023-09-11T17:16:53.4852045+05:30;True|2023-09-05T16:25:31.4650520+05:30;True|2023-09-05T09:11:18.6735072+05:30;True|2023-08-31T13:45:14.5235904+05:30;True|2023-08-28T08:53:12.8226944+05:30;True|2023-08-26T08:55:36.3123288+05:30;True|2023-08-22T10:09:30.0234637+05:30;True|2023-08-22T09:55:48.6821556+05:30;True|2023-08-22T09:53:03.3342688+05:30;True|2023-08-22T09:04:35.8691232+05:30;True|2023-08-14T14:42:36.9930097+05:30;True|2023-08-11T10:03:13.8328891+05:30;True|2023-08-10T10:51:25.5433404+05:30;True|2023-08-09T15:01:23.5831812+05:30;</History>
+    <History>True|2023-10-05T08:40:20.3623853Z;True|2023-09-29T13:03:56.7442828+05:30;True|2023-09-25T14:33:02.4896778+05:30;True|2023-09-25T12:14:45.4607552+05:30;True|2023-09-18T10:34:11.6588828+05:30;True|2023-09-13T12:42:41.4118335+05:30;True|2023-09-11T17:16:53.4852045+05:30;True|2023-09-05T16:25:31.4650520+05:30;True|2023-09-05T09:11:18.6735072+05:30;True|2023-08-31T13:45:14.5235904+05:30;True|2023-08-28T08:53:12.8226944+05:30;True|2023-08-26T08:55:36.3123288+05:30;True|2023-08-22T10:09:30.0234637+05:30;True|2023-08-22T09:55:48.6821556+05:30;True|2023-08-22T09:53:03.3342688+05:30;True|2023-08-22T09:04:35.8691232+05:30;True|2023-08-14T14:42:36.9930097+05:30;True|2023-08-11T10:03:13.8328891+05:30;True|2023-08-10T10:51:25.5433404+05:30;True|2023-08-09T15:01:23.5831812+05:30;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -15,13 +15,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/30/2023 09:00:11</publishTime>
     </File>
     <File Include="bin/Lib.dll">
-      <publishTime>10/03/2023 16:18:16</publishTime>
+      <publishTime>10/05/2023 12:37:56</publishTime>
     </File>
     <File Include="bin/Lib.dll.config">
       <publishTime>09/30/2023 09:00:11</publishTime>
     </File>
     <File Include="bin/Lib.pdb">
-      <publishTime>10/03/2023 16:18:16</publishTime>
+      <publishTime>10/05/2023 12:37:56</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>09/30/2023 09:00:17</publishTime>
@@ -141,10 +141,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/30/2023 09:00:18</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.Primitives.dll">
-      <publishTime>05/11/2016 18:57:18</publishTime>
+      <publishTime>11/05/2016 18:57:18</publishTime>
     </File>
     <File Include="bin/roslyn/System.Security.Cryptography.X509Certificates.dll">
-      <publishTime>05/11/2016 18:57:18</publishTime>
+      <publishTime>11/05/2016 18:57:18</publishTime>
     </File>
     <File Include="bin/roslyn/System.Text.Encoding.CodePages.dll">
       <publishTime>09/30/2023 09:00:18</publishTime>
@@ -183,10 +183,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/30/2023 09:00:18</publishTime>
     </File>
     <File Include="bin/SunriseLabWeb_New.dll">
-      <publishTime>10/03/2023 16:18:37</publishTime>
+      <publishTime>10/05/2023 14:10:13</publishTime>
     </File>
     <File Include="bin/SunriseLabWeb_New.pdb">
-      <publishTime>10/03/2023 16:18:37</publishTime>
+      <publishTime>10/05/2023 14:10:13</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>09/30/2023 09:00:20</publishTime>
@@ -876,7 +876,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/30/2023 09:00:11</publishTime>
     </File>
     <File Include="Content/js/Pages/StockDiscMgt.js">
-      <publishTime>10/03/2023 16:13:50</publishTime>
+      <publishTime>03/10/2023 16:13:50</publishTime>
     </File>
     <File Include="Content/js/Pages/SupplierColumnSetting.js">
       <publishTime>09/30/2023 09:00:11</publishTime>
@@ -1407,7 +1407,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/30/2023 09:00:11</publishTime>
     </File>
     <File Include="Views/User/StockDiscMgt.cshtml">
-      <publishTime>10/03/2023 16:01:39</publishTime>
+      <publishTime>03/10/2023 16:01:39</publishTime>
     </File>
     <File Include="Views/User/SupplierColumnSetting.cshtml">
       <publishTime>09/30/2023 09:00:11</publishTime>
@@ -1440,7 +1440,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/30/2023 09:00:11</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/30/2023 09:00:11</publishTime>
+      <publishTime>10/05/2023 14:10:14</publishTime>
     </File>
   </ItemGroup>
 </Project>
