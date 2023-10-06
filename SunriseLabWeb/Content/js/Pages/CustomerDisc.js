@@ -306,6 +306,7 @@ $(document).ready(function () {
     Reset_API_Filter();
     Get_API_StockFilter();
     BindKeyToSymbolList();
+    resetKeytoSymbol();
 
     $("#tblFilters").on('click', '.RemoveCriteria', function () {
         $(this).closest('tr').remove();
