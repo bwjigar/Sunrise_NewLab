@@ -75,7 +75,7 @@ var columnDefs = [
     { headerName: "Auto Upload Stock", field: "AutoUploadStock", width: 120, sortable: false },
     { headerName: "Supplier URL", field: "SupplierURL", width: 630, cellRenderer: SupplierURL, hide: true },
     { headerName: "Active", field: "Active", width: 58, cellRenderer: Status, },
-    { headerName: "New RefNo Gen", field: "NewRefNoGenerate", width: 70, cellRenderer: Status, },
+    { headerName: "New RefNo Gen", field: "NewRefNoGenerate", width: 100, cellRenderer: _NewRefNoGenerate },
     { headerName: "New Disc Gen", field: "NewDiscGenerate", width: 70, cellRenderer: Status, },
     { headerName: "Display Image", field: "Image", width: 65, cellRenderer: Status, },
     { headerName: "Display Video", field: "Video", width: 65, cellRenderer: Status, },
@@ -90,6 +90,9 @@ function SupplierURL(params) {
     else {
         return params.data.FileLocation;
     }
+}
+function _NewRefNoGenerate(params) {
+    return params.data.NewRefNoGenerate + (params.data.NewRefNoGenerate == "Common" ? ' <span style="font-weight: 800;">( ' + params.data.NewRefNoCommonPrefix + ' )</span>' : "");
 }
 function APIType(params) {
     return params.value.replace("_", " ") + (params.data.DataGetFrom == "FILE" ? " (FILE)" : "");
@@ -192,7 +195,10 @@ function EditView(Id) {
         }
         document.getElementById("APIStatus").checked = data[0].Active;
         document.getElementById("DiscInverse").checked = data[0].DiscInverse;
-        document.getElementById("NewRefNoGenerate").checked = data[0].NewRefNoGenerate;
+        //document.getElementById("NewRefNoGenerate").checked = data[0].NewRefNoGenerate;
+        $("#ddlNewRefNoGenerate").val(data[0].NewRefNoGenerate);
+        NewRefNoGenerate();
+        $("#txtNewRefNoCommonPrefix").val(data[0].NewRefNoCommonPrefix);
         document.getElementById("NewDiscGenerate").checked = data[0].NewDiscGenerate;
         document.getElementById("Image").checked = data[0].Image;
         document.getElementById("Video").checked = data[0].Video;
@@ -514,7 +520,10 @@ function Clear() {
     $("#ddlAPIMethod").val("");
     document.getElementById("APIStatus").checked = true;
     document.getElementById("DiscInverse").checked = false;
-    document.getElementById("NewRefNoGenerate").checked = false;
+    //document.getElementById("NewRefNoGenerate").checked = false;
+    $("#ddlNewRefNoGenerate").val("");
+    $("#txtNewRefNoCommonPrefix").hide();
+    $("#txtNewRefNoCommonPrefix").val("");
     document.getElementById("NewDiscGenerate").checked = false;
     document.getElementById("Image").checked = true;
     document.getElementById("Video").checked = true;
@@ -555,6 +564,14 @@ function Repeatevery() {
         $("#txtHour").val("");
         $("#txtMinute").hide();
         $("#txtHour").show();
+    }
+}
+function NewRefNoGenerate() {
+    if ($("#ddlNewRefNoGenerate").val() == "Common") {
+        $("#txtNewRefNoCommonPrefix").show();
+    }
+    else {
+        $("#txtNewRefNoCommonPrefix").hide();
     }
 }
 var ErrorMsg = [];
@@ -627,6 +644,21 @@ var GetError = function () {
             });
         }
     }
+
+    if ($("#ddlNewRefNoGenerate").val() == "") {
+        ErrorMsg.push({
+            'Error': "Please Select New Ref No Generate.",
+        });
+    }
+
+    if ($("#ddlNewRefNoGenerate").val() == "Common") {
+        if ($("#txtNewRefNoCommonPrefix").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter New Ref No Common Prefix.",
+            });
+        }
+    }
+
     if ($("#txtDocViewType").val() == "") {
         ErrorMsg.push({
             'Error': "Please Enter Document View Type.",
@@ -727,7 +759,9 @@ var Save = function () {
         obj.Repeatevery = $('#DdlRepeatevery').val() == "Minute" ? $("#txtMinute").val() : $("#txtHour").val();
         obj.Active = document.getElementById("APIStatus").checked;
         obj.DiscInverse = document.getElementById("DiscInverse").checked;
-        obj.NewRefNoGenerate = document.getElementById("NewRefNoGenerate").checked;
+        //obj.NewRefNoGenerate = document.getElementById("NewRefNoGenerate").checked;
+        obj.NewRefNoGenerate = $("#ddlNewRefNoGenerate").val();
+        obj.NewRefNoCommonPrefix = ($("#ddlNewRefNoGenerate").val() == "Common" ? $("#txtNewRefNoCommonPrefix").val() : "");
         obj.NewDiscGenerate = document.getElementById("NewDiscGenerate").checked;
         obj.Image = document.getElementById("Image").checked;
         obj.Video = document.getElementById("Video").checked;

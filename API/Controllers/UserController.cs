@@ -2392,7 +2392,25 @@ namespace API.Controllers
                 para.Add(db.CreateParam("Repeatevery", DbType.String, ParameterDirection.Input, res.Repeatevery));
                 para.Add(db.CreateParam("Active", DbType.Boolean, ParameterDirection.Input, res.Active));
                 para.Add(db.CreateParam("DiscInverse", DbType.Boolean, ParameterDirection.Input, res.DiscInverse));
-                para.Add(db.CreateParam("NewRefNoGenerate", DbType.Boolean, ParameterDirection.Input, res.NewRefNoGenerate));
+
+                if (!string.IsNullOrEmpty(res.NewRefNoGenerate))
+                {
+                    para.Add(db.CreateParam("NewRefNoGenerate", DbType.String, ParameterDirection.Input, res.NewRefNoGenerate));
+                }
+                else
+                {
+                    para.Add(db.CreateParam("NewRefNoGenerate", DbType.String, ParameterDirection.Input, DBNull.Value));
+                }
+                
+                if (!string.IsNullOrEmpty(res.NewRefNoCommonPrefix))
+                {
+                    para.Add(db.CreateParam("NewRefNoCommonPrefix", DbType.String, ParameterDirection.Input, res.NewRefNoCommonPrefix));
+                }
+                else
+                {
+                    para.Add(db.CreateParam("NewRefNoCommonPrefix", DbType.String, ParameterDirection.Input, DBNull.Value));
+                }
+
                 para.Add(db.CreateParam("NewDiscGenerate", DbType.Boolean, ParameterDirection.Input, res.NewDiscGenerate));
                 para.Add(db.CreateParam("DataGetFrom", DbType.String, ParameterDirection.Input, res.DataGetFrom));
                 if (!string.IsNullOrEmpty(res.SupplierAPIMethod))

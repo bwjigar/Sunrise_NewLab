@@ -102,3 +102,30 @@ D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\Lib\obj\Debug\
 D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\Lib\obj\Debug\Lib.csproj.CopyComplete
 D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\Lib\obj\Debug\Lib.dll
 D:\Project\Rajeshri_Projects\GIT_SunriseLabWeb_New\Sunrise_NewLab\Lib\obj\Debug\Lib.pdb
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\Lib.dll.config
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\Lib.dll
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\Lib.pdb
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\Newtonsoft.Json.dll
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Net.Http.Formatting.dll
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.Helpers.dll
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.Http.dll
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.Mvc.dll
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.Razor.dll
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.WebPages.dll
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\Newtonsoft.Json.xml
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Net.Http.Formatting.xml
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.Helpers.xml
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.Http.xml
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.Mvc.xml
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.Razor.xml
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.WebPages.xml
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Hardik Projects\Sunrise_NewLab\Lib\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Hardik Projects\Sunrise_NewLab\Lib\obj\Debug\Lib.csproj.AssemblyReference.cache
+D:\Hardik Projects\Sunrise_NewLab\Lib\obj\Debug\Lib.csproj.CoreCompileInputs.cache
+D:\Hardik Projects\Sunrise_NewLab\Lib\obj\Debug\Lib.csproj.CopyComplete
+D:\Hardik Projects\Sunrise_NewLab\Lib\obj\Debug\Lib.dll
+D:\Hardik Projects\Sunrise_NewLab\Lib\obj\Debug\Lib.pdb

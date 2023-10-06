@@ -261,7 +261,8 @@ namespace Lib.Model
         public string UpdateDate { get; set; }
         public string FileName { get; set; }
         public bool DiscInverse { get; set; }
-        public bool NewRefNoGenerate { get; set; }
+        public string NewRefNoGenerate { get; set; }
+        public string NewRefNoCommonPrefix { get; set; }
         public bool NewDiscGenerate { get; set; }
         public string DataGetFrom { get; set; }
         public bool Image { get; set; }
