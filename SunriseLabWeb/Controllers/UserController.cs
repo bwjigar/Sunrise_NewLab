@@ -476,6 +476,7 @@ namespace SunriseLabWeb_New.Controllers
             ServiceResponse<Obj_Supplier_Disc> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Obj_Supplier_Disc>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult StockDiscMgt()
         {
             return View();
