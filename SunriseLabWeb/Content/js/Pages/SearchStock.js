@@ -799,7 +799,7 @@ const datasource1 = {
         if (params.request.sortModel.length > 0) {
             OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
         }
-        Status
+        
         obj = ObjectCreate(PageNo, pgSize, OrderBy, '');
 
         Rowdata = [];
