@@ -1614,7 +1614,8 @@ namespace API.Controllers
                         //            dtAPI.Rows[0]["Password"].ToString(),
                         //            dtAPI.Rows[0]["FileLocation"].ToString());
 
-                        var (msg, exe, dt) = Supplier_Stock_Get_From_His_WEB_API_AND_FTP(Convert.ToString(dtAPI.Rows[0]["APIType"]),
+                        var (msg, exe, dt) = Supplier_Stock_Get_From_His_WEB_API_AND_FTP(Convert.ToInt32(dtAPI.Rows[0]["Id"]), 
+                                    Convert.ToString(dtAPI.Rows[0]["APIType"]),
                                     Convert.ToString(dtAPI.Rows[0]["SupplierResponseFormat"]),
                                     Convert.ToString(dtAPI.Rows[0]["SupplierURL"]),
                                     Convert.ToString(dtAPI.Rows[0]["SupplierAPIMethod"]),
@@ -3818,7 +3819,7 @@ namespace API.Controllers
                 throw ex;
             }
         }
-        public (string, string, DataTable) Supplier_Stock_Get_From_His_WEB_API_AND_FTP(string APIType, string SupplierResponseFormat, string SupplierURL, string SupplierAPIMethod, string UserName, string Password, string FileLocation)
+        public (string, string, DataTable) Supplier_Stock_Get_From_His_WEB_API_AND_FTP(int SupplierId, string APIType, string SupplierResponseFormat, string SupplierURL, string SupplierAPIMethod, string UserName, string Password, string FileLocation)
         {
             DataTable dt_APIRes = new DataTable();
             string address = string.Empty;
@@ -6208,6 +6209,28 @@ namespace API.Controllers
             {
                 return ("ERROR", ex.Message, null);
             }
+
+            Int32 Lakhi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Lakhi_Id"]);
+            
+            if (SupplierId == Lakhi_Id)
+            {
+                dt_APIRes.Columns.Add("Table White", typeof(string));
+                dt_APIRes.Columns.Add("Crown White", typeof(string));
+                dt_APIRes.Columns.Add("Table Black", typeof(string));
+                dt_APIRes.Columns.Add("Crown Black", typeof(string));
+
+                foreach (DataRow row in dt_APIRes.Rows)
+                {
+                    var (TableWhite, CrownWhite) = Center_Inclusion(Convert.ToString(row["Center Inclusion"]));
+                    row["Table White"] = TableWhite;
+                    row["Crown White"] = CrownWhite;
+
+                    var (TableBlack, CrownBlack) = Black_Inclusion(Convert.ToString(row["Black Inclusion   "]));
+                    row["Table Black"] = TableBlack;
+                    row["Crown Black"] = CrownBlack;
+                }
+            }
+
             if (dt_APIRes != null)
             {
                 return ("SUCCESS", string.Empty, dt_APIRes);
@@ -6215,6 +6238,210 @@ namespace API.Controllers
             else
             {
                 return ("Data Not Found", string.Empty, dt_APIRes);
+            }
+        }
+        public (string, string) Center_Inclusion(string CenterInclusion)
+        {
+            if (CenterInclusion == "NONE")
+            {
+                return ("NN", "NN");
+            }
+            else
+            {
+                string[] strArray = CenterInclusion.Split(',');
+
+                Int32 ok_Len = Convert.ToInt32(strArray.Length) - 1;
+                Int32 Exist_Len = 0;
+
+                if (strArray[0] == "T1" || strArray[0] == "T2")
+                {
+                    if (strArray.Length == 2)
+                    {
+                        foreach (string str in strArray)
+                        {
+                            if (str.Trim() == "TS" || str.Trim() == "TC")
+                            {
+                                Exist_Len += 1;
+                            }
+                        }
+                        if (Exist_Len == ok_Len)
+                        {
+                            return ("T1", "NN");
+                        }
+
+                        foreach (string str in strArray)
+                        {
+                            if (str.Trim() == "CC" || str.Trim() == "CG")
+                            {
+                                Exist_Len += 1;
+                            }
+                        }
+                        if (Exist_Len == ok_Len)
+                        {
+                            return ("NN", "C1");
+                        }
+                    }
+                    else if (strArray.Length == 3)
+                    {
+                        foreach (string str in strArray)
+                        {
+                            if (str.Trim() == "TS" || str.Trim() == "TC" || str.Trim() == "CC" || str.Trim() == "CG")
+                            {
+                                Exist_Len += 1;
+                            }
+                        }
+                        if (Exist_Len == ok_Len)
+                        {
+                            return ("T1", "C1");
+                        }
+                    }
+                }
+                else if (strArray[0] == "T3")
+                {
+                    if (strArray.Length == 2)
+                    {
+                        foreach (string str in strArray)
+                        {
+                            if (str.Trim() == "TS" || str.Trim() == "TC")
+                            {
+                                Exist_Len += 1;
+                            }
+                        }
+                        if (Exist_Len == ok_Len)
+                        {
+                            return ("T2", "NN");
+                        }
+
+                        foreach (string str in strArray)
+                        {
+                            if (str.Trim() == "CC" || str.Trim() == "CG")
+                            {
+                                Exist_Len += 1;
+                            }
+                        }
+                        if (Exist_Len == ok_Len)
+                        {
+                            return ("NN", "C2");
+                        }
+                    }
+                    else if (strArray.Length == 3)
+                    {
+                        foreach (string str in strArray)
+                        {
+                            if (str.Trim() == "TS" || str.Trim() == "TC" || str.Trim() == "CC" || str.Trim() == "CG")
+                            {
+                                Exist_Len += 1;
+                            }
+                        }
+                        if (Exist_Len == ok_Len)
+                        {
+                            return ("T2", "C2");
+                        }
+                    }
+                }
+                return (null, null);
+            }
+        }
+        public (string, string) Black_Inclusion(string BlackInclusion)
+        {
+            if (BlackInclusion == "NONE")
+            {
+                return ("NN", "NN");
+            }
+            else
+            {
+                string[] strArray = BlackInclusion.Split(',');
+
+                Int32 ok_Len = Convert.ToInt32(strArray.Length) - 1;
+                Int32 Exist_Len = 0;
+
+                if (strArray[0] == "N1" || strArray[0] == "N2")
+                {
+                    if (strArray.Length == 2)
+                    {
+                        foreach (string str in strArray)
+                        {
+                            if (str.Trim() == "TS" || str.Trim() == "TC")
+                            {
+                                Exist_Len += 1;
+                            }
+                        }
+                        if (Exist_Len == ok_Len)
+                        {
+                            return ("BT1", "NN");
+                        }
+
+                        foreach (string str in strArray)
+                        {
+                            if (str.Trim() == "CC" || str.Trim() == "CG")
+                            {
+                                Exist_Len += 1;
+                            }
+                        }
+                        if (Exist_Len == ok_Len)
+                        {
+                            return ("NN", "BC1");
+                        }
+                    }
+                    else if (strArray.Length == 3)
+                    {
+                        foreach (string str in strArray)
+                        {
+                            if (str.Trim() == "TS" || str.Trim() == "TC" || str.Trim() == "CC" || str.Trim() == "CG")
+                            {
+                                Exist_Len += 1;
+                            }
+                        }
+                        if (Exist_Len == ok_Len)
+                        {
+                            return ("BT1", "BC1");
+                        }
+                    }
+                }
+                else if (strArray[0] == "N3")
+                {
+                    if (strArray.Length == 2)
+                    {
+                        foreach (string str in strArray)
+                        {
+                            if (str.Trim() == "TS" || str.Trim() == "TC")
+                            {
+                                Exist_Len += 1;
+                            }
+                        }
+                        if (Exist_Len == ok_Len)
+                        {
+                            return ("BT2", "NN");
+                        }
+
+                        foreach (string str in strArray)
+                        {
+                            if (str.Trim() == "CC" || str.Trim() == "CG")
+                            {
+                                Exist_Len += 1;
+                            }
+                        }
+                        if (Exist_Len == ok_Len)
+                        {
+                            return ("NN", "BC2");
+                        }
+                    }
+                    else if (strArray.Length == 3)
+                    {
+                        foreach (string str in strArray)
+                        {
+                            if (str.Trim() == "TS" || str.Trim() == "TC" || str.Trim() == "CC" || str.Trim() == "CG")
+                            {
+                                Exist_Len += 1;
+                            }
+                        }
+                        if (Exist_Len == ok_Len)
+                        {
+                            return ("BT2", "BC2");
+                        }
+                    }
+                }
+                return (null, null);
             }
         }
         public DataTable ColumnMapping_In_SupplierStock(string StockFrom, int SupplierId, DataTable dt_APIRes, DataTable dtSupplCol)
@@ -7209,7 +7436,8 @@ namespace API.Controllers
                                 //    dtSuppl.Rows[i]["Password"].ToString(),
                                 //    dtSuppl.Rows[i]["FileLocation"].ToString());
 
-                                var (msg, ex, dt1) = Supplier_Stock_Get_From_His_WEB_API_AND_FTP(Convert.ToString(dtSuppl.Rows[i]["APIType"]),
+                                var (msg, ex, dt1) = Supplier_Stock_Get_From_His_WEB_API_AND_FTP(Convert.ToInt32(dtSuppl.Rows[i]["Id"]), 
+                                    Convert.ToString(dtSuppl.Rows[i]["APIType"]),
                                     Convert.ToString(dtSuppl.Rows[i]["SupplierResponseFormat"]),
                                     Convert.ToString(dtSuppl.Rows[i]["SupplierURL"]),
                                     Convert.ToString(dtSuppl.Rows[i]["SupplierAPIMethod"]),
@@ -7694,6 +7922,7 @@ namespace API.Controllers
         public IHttpActionResult API_RESPONSE_CHECK()
         {
             var (msg, exe, dt) = Supplier_Stock_Get_From_His_WEB_API_AND_FTP(
+                                            5,
                                             "WEB_API", //APIType
                                             "JSON", //SupplierResponseFormat
                                             "http://www.starlightdiamonds.in/api/getstock", //SupplierURL
