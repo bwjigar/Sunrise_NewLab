@@ -214,6 +214,11 @@ namespace SunriseLabWeb_New.Controllers
 
                     folder = folder.Replace("\\" + ProjectName + "\\", "\\" + APIName + "\\");
 
+                    if (!Directory.Exists(folder))
+                    {
+                        Directory.CreateDirectory(folder);
+                    }
+
                     HttpFileCollectionBase files = Request.Files;
                     for (int i = 0; i < files.Count; i++)
                     {
@@ -257,6 +262,11 @@ namespace SunriseLabWeb_New.Controllers
                     string APIName = ConfigurationManager.AppSettings["APIName"];
 
                     folder = folder.Replace("\\" + ProjectName + "\\", "\\" + APIName + "\\");
+
+                    if (!Directory.Exists(folder))
+                    {
+                        Directory.CreateDirectory(folder);
+                    }
 
                     HttpFileCollectionBase files = Request.Files;
                     for (int i = 0; i < files.Count; i++)
@@ -327,6 +337,11 @@ namespace SunriseLabWeb_New.Controllers
                     string APIName = ConfigurationManager.AppSettings["APIName"];
 
                     folder = folder.Replace("\\" + ProjectName + "\\", "\\" + APIName + "\\");
+
+                    if (!Directory.Exists(folder))
+                    {
+                        Directory.CreateDirectory(folder);
+                    }
 
                     HttpFileCollectionBase files = Request.Files;
                     for (int i = 0; i < files.Count; i++)
