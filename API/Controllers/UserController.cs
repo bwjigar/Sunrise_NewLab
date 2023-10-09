@@ -1997,6 +1997,12 @@ namespace API.Controllers
                     Stock_dt = Lakhi_TableCrown_BlackWhite(Stock_dt);
                 }
 
+                Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
+                if (Req.SupplierId == StarRays_Id)
+                {
+                    Stock_dt = StarRays_TableCrownPav_Open(Stock_dt);
+                }
+
                 List<Get_SupplierColumnSetting_FromAPI_Res> List_Res = new List<Get_SupplierColumnSetting_FromAPI_Res>();
 
                 if (Stock_dt != null && Stock_dt.Rows.Count > 0)
@@ -7815,6 +7821,12 @@ namespace API.Controllers
                 if (req.SupplierId == Lakhi_Id)
                 {
                     Stock_dt = Lakhi_TableCrown_BlackWhite(Stock_dt);
+                }
+
+                Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
+                if (req.SupplierId == StarRays_Id)
+                {
+                    Stock_dt = StarRays_TableCrownPav_Open(Stock_dt);
                 }
 
                 if (Stock_dt != null && Stock_dt.Rows.Count > 0)
