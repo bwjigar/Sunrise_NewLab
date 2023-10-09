@@ -6216,6 +6216,18 @@ namespace API.Controllers
                 return ("ERROR", ex.Message, null);
             }
 
+            Int32 Lakhi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Lakhi_Id"]);
+            if (SupplierId == Lakhi_Id)
+            {
+                dt_APIRes = Lakhi_TableCrown_BlackWhite(dt_APIRes);
+            }
+
+            Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
+            if (SupplierId == StarRays_Id)
+            {
+                dt_APIRes = StarRays_TableCrownPav_Open(dt_APIRes);
+            }
+
             if (dt_APIRes != null)
             {
                 return ("SUCCESS", string.Empty, dt_APIRes);
@@ -6244,7 +6256,6 @@ namespace API.Controllers
             }
             return Stock_dt;
         }
-
         public (string, string) Center_Inclusion(string CenterInclusion)
         {
             if (CenterInclusion == "NONE")
@@ -6448,6 +6459,25 @@ namespace API.Controllers
                 }
             }
             return (null, null);
+        }
+        public DataTable StarRays_TableCrownPav_Open(DataTable Stock_dt)
+        {
+            Stock_dt.Columns.Add("Table Open", typeof(string));
+            Stock_dt.Columns.Add("Crown Open", typeof(string));
+            Stock_dt.Columns.Add("Pav Open", typeof(string));
+
+            foreach (DataRow row in Stock_dt.Rows)
+            {
+                string[] strArray = Convert.ToString(row["Open Inclusion"]).Split('/');
+
+                if (strArray.Length >= 3)
+                {
+                    row["Table Open"] = strArray[0];
+                    row["Crown Open"] = strArray[1];
+                    row["Pav Open"] = strArray[2];
+                }
+            }
+            return Stock_dt;
         }
         public DataTable ColumnMapping_In_SupplierStock(string StockFrom, int SupplierId, DataTable dt_APIRes, DataTable dtSupplCol)
         {
