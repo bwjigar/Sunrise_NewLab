@@ -237,6 +237,8 @@ namespace Lib.Model
         public int iPgNo { get; set; }
         public int iPgSize { get; set; }
         public string OrderBy { get; set; }
+        public bool WebAPIFTPStockUpload { get; set; }
+        public bool FileStockUpload { get; set; }
     }
     public class Get_SupplierMaster_Res
     {

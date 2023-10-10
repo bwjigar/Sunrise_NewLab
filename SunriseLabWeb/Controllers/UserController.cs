@@ -142,6 +142,13 @@ namespace SunriseLabWeb_New.Controllers
         {
             return View();
         }
+        public JsonResult Get_Supplier_ForSearchStock(Get_SupplierMaster_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Get_Supplier_ForSearchStock, inputJson);
+            ServiceResponse<Get_SupplierMaster_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SupplierMaster_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult Get_SupplierMaster(Get_SupplierMaster_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);

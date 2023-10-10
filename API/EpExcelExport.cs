@@ -1821,6 +1821,19 @@ namespace API
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Ref_No"]);
                                 }
+                                else if (Column_Name == "Cert No")
+                                {
+                                    string Certificate_No = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_No"]);
+                                    success1 = Int64.TryParse(Certificate_No, out number_1);
+                                    if (success1)
+                                    {
+                                        worksheet.Cells[inwrkrow, kk].Value = Convert.ToInt64(dtDiamonds.Rows[i - inStartIndex]["Certificate_No"]);
+                                    }
+                                    else
+                                    {
+                                        worksheet.Cells[inwrkrow, kk].Value = Certificate_No;
+                                    }
+                                }
                                 else if (Column_Name == "Lab")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]);

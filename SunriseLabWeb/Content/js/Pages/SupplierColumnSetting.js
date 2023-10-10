@@ -11,6 +11,7 @@ function Master_Get() {
     $("#DdlSupplierName").html("<option value=''>Select</option>");
     var obj = {};
     obj.OrderBy = "SupplierName asc";
+    obj.WebAPIFTPStockUpload = true;
     $.ajax({
         url: "/User/Get_SupplierMaster",
         async: false,

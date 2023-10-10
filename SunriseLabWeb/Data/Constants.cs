@@ -32,6 +32,8 @@ namespace SunriseLabWeb_New.Data
         public static string Get_CategoryDet = "/User/Get_CategoryDet";
         public static string AddUpdate_CategoryDet = "/User/AddUpdate_CategoryDet";
         public static string Delete_CategoryDet = "/User/Delete_CategoryDet";
+        
+        public static string Get_Supplier_ForSearchStock = "/User/Get_Supplier_ForSearchStock";
         public static string Get_SupplierMaster = "/User/Get_SupplierMaster";
         public static string AddUpdate_SupplierMaster = "/User/AddUpdate_SupplierMaster";
         public static string Get_Not_Mapped_SupplierStock = "/User/Get_Not_Mapped_SupplierStock";

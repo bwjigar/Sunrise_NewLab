@@ -1991,16 +1991,26 @@ namespace API.Controllers
                     Stock_dt = Convert_FILE_To_DataTable(".csv", Req.FilePath, "");
                 }
 
-                Int32 Lakhi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Lakhi_Id"]);
-                if (Req.SupplierId == Lakhi_Id)
+                Int32 VishindasHolaram_Lakhi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["VishindasHolaram_Lakhi_Id"]);
+                Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]); 
+                Int32 JewelParadise_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JewelParadise_Id"]); 
+                Int32 Diamart_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Diamart_Id"]); 
+                
+                if (Req.SupplierId == VishindasHolaram_Lakhi_Id)
                 {
                     Stock_dt = Lakhi_TableCrown_BlackWhite(Stock_dt);
                 }
-
-                Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
-                if (Req.SupplierId == StarRays_Id)
+                else if (Req.SupplierId == StarRays_Id)
                 {
                     Stock_dt = StarRays_TableCrownPav_Open(Stock_dt);
+                }
+                else if (Req.SupplierId == JewelParadise_Id)
+                {
+                    Stock_dt = JewelParadise_Shade(Stock_dt);
+                }
+                else if (Req.SupplierId == Diamart_Id)
+                {
+                    Stock_dt = Diamart_Shade(Stock_dt);
                 }
 
                 List<Get_SupplierColumnSetting_FromAPI_Res> List_Res = new List<Get_SupplierColumnSetting_FromAPI_Res>();
@@ -2236,6 +2246,65 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        public IHttpActionResult Get_Supplier_ForSearchStock([FromBody] JObject data)
+        {
+            Get_SupplierMaster_Req Req = new Get_SupplierMaster_Req();
+            try
+            {
+                Req = JsonConvert.DeserializeObject<Get_SupplierMaster_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_SupplierMaster_Res>
+                {
+                    Data = new List<Get_SupplierMaster_Res>(),
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                DataTable dt = db.ExecuteSP("Get_Supplier_ForSearchStock", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    List<Get_SupplierMaster_Res> List_Res = new List<Get_SupplierMaster_Res>();
+                    List_Res = DataTableExtension.ToList<Get_SupplierMaster_Res>(dt);
+
+                    return Ok(new ServiceResponse<Get_SupplierMaster_Res>
+                    {
+                        Data = List_Res,
+                        Message = "SUCCESS",
+                        Status = "1"
+                    });
+                }
+                else
+                {
+                    return Ok(new ServiceResponse<Get_SupplierMaster_Res>
+                    {
+                        Data = new List<Get_SupplierMaster_Res>(),
+                        Message = "No records found.",
+                        Status = "1"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_SupplierMaster_Res>
+                {
+                    Data = new List<Get_SupplierMaster_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
         public IHttpActionResult Get_SupplierMaster([FromBody] JObject data)
         {
             Get_SupplierMaster_Req Req = new Get_SupplierMaster_Req();
@@ -2283,6 +2352,9 @@ namespace API.Controllers
                     para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, Req.OrderBy));
                 else
                     para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                para.Add(db.CreateParam("WebAPIFTPStockUpload", DbType.Boolean, ParameterDirection.Input, Req.WebAPIFTPStockUpload));
+                para.Add(db.CreateParam("FileStockUpload", DbType.Boolean, ParameterDirection.Input, Req.FileStockUpload));
 
                 DataTable dt = db.ExecuteSP("Get_SupplierMaster", para.ToArray(), false);
 
@@ -6222,16 +6294,26 @@ namespace API.Controllers
                 return ("ERROR", ex.Message, null);
             }
 
-            Int32 Lakhi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Lakhi_Id"]);
-            if (SupplierId == Lakhi_Id)
+            Int32 VishindasHolaram_Lakhi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["VishindasHolaram_Lakhi_Id"]);
+            Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
+            Int32 JewelParadise_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JewelParadise_Id"]);
+            Int32 Diamart_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Diamart_Id"]);
+
+            if (SupplierId == VishindasHolaram_Lakhi_Id)
             {
                 dt_APIRes = Lakhi_TableCrown_BlackWhite(dt_APIRes);
             }
-
-            Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
-            if (SupplierId == StarRays_Id)
+            else if (SupplierId == StarRays_Id)
             {
                 dt_APIRes = StarRays_TableCrownPav_Open(dt_APIRes);
+            }
+            else if (SupplierId == JewelParadise_Id)
+            {
+                dt_APIRes = JewelParadise_Shade(dt_APIRes);
+            }
+            else if (SupplierId == Diamart_Id)
+            {
+                dt_APIRes = Diamart_Shade(dt_APIRes);
             }
 
             if (dt_APIRes != null)
@@ -6481,6 +6563,62 @@ namespace API.Controllers
                     row["Table Open"] = strArray[0];
                     row["Crown Open"] = strArray[1];
                     row["Pav Open"] = strArray[2];
+                }
+            }
+            return Stock_dt;
+        }
+        public DataTable JewelParadise_Shade(DataTable Stock_dt)
+        {
+            Stock_dt.Columns.Add("Shade", typeof(string));
+
+            foreach (DataRow row in Stock_dt.Rows)
+            {
+                string colsh = Convert.ToString(row["colsh"]);
+                string green = Convert.ToString(row["green"]);
+                string othertinge = Convert.ToString(row["othertinge"]);
+
+                if (colsh == "B1" || colsh == "B2")
+                {
+                    row["Shade"] = "Brown";
+                }
+                else if (green == "G1" || green == "G2")
+                {
+                    row["Shade"] = "Mix Tinge";
+                }
+                else if (othertinge == "OT1" || othertinge == "OT2")
+                {
+                    row["Shade"] = "Mix Tinge";
+                }
+                else
+                {
+                    row["Shade"] = "White";
+                }
+            }
+            return Stock_dt;
+        }
+        public DataTable Diamart_Shade(DataTable Stock_dt)
+        {
+            foreach (DataRow row in Stock_dt.Rows)
+            {
+                string Shade = Convert.ToString(row["Shade"]);
+                string Brown = Convert.ToString(row["Brown"]);
+                string Green = Convert.ToString(row["Green"]);
+
+                if (Shade == "FMT" || Shade == "HMT" || Shade == "LMT" || Shade == "MMT")
+                {
+                    row["Shade"] = "Mix Tinge";
+                }
+                else if (Brown == "FBR" || Brown == "HBR" || Brown == "LBR" || Brown == "MBR")
+                {
+                    row["Shade"] = "Brown";
+                }
+                else if (Green == "FGR" || Green == "HGR" || Green == "LGR" || Green == "MGR")
+                {
+                    row["Shade"] = "Mix Tinge";
+                }
+                else
+                {
+                    row["Shade"] = "White";
                 }
             }
             return Stock_dt;
@@ -7817,16 +7955,26 @@ namespace API.Controllers
                 }
                 req.SheetName = req.SheetName.Replace("_ALL_SHEET_$", "ALL$");
 
-                Int32 Lakhi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Lakhi_Id"]);
-                if (req.SupplierId == Lakhi_Id)
+                Int32 VishindasHolaram_Lakhi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["VishindasHolaram_Lakhi_Id"]);
+                Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
+                Int32 JewelParadise_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JewelParadise_Id"]);
+                Int32 Diamart_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Diamart_Id"]);
+
+                if (req.SupplierId == VishindasHolaram_Lakhi_Id)
                 {
                     Stock_dt = Lakhi_TableCrown_BlackWhite(Stock_dt);
                 }
-
-                Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
-                if (req.SupplierId == StarRays_Id)
+                else if (req.SupplierId == StarRays_Id)
                 {
                     Stock_dt = StarRays_TableCrownPav_Open(Stock_dt);
+                }
+                else if (req.SupplierId == JewelParadise_Id)
+                {
+                    Stock_dt = JewelParadise_Shade(Stock_dt);
+                }
+                else if (req.SupplierId == Diamart_Id)
+                {
+                    Stock_dt = Diamart_Shade(Stock_dt);
                 }
 
                 if (Stock_dt != null && Stock_dt.Rows.Count > 0)

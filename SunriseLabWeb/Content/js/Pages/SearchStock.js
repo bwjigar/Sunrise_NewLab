@@ -402,7 +402,7 @@ function BuyerList() {
                     }
                     else if (item.Column_Name == "Avg. Stock Disc(%)") {
                         columnDefs.push({ headerName: "Avg. Stock Disc(%)", field: "Avg_Stock_Disc", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Avg_Stock_Disc", params); } });
-                    } 
+                    }
                     else if (item.Column_Name == "Avg. Stock Pcs") {
                         columnDefs.push({ headerName: "Avg. Stock Pcs", field: "Avg_Stock_Pcs", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 0); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 0); }, cellStyle: function (params) { return cellStyle("Avg_Stock_Pcs", params); } });
                     }
@@ -582,6 +582,9 @@ function CustomerList() {
                     }
                     else if (item.Column_Name == "Lab") {
                         columnDefs.push({ headerName: "Lab", field: "Lab", width: 50, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab", params); }, cellRenderer: function (params) { return Lab(params); } });
+                    }
+                    else if (item.Column_Name == "Cert No") {
+                        columnDefs.push({ headerName: "Cert No", field: "Certificate_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Certificate_No", params); } });
                     }
                     else if (item.Column_Name == "Shape") {
                         columnDefs.push({ headerName: "Shape", field: "Shape", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Shape", params); } });
@@ -799,7 +802,7 @@ const datasource1 = {
         if (params.request.sortModel.length > 0) {
             OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
         }
-        
+
         obj = ObjectCreate(PageNo, pgSize, OrderBy, '');
 
         Rowdata = [];
@@ -809,7 +812,6 @@ const datasource1 = {
             type: "POST",
             data: { req: obj },
             success: function (data, textStatus, jqXHR) {
-                debugger
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
@@ -2130,18 +2132,18 @@ function GetTransId() {
     $("#ddlSupplierId").html("");
 
     var obj = {};
-    obj.OrderBy = "SupplierName asc";
+    //obj.OrderBy = "SupplierName asc";
     $.ajax({
-        url: "/User/Get_SupplierMaster",
+        url: "/User/Get_Supplier_ForSearchStock",
+        //url: "/User/Get_SupplierMaster",
         async: false,
         type: "POST",
         data: { req: obj },
         success: function (data, textStatus, jqXHR) {
+            debugger
             if (data != null && data.Data.length > 0) {
                 for (var k in data.Data) {
-                    if (data.Data[k].Active == true) {
-                        $("#ddlSupplierId").append("<option value='" + data.Data[k].Id + "'>" + data.Data[k].SupplierName + "</option>");
-                    }
+                    $("#ddlSupplierId").append("<option value='" + data.Data[k].Id + "'>" + data.Data[k].SupplierName + "</option>");
                 }
             }
             ddlTransObj = $('#ddlSupplierId').multiselect({
