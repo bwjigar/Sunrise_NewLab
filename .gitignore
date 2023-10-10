@@ -63,3 +63,11 @@
 /Lib/obj/Debug/Lib.pdb
 /Lib/bin/Debug/Lib.dll
 /Lib/bin/Debug/Lib.pdb
+/API/bin/Lib.dll
+/API/bin/Lib.pdb
+/SunriseLabWeb/bin/Lib.dll
+/SunriseLabWeb/bin/Lib.pdb
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Content/js/Pages/
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Content/js/Pages/SupplierColumnSettingFromFile.js
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Content/js/Pages/SupplierStockUpload.js
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Views/User/SearchStock.cshtml
