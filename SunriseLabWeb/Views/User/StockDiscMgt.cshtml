@@ -650,6 +650,25 @@
                     </div>
                     <div class="row m-0" style="margin-top: 8px !important;">
                         <div class="col-sm-4 col-xs-12 api-plr">
+                            <strong>Used For <span style="color:red;">*</span></strong>
+                        </div>
+                        <div class="col-sm-2 col-xs-5 api-plr">
+                            <label class="cust-chk-bx text-left api-check">
+                                <input checked="checked" id="View" name="View" type="checkbox" value="true" class="onpristine onuntouched onvalid onempty UsedFor">
+                                <strong>View</strong>
+                                <span class="cust-chkmark"></span>
+                            </label>
+                        </div>
+                        <div class="col-sm-2 col-xs-5 api-plr">
+                            <label class="cust-chk-bx text-left api-check">
+                                <input checked="checked" id="Download" name="Download" type="checkbox" value="true" class="onpristine onuntouched onvalid onempty UsedFor">
+                                <strong>Download</strong>
+                                <span class="cust-chkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row m-0" style="margin-top: 8px !important;">
+                        <div class="col-sm-4 col-xs-12 api-plr">
                             <strong>Image</strong>
                         </div>
                         <div class="col-sm-2 col-xs-5 api-plr">
@@ -701,37 +720,37 @@
                         </div>
                     </div>
                     @*<div class="row m-0" style="margin-top: 6px !important;">
-                        <div class="col-sm-3 col-xs-12 api-plr">
-                            <strong>Price Method <span style="color:red;">*</span></strong>
-                        </div>
-                        <div class="col-sm-5 col-sm-5 col-xs-10 custom-box-list api-plr">
-                            <select class="form-control select2" id="PricingMethod" name="PricingMethod" onchange="PricingMethodDDL();">
-                                <option value="">Select Method</option>
-                                <option value="Disc">Discount</option>
-                                <option value="Value">Value</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-3 col-sm-3 col-xs-10 custom-box-list api-plr">
-                            <select class="form-control select2" id="PricingSign" name="PricingSign">
-                                <option value="=">=</option>
-                                <option value="+">+</option>
-                                <option value="-">-</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row m-0">
-                        <div class="col-sm-3 col-xs-12 api-plr">
-                            <strong>Percentage <span style="color:red;">*</span></strong>
-                        </div>
-                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
-                            <div class="col-md-3 api-plr txtDisc"><input type="text" id="txtDisc1" name="txtDisc1" onkeypress="return DisValValid('Disc', event)" onkeyup="LenCheckr('Disc')" class="form-control" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue1" name="txtValue1" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue2" name="txtValue2" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue3" name="txtValue3" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue4" name="txtValue4" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                            <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr"></label>
-                        </div>
-                    </div>*@
+            <div class="col-sm-3 col-xs-12 api-plr">
+                <strong>Price Method <span style="color:red;">*</span></strong>
+            </div>
+            <div class="col-sm-5 col-sm-5 col-xs-10 custom-box-list api-plr">
+                <select class="form-control select2" id="PricingMethod" name="PricingMethod" onchange="PricingMethodDDL();">
+                    <option value="">Select Method</option>
+                    <option value="Disc">Discount</option>
+                    <option value="Value">Value</option>
+                </select>
+            </div>
+            <div class="col-sm-3 col-sm-3 col-xs-10 custom-box-list api-plr">
+                <select class="form-control select2" id="PricingSign" name="PricingSign">
+                    <option value="=">=</option>
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                </select>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-sm-3 col-xs-12 api-plr">
+                <strong>Percentage <span style="color:red;">*</span></strong>
+            </div>
+            <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
+                <div class="col-md-3 api-plr txtDisc"><input type="text" id="txtDisc1" name="txtDisc1" onkeypress="return DisValValid('Disc', event)" onkeyup="LenCheckr('Disc')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue1" name="txtValue1" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue2" name="txtValue2" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue3" name="txtValue3" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue4" name="txtValue4" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr"></label>
+            </div>
+        </div>*@
                 </div>
             </div>
         </div>
@@ -889,6 +908,7 @@
                             <th rowspan="3" style="vertical-align: middle;">Crown White</th>
                             <th rowspan="3" style="vertical-align: middle;">Table White</th>
                             <th rowspan="3" style="vertical-align: middle;">Goods Type</th>
+                            <th rowspan="3" style="vertical-align: middle;">Used For</th>
                             <th rowspan="3" style="vertical-align: middle;">Image</th>
                             <th rowspan="3" style="vertical-align: middle;">Video</th>
                             <th colspan="9" style="vertical-align: middle;">CUSTOMER COST DISC</th>
@@ -1000,9 +1020,9 @@
 
         <div>
             <ul class="offer-inbtn pull-right mt-3" style="margin-bottom: 15px; margin-top: 25px !important;">
-                <li class="mr-2 DeleteAll">
+                @*<li class="mr-2 DeleteAll">
                     <button onclick="DeleteAll();" type="button" class="offer-btn"><i class="fa fa-trash"></i>Delete All</button>
-                </li>
+                </li>*@
                 <li class="mr-2">
                     <button onclick="SaveData();" type="button" class="offer-btn"><i class="fa fa-save"></i>Save</button>
                 </li>

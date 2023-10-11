@@ -730,6 +730,8 @@ namespace API.Controllers
                 dt.Columns.Add("Value_2_3", typeof(string));
                 dt.Columns.Add("Value_2_4", typeof(string));
                 dt.Columns.Add("Value_2_5", typeof(string));
+                dt.Columns.Add("View", typeof(string));
+                dt.Columns.Add("Download", typeof(string));
 
                 if (req.SuppDisc.Count() > 0)
                 {
@@ -800,6 +802,8 @@ namespace API.Controllers
                         dr["Value_2_3"] = req.SuppDisc[i].Value_2_3;
                         dr["Value_2_4"] = req.SuppDisc[i].Value_2_4;
                         dr["Value_2_5"] = req.SuppDisc[i].Value_2_5;
+                        dr["View"] = req.SuppDisc[i].View;
+                        dr["Download"] = req.SuppDisc[i].Download;
 
                         dt.Rows.Add(dr);
                     }
@@ -3771,6 +3775,10 @@ namespace API.Controllers
                     para.Add(db.CreateParam("ToPavHt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToPavHt)));
                 else
                     para.Add(db.CreateParam("ToPavHt", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                para.Add(db.CreateParam("View", DbType.Boolean, ParameterDirection.Input, req.View));
+
+                para.Add(db.CreateParam("Download", DbType.Boolean, ParameterDirection.Input, req.Download));
 
                 DataTable Stock_dt = db.ExecuteSP("Get_SearchStock", para.ToArray(), false);
                 return Stock_dt;

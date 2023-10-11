@@ -1423,10 +1423,10 @@ function Reset_API_Filter() {
     ResetSelectedAttr('.divCheckedCrnWhiteValue', TableBlackList);
     ResetSelectedAttr('.divCheckedTblWhiteValue', TableWhiteList);
 
+    $("#View").prop("checked", true);
+    $("#Download").prop("checked", true);
     $(".IgAll").prop("checked", true);
     $(".VdAll").prop("checked", true);
-
-
 
     for (var j = 1; j <= 2; j++) {
         $("#PricingMethod_" + j).val("");
@@ -2259,7 +2259,7 @@ function HTML_CREATE(
     Supplier, Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
     FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
     FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
-    Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
+    Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, View, Download, Image, Video,
     PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
     Chk_Speci_Additional_1, txtFromDate, txtToDate,
     PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5,
@@ -2310,6 +2310,10 @@ function HTML_CREATE(
     html += "<td><span class='Fi-Criteria CrownWhite'>" + CrownWhite + "</span></td>";
     html += "<td><span class='Fi-Criteria TableWhite'>" + TableWhite + "</span></td>";
     html += "<td><span class='Fi-Criteria GoodsType'>" + GoodsType + "</span></td>";
+
+    html += "<td style='display:none;'><span class='Fi-Criteria UsedView'>" + View + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria UsedDownload'>" + Download + "</span></td>";
+    html += "<td><span class='Fi-Criteria UsedFor'>" + (View == true ? "View" : "") + (Download == true ? (View == true ? " & " : "") + "Download" : "") + "</span></td>";
     html += "<td><span class='Fi-Criteria Image'>" + Image + "</span></td>";
     html += "<td><span class='Fi-Criteria Video'>" + Video + "</span></td>";
 
@@ -2447,6 +2451,12 @@ function HTML_CREATE(
 var ErrorMsg = [];
 var GetError = function () {
     ErrorMsg = [];
+
+    if ($('#View:checked').val() == undefined && $('#Download:checked').val() == undefined) {
+        ErrorMsg.push({
+            'Error': "Please Select Used For.",
+        });
+    }
 
     if ($("#PricingMethod_1").val() == "") {
         ErrorMsg.push({
@@ -2610,6 +2620,10 @@ var AddNewRow = function () {
             var CrownWhite = _.pluck(_.filter(CrownWhiteList, function (e) { return e.isActive == true }), 'Value').join(",");
             var TableWhite = _.pluck(_.filter(TableWhiteList, function (e) { return e.isActive == true }), 'Value').join(",");
             var GoodsType = _.pluck(_.filter(GoodsTypeList, function (e) { return e.isActive == true }), 'Value').join(",");
+
+            var View = ($('#View:checked').val() == undefined ? false : true);
+            var Download = ($('#Download:checked').val() == undefined ? false : true);
+
             var Image = $('#Img:checked').val();
             var Video = $('#Vdo:checked').val();
 
@@ -2829,7 +2843,7 @@ var AddNewRow = function () {
             var html = HTML_CREATE(Supplier, Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
                 FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
                 FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
-                Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
+                Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, View, Download, Image, Video,
                 PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
                 Chk_Speci_Additional_1, txtFromDate, txtToDate,
                 PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5,
@@ -2971,6 +2985,14 @@ function UpdateRow() {
 
                 var GoodsType = _.pluck(_.filter(GoodsTypeList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.GoodsType').html(GoodsType);
+
+
+                debugger
+                $(this).find('.UsedView').html(($('#View:checked').val() != undefined ? "true" : "false"));
+                $(this).find('.UsedDownload').html(($('#Download:checked').val() != undefined ? "true" : "false"));
+                $(this).find('.UsedFor').html(($('#View:checked').val() == "true" ? "View" : "") + ($('#Download:checked').val() == "true" ? ($('#View:checked').val() == "true" ? " & " : "") + "Download" : ""));
+                
+                
 
                 $(this).find('.Image').html($('#Img:checked').val());
                 $(this).find('.Video').html($('#Vdo:checked').val());
@@ -3463,9 +3485,12 @@ function EditCriteria(new_id) {
                     }
                 }
 
+                debugger
+                $("#View").prop("checked", ($(this).find('.UsedView').html() == "true" ? true : false));
+                $("#Download").prop("checked", ($(this).find('.UsedDownload').html() == "true" ? true : false));
+
                 $(".Ig" + $(this).find('.Image').html()).prop("checked", true);
                 $(".Vd" + $(this).find('.Video').html()).prop("checked", true);
-
 
                 var PricingMethod_1 = $(this).find('.PricingMethod_1').html();
                 var PricingSign_1 = $(this).find('.PricingSign_1').html();
@@ -3682,6 +3707,10 @@ function SaveData() {
                 CrownWhite: $(this).find('.CrownWhite').html(),
                 TableWhite: $(this).find('.TableWhite').html(),
                 GoodsType: $(this).find('.GoodsType').html(),
+
+                View: $(this).find('.UsedView').html(),
+                Download: $(this).find('.UsedDownload').html(),
+
                 Image: $(this).find('.Image').html(),
                 Video: $(this).find('.Video').html(),
                 PricingMethod_1: $(this).find('.PricingMethod_1').html(),
@@ -3843,6 +3872,10 @@ function Get_Customer_Stock_Disc() {
                     var CrownWhite = NullReplace(itm.CrownWhite);
                     var TableWhite = NullReplace(itm.TableWhite);
                     var GoodsType = NullReplace(itm.GoodsType);
+
+                    var View = itm.View;
+                    var Download = itm.Download;
+
                     var Image = NullReplace(itm.Image);
                     var Video = NullReplace(itm.Video);
 
@@ -4000,7 +4033,7 @@ function Get_Customer_Stock_Disc() {
 
                     html += HTML_CREATE(Supplier, Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab, FromLength, ToLength,
                         FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng, FromCrHt, ToCrHt, FromPavAng,
-                        ToPavAng, FromPavHt, ToPavHt, Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
+                        ToPavAng, FromPavHt, ToPavHt, Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, View, Download, Image, Video,
                         PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5, Chk_Speci_Additional_1, txtFromDate, txtToDate,
                         PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5, new_id);
                 });

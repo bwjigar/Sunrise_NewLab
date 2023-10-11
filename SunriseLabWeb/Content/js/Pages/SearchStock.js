@@ -804,6 +804,8 @@ const datasource1 = {
         }
 
         obj = ObjectCreate(PageNo, pgSize, OrderBy, '');
+        obj.View = true;
+        obj.Download = false;
 
         Rowdata = [];
         $.ajax({
@@ -863,6 +865,8 @@ function ExcelDownload(where) {
     setTimeout(function () {
         var obj = {};
         obj = ObjectCreate("", "", OrderBy, where);
+        obj.View = false;
+        obj.Download = true;
 
         $.ajax({
             url: "/User/Excel_SearchStock",

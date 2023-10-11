@@ -486,6 +486,8 @@ namespace Lib.Model
         public string Value_4_3 { get; set; }
         public string Value_4_4 { get; set; }
         public string Value_4_5 { get; set; }
+        public bool View { get; set; }
+        public bool Download { get; set; }
     }
     public class Get_SearchStock_Req
     {
@@ -569,6 +571,8 @@ namespace Lib.Model
         public string ToPavHt { get; set; }
 
         public string Type { get; set; }
+        public bool View { get; set; }
+        public bool Download { get; set; }
     }
     public class Get_SearchStock_Res
     {
