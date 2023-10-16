@@ -3313,24 +3313,32 @@ namespace API.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult Get_SearchStock([FromBody] JObject data)
         {
             Get_SearchStock_Req req = new Get_SearchStock_Req();
-            try
+
+            if (!string.IsNullOrEmpty(Convert.ToString(data)))
             {
-                req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
+                JObject test1 = JObject.Parse(data.ToString());
+                req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
             }
-            catch (Exception ex)
-            {
-                Common.InsertErrorLog(ex, null, Request);
-                return Ok(new ServiceResponse<Get_SearchStock_Res>
-                {
-                    Data = new List<Get_SearchStock_Res>(),
-                    Message = "Input Parameters are not in the proper format",
-                    Status = "0"
-                });
-            }
+
+            //try
+            //{
+            //    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
+            //}
+            //catch (Exception ex)
+            //{
+            //    Common.InsertErrorLog(ex, null, Request);
+            //    return Ok(new ServiceResponse<Get_SearchStock_Res>
+            //    {
+            //        Data = new List<Get_SearchStock_Res>(),
+            //        Message = "Input Parameters are not in the proper format",
+            //        Status = "0"
+            //    });
+            //}
             try
             {
                 DataTable Stock_dt = SearchStock(req);
@@ -3359,19 +3367,28 @@ namespace API.Controllers
                 });
             }
         }
+        
+        [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult Excel_SearchStock([FromBody] JObject data)
         {
             Get_SearchStock_Req req = new Get_SearchStock_Req();
-            try
+
+            if (!string.IsNullOrEmpty(Convert.ToString(data)))
             {
-                req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
+                JObject test1 = JObject.Parse(data.ToString());
+                req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
             }
-            catch (Exception ex)
-            {
-                Common.InsertErrorLog(ex, null, Request);
-                return Ok("Input Parameters are not in the proper format");
-            }
+            
+            //try
+            //{
+            //    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
+            //}
+            //catch (Exception ex)
+            //{
+            //    Common.InsertErrorLog(ex, null, Request);
+            //    return Ok("Input Parameters are not in the proper format");
+            //}
             try
             {
                 DataTable Stock_dt = SearchStock(req);
@@ -3389,9 +3406,9 @@ namespace API.Controllers
                         List<IDbDataParameter> para;
                         para = new List<IDbDataParameter>();
 
-                        int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+                        //int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
 
-                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
                         para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "BUYER"));
 
                         DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
@@ -3404,9 +3421,9 @@ namespace API.Controllers
                         List<IDbDataParameter> para;
                         para = new List<IDbDataParameter>();
 
-                        int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+                        //int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
 
-                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
                         para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "SUPPLIER"));
 
                         DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
@@ -3419,9 +3436,9 @@ namespace API.Controllers
                         List<IDbDataParameter> para;
                         para = new List<IDbDataParameter>();
 
-                        int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+                        //int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
 
-                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
                         para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "CUSTOMER"));
 
                         DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
@@ -3452,9 +3469,9 @@ namespace API.Controllers
                 Database db = new Database();
                 List<IDbDataParameter> para = new List<IDbDataParameter>();
 
-                int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+                //int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
 
-                para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, userID));
+                para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, req.UserId));
 
                 if (req.PgNo > 0)
                     para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, req.PgNo));

@@ -143,7 +143,7 @@ function SupplierList() {
                         columnDefs.push({ headerName: "Lab", field: "Lab", width: 50, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab", params); }, cellRenderer: function (params) { return Lab(params); } });
                     }
                     else if (item.Column_Name == "Image-Video") {
-                        columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 90, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, false); }, suppressSorting: true, suppressMenu: true, sortable: false });
+                        columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, false); }, suppressSorting: true, suppressMenu: true, sortable: false });
                     }
                     else if (item.Column_Name == "Supplier Stone Id") {
                         columnDefs.push({ headerName: "Supplier Stone Id", field: "Supplier_Stone_Id", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Stone_Id", params); } });
@@ -322,8 +322,8 @@ function BuyerList() {
                 columnDefs.push({ field: "Certificate_No", hide: true });
 
                 data.Data.forEach(function (item) {
-                    if (item.Column_Name == "Image-Video-Certi") {
-                        columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 90, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
+                    if (item.Column_Name == "Image-Video") {
+                        columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
                     }
                     else if (item.Column_Name == "Lab") {
                         columnDefs.push({ headerName: "Lab", field: "Lab", width: 50, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab", params); }, cellRenderer: function (params) { return Lab(params); } });
@@ -574,8 +574,8 @@ function CustomerList() {
                 columnDefs.push({ field: "Certificate_No", hide: true });
 
                 data.Data.forEach(function (item) {
-                    if (item.Column_Name == "Image-Video-Certi") {
-                        columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 90, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
+                    if (item.Column_Name == "Image-Video") {
+                        columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
                     }
                     else if (item.Column_Name == "Ref No") {
                         columnDefs.push({ headerName: "Ref No", field: "Ref_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("RefNo", params); } });
@@ -938,6 +938,7 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
     var KeyToSymLst_uncheck = _.pluck(UnCheckKeyToSymbolList, 'Symbol').join(",");
 
 
+    obj.UserId = $("#hdn_UserId").val();
     obj.PgNo = PageNo;
     obj.PgSize = pgSize;
     obj.OrderBy = OrderBy;
@@ -1221,21 +1222,21 @@ function Imag_Video_Certi(params, Img, Vdo, Cert) {
         movie_url = "";
     }
 
-    if (Cert == true) {
-        if (certi_url != "") {
-            certi_url = '<li><a href="' + certi_url + '" target="_blank" title="View Diamond Certificate">' +
-                '<img src="../Content/images/medal.svg" class="medal-icon"></a></li>';
-        }
-        else {
-            certi_url = '<li><a href="javascript:void(0);" title="View Diamond Certificate">' +
-                '<img src="../Content/images/medal-not-available.svg" class="medal-icon"></a></li>';
-        }
-    }
-    else {
-        certi_url = "";
-    }
+    //if (Cert == true) {
+    //    if (certi_url != "") {
+    //        certi_url = '<li><a href="' + certi_url + '" target="_blank" title="View Diamond Certificate">' +
+    //            '<img src="../Content/images/medal.svg" class="medal-icon"></a></li>';
+    //    }
+    //    else {
+    //        certi_url = '<li><a href="javascript:void(0);" title="View Diamond Certificate">' +
+    //            '<img src="../Content/images/medal-not-available.svg" class="medal-icon"></a></li>';
+    //    }
+    //}
+    //else {
+    //    certi_url = "";
+    //}
 
-    var data = ('<ul class="flat-icon-ul">' + image_url + movie_url + certi_url + '</ul>');
+    var data = ('<ul class="flat-icon-ul">' + image_url + movie_url + '</ul>');
     return data;
 }
 function onSelectionChanged(event) {

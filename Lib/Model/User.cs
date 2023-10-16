@@ -490,6 +490,7 @@ namespace Lib.Model
     }
     public class Get_SearchStock_Req
     {
+        public int UserId { get; set; }
         public int PgNo { get; set; }
         public int PgSize { get; set; }
         public string OrderBy { get; set; }

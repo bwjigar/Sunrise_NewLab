@@ -83,9 +83,9 @@ namespace API
                         string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
                         double AutoFitColumns = Convert.ToDouble(Col_dt.Rows[j]["ExcelWidth"]);
 
-                        if (Column_Name == "Image-Video-Certi")
+                        if (Column_Name == "Image-Video")
                         {
-                            Row_Count += 2;
+                            Row_Count += 1;
 
                             k += 1;
                             worksheet.Cells[2, k].Value = "Image";
@@ -94,10 +94,6 @@ namespace API
                             k += 1;
                             worksheet.Cells[2, k].Value = "Video";
                             worksheet.Cells[2, k].AutoFitColumns(7);
-
-                            k += 1;
-                            worksheet.Cells[2, k].Value = "Certi";
-                            worksheet.Cells[2, k].AutoFitColumns(6);
                         }
                         else
                         {
@@ -160,7 +156,7 @@ namespace API
                             string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
                             double AutoFitColumns = Convert.ToDouble(Col_dt.Rows[j]["ExcelWidth"]);
 
-                            if (Column_Name == "Image-Video-Certi")
+                            if (Column_Name == "Image-Video")
                             {
                                 kk += 1;
 
@@ -181,16 +177,6 @@ namespace API
                                     worksheet.Cells[inwrkrow, kk].Style.Font.UnderLine = true;
                                     worksheet.Cells[inwrkrow, kk].Style.Font.Color.SetColor(Color.Blue);
                                 }
-
-                                kk += 1;
-
-                                string Certificate_URL = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_URL"]);
-                                if (!string.IsNullOrEmpty(Certificate_URL))
-                                {
-                                    worksheet.Cells[inwrkrow, kk].Formula = "=HYPERLINK(\"" + Certificate_URL + "\",\" Certi \")";
-                                    worksheet.Cells[inwrkrow, kk].Style.Font.UnderLine = true;
-                                    worksheet.Cells[inwrkrow, kk].Style.Font.Color.SetColor(Color.Blue);
-                                }
                             }
                             else
                             {
@@ -200,7 +186,13 @@ namespace API
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]);
                                     string URL = "";
-                                    if (Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]) == "GIA")
+                                    string Certificate_URL = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_URL"]);
+                                    
+                                    if (!string.IsNullOrEmpty(Certificate_URL))
+                                    {
+                                        URL = Certificate_URL;
+                                    }
+                                    else if (Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]) == "GIA")
                                     {
                                         URL = "http://www.gia.edu/cs/Satellite?pagename=GST%2FDispatcher&childpagename=GIA%2FPage%2FReportCheck&c=Page&cid=1355954554547&reportno="+ Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_No"]);
                                     }
@@ -696,9 +688,9 @@ namespace API
                     {
                         string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
 
-                        if (Column_Name == "Image-Video-Certi")
+                        if (Column_Name == "Image-Video")
                         {
-                            kkk += 3;
+                            kkk += 2;
                         }
                         else
                         {
@@ -743,7 +735,7 @@ namespace API
                             else if (Column_Name == "Supplier Base Offer(%)")
                             {
                                 int Image_Video_Certi = 0, Rap_Amount = 0, Supplier_Base_Offer_Value_Doller = 0;
-                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video-Certi'");
+                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video'");
                                 if (dra.Length > 0)
                                 {
                                     Image_Video_Certi = Convert.ToInt32(dra[0]["OrderBy"]);
@@ -752,13 +744,13 @@ namespace API
                                 if (dra.Length > 0)
                                 {
                                     Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 2 : Rap_Amount);
+                                    Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 1 : Rap_Amount);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Supplier Base Offer Value($)'");
                                 if (dra.Length > 0)
                                 {
                                     Supplier_Base_Offer_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Supplier_Base_Offer_Value_Doller = ((Image_Video_Certi != 0 && Supplier_Base_Offer_Value_Doller > Image_Video_Certi) ? Supplier_Base_Offer_Value_Doller + 2 : Supplier_Base_Offer_Value_Doller); ;
+                                    Supplier_Base_Offer_Value_Doller = ((Image_Video_Certi != 0 && Supplier_Base_Offer_Value_Doller > Image_Video_Certi) ? Supplier_Base_Offer_Value_Doller + 1 : Supplier_Base_Offer_Value_Doller); ;
                                 }
                                 
                                 if (Rap_Amount != 0 && Supplier_Base_Offer_Value_Doller != 0)
@@ -787,7 +779,7 @@ namespace API
                             else if (Column_Name == "Supplier Final Disc(%)")
                             {
                                 int Image_Video_Certi = 0, Rap_Amount = 0, Supplier_Final_Value_Doller = 0;
-                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video-Certi'");
+                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video'");
                                 if (dra.Length > 0)
                                 {
                                     Image_Video_Certi = Convert.ToInt32(dra[0]["OrderBy"]);
@@ -796,13 +788,13 @@ namespace API
                                 if (dra.Length > 0)
                                 {
                                     Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 2 : Rap_Amount);
+                                    Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 1 : Rap_Amount);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Supplier Final Value($)'");
                                 if (dra.Length > 0)
                                 {
                                     Supplier_Final_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Supplier_Final_Value_Doller = ((Image_Video_Certi != 0 && Supplier_Final_Value_Doller > Image_Video_Certi) ? Supplier_Final_Value_Doller + 2 : Supplier_Final_Value_Doller); ;
+                                    Supplier_Final_Value_Doller = ((Image_Video_Certi != 0 && Supplier_Final_Value_Doller > Image_Video_Certi) ? Supplier_Final_Value_Doller + 1 : Supplier_Final_Value_Doller); ;
                                 }
 
                                 if (Rap_Amount != 0 && Supplier_Final_Value_Doller != 0)
@@ -831,7 +823,7 @@ namespace API
                             else if (Column_Name == "Supplier Final Disc. With Max Slab(%)")
                             {
                                 int Image_Video_Certi = 0, Rap_Amount = 0, Supplier_Final_Value_With_Max_Slab_Doller = 0;
-                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video-Certi'");
+                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video'");
                                 if (dra.Length > 0)
                                 {
                                     Image_Video_Certi = Convert.ToInt32(dra[0]["OrderBy"]);
@@ -840,13 +832,13 @@ namespace API
                                 if (dra.Length > 0)
                                 {
                                     Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 2 : Rap_Amount);
+                                    Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 1 : Rap_Amount);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Supplier Final Value With Max Slab($)'");
                                 if (dra.Length > 0)
                                 {
                                     Supplier_Final_Value_With_Max_Slab_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Supplier_Final_Value_With_Max_Slab_Doller = ((Image_Video_Certi != 0 && Supplier_Final_Value_With_Max_Slab_Doller > Image_Video_Certi) ? Supplier_Final_Value_With_Max_Slab_Doller + 2 : Supplier_Final_Value_With_Max_Slab_Doller); ;
+                                    Supplier_Final_Value_With_Max_Slab_Doller = ((Image_Video_Certi != 0 && Supplier_Final_Value_With_Max_Slab_Doller > Image_Video_Certi) ? Supplier_Final_Value_With_Max_Slab_Doller + 1 : Supplier_Final_Value_With_Max_Slab_Doller); ;
                                 }
 
                                 if (Rap_Amount != 0 && Supplier_Final_Value_With_Max_Slab_Doller != 0)
@@ -876,7 +868,7 @@ namespace API
                             else if (Column_Name == "Bid Disc(%)")
                             {
                                 int Image_Video_Certi = 0, Rap_Amount = 0, Bid_Amt = 0;
-                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video-Certi'");
+                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video'");
                                 if (dra.Length > 0)
                                 {
                                     Image_Video_Certi = Convert.ToInt32(dra[0]["OrderBy"]);
@@ -885,13 +877,13 @@ namespace API
                                 if (dra.Length > 0)
                                 {
                                     Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 2 : Rap_Amount);
+                                    Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 1 : Rap_Amount);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Bid Amt'");
                                 if (dra.Length > 0)
                                 {
                                     Bid_Amt = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Bid_Amt = ((Image_Video_Certi != 0 && Bid_Amt > Image_Video_Certi) ? Bid_Amt + 2 : Bid_Amt); ;
+                                    Bid_Amt = ((Image_Video_Certi != 0 && Bid_Amt > Image_Video_Certi) ? Bid_Amt + 1 : Bid_Amt); ;
                                 }
 
                                 if (Rap_Amount != 0 && Bid_Amt != 0)
@@ -920,7 +912,7 @@ namespace API
                             else if (Column_Name == "Bid/Ct")
                             {
                                 int Image_Video_Certi = 0, Cts = 0, Bid_Amt = 0;
-                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video-Certi'");
+                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video'");
                                 if (dra.Length > 0)
                                 {
                                     Image_Video_Certi = Convert.ToInt32(dra[0]["OrderBy"]);
@@ -929,13 +921,13 @@ namespace API
                                 if (dra.Length > 0)
                                 {
                                     Cts = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Cts = ((Image_Video_Certi != 0 && Cts > Image_Video_Certi) ? Cts + 2 : Cts);
+                                    Cts = ((Image_Video_Certi != 0 && Cts > Image_Video_Certi) ? Cts + 1 : Cts);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Bid Amt'");
                                 if (dra.Length > 0)
                                 {
                                     Bid_Amt = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Bid_Amt = ((Image_Video_Certi != 0 && Bid_Amt > Image_Video_Certi) ? Bid_Amt + 2 : Bid_Amt); ;
+                                    Bid_Amt = ((Image_Video_Certi != 0 && Bid_Amt > Image_Video_Certi) ? Bid_Amt + 1 : Bid_Amt); ;
                                 }
 
                                 if (Cts != 0 && Bid_Amt != 0)
@@ -1133,7 +1125,13 @@ namespace API
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]);
                                     string URL = "";
-                                    if (Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]) == "GIA")
+                                    string Certificate_URL = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_URL"]);
+                                    
+                                    if (!string.IsNullOrEmpty(Certificate_URL))
+                                    {
+                                        URL = Certificate_URL;
+                                    }
+                                    else if (Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]) == "GIA")
                                     {
                                         URL = "http://www.gia.edu/cs/Satellite?pagename=GST%2FDispatcher&childpagename=GIA%2FPage%2FReportCheck&c=Page&cid=1355954554547&reportno=" + Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_No"]);
                                     }
@@ -1704,9 +1702,9 @@ namespace API
                         string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
                         double AutoFitColumns = Convert.ToDouble(Col_dt.Rows[j]["ExcelWidth"]);
 
-                        if (Column_Name == "Image-Video-Certi")
+                        if (Column_Name == "Image-Video")
                         {
-                            Row_Count += 2;
+                            Row_Count += 1;
 
                             k += 1;
                             worksheet.Cells[2, k].Value = "Image";
@@ -1715,10 +1713,6 @@ namespace API
                             k += 1;
                             worksheet.Cells[2, k].Value = "Video";
                             worksheet.Cells[2, k].AutoFitColumns(7);
-
-                            k += 1;
-                            worksheet.Cells[2, k].Value = "Certi";
-                            worksheet.Cells[2, k].AutoFitColumns(6);
                         }
                         else
                         {
@@ -1781,7 +1775,7 @@ namespace API
                             string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
                             double AutoFitColumns = Convert.ToDouble(Col_dt.Rows[j]["ExcelWidth"]);
 
-                            if (Column_Name == "Image-Video-Certi")
+                            if (Column_Name == "Image-Video")
                             {
                                 kk += 1;
 
@@ -1799,16 +1793,6 @@ namespace API
                                 if (!string.IsNullOrEmpty(Video_URL))
                                 {
                                     worksheet.Cells[inwrkrow, kk].Formula = "=HYPERLINK(\"" + Video_URL + "\",\" Video \")";
-                                    worksheet.Cells[inwrkrow, kk].Style.Font.UnderLine = true;
-                                    worksheet.Cells[inwrkrow, kk].Style.Font.Color.SetColor(Color.Blue);
-                                }
-
-                                kk += 1;
-
-                                string Certificate_URL = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_URL"]);
-                                if (!string.IsNullOrEmpty(Certificate_URL))
-                                {
-                                    worksheet.Cells[inwrkrow, kk].Formula = "=HYPERLINK(\"" + Certificate_URL + "\",\" Certi \")";
                                     worksheet.Cells[inwrkrow, kk].Style.Font.UnderLine = true;
                                     worksheet.Cells[inwrkrow, kk].Style.Font.Color.SetColor(Color.Blue);
                                 }
@@ -1838,7 +1822,13 @@ namespace API
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]);
                                     string URL = "";
-                                    if (Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]) == "GIA")
+                                    string Certificate_URL = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_URL"]);
+
+                                    if (!string.IsNullOrEmpty(Certificate_URL))
+                                    {
+                                        URL = Certificate_URL;
+                                    }
+                                    else if (Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]) == "GIA")
                                     {
                                         URL = "http://www.gia.edu/cs/Satellite?pagename=GST%2FDispatcher&childpagename=GIA%2FPage%2FReportCheck&c=Page&cid=1355954554547&reportno=" + Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_No"]);
                                     }
@@ -2107,9 +2097,9 @@ namespace API
                     {
                         string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
 
-                        if (Column_Name == "Image-Video-Certi")
+                        if (Column_Name == "Image-Video")
                         {
-                            kkk += 3;
+                            kkk += 2;
                         }
                         else
                         {
@@ -2142,7 +2132,7 @@ namespace API
                             else if (Column_Name == "Offer Disc(%)")
                             {
                                 int Image_Video_Certi = 0, Rap_Amount = 0, Offer_Value_Doller = 0;
-                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video-Certi'");
+                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video'");
                                 if (dra.Length > 0)
                                 {
                                     Image_Video_Certi = Convert.ToInt32(dra[0]["OrderBy"]);
@@ -2151,13 +2141,13 @@ namespace API
                                 if (dra.Length > 0)
                                 {
                                     Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 2 : Rap_Amount);
+                                    Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 1 : Rap_Amount);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Offer Value($)'");
                                 if (dra.Length > 0)
                                 {
                                     Offer_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Offer_Value_Doller = ((Image_Video_Certi != 0 && Offer_Value_Doller > Image_Video_Certi) ? Offer_Value_Doller + 2 : Offer_Value_Doller); ;
+                                    Offer_Value_Doller = ((Image_Video_Certi != 0 && Offer_Value_Doller > Image_Video_Certi) ? Offer_Value_Doller + 1 : Offer_Value_Doller); ;
                                 }
 
                                 if (Rap_Amount != 0 && Offer_Value_Doller != 0)

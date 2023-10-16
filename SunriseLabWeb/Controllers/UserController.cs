@@ -467,14 +467,14 @@ namespace SunriseLabWeb_New.Controllers
         public JsonResult Get_SearchStock(Get_SearchStock_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
-            string response = _api.CallAPI(Constants.Get_SearchStock, inputJson);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_SearchStock, inputJson);
             ServiceResponse<Get_SearchStock_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Excel_SearchStock(Get_SearchStock_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
-            string response = _api.CallAPI(Constants.Excel_SearchStock, inputJson);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Excel_SearchStock, inputJson);
             string data = (new JavaScriptSerializer()).Deserialize<string>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }

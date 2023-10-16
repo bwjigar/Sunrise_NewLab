@@ -599,7 +599,12 @@ var loaderHide = function () {
         }
         function Lab(params) {
             if (params.data.Certificate_No != "") {
-                if (params.value == "GIA") {
+                var certi_url = (params.data.Certificate_URL == null ? "" : params.data.Certificate_URL);
+
+                if (certi_url != "") {
+                    return '<a href="' + certi_url + '" target="_blank" style="text-decoration: underline; color :blue;">' + params.value + '</a>';
+                }
+                else if (params.value == "GIA") {
                     return '<a href="http://www.gia.edu/cs/Satellite?pagename=GST%2FDispatcher&childpagename=GIA%2FPage%2FReportCheck&c=Page&cid=1355954554547&reportno=' + params.data.Certificate_No + '" target="_blank" style="text-decoration: underline; color :blue;">' + params.value + '</a>';
                 }
                 else if (params.value == "HRD") {
