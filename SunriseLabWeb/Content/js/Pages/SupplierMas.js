@@ -76,7 +76,6 @@ var columnDefs = [
     { headerName: "Supplier URL", field: "SupplierURL", width: 630, cellRenderer: SupplierURL, hide: true },
     { headerName: "Active", field: "Active", width: 58, cellRenderer: Status, },
     { headerName: "New RefNo Gen", field: "NewRefNoGenerate", width: 100, cellRenderer: _NewRefNoGenerate },
-    { headerName: "New Disc Gen", field: "NewDiscGenerate", width: 70, cellRenderer: Status, },
     { headerName: "Display Image", field: "Image", width: 65, cellRenderer: Status, },
     { headerName: "Display Video", field: "Video", width: 65, cellRenderer: Status, },
     { headerName: "Display Certi", field: "Certi", width: 65, cellRenderer: Status, },
@@ -125,43 +124,48 @@ var NotMappedStock = function (params) {
 }
 function StockUploadView(Id) {
     var obj = {};
+    obj.Id = $("#hdn_UserId").val();
     obj.SUPPLIER = Id;
-    debugger
-    loaderShow_stk_upload();
+
+    loaderShow();
+    //loaderShow_stk_upload();
     setTimeout(function () {
         $.ajax({
-            url: '/User/AddUpdate_SupplierStock_FromSupplier',
+            //url: '/User/AddUpdate_SupplierStock_FromSupplier',
+            url: '/User/Thread_AddUpdate_SupplierStock_FromSupplier',
             type: "POST",
             data: { req: obj },
             success: function (data) {
                 debugger
-                loaderHide_stk_upload();
-                if (data.Status == "1") {
-                    toastr.success(data.Message);
-                }
-                else {
-                    toastr.error(data.Message);
-                }
+                loaderHide();
+                toastr.success(data);
+                //loaderHide_stk_upload();
+                //if (data.Status == "1") {
+                //    toastr.success(data.Message);
+                //}
+                //else {
+                //    toastr.error(data.Message);
+                //}
             },
             error: function (xhr, textStatus, errorThrown) {
                 loaderHide_stk_upload();
             }
         });
-    }, 50);
+    }, 100);
 }
 function NotMappedStockExcelDownload(Id) {
     loaderShow();
-    setTimeout(function () {debugger
+    setTimeout(function () {
         var obj = {};
         obj.SupplierId = Id;
-        debugger
+        
         $.ajax({
             url: "/User/Get_Not_Mapped_SupplierStock",
             async: false,
             type: "POST",
             data: { req: obj },
             success: function (data, textStatus, jqXHR) {
-                debugger
+                
                 loaderHide();
                 if (data.search('.xlsx') == -1) {
                     if (data.indexOf('Something Went wrong') > -1) {
@@ -179,10 +183,9 @@ function NotMappedStockExcelDownload(Id) {
     }, 50);
 }
 function EditView(Id) {
-    debugger
     var data = filterByProperty(Rowdata, "Id", Id);
     if (data.length == 1) {
-        debugger
+        
         $("#hdn_Id").val(data[0].Id);
         $("#txtSupplierName").val(data[0].SupplierName);
         $("#DdlRepeatevery").val(data[0].RepeateveryType);
@@ -199,7 +202,6 @@ function EditView(Id) {
         $("#ddlNewRefNoGenerate").val(data[0].NewRefNoGenerate);
         NewRefNoGenerate();
         $("#txtNewRefNoCommonPrefix").val(data[0].NewRefNoCommonPrefix);
-        document.getElementById("NewDiscGenerate").checked = data[0].NewDiscGenerate;
         document.getElementById("Image").checked = data[0].Image;
         document.getElementById("Video").checked = data[0].Video;
         document.getElementById("Certi").checked = data[0].Certi;
@@ -430,7 +432,6 @@ function WEBAPI_View() {
     $(".API_STS").show();
     $(".DIS_IVS").show();
     $(".N_RF_GEN").show();
-    $(".N_DIS_GEN").show();
     $(".DATA_GET_FROM").show();
     $(".DIS_IN_GRID_EXL").show();
     $(".DOC_VIEW_TYP").show();
@@ -451,7 +452,6 @@ function FTP_View() {
     $(".API_STS").show();
     $(".DIS_IVS").show();
     $(".N_RF_GEN").show();
-    $(".N_DIS_GEN").show();
     $(".DATA_GET_FROM").show();
     $(".DIS_IN_GRID_EXL").show();
     $(".DOC_VIEW_TYP").show();
@@ -462,7 +462,6 @@ $(document).ready(function (e) {
     GetSearch();
     contentHeight();
     $("input[name$='API']").click(function () {
-        debugger
         API_Type = $(this).val();
         if ($(this).val() == "WEB_API") {
             WEBAPI_View();
@@ -524,7 +523,6 @@ function Clear() {
     $("#ddlNewRefNoGenerate").val("");
     $("#txtNewRefNoCommonPrefix").hide();
     $("#txtNewRefNoCommonPrefix").val("");
-    document.getElementById("NewDiscGenerate").checked = false;
     document.getElementById("Image").checked = true;
     document.getElementById("Video").checked = true;
     document.getElementById("Certi").checked = true;
@@ -750,7 +748,6 @@ var Save = function () {
         $("#ErrorModel").modal("show");
     }
     else {
-        debugger
         var obj = {};
         obj.Id = $("#hdn_Id").val();
         obj.APIType = API_Type;
@@ -762,7 +759,6 @@ var Save = function () {
         //obj.NewRefNoGenerate = document.getElementById("NewRefNoGenerate").checked;
         obj.NewRefNoGenerate = $("#ddlNewRefNoGenerate").val();
         obj.NewRefNoCommonPrefix = ($("#ddlNewRefNoGenerate").val() == "Common" ? $("#txtNewRefNoCommonPrefix").val() : "");
-        obj.NewDiscGenerate = document.getElementById("NewDiscGenerate").checked;
         obj.Image = document.getElementById("Image").checked;
         obj.Video = document.getElementById("Video").checked;
         obj.Certi = document.getElementById("Certi").checked;

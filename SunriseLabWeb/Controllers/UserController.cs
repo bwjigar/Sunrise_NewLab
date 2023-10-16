@@ -9,9 +9,12 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.Services.Description;
 
 namespace SunriseLabWeb_New.Controllers
 {
@@ -524,6 +527,38 @@ namespace SunriseLabWeb_New.Controllers
             CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Thread_AddUpdate_SupplierStock_FromSupplier(VendorResponse req)
+        {
+            String arg = req.SUPPLIER + '_' + req.Id;
+
+            Thread APIGet = new Thread(AddUpdate_SupplierStock_FromSupplier_Thread);
+            APIGet.Start(arg);
+            return Json("Stock Upload Process is Started Response Message will get Shortly", JsonRequestBehavior.AllowGet);
+        }
+        public void AddUpdate_SupplierStock_FromSupplier_Thread(object arg)
+        {
+            String arg1 = arg.ToString();
+            API _api = new API();
+            VendorResponse req = new VendorResponse();
+            string[] Req = arg1.Split('_');
+            req.SUPPLIER = Req[0];
+            req.Id = Convert.ToInt32(Req[1]);
+
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.AddUpdate_SupplierStock, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+
+            StockUpload_Response_Res req1 = new StockUpload_Response_Res();
+            req1.Message = data.Message;
+            req1.Status = Convert.ToInt32(data.Status);
+            req1.UserId = req.Id;
+
+            string inputJson1 = (new JavaScriptSerializer()).Serialize(req1);
+            string response1 = _api.CallAPIUrlEncodedWithWebReq(Constants.Add_StockUpload_Response, inputJson1);
+        }
+
+
+
         public ActionResult ColumnSetting()
         {
             return View();
@@ -547,6 +582,12 @@ namespace SunriseLabWeb_New.Controllers
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.Get_SearchStock_ColumnSetting, inputJson);
             ServiceResponse<Get_SearchStock_ColumnSetting_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_ColumnSetting_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Get_StockUpload_Response()
+        {
+            string response = _api.CallAPI(Constants.Get_StockUpload_Response, string.Empty);
+            ServiceResponse<StockUpload_Response_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<StockUpload_Response_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
     }

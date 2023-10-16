@@ -379,4 +379,11 @@ namespace Lib.Model
         public string Type { get; set; }
         public string DataTransferType { get; set; }
     }
+    public class StockUpload_Response_Res
+    {
+        public string Message { get; set; }
+        public int Status { get; set; }
+        public int UserId { get; set; }
+        
+    }
 }

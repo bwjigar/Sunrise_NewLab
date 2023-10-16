@@ -265,7 +265,6 @@ namespace Lib.Model
         public bool DiscInverse { get; set; }
         public string NewRefNoGenerate { get; set; }
         public string NewRefNoCommonPrefix { get; set; }
-        public bool NewDiscGenerate { get; set; }
         public string DataGetFrom { get; set; }
         public bool Image { get; set; }
         public bool Video { get; set; }

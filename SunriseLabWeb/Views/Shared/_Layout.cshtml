@@ -432,7 +432,7 @@
     <script src="17.4.0.46/scripts/web/properties.js" type="text/javascript"></script>
     @RenderSection("scripts", required: false)
 
-    <script type="text/javascript">
+<script type="text/javascript">
         var IsAlertsCenterOpen = 0;
         var L_d = new Date();
         var L_month = L_d.getMonth()+1;
@@ -450,6 +450,7 @@
                 $('.contnt').toggleClass('min-content');
             });
             LoginCheck();
+            StockUpload_Check();
             $('.numberonly').keypress(function (e) {
                 var charCode = (e.which) ? e.which : event.keyCode;
                     if(String.fromCharCode(charCode).match(/[^0-9]/g))
@@ -525,6 +526,38 @@ var loaderHide = function () {
             fn60sec();
             setInterval(fn60sec, 60 * 1000);
         }
+
+
+
+    function fn5sec() {
+        var obj = {};
+        obj.UserId = $("#hdn_UserId").val();
+
+        $.ajax({
+            url: '/User/Get_StockUpload_Response',
+            type: "POST",
+            data: { req: obj },
+            success: function (data) {
+                if (data.Status == "1" && data.Message == "SUCCESS" && data.Data.length > 0) {
+                    _(data.Data).each(function (obj, i) {
+                        if (obj.Status == "1") {
+                            toastr.success(obj.Message);
+                        }
+                        else {
+                            toastr.error(obj.Message);
+                        }
+                    });
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+            }
+        });
+        }
+        function StockUpload_Check() {
+            fn5sec();
+            setInterval(fn5sec, 5 * 1000);
+        }
+
         function getContextMenuItems() {
             return [];
         }
@@ -580,7 +613,7 @@ var loaderHide = function () {
                 }
             }
         }
-    </script>
+</script>
 </body>
 
 </html>

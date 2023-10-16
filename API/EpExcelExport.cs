@@ -751,13 +751,13 @@ namespace API
                                 dra = Col_dt.Select("[Column_Name] = 'Rap Amount($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 2 : Rap_Amount);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Supplier Base Offer Value($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Supplier_Base_Offer_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Supplier_Base_Offer_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Supplier_Base_Offer_Value_Doller = ((Image_Video_Certi != 0 && Supplier_Base_Offer_Value_Doller > Image_Video_Certi) ? Supplier_Base_Offer_Value_Doller + 2 : Supplier_Base_Offer_Value_Doller); ;
                                 }
                                 
@@ -795,13 +795,13 @@ namespace API
                                 dra = Col_dt.Select("[Column_Name] = 'Rap Amount($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 2 : Rap_Amount);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Supplier Final Value($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Supplier_Final_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Supplier_Final_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Supplier_Final_Value_Doller = ((Image_Video_Certi != 0 && Supplier_Final_Value_Doller > Image_Video_Certi) ? Supplier_Final_Value_Doller + 2 : Supplier_Final_Value_Doller); ;
                                 }
 
@@ -839,13 +839,13 @@ namespace API
                                 dra = Col_dt.Select("[Column_Name] = 'Rap Amount($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 2 : Rap_Amount);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Supplier Final Value With Max Slab($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Supplier_Final_Value_With_Max_Slab_Doller = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Supplier_Final_Value_With_Max_Slab_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Supplier_Final_Value_With_Max_Slab_Doller = ((Image_Video_Certi != 0 && Supplier_Final_Value_With_Max_Slab_Doller > Image_Video_Certi) ? Supplier_Final_Value_With_Max_Slab_Doller + 2 : Supplier_Final_Value_With_Max_Slab_Doller); ;
                                 }
 
@@ -884,13 +884,13 @@ namespace API
                                 dra = Col_dt.Select("[Column_Name] = 'Rap Amount($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 2 : Rap_Amount);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Bid Amt'");
                                 if (dra.Length > 0)
                                 {
-                                    Bid_Amt = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Bid_Amt = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Bid_Amt = ((Image_Video_Certi != 0 && Bid_Amt > Image_Video_Certi) ? Bid_Amt + 2 : Bid_Amt); ;
                                 }
 
@@ -928,13 +928,13 @@ namespace API
                                 dra = Col_dt.Select("[Column_Name] = 'Cts'");
                                 if (dra.Length > 0)
                                 {
-                                    Cts = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Cts = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Cts = ((Image_Video_Certi != 0 && Cts > Image_Video_Certi) ? Cts + 2 : Cts);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Bid Amt'");
                                 if (dra.Length > 0)
                                 {
-                                    Bid_Amt = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Bid_Amt = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Bid_Amt = ((Image_Video_Certi != 0 && Bid_Amt > Image_Video_Certi) ? Bid_Amt + 2 : Bid_Amt); ;
                                 }
 
@@ -1505,13 +1505,13 @@ namespace API
                                 dra = Col_dt.Select("[Column_Name] = 'Rap Amount($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Rap_Amount = ((Image_Video != 0 && Rap_Amount > Image_Video) ? Rap_Amount + 1 : Rap_Amount);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Supplier Cost Value($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Supplier_Cost_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Supplier_Cost_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Supplier_Cost_Value_Doller = ((Image_Video != 0 && Supplier_Cost_Value_Doller > Image_Video) ? Supplier_Cost_Value_Doller + 1 : Supplier_Cost_Value_Doller); ;
                                 }
 
@@ -1549,13 +1549,13 @@ namespace API
                                 dra = Col_dt.Select("[Column_Name] = 'Rap Amount($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Rap_Amount = ((Image_Video != 0 && Rap_Amount > Image_Video) ? Rap_Amount + 1 : Rap_Amount);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Sunrise Value US($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Sunrise_Value_US_Doller = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Sunrise_Value_US_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Sunrise_Value_US_Doller = ((Image_Video != 0 && Sunrise_Value_US_Doller > Image_Video) ? Sunrise_Value_US_Doller + 1 : Sunrise_Value_US_Doller); ;
                                 }
 
@@ -1593,13 +1593,13 @@ namespace API
                                 dra = Col_dt.Select("[Column_Name] = 'Rap Amount($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Rap_Amount = ((Image_Video != 0 && Rap_Amount > Image_Video) ? Rap_Amount + 1 : Rap_Amount);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Supplier Base Offer Value($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Supplier_Base_Offer_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Supplier_Base_Offer_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Supplier_Base_Offer_Value_Doller = ((Image_Video != 0 && Supplier_Base_Offer_Value_Doller > Image_Video) ? Supplier_Base_Offer_Value_Doller + 1 : Supplier_Base_Offer_Value_Doller); ;
                                 }
 
@@ -2150,13 +2150,13 @@ namespace API
                                 dra = Col_dt.Select("[Column_Name] = 'Rap Amount($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Rap_Amount = ((Image_Video_Certi != 0 && Rap_Amount > Image_Video_Certi) ? Rap_Amount + 2 : Rap_Amount);
                                 }
                                 dra = Col_dt.Select("[Column_Name] = 'Offer Value($)'");
                                 if (dra.Length > 0)
                                 {
-                                    Offer_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]) + 1;
+                                    Offer_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Offer_Value_Doller = ((Image_Video_Certi != 0 && Offer_Value_Doller > Image_Video_Certi) ? Offer_Value_Doller + 2 : Offer_Value_Doller); ;
                                 }
 

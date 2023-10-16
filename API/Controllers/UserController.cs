@@ -25,6 +25,7 @@ using System.Text.RegularExpressions;
 using Microsoft.VisualBasic.FileIO;
 using System.Data.OleDb;
 using Oracle.DataAccess.Client;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 
 namespace API.Controllers
 {
@@ -1980,26 +1981,27 @@ namespace API.Controllers
                 {
                     string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Req.FilePath + ";Extended Properties=\"Excel 12.0;HDR=YES;\"";
                     //Stock_dt = ConvertXLStoDataTable("", connString);
-                    Stock_dt = Convert_FILE_To_DataTable(".xls", connString, Req.SheetName);
+                    Stock_dt = Convert_FILE_To_DataTable(".xls", connString, Req.SheetName, Req.SupplierId);
                 }
                 else if (str == ".xlsx")
                 {
                     //string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Req.FilePath + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
                     string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Req.FilePath + ";Extended Properties='Excel 12.0 Xml;HDR=YES;IMEX=1;'";
                     //Stock_dt = ConvertXSLXtoDataTable("", connString);
-                    Stock_dt = Convert_FILE_To_DataTable(".xlsx", connString, Req.SheetName);
+                    Stock_dt = Convert_FILE_To_DataTable(".xlsx", connString, Req.SheetName, Req.SupplierId);
                 }
                 else if (str == ".csv")
                 {
                     //Stock_dt = ConvertCSVtoDataTable(Req.FilePath);
-                    Stock_dt = Convert_FILE_To_DataTable(".csv", Req.FilePath, "");
+                    Stock_dt = Convert_FILE_To_DataTable(".csv", Req.FilePath, "", Req.SupplierId);
                 }
 
                 Int32 VishindasHolaram_Lakhi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["VishindasHolaram_Lakhi_Id"]);
-                Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]); 
-                Int32 JewelParadise_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JewelParadise_Id"]); 
-                Int32 Diamart_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Diamart_Id"]); 
-                
+                Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
+                Int32 JewelParadise_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JewelParadise_Id"]);
+                Int32 Diamart_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Diamart_Id"]);
+                Int32 Laxmi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Laxmi_Id"]);
+
                 if (Req.SupplierId == VishindasHolaram_Lakhi_Id)
                 {
                     Stock_dt = Lakhi_TableCrown_BlackWhite(Stock_dt);
@@ -2015,6 +2017,10 @@ namespace API.Controllers
                 else if (Req.SupplierId == Diamart_Id)
                 {
                     Stock_dt = Diamart_Shade(Stock_dt);
+                }
+                else if (Req.SupplierId == Laxmi_Id)
+                {
+                    Stock_dt = Laxmi_Grading(Stock_dt);
                 }
 
                 List<Get_SupplierColumnSetting_FromAPI_Res> List_Res = new List<Get_SupplierColumnSetting_FromAPI_Res>();
@@ -2500,7 +2506,6 @@ namespace API.Controllers
                     para.Add(db.CreateParam("NewRefNoCommonPrefix", DbType.String, ParameterDirection.Input, DBNull.Value));
                 }
 
-                para.Add(db.CreateParam("NewDiscGenerate", DbType.Boolean, ParameterDirection.Input, res.NewDiscGenerate));
                 para.Add(db.CreateParam("DataGetFrom", DbType.String, ParameterDirection.Input, res.DataGetFrom));
                 if (!string.IsNullOrEmpty(res.SupplierAPIMethod))
                 {
@@ -3930,7 +3935,7 @@ namespace API.Controllers
                         {
                             string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileLocation + ";Extended Properties=\"Excel 12.0;HDR=YES;\"";
                             //dt_APIRes = ConvertXLStoDataTable("", connString);
-                            dt_APIRes = Convert_FILE_To_DataTable(".xls", connString, "");
+                            dt_APIRes = Convert_FILE_To_DataTable(".xls", connString, "", SupplierId);
                         }
                         catch (Exception ex)
                         {
@@ -3944,7 +3949,7 @@ namespace API.Controllers
                             //string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
                             string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileLocation + ";Extended Properties='Excel 12.0 Xml;HDR=YES;IMEX=1;'";
                             //dt_APIRes = ConvertXSLXtoDataTable("", connString);
-                            dt_APIRes = Convert_FILE_To_DataTable(".xlsx", connString, "");
+                            dt_APIRes = Convert_FILE_To_DataTable(".xlsx", connString, "", SupplierId);
                         }
                         catch (Exception ex)
                         {
@@ -3956,7 +3961,7 @@ namespace API.Controllers
                         try
                         {
                             //dt_APIRes = ConvertCSVtoDataTable(FileLocation);
-                            dt_APIRes = Convert_FILE_To_DataTable(".csv", FileLocation, "");
+                            dt_APIRes = Convert_FILE_To_DataTable(".csv", FileLocation, "", SupplierId);
                         }
                         catch (Exception ex)
                         {
@@ -5704,7 +5709,43 @@ namespace API.Controllers
 
                             string json = "";
 
-                            if (SupplierURL.ToUpper() == "HTTP://WWW.STARLIGHTDIAMONDS.IN/API/GETSTOCK")
+                            if (SupplierURL.ToUpper() == "HTTPS://WEBSVR.JBBROS.COM/JBAPI.ASPX")
+                            {
+                                try
+                                {
+                                    WebClient client = new WebClient();
+                                    client.Headers["User-Agent"] = @"Mozilla/4.0 (Compatible; Windows NT 5.1;MSIE 6.0) (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)";
+                                    ServicePointManager.Expect100Continue = false;
+                                    ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+                                    json = client.DownloadString("https://websvr.jbbros.com/jbapi.aspx?UserId=SUNRISEDIAMONDS&APIKey=90F2D641-7968-4BB4-BA69-E323F732AF01&Action=FJ&Shape=ALL&CaratFrom=0.01&CaratTo=99.99&Color=ALL&Purity=ALL&Lab=GIA,HRD,IGI");
+                                    client.Dispose();
+                                }
+                                catch (Exception ex)
+                                {
+                                    return ("API Not Working", ex.Message, null);
+                                }
+
+                                try
+                                {
+                                    json = json.Replace("[", "").Replace("]", "");
+                                    json = json.Replace("null", "");
+
+                                    if (!string.IsNullOrEmpty(json) && !json.Contains("Un-Authorize Action - Invalid IpAddress"))
+                                    {
+                                        dt_APIRes = jDt.JsonStringToDataTable(json);
+                                    }
+                                    else
+                                    {
+                                        return ("Data not Found", string.Empty, null);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    return ("Data Response Format Changed", ex.Message, null);
+                                }
+                            }
+                            else if (SupplierURL.ToUpper() == "HTTP://WWW.STARLIGHTDIAMONDS.IN/API/GETSTOCK")
                             {
                                 try
                                 {
@@ -6209,7 +6250,7 @@ namespace API.Controllers
                         string json = "";
                         if (SupplierAPIMethod.ToUpper() == "POST")
                         {
-                            if (SupplierURL.ToUpper() == "HTTPS://SS.SRK.BEST/V1/STOCKSHARING/SERVICES")
+                            if (SupplierURL.ToUpper() == "HTTPS://SS.SRK.BEST/V1/STOCKSHAING%20/SERVICES/")
                             {
                                 try
                                 {
@@ -6236,7 +6277,7 @@ namespace API.Controllers
                                     if (!string.IsNullOrEmpty(json))
                                     {
                                         //dt_APIRes = ConvertCSVtoDataTable(json);
-                                        dt_APIRes = Convert_FILE_To_DataTable(".csv", json, "");
+                                        dt_APIRes = Convert_FILE_To_DataTable(".csv", json, "", SupplierId);
                                     }
                                     else
                                     {
@@ -6251,11 +6292,11 @@ namespace API.Controllers
                         }
                         else if (SupplierAPIMethod.ToUpper() == "GET")
                         {
-                            if (SupplierURL.ToUpper() == "HTTPS://WEBSVR.JBBROS.COM/JBAPI.ASPX")
+                            if (SupplierURL.ToUpper() == "HTTPS://LAXMIDIAMOND.COM/HOME/STOCK?I=J%2BQYW5HXVP%2B1VEWRXXAQSAOJHYY%2B2OQBQBTHX%2F8LQDTM5WEFVAAGRDZHQ52COL87")
                             {
                                 try
                                 {
-                                    HttpWebRequest request1 = (HttpWebRequest)WebRequest.Create("https://websvr.jbbros.com/jbapi.aspx?UserId=SUNRISEDIAMONDS&APIKey=90F2D641-7968-4BB4-BA69-E323F732AF01&Action=F&Shape=ALL&CaratFrom=0.01&CaratTo=99.99&Color=ALL&Purity=ALL&Lab=GIA,HRD,IGI");
+                                    HttpWebRequest request1 = (HttpWebRequest)WebRequest.Create("https://laxmidiamond.com/Home/stock?i=J%2BQyw5hxVp%2B1VeWRXxaQsAOjhYY%2B2oQbqbtHx%2F8lqdtM5WEFVaAgrDZHq52col87");
                                     request1.Method = "GET";
                                     request1.Timeout = 7200000; //2 Hour in milliseconds
                                     //request1.ContentType = "text/plain";
@@ -6275,8 +6316,7 @@ namespace API.Controllers
                                 {
                                     if (!string.IsNullOrEmpty(json))
                                     {
-                                        //dt_APIRes = ConvertCSVtoDataTable(json);
-                                        dt_APIRes = Convert_FILE_To_DataTable(".csv", json, "");
+                                        dt_APIRes = ConvertCSVtoDataTable(json);
                                     }
                                     else
                                     {
@@ -6306,6 +6346,7 @@ namespace API.Controllers
             Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
             Int32 JewelParadise_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JewelParadise_Id"]);
             Int32 Diamart_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Diamart_Id"]);
+            Int32 Laxmi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Laxmi_Id"]);
 
             if (SupplierId == VishindasHolaram_Lakhi_Id)
             {
@@ -6322,6 +6363,10 @@ namespace API.Controllers
             else if (SupplierId == Diamart_Id)
             {
                 dt_APIRes = Diamart_Shade(dt_APIRes);
+            }
+            else if (SupplierId == Laxmi_Id)
+            {
+                dt_APIRes = Laxmi_Grading(dt_APIRes);
             }
 
             if (dt_APIRes != null)
@@ -6629,6 +6674,262 @@ namespace API.Controllers
                     row["Shade"] = "White";
                 }
             }
+            return Stock_dt;
+        }
+        public DataTable Laxmi_Grading(DataTable Stock_dt)
+        {
+            Stock_dt.Columns.Add("Table Open", typeof(string));
+            Stock_dt.Columns.Add("Crown Open", typeof(string));
+            Stock_dt.Columns.Add("Pav Open", typeof(string));
+            Stock_dt.Columns.Add("Girdle Open", typeof(string));
+            Stock_dt.Columns.Add("Table White", typeof(string));
+            Stock_dt.Columns.Add("Crown White", typeof(string));
+            Stock_dt.Columns.Add("Table Black", typeof(string));
+            Stock_dt.Columns.Add("Crown Black", typeof(string));
+
+            foreach (DataRow row in Stock_dt.Rows)
+            {
+                string BlackInc = Convert.ToString(row["Black Inc"]).ToUpper();
+                string OpenInc = Convert.ToString(row["Open Inc"]).ToUpper();
+                string SideInc = Convert.ToString(row["Side Inc"]).ToUpper();
+                string TableInc = Convert.ToString(row["Table Inc"]).ToUpper();
+
+                if (OpenInc == "NO")
+                {
+                    row["Table Open"] = "NN";
+                    row["Crown Open"] = "NN";
+                    row["Pav Open"] = "NN";
+                    row["Girdle Open"] = "NN";
+                }
+                else if (OpenInc == "")
+                {
+                    row["Table Open"] = "BLANK";
+                    row["Crown Open"] = "BLANK";
+                    row["Pav Open"] = "BLANK";
+                    row["Girdle Open"] = "BLANK";
+                }
+                else
+                {
+                    string[] strArray = OpenInc.Split(',');
+                    foreach (string str in strArray)
+                    {
+                        if (str.Trim() == "TO01" || str.Trim() == "THL" || str.Trim() == "TO1")
+                        {
+                            row["Table Open"] = "TO1";
+                        }
+                        else if (str.Trim() == "TO2")
+                        {
+                            row["Table Open"] = "TO2";
+                        }
+
+                        else if (str.Trim() == "CO01")
+                        {
+                            row["Crown Open"] = "CO1";
+                        }
+                        else if (str.Trim() == "CHL" || str.Trim() == "CO1")
+                        {
+                            row["Crown Open"] = "TO1";
+                        }
+                        else if (str.Trim() == "CO2")
+                        {
+                            row["Crown Open"] = "CO2";
+                        }
+
+                        else if (str.Trim() == "PO01" || str.Trim() == "PHL" || str.Trim() == "PO1")
+                        {
+                            row["Pav Open"] = "PO1";
+                        }
+                        else if (str.Trim() == "PO2")
+                        {
+                            row["Pav Open"] = "PO2";
+                        }
+
+                        else if (str.Trim() == "GO01" || str.Trim() == "GHL" || str.Trim() == "GO1")
+                        {
+                            row["Girdle Open"] = "GO1";
+                        }
+                        else if (str.Trim() == "GO2")
+                        {
+                            row["Girdle Open"] = "GO2";
+                        }
+                    }
+                }
+
+                if (string.IsNullOrEmpty(Convert.ToString(row["Table Open"])))
+                {
+                    row["Table Open"] = "NN";
+                }
+                if (string.IsNullOrEmpty(Convert.ToString(row["Crown Open"])))
+                {
+                    row["Crown Open"] = "NN";
+                }
+                if (string.IsNullOrEmpty(Convert.ToString(row["Pav Open"])))
+                {
+                    row["Pav Open"] = "NN";
+                }
+                if (string.IsNullOrEmpty(Convert.ToString(row["Girdle Open"])))
+                {
+                    row["Girdle Open"] = "NN";
+                }
+
+                row["Table Open"] = Convert.ToString(row["Table Open"]).Replace("BLANK", null);
+                row["Crown Open"] = Convert.ToString(row["Crown Open"]).Replace("BLANK", null);
+                row["Pav Open"] = Convert.ToString(row["Pav Open"]).Replace("BLANK", null);
+                row["Girdle Open"] = Convert.ToString(row["Girdle Open"]).Replace("BLANK", null);
+
+
+                if (TableInc == "NO")
+                {
+                    row["Table White"] = "NN";
+                }
+                else if (TableInc == "")
+                {
+                    row["Table White"] = "";
+                }
+                else
+                {
+                    string[] strArray_1 = TableInc.Split(',');
+                    foreach (string str in strArray_1)
+                    {
+                        if (str.Trim() == "TB3" || str.Trim() == "TF3" || str.Trim() == "TCL3" || str.Trim() == "TCR3")
+                        {
+                            row["Table White"] = row["Table White"] + ",3";
+                        }
+                        else if (str.Trim() == "TB2" || str.Trim() == "TF2" || str.Trim() == "TCL2" || str.Trim() == "TCR2")
+                        {
+                            row["Table White"] = row["Table White"] + ",2";
+                        }
+                        else if (str.Trim() == "TB1" || str.Trim() == "TF1" || str.Trim() == "TCL1" || str.Trim() == "TCR1" || str.Trim() == "TB01" || str.Trim() == "TF01" || str.Trim() == "TCL01" || str.Trim() == "TCR01")
+                        {
+                            row["Table White"] = row["Table White"] + ",1";
+                        }
+                    }
+                    if (Convert.ToString(row["Table White"]).Contains("3"))
+                    {
+                        row["Table White"] = "T3";
+                    }
+                    else if (Convert.ToString(row["Table White"]).Contains("2"))
+                    {
+                        row["Table White"] = "T2";
+                    }
+                    else if (Convert.ToString(row["Table White"]).Contains("1"))
+                    {
+                        row["Table White"] = "T1";
+                    }
+                }
+
+
+                if (SideInc == "NO")
+                {
+                    row["Crown White"] = "NN";
+                }
+                else if (SideInc == "")
+                {
+                    row["Crown White"] = "";
+                }
+                else
+                {
+                    string[] strArray_1 = SideInc.Split(',');
+                    foreach (string str in strArray_1)
+                    {
+                        if (str.Trim() == "SB3" || str.Trim() == "SF3" || str.Trim() == "SCL3" || str.Trim() == "SCR3")
+                        {
+                            row["Crown White"] = row["Crown White"] + ",3";
+                        }
+                        else if (str.Trim() == "SB2" || str.Trim() == "SF2" || str.Trim() == "SCL2" || str.Trim() == "SCR2")
+                        {
+                            row["Crown White"] = row["Crown White"] + ",2";
+                        }
+                        else if (str.Trim() == "SB1" || str.Trim() == "SF1" || str.Trim() == "SCL1" || str.Trim() == "SCR1" || str.Trim() == "SB01" || str.Trim() == "SF01" || str.Trim() == "SCL01" || str.Trim() == "SCR01")
+                        {
+                            row["Crown White"] = row["Crown White"] + ",1";
+                        }
+                    }
+                    if (Convert.ToString(row["Crown White"]).Contains("3"))
+                    {
+                        row["Crown White"] = "C3";
+                    }
+                    else if (Convert.ToString(row["Crown White"]).Contains("2"))
+                    {
+                        row["Crown White"] = "C2";
+                    }
+                    else if (Convert.ToString(row["Crown White"]).Contains("1"))
+                    {
+                        row["Crown White"] = "C1";
+                    }
+                }
+
+
+                if (BlackInc == "NO")
+                {
+                    row["Table Black"] = "NN";
+                    row["Crown Black"] = "NN";
+                }
+                else if (BlackInc == "")
+                {
+                    row["Table Black"] = "";
+                    row["Crown Black"] = "";
+                }
+                else
+                {
+                    string[] strArray_1 = BlackInc.Split(',');
+                    foreach (string str in strArray_1)
+                    {
+                        if (str.Trim() == "TB3" || str.Trim() == "TF3" || str.Trim() == "TCL3" || str.Trim() == "TCR3")
+                        {
+                            row["Table Black"] = row["Table Black"] + ",3";
+                        }
+                        else if (str.Trim() == "TB2" || str.Trim() == "TF2" || str.Trim() == "TCL2" || str.Trim() == "TCR2")
+                        {
+                            row["Table Black"] = row["Table Black"] + ",2";
+                        }
+                        else if (str.Trim() == "TB1" || str.Trim() == "TF1" || str.Trim() == "TCL1" || str.Trim() == "TCR1" || str.Trim() == "TB01" || str.Trim() == "TF01" || str.Trim() == "TCL01" || str.Trim() == "TCR01")
+                        {
+                            row["Table Black"] = row["Table Black"] + ",1";
+                        }
+
+                        if (str.Trim() == "SB3" || str.Trim() == "SF3" || str.Trim() == "SCL3" || str.Trim() == "SCR3")
+                        {
+                            row["Crown Black"] = row["Crown Black"] + ",3";
+                        }
+                        else if (str.Trim() == "SB2" || str.Trim() == "SF2" || str.Trim() == "SCL2" || str.Trim() == "SCR2")
+                        {
+                            row["Crown Black"] = row["Crown Black"] + ",2";
+                        }
+                        else if (str.Trim() == "SB1" || str.Trim() == "SF1" || str.Trim() == "SCL1" || str.Trim() == "SCR1" || str.Trim() == "SB01" || str.Trim() == "SF01" || str.Trim() == "SCL01" || str.Trim() == "SCR01")
+                        {
+                            row["Crown Black"] = row["Crown Black"] + ",1";
+                        }
+                    }
+
+                    if (Convert.ToString(row["Table Black"]).Contains("3"))
+                    {
+                        row["Table Black"] = "BT3";
+                    }
+                    else if (Convert.ToString(row["Table Black"]).Contains("2"))
+                    {
+                        row["Table Black"] = "BT2";
+                    }
+                    else if (Convert.ToString(row["Table Black"]).Contains("1"))
+                    {
+                        row["Table Black"] = "BT1";
+                    }
+
+                    if (Convert.ToString(row["Crown Black"]).Contains("3"))
+                    {
+                        row["Crown Black"] = "BC3";
+                    }
+                    else if (Convert.ToString(row["Crown Black"]).Contains("2"))
+                    {
+                        row["Crown Black"] = "BC2";
+                    }
+                    else if (Convert.ToString(row["Crown Black"]).Contains("1"))
+                    {
+                        row["Crown Black"] = "BC1";
+                    }
+                }
+            }
+
             return Stock_dt;
         }
         public DataTable ColumnMapping_In_SupplierStock(string StockFrom, int SupplierId, DataTable dt_APIRes, DataTable dtSupplCol)
@@ -7240,143 +7541,36 @@ namespace API.Controllers
             }
         }
 
-        public static DataTable ConvertCSVtoDataTable(string csvFilePath)
+        public DataTable ConvertCSVtoDataTable(string csvText)
         {
-            DataTable table = new DataTable();
-            using (TextFieldParser parser = new TextFieldParser(csvFilePath))
-            {
-                string[] delimiters = new string[] { "," };
-                parser.SetDelimiters(delimiters);
-                parser.HasFieldsEnclosedInQuotes = true;
-                string[] strArray2 = parser.ReadFields();
-                int index = 0;
-                while (true)
-                {
-                    if (index >= strArray2.Length)
-                    {
-                        while (!parser.EndOfData)
-                        {
-                            string[] strArray3 = parser.ReadFields();
-                            object[] values = strArray3;
-                            table.Rows.Add(values);
-                        }
-                        break;
-                    }
-                    string columnName = strArray2[index];
-                    table.Columns.Add(columnName);
-                    index++;
-                }
-            }
-            return table;
-        }
-        public static DataTable ConvertXLStoDataTable(string strFilePath, string connString)
-        {
-            //DataTable dataTable = new DataTable();
-
-            //using (OleDbConnection connection = new OleDbConnection(connString))
-            //{
-            //    connection.Open();
-            //    string str = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).Rows[0]["TABLE_NAME"].ToString();
-            //    using (OleDbDataAdapter adapter = new OleDbDataAdapter("SELECT * FROM [" + str + "]", connection))
-            //    {
-            //        adapter.Fill(dataTable);
-            //    }
-            //    connection.Close();
-            //}
-
-
             DataTable dataTable = new DataTable();
-            using (OleDbConnection connection = new OleDbConnection(connString))
+
+            using (TextFieldParser parser = new TextFieldParser(new StringReader(csvText)))
             {
-                connection.Open();
-                // Get the list of sheet names
-                DataTable dt = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                foreach (DataRow row in dt.Rows)
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+
+                // Read the first row as column headers
+                if (!parser.EndOfData)
                 {
-                    string sheetName = row["TABLE_NAME"].ToString();
-                    if (sheetName.EndsWith("$"))
+                    string[] headers = parser.ReadFields();
+                    foreach (string header in headers)
                     {
-                        // Assuming you want to keep sheets that don't end with "_Deleted"
-                        if (!sheetName.EndsWith("_Deleted$"))
-                        {
-                            // Use OleDbDataAdapter to fetch the data from the sheet
-                            OleDbDataAdapter adapter = new OleDbDataAdapter($"SELECT * FROM [{sheetName}]", connection);
-
-                            adapter.Fill(dataTable);
-
-                            // You have the data from the sheet, you can now process it as needed
-                        }
+                        dataTable.Columns.Add(header);
                     }
                 }
-            }
-            return dataTable;
-        }
-        public static DataTable ConvertXSLXtoDataTable(string strFilePath, string connString)
-        {
-            //OleDbConnection connection = new OleDbConnection(connString);
-            //DataTable table = new DataTable();
-            //connection.Open();
-            //object[] restrictions = new object[4];
-            //restrictions[3] = "TABLE";
-            //string str = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, restrictions).Rows[0]["TABLE_NAME"].ToString();
-            //using (OleDbCommand command = new OleDbCommand("SELECT * FROM [" + str + "]", connection))
-            //{
-            //    OleDbDataAdapter adapter = new OleDbDataAdapter
-            //    {
-            //        SelectCommand = command
-            //    };
-            //    DataSet dataSet = new DataSet();
-            //    adapter.Fill(dataSet);
-            //    table = dataSet.Tables[0];
-            //}
-            //connection.Close();
-
-            //return table;
-
-
-
-            //DataTable dataTable = new DataTable();
-
-            //using (OleDbConnection connection = new OleDbConnection(connString))
-            //{
-            //    connection.Open();
-            //    string str = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).Rows[0]["TABLE_NAME"].ToString();
-            //    using (OleDbDataAdapter adapter = new OleDbDataAdapter("SELECT * FROM [" + str + "]", connection))
-            //    {
-            //        adapter.Fill(dataTable);
-            //    }
-            //    connection.Close();
-            //}
-
-
-            DataTable dataTable = new DataTable();
-            using (OleDbConnection connection = new OleDbConnection(connString))
-            {
-                connection.Open();
-                // Get the list of sheet names
-                DataTable dt = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                foreach (DataRow row in dt.Rows)
+                // Read the remaining rows as data
+                while (!parser.EndOfData)
                 {
-                    string sheetName = row["TABLE_NAME"].ToString();
-                    if (sheetName.EndsWith("$"))
-                    {
-                        // Assuming you want to keep sheets that don't end with "_Deleted"
-                        if (!sheetName.EndsWith("_Deleted$"))
-                        {
-                            // Use OleDbDataAdapter to fetch the data from the sheet
-                            OleDbDataAdapter adapter = new OleDbDataAdapter($"SELECT * FROM [{sheetName}]", connection);
-
-                            adapter.Fill(dataTable);
-
-                            // You have the data from the sheet, you can now process it as needed
-                        }
-                    }
+                    string[] fields = parser.ReadFields();
+                    dataTable.Rows.Add(fields);
                 }
             }
+
             return dataTable;
         }
 
-        public static DataTable Convert_FILE_To_DataTable(string filetype, string connString, string SheetName)
+        public static DataTable Convert_FILE_To_DataTable(string filetype, string connString, string SheetName, int SupplierId)
         {
             DataTable table = new DataTable();
 
@@ -7472,6 +7666,8 @@ namespace API.Controllers
             }
             else if (filetype == ".csv")
             {
+                Int32 KGK_Id = Convert.ToInt32(ConfigurationManager.AppSettings["KGK_Id"]);
+
                 using (TextFieldParser parser = new TextFieldParser(connString))
                 {
                     string[] delimiters = new string[] { "," };
@@ -7483,6 +7679,10 @@ namespace API.Controllers
                     {
                         if (index >= strArray2.Length)
                         {
+                            if (SupplierId == KGK_Id)
+                            {
+                                table.Columns.Add("Blank 1");
+                            }
                             while (!parser.EndOfData)
                             {
                                 string[] strArray3 = parser.ReadFields();
@@ -7947,19 +8147,19 @@ namespace API.Controllers
                 {
                     string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + req.FilePath + ";Extended Properties=\"Excel 12.0;HDR=YES;\"";
                     //Stock_dt = ConvertXLStoDataTable("", connString);
-                    Stock_dt = Convert_FILE_To_DataTable(".xls", connString, req.SheetName);
+                    Stock_dt = Convert_FILE_To_DataTable(".xls", connString, req.SheetName, req.SupplierId);
                 }
                 else if (str2 == ".xlsx")
                 {
                     //string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + req.FilePath + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
                     string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + req.FilePath + ";Extended Properties='Excel 12.0 Xml;HDR=YES;IMEX=1;'";
                     //Stock_dt = ConvertXSLXtoDataTable("", connString);
-                    Stock_dt = Convert_FILE_To_DataTable(".xlsx", connString, req.SheetName);
+                    Stock_dt = Convert_FILE_To_DataTable(".xlsx", connString, req.SheetName, req.SupplierId);
                 }
                 else if (str2 == ".csv")
                 {
                     //Stock_dt = ConvertCSVtoDataTable(req.FilePath);
-                    Stock_dt = Convert_FILE_To_DataTable(".csv", req.FilePath, "");
+                    Stock_dt = Convert_FILE_To_DataTable(".csv", req.FilePath, "", req.SupplierId);
                 }
                 req.SheetName = req.SheetName.Replace("_ALL_SHEET_$", "ALL$");
 
@@ -7967,6 +8167,7 @@ namespace API.Controllers
                 Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
                 Int32 JewelParadise_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JewelParadise_Id"]);
                 Int32 Diamart_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Diamart_Id"]);
+                Int32 Laxmi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Laxmi_Id"]);
 
                 if (req.SupplierId == VishindasHolaram_Lakhi_Id)
                 {
@@ -7983,6 +8184,10 @@ namespace API.Controllers
                 else if (req.SupplierId == Diamart_Id)
                 {
                     Stock_dt = Diamart_Shade(Stock_dt);
+                }
+                else if (req.SupplierId == Laxmi_Id)
+                {
+                    Stock_dt = Laxmi_Grading(Stock_dt);
                 }
 
                 if (Stock_dt != null && Stock_dt.Rows.Count > 0)
@@ -9482,5 +9687,118 @@ namespace API.Controllers
 
 
         #endregion
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult Add_StockUpload_Response([FromBody] JObject data)
+        {
+            StockUpload_Response_Res res = new StockUpload_Response_Res();
+
+            try
+            {
+                if (!string.IsNullOrEmpty(Convert.ToString(data)))
+                {
+                    JObject test1 = JObject.Parse(data.ToString());
+                    res = JsonConvert.DeserializeObject<StockUpload_Response_Res>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+            try
+            {
+                CommonResponse resp = new CommonResponse();
+
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, res.UserId));
+
+                if (!string.IsNullOrEmpty(res.Message))
+                    para.Add(db.CreateParam("Message", DbType.String, ParameterDirection.Input, res.Message));
+                else
+                    para.Add(db.CreateParam("Message", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (res.Status > 0)
+                    para.Add(db.CreateParam("Status", DbType.Int32, ParameterDirection.Input, res.Status));
+                else
+                    para.Add(db.CreateParam("Status", DbType.Int32, ParameterDirection.Input, DBNull.Value));
+
+                DataTable dt = db.ExecuteSP("Add_StockUpload_Response", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    resp.Status = dt.Rows[0]["Status"].ToString();
+                    resp.Message = dt.Rows[0]["Message"].ToString();
+
+                }
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = ex.StackTrace,
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        
+        [HttpPost]
+        public IHttpActionResult Get_StockUpload_Response()
+        {
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, userID));
+
+                DataTable dt = db.ExecuteSP("Get_StockUpload_Response", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    List<StockUpload_Response_Res> List_Res = new List<StockUpload_Response_Res>();
+                    List_Res = DataTableExtension.ToList<StockUpload_Response_Res>(dt);
+
+                    return Ok(new ServiceResponse<StockUpload_Response_Res>
+                    {
+                        Data = List_Res,
+                        Message = "SUCCESS",
+                        Status = "1"
+                    });
+                }
+                else
+                {
+                    return Ok(new ServiceResponse<StockUpload_Response_Res>
+                    {
+                        Data = new List<StockUpload_Response_Res>(),
+                        Message = "No records found.",
+                        Status = "1"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<StockUpload_Response_Res>
+                {
+                    Data = new List<StockUpload_Response_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
     }
 }
