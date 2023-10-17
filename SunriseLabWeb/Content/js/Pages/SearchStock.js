@@ -916,7 +916,10 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
 
     var refno = $("#txtRefNo").val().replace(/ /g, ',');
     var Selected_Ref_No = (where == 'Filter' ? '' : _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'Ref_No').join(","));
-    var supplier = $('#ddlSupplierId').val().join(",");
+    var supplier = "";
+    if ($('#ddlSupplierId').val() != undefined) {
+        supplier = $('#ddlSupplierId').val().join(",");
+    }
     var shapeLst = _.pluck(_.filter(ShapeList, function (e) { return e.isActive == true }), 'Value').join(",");
     var colorLst = _.pluck(_.filter(ColorList, function (e) { return e.isActive == true }), 'Value').join(",");
     var clarityLst = _.pluck(_.filter(ClarityList, function (e) { return e.isActive == true }), 'Value').join(",");
@@ -2912,7 +2915,9 @@ function DownloadExcel() {
     obj.OrderBy = "";
     obj.FromDate = $("#txtFromDate").val();
     obj.ToDate = $("#txtToDate").val();
-    obj.iVendor = $('#ddlSupplierId').val().join(",");
+    if ($('#ddlSupplierId').val() != undefined) {
+        obj.iVendor = $('#ddlSupplierId').val().join(",");
+    }
     obj.sShape = shapeLst;
     obj.sPointer = PointerSizeLst;
     obj.sColorType = Color_Type;
