@@ -79,3 +79,5 @@
 /API/RapaPort_Data_Upload_From_Oracle_Log.txt
 /SunriseLabWeb/obj/Release/Package/PackageTmp/Content/js/Pages/SupplierDisc.js
 /SunriseLabWeb/obj/Release/Package/PackageTmp/Views/User/SupplierDisc.cshtml
+/API/obj/Release/API.csproj.CoreCompileInputs.cache
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Views/Login/Index.cshtml
