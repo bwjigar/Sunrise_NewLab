@@ -439,6 +439,7 @@ namespace Lib.Model
         public string ToPavHt { get; set; }
         public string CheckKTS { get; set; }
         public string UNCheckKTS { get; set; }
+        public string Culet { get; set; }
         public string BGM { get; set; }
         public string CrownBlack { get; set; }
         public string TableBlack { get; set; }

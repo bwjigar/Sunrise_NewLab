@@ -960,6 +960,7 @@ namespace API.Controllers
                 dt.Columns.Add("ToPavAng", typeof(string));
                 dt.Columns.Add("FromPavHt", typeof(string));
                 dt.Columns.Add("ToPavHt", typeof(string));
+                dt.Columns.Add("Culet", typeof(string)); 
                 dt.Columns.Add("CheckKTS", typeof(string));
                 dt.Columns.Add("UNCheckKTS", typeof(string));
                 dt.Columns.Add("BGM", typeof(string));
@@ -1048,6 +1049,7 @@ namespace API.Controllers
                         dr["ToPavAng"] = req.SuppDisc[i].ToPavAng;
                         dr["FromPavHt"] = req.SuppDisc[i].FromPavHt;
                         dr["ToPavHt"] = req.SuppDisc[i].ToPavHt;
+                        dr["Culet"] = req.SuppDisc[i].Culet;
                         dr["CheckKTS"] = req.SuppDisc[i].CheckKTS;
                         dr["UNCheckKTS"] = req.SuppDisc[i].UNCheckKTS;
                         dr["BGM"] = req.SuppDisc[i].BGM;

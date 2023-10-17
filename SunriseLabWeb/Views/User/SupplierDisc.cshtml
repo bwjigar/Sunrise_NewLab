@@ -246,6 +246,20 @@
                         <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="ToPavHt" maxlength="6" name="ToPavHt" onblur="LeaveTextBox('TO','FromPavHt','ToPavHt');" onkeypress="return numvalid(event)" type="text">
                     </div>
                 </div>
+                <div class="row m-0">
+                    <div class="col-sm-3 col-xs-12 api-plr">
+                        <strong>Culet</strong>
+                    </div>
+                    <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
+                        <p class="divCheckedCuletValue"></p>
+                    </div>
+                    <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center;">
+                        <div class="list-icn">
+                            <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedCuletValue',CuletList)"></i>
+                            <a href="javascript:void(0);" onclick="ModalShow('Culet',CuletList)"><i class="fa fa-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 tabbox">
@@ -696,6 +710,7 @@
                         <th rowspan="3" style="vertical-align: middle;">To Pav Ang</th>
                         <th rowspan="3" style="vertical-align: middle;">From Pav Ht</th>
                         <th rowspan="3" style="vertical-align: middle;">To Pav Ht</th>
+                        <th rowspan="3" style="vertical-align: middle;">Culet</th>
                         <th rowspan="3" style="vertical-align: middle;">Key to symbol</th>
                         <th rowspan="3" style="vertical-align: middle;">BGM</th>
                         <th rowspan="3" style="vertical-align: middle;">Crown Black</th>

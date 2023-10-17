@@ -12,6 +12,7 @@ var PolishList = [];
 var SymList = [];
 var FlsList = [];
 var LabList = [];
+var CuletList = [];
 var KTSList = [];
 var BGMList = [];
 var CrownBlackList = [];
@@ -29,6 +30,7 @@ var CheckedCutValue = "";
 var CheckedPolValue = "";
 var CheckedSymValue = "";
 var CheckedLabValue = "";
+var CheckedCuletValue = "";
 var CheckedCaratValue = "";
 var CheckedFLsValue = "";
 var CheckedBgmValue = "";
@@ -472,6 +474,9 @@ function Get_API_StockFilter() {
                     if (data.Data[k].Col_Id == 34) {
                         LabList.push(data.Data[k]);
                     }
+                    if (data.Data[k].Col_Id == 52) {
+                        CuletList.push(data.Data[k]);
+                    }
                     if (data.Data[k].Col_Id == 48) {
                         BGMList.push(data.Data[k]);
                     }
@@ -522,6 +527,9 @@ function Get_API_StockFilter() {
                 }
                 if (LabList.length > 1) {
                     LabList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Lab', isActive: false, Col_Id: 34 });
+                }
+                if (CuletList.length > 1) {
+                    CuletList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Culet', isActive: false, Col_Id: 52 });
                 }
                 if (BGMList.length > 1) {
                     BGMList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'BGM', isActive: false, Col_Id: 48 });
@@ -641,7 +649,7 @@ var ModalShow = function (ParameterLabel, ObjLst) {
                 || ParameterLabel == "Clarity" || ParameterLabel == "Cut" || ParameterLabel == "Polish" || ParameterLabel == "Sym"
                 || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM" || ParameterLabel == "CrownBlack"
                 || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
-                || ParameterLabel == "GoodsType") {
+                || ParameterLabel == "GoodsType" || ParameterLabel == "Culet") {
                 IsAllActiveC = parseInt(IsAllActiveC) + 1;
             }
         }
@@ -658,7 +666,7 @@ var ModalShow = function (ParameterLabel, ObjLst) {
         || ParameterLabel == "Clarity" || ParameterLabel == "Cut" || ParameterLabel == "Polish" || ParameterLabel == "Sym"
         || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM" || ParameterLabel == "CrownBlack"
         || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
-        || ParameterLabel == "GoodsType") {
+        || ParameterLabel == "GoodsType" || ParameterLabel == "Culet") {
         if (IsAllActiveC == ObjLst.length - 1) {
             $("#li_" + ParameterLabel + "_0").addClass('active');
         }
@@ -770,6 +778,9 @@ var ItemClicked = function (ParameterLabel, item, c, curritem) {
     if (ParameterLabel == 'Lab') {
         list = LabList;
     }
+    if (ParameterLabel == 'Culet') {
+        list = CuletList;
+    }
     if (ParameterLabel == 'Fls') {
         list = FlsList;
     }
@@ -793,7 +804,7 @@ var ItemClicked = function (ParameterLabel, item, c, curritem) {
             || ParameterLabel == "Clarity" || ParameterLabel == "Cut" || ParameterLabel == "Polish" || ParameterLabel == "Sym"
             || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM" || ParameterLabel == "CrownBlack"
             || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
-            || ParameterLabel == "GoodsType") {
+            || ParameterLabel == "GoodsType" || ParameterLabel == "Culet") {
             if (ParameterLabel == "Color" && item == "ALL" && $("#li_" + ParameterLabel + "_0").hasClass("active") == true) {
                 R_F_All_Only_Checkbox_Clr_Rst("1");
             }
@@ -846,7 +857,7 @@ var ItemClicked = function (ParameterLabel, item, c, curritem) {
             || ParameterLabel == "Clarity" || ParameterLabel == "Cut" || ParameterLabel == "Polish" || ParameterLabel == "Sym"
             || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM" || ParameterLabel == "CrownBlack"
             || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
-            || ParameterLabel == "GoodsType") {
+            || ParameterLabel == "GoodsType" || ParameterLabel == "Culet") {
             var IsAllActiveC = 0;
             for (var j = 0; j <= list.length - 1; j++) {
                 if (list[j].Value != "ALL") {
@@ -878,6 +889,7 @@ var SetSearchParameter = function () {
     var Pollst = _.pluck(_.filter(PolishList, function (e) { return e.isActive == true }), 'Value').join(",");
     var Symlst = _.pluck(_.filter(SymList, function (e) { return e.isActive == true }), 'Value').join(",");
     var labLst = _.pluck(_.filter(LabList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var culetLst = _.pluck(_.filter(CuletList, function (e) { return e.isActive == true }), 'Value').join(",");
     var flslst = _.pluck(_.filter(FlsList, function (e) { return e.isActive == true }), 'Value').join(",");
     var bgmlst = _.pluck(_.filter(BGMList, function (e) { return e.isActive == true }), 'Value').join(",");
     var crnblacklst = _.pluck(_.filter(CrownBlackList, function (e) { return e.isActive == true }), 'Value').join(",");
@@ -896,6 +908,7 @@ var SetSearchParameter = function () {
     CheckedPolValue = Pollst;
     CheckedSymValue = Symlst;
     CheckedLabValue = labLst;
+    CheckedCuletValue = culetLst;
     CheckedFLsValue = flslst;
     CheckedBgmValue = bgmlst;
     CheckedCrnBlackValue = crnblacklst;
@@ -999,6 +1012,13 @@ var SetSearchParameter = function () {
             "title": CheckedLabValue
         });
     }
+    if (CheckedCuletValue.split(",").length >= 1) {
+        $(".divCheckedCuletValue").empty();
+        $(".divCheckedCuletValue").append(CheckedCuletValue);
+        $(".divCheckedCuletValue").attr({
+            "title": CheckedCuletValue
+        });
+    }
     if (CheckedFLsValue.split(",").length >= 1) {
         $(".divCheckedFLsValue").empty();
         $(".divCheckedFLsValue").append(CheckedFLsValue);
@@ -1094,6 +1114,7 @@ function Reset_API_Filter() {
     ResetSelectedAttr('.divCheckedSymValue', SymList);
     ResetSelectedAttr('.divCheckedFLsValue', FlsList);
     ResetSelectedAttr('.divCheckedLabValue', LabList);
+    ResetSelectedAttr('.divCheckedCuletValue', CuletList);
     $("#FromLength").val("");
     $("#ToLength").val("");
     $("#FromWidth").val("");
@@ -1181,6 +1202,7 @@ function Reset_API_Filter() {
     CheckedPolValue = "";
     CheckedSymValue = "";
     CheckedLabValue = "";
+    CheckedCuletValue = "";
     CheckedFLsValue = "";
     CheckedBgmValue = "";
     CheckedCrnBlackValue = "";
@@ -1975,7 +1997,7 @@ function generate_uuidv4() {
 function HTML_CREATE(
     Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
     FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
-    FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
+    FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt, Culet,
     Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
     PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
     Chk_Speci_Additional_1, txtFromDate, txtToDate,
@@ -2020,6 +2042,7 @@ function HTML_CREATE(
     html += "<td><span class='Fi-Criteria ToPavAng'>" + ToPavAng + "</span></td>";
     html += "<td><span class='Fi-Criteria FromPavHt'>" + FromPavHt + "</span></td>";
     html += "<td><span class='Fi-Criteria ToPavHt'>" + ToPavHt + "</span></td>";
+    html += "<td><span class='Fi-Criteria Culet'>" + Culet + "</span></td>";
     html += "<td><span class='Fi-Criteria Keytosymbol'>" + Keytosymbol + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dCheckKTS'>" + dCheckKTS + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckKTS'>" + dUNCheckKTS + "</span></td>";
@@ -2303,6 +2326,8 @@ var AddNewRow = function () {
             var Sym = _.pluck(_.filter(SymList, function (e) { return e.isActive == true }), 'Value').join(",");
             var Fls = _.pluck(_.filter(FlsList, function (e) { return e.isActive == true }), 'Value').join(",");
             var Lab = _.pluck(_.filter(LabList, function (e) { return e.isActive == true }), 'Value').join(",");
+            var Culet = _.pluck(_.filter(CuletList, function (e) { return e.isActive == true }), 'Value').join(",");
+
             var FromLength = NullReplaceDecimalToFixed($("#FromLength").val());
             var ToLength = NullReplaceDecimalToFixed($("#ToLength").val());
             var FromWidth = NullReplaceDecimalToFixed($("#FromWidth").val());
@@ -2321,6 +2346,7 @@ var AddNewRow = function () {
             var ToPavAng = NullReplaceDecimalToFixed($("#ToPavAng").val());
             var FromPavHt = NullReplaceDecimalToFixed($("#FromPavHt").val());
             var ToPavHt = NullReplaceDecimalToFixed($("#ToPavHt").val());
+            
             var KeyToSymLst_Check1 = _.pluck(CheckKeyToSymbolList, 'Symbol').join(",");
             var KeyToSymLst_uncheck1 = _.pluck(UnCheckKeyToSymbolList, 'Symbol').join(",");
             var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : "-") + KeyToSymLst_uncheck1;
@@ -2552,7 +2578,7 @@ var AddNewRow = function () {
             
             var html = HTML_CREATE(Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
                 FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
-                FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
+                FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt, Culet,
                 Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
                 PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
                 Chk_Speci_Additional_1, txtFromDate, txtToDate,
@@ -2648,6 +2674,8 @@ function UpdateRow() {
 
                 var Lab = _.pluck(_.filter(LabList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.Lab').html(Lab);
+                var Culet = _.pluck(_.filter(CuletList, function (e) { return e.isActive == true }), 'Value').join(",");
+                $(this).find('.Culet').html(Culet);
 
                 $(this).find('.FromLength').html(NullReplaceDecimalToFixed($("#FromLength").val()));
                 $(this).find('.ToLength').html(NullReplaceDecimalToFixed($("#ToLength").val()));
@@ -3058,6 +3086,19 @@ function EditCriteria(new_id) {
                     }
                 }
 
+                var Culet = $(this).find('.Culet').html();
+                if (Culet != "") {
+                    for (var i in Culet.split(',')) {
+                        for (var j in CuletList) {
+                            if (j > 0) {
+                                if (Culet.split(',')[i] == CuletList[j].Value) {
+                                    CuletList[j].isActive = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                
                 $("#FromLength").val(NullReplaceDecimalToFixed($(this).find('.FromLength').html()));
                 $("#ToLength").val(NullReplaceDecimalToFixed($(this).find('.ToLength').html()));
                 $("#FromWidth").val(NullReplaceDecimalToFixed($(this).find('.FromWidth').html()));
@@ -3393,6 +3434,7 @@ function SaveData() {
                 ToPavAng: $(this).find('.ToPavAng').html(),
                 FromPavHt: $(this).find('.FromPavHt').html(),
                 ToPavHt: $(this).find('.ToPavHt').html(),
+                Culet: $(this).find('.Culet').html(),
                 CheckKTS: $(this).find('.dCheckKTS').html(),
                 UNCheckKTS: $(this).find('.dUNCheckKTS').html(),
                 BGM: $(this).find('.BGM').html(),
@@ -3551,6 +3593,7 @@ function Get_Supplier_Disc() {
                         var FromPavHt = NullReplaceDecimalToFixed(itm.FromPavHt);
                         var ToPavHt = NullReplaceDecimalToFixed(itm.ToPavHt);
 
+                        var Culet = NullReplace(itm.Culet);
                         var KeyToSymLst_Check1 = NullReplace(itm.CheckKTS);
                         var KeyToSymLst_uncheck1 = NullReplace(itm.UNCheckKTS);
                         var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : "-") + KeyToSymLst_uncheck1;
@@ -3721,7 +3764,7 @@ function Get_Supplier_Disc() {
 
                         html += HTML_CREATE(Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab, FromLength, ToLength,
                             FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng, FromCrHt, ToCrHt, FromPavAng,
-                            ToPavAng, FromPavHt, ToPavHt, Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
+                            ToPavAng, FromPavHt, ToPavHt, Culet, Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
                             PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5, Chk_Speci_Additional_1, txtFromDate, txtToDate,
                             PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5, PricingMethod_3, PricingSign_3, txtDisc_3_1, txtValue_3_1,
                             txtValue_3_2, txtValue_3_3, txtValue_3_4, txtValue_3_5, Chk_Speci_Additional_2, txtFromDate1, txtToDate1, PricingMethod_4, PricingSign_4, txtDisc_4_1, txtValue_4_1,
