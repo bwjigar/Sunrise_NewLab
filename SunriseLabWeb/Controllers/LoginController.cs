@@ -119,6 +119,12 @@ namespace SunriseLabWeb_New.Controllers
                                 Response.Cookies["Password"].Value = _obj.Password;
                                 Response.Cookies["IsRemember"].Value = _obj.isRemember.ToString();
                             }
+                            else
+                            {
+                                Response.Cookies["UserName"].Value = "";
+                                Response.Cookies["Password"].Value = "";
+                                Response.Cookies["IsRemember"].Value = "false";
+                            }
 
                             //return RedirectToAction("LabList", "Lab");
                             return RedirectToAction("Index", "DashBoard");
@@ -131,6 +137,44 @@ namespace SunriseLabWeb_New.Controllers
                 }
             }
             return View(_obj);
+        }
+        public ActionResult ForgotPassword()
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var userName = Request["ForgotUsername"];
+                    var input = new
+                    {
+                        UserName = userName
+                    };
+                    string inputJson = (new JavaScriptSerializer()).Serialize(input);
+                    string _response = _api.CallAPIWithoutToken(Constants.ForgotPassword, inputJson);
+
+                    CommonResponse _data = new CommonResponse();
+                    _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(_response);
+
+                    TempData["Message"] = _data.Message;
+                }
+                catch (WebException ex)
+                {
+                    //if (ex.Status)
+                    var webException = ex as WebException;
+                    if ((Convert.ToString(webException.Status)).ToUpper() == "PROTOCOLERROR")
+                    {
+                        OAuthErrorMsg error =
+                            JsonConvert.DeserializeObject<OAuthErrorMsg>(
+                           API.ExtractResponseString(webException));
+                        TempData["Message"] = error.error_description;
+                    }
+                    else
+                    {
+                        TempData["Message"] = ex.Message;
+                    }
+                }
+            }
+            return RedirectToAction("Index", "Login");
         }
         public string GetIpValue()
         {

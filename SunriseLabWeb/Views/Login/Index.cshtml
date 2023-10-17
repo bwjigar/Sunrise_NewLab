@@ -127,34 +127,56 @@
             <div class="row">
                 <div class="col-sm-4 login-section-wrapper">
                     <div class="login-wrapper my-auto">
-                        <h1 class="login-title">Log in</h1>
-                        @*<form action="#!">*@
+
                         @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { id = "login-form" }))
                         {
+                            <h1 class="login-title">Log in</h1>
+
                             @Html.AntiForgeryToken();
                             @Html.ValidationSummary(true);
                             <div class="form-group">
                                 <label for="email">Username</label>
-                                @*<input type="email" name="email" id="email" class="form-control" placeholder="email@example.com">*@
                                 @Html.TextBoxFor(a => a.Username, new { @class = "form-control", placeholder = "Enter Your Username" })
                                 @Html.ValidationMessageFor(m => m.Username)
                             </div>
                             <div class="form-group mb-4">
                                 <label for="password">Password</label>
-                                @*<input type="password" name="password" id="password" class="form-control" placeholder="enter your passsword">*@
                                 @Html.PasswordFor(a => a.Password, new { @value = Model.Password, @class = "form-control", placeholder = "Enter Your Password" })
                                 @Html.ValidationMessageFor(m => m.Password)
                             </div>
                             <input name="login" id="login" class="btn btn-block login-btn" type="submit" value="Login">
+
+
+
+                            <div class="custom-control custom-checkbox">
+                                <label class="form-check-input" for="isRemember">
+                                    @Html.CheckBoxFor(x => x.isRemember)
+                                    <b>Remember Me</b>
+                                    <span class="checkbox-mark"></span>
+                                </label>
+                                <a href="javascript:a_ForgotPassword();" id="forgot-form-link" class="float-right">Forgot Password ?</a>
+                            </div>
                         }
-                        @*</form>*@
-                        <div class="custom-control custom-checkbox">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Remember Me
-                            </label>
-                            <a href="#" class="float-right">Forgot password?</a>
-                        </div>
+
+
+                        @using (Html.BeginForm("ForgotPassword", "Login", FormMethod.Post, new { id = "forgot-form", style = "display: none;" }))
+                        {
+                            <h1 class="login-title">Forgot Password</h1>
+
+                            <span>Fill your username below and we will send you an email with further instructions</span>
+                            <br /><br />
+                            <div class="form-group">
+                                <label for="email">Username</label>
+                                <input type="text" name="ForgotUsername" id="txtForgotUsername" class="form-control" placeholder="Enter Your Username" required autocomplete="off">
+                            </div>
+                            <input name="Recover" id="login" class="btn btn-block login-btn" type="submit" value="Recover">
+
+                            <div class="custom-control custom-checkbox">
+                                <div class="text-right forgot-pass">
+                                    <a href="javascript:void(0);" id="login-form-link" class="float-right">Back To Login</a>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div class="col-sm-8 px-0 d-none d-sm-block">
@@ -192,6 +214,17 @@
                         content: str,
                     });
                 }
+
+                $('#login-form-link').click(function (e) {
+                    $("#login-form").delay(100).fadeIn(100);
+                    $("#forgot-form").fadeOut(100);
+                    e.preventDefault();
+                });
+                $('#forgot-form-link').click(function (e) {
+                    $("#forgot-form").delay(100).fadeIn(100);
+                    $("#login-form").fadeOut(100);
+                    e.preventDefault();
+                });
             });
             function replaceSpecialHtml(str) {
                 str = str.replace(/&lt;/g, '<');
@@ -218,7 +251,7 @@
                         debugger
                     }
                 });
-            }
+        }
     </script>
 </body>
 </html>

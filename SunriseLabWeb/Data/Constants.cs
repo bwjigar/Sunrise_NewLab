@@ -8,6 +8,8 @@ namespace SunriseLabWeb_New.Data
     public class Constants
     {
         public static string UserLogin = "/Login/Login";
+        public static string ForgotPassword = "/User/ForgotPassword";
+
         public static string KeyAccountData = "/Login/GetKeyAccountData";
         public static string IP_Wise_Login_Detail = "/Login/IP_Wise_Login_Detail";
         public static string LogoutWithoutToken = "/Login/LogoutWithoutToken";

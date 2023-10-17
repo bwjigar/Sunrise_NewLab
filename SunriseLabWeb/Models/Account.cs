@@ -15,4 +15,9 @@ namespace SunriseLabWeb_New.Models
         public string Password { get; set; }
         public bool isRemember { get; set; }
     }
+    public class ForgotPassword
+    {
+        [Required(ErrorMessage = "Please enter your User Name.")]
+        public string Username { get; set; }
+    }
 }

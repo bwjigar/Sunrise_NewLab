@@ -301,6 +301,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Middleware\CustomAuthenticationMiddleware.cs" />
+    <Compile Include="Models\Common.cs" />
     <Compile Include="Models\DataTableToConvert.cs" />
     <Compile Include="Models\Oracle_DBAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

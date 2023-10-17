@@ -26,6 +26,7 @@ using Microsoft.VisualBasic.FileIO;
 using System.Data.OleDb;
 using Oracle.DataAccess.Client;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+using System.Net.Mail;
 
 namespace API.Controllers
 {
@@ -33,6 +34,89 @@ namespace API.Controllers
     [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
+        [AllowAnonymous]
+        public IHttpActionResult ForgotPassword([FromBody] JObject data)
+        {
+            try
+            {
+                LoginRequest userRequest = new LoginRequest();
+                try
+                {
+                    userRequest = JsonConvert.DeserializeObject<LoginRequest>(data.ToString());
+                }
+                catch (Exception ex)
+                {
+                    Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                    return Ok(new CommonResponse
+                    {
+                        Message = "Input Parameters are not in the proper format",
+                        Status = "0"
+                    });
+                }
+
+                CommonResponse resp = new CommonResponse();
+                MailMessage xloMail = new MailMessage();
+                SmtpClient xloSmtp = new SmtpClient();
+                try
+                {
+                    Database db = new Database(Request);
+                    List<IDbDataParameter> para;
+                    para = new List<IDbDataParameter>();
+
+                    para.Add(db.CreateParam("UserName", DbType.String, ParameterDirection.Input, userRequest.UserName));
+
+                    DataTable dt = db.ExecuteSP("Forgot_PassWord", para.ToArray(), false);
+
+                    if (dt.Rows.Count == 0)
+                    {
+                        resp.Status = "0";
+                        resp.Message = "Username is invalid or in-active.";
+                        resp.Error = "";
+                        return Ok(resp);
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(dt.Rows[0]["Email"].ToString()))
+                        {
+                            Models.Common.EmailForgotPassword(dt.Rows[0]["Email"].ToString(), dt.Rows[0]["Full_Name"].ToString(), userRequest.UserName, dt.Rows[0]["Password"].ToString());
+
+                            string emailAdd = dt.Rows[0]["Email"].ToString();
+                            emailAdd = emailAdd.Substring(0, 3) + "*".PadLeft(emailAdd.Length - 8).Replace(" ", "*") + emailAdd.Substring(emailAdd.Length - 5);
+                            resp.Status = "1";
+                            resp.Message = "Your account information have been sent to you on " + emailAdd;
+                            resp.Error = "";
+                            return Ok(resp);
+                        }
+                        else
+                        {
+                            resp.Status = "0";
+                            resp.Message = "Your email address is invalid, please contact our Administrator.";
+                            resp.Error = "";
+                            return Ok(resp);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                    resp.Status = "0";
+                    resp.Message = ex.ToString();
+                    resp.Error = ex.Message;
+                    return Ok(resp);
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "FAIL",
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        
         [HttpPost]
         public IHttpActionResult AddUpdate_Category_Value([FromBody] JObject data)
         {
@@ -43,7 +127,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = "",
@@ -164,7 +248,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -183,7 +267,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_Category_Value_Res>
                 {
                     Data = new List<Get_Category_Value_Res>(),
@@ -254,7 +338,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_Category_Value_Res>
                 {
                     Data = new List<Get_Category_Value_Res>(),
@@ -274,7 +358,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = "",
@@ -308,7 +392,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -327,7 +411,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_CategoryMas_Res>
                 {
                     Data = new List<Get_CategoryMas_Res>(),
@@ -388,7 +472,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_CategoryMas_Res>
                 {
                     Data = new List<Get_CategoryMas_Res>(),
@@ -408,7 +492,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = "",
@@ -583,7 +667,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -602,7 +686,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Obj_Supplier_Disc>
                 {
                     Data = new List<Obj_Supplier_Disc>(),
@@ -633,7 +717,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Obj_Supplier_Disc>
                 {
                     Data = new List<Obj_Supplier_Disc>(),
@@ -653,7 +737,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = "",
@@ -834,7 +918,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -853,7 +937,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Obj_Supplier_Disc>
                 {
                     Data = new List<Obj_Supplier_Disc>(),
@@ -891,7 +975,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Obj_Supplier_Disc>
                 {
                     Data = new List<Obj_Supplier_Disc>(),
@@ -911,7 +995,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Message = "Input Parameters are not in the proper format",
@@ -1127,7 +1211,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -1146,7 +1230,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Obj_Supplier_Disc>
                 {
                     Data = new List<Obj_Supplier_Disc>(),
@@ -1183,7 +1267,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Obj_Supplier_Disc>
                 {
                     Data = new List<Obj_Supplier_Disc>(),
@@ -1203,7 +1287,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Message = "Input Parameters are not in the proper format",
@@ -1256,7 +1340,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -1275,7 +1359,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_Supplier_RefNo_Prefix_Res>
                 {
                     Data = new List<Get_Supplier_RefNo_Prefix_Res>(),
@@ -1321,7 +1405,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_Supplier_RefNo_Prefix_Res>
                 {
                     Data = new List<Get_Supplier_RefNo_Prefix_Res>(),
@@ -1340,7 +1424,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Message = "Input Parameters are not in the proper format",
@@ -1368,7 +1452,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -1388,7 +1472,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Message = "Input Parameters are not in the proper format",
@@ -1441,7 +1525,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -1460,7 +1544,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_Supplier_Value_Res>
                 {
                     Data = new List<Get_Supplier_Value_Res>(),
@@ -1504,7 +1588,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_Supplier_Value_Res>
                 {
                     Data = new List<Get_Supplier_Value_Res>(),
@@ -1523,7 +1607,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Message = "Input Parameters are not in the proper format",
@@ -1553,7 +1637,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -1579,7 +1663,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SupplierColumnSetting_FromAPI_Res>
                 {
                     Data = null,
@@ -1694,7 +1778,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SupplierColumnSetting_FromAPI_Res>
                 {
                     Data = null,
@@ -1713,7 +1797,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SupplierColumnSetting_Res>
                 {
                     Data = new List<Get_SupplierColumnSetting_Res>(),
@@ -1758,7 +1842,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SupplierColumnSetting_Res>
                 {
                     Data = new List<Get_SupplierColumnSetting_Res>(),
@@ -1777,7 +1861,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = null,
@@ -1832,7 +1916,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -1851,7 +1935,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Message = "Input Parameters are not in the proper format",
@@ -1879,7 +1963,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -1901,7 +1985,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SheetName_From_File_Res>
                 {
                     Data = null,
@@ -1946,7 +2030,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SheetName_From_File_Res>
                 {
                     Data = new List<Get_SheetName_From_File_Res>(),
@@ -1967,7 +2051,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SupplierColumnSetting_FromAPI_Res>
                 {
                     Data = null,
@@ -2065,7 +2149,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SupplierColumnSetting_FromAPI_Res>
                 {
                     Data = new List<Get_SupplierColumnSetting_FromAPI_Res>(),
@@ -2084,7 +2168,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SupplierColumnSetting_Res>
                 {
                     Data = new List<Get_SupplierColumnSetting_Res>(),
@@ -2129,7 +2213,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SupplierColumnSetting_Res>
                 {
                     Data = new List<Get_SupplierColumnSetting_Res>(),
@@ -2148,7 +2232,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = "",
@@ -2200,7 +2284,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -2219,7 +2303,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Message = "Input Parameters are not in the proper format",
@@ -2247,7 +2331,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -2267,7 +2351,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SupplierMaster_Res>
                 {
                     Data = new List<Get_SupplierMaster_Res>(),
@@ -2307,7 +2391,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SupplierMaster_Res>
                 {
                     Data = new List<Get_SupplierMaster_Res>(),
@@ -2326,7 +2410,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SupplierMaster_Res>
                 {
                     Data = new List<Get_SupplierMaster_Res>(),
@@ -2394,7 +2478,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SupplierMaster_Res>
                 {
                     Data = new List<Get_SupplierMaster_Res>(),
@@ -2413,7 +2497,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = "",
@@ -2645,7 +2729,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -2664,7 +2748,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok("Input Parameters are not in the proper format");
             }
             try
@@ -2696,7 +2780,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 throw ex;
             }
         }
@@ -2720,7 +2804,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<GetUsers_Res>
                 {
                     Data = new List<GetUsers_Res>(),
@@ -2757,7 +2841,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<GetUsers_Res>
                 {
                     Data = new List<GetUsers_Res>(),
@@ -2863,7 +2947,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Message = "Input Parameters are not in the proper format",
@@ -2970,7 +3054,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -3014,7 +3098,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_PriceList_ParaMas>
                 {
                     Data = new List<Get_PriceList_ParaMas>(),
@@ -3047,7 +3131,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_PriceListCategory_Res>
                 {
                     Data = new List<Get_PriceListCategory_Res>(),
@@ -3081,7 +3165,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok();
             }
 
@@ -3109,7 +3193,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<CommonResponse>
                 {
                     Data = new List<CommonResponse>(),
@@ -3128,7 +3212,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_ColumnMaster_Res>
                 {
                     Data = null,
@@ -3174,7 +3258,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_ColumnMaster_Res>
                 {
                     Data = null,
@@ -3219,7 +3303,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_FancyColor_Res>
                 {
                     Data = null,
@@ -3262,7 +3346,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<get_key_to_symbol>
                 {
                     Data = new List<get_key_to_symbol>(),
@@ -3305,7 +3389,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_ParaMas_Res>
                 {
                     Data = new List<Get_ParaMas_Res>(),
@@ -3333,7 +3417,7 @@ namespace API.Controllers
             //}
             //catch (Exception ex)
             //{
-            //    Common.InsertErrorLog(ex, null, Request);
+            //    Lib.Model.Common.InsertErrorLog(ex, null, Request);
             //    return Ok(new ServiceResponse<Get_SearchStock_Res>
             //    {
             //        Data = new List<Get_SearchStock_Res>(),
@@ -3360,7 +3444,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_PriceListCategory_Res>
                 {
                     Data = new List<Get_PriceListCategory_Res>(),
@@ -3388,7 +3472,7 @@ namespace API.Controllers
             //}
             //catch (Exception ex)
             //{
-            //    Common.InsertErrorLog(ex, null, Request);
+            //    Lib.Model.Common.InsertErrorLog(ex, null, Request);
             //    return Ok("Input Parameters are not in the proper format");
             //}
             try
@@ -3459,7 +3543,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 throw ex;
             }
         }
@@ -3809,7 +3893,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, null);
+                Lib.Model.Common.InsertErrorLog(ex, null, null);
                 return null;
             }
         }
@@ -3838,7 +3922,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<UserType_Res>
                 {
                     Data = new List<UserType_Res>(),
@@ -8142,7 +8226,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = "",
@@ -8340,7 +8424,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -8385,7 +8469,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_ColumnSetting_UserWise_Res>
                 {
                     Data = new List<Get_ColumnSetting_UserWise_Res>(),
@@ -8423,7 +8507,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_ColumnSetting_UserWise_Res>
                 {
                     Data = new List<Get_ColumnSetting_UserWise_Res>(),
@@ -8442,7 +8526,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Message = "Input Parameters are not in the proper format",
@@ -8542,7 +8626,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -8561,7 +8645,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SearchStock_ColumnSetting_Res>
                 {
                     Data = new List<Get_SearchStock_ColumnSetting_Res>(),
@@ -8598,7 +8682,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<Get_SearchStock_ColumnSetting_Res>
                 {
                     Data = new List<Get_SearchStock_ColumnSetting_Res>(),
@@ -9723,7 +9807,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = "",
@@ -9762,7 +9846,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new CommonResponse
                 {
                     Error = ex.StackTrace,
@@ -9810,7 +9894,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                Common.InsertErrorLog(ex, null, Request);
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok(new ServiceResponse<StockUpload_Response_Res>
                 {
                     Data = new List<StockUpload_Response_Res>(),
