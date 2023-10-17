@@ -2006,6 +2006,10 @@ namespace API
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab_Comments"]);
                                 }
+                                else if (Column_Name == "Key To Symbol")
+                                {
+                                    worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Key_To_Symboll"]);
+                                }
                                 else if (Column_Name == "Girdle(%)")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = ((dtDiamonds.Rows[i - inStartIndex]["Girdle_Per"] != null) ?
@@ -2030,7 +2034,7 @@ namespace API
 
                                     worksheet.Cells[inwrkrow, kk].Style.Numberformat.Format = "0.00";
                                 }
-                                else if (Column_Name == "Pavilion Angle")
+                                else if (Column_Name == "Pav Angle")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = ((dtDiamonds.Rows[i - inStartIndex]["Pav_Angle"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Pav_Angle"].GetType().Name != "DBNull" ?
@@ -2038,7 +2042,7 @@ namespace API
 
                                     worksheet.Cells[inwrkrow, kk].Style.Numberformat.Format = "0.00";
                                 }
-                                else if (Column_Name == "Pavilion Height")
+                                else if (Column_Name == "Pav Height")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = ((dtDiamonds.Rows[i - inStartIndex]["Pav_Height"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Pav_Height"].GetType().Name != "DBNull" ?
