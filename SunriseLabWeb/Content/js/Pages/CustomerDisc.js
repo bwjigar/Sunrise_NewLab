@@ -2870,7 +2870,7 @@ function EditCriteria(new_id) {
                 $(this).find('.RemoveCriteria').hide();
 
 
-                var Supplier = $(this).find('.Supplier').html();
+                var Supplier = htmlDecode($(this).find('.Supplier').html());
                 if (Supplier != "") {
                     for (var i in Supplier.split(',')) {
                         for (var j in SupplierList) {
@@ -2883,7 +2883,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var Location = $(this).find('.Location').html();
+                var Location = htmlDecode($(this).find('.Location').html());
                 if (Location != "") {
                     for (var i in Location.split(',')) {
                         for (var j in LocationList) {
@@ -2896,7 +2896,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var Shape = $(this).find('.Shape').html();
+                var Shape = htmlDecode($(this).find('.Shape').html());
                 if (Shape != "") {
                     for (var i in Shape.split(',')) {
                         for (var j in ShapeList) {
@@ -2909,7 +2909,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var Carat = $(this).find('.Carat').html();
+                var Carat = htmlDecode($(this).find('.Carat').html());
                 $(".divCheckedPointerValue").empty();
                 _pointerlst = [];
                 if (Carat != "") {
@@ -2919,13 +2919,13 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var ColorType = $(this).find('.ColorType').html();
+                var ColorType = htmlDecode($(this).find('.ColorType').html());
                 Regular_All = (ColorType == "Regular" ? true : false);
                 Fancy_All = (ColorType == "Fancy" ? true : false);
-                var Color = $(this).find('.Color').html();
-                var dCheckINTENSITY = $(this).find('.dCheckINTENSITY').html();
-                var dCheckOVERTONE = $(this).find('.dCheckOVERTONE').html();
-                var dCheckFANCY_COLOR = $(this).find('.dCheckFANCY_COLOR').html();
+                var Color = htmlDecode($(this).find('.Color').html());
+                var dCheckINTENSITY = htmlDecode($(this).find('.dCheckINTENSITY').html());
+                var dCheckOVERTONE = htmlDecode($(this).find('.dCheckOVERTONE').html());
+                var dCheckFANCY_COLOR = htmlDecode($(this).find('.dCheckFANCY_COLOR').html());
 
                 if (Regular_All == true || Color != "") {
                     ActiveOrNot('Regular');
@@ -2988,7 +2988,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var Clarity = $(this).find('.Clarity').html();
+                var Clarity = htmlDecode($(this).find('.Clarity').html());
                 if (Clarity != "") {
                     for (var i in Clarity.split(',')) {
                         for (var j in ClarityList) {
@@ -3001,7 +3001,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var Cut = $(this).find('.Cut').html();
+                var Cut = htmlDecode($(this).find('.Cut').html());
                 if (Cut != "") {
                     for (var i in Cut.split(',')) {
                         for (var j in CutList) {
@@ -3014,7 +3014,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var Polish = $(this).find('.Polish').html();
+                var Polish = htmlDecode($(this).find('.Polish').html());
                 if (Polish != "") {
                     for (var i in Polish.split(',')) {
                         for (var j in PolishList) {
@@ -3027,7 +3027,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var Sym = $(this).find('.Sym').html();
+                var Sym = htmlDecode($(this).find('.Sym').html());
                 if (Sym != "") {
                     for (var i in Sym.split(',')) {
                         for (var j in SymList) {
@@ -3040,7 +3040,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var Fls = $(this).find('.Fls').html();
+                var Fls = htmlDecode($(this).find('.Fls').html());
                 if (Fls != "") {
                     for (var i in Fls.split(',')) {
                         for (var j in FlsList) {
@@ -3053,7 +3053,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var Lab = $(this).find('.Lab').html();
+                var Lab = htmlDecode($(this).find('.Lab').html());
                 if (Lab != "") {
                     for (var i in Lab.split(',')) {
                         for (var j in LabList) {
@@ -3085,8 +3085,8 @@ function EditCriteria(new_id) {
                 $("#FromPavHt").val(NullReplaceDecimalToFixed($(this).find('.FromPavHt').html()));
                 $("#ToPavHt").val(NullReplaceDecimalToFixed($(this).find('.ToPavHt').html()));
 
-                var dCheckKTS = $(this).find('.dCheckKTS').html();
-                var dUNCheckKTS = $(this).find('.dUNCheckKTS').html();
+                var dCheckKTS = htmlDecode($(this).find('.dCheckKTS').html());
+                var dUNCheckKTS = htmlDecode($(this).find('.dUNCheckKTS').html());
 
                 if (dCheckKTS != "") {
                     for (var i in dCheckKTS.split(',')) {
@@ -3109,7 +3109,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var BGM = $(this).find('.BGM').html();
+                var BGM = htmlDecode($(this).find('.BGM').html());
                 if (BGM != "") {
                     for (var i in BGM.split(',')) {
                         for (var j in BGMList) {
@@ -3122,7 +3122,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var CrownBlack = $(this).find('.CrownBlack').html();
+                var CrownBlack = htmlDecode($(this).find('.CrownBlack').html());
                 if (CrownBlack != "") {
                     for (var i in CrownBlack.split(',')) {
                         for (var j in CrownBlackList) {
@@ -3135,7 +3135,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var TableBlack = $(this).find('.TableBlack').html();
+                var TableBlack = htmlDecode( $(this).find('.TableBlack').html());
                 if (TableBlack != "") {
                     for (var i in TableBlack.split(',')) {
                         for (var j in TableBlackList) {
@@ -3148,7 +3148,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var CrownWhite = $(this).find('.CrownWhite').html();
+                var CrownWhite = htmlDecode($(this).find('.CrownWhite').html());
                 if (CrownWhite != "") {
                     for (var i in CrownWhite.split(',')) {
                         for (var j in CrownWhiteList) {
@@ -3161,7 +3161,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var TableWhite = $(this).find('.TableWhite').html();
+                var TableWhite = htmlDecode($(this).find('.TableWhite').html());
                 if (TableWhite != "") {
                     for (var i in TableWhite.split(',')) {
                         for (var j in TableWhiteList) {
@@ -3174,7 +3174,7 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                var GoodsType = $(this).find('.GoodsType').html();
+                var GoodsType = htmlDecode($(this).find('.GoodsType').html());
                 if (GoodsType != "") {
                     for (var i in GoodsType.split(',')) {
                         for (var j in GoodsTypeList) {
@@ -3365,21 +3365,21 @@ function SaveData() {
         var list = [];
         $("#tblFilters #tblBodyFilters tr").each(function () {
             list.push({
-                Supplier: $(this).find('.Supplier').html(),
-                Location: $(this).find('.Location').html(),
-                Shape: $(this).find('.Shape').html(),
-                Carat: $(this).find('.Carat').html(),
-                ColorType: $(this).find('.ColorType').html(),
-                Color: $(this).find('.Color').html(),
-                INTENSITY: $(this).find('.dCheckINTENSITY').html(),
-                OVERTONE: $(this).find('.dCheckOVERTONE').html(),
-                FANCY_COLOR: $(this).find('.dCheckFANCY_COLOR').html(),
-                Clarity: $(this).find('.Clarity').html(),
-                Cut: $(this).find('.Cut').html(),
-                Polish: $(this).find('.Polish').html(),
-                Sym: $(this).find('.Sym').html(),
-                Fls: $(this).find('.Fls').html(),
-                Lab: $(this).find('.Lab').html(),
+                Supplier: htmlDecode($(this).find('.Supplier').html()),
+                Location: htmlDecode($(this).find('.Location').html()),
+                Shape: htmlDecode($(this).find('.Shape').html()),
+                Carat: htmlDecode($(this).find('.Carat').html()),
+                ColorType: htmlDecode($(this).find('.ColorType').html()),
+                Color: htmlDecode($(this).find('.Color').html()),
+                INTENSITY: htmlDecode($(this).find('.dCheckINTENSITY').html()),
+                OVERTONE: htmlDecode($(this).find('.dCheckOVERTONE').html()),
+                FANCY_COLOR: htmlDecode($(this).find('.dCheckFANCY_COLOR').html()),
+                Clarity: htmlDecode($(this).find('.Clarity').html()),
+                Cut: htmlDecode($(this).find('.Cut').html()),
+                Polish: htmlDecode($(this).find('.Polish').html()),
+                Sym: htmlDecode($(this).find('.Sym').html()),
+                Fls: htmlDecode($(this).find('.Fls').html()),
+                Lab: htmlDecode($(this).find('.Lab').html()),
                 FromLength: $(this).find('.FromLength').html(),
                 ToLength: $(this).find('.ToLength').html(),
                 FromWidth: $(this).find('.FromWidth').html(),
@@ -3398,14 +3398,14 @@ function SaveData() {
                 ToPavAng: $(this).find('.ToPavAng').html(),
                 FromPavHt: $(this).find('.FromPavHt').html(),
                 ToPavHt: $(this).find('.ToPavHt').html(),
-                CheckKTS: $(this).find('.dCheckKTS').html(),
-                UNCheckKTS: $(this).find('.dUNCheckKTS').html(),
-                BGM: $(this).find('.BGM').html(),
-                CrownBlack: $(this).find('.CrownBlack').html(),
-                TableBlack: $(this).find('.TableBlack').html(),
-                CrownWhite: $(this).find('.CrownWhite').html(),
-                TableWhite: $(this).find('.TableWhite').html(),
-                GoodsType: $(this).find('.GoodsType').html(),
+                CheckKTS: htmlDecode($(this).find('.dCheckKTS').html()),
+                UNCheckKTS: htmlDecode($(this).find('.dUNCheckKTS').html()),
+                BGM: htmlDecode($(this).find('.BGM').html()),
+                CrownBlack: htmlDecode($(this).find('.CrownBlack').html()),
+                TableBlack: htmlDecode($(this).find('.TableBlack').html()),
+                CrownWhite: htmlDecode($(this).find('.CrownWhite').html()),
+                TableWhite: htmlDecode($(this).find('.TableWhite').html()),
+                GoodsType: htmlDecode($(this).find('.GoodsType').html()),
                 Image: $(this).find('.Image').html(),
                 Video: $(this).find('.Video').html(),
                 PricingMethod_1: $(this).find('.PricingMethod_1').html(),
