@@ -1,4 +1,6 @@
-﻿using API.Models;
+﻿using EpExcelExportLib;
+
+using API.Models;
 using Lib.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -27,6 +29,7 @@ using System.Data.OleDb;
 using Oracle.DataAccess.Client;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using System.Net.Mail;
+
 
 namespace API.Controllers
 {
@@ -78,7 +81,7 @@ namespace API.Controllers
                     {
                         if (!string.IsNullOrEmpty(dt.Rows[0]["Email"].ToString()))
                         {
-                            Models.Common.EmailForgotPassword(dt.Rows[0]["Email"].ToString(), dt.Rows[0]["Full_Name"].ToString(), userRequest.UserName, dt.Rows[0]["Password"].ToString());
+                            Common.EmailForgotPassword(dt.Rows[0]["Email"].ToString(), dt.Rows[0]["Full_Name"].ToString(), userRequest.UserName, dt.Rows[0]["Password"].ToString());
 
                             string emailAdd = dt.Rows[0]["Email"].ToString();
                             emailAdd = emailAdd.Substring(0, 3) + "*".PadLeft(emailAdd.Length - 8).Replace(" ", "*") + emailAdd.Substring(emailAdd.Length - 5);
@@ -116,7 +119,7 @@ namespace API.Controllers
                 });
             }
         }
-        
+
         [HttpPost]
         public IHttpActionResult AddUpdate_Category_Value([FromBody] JObject data)
         {
@@ -1044,7 +1047,7 @@ namespace API.Controllers
                 dt.Columns.Add("ToPavAng", typeof(string));
                 dt.Columns.Add("FromPavHt", typeof(string));
                 dt.Columns.Add("ToPavHt", typeof(string));
-                dt.Columns.Add("Culet", typeof(string)); 
+                dt.Columns.Add("Culet", typeof(string));
                 dt.Columns.Add("CheckKTS", typeof(string));
                 dt.Columns.Add("UNCheckKTS", typeof(string));
                 dt.Columns.Add("BGM", typeof(string));
@@ -3453,7 +3456,7 @@ namespace API.Controllers
                 });
             }
         }
-        
+
         [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult Excel_SearchStock([FromBody] JObject data)
@@ -3465,7 +3468,7 @@ namespace API.Controllers
                 JObject test1 = JObject.Parse(data.ToString());
                 req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
             }
-            
+
             //try
             //{
             //    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
@@ -7401,7 +7404,7 @@ namespace API.Controllers
                 //DataRow[] dra1 = Final_dt.Select("[Cert No] = '2428377211'");
                 return Final_dt;
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }
@@ -9618,7 +9621,7 @@ namespace API.Controllers
                 });
             }
         }
-        
+
         [HttpPost]
         public IHttpActionResult Get_StockUpload_Response()
         {
@@ -9666,5 +9669,285 @@ namespace API.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public IHttpActionResult PlaceOrder([FromBody] JObject data)
+        {
+            PlaceOrder_Req req = new PlaceOrder_Req();
+            try
+            {
+                req = JsonConvert.DeserializeObject<PlaceOrder_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+
+            }
+            try
+            {
+                CommonResponse resp = new CommonResponse();
+                Int32 OrderId;
+                DateTime OrderDate;
+
+                Database db = new Database();
+                List<IDbDataParameter> para;
+                para = new List<IDbDataParameter>();
+
+                int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
+                para.Add(db.CreateParam("Comments", DbType.String, ParameterDirection.Input, req.Comments));
+                para.Add(db.CreateParam("SupplierId_RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, req.SupplierId_RefNo_SupplierRefNo));
+
+                DataTable dt = db.ExecuteSP("PlaceOrder", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    OrderId = Convert.ToInt32(dt.Rows[0]["OrderId"].ToString());
+                    resp.Status = dt.Rows[0]["Status"].ToString();
+                    resp.Message = dt.Rows[0]["Message"].ToString();
+                    OrderDate = DateTime.Now;
+
+                    if (resp.Status == "1" && OrderId > 0)
+                    {
+                        SendOrderMail(OrderId, req.Comments, UserId, OrderDate, "Customer");
+                        SendOrderMail(OrderId, req.Comments, UserId, OrderDate, "Employee");
+                    }
+                }
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [NonAction]
+        private static bool SendOrderMail(Int32 OrderId, String Comments, Int32 UserId, DateTime OrderDate, String EmailType)
+        {
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+                para.Clear();
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
+                DataTable dtUserDetail = db.ExecuteSP("Get_UserMas", para.ToArray(), false);
+
+                StringBuilder loSb = new StringBuilder();
+                //loSb.Append(EmailHeader());
+                loSb.Append(@"<table cellpadding=""0"" cellspacing=""0"" width=""100%"">");
+                if (dtUserDetail.Rows[0]["CompName"] != null && dtUserDetail.Rows[0]["CompName"].ToString() != "")
+                {
+                    loSb.Append(@"<tr><td>Company Name:</td><td>" + dtUserDetail.Rows[0]["CompName"].ToString() + "</td></tr>");
+                }
+                if (dtUserDetail.Rows[0]["UserTypeList"] != null && dtUserDetail.Rows[0]["UserTypeList"].ToString() == "Customer")
+                {
+                    string Fname = "", Lname = "";
+                    if (dtUserDetail.Rows[0]["FirstName"] != null && dtUserDetail.Rows[0]["FirstName"].ToString() != "")
+                    {
+                        Fname = dtUserDetail.Rows[0]["FirstName"].ToString();
+                    }
+                    if (dtUserDetail.Rows[0]["LastName"] != null && dtUserDetail.Rows[0]["LastName"].ToString() != "")
+                    {
+                        Lname = dtUserDetail.Rows[0]["LastName"].ToString();
+                    }
+                    loSb.Append(@"<tr><td>Buyer:</td><td>" + Fname + " " + Lname + "</td></tr>");
+                }
+                if (dtUserDetail.Rows[0]["AssistByName"] != null && dtUserDetail.Rows[0]["AssistByName"].ToString() != "")
+                {
+                    loSb.Append(@"<tr><td>Sales Person:</td><td>" + dtUserDetail.Rows[0]["AssistByName"].ToString() + "</td></tr>");
+                }
+                if (EmailType == "Customer")
+                {
+                    if (dtUserDetail.Rows[0]["MobileNo"] != null && dtUserDetail.Rows[0]["MobileNo"].ToString() != "")
+                    {
+                        loSb.Append(@"<tr><td>Mobile/Whatsapp:</td><td>" + dtUserDetail.Rows[0]["MobileNo"].ToString() + "</td></tr>");
+                    }
+                    if (dtUserDetail.Rows[0]["EmailId"] != null && dtUserDetail.Rows[0]["EmailId"].ToString() != "")
+                    {
+                        loSb.Append(@"<tr><td>Email:</td><td>" + dtUserDetail.Rows[0]["EmailId"].ToString() + "</td></tr>");
+                    }
+                }
+                else if (EmailType == "Employee")
+                {
+                    if (dtUserDetail.Rows[0]["AssistByMobileNo"] != null && dtUserDetail.Rows[0]["AssistByMobileNo"].ToString() != "")
+                    {
+                        loSb.Append(@"<tr><td>Mobile/Whatsapp:</td><td>" + dtUserDetail.Rows[0]["AssistByMobileNo"].ToString() + "</td></tr>");
+                    }
+                    if (dtUserDetail.Rows[0]["AssistByEmailId"] != null && dtUserDetail.Rows[0]["AssistByEmailId"].ToString() != "")
+                    {
+                        loSb.Append(@"<tr><td>Email:</td><td>" + dtUserDetail.Rows[0]["AssistByEmailId"].ToString() + "</td></tr>");
+                    }
+                }
+
+                loSb.Append(@"<tr><td>Order Date:</td><td>" + OrderDate.ToString("dd-MMM-yyyy") + "</td></tr>");
+
+                loSb.Append(@"<tr><td width=""170px"">Order No:</td><td>" + OrderId.ToString() + "</td></tr>");
+                loSb.Append(@"<tr><td width=""170px"">Customer Note:</td><td>" + Comments.ToString() + "</td></tr>");
+
+
+                loSb.Append("</table>");
+                loSb.Append("<br/> <br/>");
+
+
+
+                db = new Database();
+                para.Clear();
+                para.Add(db.CreateParam("OrderId", DbType.Int32, ParameterDirection.Input, OrderId));
+                DataTable dtOrderDetail = db.ExecuteSP("OrderDet_SelectAllByOrderId_Email", para.ToArray(), false);
+
+                dtOrderDetail.Columns.Remove("Sr");
+
+
+                loSb.Append("<table border = '1' style='overflow-x:scroll !important; width:1500px !important;'>");
+
+                loSb.Append("<tr>");
+
+                string _strfont = "\"font-size: 12px; font-family: Tahoma;text-align:center; background-color: #83CAFF;\"";
+                foreach (DataColumn column in dtOrderDetail.Columns)
+                {
+                    loSb.Append("<th style = " + _strfont + ">");
+                    loSb.Append(column.ColumnName);
+                    loSb.Append("</th>");
+                }
+                loSb.Append("</tr>");
+
+                _strfont = "\"font-size: 10px; font-family: Tahoma;text-align:center;white-space: nowrap; \"";
+                //Building the Data rows.
+                foreach (DataRow row in dtOrderDetail.Rows)
+                {
+                    loSb.Append("<tr>");
+                    foreach (DataColumn column in dtOrderDetail.Columns)
+                    {
+                        string _strcheck = "";
+                        //if (column.ColumnName.ToString() == "Disc %" || column.ColumnName.ToString() == "Net Amt($)")
+                        if (column.ColumnName.ToString() == "Offer Disc.(%)" || column.ColumnName.ToString() == "Offer Value($)")
+                        {
+                            string _strstyle = "\"font-size: 10px; font-family: Tahoma;text-align:center;font-weight:bold;background-color: #ade0e9;color:red;white-space: nowrap;\"";
+                            loSb.Append("<td style = " + _strstyle + ">");
+                        }
+
+                        else if (column.ColumnName.ToString() == "Status" && row["Stock Id"].ToString() != "Total")
+                        {
+                            if (row["Status"].ToString().ToLower() == "confirmed")
+                            {
+                                string _strstyle = "\"font-size: 10px; font-family: Tahoma;text-align:center;font-weight:bold;background-color: #c6ffbe;white-space: nowrap;\"";
+                                loSb.Append("<td style = " + _strstyle + ">");
+                            }
+                            else
+                            {
+                                string _strstyle = "\"font-size: 10px; font-family: Tahoma;text-align:center;font-weight:bold;background-color: yellow;color:red;white-space: nowrap;\"";
+                                loSb.Append("<td style = " + _strstyle + ">");
+                            }
+                        }
+                        else if (column.ColumnName.ToString() == "Cut" || column.ColumnName.ToString() == "Polish" || column.ColumnName.ToString() == "Symm")
+                        {
+                            loSb.Append("<td style = " + _strfont + ">");
+                            if (row["Cut"].ToString() == "3EX" && row["Polish"].ToString() == "EX" && row["Symm"].ToString() == "EX")
+                            {
+                                loSb.Append("<b>" + row[column.ColumnName] + "<b>");
+                                _strcheck = "Y";
+                            }
+                        }
+                        else
+                        {
+                            loSb.Append("<td style = " + _strfont + ">");
+                        }
+
+                        if (_strcheck != "Y")
+                        {
+                            if (column.ColumnName.ToString() == "Rap Price($)" || column.ColumnName.ToString() == "Rap Amount($)" || column.ColumnName.ToString() == "Offer Value($)")
+                            {
+                                if (row[column.ColumnName].ToString() != "")
+                                {
+
+                                    if (column.ColumnName.ToString() == "Rap Price($)")
+                                    {
+                                        loSb.Append(Convert.ToInt32(row[column.ColumnName]).ToString("C", new System.Globalization.CultureInfo("en-US")).Replace("$", "").Replace("(", "").Replace(")", "").Replace(".00", ""));
+                                    }
+                                    else
+                                    {
+                                        loSb.Append(Convert.ToDecimal(row[column.ColumnName]).ToString("C", new System.Globalization.CultureInfo("en-US")).Replace("(", "").Replace(")", "").Replace("$", ""));
+                                    }
+                                }
+                                else
+                                {
+                                    loSb.Append(row[column.ColumnName]);
+                                }
+                            }
+                            else if (column.ColumnName.ToString() == "Cts")
+                            {
+                                loSb.Append(String.Format("{0:0.00}", Convert.ToDecimal(row[column.ColumnName])));
+                            }
+                            else if (column.ColumnName.ToString() == "Image")
+                            {
+                                if (row["image"].ToString() != "")
+                                {
+                                    loSb.Append(string.Format("<a href='" + row[column.ColumnName] + "'>Image</a>"));
+                                }
+                            }
+
+                            else if (column.ColumnName.ToString() == "Video")
+                            {
+                                if (row["video"].ToString() != "")
+                                {
+                                    loSb.Append(string.Format("<a href='" + row[column.ColumnName] + "'>Video</a>"));
+                                }
+                            }
+
+                            else if (column.ColumnName.ToString() == "DNA")
+                            {
+                                if (row["dna"].ToString() != "")
+                                {
+                                    loSb.Append(string.Format("<a href='" + row[column.ColumnName] + "'>Dna</a>"));
+                                }
+                            }
+                            else
+                            {
+                                loSb.Append(row[column.ColumnName]);
+                            }
+                        }
+                        loSb.Append("</td>");
+
+                    }
+                    loSb.Append("</tr>");
+                }
+
+                loSb.Append("</table>");
+
+                loSb.Append(@"<p>Thank you for placing order from our website http://sunrisediamonds.com.hk:8112</p>");
+
+
+                if (EmailType == "Customer")
+                {
+                    Common.SendMail(dtUserDetail.Rows[0]["EmailId"].ToString(), "Sunrise Diamonds – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
+                }
+                else if (EmailType == "Employee")
+                {
+                    Common.SendMail(dtUserDetail.Rows[0]["AssistByEmailId"].ToString(), "Sunrise Diamonds – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
+                }
+
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, null);
+                return false;
+            }
+        }
+
     }
 }

@@ -728,4 +728,10 @@ namespace Lib.Model
         public string Column_Name { get; set; }
         public decimal ExcelWidth { get; set; }
     }
+    public class PlaceOrder_Req
+    {
+        public string SupplierId_RefNo_SupplierRefNo { get; set; }
+        public string Comments { get; set; }
+    }
+    
 }

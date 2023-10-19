@@ -590,5 +590,14 @@ namespace SunriseLabWeb_New.Controllers
             ServiceResponse<StockUpload_Response_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<StockUpload_Response_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
+
+        public JsonResult PlaceOrder(PlaceOrder_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.PlaceOrder, inputJson);
+            CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(_data, JsonRequestBehavior.AllowGet);
+        }
     }
 }

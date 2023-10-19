@@ -877,7 +877,6 @@ function ExcelDownload(where) {
             type: "POST",
             data: { req: obj },
             success: function (data, textStatus, jqXHR) {
-                debugger
                 loaderHide();
                 if (data.search('.xlsx') == -1) {
                     if (data.indexOf('Something Went wrong') > -1) {
@@ -1831,6 +1830,21 @@ $(document).ready(function () {
             event.preventDefault();
         }
     });
+
+    $('#PlaceOrderModal').on('show.bs.modal', function (event) {
+        var count = 0;
+        count = gridOptions.api.getSelectedRows().length;
+        $("#Comments").val("");
+        if (count > 0) {
+            $('#frmSaveOrder #Selected').show();
+            $('#frmSaveOrder #NotSelected').hide();
+            $('.modal-footer #btnsaveOrderstone').show();
+        } else {
+            $('#frmSaveOrder #Selected').hide();
+            $('#frmSaveOrder #NotSelected').show();
+            $('.modal-footer #btnsaveOrderstone').hide();
+        }
+    });
 });
 SetCutMaster = function (item) {
     _.each(CutList, function (itm) {
@@ -2151,7 +2165,6 @@ function GetTransId() {
         type: "POST",
         data: { req: obj },
         success: function (data, textStatus, jqXHR) {
-            debugger
             if (data != null && data.Data.length > 0) {
                 for (var k in data.Data) {
                     $("#ddlSupplierId").append("<option value='" + data.Data[k].Id + "'>" + data.Data[k].SupplierName + "</option>");
@@ -3022,4 +3035,53 @@ function formatNumber(number) {
 }
 function formatIntNumber(number) {
     return (parseInt(number)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
+
+function PlaceOrder() {
+    $('#PlaceOrderModal').modal('show');
+}
+function SaveOrder() {
+    if ($("#Comments").val().trim() == "") {
+        $("#Comments").val("");
+        $("#Comments").focus();
+        toastr.warning("Enter Comments");
+        return;
+    }
+    loaderShow();
+    debugger
+    var selectedRows = gridOptions.api.getSelectedRows();
+    var list = '';
+    var i = 0, tot = selectedRows.length;
+    for (; i < tot; i++) {
+        list += selectedRows[i].SupplierId + "_" + selectedRows[i].Ref_No + "_" + selectedRows[i].Supplier_Stone_Id + ',';
+    }
+    list = (list != '' ? list.substr(0, (list.length - 1)) : '');
+
+    var obj = {};
+    obj.SupplierId_RefNo_SupplierRefNo = list;
+    obj.Comments = $("#Comments").val();
+
+    $.ajax({
+        url: '/User/PlaceOrder',
+        type: "POST",
+        data: { req: obj },
+        success: function (data) {
+            loaderHide();
+            if (data.Status == "1") {
+                $('#PlaceOrderModal').modal('hide');
+                toastr.success(data.Message);
+            }
+            else {
+                if (data.Message.indexOf('Something Went wrong') > -1) {
+                    MoveToErrorPage(0);
+                }
+                toastr.error(data.Message);
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            loaderHide();
+        }
+    });
+
+    
 }
