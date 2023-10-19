@@ -280,6 +280,7 @@
     </div>
     <input type="hidden" id="hdn_UserId" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.UserId" />
     <input type="hidden" id="hdn_UserType" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId" />
+    <input type="hidden" id="hdn_UserTypeList" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList" />
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar" class="active">
@@ -379,6 +380,12 @@
                             </a>
                         </li>
                     }
+                    <li>
+                        <a href="@Url.Action("OrderHistory", "User")">
+                            <i class="fa fa-file-text" aria-hidden="true"></i>
+                            Order History
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -432,7 +439,7 @@
     <script src="17.4.0.46/scripts/web/properties.js" type="text/javascript"></script>
     @RenderSection("scripts", required: false)
 
-<script type="text/javascript">
+    <script type="text/javascript">
         var IsAlertsCenterOpen = 0;
         var L_d = new Date();
         var L_month = L_d.getMonth()+1;
@@ -622,7 +629,7 @@ var loaderHide = function () {
             var doc = new DOMParser().parseFromString(input, "text/html");
             return doc.documentElement.textContent;
         }
-</script>
+    </script>
 </body>
 
 </html>

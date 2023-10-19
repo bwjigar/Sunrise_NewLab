@@ -9948,6 +9948,79 @@ namespace API.Controllers
                 return false;
             }
         }
+        [HttpPost]
+        public IHttpActionResult Get_OrderHistory([FromBody] JObject data)
+        {
+            Get_OrderHistory_Req req = new Get_OrderHistory_Req();
 
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_OrderHistory_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_OrderHistory_Res>
+                {
+                    Data = new List<Get_OrderHistory_Res>(),
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, userID));
+
+                if (req.PgNo > 0)
+                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, req.PgNo));
+                else
+                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                if (req.PgSize > 0)
+                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, req.PgSize));
+                else
+                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.OrderBy))
+                    para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, req.OrderBy));
+                else
+                    para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.StoneId))
+                    para.Add(db.CreateParam("StoneId", DbType.String, ParameterDirection.Input, req.StoneId));
+                else
+                    para.Add(db.CreateParam("StoneId", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                DataTable Order_dt = db.ExecuteSP("Get_OrderHistory", para.ToArray(), false);
+
+                List<Get_OrderHistory_Res> List_Res = new List<Get_OrderHistory_Res>();
+                if (Order_dt != null && Order_dt.Rows.Count > 0)
+                {
+                    List_Res = Order_dt.ToList<Get_OrderHistory_Res>();
+                }
+
+                return Ok(new ServiceResponse<Get_OrderHistory_Res>
+                {
+                    Data = List_Res,
+                    Message = "SUCCESS",
+                    Status = "1"
+                });
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_OrderHistory_Res>
+                {
+                    Data = new List<Get_OrderHistory_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
     }
 }

@@ -62,6 +62,9 @@ namespace SunriseLabWeb_New.Data
         public static string Get_StockUpload_Response = "/User/Get_StockUpload_Response";
         
         public static string PlaceOrder = "/User/PlaceOrder";
+        public static string Get_OrderHistory = "/User/Get_OrderHistory";
+
+        
 
         public static string RapaPort_Data_Upload_Ora = "/User/RapaPort_Data_Upload_Ora";
         public static string get_stock_disc_Ora = "/User/get_stock_disc_Ora";

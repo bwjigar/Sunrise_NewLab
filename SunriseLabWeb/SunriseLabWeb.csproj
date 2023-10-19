@@ -352,6 +352,7 @@
     <Content Include="Content\js\Pages\ColumnSetting.js" />
     <Content Include="Content\js\Pages\CustomerDisc.js" />
     <Content Include="Content\js\Pages\Manage.js" />
+    <Content Include="Content\js\Pages\OrderHistory.js" />
     <Content Include="Content\js\Pages\StockDiscMgt.js" />
     <Content Include="Content\js\Pages\SupplierColumnSettingFromFile.js" />
     <Content Include="Content\js\Pages\SupplierDisc.js" />
@@ -588,6 +589,7 @@
     <Content Include="Views\User\SupplierColumnSettingFromFile.cshtml" />
     <Content Include="Views\User\SupplierStockUpload.cshtml" />
     <Content Include="Views\User\ColumnSetting.cshtml" />
+    <Content Include="Views\User\OrderHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
