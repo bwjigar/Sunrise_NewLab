@@ -370,6 +370,18 @@
                                 Search Stock
                             </a>
                         </li>
+                        <li>
+                            <a href="@Url.Action("OrderHistory", "User")">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                                Order History
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("LabEntry", "User")">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                                Lab Entry
+                            </a>
+                        </li>
                     }
                     else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
                     {
@@ -379,13 +391,14 @@
                                 Search Stock
                             </a>
                         </li>
+                        <li>
+                            <a href="@Url.Action("OrderHistory", "User")">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                                Order History
+                            </a>
+                        </li>
                     }
-                    <li>
-                        <a href="@Url.Action("OrderHistory", "User")">
-                            <i class="fa fa-file-text" aria-hidden="true"></i>
-                            Order History
-                        </a>
-                    </li>
+
                 </ul>
             </div>
         </nav>

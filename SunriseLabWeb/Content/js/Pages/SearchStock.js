@@ -152,7 +152,7 @@ function SupplierList() {
                         columnDefs.push({ headerName: "Certificate No", field: "Certificate_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Certificate_No", params); } });
                     }
                     else if (item.Column_Name == "Supplier Name") {
-                        columnDefs.push({ headerName: "Supplier Name", field: "SupplierName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierName", params); } });
+                        columnDefs.push({ headerName: "Supplier Name", field: "SupplierShortName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierShortName", params); } });
                     }
                     else if (item.Column_Name == "Shape") {
                         columnDefs.push({ headerName: "Shape", field: "Shape", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Shape", params); } });
@@ -329,7 +329,7 @@ function BuyerList() {
                         columnDefs.push({ headerName: "Lab", field: "Lab", width: 50, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab", params); }, cellRenderer: function (params) { return Lab(params); } });
                     }
                     else if (item.Column_Name == "Supplier Name") {
-                        columnDefs.push({ headerName: "Supplier Name", field: "SupplierName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierName", params); } });
+                        columnDefs.push({ headerName: "Supplier Name", field: "SupplierShortName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierShortName", params); } });
                     }
                     else if (item.Column_Name == "Rank") {
                         columnDefs.push({ headerName: "Rank", field: "Rank", width: 50, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 0); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 0); }, cellStyle: function (params) { return cellStyle("Rank", params); } });

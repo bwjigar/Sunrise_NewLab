@@ -9720,6 +9720,11 @@ namespace API.Controllers
                         SendOrderMail(OrderId, req.Comments, UserId, OrderDate, "Employee");
                     }
                 }
+                else
+                {
+                    resp.Status = "0";
+                    resp.Message = "Order Placed Failed";
+                }
                 return Ok(resp);
             }
             catch (Exception ex)
@@ -10017,6 +10022,71 @@ namespace API.Controllers
                 return Ok(new ServiceResponse<Get_OrderHistory_Res>
                 {
                     Data = new List<Get_OrderHistory_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult LabEntry([FromBody] JObject data)
+        {
+            LabEntry_Req req = new LabEntry_Req();
+            try
+            {
+                req = JsonConvert.DeserializeObject<LabEntry_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+
+            }
+            try
+            {
+                CommonResponse resp = new CommonResponse();
+                Int32 LabId;
+
+                Database db = new Database();
+                List<IDbDataParameter> para;
+                para = new List<IDbDataParameter>();
+
+                int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+                para.Add(db.CreateParam("SupplierId_RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, req.SupplierId_RefNo_SupplierRefNo));
+
+                DataTable dt = db.ExecuteSP("LabEntry", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    LabId = Convert.ToInt32(dt.Rows[0]["LabId"].ToString());
+                    resp.Status = dt.Rows[0]["Status"].ToString();
+                    resp.Message = dt.Rows[0]["Message"].ToString();
+
+                    //if (resp.Status == "1" && OrderId > 0)
+                    //{
+                    //    SendOrderMail(OrderId, req.Comments, UserId, OrderDate, "Customer");
+                    //    SendOrderMail(OrderId, req.Comments, UserId, OrderDate, "Employee");
+                    //}
+                }
+                else
+                {
+                    resp.Status = "0";
+                    resp.Message = "Lab Entry Failed";
+                }
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
                     Message = "Something Went wrong.\nPlease try again later",
                     Status = "0"
                 });

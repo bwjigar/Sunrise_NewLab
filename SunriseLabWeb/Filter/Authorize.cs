@@ -32,11 +32,13 @@ namespace SunriseLabWeb_New.Filter
                     
                     if ((cntlr == "User" && act == "Manage") || (cntlr == "User" && act == "SupplierMas") || (cntlr == "User" && act == "Category")
                          || (cntlr == "User" && act == "SupplierValue") || (cntlr == "User" && act == "SupplierColumnSetting") 
-                         || (cntlr == "User" && act == "SupplierColumnSettingFromFile") || (cntlr == "User" && act == "SupplierPriceList"))
+                         || (cntlr == "User" && act == "SupplierColumnSettingFromFile") || (cntlr == "User" && act == "SupplierPriceList")
+                         || (cntlr == "User" && act == "LabEntry"))
                     {
                         if (!(UserTypeId.Contains("1") || UserTypeId.Contains("4")))
                             filterContext.Result = new RedirectResult("~/Login/Index");
                     }
+                    
                 }
             }
 

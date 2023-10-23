@@ -351,6 +351,7 @@
     <Content Include="Content\js\owl.carousel.min.js" />
     <Content Include="Content\js\Pages\ColumnSetting.js" />
     <Content Include="Content\js\Pages\CustomerDisc.js" />
+    <Content Include="Content\js\Pages\LabEntry.js" />
     <Content Include="Content\js\Pages\Manage.js" />
     <Content Include="Content\js\Pages\OrderHistory.js" />
     <Content Include="Content\js\Pages\StockDiscMgt.js" />
@@ -590,6 +591,7 @@
     <Content Include="Views\User\SupplierStockUpload.cshtml" />
     <Content Include="Views\User\ColumnSetting.cshtml" />
     <Content Include="Views\User\OrderHistory.cshtml" />
+    <Content Include="Views\User\LabEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

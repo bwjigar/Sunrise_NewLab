@@ -610,5 +610,16 @@ namespace SunriseLabWeb_New.Controllers
             ServiceResponse<Get_OrderHistory_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_OrderHistory_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult LabEntry()
+        {
+            return View();
+        }
+        public JsonResult LabEntry_Save(LabEntry_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.LabEntry, inputJson);
+            CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(_data, JsonRequestBehavior.AllowGet);
+        }
     }
 }

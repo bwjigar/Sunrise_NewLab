@@ -580,6 +580,7 @@ namespace Lib.Model
         public long iTotalRec { get; set; }
         public long iSr { get; set; }
         public int SupplierId { get; set; }
+        public string SupplierShortName { get; set; }
         public string SupplierName { get; set; }
         public string Ref_No { get; set; }
         public string Shape { get; set; }
@@ -855,5 +856,10 @@ namespace Lib.Model
         public string Comm_Grade { get; set; }
         public string Zone { get; set; }
         public string Para_Grade { get; set; }
+    }
+    public class LabEntry_Req
+    {
+        public int UserId { get; set; }
+        public string SupplierId_RefNo_SupplierRefNo { get; set; }
     }
 }
