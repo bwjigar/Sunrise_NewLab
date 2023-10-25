@@ -3402,154 +3402,6 @@ namespace API.Controllers
             }
         }
 
-        [AllowAnonymous]
-        [HttpPost]
-        public IHttpActionResult Get_SearchStock([FromBody] JObject data)
-        {
-            Get_SearchStock_Req req = new Get_SearchStock_Req();
-
-            if (!string.IsNullOrEmpty(Convert.ToString(data)))
-            {
-                JObject test1 = JObject.Parse(data.ToString());
-                req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
-            }
-
-            //try
-            //{
-            //    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
-            //}
-            //catch (Exception ex)
-            //{
-            //    Lib.Model.Common.InsertErrorLog(ex, null, Request);
-            //    return Ok(new ServiceResponse<Get_SearchStock_Res>
-            //    {
-            //        Data = new List<Get_SearchStock_Res>(),
-            //        Message = "Input Parameters are not in the proper format",
-            //        Status = "0"
-            //    });
-            //}
-            try
-            {
-                DataTable Stock_dt = SearchStock(req);
-
-                List<Get_SearchStock_Res> List_Res = new List<Get_SearchStock_Res>();
-                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
-                {
-                    List_Res = Stock_dt.ToList<Get_SearchStock_Res>();
-                }
-
-                return Ok(new ServiceResponse<Get_SearchStock_Res>
-                {
-                    Data = List_Res,
-                    Message = "SUCCESS",
-                    Status = "1"
-                });
-            }
-            catch (Exception ex)
-            {
-                Lib.Model.Common.InsertErrorLog(ex, null, Request);
-                return Ok(new ServiceResponse<Get_PriceListCategory_Res>
-                {
-                    Data = new List<Get_PriceListCategory_Res>(),
-                    Message = "Something Went wrong.\nPlease try again later",
-                    Status = "0"
-                });
-            }
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        public IHttpActionResult Excel_SearchStock([FromBody] JObject data)
-        {
-            Get_SearchStock_Req req = new Get_SearchStock_Req();
-
-            if (!string.IsNullOrEmpty(Convert.ToString(data)))
-            {
-                JObject test1 = JObject.Parse(data.ToString());
-                req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
-            }
-
-            //try
-            //{
-            //    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
-            //}
-            //catch (Exception ex)
-            //{
-            //    Lib.Model.Common.InsertErrorLog(ex, null, Request);
-            //    return Ok("Input Parameters are not in the proper format");
-            //}
-            try
-            {
-                DataTable Stock_dt = SearchStock(req);
-
-                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
-                {
-                    string filename = req.Type + " " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
-                    string _path = ConfigurationManager.AppSettings["data"];
-                    _path = _path.Replace("Temp", "ExcelFile");
-                    string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
-
-                    if (req.Type == "Buyer List")
-                    {
-                        Database db = new Database();
-                        List<IDbDataParameter> para;
-                        para = new List<IDbDataParameter>();
-
-                        //int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
-
-                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
-                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "BUYER"));
-
-                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
-
-                        EpExcelExport.Buyer_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
-                    }
-                    else if (req.Type == "Supplier List")
-                    {
-                        Database db = new Database();
-                        List<IDbDataParameter> para;
-                        para = new List<IDbDataParameter>();
-
-                        //int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
-
-                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
-                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "SUPPLIER"));
-
-                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
-
-                        EpExcelExport.Supplier_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
-                    }
-                    else if (req.Type == "Customer List")
-                    {
-                        Database db = new Database();
-                        List<IDbDataParameter> para;
-                        para = new List<IDbDataParameter>();
-
-                        //int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
-
-                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
-                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "CUSTOMER"));
-
-                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
-
-                        EpExcelExport.Customer_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
-                    }
-
-                    string _strxml = _path + filename + ".xlsx";
-                    return Ok(_strxml);
-                }
-                else
-                {
-                    return Ok("No Stock found as per filter criteria !");
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Lib.Model.Common.InsertErrorLog(ex, null, Request);
-                throw ex;
-            }
-        }
         [NonAction]
         private DataTable SearchStock(Get_SearchStock_Req req)
         {
@@ -3581,6 +3433,11 @@ namespace API.Controllers
                     para.Add(db.CreateParam("RefNo", DbType.String, ParameterDirection.Input, req.RefNo));
                 else
                     para.Add(db.CreateParam("RefNo", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.SupplierId_RefNo_SupplierRefNo))
+                    para.Add(db.CreateParam("SupplierId_RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, req.SupplierId_RefNo_SupplierRefNo));
+                else
+                    para.Add(db.CreateParam("SupplierId_RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, DBNull.Value));
 
                 if (!string.IsNullOrEmpty(req.SupplierId))
                     para.Add(db.CreateParam("SupplierId", DbType.String, ParameterDirection.Input, req.SupplierId));
@@ -3900,6 +3757,156 @@ namespace API.Controllers
                 return null;
             }
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult Get_SearchStock([FromBody] JObject data)
+        {
+            Get_SearchStock_Req req = new Get_SearchStock_Req();
+
+            if (!string.IsNullOrEmpty(Convert.ToString(data)))
+            {
+                JObject test1 = JObject.Parse(data.ToString());
+                req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+            }
+
+            //try
+            //{
+            //    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
+            //}
+            //catch (Exception ex)
+            //{
+            //    Lib.Model.Common.InsertErrorLog(ex, null, Request);
+            //    return Ok(new ServiceResponse<Get_SearchStock_Res>
+            //    {
+            //        Data = new List<Get_SearchStock_Res>(),
+            //        Message = "Input Parameters are not in the proper format",
+            //        Status = "0"
+            //    });
+            //}
+            try
+            {
+                DataTable Stock_dt = SearchStock(req);
+
+                List<Get_SearchStock_Res> List_Res = new List<Get_SearchStock_Res>();
+                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
+                {
+                    List_Res = Stock_dt.ToList<Get_SearchStock_Res>();
+                }
+
+                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                {
+                    Data = List_Res,
+                    Message = "SUCCESS",
+                    Status = "1"
+                });
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_PriceListCategory_Res>
+                {
+                    Data = new List<Get_PriceListCategory_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult Excel_SearchStock([FromBody] JObject data)
+        {
+            Get_SearchStock_Req req = new Get_SearchStock_Req();
+
+            if (!string.IsNullOrEmpty(Convert.ToString(data)))
+            {
+                JObject test1 = JObject.Parse(data.ToString());
+                req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+            }
+
+            //try
+            //{
+            //    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
+            //}
+            //catch (Exception ex)
+            //{
+            //    Lib.Model.Common.InsertErrorLog(ex, null, Request);
+            //    return Ok("Input Parameters are not in the proper format");
+            //}
+            try
+            {
+                DataTable Stock_dt = SearchStock(req);
+
+                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
+                {
+                    string filename = req.Type + " " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string _path = ConfigurationManager.AppSettings["data"];
+                    _path = _path.Replace("Temp", "ExcelFile");
+                    string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
+
+                    if (req.Type == "Buyer List")
+                    {
+                        Database db = new Database();
+                        List<IDbDataParameter> para;
+                        para = new List<IDbDataParameter>();
+
+                        //int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "BUYER"));
+
+                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                        EpExcelExport.Buyer_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+                    }
+                    else if (req.Type == "Supplier List")
+                    {
+                        Database db = new Database();
+                        List<IDbDataParameter> para;
+                        para = new List<IDbDataParameter>();
+
+                        //int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "SUPPLIER"));
+
+                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                        EpExcelExport.Supplier_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+                    }
+                    else if (req.Type == "Customer List")
+                    {
+                        Database db = new Database();
+                        List<IDbDataParameter> para;
+                        para = new List<IDbDataParameter>();
+
+                        //int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "CUSTOMER"));
+
+                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                        EpExcelExport.Customer_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+                    }
+
+                    string _strxml = _path + filename + ".xlsx";
+                    return Ok(_strxml);
+                }
+                else
+                {
+                    return Ok("No Stock found as per filter criteria !");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                throw ex;
+            }
+        }
+       
         [HttpPost]
         public IHttpActionResult get_UserType()
         {
@@ -9932,16 +9939,16 @@ namespace API.Controllers
 
                 loSb.Append("</table>");
 
-                loSb.Append(@"<p>Thank you for placing order from our website http://sunrisediamonds.com.hk:8112</p>");
+                loSb.Append(@"<p>Thank you for placing order</p>");
 
 
-                if (EmailType == "Customer")
+                if (EmailType == "Customer" && dtUserDetail.Rows[0]["EmailId"].ToString() != "")
                 {
-                    Common.SendMail(dtUserDetail.Rows[0]["EmailId"].ToString(), "Sunrise Diamonds – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
+                    Common.SendMail(dtUserDetail.Rows[0]["EmailId"].ToString(), "Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
                 }
-                else if (EmailType == "Employee")
+                else if (EmailType == "Employee" && dtUserDetail.Rows[0]["AssistByEmailId"].ToString() != "")
                 {
-                    Common.SendMail(dtUserDetail.Rows[0]["AssistByEmailId"].ToString(), "Sunrise Diamonds – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
+                    Common.SendMail(dtUserDetail.Rows[0]["AssistByEmailId"].ToString(), "Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
                 }
 
 
@@ -9953,25 +9960,9 @@ namespace API.Controllers
                 return false;
             }
         }
-        [HttpPost]
-        public IHttpActionResult Get_OrderHistory([FromBody] JObject data)
+        [NonAction]
+        private DataTable OrderHistory(Get_OrderHistory_Req req)
         {
-            Get_OrderHistory_Req req = new Get_OrderHistory_Req();
-
-            try
-            {
-                req = JsonConvert.DeserializeObject<Get_OrderHistory_Req>(data.ToString());
-            }
-            catch (Exception ex)
-            {
-                Lib.Model.Common.InsertErrorLog(ex, null, Request);
-                return Ok(new ServiceResponse<Get_OrderHistory_Res>
-                {
-                    Data = new List<Get_OrderHistory_Res>(),
-                    Message = "Input Parameters are not in the proper format",
-                    Status = "0"
-                });
-            }
             try
             {
                 Database db = new Database();
@@ -10001,7 +9992,42 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("StoneId", DbType.String, ParameterDirection.Input, DBNull.Value));
 
+                if (!string.IsNullOrEmpty(req.OrderDetId))
+                    para.Add(db.CreateParam("OrderDetId", DbType.String, ParameterDirection.Input, req.OrderDetId));
+                else
+                    para.Add(db.CreateParam("OrderDetId", DbType.String, ParameterDirection.Input, DBNull.Value));
+
                 DataTable Order_dt = db.ExecuteSP("Get_OrderHistory", para.ToArray(), false);
+                return Order_dt;
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, null);
+                return null;
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Get_OrderHistory([FromBody] JObject data)
+        {
+            Get_OrderHistory_Req req = new Get_OrderHistory_Req();
+
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_OrderHistory_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_OrderHistory_Res>
+                {
+                    Data = new List<Get_OrderHistory_Res>(),
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+            try
+            {
+                DataTable Order_dt = OrderHistory(req);
 
                 List<Get_OrderHistory_Res> List_Res = new List<Get_OrderHistory_Res>();
                 if (Order_dt != null && Order_dt.Rows.Count > 0)
@@ -10028,7 +10054,49 @@ namespace API.Controllers
             }
         }
         [HttpPost]
-        public IHttpActionResult LabEntry([FromBody] JObject data)
+        public IHttpActionResult Excel_OrderHistory([FromBody] JObject data)
+        {
+            Get_OrderHistory_Req req = new Get_OrderHistory_Req();
+
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_OrderHistory_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok("Input Parameters are not in the proper format");
+            }
+            try
+            {
+                DataTable Order_dt = OrderHistory(req);
+
+                if (Order_dt != null && Order_dt.Rows.Count > 0)
+                {
+                    string filename = "Order History " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string _path = ConfigurationManager.AppSettings["data"];
+                    _path = _path.Replace("Temp", "ExcelFile");
+                    string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
+
+                    EpExcelExport.OrderHistory_Excel(Order_dt, realpath, realpath + filename + ".xlsx", req.UserTypeList);
+
+                    string _strxml = _path + filename + ".xlsx";
+                    return Ok(_strxml);
+                }
+                else
+                {
+                    return Ok("No Stock found as per filter criteria !");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                throw ex;
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Save_LabEntry([FromBody] JObject data)
         {
             LabEntry_Req req = new LabEntry_Req();
             try
@@ -10090,6 +10158,55 @@ namespace API.Controllers
                     Message = "Something Went wrong.\nPlease try again later",
                     Status = "0"
                 });
+            }
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult Excel_LabEntry([FromBody] JObject data)
+        {
+            Get_SearchStock_Req req = new Get_SearchStock_Req();
+
+            try
+            {
+                if (!string.IsNullOrEmpty(Convert.ToString(data)))
+                {
+                    JObject test1 = JObject.Parse(data.ToString());
+                    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok("Input Parameters are not in the proper format");
+            }
+            try
+            {
+                DataTable Stock_dt = SearchStock(req);
+
+                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
+                {
+                    string filename = "Lab Entry " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string _path = ConfigurationManager.AppSettings["data"];
+                    _path = _path.Replace("Temp", "ExcelFile");
+                    string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
+
+                    EpExcelExport.LabEntry_Excel(Stock_dt, realpath, realpath + filename + ".xlsx");
+
+                    string _strxml = _path + filename + ".xlsx";
+                    return Ok(_strxml);
+                }
+                else
+                {
+                    return Ok("No Stock found as per filter criteria !");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                throw ex;
             }
         }
     }

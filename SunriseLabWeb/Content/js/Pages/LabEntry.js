@@ -154,7 +154,6 @@ function selectAllRendererDetail(params) {
     var eTitle = document.createTextNode(params.colDef.headerName);
     eHeader.appendChild(cb);
     eHeader.appendChild(eTitle);
-
     cb.addEventListener('change', function (e) {
         if ($(this)[0].checked) {
             if (Filtered_Data.length > 0) {
@@ -178,10 +177,12 @@ function selectAllRendererDetail(params) {
 
     return eHeader;
 }
+function gridOptions_Selected_Calculation(data) {
+}
 function onBodyScroll(params) {
-    $('#myGrid .ag-header-cell[col-id="0"] .ag-header-select-all').removeClass('ag-hidden');
-
-    $('#myGrid .ag-header-cell[col-id="0"] .ag-header-select-all').click(function () {
+    $('#Cart-Gride .ag-header-cell[col-id="0"] .ag-header-select-all').removeClass('ag-hidden');
+    
+    $('#Cart-Gride .ag-header-cell[col-id="0"] .ag-header-select-all').click(function () {
         if ($(this).find('.ag-icon').hasClass('ag-icon-checkbox-unchecked')) {
             gridOptions.api.forEachNode(function (node) {
                 node.setSelected(false);
@@ -194,7 +195,13 @@ function onBodyScroll(params) {
         onSelectionChanged();
     });
 }
-
+function onSelectionChanged(event) {
+}
+function onGridReady(params) {
+    if (navigator.userAgent.indexOf('Windows') > -1) {
+        this.api.sizeColumnsToFit();
+    }
+}
 var columnDefs = [];
 columnDefs.push({
     headerName: "", field: "",
@@ -284,9 +291,9 @@ function GetSearch() {
             suppressRowClickSelection: true,
             columnDefs: columnDefs,
             //rowData: data,
+            onRowSelected: onSelectionChanged,
             onBodyScroll: onBodyScroll,
             rowModelType: 'serverSide',
-            //onGridReady: onGridReady,
             cacheBlockSize: pgSize, // you can have your custom page size
             paginationPageSize: pgSize, //pagesize
             getContextMenuItems: getContextMenuItems,
@@ -294,7 +301,6 @@ function GetSearch() {
                 return '[' + params.value.toLocaleString() + ']';
             }
         };
-
 
         var gridDiv = document.querySelector('#Cart-Gride');
         new agGrid.Grid(gridDiv, gridOptions);
@@ -320,10 +326,8 @@ function GetSearch() {
                     node.setSelected(true);
                 });
             }
-            //onSelectionChanged();
+            onSelectionChanged();
         });
-
-
     }
     else {
         $(".gridview").hide();
@@ -378,12 +382,6 @@ const datasource1 = {
         });
     }
 };
-
-function onGridReady(params) {
-    if (navigator.userAgent.indexOf('Windows') > -1) {
-        this.api.sizeColumnsToFit();
-    }
-}
 function CommaSeperatedStone_list(e) {
     var data = document.getElementById("txtStoneId").value;
     var lines = data.split(' ');
@@ -406,48 +404,87 @@ function Reset() {
 }
 
 
-function LabEntry() {
-    debugger
-    var selectedRows = gridOptions.api.getSelectedRows();
-    var list = '';
-    var i = 0, tot = selectedRows.length;
-    for (; i < tot; i++) {
-        list += selectedRows[i].SupplierId + "_" + selectedRows[i].Ref_No + "_" + selectedRows[i].Supplier_Stone_Id + ',';
-    }
-    list = (list != '' ? list.substr(0, (list.length - 1)) : '');
+function Save_LabEntry() {
+    if (gridOptions.api != undefined) {
+        var selectedRows = gridOptions.api.getSelectedRows();
+        var list = '';
+        var i = 0, tot = selectedRows.length;
+        for (; i < tot; i++) {
+            list += selectedRows[i].SupplierId + "_" + selectedRows[i].Ref_No + "_" + selectedRows[i].Supplier_Stone_Id + ',';
+        }
+        list = (list != '' ? list.substr(0, (list.length - 1)) : '');
 
-    debugger
-    if (list != "") {
-        loaderShow();
+        if (list != "") {
+            loaderShow();
 
-        var obj = {};
-        obj.UserId = $("#ddl_User").val();
-        obj.SupplierId_RefNo_SupplierRefNo = list;
+            var obj = {};
+            obj.UserId = $("#ddl_User").val();
+            obj.SupplierId_RefNo_SupplierRefNo = list;
 
-        $.ajax({
-            url: '/User/LabEntry_Save',
-            type: "POST",
-            data: { req: obj },
-            success: function (data) {
-                debugger
-                loaderHide();
-                if (data.Status == "1") {
-                    $('#PlaceOrderModal').modal('hide');
-                    toastr.success(data.Message);
-                }
-                else {
-                    if (data.Message.indexOf('Something Went wrong') > -1) {
-                        MoveToErrorPage(0);
+            $.ajax({
+                url: '/User/Save_LabEntry',
+                type: "POST",
+                data: { req: obj },
+                success: function (data) {
+                    loaderHide();
+                    if (data.Status == "1") {
+                        $('#PlaceOrderModal').modal('hide');
+                        toastr.success(data.Message);
                     }
-                    toastr.error(data.Message);
+                    else {
+                        if (data.Message.indexOf('Something Went wrong') > -1) {
+                            MoveToErrorPage(0);
+                        }
+                        toastr.error(data.Message);
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    loaderHide();
                 }
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                loaderHide();
-            }
-        });
+            });
+        }
+        else {
+            toastr.error("Please Select atlease One Stone");
+        }
     }
-    else {
-        toastr.error("Please Select atlease One Stone");
+}
+function Excel_LabEntry() {
+    if (gridOptions.api != undefined) {
+        loaderShow();
+        setTimeout(function () {
+            var selectedRows = gridOptions.api.getSelectedRows();
+            var list = '';
+            var i = 0, tot = selectedRows.length;
+            for (; i < tot; i++) {
+                list += selectedRows[i].SupplierId + "_" + selectedRows[i].Ref_No + "_" + selectedRows[i].Supplier_Stone_Id + ',';
+            }
+            list = (list != '' ? list.substr(0, (list.length - 1)) : '');
+
+            var obj = {};
+            obj.UserId = $("#ddl_User").val();
+            obj.SupplierId_RefNo_SupplierRefNo = list;
+            obj.RefNo = (list == "" ? $("#txtStoneId").val() : "");
+
+            $.ajax({
+                url: "/User/Excel_LabEntry",
+                async: false,
+                type: "POST",
+                data: { req: obj },
+                success: function (data, textStatus, jqXHR) {
+                    loaderHide();
+                    if (data.search('.xlsx') == -1) {
+                        if (data.indexOf('Something Went wrong') > -1) {
+                            MoveToErrorPage(0);
+                        }
+                        toastr.error(data);
+                    } else {
+                        location.href = data;
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    loaderHide();
+                }
+            });
+        }, 50);
     }
 }

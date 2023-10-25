@@ -496,6 +496,7 @@ namespace Lib.Model
         public int PgSize { get; set; }
         public string OrderBy { get; set; }
         public string RefNo { get; set; }
+        public string SupplierId_RefNo_SupplierRefNo { get; set; }
         public string SupplierId { get; set; }
         public string Shape { get; set; }
         public string Pointer { get; set; }
@@ -741,7 +742,9 @@ namespace Lib.Model
         public int PgSize { get; set; }
         public string OrderBy { get; set; }
         public string StoneId { get; set; }
-        
+        public string OrderDetId { get; set; }
+        public string UserTypeList { get; set; }
+
     }
     public class Get_OrderHistory_Res
     {

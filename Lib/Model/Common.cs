@@ -274,7 +274,7 @@ namespace Lib.Model
 
 
                 System.IO.MemoryStream ms = ExportToStreamEpPlus(Convert.ToInt32(OrderId));
-                Attachment attachFile = new Attachment(ms, "SD_Order_" + DateTime.Now.ToString("dd-MMM-yyyy") + "-" + OrderId + ".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                Attachment attachFile = new Attachment(ms, "Order_" + DateTime.Now.ToString("dd-MMM-yyyy") + "-" + OrderId + ".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
                 loMail.Attachments.Add(attachFile);
 
                 Thread email = new Thread(delegate ()

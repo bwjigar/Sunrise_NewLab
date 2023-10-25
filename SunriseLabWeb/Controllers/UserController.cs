@@ -610,16 +610,30 @@ namespace SunriseLabWeb_New.Controllers
             ServiceResponse<Get_OrderHistory_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_OrderHistory_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Excel_OrderHistory(Get_OrderHistory_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Excel_OrderHistory, inputJson);
+            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult LabEntry()
         {
             return View();
         }
-        public JsonResult LabEntry_Save(LabEntry_Req req)
+        public JsonResult Save_LabEntry(LabEntry_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
-            string response = _api.CallAPI(Constants.LabEntry, inputJson);
+            string response = _api.CallAPI(Constants.Save_LabEntry, inputJson);
             CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(_data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Excel_LabEntry(Get_SearchStock_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Excel_LabEntry, inputJson);
+            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

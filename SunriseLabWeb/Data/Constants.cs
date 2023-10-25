@@ -63,7 +63,10 @@ namespace SunriseLabWeb_New.Data
         
         public static string PlaceOrder = "/User/PlaceOrder";
         public static string Get_OrderHistory = "/User/Get_OrderHistory";
-        public static string LabEntry = "/User/LabEntry";
+        public static string Excel_OrderHistory = "/User/Excel_OrderHistory";
+        
+        public static string Save_LabEntry = "/User/Save_LabEntry";
+        public static string Excel_LabEntry = "/User/Excel_LabEntry";
         
 
 

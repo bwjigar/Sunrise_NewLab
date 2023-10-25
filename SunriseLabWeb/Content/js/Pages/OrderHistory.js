@@ -1,6 +1,7 @@
 var FortuneCodeValid = true;
 var FortuneCodeValid_Msg = "";
 var Rowdata = [];
+var OrderBy = "";
 
 var gridOptions = {};
 var iUserid = 0;
@@ -22,6 +23,22 @@ function SetCurrentDate() {
     var FinalDate = (curr_date + "-" + m_names[curr_month] + "-" + curr_year);
     return FinalDate;
 }
+var pgSize = 50;
+function onPageSizeChanged() {
+    var value = $("#ddlPagesize").val();
+    pgSize = Number(value);
+    GetSearch();
+}
+var showEntryHtml = '<div class="show_entry"><label>'
+    + 'Show <select onchange = "onPageSizeChanged()" id = "ddlPagesize">'
+    + '<option value="50">50</option>'
+    + '<option value="200">200</option>'
+    + '<option value="500">500</option>'
+    + '<option value="1000">1000</option>'
+    + '</select> entries'
+    + '</label>'
+    + '</div>';
+
 function isNumberKey(evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     if (charCode != 46 && charCode > 31
@@ -122,7 +139,73 @@ function cellStyle(field, params) {
         }
     }
 }
+function selectAllRendererDetail(params) {
+    var cb = document.createElement('input');
+    cb.setAttribute('type', 'checkbox');
+    cb.setAttribute('id', 'checkboxAll');
+    var eHeader = document.createElement('label');
+    var eTitle = document.createTextNode(params.colDef.headerName);
+    eHeader.appendChild(cb);
+    eHeader.appendChild(eTitle);
+    cb.addEventListener('change', function (e) {
+        if ($(this)[0].checked) {
+            if (Filtered_Data.length > 0) {
+                gridOptions.api.forEachNodeAfterFilter(function (node) {
+                    node.setSelected(true);
+                })
+            }
+            else {
+                gridOptions.api.forEachNode(function (node) {
+                    node.setSelected(true);
+                });
+            }
+        }
+        else {
+            params.api.deselectAll();
+            var data = [];
+            gridOptions_Selected_Calculation(data);
+        }
+
+    });
+
+    return eHeader;
+}
+function gridOptions_Selected_Calculation(data) {
+}
+function onBodyScroll(params) {
+    $('#Cart-Gride .ag-header-cell[col-id="0"] .ag-header-select-all').removeClass('ag-hidden');
+
+    $('#Cart-Gride .ag-header-cell[col-id="0"] .ag-header-select-all').click(function () {
+        if ($(this).find('.ag-icon').hasClass('ag-icon-checkbox-unchecked')) {
+            gridOptions.api.forEachNode(function (node) {
+                node.setSelected(false);
+            });
+        } else {
+            gridOptions.api.forEachNode(function (node) {
+                node.setSelected(true);
+            });
+        }
+        onSelectionChanged();
+    });
+}
+function onSelectionChanged(event) {
+}
+function onGridReady(params) {
+    if (navigator.userAgent.indexOf('Windows') > -1) {
+        this.api.sizeColumnsToFit();
+    }
+}
 var columnDefs = [];
+columnDefs.push({
+    headerName: "", field: "",
+    headerCheckboxSelection: true,
+    checkboxSelection: true, width: 28,
+    suppressSorting: true,
+    suppressMenu: true,
+    headerCheckboxSelectionFilteredOnly: true,
+    headerCellRenderer: selectAllRendererDetail,
+    suppressMovable: false
+});
 columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
 columnDefs.push({ headerName: "Order Date", field: "OrderDate", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("OrderDate", params); } });
 columnDefs.push({ headerName: "Order No", field: "OrderId", width: 90, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("OrderId", params); } });
@@ -201,10 +284,11 @@ function GetSearch() {
         suppressRowClickSelection: true,
         columnDefs: columnDefs,
         //rowData: data,
+        onRowSelected: onSelectionChanged,
+        onBodyScroll: onBodyScroll,
         rowModelType: 'serverSide',
-        //onGridReady: onGridReady,
-        cacheBlockSize: 50, // you can have your custom page size
-        paginationPageSize: 50, //pagesize
+        cacheBlockSize: pgSize, // you can have your custom page size
+        paginationPageSize: pgSize, //pagesize
         getContextMenuItems: getContextMenuItems,
         paginationNumberFormatter: function (params) {
             return '[' + params.value.toLocaleString() + ']';
@@ -212,10 +296,31 @@ function GetSearch() {
     };
     var gridDiv = document.querySelector('#Cart-Gride');
     new agGrid.Grid(gridDiv, gridOptions);
-
-    $(".ag-header-cell-text").addClass("grid_prewrap");
-
     gridOptions.api.setServerSideDatasource(datasource1);
+
+    showEntryVar = setInterval(function () {
+        if ($('#Cart-Gride .ag-paging-panel').length > 0) {
+            $('#Cart-Gride .ag-header-cell[col-id="0"] .ag-header-select-all').removeClass('ag-hidden');
+
+            $(showEntryHtml).appendTo('#Cart-Gride .ag-paging-panel');
+            $('#ddlPagesize').val(pgSize);
+            clearInterval(showEntryVar);
+        }
+    }, 1000);
+
+    $('#Cart-Gride .ag-header-cell[col-id="0"] .ag-header-select-all').click(function () {
+        if ($(this).find('.ag-icon').hasClass('ag-icon-checkbox-unchecked')) {
+            gridOptions.api.forEachNode(function (node) {
+                node.setSelected(false);
+            });
+        } else {
+            gridOptions.api.forEachNode(function (node) {
+                node.setSelected(true);
+            });
+        }
+        onSelectionChanged();
+    });
+
 }
 var SortColumn = "";
 var SortDirection = "";
@@ -228,8 +333,10 @@ const datasource1 = {
             obj.OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
         }
         obj.PgNo = PageNo;
-        obj.PgSize = "50";
+        obj.PgSize = pgSize;
         obj.StoneId = $("#txt_S_StoneId").val()
+
+        OrderBy = obj.OrderBy;
 
         Rowdata = [];
         $.ajax({
@@ -292,3 +399,44 @@ $(document).ready(function (e) {
 $(window).resize(function () {
     contentHeight();
 });
+function Excel_OderHistory() {
+    if (gridOptions.api != undefined) {
+        loaderShow();
+        setTimeout(function () {
+            var selectedRows = gridOptions.api.getSelectedRows();
+            var OrderDetId = '';
+            var i = 0, tot = selectedRows.length;
+            for (; i < tot; i++) {
+                OrderDetId += selectedRows[i].OrderDetId + ',';
+            }
+            OrderDetId = (OrderDetId != '' ? OrderDetId.substr(0, (OrderDetId.length - 1)) : '');
+
+            var obj = {};
+            obj.StoneId = (OrderDetId == "" ? $("#txt_S_StoneId").val() : "");
+            obj.UserTypeList = $("#hdn_UserTypeList").val();
+            obj.OrderDetId = OrderDetId;
+            obj.OrderBy = OrderBy;
+
+            $.ajax({
+                url: "/User/Excel_OrderHistory",
+                async: false,
+                type: "POST",
+                data: { req: obj },
+                success: function (data, textStatus, jqXHR) {
+                    loaderHide();
+                    if (data.search('.xlsx') == -1) {
+                        if (data.indexOf('Something Went wrong') > -1) {
+                            MoveToErrorPage(0);
+                        }
+                        toastr.error(data);
+                    } else {
+                        location.href = data;
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    loaderHide();
+                }
+            });
+        }, 50);
+    }
+}
