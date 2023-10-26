@@ -67,6 +67,10 @@ namespace SunriseLabWeb_New.Data
         
         public static string Save_LabEntry = "/User/Save_LabEntry";
         public static string Excel_LabEntry = "/User/Excel_LabEntry";
+        public static string Add_MyCart = "/User/Add_MyCart";
+        public static string Delete_MyCart = "/User/Delete_MyCart";
+        public static string Get_MyCart = "/User/Get_MyCart";
+        public static string Excel_MyCart = "/User/Excel_MyCart";
         
 
 

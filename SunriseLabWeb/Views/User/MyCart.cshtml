@@ -1,0 +1,410 @@
+﻿@{
+    ViewBag.Title = "My Cart";
+    ViewBag.ClassName = "search-contnt";
+    <link href="~/Content/css/daterangepicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/Plugins/multiselect/bootstrap-multiselect.css" type="text/css">
+}
+<style>
+    .btn-group > .btn:first-child {
+        width: 355px;
+    }
+
+    .dropdown-menu.show {
+        max-height: 450px;
+        overflow-y: auto;
+    }
+
+    .searchStock {
+        width: 100% !important;
+    }
+
+    .excelbtn {
+        width: 160px !important;
+    }
+
+    .search-page-content .bottom-button-bar {
+        width: 100%;
+        /*margin: 0 15px 0 15px;*/
+    }
+
+    @@media screen and (min-width: 321px) and (max-width: 411px) {
+        .search-page-content.tab-pane ul li input {
+            width: 133px;
+        }
+
+        .btn-group > .btn:first-child {
+            width: 265px;
+            margin-left: 10px;
+        }
+
+        .offer-input1 {
+            width: 83px;
+        }
+
+        .dropdown-menu.show {
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .searchStock {
+            width: 100% !important;
+        }
+
+        #divButtons, .search-page-content .bottom-button-bar ul {
+            background-color: #c8c8c8;
+            border-radius: 0px;
+        }
+
+        .excelbtn {
+            width: 95px !important;
+        }
+        /*.search-page-content .bottom-button-bar ul li a {
+            height: 85px;
+        }
+
+        .search-page-content .bottom-button-bar {
+            position: relative;
+    }*/
+    }
+
+    @@media(max-width: 320px) {
+        .search-page-content.tab-pane ul li input {
+            width: 112px;
+        }
+
+        .btn-group > .btn:first-child {
+            width: 235px;
+            margin-left: 5px;
+        }
+
+        .offer-input1 {
+            width: 62px;
+        }
+
+        .dropdown-menu.show {
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .searchStock {
+            width: 100% !important;
+        }
+
+        #divButtons, .search-page-content .bottom-button-bar ul {
+            background-color: #c8c8c8;
+            border-radius: 0px;
+        }
+
+        .excelbtn {
+            width: 95px !important;
+        }
+        /*.search-page-content .bottom-button-bar ul li a {
+            height: 85px;
+        }
+
+        .search-page-content .bottom-button-bar {
+            position: relative;
+        }*/
+    }
+
+    @@media screen and (min-width: 412px) and (max-width: 414px) {
+        .search-page-content.tab-pane ul li input {
+            width: 133px;
+        }
+
+        .btn-group > .btn:first-child {
+            width: 315px;
+            margin-left: 10px;
+        }
+
+        .offer-input1 {
+            width: 83px;
+        }
+
+        .dropdown-menu.show {
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .searchStock {
+            width: 100% !important;
+        }
+
+        #divButtons, .search-page-content .bottom-button-bar ul {
+            background-color: #c8c8c8;
+            border-radius: 0px;
+        }
+
+        .excelbtn {
+            width: 95px !important;
+        }
+        /*.search-page-content .bottom-button-bar ul li a {
+            height: 85px;
+        }
+
+        .search-page-content .bottom-button-bar {
+            position: relative;
+        }*/
+    }
+
+    @@media screen and (min-width: 415px) and (max-width: 450px) {
+        .search-page-content.tab-pane ul li input {
+            width: 133px;
+        }
+
+        #divButtons, .search-page-content .bottom-button-bar ul {
+            background-color: #c8c8c8;
+            border-radius: 0px;
+        }
+
+        .excelbtn {
+            width: 95px !important;
+        }
+        /*.search-page-content .bottom-button-bar ul li a {
+            height: 85px;
+        }
+
+        .search-page-content .bottom-button-bar {
+            position: relative;
+        }*/
+    }
+
+    @@media (width: 768px) {
+        .btn-group > .btn:first-child {
+            width: 240px;
+        }
+
+        .offer-input1 {
+            width: 110px;
+        }
+
+        .dropdown-menu.show {
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .searchStock {
+            width: 100% !important;
+        }
+    }
+
+    .search-page-content ul.search li a.active span.first-ico {
+        color: #fff;
+    }
+
+    .search-page-content ul.search li a:hover span.first-ico {
+        color: #fff;
+    }
+
+    .f_clr_clk {
+        margin-top: -11px;
+        z-index: 9999;
+    }
+
+    #sym-sec0.active .carat-dropdown-main {
+        display: block;
+        transition: all 0.3s;
+        -o-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+    }
+
+    #sym-sec1.active .carat-dropdown-main {
+        display: block;
+        transition: all 0.3s;
+        -o-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+    }
+
+    #sym-sec2.active .carat-dropdown-main {
+        display: block;
+        transition: all 0.3s;
+        -o-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+    }
+
+    #sym-sec3.active .carat-dropdown-main {
+        display: block;
+        transition: all 0.3s;
+        -o-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+    }
+
+    .active_btn {
+        border: 1px solid #e5e5e5;
+        border-radius: 6px;
+        padding: 5px 15px;
+        float: left;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        transition-duration: 0.3s;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+        cursor: pointer;
+        font-size: 10px;
+        white-space: nowrap;
+        font-weight: 600;
+        background: #fff;
+        position: relative;
+        z-index: 0;
+        overflow: hidden;
+        margin-top: 5px;
+        /*background: #003d66;
+        color: #fff;*/
+        box-shadow: none;
+        border-radius: 6px;
+    }
+
+    .active_btn_active {
+        background: #003d66;
+        color: #fff;
+    }
+
+    .active_btn_inactive {
+        background: #fff;
+        color: #003d66;
+    }
+
+    .part2 li.active ::after {
+        border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    .fncy-rst {
+        right: -6px;
+        top: 13px;
+        position: absolute;
+        /*font-size: 14px;*/
+        cursor: pointer;
+    }
+
+    .sym-sec .carat-dropdown-main ul li {
+        display: inline-block;
+        margin: -3px 0px 0px 0px;
+        width: 23%;
+    }
+
+    .g-head-t {
+        font-size: 12px;
+        padding: 0 12px;
+        color: grey;
+    }
+
+    .g-amt-t {
+        font-size: 12px;
+        padding: 0 12px;
+        color: #003d66;
+    }
+
+    .rw_mar_rmv {
+        margin-right: 0px !important;
+    }
+
+    .grid_prewrap {
+        white-space: pre-wrap !important;
+    }
+
+    .ag-paging-page-summary-panel {
+        left: 10px;
+        position: relative;
+    }
+
+    .ag-theme-balham .ag-cell {
+        white-space: normal !important;
+        line-height: inherit;
+        overflow-y: auto;
+    }
+
+    .Yes {
+        margin-bottom: 1px;
+        color: white;
+        background-color: #008000e6;
+        padding: 2px 5px;
+        border-radius: 16px;
+        font-weight: bold;
+    }
+
+    .No {
+        margin-bottom: 1px;
+        color: white;
+        background-color: #ff0000cf;
+        padding: 2px 5px;
+        border-radius: 16px;
+        font-weight: bold;
+    }
+</style>
+
+<input type="hidden" id="hdn_Id" />
+<div class="container-fluid order-history-section manage-user">
+    <input type="hidden" id="hdnDelUserId" />
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="order-title">
+                <h2 id="h2_titl">My Cart</h2>
+            </div>
+        </div>
+    </div>
+    <div class="order-history-data admin muser gridview">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="col-xl-5 col-lg-6 col-md-7 col-sm-6 col-12 float-left" id="divWithoutDatetime">
+                    <div class="order-company-name common-order">
+                        <div class="offer-label">Ref No:</div>
+                        <input type="text" id="txt_S_StoneId" class="form-control common-control" placeholder="Ref No / Supplier Ref No" autocomplete="off" maxlength="400">
+                    </div>
+                </div>
+
+                <div class="col-xl-7 col-lg-6 col-md-6 col-sm-6 col-12 float-left tab-pane result-page-content">
+                    <ul class="offer-inbtn">
+                        <li class="mr-2">
+                            <button type="button" id="btnSearch" onclick="GetSearch();" class="offer-btn"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                        </li>
+                        <li class="mr-2">
+                            <button type="button" id="btnReset" onclick="Reset();" class="offer-btn"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</button>
+                        </li>
+                    </ul>
+
+                    <div class="col-md-6 result-three pull-right" style="margin-top: -20px; margin-bottom: -14px; margin-right: -32px;">
+                        <ul class="pull-right">
+                            <li><a class="effect-one" onclick="RemoveStone();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Remove Stone"><i class="fa fa-trash-o" style="font-size: 26px;"></i></a></li>
+
+                            @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
+                            {
+                                <li><a class="effect-one" onclick="PlaceOrder();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Place Order"><i class="flaticon-checked"></i></a></li>
+                            }
+                            <li id="li_excel"><a class="effect-one" onclick="Excel_MyCart();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="flaticon-file"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="aggrid-section gridview">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="agGrid-box-main mt-2">
+                    <div id="Cart-Gride" class="ag-theme-balham ag-fresh" style="float: left; width: 100%; height: calc(100vh - 225px);"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript" src="~/Content/Plugins/multiselect/bootstrap-multiselect.js"></script>
+    <script src="~/Content/js/wow.min.js"></script>
+    <script src="~/Content/js/moment.min.js"></script>
+    <script src="~/Content/js/daterangepicker.min.js"></script>
+    <script src="~/Content/js/ag-grid-enterprise.min.js"></script>
+    <script src="~/Content/js/Pages/MyCart.js"></script>
+    <script src="~/Content/js/Pages/detailCellRenderer.js"></script>
+}

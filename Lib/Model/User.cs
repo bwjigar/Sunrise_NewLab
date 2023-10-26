@@ -138,7 +138,7 @@ namespace Lib.Model
         public bool isActive { get; set; }
         public int Col_Id { get; set; }
     }
-    
+
     public class Get_Supplier_Value_Req
     {
         public int Sup_Id { get; set; }
@@ -865,4 +865,131 @@ namespace Lib.Model
         public int UserId { get; set; }
         public string SupplierId_RefNo_SupplierRefNo { get; set; }
     }
+    public class Add_MyCart_Req
+    {
+        public string SupplierId_RefNo_SupplierRefNo { get; set; }
+    }
+    public class Get_MyCart_Req
+    {
+        public int PgNo { get; set; }
+        public int PgSize { get; set; }
+        public string OrderBy { get; set; }
+        public string RefNo_SupplierRefNo { get; set; }
+        public string UserTypeList { get; set; }
+        public string CartId { get; set; }
+    }
+    public class Get_MyCart_Res
+    {
+        public long iTotalRec { get; set; }
+        public long Sr { get; set; }
+        public int CartId { get; set; }
+        public string TransDate { get; set; }
+        public string UserFullName { get; set; }
+        public string CompName { get; set; }
+        public int UserId { get; set; }
+        public int SupplierId { get; set; }
+        public string SupplierShortName { get; set; }
+        public string SupplierName { get; set; }
+        public string Ref_No { get; set; }
+        public string Shape { get; set; }
+        public string Color { get; set; }
+        public string Clarity { get; set; }
+        public string Cut { get; set; }
+        public string Polish { get; set; }
+        public string Symm { get; set; }
+        public string Fls { get; set; }
+        public decimal Cts { get; set; }
+        public string Pointer { get; set; }
+        public string Sub_Pointer { get; set; }
+        public decimal Base_Price_Cts { get; set; }
+        public decimal Rap_Rate { get; set; }
+        public decimal Base_Amount { get; set; }
+        public string Measurement { get; set; }
+        public decimal Length { get; set; }
+        public decimal Width { get; set; }
+        public decimal Depth { get; set; }
+        public decimal Table_Per { get; set; }
+        public decimal Depth_Per { get; set; }
+        public string Table_Inclusion { get; set; }
+        public string Crown_Inclusion { get; set; }
+        public string Table_Natts { get; set; }
+        public string Crown_Natts { get; set; }
+        public string Side_Inclusion { get; set; }
+        public string Side_Natts { get; set; }
+        public string Crown_Open { get; set; }
+        public string Pav_Open { get; set; }
+        public string Table_Open { get; set; }
+        public string Girdle_Open { get; set; }
+        public decimal Crown_Angle { get; set; }
+        public decimal Pav_Angle { get; set; }
+        public decimal Crown_Height { get; set; }
+        public decimal Pav_Height { get; set; }
+        public decimal Rap_Amount { get; set; }
+        public string Lab { get; set; }
+        public string Certificate_URL { get; set; }
+        public string Image_URL { get; set; }
+        public string Image_URL_2 { get; set; }
+        public string Image_URL_3 { get; set; }
+        public string Image_URL_4 { get; set; }
+        public string Video_URL { get; set; }
+        public string DNA { get; set; }
+        public string Status { get; set; }
+        public string Supplier_Stone_Id { get; set; }
+        public string Location { get; set; }
+        public string Shade { get; set; }
+        public string Luster { get; set; }
+        public string Type_2A { get; set; }
+        public string Milky { get; set; }
+        public string BGM { get; set; }
+        public string Key_To_Symboll { get; set; }
+        public decimal RATIO { get; set; }
+        public string Supplier_Comments { get; set; }
+        public string Lab_Comments { get; set; }
+        public string Culet { get; set; }
+        public decimal Girdle_Per { get; set; }
+        public string Girdle_Type { get; set; }
+        public string Girdle_MM { get; set; }
+        public string Inscription { get; set; }
+        public string Culet_Condition { get; set; }
+        public decimal Star_Length { get; set; }
+        public decimal Lower_Halves { get; set; }
+        public string Stage { get; set; }
+        public string Certi_Date { get; set; }
+        public decimal Disc { get; set; }
+        public decimal Value { get; set; }
+        public decimal Fix_Price { get; set; }
+        public string Certificate_No { get; set; }
+        public string Goods_Type { get; set; }
+        public decimal SUPPLIER_COST_DISC { get; set; }
+        public decimal SUPPLIER_COST_VALUE { get; set; }
+        public decimal MAX_DISC { get; set; }
+        public decimal MAX_VALUE { get; set; }
+        public decimal CUSTOMER_COST_DISC { get; set; }
+        public decimal CUSTOMER_COST_VALUE { get; set; }
+        public int Shape_Sr { get; set; }
+        public int Color_Sr { get; set; }
+        public int Clarity_Sr { get; set; }
+        public int Cut_Sr { get; set; }
+        public int Polish_Sr { get; set; }
+        public int Symm_Sr { get; set; }
+        public int Fls_Sr { get; set; }
+        public int Rank { get; set; }
+        public string Supplier_Status { get; set; }
+        public string Buyer_Name { get; set; }
+        public decimal Bid_Disc { get; set; }
+        public decimal Bid_Amt { get; set; }
+        public decimal Bid_Ct { get; set; }
+        public decimal Avg_Stock_Disc { get; set; }
+        public int Avg_Stock_Pcs { get; set; }
+        public decimal Avg_Pur_Disc { get; set; }
+        public int Avg_Pur_Pcs { get; set; }
+        public decimal Avg_Sales_Disc { get; set; }
+        public int Sales_Pcs { get; set; }
+        public string KTS_Grade { get; set; }
+        public string Comm_Grade { get; set; }
+        public string Zone { get; set; }
+        public string Para_Grade { get; set; }
+    }
+
+
 }

@@ -10160,8 +10160,6 @@ namespace API.Controllers
                 });
             }
         }
-
-
         [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult Excel_LabEntry([FromBody] JObject data)
@@ -10199,7 +10197,256 @@ namespace API.Controllers
                 }
                 else
                 {
-                    return Ok("No Stock found as per filter criteria !");
+                    return Ok("No Data Found");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                throw ex;
+            }
+        }
+
+        [HttpPost]
+        public IHttpActionResult Add_MyCart([FromBody] JObject data)
+        {
+            Add_MyCart_Req req = new Add_MyCart_Req();
+            try
+            {
+                req = JsonConvert.DeserializeObject<Add_MyCart_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+            try
+            {
+                CommonResponse resp = new CommonResponse();
+
+                Database db = new Database();
+                List<IDbDataParameter> para;
+                para = new List<IDbDataParameter>();
+
+                int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+                
+                para.Add(db.CreateParam("SupplierId_RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, req.SupplierId_RefNo_SupplierRefNo));
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
+
+                DataTable dt = db.ExecuteSP("Add_MyCart", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    resp.Status = dt.Rows[0]["Status"].ToString();
+                    resp.Message = dt.Rows[0]["Message"].ToString();
+                }
+                else
+                {
+                    resp.Status = "0";
+                    resp.Message = "Add to Cart Failed";
+                }
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Delete_MyCart([FromBody] JObject data)
+        {
+            Get_MyCart_Req req = new Get_MyCart_Req();
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_MyCart_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+            try
+            {
+                CommonResponse resp = new CommonResponse();
+
+                Database db = new Database();
+                List<IDbDataParameter> para;
+                para = new List<IDbDataParameter>();
+
+                int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId)); 
+                para.Add(db.CreateParam("CartId", DbType.String, ParameterDirection.Input, req.CartId));
+                
+                DataTable dt = db.ExecuteSP("Delete_MyCart", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    resp.Status = dt.Rows[0]["Status"].ToString();
+                    resp.Message = dt.Rows[0]["Message"].ToString();
+                }
+                else
+                {
+                    resp.Status = "0";
+                    resp.Message = "My Cart Remove Failed";
+                }
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [NonAction]
+        private DataTable MyCart(Get_MyCart_Req req)
+        {
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, userID));
+
+                if (req.PgNo > 0)
+                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, req.PgNo));
+                else
+                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                if (req.PgSize > 0)
+                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, req.PgSize));
+                else
+                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.OrderBy))
+                    para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, req.OrderBy));
+                else
+                    para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.RefNo_SupplierRefNo))
+                    para.Add(db.CreateParam("RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, req.RefNo_SupplierRefNo));
+                else
+                    para.Add(db.CreateParam("RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.CartId))
+                    para.Add(db.CreateParam("CartId", DbType.String, ParameterDirection.Input, req.CartId));
+                else
+                    para.Add(db.CreateParam("CartId", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                DataTable Cart_dt = db.ExecuteSP("Get_MyCart", para.ToArray(), false);
+                return Cart_dt;
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, null);
+                return null;
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Get_MyCart([FromBody] JObject data)
+        {
+            Get_MyCart_Req req = new Get_MyCart_Req();
+
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_MyCart_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_MyCart_Res>
+                {
+                    Data = new List<Get_MyCart_Res>(),
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+            try
+            {
+                DataTable Cart_dt = MyCart(req);
+
+                List<Get_MyCart_Res> List_Res = new List<Get_MyCart_Res>();
+                if (Cart_dt != null && Cart_dt.Rows.Count > 0)
+                {
+                    List_Res = Cart_dt.ToList<Get_MyCart_Res>();
+                }
+
+                return Ok(new ServiceResponse<Get_MyCart_Res>
+                {
+                    Data = List_Res,
+                    Message = "SUCCESS",
+                    Status = "1"
+                });
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_MyCart_Res>
+                {
+                    Data = new List<Get_MyCart_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Excel_MyCart([FromBody] JObject data)
+        {
+            Get_MyCart_Req req = new Get_MyCart_Req();
+
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_MyCart_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok("Input Parameters are not in the proper format");
+            }
+            
+            try
+            {
+                DataTable Cart_dt = MyCart(req);
+
+                if (Cart_dt != null && Cart_dt.Rows.Count > 0)
+                {
+                    string filename = "My Cart " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string _path = ConfigurationManager.AppSettings["data"];
+                    _path = _path.Replace("Temp", "ExcelFile");
+                    string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
+
+                    EpExcelExport.MyCart_Excel(Cart_dt, realpath, realpath + filename + ".xlsx", req.UserTypeList);
+
+                    string _strxml = _path + filename + ".xlsx";
+                    return Ok(_strxml);
+                }
+                else
+                {
+                    return Ok("No Data Found");
                 }
 
             }

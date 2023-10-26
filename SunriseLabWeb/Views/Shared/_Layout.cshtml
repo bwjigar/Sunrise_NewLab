@@ -371,6 +371,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="@Url.Action("MyCart", "User")">
+                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                My Cart
+                            </a>
+                        </li>
+                        <li>
                             <a href="@Url.Action("OrderHistory", "User")">
                                 <i class="fa fa-file-text" aria-hidden="true"></i>
                                 Order History
@@ -389,6 +395,12 @@
                             <a href="@Url.Action("SearchStock", "User")">
                                 <i class="fa fa-search" aria-hidden="true"></i>
                                 Search Stock
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("MyCart", "User")">
+                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                My Cart
                             </a>
                         </li>
                         <li>
@@ -436,7 +448,32 @@
         </div>
     </div>
 
-
+    <div class="modal fade social-model" id="PlaceOrderModal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Place Order</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form class="form-horizontal" id="frmSaveOrder">
+                    <div class="col-md-12" id="pPlaceOrderMsg" style="font-size: 13px;margin-top: 4px;"></div>
+                    <div class="modal-body" id="Selected" style="margin-top: -13px;">
+                        <div class="form-group">
+                            <label>Comments : <span class="reqvalidation">*</span></label>
+                            <input type="text" tabindex="1" class="form-control required" name="Comments" id="Comments" placeholder="Comments" maxlength="200" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="modal-body" id="NotSelected">
+                        <label>Please Select atlease One Stone</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnsaveOrderstone" tabindex="3" class="btn btn-darkblue" type="button" onclick="SaveOrder()">Place Order</button>
+                        <button class="btn btn-darkblue" tabindex="4" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <script src="~/Content/js/jquery.min.js"></script>
     <script src="~/Content/Plugins/jqueryUI/jquery-ui.js"></script>
     <script src="~/Content/js/popper.min.js"></script>
@@ -481,6 +518,20 @@
                 self.val(self.val().replace(/[^0-9\.]/g, ''));
                 if ((evt.which != 46 || self.val().indexOf('.') != -1) && (evt.which < 48 || evt.which > 57)) {
                     evt.preventDefault();
+                }
+            });
+            $('#PlaceOrderModal').on('show.bs.modal', function (event) {
+                var count = 0;
+                count = gridOptions.api.getSelectedRows().length;
+                $("#Comments").val("");
+                if (count > 0) {
+                    $('#frmSaveOrder #Selected').show();
+                    $('#frmSaveOrder #NotSelected').hide();
+                    $('.modal-footer #btnsaveOrderstone').show();
+                } else {
+                    $('#frmSaveOrder #Selected').hide();
+                    $('#frmSaveOrder #NotSelected').show();
+                    $('.modal-footer #btnsaveOrderstone').hide();
                 }
             });
         });
@@ -641,6 +692,54 @@ var loaderHide = function () {
         function htmlDecode(input) {
             var doc = new DOMParser().parseFromString(input, "text/html");
             return doc.documentElement.textContent;
+        }
+        function PlaceOrder() {
+            $('#PlaceOrderModal').modal('show');
+        }
+        function SaveOrder() {
+            if (gridOptions.api != undefined) {
+                if ($("#Comments").val().trim() == "") {
+                    $("#Comments").val("");
+                    $("#Comments").focus();
+                    toastr.warning("Enter Comments");
+                    return;
+                }
+                loaderShow();
+                debugger
+                var selectedRows = gridOptions.api.getSelectedRows();
+                var list = '';
+                var i = 0, tot = selectedRows.length;
+                for (; i < tot; i++) {
+                    list += selectedRows[i].SupplierId + "_" + selectedRows[i].Ref_No + "_" + selectedRows[i].Supplier_Stone_Id + ',';
+                }
+                list = (list != '' ? list.substr(0, (list.length - 1)) : '');
+
+                var obj = {};
+                obj.SupplierId_RefNo_SupplierRefNo = list;
+                obj.Comments = $("#Comments").val();
+
+                $.ajax({
+                    url: '/User/PlaceOrder',
+                    type: "POST",
+                    data: { req: obj },
+                    success: function (data) {
+                        loaderHide();
+                        if (data.Status == "1") {
+                            $('#PlaceOrderModal').modal('hide');
+                            toastr.success(data.Message);
+                        }
+                        else {
+                            if (data.Message.indexOf('Something Went wrong') > -1) {
+                                MoveToErrorPage(0);
+                            }
+                            toastr.error(data.Message);
+                        }
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        loaderHide();
+                    }
+                });
+            }
         }
     </script>
 </body>

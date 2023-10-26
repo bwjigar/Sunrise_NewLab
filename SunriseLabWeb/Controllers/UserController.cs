@@ -596,8 +596,8 @@ namespace SunriseLabWeb_New.Controllers
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.PlaceOrder, inputJson);
-            CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
-            return Json(_data, JsonRequestBehavior.AllowGet);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
         public ActionResult OrderHistory()
         {
@@ -632,6 +632,38 @@ namespace SunriseLabWeb_New.Controllers
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Excel_LabEntry, inputJson);
+            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Add_MyCart(Add_MyCart_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Add_MyCart, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Delete_MyCart(Get_MyCart_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Delete_MyCart, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult MyCart()
+        {
+            return View();
+        }
+        public JsonResult Get_MyCart(Get_MyCart_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Get_MyCart, inputJson);
+            ServiceResponse<Get_MyCart_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_MyCart_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Excel_MyCart(Get_MyCart_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Excel_MyCart, inputJson);
             string data = (new JavaScriptSerializer()).Deserialize<string>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
