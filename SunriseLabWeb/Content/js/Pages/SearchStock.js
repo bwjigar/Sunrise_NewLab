@@ -1738,6 +1738,7 @@ function Color_Hide_Show(type) {
 
 
 $(document).ready(function () {
+    $("#hdn_PageName").val("SearchStock");
     // For Shape selection
     var icon_selected = new Array();
     $('ul.search').on('click', ".common-ico", function () {

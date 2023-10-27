@@ -391,6 +391,7 @@ function contentHeight() {
 }
 
 $(document).ready(function (e) {
+    $("#hdn_PageName").val("MyCart");
     GetSearch();
     contentHeight();
 
@@ -443,7 +444,6 @@ function Excel_MyCart() {
 }
 function RemoveStone() {
     if (gridOptions.api != undefined) {
-        loaderShow();
         setTimeout(function () {
             var selectedRows = gridOptions.api.getSelectedRows();
             var CartId = '';
@@ -454,6 +454,8 @@ function RemoveStone() {
             CartId = (CartId != '' ? CartId.substr(0, (CartId.length - 1)) : '');
 
             if (CartId != "") {
+                loaderShow();
+
                 var obj = {};
                 obj.CartId = CartId;
 

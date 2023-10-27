@@ -24,6 +24,7 @@
     <link href="//cdn.syncfusion.com/17.4.0.46/js/web/flat-azure/ej.web.all.min.css" rel="stylesheet" />
     <link href="17.4.0.46/themes/web/content/default.css" rel="stylesheet" />
     <link href="17.4.0.46/themes/web/content/default-responsive.css" rel="stylesheet" />
+    <input type="hidden" id="hdn_PageName" />
     @RenderSection("styles", required: false)
     <style>
         .ag-icon-filter {
@@ -727,6 +728,13 @@ var loaderHide = function () {
                         if (data.Status == "1") {
                             $('#PlaceOrderModal').modal('hide');
                             toastr.success(data.Message);
+
+                            if ($("#hdn_PageName").val() == "SearchStock") {
+                                Search();
+                            }
+                            else if ($("#hdn_PageName").val() == "MyCart") {
+                                GetSearch();
+                            }
                         }
                         else {
                             if (data.Message.indexOf('Something Went wrong') > -1) {

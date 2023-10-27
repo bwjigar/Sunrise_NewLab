@@ -259,7 +259,7 @@ namespace EpExcelExportLib
                                 }
                                 else if (Column_Name == "Supplier Name")
                                 {
-                                    worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["SupplierName"]);
+                                    worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["SupplierShortName"]);
                                 }
                                 else if (Column_Name == "Rank")
                                 {
@@ -1036,7 +1036,7 @@ namespace EpExcelExportLib
 
                     p.Workbook.Properties.Author = "SUNRISE DIAMOND";
                     p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
-                    p.Workbook.Worksheets.Add("Buyer Stock");
+                    p.Workbook.Worksheets.Add("Supplier Stock");
 
                     ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
                     worksheet.Name = DateTime.Now.ToString("dd-MM-yyyy");
@@ -1224,7 +1224,7 @@ namespace EpExcelExportLib
                                 }
                                 else if (Column_Name == "Supplier Name")
                                 {
-                                    worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["SupplierName"]);
+                                    worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["SupplierShortName"]);
                                 }
                                 else if (Column_Name == "Shape")
                                 {
@@ -3168,7 +3168,7 @@ namespace EpExcelExportLib
 
                     p.Workbook.Properties.Author = "SUNRISE DIAMOND";
                     p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
-                    p.Workbook.Worksheets.Add("LabEntry");
+                    p.Workbook.Worksheets.Add("Lab Entry");
 
                     ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
                     worksheet.Name = DateTime.Now.ToString("dd-MM-yyyy");
@@ -3536,7 +3536,7 @@ namespace EpExcelExportLib
 
                         p.Workbook.Properties.Author = "SUNRISE DIAMOND";
                         p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
-                        p.Workbook.Worksheets.Add("OrderHistory");
+                        p.Workbook.Worksheets.Add("Order History");
 
                         ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
                         worksheet.Name = DateTime.Now.ToString("dd-MM-yyyy");
@@ -3932,7 +3932,7 @@ namespace EpExcelExportLib
 
                         p.Workbook.Properties.Author = "SUNRISE DIAMOND";
                         p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
-                        p.Workbook.Worksheets.Add("OrderHistory");
+                        p.Workbook.Worksheets.Add("Order History");
 
                         ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
                         worksheet.Name = DateTime.Now.ToString("dd-MM-yyyy");
@@ -4333,7 +4333,7 @@ namespace EpExcelExportLib
 
                         p.Workbook.Properties.Author = "SUNRISE DIAMOND";
                         p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
-                        p.Workbook.Worksheets.Add("MyCart");
+                        p.Workbook.Worksheets.Add("My Cart");
 
                         ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
                         worksheet.Name = DateTime.Now.ToString("dd-MM-yyyy");
@@ -4725,7 +4725,7 @@ namespace EpExcelExportLib
 
                         p.Workbook.Properties.Author = "SUNRISE DIAMOND";
                         p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
-                        p.Workbook.Worksheets.Add("MyCart");
+                        p.Workbook.Worksheets.Add("My Cart");
 
                         ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
                         worksheet.Name = DateTime.Now.ToString("dd-MM-yyyy");
