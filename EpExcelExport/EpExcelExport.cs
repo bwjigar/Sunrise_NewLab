@@ -83,8 +83,8 @@ namespace EpExcelExportLib
 
                     #region Company Detail on Header
 
-                    p.Workbook.Properties.Author = "SUNRISE DIAMOND";
-                    p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
+                    //p.Workbook.Properties.Author = "SUNRISE DIAMOND";
+                    //p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
                     p.Workbook.Worksheets.Add("Buyer Stock");
 
                     ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
@@ -1034,8 +1034,8 @@ namespace EpExcelExportLib
 
                     #region Company Detail on Header
 
-                    p.Workbook.Properties.Author = "SUNRISE DIAMOND";
-                    p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
+                    //p.Workbook.Properties.Author = "SUNRISE DIAMOND";
+                    //p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
                     p.Workbook.Worksheets.Add("Supplier Stock");
 
                     ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
@@ -1718,8 +1718,8 @@ namespace EpExcelExportLib
 
                     #region Company Detail on Header
 
-                    p.Workbook.Properties.Author = "SUNRISE DIAMOND";
-                    p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
+                    //p.Workbook.Properties.Author = "SUNRISE DIAMOND";
+                    //p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
                     p.Workbook.Worksheets.Add("Customer Stock");
 
                     ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
@@ -2310,8 +2310,8 @@ namespace EpExcelExportLib
 
                     #region Company Detail on Header
 
-                    p.Workbook.Properties.Author = "SUNRISE DIAMOND";
-                    p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
+                    //p.Workbook.Properties.Author = "SUNRISE DIAMOND";
+                    //p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
                     p.Workbook.Worksheets.Add(suppName);
 
                     ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
@@ -3166,8 +3166,8 @@ namespace EpExcelExportLib
 
                     #region Company Detail on Header
 
-                    p.Workbook.Properties.Author = "SUNRISE DIAMOND";
-                    p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
+                    //p.Workbook.Properties.Author = "SUNRISE DIAMOND";
+                    //p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
                     p.Workbook.Worksheets.Add("Lab Entry");
 
                     ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
@@ -3534,8 +3534,8 @@ namespace EpExcelExportLib
 
                         #region Company Detail on Header
 
-                        p.Workbook.Properties.Author = "SUNRISE DIAMOND";
-                        p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
+                        //p.Workbook.Properties.Author = "SUNRISE DIAMOND";
+                        //p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
                         p.Workbook.Worksheets.Add("Order History");
 
                         ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
@@ -3930,8 +3930,8 @@ namespace EpExcelExportLib
 
                         #region Company Detail on Header
 
-                        p.Workbook.Properties.Author = "SUNRISE DIAMOND";
-                        p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
+                        //p.Workbook.Properties.Author = "SUNRISE DIAMOND";
+                        //p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
                         p.Workbook.Worksheets.Add("Order History");
 
                         ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
@@ -4331,8 +4331,8 @@ namespace EpExcelExportLib
 
                         #region Company Detail on Header
 
-                        p.Workbook.Properties.Author = "SUNRISE DIAMOND";
-                        p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
+                        //p.Workbook.Properties.Author = "SUNRISE DIAMOND";
+                        //p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
                         p.Workbook.Worksheets.Add("My Cart");
 
                         ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
@@ -4723,8 +4723,8 @@ namespace EpExcelExportLib
 
                         #region Company Detail on Header
 
-                        p.Workbook.Properties.Author = "SUNRISE DIAMOND";
-                        p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
+                        //p.Workbook.Properties.Author = "SUNRISE DIAMOND";
+                        //p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
                         p.Workbook.Worksheets.Add("My Cart");
 
                         ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
