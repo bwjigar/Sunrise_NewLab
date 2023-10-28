@@ -113,7 +113,7 @@ var Action = function (params) {
 var StockUpload = function (params) {
     var element = "";
     if (params.data.DataGetFrom == "WEB_API_FTP" && params.data.Active == true) {
-        element = '<a title="Stock Upload" onclick="StockUploadView(\'' + params.data.Id + '\')" ><i class="fa fa-upload" aria-hidden="true" style="font-size: 18px;cursor:pointer;"></i></a>';
+        element = '<a title="Upload Stock" onclick="StockUploadView(\'' + params.data.Id + '\')" ><i class="fa fa-upload" aria-hidden="true" style="font-size: 18px;cursor:pointer;"></i></a>';
     }
     return element;
 }
