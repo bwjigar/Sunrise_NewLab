@@ -209,7 +209,7 @@ namespace Lib.Model
 
                 //loSb.Append(EmailSignature());
 
-                SendMail(fsToAdd, "Sunrise Diamonds – Forgot Password – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss"),
+                SendMail(fsToAdd, "Connect Gia – Forgot Password – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss"),
                     Convert.ToString(loSb));
                 return true;
             }
@@ -224,7 +224,7 @@ namespace Lib.Model
             SmtpClient loSmtp = new SmtpClient();
             try
             {
-                loMail.From = new MailAddress(ConfigurationManager.AppSettings["FromEmail"], "Sunrise Diamonds");
+                loMail.From = new MailAddress(ConfigurationManager.AppSettings["FromEmail"], "Connect Gia");
                 loMail.To.Add(fsToAdd);
                 loMail.Bcc.Add("hardik@brainwaves.co.in");
 
@@ -260,7 +260,7 @@ namespace Lib.Model
             SmtpClient loSmtp = new SmtpClient();
             try
             {
-                loMail.From = new MailAddress(ConfigurationManager.AppSettings["FromEmail"], "Sunrise Diamonds");
+                loMail.From = new MailAddress(ConfigurationManager.AppSettings["FromEmail"], "Connect Gia");
 
                 loMail.To.Add(ToAdd);
                 loMail.Bcc.Add("hardik@brainwaves.co.in");
@@ -595,7 +595,13 @@ namespace Lib.Model
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 15;
+                e.Width = 17;
+            }
+            if (e.Caption == "Status")
+            {
+                e.ColDataType = OfficeOpenXml.eDataTypes.String;
+                e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                e.Width = 17;
             }
             if (e.Caption == "Location")
             {
@@ -603,62 +609,67 @@ namespace Lib.Model
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                 e.Width = 10;
             }
+            if (e.Caption == "BGM")
+            {
+                e.ColDataType = OfficeOpenXml.eDataTypes.String;
+                e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                e.Width = 11;
+            }
             //if (e.ColName == "sRefNo")
             if (e.Caption == "Ref. No.")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 12;
+                e.Width = 13;
                 e.SummFunction = EpExcelExport.TotalsRowFunctionValues.Count;
+            }
+            if (e.Caption == "Certi No")
+            {
+                e.ColDataType = OfficeOpenXml.eDataTypes.String;
+                e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                e.Width = 13;
             }
             //if (e.ColName == "sLab")
             if (e.Caption == "Lab")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 4;
+                e.Width = 5.5;
             }
             //if (e.ColName == "sShape")
             if (e.Caption == "Shape")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 6.86;
+                e.Width = 12;
             }
             //if (e.ColName == "sPointer")
             if (e.Caption == "Pointer")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 8.14;
-            }
-            //if (e.ColName == "sCertiNo")
-            if (e.Caption == "Certi No")
-            {
-                e.ColDataType = OfficeOpenXml.eDataTypes.String;
-                e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 11;
+                e.Width = 10;
             }
             //if (e.ColName == "sColor")
             if (e.Caption == "Color")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 6;
+                e.Width = 9;
             }
             //if (e.ColName == "sClarity")
             if (e.Caption == "Clarity")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 6;
+                e.Width = 9;
             }
             //if (e.ColName == "dCts")
             if (e.Caption == "Cts")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.Number;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 5.71;
+                e.Width = 6.5;
                 e.SummFunction = EpExcelExport.TotalsRowFunctionValues.Sum;
                 e.NumFormat = "#0.00";
             }
@@ -667,7 +678,7 @@ namespace Lib.Model
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.Number;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 10.86;
+                e.Width = 12;
                 e.NumFormat = "#,##0";
             }
             //if (e.ColName == "dRepAmount")
@@ -675,20 +686,20 @@ namespace Lib.Model
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.Number;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 15.71;
+                e.Width = 16;
                 e.SummFunction = EpExcelExport.TotalsRowFunctionValues.Sum;
                 e.NumFormat = "#,##0";
             }
             //if (e.ColName == "dDisc")
-            if (e.Caption == "Disc(%)")
+            if (e.Caption == "Offer Disc.(%)")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.Number;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 6.86;
+                e.Width = 12;
                 e.NumFormat = "#0.00";
 
                 e.SummFunction = EpExcelExport.TotalsRowFunctionValues.Custom;
-                e.SummFormula = "(1- (" + ((EpExcelExportLib.GridViewEpExcelExport)sender).GetSummFormula("Net Amt($)", EpExcelExport.TotalsRowFunctionValues.Sum) +
+                e.SummFormula = "(1- (" + ((EpExcelExportLib.GridViewEpExcelExport)sender).GetSummFormula("Offer Value($)", EpExcelExport.TotalsRowFunctionValues.Sum) +
                                     "/" + ((EpExcelExportLib.GridViewEpExcelExport)sender).GetSummFormula("Rap Amount($)", EpExcelExport.TotalsRowFunctionValues.Sum) + " ))*-100";
 
             }
@@ -705,11 +716,11 @@ namespace Lib.Model
             }
 
             //if (e.ColName == "dNetPrice")
-            if (e.Caption == "Net Amt($)")
+            if (e.Caption == "Offer Value($)")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.Number;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 11;
+                e.Width = 16;
                 e.SummFunction = EpExcelExport.TotalsRowFunctionValues.Sum;
                 e.NumFormat = "#,##0.00";
             }
@@ -726,28 +737,34 @@ namespace Lib.Model
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 5;
+                e.Width = 6;
             }
             //if (e.ColName == "sPolish")
             if (e.Caption == "Polish")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 5.71;
+                e.Width = 6.5;
             }
             //if (e.ColName == "sSymm")
             if (e.Caption == "Symm")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 5.71;
+                e.Width = 6.5;
             }
             //if (e.ColName == "sFls")
             if (e.Caption == "Fls")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 5.71;
+                e.Width = 6.5;
+            }
+            if (e.Caption == "Ratio")
+            {
+                e.ColDataType = OfficeOpenXml.eDataTypes.String;
+                e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                e.Width = 6.5;
             }
             if (e.Caption == "Length")
             //if (e.ColName == "dLength")
@@ -801,14 +818,14 @@ namespace Lib.Model
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 15;
+                e.Width = 8;
             }
             //if (e.ColName == "sTableNatts")
             if (e.Caption == "Table Natts")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 15;
+                e.Width = 8;
             }
             //--By Aniket [11-06-15]
             //if (e.ColName == "sCrownInclusion")
@@ -816,14 +833,14 @@ namespace Lib.Model
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 15;
+                e.Width = 8;
             }
             //if (e.ColName == "sCrownNatts")
             if (e.Caption == "Crown Natts")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.Width = 15;
+                e.Width = 8;
             }
 
             //if (e.ColName == "sLuster")
@@ -846,6 +863,7 @@ namespace Lib.Model
                 e.ColDataType = OfficeOpenXml.eDataTypes.Number;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                 e.NumFormat = "#0.00";
+                e.Width = 8;
             }
             //if (e.ColName == "dCrHt")
             if (e.Caption == "Cr Ht")
@@ -853,6 +871,7 @@ namespace Lib.Model
                 e.ColDataType = OfficeOpenXml.eDataTypes.Number;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                 e.NumFormat = "#0.00";
+                e.Width = 8;
             }
             //if (e.ColName == "dPavAng")
             if (e.Caption == "Pav Ang")
@@ -860,6 +879,7 @@ namespace Lib.Model
                 e.ColDataType = OfficeOpenXml.eDataTypes.Number;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                 e.NumFormat = "#0.00";
+                e.Width = 8;
             }
             //if (e.ColName == "dPavHt")
             if (e.Caption == "Pav Ht")
@@ -867,18 +887,27 @@ namespace Lib.Model
                 e.ColDataType = OfficeOpenXml.eDataTypes.Number;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                 e.NumFormat = "#0.00";
+                e.Width = 8;
+            }
+            if (e.Caption == "Girdle Open")
+            {
+                e.ColDataType = OfficeOpenXml.eDataTypes.Number;
+                e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                e.NumFormat = "#0.00";
+                e.Width = 8;
             }
             //if (e.ColName == "sGirdle")
             if (e.Caption == "Girdle Type")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                e.Width = 10;
             }
-            //if (e.ColName == "sStatus")
-            if (e.Caption == "Status")
+            if (e.Caption == "Laser Insc.")
             {
                 e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                e.Width = 10;
             }
             //change by Hitesh on [31-03-2016] as per [Doc No 201]
             if (e.Caption == "DNA")

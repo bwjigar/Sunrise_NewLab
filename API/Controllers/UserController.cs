@@ -9944,11 +9944,11 @@ namespace API.Controllers
 
                 if (EmailType == "Customer" && dtUserDetail.Rows[0]["EmailId"].ToString() != "")
                 {
-                    Common.SendMail(dtUserDetail.Rows[0]["EmailId"].ToString(), "Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
+                    Common.SendMail(dtUserDetail.Rows[0]["EmailId"].ToString(), "Connect Gia – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
                 }
                 else if (EmailType == "Employee" && dtUserDetail.Rows[0]["AssistByEmailId"].ToString() != "")
                 {
-                    Common.SendMail(dtUserDetail.Rows[0]["AssistByEmailId"].ToString(), "Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
+                    Common.SendMail(dtUserDetail.Rows[0]["AssistByEmailId"].ToString(), "Connect Gia – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
                 }
 
 
