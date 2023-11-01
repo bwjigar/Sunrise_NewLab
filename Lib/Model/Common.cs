@@ -352,8 +352,8 @@ namespace Lib.Model
             cClarity.FooterStyle.HorizontalAlign = HorizontalAlign.Left;
             gvData.Columns.Add(cClarity);
 
-            BoundField cCertiNo = new BoundField(); cCertiNo.DataField = "sCertiNo"; cCertiNo.HeaderText = "Certi No";
-            gvData.Columns.Add(cCertiNo);
+            //BoundField cCertiNo = new BoundField(); cCertiNo.DataField = "sCertiNo"; cCertiNo.HeaderText = "Certi No";
+            //gvData.Columns.Add(cCertiNo);
 
             BoundField cPointer = new BoundField(); cPointer.DataField = "sPointer"; cPointer.HeaderText = "Pointer";
             gvData.Columns.Add(cPointer);

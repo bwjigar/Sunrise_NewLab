@@ -355,38 +355,52 @@
                 <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12 float-left mb-2">
                     <div class="order-date common-order">
                         <div class="offer-label">Lab Date:</div>
-                        <input type="text" name="txtLabDate" id="txtLabDate" value="" class="offer-input offer-input1" autocomplete="off" disabled>
+                        <input type="text" name="txtLabDate" id="txtLabDate" value="" class="offer-input offer-input1" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 float-left mb-2">
                     <div class="order-company-name common-order">
-                        <div class="offer-label">User:</div>
+                        <div class="offer-label">User: <span style="color:red;">*</span></div>
                         <select id="ddl_User" class="form-control common-control" onchange="ddl_User_change()"></select>
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-4 col-md-6 col-sm-6 col-12 float-left mb-2">
-                    <div class="order-stone-id common-order">
-                        <div class="offer-label">Ref No / Cert No / Supplier Ref No:</div>
-                        <input type="text" tabindex="2" class="form-control common-control" id="txtStoneId" maxlength="2000" autocomplete="off" placeholder="Ref No / Cert No / Supplier Ref No (Comma or Space)..." style="height: auto;" onkeyup="CommaSeperatedStone_list(event)">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 float-left mb-2">
+                    <div class="order-company-name common-order">
+                        <div class="offer-label">File Upload: </div>
+                        <input accept=".xlsx" type="file" id="file_upload" name="file_upload" class="form-control" />
                     </div>
+                </div>
+                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12 float-left mb-2">
+                    <a style="font-size: 11.5px; font-style: normal; font-weight: 600; color: #003d66 " href="~/Content/images/LabEntry_Format.xlsx" target="_blank">LabEntry_Format.xlsx</a>
                 </div>
             </div>
 
-            <div class="offset-7 col-xl-5 col-lg-4 col-md-5 col-sm-12">
-                <ul class="offer-inbtn pull-right mrtop src-rest-topbtn mt-2 mb-2" style="margin: 20px 54px 0;">
-                    <li>
-                        <button class="offer-btn" onclick="GetSearch()"><i class="fa fa-search" aria-hidden="true"></i>Search </button>
-                    </li>
-                    <li>
-                        <button class="offer-btn" onclick="Excel_LabEntry()"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Excel </button>
-                    </li>
-                    <li>
-                        <button class="offer-btn" onclick="Save_LabEntry()"><i class="fa fa-check" aria-hidden="true"></i>Lab Entry </button>
-                    </li>
-                    <li>
-                        <button class="offer-btn" onclick="Reset()"><i class="fa fa-refresh" aria-hidden="true"></i>Reset </button>
-                    </li>
-                </ul>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="col-xl-6 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
+                    <div class="order-stone-id common-order">
+                        <div class="offer-label">Ref No:</div>
+                        <input type="text" tabindex="2" class="form-control common-control" id="txtStoneId" maxlength="2000" autocomplete="off" placeholder="Ref No (Comma or Space)..." style="height: auto;" onkeyup="CommaSeperatedStone_list(event)">
+                    </div>
+                </div>
+                <div class="offset-5 col-xl-7 col-lg-4 col-md-5 col-sm-12">
+                    <ul class="offer-inbtn pull-right mrtop src-rest-topbtn mt-2 mb-2" style="margin: 20px 54px 0;">
+                        <li>
+                            <button class="offer-btn" onclick="UploadExcelFile();"><i class="fa fa-upload" aria-hidden="true"></i>Upload Excel </button>
+                        </li>
+                        <li>
+                            <button class="offer-btn" onclick="GetSearch()"><i class="fa fa-search" aria-hidden="true"></i>Search </button>
+                        </li>
+                        <li>
+                            <button class="offer-btn" onclick="Excel_LabEntry()"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Excel </button>
+                        </li>
+                        <li id="li_LabEntry" style="display:none;">
+                            <button class="offer-btn" onclick="LabEntry()"><i class="fa fa-check" aria-hidden="true"></i>Lab Entry </button>
+                        </li>
+                        <li>
+                            <button class="offer-btn" onclick="Reset()"><i class="fa fa-refresh" aria-hidden="true"></i>Reset </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -400,7 +414,45 @@
         </div>
     </div>
 </div>
+<div class="modal fade social-model" id="Excel_Stone_Invalid_Modal" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="margin-top: -50px;display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Lab Entry</h4>
+                <button type="button" class="close" onclick="CloseExcel_Stone_InvalidPopup()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
 
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnsaveOfferclose" class="btn btn-primary" type="button" onclick="CloseExcel_Stone_InvalidPopup()">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade social-model" id="LabEntry_Modal" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="margin-top: -50px;display: none;">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Lab Entry</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="divList">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnsaveOrderstone" tabindex="3" class="btn btn-darkblue" type="button" onclick="Save_LabEntry()">Confirm</button>
+                <button class="btn btn-darkblue" tabindex="4" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section scripts{
     <script type="text/javascript" src="~/Content/Plugins/multiselect/bootstrap-multiselect.js"></script>
     <script src="~/Content/js/wow.min.js"></script>

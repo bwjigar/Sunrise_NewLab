@@ -10112,41 +10112,67 @@ namespace API.Controllers
                     Message = "Input Parameters are not in the proper format",
                     Status = "0"
                 });
-
             }
             try
             {
                 CommonResponse resp = new CommonResponse();
-                Int32 LabId;
-
                 Database db = new Database();
-                List<IDbDataParameter> para;
-                para = new List<IDbDataParameter>();
+                DataTable dtData = new DataTable();
+                DataTable dt = new DataTable();
 
-                int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+                dt.Columns.Add("LabDate", typeof(string));
+                dt.Columns.Add("UserId", typeof(string));
+                dt.Columns.Add("Ref_No", typeof(string));
+                dt.Columns.Add("SupplierId", typeof(string));
+                dt.Columns.Add("LabEntry_Status", typeof(string));
+                dt.Columns.Add("SUPPLIER_COST_DISC", typeof(string));
+                dt.Columns.Add("SUPPLIER_COST_VALUE", typeof(string));
+                dt.Columns.Add("CUSTOMER_COST_DISC", typeof(string));
+                dt.Columns.Add("CUSTOMER_COST_VALUE", typeof(string));
 
-                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
-                para.Add(db.CreateParam("SupplierId_RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, req.SupplierId_RefNo_SupplierRefNo));
-
-                DataTable dt = db.ExecuteSP("LabEntry", para.ToArray(), false);
-
-                if (dt != null && dt.Rows.Count > 0)
+                if (req.LabEntry_List.Count() > 0)
                 {
-                    LabId = Convert.ToInt32(dt.Rows[0]["LabId"].ToString());
-                    resp.Status = dt.Rows[0]["Status"].ToString();
-                    resp.Message = dt.Rows[0]["Message"].ToString();
+                    for (int i = 0; i < req.LabEntry_List.Count(); i++)
+                    {
+                        DataRow dr = dt.NewRow();
 
-                    //if (resp.Status == "1" && OrderId > 0)
-                    //{
-                    //    SendOrderMail(OrderId, req.Comments, UserId, OrderDate, "Customer");
-                    //    SendOrderMail(OrderId, req.Comments, UserId, OrderDate, "Employee");
-                    //}
+                        dr["LabDate"] = req.LabEntry_List[i].LabDate;
+                        dr["UserId"] = req.LabEntry_List[i].UserId;
+                        dr["Ref_No"] = req.LabEntry_List[i].Ref_No;
+                        dr["SupplierId"] = req.LabEntry_List[i].SupplierId;
+                        dr["LabEntry_Status"] = req.LabEntry_List[i].LabEntry_Status;
+                        dr["SUPPLIER_COST_DISC"] = req.LabEntry_List[i].SUPPLIER_COST_DISC;
+                        dr["SUPPLIER_COST_VALUE"] = req.LabEntry_List[i].SUPPLIER_COST_VALUE;
+                        dr["CUSTOMER_COST_DISC"] = req.LabEntry_List[i].CUSTOMER_COST_DISC;
+                        dr["CUSTOMER_COST_VALUE"] = req.LabEntry_List[i].CUSTOMER_COST_VALUE;
+
+                        dt.Rows.Add(dr);
+                    }
+
+                    List<SqlParameter> para = new List<SqlParameter>();
+                    SqlParameter param = new SqlParameter("table", SqlDbType.Structured);
+                    param.Value = dt;
+                    para.Add(param);
+
+                    dtData = db.ExecuteSP("Add_LabEntry", para.ToArray(), false);
+
+                    if (dtData != null && dtData.Rows.Count > 0)
+                    {
+                        resp.Status = dtData.Rows[0]["Status"].ToString();
+                        resp.Message = dtData.Rows[0]["Message"].ToString();
+                    }
+                    else
+                    {
+                        resp.Status = "0";
+                        resp.Message = "Lab Entry Failed";
+                    }
                 }
                 else
                 {
                     resp.Status = "0";
                     resp.Message = "Lab Entry Failed";
                 }
+
                 return Ok(resp);
             }
             catch (Exception ex)

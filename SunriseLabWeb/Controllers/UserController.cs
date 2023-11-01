@@ -1,14 +1,19 @@
 ﻿using Lib.Model;
+using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using SunriseLabWeb_New.Data;
 using SunriseLabWeb_New.Filter;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -666,6 +671,164 @@ namespace SunriseLabWeb_New.Controllers
             string response = _api.CallAPI(Constants.Excel_MyCart, inputJson);
             string data = (new JavaScriptSerializer()).Deserialize<string>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public List<Get_SearchStock_Res> Get_SearchStock_By_RefNo(Get_SearchStock_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_SearchStock, inputJson);
+            ServiceResponse<Get_SearchStock_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_Res>>(response);
+            return data.Data;
+        }
+        [HttpPost]
+        public JsonResult UploadExcelforLabEntry(LabEntry_Req req)
+        {
+            List<Get_SearchStock_Res> lst = new List<Get_SearchStock_Res>();
+            try
+            {
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase file = Request.Files[0];
+                    int fileSize = file.ContentLength;
+                    string fileName = file.FileName;
+                    string NewFileName = Guid.NewGuid() + Path.GetExtension(fileName).ToLower();
+                    string mimeType = file.ContentType;
+                    System.IO.Stream fileContent = file.InputStream;
+                    
+                    string path = Server.MapPath("~/Upload/LabExcel/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    file.SaveAs(Server.MapPath("~/Upload/LabExcel/") + NewFileName); 
+
+                    var ep = new ExcelPackage(new FileInfo(Server.MapPath("~/Upload/LabExcel/") + NewFileName));
+                    var ws = ep.Workbook.Worksheets["StoneSelection"];
+                    string Error_msg = string.Empty;
+                    int Error_count = 0;
+
+                    Error_msg = "<table border='1' style='font-size:12px;width: 80%;margin-top:5px;display:block;max-height:360px;overflow-y:auto;'>";
+                    Error_msg += "<tbody>";
+                    Error_msg += "<tr>";
+                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 7%;\"><center><b>No.</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 27%;\"><center><b>Ref No</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 25%;\"><center><b>Supplier Cost Disc(%)</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 25%;\"><center><b>Offer Disc(%)</b></center></td>";
+                    Error_msg += "</tr>";
+
+                    string RefNo = "";
+                    for (int rw = 2; rw <= ws.Dimension.End.Row; rw++)
+                    {
+                        RefNo += Convert.ToString(ws.Cells[rw, 1].Value).Trim() + ",";
+                    }
+                    RefNo = (RefNo != "" ? RefNo.Remove(RefNo.Length - 1, 1) : "");
+
+                    Get_SearchStock_Req Req = new Get_SearchStock_Req();
+                    Req.RefNo = RefNo;
+                    Req.UserId = req.UserId;
+
+                    List<Get_SearchStock_Res> Res = new List<Get_SearchStock_Res>();
+                    Res = Get_SearchStock_By_RefNo(Req);
+
+
+
+                    bool status = false, status_1 = false;
+                    for (int rw = 2; rw <= ws.Dimension.End.Row; rw++)
+                    {
+                        if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() != "" && RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 3].Value)).Trim() != "" && RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 4].Value)).Trim() != "")
+                        {
+                            status_1 = false;
+
+                            for (int i = 0; i < Res.Count; i++)
+                            {
+                                if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[i].Ref_No)
+                                {
+                                    string Status = Convert.ToString(ws.Cells[rw, 2].Value).Trim();
+
+                                    decimal Supplier_Cost_Disc = Convert.ToDecimal(RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 3].Value)));
+                                    decimal Supplier_Cost_Value = ((Res[i].Rap_Rate + (Res[i].Rap_Rate * Supplier_Cost_Disc) / 100) * Res[i].Cts);
+
+                                    decimal Offer_Disc = Convert.ToDecimal(RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 4].Value)));
+                                    decimal Offer_Value = ((Res[i].Rap_Rate + (Res[i].Rap_Rate * Offer_Disc) / 100) * Res[i].Cts);
+
+                                    Res[i].LabEntry_Status = Status;
+                                    Res[i].SUPPLIER_COST_DISC = Supplier_Cost_Disc;
+                                    Res[i].SUPPLIER_COST_VALUE = Supplier_Cost_Value;
+                                    Res[i].CUSTOMER_COST_DISC = Offer_Disc;
+                                    Res[i].CUSTOMER_COST_VALUE = Offer_Value;
+
+                                    lst.Add(Res[i]);
+                                    status_1 = true;
+                                }
+                            }
+                            if (status_1 == false)
+                            {
+                                status_1 = true;
+                                Error_count += 1;
+
+                                Error_msg += "<tr>";
+                                Error_msg += "<td><center><b>" + Error_count + "</b></center></td>";
+                                Error_msg += "<td><center>" + ws.Cells[rw, 1].Value + "</center></td>";
+                                Error_msg += "<td style='color: #003d66;font-weight:600'><center>" + ws.Cells[rw, 3].Value + "</center></td>";
+                                Error_msg += "<td style='color: #003d66;font-weight:600'><center>" + ws.Cells[rw, 4].Value + "</center></td>";
+                                Error_msg += "</tr>";
+                            }
+                        }
+                        else
+                        {
+                            status = true;
+                            Error_count += 1;
+
+                            Error_msg += "<tr>";
+                            Error_msg += "<td>center><b>" + Error_count + "</b></center></td>";
+                            Error_msg += "<td>center>" + ws.Cells[rw, 1].Value + "</center></td>";
+                            Error_msg += "<td style='color: #003d66;font-weight:600'>center>" + ws.Cells[rw, 3].Value + "</center></td>";
+                            Error_msg += "<td style='color: #003d66;font-weight:600'>center>" + ws.Cells[rw, 4].Value + "</center></td>";
+                            Error_msg += "</tr>";
+                        }
+                    }
+
+                    Error_msg += "</tbody>";
+                    Error_msg += "</table>";
+
+                    if (status == false && status_1 == false)
+                        Error_msg = "";
+
+                    Get_SearchStock_Res obj2 = new Get_SearchStock_Res();
+                    obj2.Lab_Comments = Error_msg;
+                    lst.Add(obj2);
+
+                    return Json(lst, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    Get_SearchStock_Res obj2 = new Get_SearchStock_Res();
+                    obj2.Lab_Comments = "File Not Exists";
+                    obj2.Culet = "0";
+                    lst.Add(obj2);
+
+                    return Json(lst, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                Get_SearchStock_Res obj2 = new Get_SearchStock_Res();
+                obj2.Lab_Comments = ex.Message;
+                obj2.Culet = "0";
+                lst.Add(obj2);
+
+                return Json(lst, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public static string RemoveNonNumericAndDotAndNegativeCharacters(string input)
+        {
+            //return new Regex("[^0-9.-]").Replace(input, "");
+            string pattern = "[^0-9.-]";
+            Regex regex = new Regex(pattern);
+            string result = regex.Replace(input, "");
+            result = (result == "-" ? "" : result);
+            return result;
         }
     }
 }

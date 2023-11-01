@@ -84,7 +84,8 @@ namespace API.Controllers
                         int AssistId = (dt.Rows[0]["AssistBy"] != null && dt.Rows[0]["AssistBy"].ToString() != "") ? Convert.ToInt32(dt.Rows[0]["AssistBy"].ToString()) : 0;
                         string AssistDetail = GetAssistDetail(AssistId);
 
-                        resp.Message = "<div style=\"color:red\">User Name '" + UserName + "' or Password is Wrong, Kindly Contact : </div>" + AssistDetail;
+                        //resp.Message = "<div style=\"color:red\">User Name '" + UserName + "' or Password is Wrong, Kindly Contact : </div>" + AssistDetail;
+                        resp.Message = "<div style=\"color:red\">User Name '" + UserName + "' or Password is Wrong</div>";
                     }
                     else
                     {

@@ -682,6 +682,7 @@ namespace Lib.Model
         public string Comm_Grade { get; set; }
         public string Zone { get; set; }
         public string Para_Grade { get; set; }
+        public string LabEntry_Status { get; set; }
     }
     public class Data_Get_From_File_Req
     {
@@ -863,7 +864,19 @@ namespace Lib.Model
     public class LabEntry_Req
     {
         public int UserId { get; set; }
-        public string SupplierId_RefNo_SupplierRefNo { get; set; }
+        public List<LabEntry_List> LabEntry_List { get; set; }
+    }
+    public class LabEntry_List
+    {
+        public string LabDate { get; set; }
+        public string UserId { get; set; }
+        public string Ref_No { get; set; }
+        public string SupplierId { get; set; }
+        public string LabEntry_Status { get; set; }
+        public string SUPPLIER_COST_DISC { get; set; }
+        public string SUPPLIER_COST_VALUE { get; set; }
+        public string CUSTOMER_COST_DISC { get; set; }
+        public string CUSTOMER_COST_VALUE { get; set; }
     }
     public class Add_MyCart_Req
     {
