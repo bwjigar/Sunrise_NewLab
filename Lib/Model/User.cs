@@ -34,7 +34,7 @@ namespace Lib.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CompName { get; set; }
-        public string FortunePartyCode { get; set; }
+        public int FortunePartyCode { get; set; }
         public string EmailId { get; set; }
         public string EmailId_2 { get; set; }
         public string MobileNo { get; set; }
@@ -50,11 +50,13 @@ namespace Lib.Model
         public string CreatedDate { get; set; }
         public string LastLoginDate { get; set; }
         public string UserTypeList { get; set; }
+        public int UserCode { get; set; }
     }
-    public class FortunePartyCode_Exist_Request
+    public class Exist_Request
     {
         public int iUserId { get; set; }
         public int FortunePartyCode { get; set; }
+        public int UserCode { get; set; }
     }
     public class UserDetails_Req
     {
@@ -66,12 +68,13 @@ namespace Lib.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CompanyName { get; set; }
-        public string FortunePartyCode { get; set; }
+        public int FortunePartyCode { get; set; }
         public string EmailId { get; set; }
         public string EmailId_2 { get; set; }
         public string MobileNo { get; set; }
         public int AssistBy { get; set; }
         public int SubAssistBy { get; set; }
+        public int UserCode { get; set; }
     }
     public class UserType_Res
     {
@@ -1003,6 +1006,29 @@ namespace Lib.Model
         public string Zone { get; set; }
         public string Para_Grade { get; set; }
     }
-
-
+   
+    public class translistlab_Req
+    {
+        public string ref_no { get; set; }
+        public string lab { get; set; }
+        public string shape { get; set; }
+        public double cts { get; set; }
+        public string color { get; set; }
+        public string purity { get; set; }
+        public string cut { get; set; }
+        public string polish { get; set; }
+        public string symm { get; set; }
+        public string fls { get; set; }
+        public double SUPP_OFFER_PER { get; set; }
+        public double OFFER { get; set; }
+        public string SOURCE_PARTY { get; set; }
+        public string CERTI_NO { get; set; }
+        public double FINAL_OFFER { get; set; }
+        public double SUPP_BASE_VALUE { get; set; }
+        public double RAP_PRICE { get; set; }
+        public double RAP_VALUE { get; set; }
+        public double LENGTH { get; set; }
+        public double WIDTH { get; set; }
+        public double HEIGHT { get; set; }
+    }
 }

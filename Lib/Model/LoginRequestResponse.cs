@@ -64,7 +64,7 @@ namespace Lib.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CompName { get; set; }
-        public string FortunePartyCode { get; set; }
+        public int FortunePartyCode { get; set; }
         public string EmailId { get; set; }
         public string MobileNo { get; set; }
         public string UserTypeId { get; set; }
@@ -73,6 +73,7 @@ namespace Lib.Model
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public string UserTypeList { get; set; }
+        public int UserCode { get; set; }
     }
     public class IP_Wise_Login_Detail
     {

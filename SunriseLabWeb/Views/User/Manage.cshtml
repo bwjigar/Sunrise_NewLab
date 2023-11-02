@@ -154,7 +154,7 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="text" tabindex="1" class="form-control" id="txt_UserName" maxlength="50">
+                                    <input type="text" tabindex="1" class="form-control" id="txt_UserName" autocomplete="off" maxlength="50">
                                 </div>
                             </div>
 
@@ -163,7 +163,7 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input readonly onfocus="this.removeAttribute('readonly');" type="password" tabindex="2" class="form-control" id="txt_Password" maxlength="50">
+                                    <input readonly onfocus="this.removeAttribute('readonly');" autocomplete="off" type="password" tabindex="2" class="form-control" id="txt_Password" maxlength="50">
                                 </div>
                             </div>
 
@@ -193,7 +193,7 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="text" class="form-control" tabindex="5" id="txt_FirstName" maxlength="50">
+                                    <input type="text" class="form-control" tabindex="5" id="txt_FirstName" autocomplete="off" maxlength="50">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
@@ -201,7 +201,7 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="text" class="form-control" tabindex="6" id="txt_LastName" maxlength="50">
+                                    <input type="text" class="form-control" tabindex="6" id="txt_LastName" autocomplete="off" maxlength="50">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
@@ -209,7 +209,7 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="text" class="form-control" tabindex="7" id="txt_CompanyName" maxlength="50">
+                                    <input type="text" class="form-control" tabindex="7" id="txt_CompanyName" autocomplete="off" maxlength="50">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
@@ -217,9 +217,9 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="text" class="form-control"
-                                           id="txt_FortunePartyCode" tabindex="8" maxlength="20"
-                                           onchange="Check_FortunePartyCode_Exist();" onkeypress="return isNumberKey(event)">
+                                    <input type="text" class="form-control" autocomplete="off"
+                                           id="txt_FortunePartyCode" tabindex="8" maxlength="10"
+                                           onFocusout="Check_FortunePartyCode_Exist();" onkeypress="return isNumberKey(event)">
                                     <label class="active" style="color: red;font-size: 12px;display:none;" id="lblfortunepartycode"></label>
                                 </div>
                             </div>
@@ -228,7 +228,7 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="email" class="form-control" tabindex="9" id="txt_EmailId" maxlength="255">
+                                    <input type="email" class="form-control" tabindex="9" id="txt_EmailId" autocomplete="off" maxlength="255">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
@@ -236,7 +236,7 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="email" class="form-control" tabindex="9" id="txt_EmailId_2" maxlength="255">
+                                    <input type="email" class="form-control" tabindex="9" id="txt_EmailId_2" autocomplete="off" maxlength="255">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
@@ -270,7 +270,18 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="text" class="form-control" tabindex="10" id="txt_MobileNo" maxlength="15" onkeypress="return isNumberKey(event)">
+                                    <input type="text" class="form-control" tabindex="10" id="txt_MobileNo" autocomplete="off" maxlength="15" onkeypress="return isNumberKey(event)">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label" id="lbl_user_code">User Code:</div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input type="text" class="form-control" autocomplete="off"
+                                           id="txt_UserCode" tabindex="8" maxlength="10"
+                                           onFocusout="Check_UserCode_Exist();" onkeypress="return isNumberKey(event)">
+                                    <label class="active" style="color: red;font-size: 12px;display:none;" id="lblUserCode"></label>
                                 </div>
                             </div>
 

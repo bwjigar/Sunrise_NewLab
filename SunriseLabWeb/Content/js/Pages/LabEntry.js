@@ -301,10 +301,8 @@ columnDefs.push({ headerName: "Pavilion Open", field: "Pav_Open", width: 70, too
 
 
 function ddl_User_change() {
-    if ($("#ddl_User").val() == "") {
-        $(".gridview").hide();
-        $("#li_LabEntry").hide();
-    }
+    $(".gridview").hide();
+    $("#li_LabEntry").hide();
 }
 var gridOptions = {};
 function GetSearch() {

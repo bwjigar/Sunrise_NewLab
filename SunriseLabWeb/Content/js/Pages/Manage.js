@@ -1,5 +1,7 @@
 ﻿var FortuneCodeValid = true;
 var FortuneCodeValid_Msg = "";
+var UserCodeValid = true;
+var UserCodeValid_Msg = "";
 var Rowdata = [];
 
 var gridOptions = {};
@@ -113,7 +115,8 @@ var columnDefs = [
     { headerName: "LastName", field: "LastName", hide: true },
     { headerName: "Customer Name", field: "FullName", tooltip: function (params) { return (params.value); }, width: 120 },
     { headerName: "Company Name", field: "CompName", tooltip: function (params) { return (params.value); }, width: 180 },
-    { headerName: "Fortune Party Code", field: "FortunePartyCode", tooltip: function (params) { return (params.value); }, width: 75 },
+    { headerName: "Fortune Party Code", field: "FortunePartyCode", tooltip: function (params) { return (params.value); }, cellRenderer: function (params) { return (params.data.FortunePartyCode > 0 ? params.data.FortunePartyCode : ""); }, width: 75 },
+    { headerName: "User Code", field: "UserCode", tooltip: function (params) { return (params.value); }, cellRenderer: function (params) { return (params.data.UserCode > 0 ? params.data.UserCode : ""); }, width: 75 },
     { headerName: "Assist", field: "AssistByName", tooltip: function (params) { return (params.value); }, width: 120 },
     { headerName: "Sub Assist", field: "SubAssistByName", tooltip: function (params) { return (params.value); }, width: 120 },
     { headerName: "Mobile", field: "MobileNo", tooltip: function (params) { return (params.value); }, width: 120 },
@@ -146,7 +149,7 @@ function EditView(UserId) {
         $("#txt_UserName").val(data[0].UserName);
         $("#txt_Password").val(data[0].Password);
         $("#chk_Active").prop('checked', data[0].IsActive);
-        
+
         if (data[0].UserTypeId != "") {
             var selectedOptions = data[0].UserTypeId.split(",");
             for (var i in selectedOptions) {
@@ -159,7 +162,8 @@ function EditView(UserId) {
         $("#txt_FirstName").val(data[0].FirstName);
         $("#txt_LastName").val(data[0].LastName);
         $("#txt_CompanyName").val(data[0].CompName);
-        $("#txt_FortunePartyCode").val(data[0].FortunePartyCode);
+        $("#txt_FortunePartyCode").val((data[0].FortunePartyCode > 0 ? data[0].FortunePartyCode : ""));
+        $("#txt_UserCode").val((data[0].UserCode > 0 ? data[0].UserCode : ""));
         $("#txt_EmailId").val(data[0].EmailId);
         $("#txt_EmailId_2").val(data[0].EmailId_2);
         $("#txt_MobileNo").val(data[0].MobileNo);
@@ -412,9 +416,12 @@ var SortDirection = "";const datasource1 = {
     UserTypeGet();
     GetSearch();
     contentHeight();
-    $('#txt_FortunePartyCode').focusout(function () {
-        Check_FortunePartyCode_Exist();
-    });
+    //$('#txt_FortunePartyCode').onFocusout(function () {
+    //    Check_FortunePartyCode_Exist();
+    //});
+    //$('#txt_UserCode').onFocusout(function () {
+    //    Check_UserCode_Exist();
+    //});
 });
 
 $(window).resize(function () {
@@ -457,6 +464,7 @@ function Clear() {
     $("#txt_LastName").val("");
     $("#txt_CompanyName").val("");
     $("#txt_FortunePartyCode").val("");
+    $("#txt_UserCode").val("");
     $("#txt_EmailId").val("");
     $("#txt_EmailId_2").val("");
     $("#txt_MobileNo").val("");
@@ -464,6 +472,8 @@ function Clear() {
     $("#ddl_SubAssistBy").val("");
     FortuneCodeValid = true;
     FortuneCodeValid_Msg = "";
+    UserCodeValid = true;
+    UserCodeValid_Msg = "";
 }
 function isNumberKey(evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -525,6 +535,31 @@ function Check_FortunePartyCode_Exist() {
         FortuneCodeValid_Msg = "";
     }
 }
+function Check_UserCode_Exist() {
+    if ($("#txt_UserCode").val().replace(' ', '') != "") {
+        $.ajax({
+            url: '/User/UserCode_Exists',
+            type: "POST",
+            data: { iUserId: $("#hdn_Mng_UserId").val(), UserCode: $("#txt_UserCode").val() },
+            success: function (data) {
+                if (data != null) {
+                    if (data.Status == "-1") {
+                        UserCodeValid_Msg = data.Message;
+                        UserCodeValid = false;
+                    }
+                    else {
+                        UserCodeValid = true;
+                        UserCodeValid_Msg = "";
+                    }
+                }
+            }
+        });
+    }
+    else {
+        UserCodeValid = true;
+        UserCodeValid_Msg = "";
+    }
+}
 var checkemail1 = function (valemail) {
     //var forgetfilter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     var forgetfilter = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -582,10 +617,15 @@ var GetError = function () {
             'Error': "Please Enter Company Name.",
         });
     }
-    
+
     if (FortuneCodeValid == false) {
         ErrorMsg.push({
             'Error': FortuneCodeValid_Msg,
+        });
+    }
+    if (UserCodeValid == false) {
+        ErrorMsg.push({
+            'Error': UserCodeValid_Msg,
         });
     }
 
@@ -606,60 +646,64 @@ var GetError = function () {
             'Error': "Please Enter Mobile No.",
         });
     }
-    
+
     return ErrorMsg;
 }
 var SaveCompanyUser = function () {
-    ErrorMsg = GetError();
 
-    if (ErrorMsg.length > 0) {
-        $("#divError").empty();
-        ErrorMsg.forEach(function (item) {
-            $("#divError").append('<li>' + item.Error + '</li>');
-        });
-        $("#ErrorModel").modal("show");
-    }
-    else {
-        var obj = {};
-        obj.UserId = $("#hdn_Mng_UserId").val();
-        obj.UserName = $("#txt_UserName").val();
-        obj.Password = $("#txt_Password").val();
-        obj.Active = $("#chk_Active").is(":checked");
-        obj.UserType = $("#ddl_UserType").val().join(",")
-        obj.FirstName = $("#txt_FirstName").val();
-        obj.LastName = $("#txt_LastName").val();
-        obj.CompanyName = $("#txt_CompanyName").val();
-        obj.FortunePartyCode = $("#txt_FortunePartyCode").val();
-        obj.EmailId = $("#txt_EmailId").val();
-        obj.EmailId_2 = $("#txt_EmailId_2").val();
-        obj.MobileNo = $("#txt_MobileNo").val();
-        obj.AssistBy = $("#ddl_AssistBy").val();
-        obj.SubAssistBy = $("#ddl_SubAssistBy").val();
+    setTimeout(function () {
+        ErrorMsg = GetError();
 
-        loaderShow();
+        if (ErrorMsg.length > 0) {
+            $("#divError").empty();
+            ErrorMsg.forEach(function (item) {
+                $("#divError").append('<li>' + item.Error + '</li>');
+            });
+            $("#ErrorModel").modal("show");
+        }
+        else {
+            var obj = {};
+            obj.UserId = $("#hdn_Mng_UserId").val();
+            obj.UserName = $("#txt_UserName").val();
+            obj.Password = $("#txt_Password").val();
+            obj.Active = $("#chk_Active").is(":checked");
+            obj.UserType = $("#ddl_UserType").val().join(",")
+            obj.FirstName = $("#txt_FirstName").val();
+            obj.LastName = $("#txt_LastName").val();
+            obj.CompanyName = $("#txt_CompanyName").val();
+            obj.FortunePartyCode = $("#txt_FortunePartyCode").val();
+            obj.UserCode = $("#txt_UserCode").val();
+            obj.EmailId = $("#txt_EmailId").val();
+            obj.EmailId_2 = $("#txt_EmailId_2").val();
+            obj.MobileNo = $("#txt_MobileNo").val();
+            obj.AssistBy = $("#ddl_AssistBy").val();
+            obj.SubAssistBy = $("#ddl_SubAssistBy").val();
 
-        $.ajax({
-            url: '/User/SaveUserData',
-            type: "POST",
-            data: { req: obj },
-            success: function (data) {
-                loaderHide();
-                if (data.Status == "1") {
-                    toastr.success(data.Message);
-                    Back();
-                }
-                else {
-                    if (data.Message.indexOf('Something Went wrong') > -1) {
-                        MoveToErrorPage(0);
+            loaderShow();
+
+            $.ajax({
+                url: '/User/SaveUserData',
+                type: "POST",
+                data: { req: obj },
+                success: function (data) {
+                    loaderHide();
+                    if (data.Status == "1") {
+                        toastr.success(data.Message);
+                        Back();
                     }
-                    toastr.error(data.Message);
+                    else {
+                        if (data.Message.indexOf('Something Went wrong') > -1) {
+                            MoveToErrorPage(0);
+                        }
+                        toastr.error(data.Message);
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    loaderHide();
                 }
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                loaderHide();
-            }
-        });
-    }
+            });
+        }
+    }, 50);
 }
 function UserTypeGet() {
     $.ajax({

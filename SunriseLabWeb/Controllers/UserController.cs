@@ -45,10 +45,17 @@ namespace SunriseLabWeb_New.Controllers
             CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(_data, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult FortunePartyCode_Exist(FortunePartyCode_Exist_Request fortunepartycode_exist_request)
+        public JsonResult FortunePartyCode_Exist(Exist_Request req)
         {
-            string inputJson = (new JavaScriptSerializer()).Serialize(fortunepartycode_exist_request);
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.FortunePartyCode_Exist, inputJson);
+            CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(_data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult UserCode_Exists(Exist_Request req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.UserCode_Exists, inputJson);
             CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(_data, JsonRequestBehavior.AllowGet);
         }

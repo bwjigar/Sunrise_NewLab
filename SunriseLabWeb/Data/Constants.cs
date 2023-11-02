@@ -16,6 +16,7 @@ namespace SunriseLabWeb_New.Data
 
 
         public static string FortunePartyCode_Exist = "/User/FortunePartyCode_Exist";
+        public static string UserCode_Exists = "/User/UserCode_Exists";
         public static string SaveUserData = "/User/SaveUserData";
         public static string get_UserType = "/User/get_UserType";
 

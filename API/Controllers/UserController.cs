@@ -3013,10 +3013,10 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("CompanyName", DbType.String, ParameterDirection.Input, DBNull.Value));
 
-                if (!string.IsNullOrEmpty(req.FortunePartyCode))
-                    para.Add(db.CreateParam("FortunePartyCode", DbType.String, ParameterDirection.Input, req.FortunePartyCode));
+                if (req.FortunePartyCode > 0)
+                    para.Add(db.CreateParam("FortunePartyCode", DbType.Int32, ParameterDirection.Input, req.FortunePartyCode));
                 else
-                    para.Add(db.CreateParam("FortunePartyCode", DbType.String, ParameterDirection.Input, DBNull.Value));
+                    para.Add(db.CreateParam("FortunePartyCode", DbType.Int32, ParameterDirection.Input, DBNull.Value));
 
                 if (!string.IsNullOrEmpty(req.EmailId))
                     para.Add(db.CreateParam("EmailId", DbType.String, ParameterDirection.Input, req.EmailId));
@@ -3044,6 +3044,11 @@ namespace API.Controllers
                     para.Add(db.CreateParam("SubAssistBy", DbType.Int32, ParameterDirection.Input, DBNull.Value));
 
                 para.Add(db.CreateParam("CreatedBy", DbType.Int32, ParameterDirection.Input, userID));
+
+                if (req.UserCode > 0)
+                    para.Add(db.CreateParam("UserCode", DbType.Int32, ParameterDirection.Input, req.UserCode));
+                else
+                    para.Add(db.CreateParam("UserCode", DbType.Int32, ParameterDirection.Input, DBNull.Value));
 
                 DataTable dt = db.ExecuteSP("AddUpdate_User", para.ToArray(), false);
 
@@ -3161,10 +3166,10 @@ namespace API.Controllers
         [HttpPost]
         public IHttpActionResult FortunePartyCode_Exist([FromBody] JObject data)
         {
-            FortunePartyCode_Exist_Request fortunepartycode_exist_request = new FortunePartyCode_Exist_Request();
+            Exist_Request req = new Exist_Request();
             try
             {
-                fortunepartycode_exist_request = JsonConvert.DeserializeObject<FortunePartyCode_Exist_Request>(data.ToString());
+                req = JsonConvert.DeserializeObject<Exist_Request>(data.ToString());
             }
             catch (Exception ex)
             {
@@ -3178,14 +3183,61 @@ namespace API.Controllers
                 System.Collections.Generic.List<System.Data.IDbDataParameter> para;
                 para = new System.Collections.Generic.List<System.Data.IDbDataParameter>();
 
-                if (fortunepartycode_exist_request.iUserId > 0)
-                    para.Add(db.CreateParam("iUserId", DbType.Int32, ParameterDirection.Input, fortunepartycode_exist_request.iUserId));
+                if (req.iUserId > 0)
+                    para.Add(db.CreateParam("iUserId", DbType.Int32, ParameterDirection.Input, req.iUserId));
                 else
                     para.Add(db.CreateParam("iUserId", DbType.Int32, ParameterDirection.Input, DBNull.Value));
 
-                para.Add(db.CreateParam("FortunePartyCode", DbType.Int32, ParameterDirection.Input, fortunepartycode_exist_request.FortunePartyCode));
+                para.Add(db.CreateParam("FortunePartyCode", DbType.Int32, ParameterDirection.Input, req.FortunePartyCode));
 
                 System.Data.DataTable dt = db.ExecuteSP("Get_FortuneCode_Exists", para.ToArray(), false);
+
+                return Ok(new CommonResponse
+                {
+                    Message = dt.Rows[0]["Message"].ToString(),
+                    Status = dt.Rows[0]["Status"].ToString(),
+                    Error = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<CommonResponse>
+                {
+                    Data = new List<CommonResponse>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult UserCode_Exists([FromBody] JObject data)
+        {
+            Exist_Request req = new Exist_Request();
+            try
+            {
+                req = JsonConvert.DeserializeObject<Exist_Request>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok();
+            }
+
+            try
+            {
+                Database db = new Database();
+                System.Collections.Generic.List<System.Data.IDbDataParameter> para;
+                para = new System.Collections.Generic.List<System.Data.IDbDataParameter>();
+
+                if (req.iUserId > 0)
+                    para.Add(db.CreateParam("iUserId", DbType.Int32, ParameterDirection.Input, req.iUserId));
+                else
+                    para.Add(db.CreateParam("iUserId", DbType.Int32, ParameterDirection.Input, DBNull.Value));
+
+                para.Add(db.CreateParam("UserCode", DbType.Int32, ParameterDirection.Input, req.UserCode));
+
+                System.Data.DataTable dt = db.ExecuteSP("Get_UserCode_Exists", para.ToArray(), false);
 
                 return Ok(new CommonResponse
                 {
@@ -3906,7 +3958,7 @@ namespace API.Controllers
                 throw ex;
             }
         }
-       
+
         [HttpPost]
         public IHttpActionResult get_UserType()
         {
@@ -10120,6 +10172,10 @@ namespace API.Controllers
                 DataTable dtData = new DataTable();
                 DataTable dt = new DataTable();
 
+                int UserId = 0, Assist_UserId = 0, vuser_code = 0, vparty_code = 0;
+                string vEntry_type = "W", vparty_name = "", lab_trans_status = "";
+
+
                 dt.Columns.Add("LabDate", typeof(string));
                 dt.Columns.Add("UserId", typeof(string));
                 dt.Columns.Add("Ref_No", typeof(string));
@@ -10136,6 +10192,8 @@ namespace API.Controllers
                     {
                         DataRow dr = dt.NewRow();
 
+                        UserId = Convert.ToInt32(req.LabEntry_List[i].UserId);
+
                         dr["LabDate"] = req.LabEntry_List[i].LabDate;
                         dr["UserId"] = req.LabEntry_List[i].UserId;
                         dr["Ref_No"] = req.LabEntry_List[i].Ref_No;
@@ -10147,6 +10205,30 @@ namespace API.Controllers
                         dr["CUSTOMER_COST_VALUE"] = req.LabEntry_List[i].CUSTOMER_COST_VALUE;
 
                         dt.Rows.Add(dr);
+
+                        //translistlab_Req Stone = new translistlab_Req();
+                        //Stone.ref_no= "123";
+                        //Stone.lab= "GIA";
+                        //Stone.shape= "RD";
+                        //Stone.cts= 5;
+                        //Stone.color= "D";
+                        //Stone.purity= "VS1";
+                        //Stone.cut= "EX";
+                        //Stone.polish= "EX";
+                        //Stone.symm= "EX";
+                        //Stone.fls= "EX";
+                        //Stone.SUPP_OFFER_PER = 6.5;
+                        //Stone.OFFER= 50;
+                        //Stone.SOURCE_PARTY= "hardik";
+                        //Stone.CERTI_NO= "123123";
+                        //Stone.FINAL_OFFER= 5;
+                        //Stone.SUPP_BASE_VALUE= 500;
+                        //Stone.RAP_PRICE= 50;
+                        //Stone.RAP_VALUE= 250;
+                        //Stone.LENGTH= 1;
+                        //Stone.WIDTH= 2;
+                        //Stone.HEIGHT= 3;
+
                     }
 
                     List<SqlParameter> para = new List<SqlParameter>();
@@ -10160,6 +10242,69 @@ namespace API.Controllers
                     {
                         resp.Status = dtData.Rows[0]["Status"].ToString();
                         resp.Message = dtData.Rows[0]["Message"].ToString();
+
+                        if (resp.Status == "1")
+                        {
+                            GetUsers_Req Req = new GetUsers_Req();
+
+                            Req.UserId = UserId;
+
+                            DataTable U_dt = GetUsers_Inner(Req);
+
+                            if (U_dt != null && U_dt.Rows.Count > 0)
+                            {
+                                Assist_UserId = Convert.ToInt32(Convert.ToString(U_dt.Rows[0]["AssistBy"]) == "" ? "0" : Convert.ToString(U_dt.Rows[0]["AssistBy"]));
+                                vparty_name = Convert.ToString(U_dt.Rows[0]["CompName"]);
+                            }
+
+                            if (Assist_UserId > 0)
+                            {
+                                Req.UserId = Assist_UserId;
+
+                                DataTable A_dt = GetUsers_Inner(Req);
+
+                                if (A_dt != null && A_dt.Rows.Count > 0)
+                                {
+                                    vuser_code = Convert.ToInt32(Convert.ToString(A_dt.Rows[0]["UserCode"]) == "" ? "0" : Convert.ToString(A_dt.Rows[0]["UserCode"]));
+                                    vparty_code = Convert.ToInt32(Convert.ToString(A_dt.Rows[0]["FortunePartyCode"]) == "" ? "0" : Convert.ToString(A_dt.Rows[0]["FortunePartyCode"]));
+
+                                    if (vuser_code != 0 && vparty_code != 0 && vparty_name != "")
+                                    {
+                                        db = new Database(Request);
+
+                                        Oracle_DBAccess oracleDbAccess = new Oracle_DBAccess();
+                                        List<OracleParameter> paramList = new List<OracleParameter>();
+
+                                        OracleParameter param1 = new OracleParameter("vuser_code", OracleDbType.Int32);
+                                        param1.Value = vuser_code;
+                                        paramList.Add(param1);
+
+                                        param1 = new OracleParameter("vrec", OracleDbType.RefCursor);
+                                        param1.Direction = ParameterDirection.Output;
+                                        paramList.Add(param1);
+
+                                        param1 = new OracleParameter("vEntry_type", OracleDbType.NVarchar2);
+                                        param1.Value = vEntry_type;
+                                        paramList.Add(param1);
+
+                                        param1 = new OracleParameter("vparty_name", OracleDbType.NVarchar2);
+                                        param1.Value = vparty_name;
+                                        paramList.Add(param1);
+
+                                        param1 = new OracleParameter("vparty_code", OracleDbType.Int32);
+                                        param1.Value = vparty_code;
+                                        paramList.Add(param1);
+
+                                        DataTable Ora_dt = oracleDbAccess.CallSP("web_trans.lab_trans", paramList);
+
+                                        if (Ora_dt != null && Ora_dt.Rows.Count > 0)
+                                        {
+                                            lab_trans_status = Convert.ToString(Ora_dt.Rows[0]["STATUS"]);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                     else
                     {
@@ -10261,7 +10406,7 @@ namespace API.Controllers
                 para = new List<IDbDataParameter>();
 
                 int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
-                
+
                 para.Add(db.CreateParam("SupplierId_RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, req.SupplierId_RefNo_SupplierRefNo));
                 para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
 
@@ -10318,9 +10463,9 @@ namespace API.Controllers
 
                 int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
 
-                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId)); 
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
                 para.Add(db.CreateParam("CartId", DbType.String, ParameterDirection.Input, req.CartId));
-                
+
                 DataTable dt = db.ExecuteSP("Delete_MyCart", para.ToArray(), false);
 
                 if (dt != null && dt.Rows.Count > 0)
@@ -10453,7 +10598,7 @@ namespace API.Controllers
                 Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 return Ok("Input Parameters are not in the proper format");
             }
-            
+
             try
             {
                 DataTable Cart_dt = MyCart(req);
