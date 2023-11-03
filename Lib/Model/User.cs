@@ -864,6 +864,10 @@ namespace Lib.Model
         public string Zone { get; set; }
         public string Para_Grade { get; set; }
     }
+    public class Add_LabEntry_Res
+    {
+        public int Id { get; set; }
+    }
     public class LabEntry_Req
     {
         public int UserId { get; set; }
@@ -1005,30 +1009,5 @@ namespace Lib.Model
         public string Comm_Grade { get; set; }
         public string Zone { get; set; }
         public string Para_Grade { get; set; }
-    }
-   
-    public class translistlab_Req
-    {
-        public string ref_no { get; set; }
-        public string lab { get; set; }
-        public string shape { get; set; }
-        public double cts { get; set; }
-        public string color { get; set; }
-        public string purity { get; set; }
-        public string cut { get; set; }
-        public string polish { get; set; }
-        public string symm { get; set; }
-        public string fls { get; set; }
-        public double SUPP_OFFER_PER { get; set; }
-        public double OFFER { get; set; }
-        public string SOURCE_PARTY { get; set; }
-        public string CERTI_NO { get; set; }
-        public double FINAL_OFFER { get; set; }
-        public double SUPP_BASE_VALUE { get; set; }
-        public double RAP_PRICE { get; set; }
-        public double RAP_VALUE { get; set; }
-        public double LENGTH { get; set; }
-        public double WIDTH { get; set; }
-        public double HEIGHT { get; set; }
     }
 }

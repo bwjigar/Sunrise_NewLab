@@ -636,9 +636,26 @@ namespace SunriseLabWeb_New.Controllers
         public JsonResult Save_LabEntry(LabEntry_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
-            string response = _api.CallAPI(Constants.Save_LabEntry, inputJson);
-            CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
-            return Json(_data, JsonRequestBehavior.AllowGet);
+            string response = _api.CallAPI(Constants.Add_LabEntry_Request, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+
+            Add_LabEntry_Res Res = new Add_LabEntry_Res();
+            CommonResponse data_1 = new CommonResponse();
+
+            if (data.Status == "1" && data.Message != "Failed")
+            {
+                Res.Id = Convert.ToInt32(data.Message);
+
+                string inputJson_1 = (new JavaScriptSerializer()).Serialize(Res);
+                string response_1 = _api.CallAPIUrlEncodedWithWebReq(Constants.Save_LabEntry, inputJson_1);
+                data_1 = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response_1);
+            }
+            else
+            {
+                data_1.Status = "0";
+                data_1.Message = "Lab Entry Failed";
+            }
+            return Json(data_1, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Excel_LabEntry(Get_SearchStock_Req req)
         {

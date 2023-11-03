@@ -10147,13 +10147,74 @@ namespace API.Controllers
                 throw ex;
             }
         }
+
+        [HttpPost]
+        public IHttpActionResult Add_LabEntry_Request([FromBody] JObject data)
+        {
+            try
+            {
+                CommonResponse resp = new CommonResponse();
+                
+                Database db = new Database();
+                List<IDbDataParameter> para;
+                para = new List<IDbDataParameter>();
+
+                para.Add(db.CreateParam("LabEntry_Request", DbType.String, ParameterDirection.Input, data.ToString()));
+
+                DataTable dt = db.ExecuteSP("Add_LabEntry_Request", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    resp.Status = "1";
+                    resp.Message = Convert.ToString(dt.Rows[0]["Id"]);
+                }
+                else
+                {
+                    resp.Status = "0";
+                    resp.Message = "Failed";
+                }
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult Save_LabEntry([FromBody] JObject data)
         {
-            LabEntry_Req req = new LabEntry_Req();
+            Add_LabEntry_Res req = new Add_LabEntry_Res();
+            LabEntry_Req req_1 = new LabEntry_Req();
+            
             try
             {
-                req = JsonConvert.DeserializeObject<LabEntry_Req>(data.ToString());
+                if (!string.IsNullOrEmpty(Convert.ToString(data)))
+                {
+                    JObject test1 = JObject.Parse(data.ToString());
+                    req = JsonConvert.DeserializeObject<Add_LabEntry_Res>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+
+
+                    Database db = new Database();
+                    List<IDbDataParameter> para;
+                    para = new List<IDbDataParameter>();
+
+                    para.Add(db.CreateParam("Id", DbType.Int32, ParameterDirection.Input, req.Id));
+
+                    DataTable dt = db.ExecuteSP("Get_LabEntry_Request", para.ToArray(), false);
+                    
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        string Request = Convert.ToString(dt.Rows[0]["LabEntry_Request"]);
+                        req_1 = JsonConvert.DeserializeObject<LabEntry_Req>(Request.ToString());
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -10172,7 +10233,7 @@ namespace API.Controllers
                 DataTable dtData = new DataTable();
                 DataTable dt = new DataTable();
 
-                int UserId = 0, Assist_UserId = 0, vuser_code = 0, vparty_code = 0;
+                int LabId = 0, UserId = 0, Assist_UserId = 0, vuser_code = 0, vparty_code = 0;
                 string vEntry_type = "W", vparty_name = "", lab_trans_status = "";
 
 
@@ -10186,49 +10247,25 @@ namespace API.Controllers
                 dt.Columns.Add("CUSTOMER_COST_DISC", typeof(string));
                 dt.Columns.Add("CUSTOMER_COST_VALUE", typeof(string));
 
-                if (req.LabEntry_List.Count() > 0)
+                if (req_1.LabEntry_List.Count() > 0)
                 {
-                    for (int i = 0; i < req.LabEntry_List.Count(); i++)
+                    for (int i = 0; i < req_1.LabEntry_List.Count(); i++)
                     {
                         DataRow dr = dt.NewRow();
 
-                        UserId = Convert.ToInt32(req.LabEntry_List[i].UserId);
+                        UserId = Convert.ToInt32(req_1.LabEntry_List[i].UserId);
 
-                        dr["LabDate"] = req.LabEntry_List[i].LabDate;
-                        dr["UserId"] = req.LabEntry_List[i].UserId;
-                        dr["Ref_No"] = req.LabEntry_List[i].Ref_No;
-                        dr["SupplierId"] = req.LabEntry_List[i].SupplierId;
-                        dr["LabEntry_Status"] = req.LabEntry_List[i].LabEntry_Status;
-                        dr["SUPPLIER_COST_DISC"] = req.LabEntry_List[i].SUPPLIER_COST_DISC;
-                        dr["SUPPLIER_COST_VALUE"] = req.LabEntry_List[i].SUPPLIER_COST_VALUE;
-                        dr["CUSTOMER_COST_DISC"] = req.LabEntry_List[i].CUSTOMER_COST_DISC;
-                        dr["CUSTOMER_COST_VALUE"] = req.LabEntry_List[i].CUSTOMER_COST_VALUE;
+                        dr["LabDate"] = req_1.LabEntry_List[i].LabDate;
+                        dr["UserId"] = req_1.LabEntry_List[i].UserId;
+                        dr["Ref_No"] = req_1.LabEntry_List[i].Ref_No;
+                        dr["SupplierId"] = req_1.LabEntry_List[i].SupplierId;
+                        dr["LabEntry_Status"] = req_1.LabEntry_List[i].LabEntry_Status;
+                        dr["SUPPLIER_COST_DISC"] = req_1.LabEntry_List[i].SUPPLIER_COST_DISC;
+                        dr["SUPPLIER_COST_VALUE"] = req_1.LabEntry_List[i].SUPPLIER_COST_VALUE;
+                        dr["CUSTOMER_COST_DISC"] = req_1.LabEntry_List[i].CUSTOMER_COST_DISC;
+                        dr["CUSTOMER_COST_VALUE"] = req_1.LabEntry_List[i].CUSTOMER_COST_VALUE;
 
                         dt.Rows.Add(dr);
-
-                        //translistlab_Req Stone = new translistlab_Req();
-                        //Stone.ref_no= "123";
-                        //Stone.lab= "GIA";
-                        //Stone.shape= "RD";
-                        //Stone.cts= 5;
-                        //Stone.color= "D";
-                        //Stone.purity= "VS1";
-                        //Stone.cut= "EX";
-                        //Stone.polish= "EX";
-                        //Stone.symm= "EX";
-                        //Stone.fls= "EX";
-                        //Stone.SUPP_OFFER_PER = 6.5;
-                        //Stone.OFFER= 50;
-                        //Stone.SOURCE_PARTY= "hardik";
-                        //Stone.CERTI_NO= "123123";
-                        //Stone.FINAL_OFFER= 5;
-                        //Stone.SUPP_BASE_VALUE= 500;
-                        //Stone.RAP_PRICE= 50;
-                        //Stone.RAP_VALUE= 250;
-                        //Stone.LENGTH= 1;
-                        //Stone.WIDTH= 2;
-                        //Stone.HEIGHT= 3;
-
                     }
 
                     List<SqlParameter> para = new List<SqlParameter>();
@@ -10240,66 +10277,328 @@ namespace API.Controllers
 
                     if (dtData != null && dtData.Rows.Count > 0)
                     {
-                        resp.Status = dtData.Rows[0]["Status"].ToString();
-                        resp.Message = dtData.Rows[0]["Message"].ToString();
+                        LabId = Convert.ToInt32(dtData.Rows[0]["LabId"]);
+                        resp.Status = Convert.ToString(dtData.Rows[0]["Status"]);
+                        resp.Message = Convert.ToString(dtData.Rows[0]["Message"]);
 
-                        if (resp.Status == "1")
+                        if (resp.Status == "1" && LabId > 0)
                         {
-                            GetUsers_Req Req = new GetUsers_Req();
+                            db = new Database();
+                            List<IDbDataParameter> para1 = new List<IDbDataParameter>();
 
-                            Req.UserId = UserId;
+                            para1.Add(db.CreateParam("LabId", DbType.Int32, ParameterDirection.Input, LabId));
 
-                            DataTable U_dt = GetUsers_Inner(Req);
+                            DataTable LabDetail_dt = db.ExecuteSP("Get_LabDetail", para1.ToArray(), false);
 
-                            if (U_dt != null && U_dt.Rows.Count > 0)
+                            if (LabDetail_dt != null && LabDetail_dt.Rows.Count > 0)
                             {
-                                Assist_UserId = Convert.ToInt32(Convert.ToString(U_dt.Rows[0]["AssistBy"]) == "" ? "0" : Convert.ToString(U_dt.Rows[0]["AssistBy"]));
-                                vparty_name = Convert.ToString(U_dt.Rows[0]["CompName"]);
-                            }
+                                GetUsers_Req Req = new GetUsers_Req();
 
-                            if (Assist_UserId > 0)
-                            {
-                                Req.UserId = Assist_UserId;
+                                Req.UserId = UserId;
 
-                                DataTable A_dt = GetUsers_Inner(Req);
+                                DataTable U_dt = GetUsers_Inner(Req);
 
-                                if (A_dt != null && A_dt.Rows.Count > 0)
+                                if (U_dt != null && U_dt.Rows.Count > 0)
                                 {
-                                    vuser_code = Convert.ToInt32(Convert.ToString(A_dt.Rows[0]["UserCode"]) == "" ? "0" : Convert.ToString(A_dt.Rows[0]["UserCode"]));
-                                    vparty_code = Convert.ToInt32(Convert.ToString(A_dt.Rows[0]["FortunePartyCode"]) == "" ? "0" : Convert.ToString(A_dt.Rows[0]["FortunePartyCode"]));
+                                    Assist_UserId = Convert.ToInt32(Convert.ToString(U_dt.Rows[0]["AssistBy"]) == "" ? "0" : Convert.ToString(U_dt.Rows[0]["AssistBy"]));
+                                    vparty_name = Convert.ToString(U_dt.Rows[0]["CompName"]);
+                                }
 
-                                    if (vuser_code != 0 && vparty_code != 0 && vparty_name != "")
+                                if (Assist_UserId > 0)
+                                {
+                                    Req.UserId = Assist_UserId;
+
+                                    DataTable A_dt = GetUsers_Inner(Req);
+
+                                    if (A_dt != null && A_dt.Rows.Count > 0)
                                     {
-                                        db = new Database(Request);
+                                        vuser_code = Convert.ToInt32(Convert.ToString(A_dt.Rows[0]["UserCode"]) == "" ? "0" : Convert.ToString(A_dt.Rows[0]["UserCode"]));
+                                        vparty_code = Convert.ToInt32(Convert.ToString(A_dt.Rows[0]["FortunePartyCode"]) == "" ? "0" : Convert.ToString(A_dt.Rows[0]["FortunePartyCode"]));
 
-                                        Oracle_DBAccess oracleDbAccess = new Oracle_DBAccess();
-                                        List<OracleParameter> paramList = new List<OracleParameter>();
-
-                                        OracleParameter param1 = new OracleParameter("vuser_code", OracleDbType.Int32);
-                                        param1.Value = vuser_code;
-                                        paramList.Add(param1);
-
-                                        param1 = new OracleParameter("vrec", OracleDbType.RefCursor);
-                                        param1.Direction = ParameterDirection.Output;
-                                        paramList.Add(param1);
-
-                                        param1 = new OracleParameter("vEntry_type", OracleDbType.NVarchar2);
-                                        param1.Value = vEntry_type;
-                                        paramList.Add(param1);
-
-                                        param1 = new OracleParameter("vparty_name", OracleDbType.NVarchar2);
-                                        param1.Value = vparty_name;
-                                        paramList.Add(param1);
-
-                                        param1 = new OracleParameter("vparty_code", OracleDbType.Int32);
-                                        param1.Value = vparty_code;
-                                        paramList.Add(param1);
-
-                                        DataTable Ora_dt = oracleDbAccess.CallSP("web_trans.lab_trans", paramList);
-
-                                        if (Ora_dt != null && Ora_dt.Rows.Count > 0)
+                                        if (vuser_code != 0 && vparty_code != 0 && vparty_name != "")
                                         {
-                                            lab_trans_status = Convert.ToString(Ora_dt.Rows[0]["STATUS"]);
+                                            db = new Database(Request);
+
+                                            Oracle_DBAccess oracleDbAccess = new Oracle_DBAccess();
+                                            List<OracleParameter> paramList = new List<OracleParameter>();
+
+                                            OracleParameter param1 = new OracleParameter("vuser_code", OracleDbType.Int32);
+                                            param1.Value = vuser_code;
+                                            paramList.Add(param1);
+
+                                            param1 = new OracleParameter("vrec", OracleDbType.RefCursor);
+                                            param1.Direction = ParameterDirection.Output;
+                                            paramList.Add(param1);
+
+                                            param1 = new OracleParameter("vEntry_type", OracleDbType.NVarchar2);
+                                            param1.Value = vEntry_type;
+                                            paramList.Add(param1);
+
+                                            param1 = new OracleParameter("vparty_name", OracleDbType.NVarchar2);
+                                            param1.Value = vparty_name;
+                                            paramList.Add(param1);
+
+                                            param1 = new OracleParameter("vparty_code", OracleDbType.Int32);
+                                            param1.Value = vparty_code;
+                                            paramList.Add(param1);
+
+                                            DataTable mas_dt = oracleDbAccess.CallSP("web_trans.lab_trans", paramList);
+
+                                            if (mas_dt != null && mas_dt.Rows.Count > 0)
+                                            {
+                                                lab_trans_status = Convert.ToString(mas_dt.Rows[0]["STATUS"]);
+                                            }
+                                            if (!string.IsNullOrEmpty(lab_trans_status))
+                                            {
+                                                for (int j = 0; j < LabDetail_dt.Rows.Count; j++)
+                                                {
+                                                    oracleDbAccess = new Oracle_DBAccess();
+                                                    paramList = new List<OracleParameter>();
+
+                                                    param1 = new OracleParameter("vtrans_id", OracleDbType.Int32);
+                                                    param1.Value = lab_trans_status;
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vREF_NO", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Ref No"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vLAB", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Lab"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vSHAPE", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Shape"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vCTS", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Cts"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vCOLOR", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Color"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vPURITY", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Clarity"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vCUT", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Cut"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vPOLISH", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Polish"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vSYMM", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Symm"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vFLS", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Fls"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vSUPP_OFFER_PER", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Base Dis"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vOFFER", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["SUPPLIER COST DISC"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vSOURCE_PARTY", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(U_dt.Rows[0]["FullName"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vcerti_no", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Cert No"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vSUPP_BASE_VALUE", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Base Amt"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vRAP_PRICE", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Rap Rate"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vRAP_VALUE", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Rap Amount"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vLENGTH", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Length"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vWIDTH", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Width"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vDEPTH", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Depth"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vDEPTH_PER", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Depth %"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vCROWN_ANGEL", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Crown Angle"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vCROWN_HEIGHT", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Crown Height"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vPAV_ANGEL", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Pav Angle"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vPAV_HEIGHT", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Pav Height"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vculet", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Culet"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vSYMBOL", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Key to Symbol"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vTABLE_PER", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Table %"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vCROWN_NATTS", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Crown Black"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vCROWN_INCLUSION", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Crown White"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vTABLE_NATTS", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Table Black"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vTABLE_INCLUSION", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Table White"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vFINAL_VALUE", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["CUSTOMER COST VALUE"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vFINAL_DISC_PER", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["CUSTOMER COST DISC"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vMONTH", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(DateTime.Now.ToString("MMMM"));
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vFILE_DATE", OracleDbType.Date);
+                                                    param1.Value = Convert.ToString(DateTime.Now.ToString("dd-MMM-yyyy"));
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vIMG_PATH", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Image Real"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vVDO_PATH", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Video URL"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vDNA_PATH", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["DNA"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vPARTY_STONE_NO", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Supplier Ref No"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vSUPPLIER_NAME", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["SupplierName"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vSUPP_FINAL_VALUE", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["SUPPLIER COST VALUE"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vSUPP_FINAL_DISC", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["SUPPLIER COST DISC"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vGIRDLE_PER", OracleDbType.Double);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Girdle %"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vGIRDLE_TYPE", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Girdle Type"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vCOMMENTS", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Comment"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vSTR_LN", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Star Length"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vLR_HALF", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Lower HF"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vGIRDLE", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Girdle"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vSHADE", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Shade"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vluster", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Luster"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vLASER_INCLUSION", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Laser Inscription"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vcer_path", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Lab URL"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vTABLE_OPEN", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Table Open"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vGIRDLE_OPEN", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Girdle Open"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vCROWN_OPEN", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Crown Open"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vPAV_OPEN", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Pav Open"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vBGM", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["BGM"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vrec", OracleDbType.RefCursor);
+                                                    param1.Direction = ParameterDirection.Output;
+                                                    paramList.Add(param1);
+
+                                                    DataTable det_dt = oracleDbAccess.CallSP("web_trans.lab_trans_det", paramList);
+                                                }
+                                            }
+
                                         }
                                     }
                                 }
