@@ -3184,20 +3184,20 @@ namespace EpExcelExportLib
                     worksheet.Row(3).Style.WrapText = true;
 
                     worksheet.Cells[2, 1].Value = "Total";
-                    worksheet.Cells[2, 1, 2, 37].Style.Font.Bold = true;
-                    worksheet.Cells[2, 1, 2, 37].Style.Font.Size = 11;
-                    worksheet.Cells[2, 1, 2, 37].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    worksheet.Cells[2, 1, 2, 37].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                    worksheet.Cells[2, 1, 2, 37].Style.Font.Size = 11;
+                    worksheet.Cells[2, 1, 2, 48].Style.Font.Bold = true;
+                    worksheet.Cells[2, 1, 2, 48].Style.Font.Size = 11;
+                    worksheet.Cells[2, 1, 2, 48].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[2, 1, 2, 48].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    worksheet.Cells[2, 1, 2, 48].Style.Font.Size = 11;
 
-                    worksheet.Cells[3, 1, 3, 37].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    worksheet.Cells[3, 1, 3, 37].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
-                    worksheet.Cells[3, 1, 3, 37].Style.Font.Size = 10;
-                    worksheet.Cells[3, 1, 3, 37].Style.Font.Bold = true;
+                    worksheet.Cells[3, 1, 3, 48].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[3, 1, 3, 48].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                    worksheet.Cells[3, 1, 3, 48].Style.Font.Size = 10;
+                    worksheet.Cells[3, 1, 3, 48].Style.Font.Bold = true;
 
-                    worksheet.Cells[3, 1, 3, 37].AutoFilter = true;
+                    worksheet.Cells[3, 1, 3, 48].AutoFilter = true;
 
-                    var cellBackgroundColor1 = worksheet.Cells[3, 1, 3, 37].Style.Fill;
+                    var cellBackgroundColor1 = worksheet.Cells[3, 1, 3, 48].Style.Fill;
                     cellBackgroundColor1.PatternType = ExcelFillStyle.Solid;
                     Color colFromHex = System.Drawing.ColorTranslator.FromHtml("#d3d3d3");
                     cellBackgroundColor1.BackgroundColor.SetColor(colFromHex);
@@ -3206,46 +3206,57 @@ namespace EpExcelExportLib
 
                     #region Header Name Declaration
 
-                    worksheet.Cells[3, 1].Value = "Image";
-                    worksheet.Cells[3, 2].Value = "Video";
-                    worksheet.Cells[3, 3].Value = "Ref No";
-                    worksheet.Cells[3, 4].Value = "Shape";
-                    worksheet.Cells[3, 5].Value = "Pointer";
-                    worksheet.Cells[3, 6].Value = "Color";
-                    worksheet.Cells[3, 7].Value = "Clarity";
-                    worksheet.Cells[3, 8].Value = "Cts";
-                    worksheet.Cells[3, 9].Value = "Cut";
-                    worksheet.Cells[3, 10].Value = "Polish";
-                    worksheet.Cells[3, 11].Value = "Symm";
-                    worksheet.Cells[3, 12].Value = "Fls";
-                    worksheet.Cells[3, 13].Value = "Supplier Name";
-                    worksheet.Cells[3, 14].Value = "Rap Rate($)";
-                    worksheet.Cells[3, 15].Value = "Rap Amount($)";
-                    worksheet.Cells[3, 16].Value = "Supplier Cost Disc(%)";
-                    worksheet.Cells[3, 17].Value = "Supplier Cost Value($)";
-                    worksheet.Cells[3, 18].Value = "Offer Disc(%)";
-                    worksheet.Cells[3, 19].Value = "Offer Value($)";
-                    worksheet.Cells[3, 20].Value = "Length";
-                    worksheet.Cells[3, 21].Value = "Width";
-                    worksheet.Cells[3, 22].Value = "Depth";
-                    worksheet.Cells[3, 23].Value = "Depth (%)";
-                    worksheet.Cells[3, 24].Value = "Table (%)";
-                    worksheet.Cells[3, 25].Value = "Key To Symbol";
-                    worksheet.Cells[3, 26].Value = "Crown Angle";
-                    worksheet.Cells[3, 27].Value = "Crown Height";
-                    worksheet.Cells[3, 28].Value = "Pav Angle";
-                    worksheet.Cells[3, 29].Value = "Pav Height";
-                    worksheet.Cells[3, 30].Value = "Table Natts";
-                    worksheet.Cells[3, 31].Value = "Crown Natts";
-                    worksheet.Cells[3, 32].Value = "Table Inclusion";
-                    worksheet.Cells[3, 33].Value = "Crown Inclusion";
-                    worksheet.Cells[3, 34].Value = "Table Open";
-                    worksheet.Cells[3, 35].Value = "Girdle Open";
-                    worksheet.Cells[3, 36].Value = "Crown Open";
-                    worksheet.Cells[3, 37].Value = "Pavilion Open";
+                    worksheet.Cells[3, 1].Value = "Ref No";
+                    worksheet.Cells[3, 2].Value = "Lab";
+                    worksheet.Cells[3, 3].Value = "Image";
+                    worksheet.Cells[3, 4].Value = "Video";
+                    worksheet.Cells[3, 5].Value = "Supplier Stone Id";
+                    worksheet.Cells[3, 6].Value = "Certificate No";
+                    worksheet.Cells[3, 7].Value = "Supplier Name";
+                    worksheet.Cells[3, 8].Value = "Customer Name";
+                    worksheet.Cells[3, 9].Value = "Shape";
+                    worksheet.Cells[3, 10].Value = "Pointer";
+                    worksheet.Cells[3, 11].Value = "BGM";
+                    worksheet.Cells[3, 12].Value = "Color";
+                    worksheet.Cells[3, 13].Value = "Clarity";
+                    worksheet.Cells[3, 14].Value = "Cts";
+                    worksheet.Cells[3, 15].Value = "Rap Rate($)";
+                    worksheet.Cells[3, 16].Value = "Rap Amount($)";
+                    worksheet.Cells[3, 17].Value = "Supplier Cost Disc(%)";
+                    worksheet.Cells[3, 18].Value = "Supplier Cost Value($)";
+                    worksheet.Cells[3, 19].Value = "Sunrise Disc(%)";
+                    worksheet.Cells[3, 20].Value = "Sunrise Value($)";
+                    worksheet.Cells[3, 21].Value = "Profit Amount($)";
+                    worksheet.Cells[3, 22].Value = "Profit(%)";
+                    worksheet.Cells[3, 23].Value = "Supplier Base Offer Disc(%)";
+                    worksheet.Cells[3, 24].Value = "Supplier Base Value($)"; 
+                    worksheet.Cells[3, 25].Value = "Cut";
+                    worksheet.Cells[3, 26].Value = "Polish";
+                    worksheet.Cells[3, 27].Value = "Symm";
+                    worksheet.Cells[3, 28].Value = "Fls";
+                    worksheet.Cells[3, 29].Value = "Length";
+                    worksheet.Cells[3, 30].Value = "Width";
+                    worksheet.Cells[3, 31].Value = "Depth";
+                    worksheet.Cells[3, 32].Value = "Depth (%)";
+                    worksheet.Cells[3, 33].Value = "Table (%)";
+                    worksheet.Cells[3, 34].Value = "Key To Symbol";
+                    worksheet.Cells[3, 35].Value = "Girdle(%)";
+                    worksheet.Cells[3, 36].Value = "Crown Angle";
+                    worksheet.Cells[3, 37].Value = "Crown Height";
+                    worksheet.Cells[3, 38].Value = "Pav Angle";
+                    worksheet.Cells[3, 39].Value = "Pav Height";
+                    worksheet.Cells[3, 40].Value = "Table Natts";
+                    worksheet.Cells[3, 41].Value = "Crown Natts";
+                    worksheet.Cells[3, 42].Value = "Table Inclusion";
+                    worksheet.Cells[3, 43].Value = "Crown Inclusion";
+                    worksheet.Cells[3, 44].Value = "Table Open";
+                    worksheet.Cells[3, 45].Value = "Girdle Open";
+                    worksheet.Cells[3, 46].Value = "Crown Open";
+                    worksheet.Cells[3, 47].Value = "Pavilion Open";
+                    worksheet.Cells[3, 48].Value = "Culet";
 
 
-                    ExcelStyle cellStyleHeader1 = worksheet.Cells[3, 1, 3, 37].Style;
+                    ExcelStyle cellStyleHeader1 = worksheet.Cells[3, 1, 3, 48].Style;
                     cellStyleHeader1.Border.Left.Style = cellStyleHeader1.Border.Right.Style
                             = cellStyleHeader1.Border.Top.Style = cellStyleHeader1.Border.Bottom.Style
                             = ExcelBorderStyle.Medium;
@@ -3256,47 +3267,58 @@ namespace EpExcelExportLib
 
                     worksheet.View.FreezePanes(4, 1);
 
-                    worksheet.Cells[3, 1].AutoFitColumns(7);               
-                    worksheet.Cells[3, 2].AutoFitColumns(7);               
-                    worksheet.Cells[3, 3].AutoFitColumns(13);              
-                    worksheet.Cells[3, 4].AutoFitColumns(12);              
-                    worksheet.Cells[3, 5].AutoFitColumns(9);              
-                    worksheet.Cells[3, 6].AutoFitColumns(7);               
-                    worksheet.Cells[3, 7].AutoFitColumns(7);               
-                    worksheet.Cells[3, 8].AutoFitColumns(7);               
-                    worksheet.Cells[3, 9].AutoFitColumns(7);               
-                    worksheet.Cells[3, 10].AutoFitColumns(7);              
-                    worksheet.Cells[3, 11].AutoFitColumns(7);
-                    worksheet.Cells[3, 12].AutoFitColumns(7);
-                    worksheet.Cells[3, 13].AutoFitColumns(23);
-                    worksheet.Cells[3, 14].AutoFitColumns(10);
+                    worksheet.Cells[3, 1].AutoFitColumns(13);
+                    worksheet.Cells[3, 2].AutoFitColumns(6);
+                    worksheet.Cells[3, 3].AutoFitColumns(7);               
+                    worksheet.Cells[3, 4].AutoFitColumns(7);
+                    worksheet.Cells[3, 5].AutoFitColumns(13);
+                    worksheet.Cells[3, 6].AutoFitColumns(13);
+                    worksheet.Cells[3, 7].AutoFitColumns(23);
+                    worksheet.Cells[3, 8].AutoFitColumns(13);
+                    worksheet.Cells[3, 9].AutoFitColumns(12);              
+                    worksheet.Cells[3, 10].AutoFitColumns(9);
+                    worksheet.Cells[3, 11].AutoFitColumns(9);
+                    worksheet.Cells[3, 12].AutoFitColumns(7);               
+                    worksheet.Cells[3, 13].AutoFitColumns(7);               
+                    worksheet.Cells[3, 14].AutoFitColumns(8);
                     worksheet.Cells[3, 15].AutoFitColumns(10);
-                    worksheet.Cells[3, 16].AutoFitColumns(13);
-                    worksheet.Cells[3, 17].AutoFitColumns(13);
+                    worksheet.Cells[3, 16].AutoFitColumns(10);
+                    worksheet.Cells[3, 17].AutoFitColumns(11);
                     worksheet.Cells[3, 18].AutoFitColumns(13);
-                    worksheet.Cells[3, 19].AutoFitColumns(13);
-                    worksheet.Cells[3, 20].AutoFitColumns(6.5);
-                    worksheet.Cells[3, 21].AutoFitColumns(6.5);
-                    worksheet.Cells[3, 22].AutoFitColumns(6.5);
-                    worksheet.Cells[3, 23].AutoFitColumns(6.5);
-                    worksheet.Cells[3, 24].AutoFitColumns(6.5);
-                    worksheet.Cells[3, 25].AutoFitColumns(25);
-                    worksheet.Cells[3, 26].AutoFitColumns(7);
-                    worksheet.Cells[3, 27].AutoFitColumns(7);
-                    worksheet.Cells[3, 28].AutoFitColumns(7);
-                    worksheet.Cells[3, 29].AutoFitColumns(7);
-                    worksheet.Cells[3, 30].AutoFitColumns(7.5);
-                    worksheet.Cells[3, 31].AutoFitColumns(7.5);
-                    worksheet.Cells[3, 32].AutoFitColumns(7.5);
-                    worksheet.Cells[3, 33].AutoFitColumns(7.5);
-                    worksheet.Cells[3, 34].AutoFitColumns(7);
-                    worksheet.Cells[3, 35].AutoFitColumns(7);
+                    worksheet.Cells[3, 19].AutoFitColumns(11);
+                    worksheet.Cells[3, 20].AutoFitColumns(11);
+                    worksheet.Cells[3, 21].AutoFitColumns(13);
+                    worksheet.Cells[3, 22].AutoFitColumns(11);
+                    worksheet.Cells[3, 23].AutoFitColumns(11);
+                    worksheet.Cells[3, 24].AutoFitColumns(13);              
+                    worksheet.Cells[3, 25].AutoFitColumns(6);
+                    worksheet.Cells[3, 26].AutoFitColumns(6);
+                    worksheet.Cells[3, 27].AutoFitColumns(6);
+                    worksheet.Cells[3, 28].AutoFitColumns(6);
+                    worksheet.Cells[3, 29].AutoFitColumns(6.5);
+                    worksheet.Cells[3, 30].AutoFitColumns(6.5);
+                    worksheet.Cells[3, 31].AutoFitColumns(6.5);
+                    worksheet.Cells[3, 32].AutoFitColumns(6.5);
+                    worksheet.Cells[3, 33].AutoFitColumns(6.5);
+                    worksheet.Cells[3, 34].AutoFitColumns(25);
+                    worksheet.Cells[3, 35].AutoFitColumns(5.5);
                     worksheet.Cells[3, 36].AutoFitColumns(7);
                     worksheet.Cells[3, 37].AutoFitColumns(7);
+                    worksheet.Cells[3, 38].AutoFitColumns(7);
+                    worksheet.Cells[3, 39].AutoFitColumns(7);
+                    worksheet.Cells[3, 40].AutoFitColumns(7.5);
+                    worksheet.Cells[3, 41].AutoFitColumns(7.5);
+                    worksheet.Cells[3, 42].AutoFitColumns(7.5);
+                    worksheet.Cells[3, 43].AutoFitColumns(7.5);
+                    worksheet.Cells[3, 44].AutoFitColumns(7);
+                    worksheet.Cells[3, 45].AutoFitColumns(7);
+                    worksheet.Cells[3, 46].AutoFitColumns(7);
+                    worksheet.Cells[3, 47].AutoFitColumns(7);
+                    worksheet.Cells[3, 48].AutoFitColumns(7);
 
 
                     //Set Cell Faoat value with Alignment
-                    worksheet.Cells[inStartIndex, 1, inEndCounter, 37].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[inStartIndex, 1, inEndCounter, 48].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                     #endregion
 
@@ -3309,180 +3331,251 @@ namespace EpExcelExportLib
                         #region Assigns Value to Cell
 
 
+                        worksheet.Cells[inwrkrow, 1].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Ref_No"]);
+                        worksheet.Cells[inwrkrow, 2].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]);
+
+                        string URL = "";
+                        string Certificate_URL = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_URL"]);
+
+                        if (!string.IsNullOrEmpty(Certificate_URL))
+                        {
+                            URL = Certificate_URL;
+                        }
+                        else if (Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]) == "GIA")
+                        {
+                            URL = "http://www.gia.edu/cs/Satellite?pagename=GST%2FDispatcher&childpagename=GIA%2FPage%2FReportCheck&c=Page&cid=1355954554547&reportno=" + Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_No"]);
+                        }
+                        else if (Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]) == "HRD")
+                        {
+                            URL = "https://my.hrdantwerp.com/?id=34&record_number=" + Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_No"]);
+                        }
+                        else if (Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]) == "IGI")
+                        {
+                            URL = "https://www.igi.org/reports/verify-your-report?r=" + Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_No"]);
+                        }
+                        if (URL != "")
+                        {
+                            worksheet.Cells[inwrkrow, 2].Formula = "=HYPERLINK(\"" + Convert.ToString(URL) + "\",\" " + Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab"]) + " \")";
+                            worksheet.Cells[inwrkrow, 2].Style.Font.UnderLine = true;
+                            worksheet.Cells[inwrkrow, 2].Style.Font.Color.SetColor(Color.Blue);
+                        }
+
+
                         Image_URL = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Image_URL"]);
                         if (Image_URL != "")
                         {
-                            worksheet.Cells[inwrkrow, 1].Formula = "=HYPERLINK(\"" + Image_URL + "\",\" Image \")";
-                            worksheet.Cells[inwrkrow, 1].Style.Font.UnderLine = true;
-                            worksheet.Cells[inwrkrow, 1].Style.Font.Color.SetColor(Color.Blue);
+                            worksheet.Cells[inwrkrow, 3].Formula = "=HYPERLINK(\"" + Image_URL + "\",\" Image \")";
+                            worksheet.Cells[inwrkrow, 3].Style.Font.UnderLine = true;
+                            worksheet.Cells[inwrkrow, 3].Style.Font.Color.SetColor(Color.Blue);
                         }
 
                         Video_URL = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Video_URL"]);
                         if (Video_URL != "")
                         {
-                            worksheet.Cells[inwrkrow, 2].Formula = "=HYPERLINK(\"" + Video_URL + "\",\" Video \")";
-                            worksheet.Cells[inwrkrow, 2].Style.Font.UnderLine = true;
-                            worksheet.Cells[inwrkrow, 2].Style.Font.Color.SetColor(Color.Blue);
+                            worksheet.Cells[inwrkrow, 4].Formula = "=HYPERLINK(\"" + Video_URL + "\",\" Video \")";
+                            worksheet.Cells[inwrkrow, 4].Style.Font.UnderLine = true;
+                            worksheet.Cells[inwrkrow, 4].Style.Font.Color.SetColor(Color.Blue);
                         }
 
-                        worksheet.Cells[inwrkrow, 3].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Ref_No"]);
-                        worksheet.Cells[inwrkrow, 4].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Shape"]);
-                        worksheet.Cells[inwrkrow, 5].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pointer"]);
-                        worksheet.Cells[inwrkrow, 6].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Color"]);
-                        worksheet.Cells[inwrkrow, 7].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Clarity"]);
-                        worksheet.Cells[inwrkrow, 8].Value = ((dtDiamonds.Rows[i - inStartIndex]["Cts"] != null) ?
+                        worksheet.Cells[inwrkrow, 5].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Supplier_Stone_Id"]);
+                        worksheet.Cells[inwrkrow, 6].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_No"]);
+                        worksheet.Cells[inwrkrow, 7].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["SupplierName"]);
+                        worksheet.Cells[inwrkrow, 8].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["CustomerName"]);
+                        worksheet.Cells[inwrkrow, 9].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Shape"]);
+                        worksheet.Cells[inwrkrow, 10].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pointer"]); 
+                        worksheet.Cells[inwrkrow, 11].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["BGM"]);
+                        worksheet.Cells[inwrkrow, 12].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Color"]);
+                        worksheet.Cells[inwrkrow, 13].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Clarity"]);
+
+                        worksheet.Cells[inwrkrow, 14].Value = ((dtDiamonds.Rows[i - inStartIndex]["Cts"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Cts"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Cts"]) : ((Double?)null)) : null);
-
-                        worksheet.Cells[inwrkrow, 9].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Cut"]);
-                        worksheet.Cells[inwrkrow, 10].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Polish"]);
-                        worksheet.Cells[inwrkrow, 11].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Symm"]);
-                        worksheet.Cells[inwrkrow, 12].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fls"]);
-                        worksheet.Cells[inwrkrow, 13].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["SupplierName"]);
-                        worksheet.Cells[inwrkrow, 14].Value = ((dtDiamonds.Rows[i - inStartIndex]["Rap_Rate"] != null) ?
+                        
+                        worksheet.Cells[inwrkrow, 15].Value = ((dtDiamonds.Rows[i - inStartIndex]["Rap_Rate"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Rap_Rate"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Rap_Rate"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 15].Value = ((dtDiamonds.Rows[i - inStartIndex]["Rap_Amount"] != null) ?
+                        worksheet.Cells[inwrkrow, 16].Value = ((dtDiamonds.Rows[i - inStartIndex]["Rap_Amount"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Rap_Amount"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Rap_Amount"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 16].Value = ((dtDiamonds.Rows[i - inStartIndex]["SUPPLIER_COST_DISC"] != null) ?
+                        worksheet.Cells[inwrkrow, 17].Value = ((dtDiamonds.Rows[i - inStartIndex]["SUPPLIER_COST_DISC"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["SUPPLIER_COST_DISC"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["SUPPLIER_COST_DISC"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 17].Value = ((dtDiamonds.Rows[i - inStartIndex]["SUPPLIER_COST_VALUE"] != null) ?
+                        worksheet.Cells[inwrkrow, 18].Value = ((dtDiamonds.Rows[i - inStartIndex]["SUPPLIER_COST_VALUE"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["SUPPLIER_COST_VALUE"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["SUPPLIER_COST_VALUE"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 18].Value = ((dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_DISC"] != null) ?
-                                       (dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_DISC"].GetType().Name != "DBNull" ?
-                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_DISC"]) : ((Double?)null)) : null);
+                        worksheet.Cells[inwrkrow, 19].Value = ((dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_DISC"] != null) ?
+                                   (dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_DISC"].GetType().Name != "DBNull" ?
+                                   Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_DISC"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 19].Value = ((dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_VALUE"] != null) ?
-                                       (dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_VALUE"].GetType().Name != "DBNull" ?
-                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_VALUE"]) : ((Double?)null)) : null);
+                        worksheet.Cells[inwrkrow, 20].Value = ((dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_VALUE"] != null) ?
+                                   (dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_VALUE"].GetType().Name != "DBNull" ?
+                                   Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_VALUE"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 20].Value = ((dtDiamonds.Rows[i - inStartIndex]["Length"] != null) ?
+                        worksheet.Cells[inwrkrow, 21].Value = "";
+                        worksheet.Cells[inwrkrow, 22].Value = "";
+
+                        worksheet.Cells[inwrkrow, 23].Value = ((dtDiamonds.Rows[i - inStartIndex]["Disc"] != null) ?
+                                       (dtDiamonds.Rows[i - inStartIndex]["Disc"].GetType().Name != "DBNull" ?
+                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Disc"]) : ((Double?)null)) : null);
+
+                        worksheet.Cells[inwrkrow, 24].Value = ((dtDiamonds.Rows[i - inStartIndex]["Value"] != null) ?
+                                       (dtDiamonds.Rows[i - inStartIndex]["Value"].GetType().Name != "DBNull" ?
+                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Value"]) : ((Double?)null)) : null);
+
+                        worksheet.Cells[inwrkrow, 25].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Cut"]);
+                        worksheet.Cells[inwrkrow, 26].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Polish"]);
+                        worksheet.Cells[inwrkrow, 27].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Symm"]);
+                        worksheet.Cells[inwrkrow, 28].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fls"]);
+
+                        worksheet.Cells[inwrkrow, 29].Value = ((dtDiamonds.Rows[i - inStartIndex]["Length"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Length"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Length"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 21].Value = ((dtDiamonds.Rows[i - inStartIndex]["Width"] != null) ?
+                        worksheet.Cells[inwrkrow, 30].Value = ((dtDiamonds.Rows[i - inStartIndex]["Width"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Width"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Width"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 22].Value = ((dtDiamonds.Rows[i - inStartIndex]["Depth"] != null) ?
+                        worksheet.Cells[inwrkrow, 31].Value = ((dtDiamonds.Rows[i - inStartIndex]["Depth"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Depth"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Depth"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 23].Value = ((dtDiamonds.Rows[i - inStartIndex]["Depth_Per"] != null) ?
+                        worksheet.Cells[inwrkrow, 32].Value = ((dtDiamonds.Rows[i - inStartIndex]["Depth_Per"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Depth_Per"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Depth_Per"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 24].Value = ((dtDiamonds.Rows[i - inStartIndex]["Table_Per"] != null) ?
+                        worksheet.Cells[inwrkrow, 33].Value = ((dtDiamonds.Rows[i - inStartIndex]["Table_Per"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Table_Per"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 25].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Key_To_Symboll"]);
+                        worksheet.Cells[inwrkrow, 34].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Key_To_Symboll"]);
 
-                        worksheet.Cells[inwrkrow, 26].Value = ((dtDiamonds.Rows[i - inStartIndex]["Crown_Angle"] != null) ?
+                        worksheet.Cells[inwrkrow, 35].Value = ((dtDiamonds.Rows[i - inStartIndex]["Girdle_Per"] != null) ?
+                                       (dtDiamonds.Rows[i - inStartIndex]["Girdle_Per"].GetType().Name != "DBNull" ?
+                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Girdle_Per"]) : ((Double?)null)) : null);
+
+                        worksheet.Cells[inwrkrow, 36].Value = ((dtDiamonds.Rows[i - inStartIndex]["Crown_Angle"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Crown_Angle"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Crown_Angle"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 27].Value = ((dtDiamonds.Rows[i - inStartIndex]["Crown_Height"] != null) ?
+                        worksheet.Cells[inwrkrow, 37].Value = ((dtDiamonds.Rows[i - inStartIndex]["Crown_Height"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Crown_Height"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Crown_Height"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 28].Value = ((dtDiamonds.Rows[i - inStartIndex]["Pav_Angle"] != null) ?
+                        worksheet.Cells[inwrkrow, 38].Value = ((dtDiamonds.Rows[i - inStartIndex]["Pav_Angle"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Pav_Angle"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Pav_Angle"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 29].Value = ((dtDiamonds.Rows[i - inStartIndex]["Pav_Height"] != null) ?
+                        worksheet.Cells[inwrkrow, 39].Value = ((dtDiamonds.Rows[i - inStartIndex]["Pav_Height"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Pav_Height"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Pav_Height"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 30].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Natts"]);
-                        worksheet.Cells[inwrkrow, 31].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Natts"]);
-                        worksheet.Cells[inwrkrow, 32].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Inclusion"]);
-                        worksheet.Cells[inwrkrow, 33].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Inclusion"]);
-                        worksheet.Cells[inwrkrow, 34].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Open"]);
-                        worksheet.Cells[inwrkrow, 35].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
-                        worksheet.Cells[inwrkrow, 36].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
-                        worksheet.Cells[inwrkrow, 37].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
-
+                        worksheet.Cells[inwrkrow, 40].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Natts"]);
+                        worksheet.Cells[inwrkrow, 41].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Natts"]);
+                        worksheet.Cells[inwrkrow, 42].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Inclusion"]);
+                        worksheet.Cells[inwrkrow, 43].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Inclusion"]);
+                        worksheet.Cells[inwrkrow, 44].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Open"]);
+                        worksheet.Cells[inwrkrow, 45].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
+                        worksheet.Cells[inwrkrow, 45].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
+                        worksheet.Cells[inwrkrow, 47].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
+                        worksheet.Cells[inwrkrow, 48].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Culet"]);
 
                         inwrkrow++;
 
                         #endregion
                     }
 
-                    worksheet.Cells[inStartIndex, 1, (inwrkrow - 1), 37].Style.Font.Size = 9;
-                    worksheet.Cells[inStartIndex, 16, (inwrkrow - 1), 19].Style.Font.Bold = true;
+                    worksheet.Cells[inStartIndex, 1, (inwrkrow - 1), 48].Style.Font.Size = 9;
+                    worksheet.Cells[inStartIndex, 17, (inwrkrow - 1), 20].Style.Font.Bold = true;
+                    worksheet.Cells[inStartIndex, 23, (inwrkrow - 1), 24].Style.Font.Bold = true;
 
-                    worksheet.Cells[inStartIndex, 8, (inwrkrow - 1), 8].Style.Numberformat.Format = "0.00";
-                    worksheet.Cells[inStartIndex, 14, (inwrkrow - 1), 19].Style.Numberformat.Format = "#,##0.00"; 
-                    worksheet.Cells[inStartIndex, 26, (inwrkrow - 1), 29].Style.Numberformat.Format = "0.00";
-                    worksheet.Cells[inStartIndex, 20, (inwrkrow - 1), 24].Style.Numberformat.Format = "0.00";
+                    worksheet.Cells[inStartIndex, 14, (inwrkrow - 1), 14].Style.Numberformat.Format = "0.00";
+                    worksheet.Cells[inStartIndex, 15, (inwrkrow - 1), 20].Style.Numberformat.Format = "#,##0.00"; 
+                    worksheet.Cells[inStartIndex, 23, (inwrkrow - 1), 24].Style.Numberformat.Format = "#,##0.00"; 
+
+                    worksheet.Cells[inStartIndex, 29, (inwrkrow - 1), 33].Style.Numberformat.Format = "0.00";
+                    worksheet.Cells[inStartIndex, 35, (inwrkrow - 1), 39].Style.Numberformat.Format = "0.00";
                     
 
 
-                    worksheet.Cells[2, 3].Formula = "ROUND(SUBTOTAL(102,"+ GetExcelColumnLetter(8) + "" + inStartIndex + ":"+ GetExcelColumnLetter(8) + "" + (inwrkrow - 1) + "),2)";
-                    worksheet.Cells[2, 3].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    worksheet.Cells[2, 3].Style.Fill.BackgroundColor.SetColor(colFromHexTotal);
-                    worksheet.Cells[2, 3].Style.Numberformat.Format = "#,##";
+                    worksheet.Cells[2, 5].Formula = "ROUND(SUBTOTAL(102,"+ GetExcelColumnLetter(14) + "" + inStartIndex + ":"+ GetExcelColumnLetter(14) + "" + (inwrkrow - 1) + "),2)";
+                    worksheet.Cells[2, 5].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells[2, 5].Style.Fill.BackgroundColor.SetColor(colFromHexTotal);
+                    worksheet.Cells[2, 5].Style.Numberformat.Format = "#,##";
 
-                    ExcelStyle cellStyleHeader_Total = worksheet.Cells[2, 3].Style;
+                    ExcelStyle cellStyleHeader_Total = worksheet.Cells[2, 5].Style;
                     cellStyleHeader_Total.Border.Left.Style = cellStyleHeader_Total.Border.Right.Style
                             = cellStyleHeader_Total.Border.Top.Style = cellStyleHeader_Total.Border.Bottom.Style
                             = ExcelBorderStyle.Medium;
 
-                    worksheet.Cells[2, 8].Formula = "ROUND(SUBTOTAL(109,"+ GetExcelColumnLetter(8) + "" + inStartIndex + ":"+ GetExcelColumnLetter(8) + "" + (inwrkrow - 1) + "),2)";
-                    worksheet.Cells[2, 8].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    worksheet.Cells[2, 8].Style.Fill.BackgroundColor.SetColor(colFromHexTotal);
-                    worksheet.Cells[2, 8].Style.Numberformat.Format = "#,##0.00";
+                    worksheet.Cells[2, 14].Formula = "ROUND(SUBTOTAL(109,"+ GetExcelColumnLetter(14) + "" + inStartIndex + ":"+ GetExcelColumnLetter(14) + "" + (inwrkrow - 1) + "),2)";
+                    worksheet.Cells[2, 14].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells[2, 14].Style.Fill.BackgroundColor.SetColor(colFromHexTotal);
+                    worksheet.Cells[2, 14].Style.Numberformat.Format = "#,##0.00";
 
-                    ExcelStyle cellStyleHeader_Totalcarat = worksheet.Cells[2, 8].Style;
+                    ExcelStyle cellStyleHeader_Totalcarat = worksheet.Cells[2, 14].Style;
                     cellStyleHeader_Totalcarat.Border.Left.Style = cellStyleHeader_Totalcarat.Border.Right.Style
                             = cellStyleHeader_Totalcarat.Border.Top.Style = cellStyleHeader_Totalcarat.Border.Bottom.Style
                             = ExcelBorderStyle.Medium;
 
-                    
-                    worksheet.Cells[2, 16].Formula = "IF(SUBTOTAL(109,"+ GetExcelColumnLetter(15) + "" + inStartIndex + ": "+ GetExcelColumnLetter(15) + "" + (inwrkrow - 1) + ")=0,0,ROUND((1-(SUBTOTAL(109,"+ GetExcelColumnLetter(17) + "" + inStartIndex + ":"+ GetExcelColumnLetter(17) + "" + (inwrkrow - 1) + ")/SUBTOTAL(109,"+ GetExcelColumnLetter(15) + "" + inStartIndex + ":"+ GetExcelColumnLetter(15) + "" + (inwrkrow - 1) + ")))*(-100),2))";
-                    worksheet.Cells[2, 16].Style.Numberformat.Format = "#,##0.00";
 
-                    ExcelStyle cellStyleHeader_TotalDis = worksheet.Cells[2, 16].Style;
+                    worksheet.Cells[2, 17].Formula = "IF(SUBTOTAL(109," + GetExcelColumnLetter(16) + "" + inStartIndex + ": " + GetExcelColumnLetter(16) + "" + (inwrkrow - 1) + ")=0,0,ROUND((1-(SUBTOTAL(109," + GetExcelColumnLetter(18) + "" + inStartIndex + ":" + GetExcelColumnLetter(18) + "" + (inwrkrow - 1) + ")/SUBTOTAL(109," + GetExcelColumnLetter(16) + "" + inStartIndex + ":" + GetExcelColumnLetter(16) + "" + (inwrkrow - 1) + ")))*(-100),2))";
+                    worksheet.Cells[2, 17].Style.Numberformat.Format = "#,##0.00";
+
+                    ExcelStyle cellStyleHeader_TotalDis = worksheet.Cells[2, 17].Style;
                     cellStyleHeader_TotalDis.Border.Left.Style = cellStyleHeader_TotalDis.Border.Right.Style
                             = cellStyleHeader_TotalDis.Border.Top.Style = cellStyleHeader_TotalDis.Border.Bottom.Style
                             = ExcelBorderStyle.Medium;
 
-                    worksheet.Cells[2, 17].Formula = "ROUND(SUBTOTAL(109,"+ GetExcelColumnLetter(17) + "" + inStartIndex + ":"+ GetExcelColumnLetter(17) + "" + (inwrkrow - 1) + "),2)";
-                    worksheet.Cells[2, 17].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    worksheet.Cells[2, 17].Style.Fill.BackgroundColor.SetColor(colFromHexTotal);
-                    worksheet.Cells[2, 17].Style.Numberformat.Format = "#,##0";
+                    worksheet.Cells[2, 18].Formula = "ROUND(SUBTOTAL(109," + GetExcelColumnLetter(18) + "" + inStartIndex + ":" + GetExcelColumnLetter(18) + "" + (inwrkrow - 1) + "),2)";
+                    worksheet.Cells[2, 18].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells[2, 18].Style.Fill.BackgroundColor.SetColor(colFromHexTotal);
+                    worksheet.Cells[2, 18].Style.Numberformat.Format = "#,##0";
 
-                    ExcelStyle cellStyleHeader_TotalNet = worksheet.Cells[2, 17].Style;
+                    ExcelStyle cellStyleHeader_TotalNet = worksheet.Cells[2, 18].Style;
                     cellStyleHeader_TotalNet.Border.Left.Style = cellStyleHeader_TotalNet.Border.Right.Style
                             = cellStyleHeader_TotalNet.Border.Top.Style = cellStyleHeader_TotalNet.Border.Bottom.Style
                             = ExcelBorderStyle.Medium;
 
+                    worksheet.Cells[2, 19].Formula = "IF(SUBTOTAL(109," + GetExcelColumnLetter(16) + "" + inStartIndex + ": " + GetExcelColumnLetter(16) + "" + (inwrkrow - 1) + ")=0,0,ROUND((1-(SUBTOTAL(109," + GetExcelColumnLetter(20) + "" + inStartIndex + ":" + GetExcelColumnLetter(20) + "" + (inwrkrow - 1) + ")/SUBTOTAL(109," + GetExcelColumnLetter(16) + "" + inStartIndex + ":" + GetExcelColumnLetter(16) + "" + (inwrkrow - 1) + ")))*(-100),2))";
+                    worksheet.Cells[2, 19].Style.Numberformat.Format = "#,##0.00";
 
-                    worksheet.Cells[2, 18].Formula = "IF(SUBTOTAL(109," + GetExcelColumnLetter(15) + "" + inStartIndex + ": " + GetExcelColumnLetter(15) + "" + (inwrkrow - 1) + ")=0,0,ROUND((1-(SUBTOTAL(109," + GetExcelColumnLetter(19) + "" + inStartIndex + ":" + GetExcelColumnLetter(19) + "" + (inwrkrow - 1) + ")/SUBTOTAL(109," + GetExcelColumnLetter(15) + "" + inStartIndex + ":" + GetExcelColumnLetter(15) + "" + (inwrkrow - 1) + ")))*(-100),2))";
-                    worksheet.Cells[2, 18].Style.Numberformat.Format = "#,##0.00";
-
-                    cellStyleHeader_TotalDis = worksheet.Cells[2, 18].Style;
+                    cellStyleHeader_TotalDis = worksheet.Cells[2, 19].Style;
                     cellStyleHeader_TotalDis.Border.Left.Style = cellStyleHeader_TotalDis.Border.Right.Style
                             = cellStyleHeader_TotalDis.Border.Top.Style = cellStyleHeader_TotalDis.Border.Bottom.Style
                             = ExcelBorderStyle.Medium;
 
-                    worksheet.Cells[2, 19].Formula = "ROUND(SUBTOTAL(109," + GetExcelColumnLetter(19) + "" + inStartIndex + ":" + GetExcelColumnLetter(19) + "" + (inwrkrow - 1) + "),2)";
-                    worksheet.Cells[2, 19].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    worksheet.Cells[2, 19].Style.Fill.BackgroundColor.SetColor(colFromHexTotal);
-                    worksheet.Cells[2, 19].Style.Numberformat.Format = "#,##0";
+                    worksheet.Cells[2, 20].Formula = "ROUND(SUBTOTAL(109," + GetExcelColumnLetter(20) + "" + inStartIndex + ":" + GetExcelColumnLetter(20) + "" + (inwrkrow - 1) + "),2)";
+                    worksheet.Cells[2, 20].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells[2, 20].Style.Fill.BackgroundColor.SetColor(colFromHexTotal);
+                    worksheet.Cells[2, 20].Style.Numberformat.Format = "#,##0";
 
-                    cellStyleHeader_TotalNet = worksheet.Cells[2, 19].Style;
+                    cellStyleHeader_TotalNet = worksheet.Cells[2, 20].Style;
                     cellStyleHeader_TotalNet.Border.Left.Style = cellStyleHeader_TotalNet.Border.Right.Style
                             = cellStyleHeader_TotalNet.Border.Top.Style = cellStyleHeader_TotalNet.Border.Bottom.Style
                             = ExcelBorderStyle.Medium;
+
+                    worksheet.Cells[2, 23].Formula = "IF(SUBTOTAL(109," + GetExcelColumnLetter(16) + "" + inStartIndex + ": " + GetExcelColumnLetter(16) + "" + (inwrkrow - 1) + ")=0,0,ROUND((1-(SUBTOTAL(109," + GetExcelColumnLetter(24) + "" + inStartIndex + ":" + GetExcelColumnLetter(24) + "" + (inwrkrow - 1) + ")/SUBTOTAL(109," + GetExcelColumnLetter(16) + "" + inStartIndex + ":" + GetExcelColumnLetter(16) + "" + (inwrkrow - 1) + ")))*(-100),2))";
+                    worksheet.Cells[2, 23].Style.Numberformat.Format = "#,##0.00";
+
+                    cellStyleHeader_TotalDis = worksheet.Cells[2, 23].Style;
+                    cellStyleHeader_TotalDis.Border.Left.Style = cellStyleHeader_TotalDis.Border.Right.Style
+                            = cellStyleHeader_TotalDis.Border.Top.Style = cellStyleHeader_TotalDis.Border.Bottom.Style
+                            = ExcelBorderStyle.Medium;
+
+                    worksheet.Cells[2, 24].Formula = "ROUND(SUBTOTAL(109," + GetExcelColumnLetter(24) + "" + inStartIndex + ":" + GetExcelColumnLetter(24) + "" + (inwrkrow - 1) + "),2)";
+                    worksheet.Cells[2, 24].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells[2, 24].Style.Fill.BackgroundColor.SetColor(colFromHexTotal);
+                    worksheet.Cells[2, 24].Style.Numberformat.Format = "#,##0";
+
+                    cellStyleHeader_TotalNet = worksheet.Cells[2, 24].Style;
+                    cellStyleHeader_TotalNet.Border.Left.Style = cellStyleHeader_TotalNet.Border.Right.Style
+                            = cellStyleHeader_TotalNet.Border.Top.Style = cellStyleHeader_TotalNet.Border.Bottom.Style
+                            = ExcelBorderStyle.Medium;
+
 
                     int rowEnd = worksheet.Dimension.End.Row;
                     removingGreenTagWarning(worksheet, worksheet.Cells[1, 1, rowEnd, 100].Address);

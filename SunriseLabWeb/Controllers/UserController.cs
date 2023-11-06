@@ -737,8 +737,8 @@ namespace SunriseLabWeb_New.Controllers
                     Error_msg += "<tr>";
                     Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 7%;\"><center><b>No.</b></center></td>";
                     Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 27%;\"><center><b>Ref No</b></center></td>";
-                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 25%;\"><center><b>Supplier Cost Disc(%)</b></center></td>";
-                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 25%;\"><center><b>Offer Disc(%)</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 25%;\"><center><b>Supplier Cost Value($)</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 25%;\"><center><b>Sunrise Value($)</b></center></td>";
                     Error_msg += "</tr>";
 
                     string RefNo = "";
@@ -760,7 +760,7 @@ namespace SunriseLabWeb_New.Controllers
                     bool status = false, status_1 = false;
                     for (int rw = 2; rw <= ws.Dimension.End.Row; rw++)
                     {
-                        if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() != "" && RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 3].Value)).Trim() != "" && RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 4].Value)).Trim() != "")
+                        if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() != "" && RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 4].Value)).Trim() != "" && RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 5].Value)).Trim() != "")
                         {
                             status_1 = false;
 
@@ -768,15 +768,18 @@ namespace SunriseLabWeb_New.Controllers
                             {
                                 if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[i].Ref_No)
                                 {
-                                    string Status = Convert.ToString(ws.Cells[rw, 2].Value).Trim();
+                                    string QCRequire = Convert.ToString(ws.Cells[rw, 2].Value).Trim();
+                                    string LabStatus = Convert.ToString(ws.Cells[rw, 3].Value).Trim();
 
-                                    decimal Supplier_Cost_Disc = Convert.ToDecimal(RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 3].Value)));
-                                    decimal Supplier_Cost_Value = ((Res[i].Rap_Rate + (Res[i].Rap_Rate * Supplier_Cost_Disc) / 100) * Res[i].Cts);
+                                    decimal Supplier_Cost_Value = Convert.ToDecimal(RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 4].Value)));
+                                    decimal Supplier_Cost_Disc = ((-1 * (1 - (Supplier_Cost_Value / Res[i].Rap_Amount)) * 100));
 
-                                    decimal Offer_Disc = Convert.ToDecimal(RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 4].Value)));
-                                    decimal Offer_Value = ((Res[i].Rap_Rate + (Res[i].Rap_Rate * Offer_Disc) / 100) * Res[i].Cts);
+                                    decimal Offer_Value = Convert.ToDecimal(RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 5].Value))); 
+                                    decimal Offer_Disc = ((-1 * (1 - (Offer_Value / Res[i].Rap_Amount)) * 100));
 
-                                    Res[i].LabEntry_Status = Status;
+
+                                    Res[i].QCRequire = QCRequire;
+                                    Res[i].LabEntry_Status = LabStatus;
                                     Res[i].SUPPLIER_COST_DISC = Supplier_Cost_Disc;
                                     Res[i].SUPPLIER_COST_VALUE = Supplier_Cost_Value;
                                     Res[i].CUSTOMER_COST_DISC = Offer_Disc;
@@ -794,8 +797,8 @@ namespace SunriseLabWeb_New.Controllers
                                 Error_msg += "<tr>";
                                 Error_msg += "<td><center><b>" + Error_count + "</b></center></td>";
                                 Error_msg += "<td><center>" + ws.Cells[rw, 1].Value + "</center></td>";
-                                Error_msg += "<td style='color: #003d66;font-weight:600'><center>" + ws.Cells[rw, 3].Value + "</center></td>";
-                                Error_msg += "<td style='color: #003d66;font-weight:600'><center>" + ws.Cells[rw, 4].Value + "</center></td>";
+                                Error_msg += "<td style='color: #003d66;font-weight:600'><center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 4].Value)) + "</center></td>";
+                                Error_msg += "<td style='color: #003d66;font-weight:600'><center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 5].Value)) + "</center></td>";
                                 Error_msg += "</tr>";
                             }
                         }
@@ -807,8 +810,8 @@ namespace SunriseLabWeb_New.Controllers
                             Error_msg += "<tr>";
                             Error_msg += "<td>center><b>" + Error_count + "</b></center></td>";
                             Error_msg += "<td>center>" + ws.Cells[rw, 1].Value + "</center></td>";
-                            Error_msg += "<td style='color: #003d66;font-weight:600'>center>" + ws.Cells[rw, 3].Value + "</center></td>";
-                            Error_msg += "<td style='color: #003d66;font-weight:600'>center>" + ws.Cells[rw, 4].Value + "</center></td>";
+                            Error_msg += "<td style='color: #003d66;font-weight:600'>center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 4].Value)) + "</center></td>";
+                            Error_msg += "<td style='color: #003d66;font-weight:600'>center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 5].Value)) + "</center></td>";
                             Error_msg += "</tr>";
                         }
                     }

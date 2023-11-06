@@ -1,4 +1,5 @@
 var TempData_Array = [];
+var Lab_Status = "Confirm, Hold, Bidded, Waiting, QC Pending, QC Reject, Bid Reject, Sold, Transit, Busy, Cancel, Other";
 function SetCurrentDate() {
     var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
     var d = new Date();
@@ -140,7 +141,7 @@ function cellStyle(field, params) {
         if (params.data.Cut == '3EX' && (field == 'Cut' || field == 'Polish' || field == 'Symm')) {
             return { 'font-size': '11px', 'font-weight': 'bold' };
         }
-        else if (field == "Disc" || field == "Value" || field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE" || field == "MAX_DISC" || field == "MAX_VALUE" ||
+        else if (field == "Profit" || field == "Profit Amount" || field == "Disc" || field == "Value" || field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE" || field == "MAX_DISC" || field == "MAX_VALUE" ||
             field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE" || field == "Bid_Disc" || field == "Bid_Amt" || field == "Avg_Stock_Disc" ||
             field == "Avg_Pur_Disc" || field == "Avg_Sales_Disc") {
             //return { 'color': 'red', 'font-weight': 'bold', 'font-size': '11px', 'text-align': 'center' };
@@ -229,20 +230,13 @@ columnDefs.push({
     headerCellRenderer: selectAllRendererDetail,
     suppressMovable: false
 });
-columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
 columnDefs.push({ headerName: "Ref No", field: "Ref_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("RefNo", params); } });
-columnDefs.push({ headerName: "Shape", field: "Shape", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Shape", params); } });
-columnDefs.push({ headerName: "Pointer", field: "Pointer", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Pointer", params); } });
-columnDefs.push({ headerName: "Color", field: "Color", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Color", params); } });
-columnDefs.push({ headerName: "Clarity", field: "Clarity", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Clarity", params); } });
-columnDefs.push({ headerName: "Cts", field: "Cts", width: 70, tooltip: function (params) { return parseFloat(params.value).toFixed(2) }, cellRenderer: function (params) { return parseFloat(params.value).toFixed(2) }, cellStyle: function (params) { return cellStyle("Cts", params); } });
-columnDefs.push({ headerName: "Cut", field: "Cut", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Cut", params); } });
-columnDefs.push({ headerName: "Polish", field: "Polish", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Polish", params); } });
-columnDefs.push({ headerName: "Symm", field: "Symm", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Symm", params); } });
-columnDefs.push({ headerName: "Fls", field: "Fls", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Fls", params); } });
+columnDefs.push({ headerName: "Lab", field: "Lab", width: 50, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab", params); }, cellRenderer: function (params) { return Lab(params); } });
+columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
+columnDefs.push({ headerName: "Supplier Stone Id", field: "Supplier_Stone_Id", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Stone_Id", params); } });
+columnDefs.push({ headerName: "Certificate No", field: "Certificate_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Certificate_No", params); } });
 columnDefs.push({ headerName: "Supplier Name", field: "SupplierName", width: 230, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierName", params); } });
-columnDefs.push({ headerName: "Rap Rate($)", field: "Rap_Rate", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Rate", params); } });
-columnDefs.push({ headerName: "Rap Amount($)", field: "Rap_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } });
+columnDefs.push({ headerName: "Customer Name", field: "CustomerName", width: 120, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CustomerName", params); } });
 columnDefs.push({
     headerName: "QC Require",
     field: "QC_Require",
@@ -257,6 +251,14 @@ columnDefs.push({
     sortable: false,
     cellRenderer: 'input_Lab_Status_Indicator'
 });
+columnDefs.push({ headerName: "Shape", field: "Shape", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Shape", params); } });
+columnDefs.push({ headerName: "Pointer", field: "Pointer", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Pointer", params); } });
+columnDefs.push({ headerName: "BGM", field: "BGM", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("BGM", params); } });
+columnDefs.push({ headerName: "Color", field: "Color", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Color", params); } });
+columnDefs.push({ headerName: "Clarity", field: "Clarity", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Clarity", params); } });
+columnDefs.push({ headerName: "Cts", field: "Cts", width: 70, tooltip: function (params) { return parseFloat(params.value).toFixed(2) }, cellRenderer: function (params) { return parseFloat(params.value).toFixed(2) }, cellStyle: function (params) { return cellStyle("Cts", params); } });
+columnDefs.push({ headerName: "Rap Rate($)", field: "Rap_Rate", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Rate", params); } });
+columnDefs.push({ headerName: "Rap Amount($)", field: "Rap_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } });
 columnDefs.push({
     headerName: "Supplier Cost Disc(%)",
     field: "SUPPLIER_COST_DISC",
@@ -272,25 +274,46 @@ columnDefs.push({
     cellRenderer: 'input_SUPPLIER_COST_VALUE_Indicator'
 });
 columnDefs.push({
-    headerName: "Offer Disc(%)",
+    headerName: "Sunrise Disc(%)",
     field: "CUSTOMER_COST_DISC",
     width: 110,
     sortable: false,
     cellRenderer: 'input_CUSTOMER_COST_DISC_Indicator'
 });
 columnDefs.push({
-    headerName: "Offer Value($)",
+    headerName: "Sunrise Value($)",
     field: "CUSTOMER_COST_VALUE",
     width: 110,
     sortable: false,
     cellRenderer: 'input_CUSTOMER_COST_VALUE_Indicator'
 });
+columnDefs.push({
+    headerName: "Profit(%)",
+    field: "PROFIT",
+    width: 110,
+    sortable: false,
+    cellRenderer: 'input_PROFIT_Indicator'
+});
+columnDefs.push({
+    headerName: "Profit Amount($)",
+    field: "PROFIT_AMOUNT",
+    width: 110,
+    sortable: false,
+    cellRenderer: 'input_PROFIT_AMOUNT_Indicator'
+});
+columnDefs.push({ headerName: "Supplier Base Offer Disc(%)", field: "Disc", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Disc", params); } });
+columnDefs.push({ headerName: "Supplier Base Value($)", field: "Value", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Value", params); } });
+columnDefs.push({ headerName: "Cut", field: "Cut", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Cut", params); } });
+columnDefs.push({ headerName: "Polish", field: "Polish", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Polish", params); } });
+columnDefs.push({ headerName: "Symm", field: "Symm", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Symm", params); } });
+columnDefs.push({ headerName: "Fls", field: "Fls", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Fls", params); } });
 columnDefs.push({ headerName: "Length", field: "Length", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Length", params); } });
 columnDefs.push({ headerName: "Width", field: "Width", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Width", params); } });
 columnDefs.push({ headerName: "Depth", field: "Depth", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Depth", params); } });
 columnDefs.push({ headerName: "Depth (%)", field: "Depth_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Depth_Per", params); } });
 columnDefs.push({ headerName: "Table (%)", field: "Table_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Table_Per", params); } });
 columnDefs.push({ headerName: "Key To Symbol", field: "Key_To_Symboll", width: 300, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Key_To_Symboll", params); } });
+columnDefs.push({ headerName: "Girdle(%)", field: "Girdle_Per", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Girdle_Per", params); } });
 columnDefs.push({ headerName: "Crown Angle", field: "Crown_Angle", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Crown_Angle", params); } });
 columnDefs.push({ headerName: "Crown Height", field: "Crown_Height", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Crown_Height", params); } });
 columnDefs.push({ headerName: "Pav Angle", field: "Pav_Angle", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Pav_Angle", params); } });
@@ -303,7 +326,7 @@ columnDefs.push({ headerName: "Table Open", field: "Table_Open", width: 70, tool
 columnDefs.push({ headerName: "Girdle Open", field: "Girdle_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Girdle_Open", params); } });
 columnDefs.push({ headerName: "Crown Open", field: "Crown_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Open", params); } });
 columnDefs.push({ headerName: "Pavilion Open", field: "Pav_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Pav_Open", params); } });
-
+columnDefs.push({ headerName: "Culet", field: "Culet", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Culet", params); } });
 
 
 
@@ -332,6 +355,8 @@ function GetSearch() {
                 input_SUPPLIER_COST_VALUE_Indicator: input_SUPPLIER_COST_VALUE_Indicator,
                 input_CUSTOMER_COST_DISC_Indicator: input_CUSTOMER_COST_DISC_Indicator,
                 input_CUSTOMER_COST_VALUE_Indicator: input_CUSTOMER_COST_VALUE_Indicator,
+                input_PROFIT_Indicator: input_PROFIT_Indicator,
+                input_PROFIT_AMOUNT_Indicator: input_PROFIT_AMOUNT_Indicator,
                 myDetailCellRenderer: DetailCellRenderer
             },
             defaultColDef: {
@@ -426,12 +451,16 @@ const datasource1 = {
 
                     TempData_Array = [];
                     for (var i = 0; i < data.Data.length; i++) {
-                        var SUPPLIER_COST_DISC = (data.Data[i].SUPPLIER_COST_DISC != "" ? parseFloat(data.Data[i].SUPPLIER_COST_DISC).toFixed(2) : "");
-                        var SUPPLIER_COST_VALUE = (data.Data[i].SUPPLIER_COST_VALUE != "" ? parseFloat(data.Data[i].SUPPLIER_COST_VALUE).toFixed(2) : "")
-                        var CUSTOMER_COST_DISC = (data.Data[i].CUSTOMER_COST_DISC != "" ? parseFloat(data.Data[i].CUSTOMER_COST_DISC).toFixed(2) : "")
-                        var CUSTOMER_COST_VALUE = (data.Data[i].CUSTOMER_COST_VALUE != "" ? parseFloat(data.Data[i].CUSTOMER_COST_VALUE).toFixed(2) : "")
+                        var SUPPLIER_COST_DISC = (data.Data[i].SUPPLIER_COST_DISC != "" ? parseFloat(data.Data[i].SUPPLIER_COST_DISC).toFixed(2) : "0");
+                        var SUPPLIER_COST_VALUE = (data.Data[i].SUPPLIER_COST_VALUE != "" ? parseFloat(data.Data[i].SUPPLIER_COST_VALUE).toFixed(2) : "0")
+                        var CUSTOMER_COST_DISC = (data.Data[i].CUSTOMER_COST_DISC != "" ? parseFloat(data.Data[i].CUSTOMER_COST_DISC).toFixed(2) : "0")
+                        var CUSTOMER_COST_VALUE = (data.Data[i].CUSTOMER_COST_VALUE != "" ? parseFloat(data.Data[i].CUSTOMER_COST_VALUE).toFixed(2) : "0")
+                        var PROFIT = ((parseFloat(CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE)) * 100) / parseFloat(SUPPLIER_COST_VALUE);
+                        var PROFIT_AMOUNT = parseFloat(CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE);
+                        PROFIT = (PROFIT != "" ? parseFloat(PROFIT).toFixed(2) : "0");
+                        PROFIT_AMOUNT = (PROFIT_AMOUNT != "" ? parseFloat(PROFIT_AMOUNT).toFixed(2) : "0");
 
-                        TempData_Array.push([data.Data[i].Ref_No, data.Data[i].SupplierId, "", (data.Data[i].LabEntry_Status != null ? data.Data[i].LabEntry_Status : ""), SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE]);
+                        TempData_Array.push([data.Data[i].Ref_No, data.Data[i].SupplierId, "", (data.Data[i].LabEntry_Status != null ? data.Data[i].LabEntry_Status : ""), SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT]);
                     }
                 }
                 else {
@@ -491,38 +520,47 @@ function LabEntry() {
                             UserId: $("#ddl_User").val(),
                             Ref_No: TempData_Array[j][0],
                             SupplierId: TempData_Array[j][1],
+                            QC_Require: TempData_Array[j][2],
                             LabEntry_Status: TempData_Array[j][3],
                             SUPPLIER_COST_DISC: TempData_Array[j][4],
                             SUPPLIER_COST_VALUE: TempData_Array[j][5],
                             CUSTOMER_COST_DISC: TempData_Array[j][6],
                             CUSTOMER_COST_VALUE: TempData_Array[j][7],
+                            PROFIT: TempData_Array[j][8],
+                            PROFIT_AMOUNT: TempData_Array[j][9],
                         });
                     }
                 }
             }
 
-            var msg = "<label class='offerComment' style='word -break: break-word;'>Are you want to Confirm Below Ref No Add in Lab Entry ?</label>"
-            msg += "<table border='1' style='font-size:12px; width:90%; margin-top:5px; display:block; max-height:360px; overflow-y:auto;'>";
+            var msg = "<label class='offerComment' style='word -break: break-word;'>Are you sure you want to Add Below Ref No in Lab Entry ?</label>"
+            msg += "<table border='1' style='font-size:12px; width:100%; margin-top:5px; display:block; max-height:360px; overflow-y:auto;'>";
             msg += "<tbody>";
             msg += "<tr>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 5%;\"><center><b>No.</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 16%;\"><center><b>Ref No</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 15%;\"><center><b>Lab Status</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 14%;\"><center><b>Supplier Cost Disc(%)</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 16%;\"><center><b>Supplier Cost Value($)</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 14%;\"><center><b>Offer Disc(%)</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 16%;\"><center><b>Offer Value($)</b></center></td>";
+            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 4%;\"><center><b>No.</b></center></td>";
+            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 15%;\"><center><b>Ref No</b></center></td>";
+            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>QC Require</b></center></td>";
+            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Lab Status</b></center></td>";
+            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Supplier Cost Disc(%)</b></center></td>";
+            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Supplier Cost Value($)</b></center></td>";
+            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Sunrise Disc(%)</b></center></td>";
+            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Sunrise Value($)</b></center></td>";
+            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Profit(%)</b></center></td>";
+            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Profit Amount($)</b></center></td>";
             msg += "</tr>";
 
             for (var q = 0; q < LabEntry_List.length; q++) {
                 msg += "<tr>";
                 msg += "<td><center><b>" + (parseInt(q) + 1) + "</b></center></td>";
                 msg += "<td><center>" + LabEntry_List[q].Ref_No + "</center></td>";
+                msg += "<td><center>" + LabEntry_List[q].QC_Require + "</center></td>";
                 msg += "<td><center>" + LabEntry_List[q].LabEntry_Status + "</center></td>";
                 msg += "<td><center>" + formatNumber(LabEntry_List[q].SUPPLIER_COST_DISC) + "</center></td>";
                 msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].SUPPLIER_COST_VALUE) + "</center></td>";
                 msg += "<td><center>" + formatNumber(LabEntry_List[q].CUSTOMER_COST_DISC) + "</center></td>";
                 msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].CUSTOMER_COST_VALUE) + "</center></td>";
+                msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].PROFIT) + "</center></td>";
+                msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].PROFIT_AMOUNT) + "</center></td>";
                 msg += "</tr>";
             }
             msg += "</tbody>";
@@ -663,6 +701,8 @@ function UploadExcelFile() {
                             input_SUPPLIER_COST_VALUE_Indicator: input_SUPPLIER_COST_VALUE_Indicator,
                             input_CUSTOMER_COST_DISC_Indicator: input_CUSTOMER_COST_DISC_Indicator,
                             input_CUSTOMER_COST_VALUE_Indicator: input_CUSTOMER_COST_VALUE_Indicator,
+                            input_PROFIT_Indicator: input_PROFIT_Indicator,
+                            input_PROFIT_AMOUNT_Indicator: input_PROFIT_AMOUNT_Indicator,
                             myDetailCellRenderer: DetailCellRenderer
                         },
                         defaultColDef: {
@@ -729,12 +769,21 @@ function UploadExcelFile() {
                     $("#li_LabEntry").show();
                     TempData_Array = [];
                     for (var i = 0; i < data.length; i++) {
-                        var SUPPLIER_COST_DISC = (data[i].SUPPLIER_COST_DISC != "" ? parseFloat(data[i].SUPPLIER_COST_DISC).toFixed(2) : "");
-                        var SUPPLIER_COST_VALUE = (data[i].SUPPLIER_COST_VALUE != "" ? parseFloat(data[i].SUPPLIER_COST_VALUE).toFixed(2) : "")
-                        var CUSTOMER_COST_DISC = (data[i].CUSTOMER_COST_DISC != "" ? parseFloat(data[i].CUSTOMER_COST_DISC).toFixed(2) : "")
-                        var CUSTOMER_COST_VALUE = (data[i].CUSTOMER_COST_VALUE != "" ? parseFloat(data[i].CUSTOMER_COST_VALUE).toFixed(2) : "")
+                        var SUPPLIER_COST_DISC = (data[i].SUPPLIER_COST_DISC != "" ? parseFloat(data[i].SUPPLIER_COST_DISC).toFixed(2) : "0");
+                        var SUPPLIER_COST_VALUE = (data[i].SUPPLIER_COST_VALUE != "" ? parseFloat(data[i].SUPPLIER_COST_VALUE).toFixed(2) : "0")
+                        var CUSTOMER_COST_DISC = (data[i].CUSTOMER_COST_DISC != "" ? parseFloat(data[i].CUSTOMER_COST_DISC).toFixed(2) : "0")
+                        var CUSTOMER_COST_VALUE = (data[i].CUSTOMER_COST_VALUE != "" ? parseFloat(data[i].CUSTOMER_COST_VALUE).toFixed(2) : "0")
+                        var PROFIT = ((parseFloat(CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE)) * 100) / parseFloat(SUPPLIER_COST_VALUE);
+                        var PROFIT_AMOUNT = parseFloat(CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE);
+                        PROFIT = (PROFIT != "" ? parseFloat(PROFIT).toFixed(2) : "0");
+                        PROFIT_AMOUNT = (PROFIT_AMOUNT != "" ? parseFloat(PROFIT_AMOUNT).toFixed(2) : "0");
 
-                        TempData_Array.push([data[i].Ref_No, data[i].SupplierId, "", (data[i].LabEntry_Status != null ? data[i].LabEntry_Status : ""), SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE]);
+                        var LabEntry_Status = "";
+                        if (Lab_Status.includes((data[i].LabEntry_Status != null ? data[i].LabEntry_Status : ""))) {
+                            LabEntry_Status = (data[i].LabEntry_Status != null ? data[i].LabEntry_Status : "");
+                        }
+
+                        TempData_Array.push([data[i].Ref_No, data[i].SupplierId, (data[i].QCRequire != null ? data[i].QCRequire : ""), LabEntry_Status, SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT]);
                     }
 
                 }
@@ -804,7 +853,7 @@ function QC_Require(e) {
     var SupplierId = $(e).attr("SupplierId");
     var QC_Require = $(e).val();
 
-    TEMP_SAVE("QC_REQUIRE", Ref_No, SupplierId, QC_Require, "", "", "", "", "", "");
+    TEMP_SAVE("QC_REQUIRE", Ref_No, SupplierId, QC_Require, "", "", "", "", "", "", "", "");
 }
 function input_Lab_Status_Indicator(params) {
     var LabStatus = '';
@@ -842,70 +891,90 @@ function LabStatus(e) {
     var SupplierId = $(e).attr("SupplierId");
     var LabStatus = $(e).val();
 
-    TEMP_SAVE("LAB_STATUS", Ref_No, SupplierId, "", LabStatus, "", "", "", "");
+    TEMP_SAVE("LAB_STATUS", Ref_No, SupplierId, "", LabStatus, "", "", "", "", "", "");
 }
+
+
 function input_SUPPLIER_COST_DISC_Indicator(params) {
     var SUPPLIER_COST_DISC = '';
     if (TempData_Array.length > 0) {
         for (var i = 0; i < TempData_Array.length; i++) {
             if (TempData_Array[i][0] == params.data.Ref_No && TempData_Array[i][1] == params.data.SupplierId) {
-                SUPPLIER_COST_DISC = formatNumber(TempData_Array[i][5]);
+                SUPPLIER_COST_DISC = formatNumber(TempData_Array[i][4]);
             }
         }
     }
 
     var element = document.createElement("span");
     element.title = 'Supplier Cost Disc(%)';
-
-    element.innerHTML = '<input type="text" style="text-align: center;" class="input-inc SUPPLIER_COST_DISC" value = "' + SUPPLIER_COST_DISC
-        + '" onkeypress="return isNumberKeyWithNegative(event)" Ref_No = "' + params.data.Ref_No
-        + '" SupplierId = "' + params.data.SupplierId
-        + '" Rap_Rate = "' + params.data.Rap_Rate
-        + '" Cts = "' + params.data.Cts
-        + '" SUPPLIER_COST_DISC = "' + params.data.SUPPLIER_COST_DISC
-        + '" SUPPLIER_COST_VALUE = "' + params.data.SUPPLIER_COST_VALUE
-        + '" onblur="SUPPLIER_COST_DISC(this);">';
+    element.innerHTML = '<label style="text-align: center;color: #003d66;font-size: 11px;text-align:center;font-weight:600;" class="input-inc SUPPLIER_COST_DISC">' + SUPPLIER_COST_DISC + '</label>';
     return element;
 }
-function SUPPLIER_COST_DISC(e) {
-    var Ref_No = $(e).attr("Ref_No");
-    var SupplierId = $(e).attr("SupplierId");
-    var Rap_Rate = $(e).attr("Rap_Rate");
-    var Cts = $(e).attr("Cts");
-    var OLD_SUPPLIER_COST_DISC = $(e).attr("SUPPLIER_COST_DISC");
-    var OLD_SUPPLIER_COST_VALUE = $(e).attr("SUPPLIER_COST_VALUE");
-    
-    if ($(e).val() != 0 && $(e).val() != "") {
-        var SUPPLIER_COST_DISC = parseFloat($(e).val());
-        var SUPPLIER_COST_VALUE = ((parseFloat(Rap_Rate) + (parseFloat(Rap_Rate) * parseFloat(SUPPLIER_COST_DISC)) / 100) * parseFloat(Cts));
 
-        $(e).parent().parent().parent().find('.SUPPLIER_COST_DISC').val(formatNumber(SUPPLIER_COST_DISC));
-        $(e).parent().parent().parent().find('.SUPPLIER_COST_VALUE').html(formatNumber(SUPPLIER_COST_VALUE));
-
-        TEMP_SAVE("SUPPLIER_COST_DISC", Ref_No, SupplierId, "", "", SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, "", "");
-    }
-    else {
-        $(e).parent().parent().parent().find('.SUPPLIER_COST_DISC').val(formatNumber(OLD_SUPPLIER_COST_DISC));
-        $(e).parent().parent().parent().find('.SUPPLIER_COST_VALUE').html(formatNumber(OLD_SUPPLIER_COST_VALUE));
-
-        TEMP_SAVE("SUPPLIER_COST_DISC", Ref_No, SupplierId, "", "", OLD_SUPPLIER_COST_DISC, OLD_SUPPLIER_COST_VALUE, "", "");
-    }
-}
 function input_SUPPLIER_COST_VALUE_Indicator(params) {
     var SUPPLIER_COST_VALUE = '';
     if (TempData_Array.length > 0) {
         for (var i = 0; i < TempData_Array.length; i++) {
-            if (TempData_Array[i][0] == params.data.Ref_No && TempData_Array[i][1] == params.data.SupplierId && TempData_Array[i][5] != "") {
-                SUPPLIER_COST_VALUE = formatNumber(TempData_Array[i][5]);
+            if (TempData_Array[i][0] == params.data.Ref_No && TempData_Array[i][1] == params.data.SupplierId) {
+                SUPPLIER_COST_VALUE = parseFloat(TempData_Array[i][5]).toFixed(2);
             }
         }
     }
 
     var element = document.createElement("span");
     element.title = 'Supplier Cost Value($)';
-    element.innerHTML = '<label style="text-align: center;color: #003d66;font-size: 11px;text-align:center;font-weight:600;" class="input-inc SUPPLIER_COST_VALUE">' + SUPPLIER_COST_VALUE + '</label>';
+    element.innerHTML = '<input type="text" style="text-align: center;" class="input-inc SUPPLIER_COST_VALUE" value = "' + SUPPLIER_COST_VALUE
+        + '" onkeypress="return isNumberKeyWithNegative(event)" Ref_No = "' + params.data.Ref_No
+        + '" SupplierId = "' + params.data.SupplierId
+        + '" Rap_Amount = "' + params.data.Rap_Amount
+        + '" Cts = "' + params.data.Cts
+        + '" SUPPLIER_COST_DISC = "' + params.data.SUPPLIER_COST_DISC
+        + '" SUPPLIER_COST_VALUE = "' + params.data.SUPPLIER_COST_VALUE
+        + '" onblur="SUPPLIER_COST_VALUE(this);">';
     return element;
 }
+function SUPPLIER_COST_VALUE(e) {
+    var Ref_No = $(e).attr("Ref_No");
+    var SupplierId = $(e).attr("SupplierId");
+    var Rap_Amount = $(e).attr("Rap_Amount");
+    var Cts = $(e).attr("Cts");
+    var OLD_SUPPLIER_COST_DISC = $(e).attr("SUPPLIER_COST_DISC");
+    var OLD_SUPPLIER_COST_VALUE = $(e).attr("SUPPLIER_COST_VALUE");
+
+    var CUSTOMER_COST_VALUE = $(e).parent().parent().parent().find('.CUSTOMER_COST_VALUE').val();
+
+    var PROFIT = '', PROFIT_AMOUNT = '';
+
+    if ($(e).val() != 0 && $(e).val() != "") {
+        var SUPPLIER_COST_VALUE = parseFloat($(e).val());
+        var SUPPLIER_COST_DISC = ((- 1 * (1 - (parseFloat(SUPPLIER_COST_VALUE) / parseFloat(Rap_Amount))) * 100));
+
+        PROFIT = ((parseFloat(CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE)) * 100) / parseFloat(SUPPLIER_COST_VALUE);
+        PROFIT_AMOUNT = parseFloat(CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE);
+
+        $(e).parent().parent().parent().find('.SUPPLIER_COST_DISC').html(formatNumber(SUPPLIER_COST_DISC));
+        $(e).parent().parent().parent().find('.SUPPLIER_COST_VALUE').val(parseFloat(SUPPLIER_COST_VALUE).toFixed(2));
+
+        $(e).parent().parent().parent().find('.PROFIT').html(formatNumber(PROFIT));
+        $(e).parent().parent().parent().find('.PROFIT_AMOUNT').html(formatNumber(PROFIT_AMOUNT));
+
+        TEMP_SAVE("SUPPLIER_COST_VALUE", Ref_No, SupplierId, "", "", SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, "", "", PROFIT, PROFIT_AMOUNT);
+    }
+    else {
+        $(e).parent().parent().parent().find('.SUPPLIER_COST_DISC').html(formatNumber(OLD_SUPPLIER_COST_DISC));
+        $(e).parent().parent().parent().find('.SUPPLIER_COST_VALUE').val(parseFloat(OLD_SUPPLIER_COST_VALUE).toFixed(2));
+
+        PROFIT = ((parseFloat(CUSTOMER_COST_VALUE) - parseFloat(OLD_SUPPLIER_COST_VALUE)) * 100) / parseFloat(OLD_SUPPLIER_COST_VALUE);
+        PROFIT_AMOUNT = parseFloat(CUSTOMER_COST_VALUE) - parseFloat(OLD_SUPPLIER_COST_VALUE);
+
+        $(e).parent().parent().parent().find('.PROFIT').html(formatNumber(PROFIT));
+        $(e).parent().parent().parent().find('.PROFIT_AMOUNT').html(formatNumber(PROFIT_AMOUNT));
+
+        TEMP_SAVE("SUPPLIER_COST_VALUE", Ref_No, SupplierId, "", "", OLD_SUPPLIER_COST_DISC, OLD_SUPPLIER_COST_VALUE, "", "", PROFIT, PROFIT_AMOUNT);
+    }
+}
+
+
 function input_CUSTOMER_COST_DISC_Indicator(params) {
     var CUSTOMER_COST_DISC = '';
     if (TempData_Array.length > 0) {
@@ -917,65 +986,115 @@ function input_CUSTOMER_COST_DISC_Indicator(params) {
     }
 
     var element = document.createElement("span");
-    element.title = 'Offer Disc(%)';
-
-    element.innerHTML = '<input type="text" style="text-align: center;" class="input-inc CUSTOMER_COST_DISC" value = "' + CUSTOMER_COST_DISC
-        + '" onkeypress="return isNumberKeyWithNegative(event)" Ref_No = "' + params.data.Ref_No
-        + '" SupplierId = "' + params.data.SupplierId
-        + '" Rap_Rate = "' + params.data.Rap_Rate
-        + '" Cts = "' + params.data.Cts
-        + '" CUSTOMER_COST_DISC = "' + params.data.CUSTOMER_COST_DISC
-        + '" CUSTOMER_COST_VALUE = "' + params.data.CUSTOMER_COST_VALUE
-        + '" onblur="CUSTOMER_COST_DISC(this);">';
+    element.title = 'Sunrise Disc(%)';
+    element.innerHTML = '<label style="text-align: center;color: #003d66;font-size: 11px;text-align:center;font-weight:600;" class="input-inc CUSTOMER_COST_DISC">' + CUSTOMER_COST_DISC + '</label>';
     return element;
 }
-function CUSTOMER_COST_DISC(e) {
-    var Ref_No = $(e).attr("Ref_No");
-    var SupplierId = $(e).attr("SupplierId");
-    var Rap_Rate = $(e).attr("Rap_Rate");
-    var Cts = $(e).attr("Cts");
-    var OLD_CUSTOMER_COST_DISC = $(e).attr("CUSTOMER_COST_DISC");
-    var OLD_CUSTOMER_COST_VALUE = $(e).attr("CUSTOMER_COST_VALUE");
 
-    if ($(e).val() != 0 && $(e).val() != "") {
-        var CUSTOMER_COST_DISC = parseFloat($(e).val());
-        var CUSTOMER_COST_VALUE = ((parseFloat(Rap_Rate) + (parseFloat(Rap_Rate) * parseFloat(CUSTOMER_COST_DISC)) / 100) * parseFloat(Cts));
-
-        $(e).parent().parent().parent().find('.CUSTOMER_COST_DISC').val(formatNumber(CUSTOMER_COST_DISC));
-        $(e).parent().parent().parent().find('.CUSTOMER_COST_VALUE').html(formatNumber(CUSTOMER_COST_VALUE));
-
-        TEMP_SAVE("CUSTOMER_COST_DISC", Ref_No, SupplierId, "", "", "", "", CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE);
-    }
-    else {
-        $(e).parent().parent().parent().find('.CUSTOMER_COST_DISC').val(formatNumber(OLD_CUSTOMER_COST_DISC));
-        $(e).parent().parent().parent().find('.CUSTOMER_COST_VALUE').html(formatNumber(OLD_CUSTOMER_COST_VALUE));
-
-        TEMP_SAVE("CUSTOMER_COST_DISC", Ref_No, SupplierId, "", "", "", "", OLD_CUSTOMER_COST_DISC, OLD_CUSTOMER_COST_VALUE);
-    }
-}
 function input_CUSTOMER_COST_VALUE_Indicator(params) {
     var CUSTOMER_COST_VALUE = '';
     if (TempData_Array.length > 0) {
         for (var i = 0; i < TempData_Array.length; i++) {
-            if (TempData_Array[i][0] == params.data.Ref_No && TempData_Array[i][1] == params.data.SupplierId && TempData_Array[i][7] != "") {
-                CUSTOMER_COST_VALUE = formatNumber(TempData_Array[i][7]);
+            if (TempData_Array[i][0] == params.data.Ref_No && TempData_Array[i][1] == params.data.SupplierId) {
+                CUSTOMER_COST_VALUE = parseFloat(TempData_Array[i][7]).toFixed(2);
             }
         }
     }
 
     var element = document.createElement("span");
-    element.title = 'Offer Value($)';
-    element.innerHTML = '<label style="text-align: center;color: #003d66;font-size: 11px;text-align:center;font-weight:600;" class="input-inc CUSTOMER_COST_VALUE">' + CUSTOMER_COST_VALUE + '</label>';
+    element.title = 'Sunrise Value($)'; 
+    element.innerHTML = '<input type="text" style="text-align: center;" class="input-inc CUSTOMER_COST_VALUE" value = "' + CUSTOMER_COST_VALUE
+        + '" onkeypress="return isNumberKeyWithNegative(event)" Ref_No = "' + params.data.Ref_No
+        + '" SupplierId = "' + params.data.SupplierId
+        + '" Rap_Amount = "' + params.data.Rap_Amount
+        + '" Cts = "' + params.data.Cts
+        + '" CUSTOMER_COST_DISC = "' + params.data.CUSTOMER_COST_DISC
+        + '" CUSTOMER_COST_VALUE = "' + params.data.CUSTOMER_COST_VALUE
+        + '" onblur="CUSTOMER_COST_VALUE(this);">';
+    return element;
+}
+function CUSTOMER_COST_VALUE(e) {
+    var Ref_No = $(e).attr("Ref_No");
+    var SupplierId = $(e).attr("SupplierId");
+    var Rap_Amount = $(e).attr("Rap_Amount");
+    var Cts = $(e).attr("Cts");
+    var OLD_CUSTOMER_COST_DISC = $(e).attr("CUSTOMER_COST_DISC");
+    var OLD_CUSTOMER_COST_VALUE = $(e).attr("CUSTOMER_COST_VALUE");
+
+    var SUPPLIER_COST_VALUE = $(e).parent().parent().parent().find('.SUPPLIER_COST_VALUE').val();
+
+    var PROFIT = '', PROFIT_AMOUNT = '';
+    
+    if ($(e).val() != 0 && $(e).val() != "") {
+        var CUSTOMER_COST_VALUE = parseFloat($(e).val());
+        var CUSTOMER_COST_DISC = ((- 1 * (1 - (parseFloat(CUSTOMER_COST_VALUE) / parseFloat(Rap_Amount))) * 100));
+
+        PROFIT = ((parseFloat(CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE)) * 100) / parseFloat(SUPPLIER_COST_VALUE);
+        PROFIT_AMOUNT = parseFloat(CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE);
+
+        $(e).parent().parent().parent().find('.CUSTOMER_COST_DISC').html(formatNumber(CUSTOMER_COST_DISC));
+        $(e).parent().parent().parent().find('.CUSTOMER_COST_VALUE').val(parseFloat(CUSTOMER_COST_VALUE).toFixed(2));
+
+        $(e).parent().parent().parent().find('.PROFIT').html(formatNumber(PROFIT));
+        $(e).parent().parent().parent().find('.PROFIT_AMOUNT').html(formatNumber(PROFIT_AMOUNT));
+
+        TEMP_SAVE("CUSTOMER_COST_VALUE", Ref_No, SupplierId, "", "", "", "", CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT);
+    }
+    else {
+        $(e).parent().parent().parent().find('.CUSTOMER_COST_DISC').html(formatNumber(OLD_CUSTOMER_COST_DISC));
+        $(e).parent().parent().parent().find('.CUSTOMER_COST_VALUE').val(parseFloat(OLD_CUSTOMER_COST_VALUE).toFixed(2));
+
+        PROFIT = ((parseFloat(OLD_CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE)) * 100) / parseFloat(SUPPLIER_COST_VALUE);
+        PROFIT_AMOUNT = parseFloat(OLD_CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE);
+
+        $(e).parent().parent().parent().find('.PROFIT').html(formatNumber(PROFIT));
+        $(e).parent().parent().parent().find('.PROFIT_AMOUNT').html(formatNumber(PROFIT_AMOUNT));
+
+        TEMP_SAVE("CUSTOMER_COST_VALUE", Ref_No, SupplierId, "", "", "", "", OLD_CUSTOMER_COST_DISC, OLD_CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT);
+    }
+}
+
+function input_PROFIT_Indicator(params) {
+    var CUSTOMER_COST_VALUE = '', SUPPLIER_COST_VALUE = '', PROFIT = '';
+
+    if (TempData_Array.length > 0) {
+        for (var i = 0; i < TempData_Array.length; i++) {
+            if (TempData_Array[i][0] == params.data.Ref_No && TempData_Array[i][1] == params.data.SupplierId) {
+                PROFIT = formatNumber(TempData_Array[i][8]);
+            }
+        }
+    }
+
+    var element = document.createElement("span");
+    element.title = 'Profit(%)';
+    element.innerHTML = '<label style="text-align: center;color: #003d66;font-size: 11px;text-align:center;font-weight:600;" class="input-inc PROFIT">' + PROFIT + '</label>';
+    return element;
+}
+function input_PROFIT_AMOUNT_Indicator(params) {
+    var CUSTOMER_COST_VALUE = '', SUPPLIER_COST_VALUE = '', PROFIT_AMOUNT = '';
+
+    if (TempData_Array.length > 0) {
+        for (var i = 0; i < TempData_Array.length; i++) {
+            if (TempData_Array[i][0] == params.data.Ref_No && TempData_Array[i][1] == params.data.SupplierId) {
+                PROFIT_AMOUNT = formatNumber(TempData_Array[i][9]);
+            }
+        }
+    }
+
+    var element = document.createElement("span");
+    element.title = 'Profit Amount($)';
+    element.innerHTML = '<label style="text-align: center;color: #003d66;font-size: 11px;text-align:center;font-weight:600;" class="input-inc PROFIT_AMOUNT">' + PROFIT_AMOUNT + '</label>';
     return element;
 }
 
 
-
-function TEMP_SAVE(WHEN, Ref_No, SupplierId, QC_Require, Lab_Status, SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE) {
-    SUPPLIER_COST_DISC = (SUPPLIER_COST_DISC != "" ? parseFloat(SUPPLIER_COST_DISC).toFixed(2) : "");
-    SUPPLIER_COST_VALUE = (SUPPLIER_COST_VALUE != "" ? parseFloat(SUPPLIER_COST_VALUE).toFixed(2) : "");
-    CUSTOMER_COST_DISC = (CUSTOMER_COST_DISC != "" ? parseFloat(CUSTOMER_COST_DISC).toFixed(2) : "");
-    CUSTOMER_COST_VALUE = (CUSTOMER_COST_VALUE != "" ? parseFloat(CUSTOMER_COST_VALUE).toFixed(2) : "");
+function TEMP_SAVE(WHEN, Ref_No, SupplierId, QC_Require, Lab_Status, SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT) {
+    SUPPLIER_COST_DISC = (SUPPLIER_COST_DISC != "" ? parseFloat(SUPPLIER_COST_DISC).toFixed(2) : "0");
+    SUPPLIER_COST_VALUE = (SUPPLIER_COST_VALUE != "" ? parseFloat(SUPPLIER_COST_VALUE).toFixed(2) : "0");
+    CUSTOMER_COST_DISC = (CUSTOMER_COST_DISC != "" ? parseFloat(CUSTOMER_COST_DISC).toFixed(2) : "0");
+    CUSTOMER_COST_VALUE = (CUSTOMER_COST_VALUE != "" ? parseFloat(CUSTOMER_COST_VALUE).toFixed(2) : "0");
+    PROFIT = (PROFIT != "" ? parseFloat(PROFIT).toFixed(2) : "0");
+    PROFIT_AMOUNT = (PROFIT_AMOUNT != "" ? parseFloat(PROFIT_AMOUNT).toFixed(2) : "0");
 
     var exists = false;
     if (TempData_Array.length > 0) {
@@ -987,19 +1106,23 @@ function TEMP_SAVE(WHEN, Ref_No, SupplierId, QC_Require, Lab_Status, SUPPLIER_CO
                 else if (WHEN == "LAB_STATUS") {
                     TempData_Array[i][3] = Lab_Status;
                 }
-                else if (WHEN == "SUPPLIER_COST_DISC") {
+                else if (WHEN == "SUPPLIER_COST_VALUE") {
                     TempData_Array[i][4] = SUPPLIER_COST_DISC;
                     TempData_Array[i][5] = SUPPLIER_COST_VALUE;
+                    TempData_Array[i][8] = PROFIT;
+                    TempData_Array[i][9] = PROFIT_AMOUNT;
                 }
-                else if (WHEN == "CUSTOMER_COST_DISC") {
+                else if (WHEN == "CUSTOMER_COST_VALUE") {
                     TempData_Array[i][6] = CUSTOMER_COST_DISC;
                     TempData_Array[i][7] = CUSTOMER_COST_VALUE;
+                    TempData_Array[i][8] = PROFIT;
+                    TempData_Array[i][9] = PROFIT_AMOUNT;
                 }
                 exists = true;
             }
         }
     }
     if (exists == false) {
-        TempData_Array.push([Ref_No, SupplierId, QC_Require, Lab_Status, SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE]);
+        TempData_Array.push([Ref_No, SupplierId, QC_Require, Lab_Status, SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT]);
     }
 }

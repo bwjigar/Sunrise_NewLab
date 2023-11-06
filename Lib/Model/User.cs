@@ -583,8 +583,9 @@ namespace Lib.Model
     {
         public long iTotalRec { get; set; }
         public long iSr { get; set; }
-        public int SupplierId { get; set; }
         public string SupplierShortName { get; set; }
+        public int SupplierId { get; set; }
+        public string CustomerName { get; set; }
         public string SupplierName { get; set; }
         public string Ref_No { get; set; }
         public string Shape { get; set; }
@@ -685,6 +686,7 @@ namespace Lib.Model
         public string Comm_Grade { get; set; }
         public string Zone { get; set; }
         public string Para_Grade { get; set; }
+        public string QCRequire { get; set; }
         public string LabEntry_Status { get; set; }
     }
     public class Data_Get_From_File_Req
@@ -879,11 +881,14 @@ namespace Lib.Model
         public string UserId { get; set; }
         public string Ref_No { get; set; }
         public string SupplierId { get; set; }
+        public string QC_Require { get; set; }
         public string LabEntry_Status { get; set; }
         public string SUPPLIER_COST_DISC { get; set; }
         public string SUPPLIER_COST_VALUE { get; set; }
         public string CUSTOMER_COST_DISC { get; set; }
         public string CUSTOMER_COST_VALUE { get; set; }
+        public string PROFIT { get; set; }
+        public string PROFIT_AMOUNT { get; set; }
     }
     public class Add_MyCart_Req
     {

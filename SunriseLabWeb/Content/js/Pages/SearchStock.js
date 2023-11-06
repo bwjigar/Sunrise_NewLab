@@ -132,9 +132,6 @@ function SupplierList() {
                     headerCellRenderer: selectAllRendererDetail,
                     suppressMovable: false
                 });
-                columnDefs.push({ field: "Ref_No", hide: true });
-                columnDefs.push({ field: "Certificate_No", hide: true });
-
                 data.Data.forEach(function (item) {
                     if (item.Column_Name == "Ref No") {
                         columnDefs.push({ headerName: "Ref No", field: "Ref_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("RefNo", params); } });
@@ -318,9 +315,6 @@ function BuyerList() {
                     headerCellRenderer: selectAllRendererDetail,
                     suppressMovable: false
                 });
-                columnDefs.push({ field: "Ref_No", hide: true });
-                columnDefs.push({ field: "Certificate_No", hide: true });
-
                 data.Data.forEach(function (item) {
                     if (item.Column_Name == "Image-Video") {
                         columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
@@ -570,9 +564,6 @@ function CustomerList() {
                     headerCellRenderer: selectAllRendererDetail,
                     suppressMovable: false
                 });
-                columnDefs.push({ field: "Ref_No", hide: true });
-                columnDefs.push({ field: "Certificate_No", hide: true });
-
                 data.Data.forEach(function (item) {
                     if (item.Column_Name == "Image-Video") {
                         columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
@@ -805,7 +796,7 @@ const datasource1 = {
         if (params.request.sortModel.length > 0) {
             OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
         }
-
+        debugger
         obj = ObjectCreate(PageNo, pgSize, OrderBy, '');
         obj.View = true;
         obj.Download = false;

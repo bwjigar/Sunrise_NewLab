@@ -10241,11 +10241,14 @@ namespace API.Controllers
                 dt.Columns.Add("UserId", typeof(string));
                 dt.Columns.Add("Ref_No", typeof(string));
                 dt.Columns.Add("SupplierId", typeof(string));
+                dt.Columns.Add("QC_Require", typeof(string));
                 dt.Columns.Add("LabEntry_Status", typeof(string));
                 dt.Columns.Add("SUPPLIER_COST_DISC", typeof(string));
                 dt.Columns.Add("SUPPLIER_COST_VALUE", typeof(string));
                 dt.Columns.Add("CUSTOMER_COST_DISC", typeof(string));
                 dt.Columns.Add("CUSTOMER_COST_VALUE", typeof(string));
+                dt.Columns.Add("PROFIT", typeof(string));
+                dt.Columns.Add("PROFIT_AMOUNT", typeof(string));
 
                 if (req_1.LabEntry_List.Count() > 0)
                 {
@@ -10259,11 +10262,14 @@ namespace API.Controllers
                         dr["UserId"] = req_1.LabEntry_List[i].UserId;
                         dr["Ref_No"] = req_1.LabEntry_List[i].Ref_No;
                         dr["SupplierId"] = req_1.LabEntry_List[i].SupplierId;
+                        dr["QC_Require"] = req_1.LabEntry_List[i].QC_Require;
                         dr["LabEntry_Status"] = req_1.LabEntry_List[i].LabEntry_Status;
                         dr["SUPPLIER_COST_DISC"] = req_1.LabEntry_List[i].SUPPLIER_COST_DISC;
                         dr["SUPPLIER_COST_VALUE"] = req_1.LabEntry_List[i].SUPPLIER_COST_VALUE;
                         dr["CUSTOMER_COST_DISC"] = req_1.LabEntry_List[i].CUSTOMER_COST_DISC;
                         dr["CUSTOMER_COST_VALUE"] = req_1.LabEntry_List[i].CUSTOMER_COST_VALUE;
+                        dr["PROFIT"] = req_1.LabEntry_List[i].PROFIT;
+                        dr["PROFIT_AMOUNT"] = req_1.LabEntry_List[i].PROFIT_AMOUNT;
 
                         dt.Rows.Add(dr);
                     }
