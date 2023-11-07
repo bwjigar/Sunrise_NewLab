@@ -472,6 +472,7 @@ namespace SunriseLabWeb_New.Controllers
             ServiceResponse<Obj_Supplier_Disc> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Obj_Supplier_Disc>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult SearchStock()
         {
             return View();
@@ -490,10 +491,12 @@ namespace SunriseLabWeb_New.Controllers
             string data = (new JavaScriptSerializer()).Deserialize<string>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult CustomerPriceList()
         {
             return View();
         }
+
         [ChildActionOnly]
         public ActionResult CustomerDisc()
         {
@@ -569,8 +572,6 @@ namespace SunriseLabWeb_New.Controllers
             string response1 = _api.CallAPIUrlEncodedWithWebReq(Constants.Add_StockUpload_Response, inputJson1);
         }
 
-
-
         public ActionResult ColumnSetting()
         {
             return View();
@@ -603,7 +604,6 @@ namespace SunriseLabWeb_New.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-
         public JsonResult PlaceOrder(PlaceOrder_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
@@ -629,75 +629,11 @@ namespace SunriseLabWeb_New.Controllers
             string data = (new JavaScriptSerializer()).Deserialize<string>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult LabEntry()
         {
             return View();
         }
-        public JsonResult Save_LabEntry(LabEntry_Req req)
-        {
-            string inputJson = (new JavaScriptSerializer()).Serialize(req);
-            string response = _api.CallAPI(Constants.Add_LabEntry_Request, inputJson);
-            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
-
-            Add_LabEntry_Res Res = new Add_LabEntry_Res();
-            CommonResponse data_1 = new CommonResponse();
-
-            if (data.Status == "1" && data.Message != "Failed")
-            {
-                Res.Id = Convert.ToInt32(data.Message);
-
-                string inputJson_1 = (new JavaScriptSerializer()).Serialize(Res);
-                string response_1 = _api.CallAPIUrlEncodedWithWebReq(Constants.Save_LabEntry, inputJson_1);
-                data_1 = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response_1);
-            }
-            else
-            {
-                data_1.Status = "0";
-                data_1.Message = "Lab Entry Failed";
-            }
-            return Json(data_1, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult Excel_LabEntry(Get_SearchStock_Req req)
-        {
-            string inputJson = (new JavaScriptSerializer()).Serialize(req);
-            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Excel_LabEntry, inputJson);
-            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult Add_MyCart(Add_MyCart_Req req)
-        {
-            string inputJson = (new JavaScriptSerializer()).Serialize(req);
-            string response = _api.CallAPI(Constants.Add_MyCart, inputJson);
-            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult Delete_MyCart(Get_MyCart_Req req)
-        {
-            string inputJson = (new JavaScriptSerializer()).Serialize(req);
-            string response = _api.CallAPI(Constants.Delete_MyCart, inputJson);
-            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult MyCart()
-        {
-            return View();
-        }
-        public JsonResult Get_MyCart(Get_MyCart_Req req)
-        {
-            string inputJson = (new JavaScriptSerializer()).Serialize(req);
-            string response = _api.CallAPI(Constants.Get_MyCart, inputJson);
-            ServiceResponse<Get_MyCart_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_MyCart_Res>>(response);
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult Excel_MyCart(Get_MyCart_Req req)
-        {
-            string inputJson = (new JavaScriptSerializer()).Serialize(req);
-            string response = _api.CallAPI(Constants.Excel_MyCart, inputJson);
-            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-
         public List<Get_SearchStock_Res> Get_SearchStock_By_RefNo(Get_SearchStock_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
@@ -719,13 +655,13 @@ namespace SunriseLabWeb_New.Controllers
                     string NewFileName = Guid.NewGuid() + Path.GetExtension(fileName).ToLower();
                     string mimeType = file.ContentType;
                     System.IO.Stream fileContent = file.InputStream;
-                    
+
                     string path = Server.MapPath("~/Upload/LabExcel/");
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
                     }
-                    file.SaveAs(Server.MapPath("~/Upload/LabExcel/") + NewFileName); 
+                    file.SaveAs(Server.MapPath("~/Upload/LabExcel/") + NewFileName);
 
                     var ep = new ExcelPackage(new FileInfo(Server.MapPath("~/Upload/LabExcel/") + NewFileName));
                     var ws = ep.Workbook.Worksheets["StoneSelection"];
@@ -774,7 +710,7 @@ namespace SunriseLabWeb_New.Controllers
                                     decimal Supplier_Cost_Value = Convert.ToDecimal(RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 4].Value)));
                                     decimal Supplier_Cost_Disc = ((-1 * (1 - (Supplier_Cost_Value / Res[i].Rap_Amount)) * 100));
 
-                                    decimal Offer_Value = Convert.ToDecimal(RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 5].Value))); 
+                                    decimal Offer_Value = Convert.ToDecimal(RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 5].Value)));
                                     decimal Offer_Disc = ((-1 * (1 - (Offer_Value / Res[i].Rap_Amount)) * 100));
 
 
@@ -857,5 +793,71 @@ namespace SunriseLabWeb_New.Controllers
             result = (result == "-" ? "" : result);
             return result;
         }
+        public JsonResult Save_LabEntry(LabEntry_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Add_LabEntry_Request, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+
+            Add_LabEntry_Res Res = new Add_LabEntry_Res();
+            CommonResponse data_1 = new CommonResponse();
+
+            if (data.Status == "1" && data.Message != "Failed")
+            {
+                Res.Id = Convert.ToInt32(data.Message);
+
+                string inputJson_1 = (new JavaScriptSerializer()).Serialize(Res);
+                string response_1 = _api.CallAPIUrlEncodedWithWebReq(Constants.Save_LabEntry, inputJson_1);
+                data_1 = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response_1);
+            }
+            else
+            {
+                data_1.Status = "0";
+                data_1.Message = "Lab Entry Failed";
+            }
+            return Json(data_1, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Excel_LabEntry(Get_SearchStock_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Excel_LabEntry, inputJson);
+            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        
+        public ActionResult MyCart()
+        {
+            return View();
+        }
+        public JsonResult Add_MyCart(Add_MyCart_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Add_MyCart, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Delete_MyCart(Get_MyCart_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Delete_MyCart, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Get_MyCart(Get_MyCart_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Get_MyCart, inputJson);
+            ServiceResponse<Get_MyCart_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_MyCart_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Excel_MyCart(Get_MyCart_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Excel_MyCart, inputJson);
+            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        
     }
 }

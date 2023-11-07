@@ -193,11 +193,11 @@ namespace API.Controllers
                 }
                 if (res.Order_No > 0)
                 {
-                    list.Add(database.CreateParam("Order_No", DbType.Int32, ParameterDirection.Input, res.Order_No));
+                    list.Add(database.CreateParam("Order_No", DbType.Decimal, ParameterDirection.Input, res.Order_No));
                 }
                 else
                 {
-                    list.Add(database.CreateParam("Order_No", DbType.Int32, ParameterDirection.Input, DBNull.Value));
+                    list.Add(database.CreateParam("Order_No", DbType.Decimal, ParameterDirection.Input, DBNull.Value));
                 }
                 if (res.Sort_No > 0)
                 {

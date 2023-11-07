@@ -559,7 +559,7 @@ function LabEntry() {
                 msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].SUPPLIER_COST_VALUE) + "</center></td>";
                 msg += "<td><center>" + formatNumber(LabEntry_List[q].CUSTOMER_COST_DISC) + "</center></td>";
                 msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].CUSTOMER_COST_VALUE) + "</center></td>";
-                msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].PROFIT) + "</center></td>";
+                msg += "<td><center>" + formatNumber(LabEntry_List[q].PROFIT) + "</center></td>";
                 msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].PROFIT_AMOUNT) + "</center></td>";
                 msg += "</tr>";
             }
@@ -785,7 +785,12 @@ function UploadExcelFile() {
 
                         TempData_Array.push([data[i].Ref_No, data[i].SupplierId, (data[i].QCRequire != null ? data[i].QCRequire : ""), LabEntry_Status, SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT]);
                     }
-
+                    if (TempData_Array.length > 0) {
+                        $(".gridview").show();
+                    }
+                    else {
+                        $(".gridview").hide();
+                    }
                 }
 
                 loaderHide();

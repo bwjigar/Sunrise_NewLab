@@ -121,7 +121,7 @@ namespace Lib.Model
         public string Rapaport_Name { get; set; }
         public string Rapnet_name { get; set; }
         public string Synonyms { get; set; }
-        public int Order_No { get; set; }
+        public decimal Order_No { get; set; }
         public int Sort_No { get; set; }
         public bool Status { get; set; }
         public string Icon_Url { get; set; }
@@ -663,13 +663,13 @@ namespace Lib.Model
         public decimal MAX_VALUE { get; set; }
         public decimal CUSTOMER_COST_DISC { get; set; }
         public decimal CUSTOMER_COST_VALUE { get; set; }
-        public int Shape_Sr { get; set; }
-        public int Color_Sr { get; set; }
-        public int Clarity_Sr { get; set; }
-        public int Cut_Sr { get; set; }
-        public int Polish_Sr { get; set; }
-        public int Symm_Sr { get; set; }
-        public int Fls_Sr { get; set; }
+        public decimal Shape_Sr { get; set; }
+        public decimal Color_Sr { get; set; }
+        public decimal Clarity_Sr { get; set; }
+        public decimal Cut_Sr { get; set; }
+        public decimal Polish_Sr { get; set; }
+        public decimal Symm_Sr { get; set; }
+        public decimal Fls_Sr { get; set; }
         public int Rank { get; set; }
         public string Supplier_Status { get; set; }
         public string Buyer_Name { get; set; }
@@ -842,13 +842,13 @@ namespace Lib.Model
         public decimal MAX_VALUE { get; set; }
         public decimal CUSTOMER_COST_DISC { get; set; }
         public decimal CUSTOMER_COST_VALUE { get; set; }
-        public int Shape_Sr { get; set; }
-        public int Color_Sr { get; set; }
-        public int Clarity_Sr { get; set; }
-        public int Cut_Sr { get; set; }
-        public int Polish_Sr { get; set; }
-        public int Symm_Sr { get; set; }
-        public int Fls_Sr { get; set; }
+        public decimal Shape_Sr { get; set; }
+        public decimal Color_Sr { get; set; }
+        public decimal Clarity_Sr { get; set; }
+        public decimal Cut_Sr { get; set; }
+        public decimal Polish_Sr { get; set; }
+        public decimal Symm_Sr { get; set; }
+        public decimal Fls_Sr { get; set; }
         public int Rank { get; set; }
         public string Supplier_Status { get; set; }
         public string Buyer_Name { get; set; }
@@ -991,13 +991,13 @@ namespace Lib.Model
         public decimal MAX_VALUE { get; set; }
         public decimal CUSTOMER_COST_DISC { get; set; }
         public decimal CUSTOMER_COST_VALUE { get; set; }
-        public int Shape_Sr { get; set; }
-        public int Color_Sr { get; set; }
-        public int Clarity_Sr { get; set; }
-        public int Cut_Sr { get; set; }
-        public int Polish_Sr { get; set; }
-        public int Symm_Sr { get; set; }
-        public int Fls_Sr { get; set; }
+        public decimal Shape_Sr { get; set; }
+        public decimal Color_Sr { get; set; }
+        public decimal Clarity_Sr { get; set; }
+        public decimal Cut_Sr { get; set; }
+        public decimal Polish_Sr { get; set; }
+        public decimal Symm_Sr { get; set; }
+        public decimal Fls_Sr { get; set; }
         public int Rank { get; set; }
         public string Supplier_Status { get; set; }
         public string Buyer_Name { get; set; }
