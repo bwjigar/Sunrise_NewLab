@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Lab Entry";
+    ViewBag.Title = "Lab Availibility";
     ViewBag.ClassName = "search-contnt";
     <link href="~/Content/css/daterangepicker.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/Plugins/multiselect/bootstrap-multiselect.css" type="text/css">
@@ -345,23 +345,17 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="order-title">
-                <h2>Lab Entry</h2>
+                <h2>Lab Availibility</h2>
             </div>
         </div>
     </div>
     <div class="order-history-data admin">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12 float-left mb-2">
-                    <div class="order-date common-order">
-                        <div class="offer-label">Lab Date:</div>
-                        <input type="text" name="txtLabDate" id="txtLabDate" value="" class="offer-input offer-input1" autocomplete="off">
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 float-left mb-2">
-                    <div class="order-company-name common-order">
-                        <div class="offer-label">User: <span style="color:red;">*</span></div>
-                        <select id="ddl_User" class="form-control common-control" onchange="ddl_User_change()"></select>
+                <div class="col-xl-6 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
+                    <div class="order-stone-id common-order">
+                        <div class="offer-label">Ref No:</div>
+                        <input type="text" tabindex="2" class="form-control common-control" onFocusout="GetSearch()" id="txtStoneId" maxlength="2000" autocomplete="off" placeholder="Ref No, Certi No, Supplier Ref No (Comma or Space)..." style="height: auto;" onkeyup="CommaSeperatedStone_list(event)">
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 float-left mb-2">
@@ -371,34 +365,28 @@
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12 float-left mb-2">
-                    <a style="cursor: pointer; font-size: 11.5px; font-style: normal; font-weight: 600; color: #003d66 " href="~/Content/images/LabEntry_Format.xlsx" target="_blank">LabEntry_Format.xlsx</a>
+                    <a style="cursor:pointer; font-size: 11.5px; font-style: normal; font-weight: 600; color: #003d66" href="~/Content/images/LabAvailibility_Format.xlsx" target="_blank">LabAvailibility_Format.xlsx</a>
                 </div>
             </div>
 
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <div class="col-xl-6 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
-                    <div class="order-stone-id common-order">
-                        <div class="offer-label">Ref No:</div>
-                        <input type="text" tabindex="2" class="form-control common-control" id="txtStoneId" maxlength="2000" autocomplete="off" placeholder="Ref No (Comma or Space)..." style="height: auto;" onkeyup="CommaSeperatedStone_list(event)">
-                    </div>
-                </div>
                 <div class="offset-5 col-xl-7 col-lg-4 col-md-5 col-sm-12">
                     <ul class="offer-inbtn pull-right mrtop src-rest-topbtn mt-2 mb-2" style="margin: 20px 54px 0;">
                         <li>
                             <button class="offer-btn" onclick="UploadExcelFile();"><i class="fa fa-upload" aria-hidden="true"></i>Upload Excel </button>
                         </li>
-                        <li>
+                        @*<li>
                             <button class="offer-btn" onclick="GetSearch()"><i class="fa fa-search" aria-hidden="true"></i>Search </button>
+                        </li>*@
+                        <li class="excel" style="display:none;">
+                            <button class="offer-btn" onclick="ExcelExport('Supplier List')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel </button>
                         </li>
-                        <li>
-                            <button class="offer-btn" onclick="Excel_LabEntry()"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Excel </button>
+                        <li class="excel" style="display:none;">
+                            <button class="offer-btn" onclick="ExcelExport('Customer List')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel </button>
                         </li>
-                        <li id="li_LabEntry" style="display:none;">
-                            <button class="offer-btn" onclick="LabEntry()"><i class="fa fa-check" aria-hidden="true"></i>Lab Entry </button>
-                        </li>
-                        <li>
+                        @*<li>
                             <button class="offer-btn" onclick="Reset()"><i class="fa fa-refresh" aria-hidden="true"></i>Reset </button>
-                        </li>
+                        </li>*@
                     </ul>
                 </div>
             </div>
@@ -459,6 +447,6 @@
     <script src="~/Content/js/moment.min.js"></script>
     <script src="~/Content/js/daterangepicker.min.js"></script>
     <script src="~/Content/js/ag-grid-enterprise.min.js"></script>
-    <script src="~/Content/js/Pages/LabEntry.js"></script>
+    <script src="~/Content/js/Pages/LabAvailibility.js"></script>
     <script src="~/Content/js/Pages/detailCellRenderer.js"></script>
 }

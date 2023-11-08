@@ -3816,26 +3816,25 @@ namespace API.Controllers
         {
             Get_SearchStock_Req req = new Get_SearchStock_Req();
 
-            if (!string.IsNullOrEmpty(Convert.ToString(data)))
+            try
             {
-                JObject test1 = JObject.Parse(data.ToString());
-                req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+                if (!string.IsNullOrEmpty(Convert.ToString(data)))
+                {
+                    JObject test1 = JObject.Parse(data.ToString());
+                    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                {
+                    Data = new List<Get_SearchStock_Res>(),
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
             }
 
-            //try
-            //{
-            //    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
-            //}
-            //catch (Exception ex)
-            //{
-            //    Lib.Model.Common.InsertErrorLog(ex, null, Request);
-            //    return Ok(new ServiceResponse<Get_SearchStock_Res>
-            //    {
-            //        Data = new List<Get_SearchStock_Res>(),
-            //        Message = "Input Parameters are not in the proper format",
-            //        Status = "0"
-            //    });
-            //}
             try
             {
                 DataTable Stock_dt = SearchStock(req);
@@ -3856,9 +3855,9 @@ namespace API.Controllers
             catch (Exception ex)
             {
                 Lib.Model.Common.InsertErrorLog(ex, null, Request);
-                return Ok(new ServiceResponse<Get_PriceListCategory_Res>
+                return Ok(new ServiceResponse<Get_SearchStock_Res>
                 {
-                    Data = new List<Get_PriceListCategory_Res>(),
+                    Data = new List<Get_SearchStock_Res>(),
                     Message = "Something Went wrong.\nPlease try again later",
                     Status = "0"
                 });
@@ -3871,21 +3870,20 @@ namespace API.Controllers
         {
             Get_SearchStock_Req req = new Get_SearchStock_Req();
 
-            if (!string.IsNullOrEmpty(Convert.ToString(data)))
+            try
             {
-                JObject test1 = JObject.Parse(data.ToString());
-                req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+                if (!string.IsNullOrEmpty(Convert.ToString(data)))
+                {
+                    JObject test1 = JObject.Parse(data.ToString());
+                    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+                }
             }
-
-            //try
-            //{
-            //    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
-            //}
-            //catch (Exception ex)
-            //{
-            //    Lib.Model.Common.InsertErrorLog(ex, null, Request);
-            //    return Ok("Input Parameters are not in the proper format");
-            //}
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok("Input Parameters are not in the proper format");
+            }
+           
             try
             {
                 DataTable Stock_dt = SearchStock(req);
@@ -10923,6 +10921,190 @@ namespace API.Controllers
                 else
                 {
                     return Ok("No Data Found");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                throw ex;
+            }
+        }
+
+        [NonAction]
+        private DataTable LabAvailibility(Get_SearchStock_Req req)
+        {
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                if (req.PgNo > 0)
+                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, req.PgNo));
+                else
+                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                if (req.PgSize > 0)
+                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, req.PgSize));
+                else
+                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.OrderBy))
+                    para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, req.OrderBy));
+                else
+                    para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.RefNo))
+                    para.Add(db.CreateParam("RefNo", DbType.String, ParameterDirection.Input, req.RefNo));
+                else
+                    para.Add(db.CreateParam("RefNo", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.SupplierId_RefNo_SupplierRefNo))
+                    para.Add(db.CreateParam("SupplierId_RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, req.SupplierId_RefNo_SupplierRefNo));
+                else
+                    para.Add(db.CreateParam("SupplierId_RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                DataTable Stock_dt = db.ExecuteSP("Get_LabAvailibility", para.ToArray(), false);
+                return Stock_dt;
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, null);
+                return null;
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult Get_LabAvailibility([FromBody] JObject data)
+        {
+            Get_SearchStock_Req req = new Get_SearchStock_Req();
+
+            try
+            {
+                if (!string.IsNullOrEmpty(Convert.ToString(data)))
+                {
+                    JObject test1 = JObject.Parse(data.ToString());
+                    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                {
+                    Data = new List<Get_SearchStock_Res>(),
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+
+            try
+            {
+                DataTable Stock_dt = LabAvailibility(req);
+
+                List<Get_SearchStock_Res> List_Res = new List<Get_SearchStock_Res>();
+                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
+                {
+                    List_Res = Stock_dt.ToList<Get_SearchStock_Res>();
+                }
+
+                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                {
+                    Data = List_Res,
+                    Message = "SUCCESS",
+                    Status = "1"
+                });
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                {
+                    Data = new List<Get_SearchStock_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult Excel_LabAvailibility([FromBody] JObject data)
+        {
+            Get_SearchStock_Req req = new Get_SearchStock_Req();
+
+            try
+            {
+                if (!string.IsNullOrEmpty(Convert.ToString(data)))
+                {
+                    JObject test1 = JObject.Parse(data.ToString());
+                    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok("Input Parameters are not in the proper format");
+            }
+
+            try
+            {
+                DataTable Stock_dt = LabAvailibility(req);
+
+                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
+                {
+                    string filename = req.Type + " " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string _path = ConfigurationManager.AppSettings["data"];
+                    _path = _path.Replace("Temp", "ExcelFile");
+                    string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
+
+                    if (req.Type == "Buyer List")
+                    {
+                        Database db = new Database();
+                        List<IDbDataParameter> para;
+                        para = new List<IDbDataParameter>();
+
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, 0));
+                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "BUYER"));
+
+                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                        EpExcelExport.Buyer_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+                    }
+                    else if (req.Type == "Supplier List")
+                    {
+                        Database db = new Database();
+                        List<IDbDataParameter> para;
+                        para = new List<IDbDataParameter>();
+
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, 0));
+                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "SUPPLIER"));
+
+                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                        EpExcelExport.Supplier_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+                    }
+                    else if (req.Type == "Customer List")
+                    {
+                        Database db = new Database();
+                        List<IDbDataParameter> para;
+                        para = new List<IDbDataParameter>();
+
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, 0));
+                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "CUSTOMER"));
+
+                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                        EpExcelExport.Customer_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+                    }
+
+                    string _strxml = _path + filename + ".xlsx";
+                    return Ok(_strxml);
+                }
+                else
+                {
+                    return Ok("No Stock found as per filter criteria !");
                 }
 
             }

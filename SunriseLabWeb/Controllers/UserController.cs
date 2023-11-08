@@ -665,7 +665,7 @@ namespace SunriseLabWeb_New.Controllers
 
                     var ep = new ExcelPackage(new FileInfo(Server.MapPath("~/Upload/LabExcel/") + NewFileName));
                     var ws = ep.Workbook.Worksheets["StoneSelection"];
-                    string Error_msg = string.Empty;
+                    string Error_msg = string.Empty, Error_msg_1 = string.Empty;
                     int Error_count = 0;
 
                     Error_msg = "<table border='1' style='font-size:12px;width: 80%;margin-top:5px;display:block;max-height:360px;overflow-y:auto;'>";
@@ -693,7 +693,7 @@ namespace SunriseLabWeb_New.Controllers
 
 
 
-                    bool status = false, status_1 = false;
+                    bool status_1 = false;
                     for (int rw = 2; rw <= ws.Dimension.End.Row; rw++)
                     {
                         if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() != "" && RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 4].Value)).Trim() != "" && RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 5].Value)).Trim() != "")
@@ -730,33 +730,37 @@ namespace SunriseLabWeb_New.Controllers
                                 status_1 = true;
                                 Error_count += 1;
 
-                                Error_msg += "<tr>";
-                                Error_msg += "<td><center><b>" + Error_count + "</b></center></td>";
-                                Error_msg += "<td><center>" + ws.Cells[rw, 1].Value + "</center></td>";
-                                Error_msg += "<td style='color: #003d66;font-weight:600'><center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 4].Value)) + "</center></td>";
-                                Error_msg += "<td style='color: #003d66;font-weight:600'><center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 5].Value)) + "</center></td>";
-                                Error_msg += "</tr>";
+                                Error_msg_1 += "<tr>";
+                                Error_msg_1 += "<td><center><b>" + Error_count + "</b></center></td>";
+                                Error_msg_1 += "<td><center>" + ws.Cells[rw, 1].Value + "</center></td>";
+                                Error_msg_1 += "<td style='color: #003d66;font-weight:600'><center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 4].Value)) + "</center></td>";
+                                Error_msg_1 += "<td style='color: #003d66;font-weight:600'><center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 5].Value)) + "</center></td>";
+                                Error_msg_1 += "</tr>";
                             }
                         }
                         else
                         {
-                            status = true;
                             Error_count += 1;
 
-                            Error_msg += "<tr>";
-                            Error_msg += "<td>center><b>" + Error_count + "</b></center></td>";
-                            Error_msg += "<td>center>" + ws.Cells[rw, 1].Value + "</center></td>";
-                            Error_msg += "<td style='color: #003d66;font-weight:600'>center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 4].Value)) + "</center></td>";
-                            Error_msg += "<td style='color: #003d66;font-weight:600'>center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 5].Value)) + "</center></td>";
-                            Error_msg += "</tr>";
+                            Error_msg_1 += "<tr>";
+                            Error_msg_1 += "<td>center><b>" + Error_count + "</b></center></td>";
+                            Error_msg_1 += "<td>center>" + ws.Cells[rw, 1].Value + "</center></td>";
+                            Error_msg_1 += "<td style='color: #003d66;font-weight:600'>center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 4].Value)) + "</center></td>";
+                            Error_msg_1 += "<td style='color: #003d66;font-weight:600'>center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 5].Value)) + "</center></td>";
+                            Error_msg_1 += "</tr>";
                         }
                     }
 
-                    Error_msg += "</tbody>";
-                    Error_msg += "</table>";
-
-                    if (status == false && status_1 == false)
+                    if (string.IsNullOrEmpty(Error_msg_1))
+                    {
                         Error_msg = "";
+                    }
+                    else
+                    {
+                        Error_msg += Error_msg_1;
+                        Error_msg += "</tbody>";
+                        Error_msg += "</table>";
+                    }
 
                     Get_SearchStock_Res obj2 = new Get_SearchStock_Res();
                     obj2.Lab_Comments = Error_msg;
@@ -858,6 +862,157 @@ namespace SunriseLabWeb_New.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        
+        public ActionResult LabAvailibility()
+        {
+            return View();
+        }
+        public List<Get_SearchStock_Res> Get_LabAvailibility_By_RefNo(Get_SearchStock_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_LabAvailibility, inputJson);
+            ServiceResponse<Get_SearchStock_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_Res>>(response);
+            return data.Data;
+        }
+        public JsonResult Get_LabAvailibility(Get_SearchStock_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_LabAvailibility, inputJson);
+            ServiceResponse<Get_SearchStock_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Excel_LabAvailibility(Get_SearchStock_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Excel_LabAvailibility, inputJson);
+            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult UploadExcelforLabAvailibility(LabEntry_Req req)
+        {
+            List<Get_SearchStock_Res> lst = new List<Get_SearchStock_Res>();
+            try
+            {
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase file = Request.Files[0];
+                    int fileSize = file.ContentLength;
+                    string fileName = file.FileName;
+                    string NewFileName = Guid.NewGuid() + Path.GetExtension(fileName).ToLower();
+                    string mimeType = file.ContentType;
+                    System.IO.Stream fileContent = file.InputStream;
+
+                    string path = Server.MapPath("~/Upload/LabAvailibility/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    file.SaveAs(Server.MapPath("~/Upload/LabAvailibility/") + NewFileName);
+
+                    var ep = new ExcelPackage(new FileInfo(Server.MapPath("~/Upload/LabAvailibility/") + NewFileName));
+                    var ws = ep.Workbook.Worksheets["StoneSelection"];
+                    string Error_msg = string.Empty, Error_msg_1 = string.Empty;
+                    int Error_count = 0;
+
+                    Error_msg = "<table border='1' style='font-size:12px;width: 40%;margin-top:5px;display:block;max-height:360px;overflow-y:auto;'>";
+                    Error_msg += "<tbody>";
+                    Error_msg += "<tr>";
+                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 5%;\"><center><b>No.</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 30%;\"><center><b>Ref No / Certi No</b></center></td>";
+                    Error_msg += "</tr>";
+
+                    string RefNo = "", RefNo1 = "";
+                    for (int rw = 2; rw <= ws.Dimension.End.Row; rw++)
+                    {
+                        RefNo += Convert.ToString(ws.Cells[rw, 1].Value).Trim() + ",";
+                    }
+                    RefNo = (RefNo != "" ? RefNo.Remove(RefNo.Length - 1, 1) : "");
+
+                    Get_SearchStock_Req Req = new Get_SearchStock_Req();
+                    Req.RefNo = RefNo;
+
+                    List<Get_SearchStock_Res> Res = new List<Get_SearchStock_Res>();
+                    Res = Get_LabAvailibility_By_RefNo(Req);
+
+
+                    bool status_1 = false;
+                    for (int rw = 2; rw <= ws.Dimension.End.Row; rw++)
+                    {
+                        if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() != "")
+                        {
+                            status_1 = false;
+
+                            for (int i = 0; i < Res.Count; i++)
+                            {
+                                if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[i].Ref_No || Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[i].Certificate_No)
+                                {
+                                    RefNo1 += Convert.ToString(ws.Cells[rw, 1].Value).Trim() + ",";
+
+                                    lst.Add(Res[i]);
+                                    status_1 = true;
+                                }
+                            }
+                            if (status_1 == false)
+                            {
+                                status_1 = true;
+                                Error_count += 1;
+
+                                Error_msg_1 += "<tr>";
+                                Error_msg_1 += "<td><center><b>" + Error_count + "</b></center></td>";
+                                Error_msg_1 += "<td><center>" + ws.Cells[rw, 1].Value + "</center></td>";
+                                Error_msg_1 += "</tr>";
+                            }
+                        }
+                        else
+                        {
+                            Error_count += 1;
+
+                            Error_msg_1 += "<tr>";
+                            Error_msg_1 += "<td>center><b>" + Error_count + "</b></center></td>";
+                            Error_msg_1 += "<td>center>" + ws.Cells[rw, 1].Value + "</center></td>";
+                            Error_msg_1 += "</tr>";
+                        }
+                    }
+
+                    RefNo1 = (RefNo1 != "" ? RefNo1.Remove(RefNo1.Length - 1, 1) : "");
+
+                    if (string.IsNullOrEmpty(Error_msg_1))
+                    {
+                        Error_msg = "";
+                    }
+                    else
+                    {
+                        Error_msg += Error_msg_1;
+                        Error_msg += "</tbody>";
+                        Error_msg += "</table>";
+                    }
+
+                    Get_SearchStock_Res obj2 = new Get_SearchStock_Res();
+                    obj2.Lab_Comments = Error_msg;
+                    obj2.Supplier_Comments = RefNo1;
+                    lst.Add(obj2);
+
+                    return Json(lst, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    Get_SearchStock_Res obj2 = new Get_SearchStock_Res();
+                    obj2.Lab_Comments = "File Not Exists";
+                    obj2.Culet = "0";
+                    lst.Add(obj2);
+
+                    return Json(lst, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                Get_SearchStock_Res obj2 = new Get_SearchStock_Res();
+                obj2.Lab_Comments = ex.Message;
+                obj2.Culet = "0";
+                lst.Add(obj2);
+
+                return Json(lst, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

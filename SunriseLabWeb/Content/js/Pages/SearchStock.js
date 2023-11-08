@@ -819,7 +819,7 @@ const datasource1 = {
                     if (data.Data.length == 0) {
                         $("#divFilter").show();
                         $("#divGridView").hide();
-                        toastr.error("No data Found.");
+                        toastr.error("No Stock found as per filter criteria !");
                     }
 
                     Rowdata = [];
