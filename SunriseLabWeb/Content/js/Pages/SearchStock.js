@@ -57,7 +57,30 @@ function filterByProperty(data, prop, value) {
 }
 
 var columnDefs = [];
+function Master_Get() {
+    $("#ddlUserId").html("<option value=''>Select</option>");
+    var obj = {};
+    obj.Assist_UserId = $("#hdn_UserId").val();
 
+    $.ajax({
+        url: "/User/GetUsers",
+        async: false,
+        type: "POST",
+        data: { req: obj },
+        success: function (data, textStatus, jqXHR) {
+            if (data.Message.indexOf('Something Went wrong') > -1) {
+                MoveToErrorPage(0);
+            }
+            if (data != null && data.Data.length > 0) {
+                for (var k in data.Data) {
+                    $("#ddlUserId").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].CompName + " [" + data.Data[k].UserName + "]" + "</option>");
+                }
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        }
+    });
+}
 function cellStyle(field, params) {
     if (params.data != undefined) {
         if (params.data.Cut == '3EX' && (field == 'Cut' || field == 'Polish' || field == 'Symm')) {
@@ -142,11 +165,11 @@ function SupplierList() {
                     else if (item.Column_Name == "Image-Video") {
                         columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, false); }, suppressSorting: true, suppressMenu: true, sortable: false });
                     }
-                    else if (item.Column_Name == "Supplier Stone Id") {
-                        columnDefs.push({ headerName: "Supplier Stone Id", field: "Supplier_Stone_Id", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Stone_Id", params); } });
+                    else if (item.Column_Name == "Supplier Ref No") {
+                        columnDefs.push({ headerName: "Supplier Ref No", field: "Supplier_Stone_Id", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Stone_Id", params); } });
                     }
-                    else if (item.Column_Name == "Certificate No") {
-                        columnDefs.push({ headerName: "Certificate No", field: "Certificate_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Certificate_No", params); } });
+                    else if (item.Column_Name == "Cert No") {
+                        columnDefs.push({ headerName: "Cert No", field: "Certificate_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Certificate_No", params); } });
                     }
                     else if (item.Column_Name == "Supplier Name") {
                         columnDefs.push({ headerName: "Supplier Name", field: "SupplierShortName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierShortName", params); } });
@@ -241,17 +264,17 @@ function SupplierList() {
                     else if (item.Column_Name == "Pavilion Height") {
                         columnDefs.push({ headerName: "Pavilion Height", field: "Pav_Height", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Pav_Height", params); } });
                     }
-                    else if (item.Column_Name == "Table Natts") {
-                        columnDefs.push({ headerName: "Table Natts", field: "Table_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Natts", params); } });
+                    else if (item.Column_Name == "Table Black") {
+                        columnDefs.push({ headerName: "Table Black", field: "Table_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Natts", params); } });
                     }
-                    else if (item.Column_Name == "Crown Natts") {
-                        columnDefs.push({ headerName: "Crown Natts", field: "Crown_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Natts", params); } });
+                    else if (item.Column_Name == "Crown Black") {
+                        columnDefs.push({ headerName: "Crown Black", field: "Crown_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Natts", params); } });
                     }
-                    else if (item.Column_Name == "Table Inclusion") {
-                        columnDefs.push({ headerName: "Table Inclusion", field: "Table_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Inclusion", params); } });
+                    else if (item.Column_Name == "Table White") {
+                        columnDefs.push({ headerName: "Table White", field: "Table_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Inclusion", params); } });
                     }
-                    else if (item.Column_Name == "Crown Inclusion") {
-                        columnDefs.push({ headerName: "Crown Inclusion", field: "Crown_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Inclusion", params); } });
+                    else if (item.Column_Name == "Crown White") {
+                        columnDefs.push({ headerName: "Crown White", field: "Crown_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Inclusion", params); } });
                     }
                     else if (item.Column_Name == "Culet") {
                         columnDefs.push({ headerName: "Culet", field: "Culet", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Culet", params); } });
@@ -337,11 +360,11 @@ function BuyerList() {
                     else if (item.Column_Name == "Status") {
                         columnDefs.push({ headerName: "Status", field: "Status", width: 50, tooltip: function (params) { return (params.value); }, cellRenderer: function (params) { return ""; }, cellStyle: function (params) { return cellStyle("Status", params); } });
                     }
-                    else if (item.Column_Name == "Supplier Stone Id") {
-                        columnDefs.push({ headerName: "Supplier Stone Id", field: "Supplier_Stone_Id", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Stone_Id", params); } });
+                    else if (item.Column_Name == "Supplier Ref No") {
+                        columnDefs.push({ headerName: "Supplier Ref No", field: "Supplier_Stone_Id", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Stone_Id", params); } });
                     }
-                    else if (item.Column_Name == "Certificate No") {
-                        columnDefs.push({ headerName: "Certificate No", field: "Certificate_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Certificate_No", params); } });
+                    else if (item.Column_Name == "Cert No") {
+                        columnDefs.push({ headerName: "Cert No", field: "Certificate_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Certificate_No", params); } });
                     }
                     else if (item.Column_Name == "Shape") {
                         columnDefs.push({ headerName: "Shape", field: "Shape", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Shape", params); } });
@@ -475,20 +498,23 @@ function BuyerList() {
                     else if (item.Column_Name == "Luster") {
                         columnDefs.push({ headerName: "Luster", field: "Luster", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Luster", params); } });
                     }
+                    else if (item.Column_Name == "Cert Type") {
+                        columnDefs.push({ headerName: "Cert Type", field: "Type_2A", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Type_2A", params); } });
+                    }
                     else if (item.Column_Name == "Type 2A") {
                         columnDefs.push({ headerName: "Type 2A", field: "Type_2A", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Type_2A", params); } });
                     }
-                    else if (item.Column_Name == "Table Inclusion") {
-                        columnDefs.push({ headerName: "Table Inclusion", field: "Table_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Inclusion", params); } });
+                    else if (item.Column_Name == "Table White") {
+                        columnDefs.push({ headerName: "Table White", field: "Table_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Inclusion", params); } });
                     }
-                    else if (item.Column_Name == "Crown Inclusion") {
-                        columnDefs.push({ headerName: "Crown Inclusion", field: "Crown_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Inclusion", params); } });
+                    else if (item.Column_Name == "Crown White") {
+                        columnDefs.push({ headerName: "Crown White", field: "Crown_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Inclusion", params); } });
                     }
-                    else if (item.Column_Name == "Table Natts") {
-                        columnDefs.push({ headerName: "Table Natts", field: "Table_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Natts", params); } });
+                    else if (item.Column_Name == "Table Black") {
+                        columnDefs.push({ headerName: "Table Black", field: "Table_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Natts", params); } });
                     }
-                    else if (item.Column_Name == "Crown Natts") {
-                        columnDefs.push({ headerName: "Crown Natts", field: "Crown_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Natts", params); } });
+                    else if (item.Column_Name == "Crown Black") {
+                        columnDefs.push({ headerName: "Crown Black", field: "Crown_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Natts", params); } });
                     }
                     else if (item.Column_Name == "Culet") {
                         columnDefs.push({ headerName: "Culet", field: "Culet", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Culet", params); } });
@@ -496,8 +522,8 @@ function BuyerList() {
                     else if (item.Column_Name == "Comment") {
                         columnDefs.push({ headerName: "Comment", field: "Lab_Comments", width: 300, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab_Comments", params); } });
                     }
-                    else if (item.Column_Name == "Supplier Comments") {
-                        columnDefs.push({ headerName: "Supplier Comments", field: "Supplier_Comments", width: 300, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Comments", params); } });
+                    else if (item.Column_Name == "Supplier Comment") {
+                        columnDefs.push({ headerName: "Supplier Comment", field: "Supplier_Comments", width: 300, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Comments", params); } });
                     }
                     else if (item.Column_Name == "Table Open") {
                         columnDefs.push({ headerName: "Table Open", field: "Table_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Open", params); } });
@@ -661,17 +687,17 @@ function CustomerList() {
                     else if (item.Column_Name == "Pav Height") {
                         columnDefs.push({ headerName: "Pav Height", field: "Pav_Height", width: 70, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Pav_Height", params); } });
                     }
-                    else if (item.Column_Name == "Table Natts") {
-                        columnDefs.push({ headerName: "Table Natts", field: "Table_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Natts", params); } });
+                    else if (item.Column_Name == "Table Black") {
+                        columnDefs.push({ headerName: "Table Black", field: "Table_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Natts", params); } });
                     }
-                    else if (item.Column_Name == "Crown Natts") {
-                        columnDefs.push({ headerName: "Crown Natts", field: "Crown_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Natts", params); } });
+                    else if (item.Column_Name == "Crown Black") {
+                        columnDefs.push({ headerName: "Crown Black", field: "Crown_Natts", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Natts", params); } });
                     }
-                    else if (item.Column_Name == "Table Inclusion") {
-                        columnDefs.push({ headerName: "Table Inclusion", field: "Table_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Inclusion", params); } });
+                    else if (item.Column_Name == "Table White") {
+                        columnDefs.push({ headerName: "Table White", field: "Table_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Inclusion", params); } });
                     }
-                    else if (item.Column_Name == "Crown Inclusion") {
-                        columnDefs.push({ headerName: "Crown Inclusion", field: "Crown_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Inclusion", params); } });
+                    else if (item.Column_Name == "Crown White") {
+                        columnDefs.push({ headerName: "Crown White", field: "Crown_Inclusion", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Inclusion", params); } });
                     }
                     else if (item.Column_Name == "Culet") {
                         columnDefs.push({ headerName: "Culet", field: "Culet", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Culet", params); } });
@@ -796,7 +822,7 @@ const datasource1 = {
         if (params.request.sortModel.length > 0) {
             OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
         }
-        debugger
+        
         obj = ObjectCreate(PageNo, pgSize, OrderBy, '');
         obj.View = true;
         obj.Download = false;
@@ -934,7 +960,17 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
     var KeyToSymLst_uncheck = _.pluck(UnCheckKeyToSymbolList, 'Symbol').join(",");
 
 
-    obj.UserId = $("#hdn_UserId").val();
+    if ($('#ddlUserId').val() != undefined) {
+        if ($('#ddlUserId').val() == "") {
+            obj.UserId = $('#hdn_UserId').val();
+        }
+        else {
+            obj.UserId = $('#ddlUserId').val();
+        }
+    }
+    else {
+        obj.UserId = $("#hdn_UserId").val();
+    }
     obj.PgNo = PageNo;
     obj.PgSize = pgSize;
     obj.OrderBy = OrderBy;
@@ -1774,7 +1810,7 @@ $(document).ready(function () {
     //$(".numeric").numeric({ decimal: ".", negative: true, decimalPlaces: 2 });
 
     GetSearchParameter();
-
+    Master_Get();
     GetTransId();
 
     FcolorBind();
@@ -1823,7 +1859,7 @@ $(document).ready(function () {
         }
     });
 
-    
+
 });
 SetCutMaster = function (item) {
     _.each(CutList, function (itm) {
@@ -2447,6 +2483,8 @@ function SetActive(flag, value) {
 function Reset() {
     GetTransId();
     $("#txtRefNo").val("");
+    $("#ddlUserId").val("");
+    
     _.map(ShapeList, function (data) { return data.ACTIVE = false; });
     _.map(ColorList, function (data) { return data.ACTIVE = false; });
     _.map(ClarityList, function (data) { return data.ACTIVE = false; });
@@ -3018,7 +3056,6 @@ function formatIntNumber(number) {
 
 
 function AddToCart() {
-    debugger
     if (gridOptions.api != undefined) {
         var selectedRows = gridOptions.api.getSelectedRows();
         var list = '';

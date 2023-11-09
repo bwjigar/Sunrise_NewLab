@@ -354,28 +354,52 @@
         <div class="row rw_mar_rmv">
             @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
             {
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                    <div class="form-inline ml-md-3 mt-3 navbar-search">
-                        <input type="text" autocomplete="off" maxlength="2000" class="form-control border-0 small searchStock" id="txtRefNo" onkeyup="CommaSeperated_list(event)" placeholder="Ref No / Supplier Ref No / Certificate No (Comma or Space)...">
-                    </div>
-                </div>
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-2 col-12 float-left mt-3" style="width: 83px;">
-                        <div class="order-stone-id common-order">
-                            <div class="offer-label float-left">Supplier:</div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12 float-left" style="margin-bottom: 15px;">
+                        <div class="order-stone-id common-order form-inline ml-md-3 mt-3 navbar-search">
+                            <input type="text" autocomplete="off" maxlength="2000" class="form-control border-0 small searchStock" id="txtRefNo" onkeyup="CommaSeperated_list(event)" placeholder="Ref No / Supplier Ref No / Certificate No (Comma or Space)...">
                         </div>
                     </div>
-                    <div class="float-left mt-3 mb-3">
-                        <select id="ddlSupplierId" class="form-control common-control" multiple="multiple" style="width: 100%">
-                        </select>
+                    <div class="col-xl-5 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
+                        <div class="order-company-name common-order">
+                            <div class="offer-label">Supplier: </div>
+                            <select id="ddlSupplierId" class="form-control common-control" multiple="multiple" style="width: 100%">
+                            </select>
+                        </div>
                     </div>
                 </div>
             }
-            else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
+            else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))
             {
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 10px;">
-                    <div class="form-inline ml-md-3 mt-3 navbar-search">
-                        <input type="text" autocomplete="off" maxlength="2000" class="form-control border-0 small searchStock" id="txtRefNo" onkeyup="CommaSeperated_list(event)" placeholder="Ref No / Certificate No (Comma or Space)...">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12 float-left" style="margin-bottom: 15px;">
+                        <div class="order-stone-id common-order form-inline ml-md-3 mt-3 navbar-search">
+                            <input type="text" autocomplete="off" maxlength="2000" class="form-control border-0 small searchStock" id="txtRefNo" onkeyup="CommaSeperated_list(event)" placeholder="Ref No / Supplier Ref No / Certificate No (Comma or Space)...">
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
+                        <div class="order-company-name common-order">
+                            <div class="offer-label">Supplier: </div>
+                            <select id="ddlSupplierId" class="form-control common-control" multiple="multiple" style="width: 100%">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
+                        <div class="order-company-name common-order">
+                            <div class="offer-label">User: </div>
+                            <select id="ddlUserId" class="form-control common-control">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
+            {
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12 float-left" style="margin-bottom: 15px;">
+                        <div class="order-stone-id common-order form-inline ml-md-3 mt-3 navbar-search">
+                            <input type="text" autocomplete="off" maxlength="2000" class="form-control border-0 small searchStock" id="txtRefNo" onkeyup="CommaSeperated_list(event)" placeholder="Ref No / Supplier Ref No / Certificate No (Comma or Space)...">
+                        </div>
                     </div>
                 </div>
             }
@@ -817,24 +841,60 @@
 
         @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Admin" || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Buyer")
         {
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="BuyerList();"><i class="fa fa-search" aria-hidden="true"></i>Buyer List</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(1);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer Excel</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="SupplierList();"><i class="fa fa-search" aria-hidden="true"></i>Supplier List</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Customer List</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="BuyerList();"><i class="fa fa-search" aria-hidden="true"></i>Buyer List</a></li>
+            }
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(1);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer Excel</a></li>
+            }
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="SupplierList();"><i class="fa fa-search" aria-hidden="true"></i>Supplier List</a></li>
+            }
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
+            }
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Customer List</a></li>
+            }
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
+            }
         }
         else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Employee")
         {
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="SupplierList();"><i class="fa fa-search" aria-hidden="true"></i>Supplier List</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Customer List</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="SupplierList();"><i class="fa fa-search" aria-hidden="true"></i>Supplier List</a></li>
+            }
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
+            }
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Customer List</a></li>
+            }
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
+            }
         }
         else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Customer")
         {
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Customer List</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Search</a></li>
+            }
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Download</a></li>
+            }
         }
         <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Reset();"><i class="fa fa-refresh" aria-hidden="true"></i>Reset</a></li>
     </ul>
@@ -869,29 +929,33 @@
                 {
                     <li><a class="effect-one" onclick="PlaceOrder();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Place Order"><i class="flaticon-checked"></i></a></li>
                 }
-                <li id="li_excel"><a class="effect-one" onclick="ExcelDownload('Grid');" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="flaticon-file"></i></a></li>
+                @if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+                {
+                    <li id="li_excel"><a class="effect-one" onclick="ExcelDownload('Grid');" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="flaticon-file"></i></a></li>
+                }
                 <li style="display:none;"><a class="effect-one" onclick="ByRequestCart();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Buy Cart"><i class="flaticon-shopping-cart"></i></a></li>
                 <li style="display:none;"><a class="effect-one" onclick="Download();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="fa fa-file-excel-o"></i></a></li>
+
                 @*<li>
-            <a onclick="OpenDownloadCheck()" class="effect-one download-popup" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="@LanguageProvider.get("download")"><i class="flaticon-file"></i></a>
-            <ul class="download-toggle tab_2">
-                <li id="liAll_2">
-                <a href="javascript:void(0);" onclick="ALLDownload()" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel"), @LanguageProvider.get("image"), @LanguageProvider.get("video"), @LanguageProvider.get("certificate")">@LanguageProvider.get("All")</a>
-            </li>
-                <li>
-                    <a href="javascript:void(0);" onclick="OpenDownloadPopup('Excel')" id="Export" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel")">@LanguageProvider.get("excel")</a>
-                </li>
-                <li class="excel-modelAll">
-                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Image')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("image")">@LanguageProvider.get("image")</a>
-            </li>
-            <li>
-                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Video')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("video")">@LanguageProvider.get("video")</a>
-            </li>
-            <li>
-                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Certificate')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("certificate")">@LanguageProvider.get("certificate")</a>
-            </li>
-            </ul>
-        </li>*@
+                        <a onclick="OpenDownloadCheck()" class="effect-one download-popup" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="@LanguageProvider.get("download")"><i class="flaticon-file"></i></a>
+                        <ul class="download-toggle tab_2">
+                            <li id="liAll_2">
+                            <a href="javascript:void(0);" onclick="ALLDownload()" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel"), @LanguageProvider.get("image"), @LanguageProvider.get("video"), @LanguageProvider.get("certificate")">@LanguageProvider.get("All")</a>
+                        </li>
+                            <li>
+                                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Excel')" id="Export" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel")">@LanguageProvider.get("excel")</a>
+                            </li>
+                            <li class="excel-modelAll">
+                            <a href="javascript:void(0);" onclick="OpenDownloadPopup('Image')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("image")">@LanguageProvider.get("image")</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" onclick="OpenDownloadPopup('Video')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("video")">@LanguageProvider.get("video")</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" onclick="OpenDownloadPopup('Certificate')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("certificate")">@LanguageProvider.get("certificate")</a>
+                        </li>
+                        </ul>
+                    </li>*@
             </ul>
         </div>
     </div>

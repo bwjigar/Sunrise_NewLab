@@ -22,6 +22,7 @@ namespace Lib.Model
         public int UserType { get; set; }
         public int UserId { get; set; }
         public string CompanyUserCustomer { get; set; }
+        public int Assist_UserId { get; set; }
     }
     public class GetUsers_Res
     {
@@ -51,6 +52,8 @@ namespace Lib.Model
         public string LastLoginDate { get; set; }
         public string UserTypeList { get; set; }
         public int UserCode { get; set; }
+        public bool View { get; set; }
+        public bool Download { get; set; }
     }
     public class Exist_Request
     {
@@ -75,6 +78,8 @@ namespace Lib.Model
         public int AssistBy { get; set; }
         public int SubAssistBy { get; set; }
         public int UserCode { get; set; }
+        public bool View { get; set; }
+        public bool Download { get; set; }
     }
     public class UserType_Res
     {

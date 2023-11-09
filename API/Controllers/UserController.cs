@@ -2931,6 +2931,11 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("CompanyUserCustomer", DbType.String, ParameterDirection.Input, DBNull.Value));
 
+                if (Req.Assist_UserId > 0)
+                    para.Add(db.CreateParam("Assist_UserId", DbType.Int64, ParameterDirection.Input, Req.Assist_UserId));
+                else
+                    para.Add(db.CreateParam("Assist_UserId", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+                
                 DataTable dt = db.ExecuteSP("Get_UserMas", para.ToArray(), false);
 
                 return dt;
@@ -3049,6 +3054,9 @@ namespace API.Controllers
                     para.Add(db.CreateParam("UserCode", DbType.Int32, ParameterDirection.Input, req.UserCode));
                 else
                     para.Add(db.CreateParam("UserCode", DbType.Int32, ParameterDirection.Input, DBNull.Value));
+
+                para.Add(db.CreateParam("View", DbType.Boolean, ParameterDirection.Input, req.View));
+                para.Add(db.CreateParam("Download", DbType.Boolean, ParameterDirection.Input, req.Download));
 
                 DataTable dt = db.ExecuteSP("AddUpdate_User", para.ToArray(), false);
 

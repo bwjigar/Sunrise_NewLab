@@ -74,6 +74,8 @@ namespace Lib.Model
         public bool IsDeleted { get; set; }
         public string UserTypeList { get; set; }
         public int UserCode { get; set; }
+        public bool View { get; set; }
+        public bool Download { get; set; }
     }
     public class IP_Wise_Login_Detail
     {

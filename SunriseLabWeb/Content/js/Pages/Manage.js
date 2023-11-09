@@ -169,6 +169,9 @@ function EditView(UserId) {
         $("#txt_MobileNo").val(data[0].MobileNo);
         $("#ddl_AssistBy").val((data[0].AssistBy > 0 ? data[0].AssistBy : ""));
         $("#ddl_SubAssistBy").val((data[0].SubAssistBy > 0 ? data[0].SubAssistBy : ""));
+        debugger
+        $("#View").prop("checked", data[0].View);
+        $("#Download").prop("checked", data[0].Download);
 
         $(".gridview").hide();
         $(".AddEdit").show();
@@ -474,6 +477,8 @@ function Clear() {
     FortuneCodeValid_Msg = "";
     UserCodeValid = true;
     UserCodeValid_Msg = "";
+    $("#View").prop("checked", true);
+    $("#Download").prop("checked", true);
 }
 function isNumberKey(evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -662,6 +667,8 @@ var SaveCompanyUser = function () {
             $("#ErrorModel").modal("show");
         }
         else {
+            
+
             var obj = {};
             obj.UserId = $("#hdn_Mng_UserId").val();
             obj.UserName = $("#txt_UserName").val();
@@ -678,6 +685,8 @@ var SaveCompanyUser = function () {
             obj.MobileNo = $("#txt_MobileNo").val();
             obj.AssistBy = $("#ddl_AssistBy").val();
             obj.SubAssistBy = $("#ddl_SubAssistBy").val();
+            obj.View = ($('#View:checked').val() == undefined ? false : true);
+            obj.Download = ($('#Download:checked').val() == undefined ? false : true);
 
             loaderShow();
 
