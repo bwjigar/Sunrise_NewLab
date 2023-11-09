@@ -297,7 +297,7 @@
                             DashBoard
                         </a>
                     </li>
-                    @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
+                    @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1"))
                     {
                         <li>
                             <a href="@Url.Action("Manage", "User")">
@@ -393,6 +393,15 @@
                             <a href="@Url.Action("LabAvailibility", "User")">
                                 <i class="fa fa-file-text" aria-hidden="true"></i>
                                 Lab Availibility
+                            </a>
+                        </li>
+                    }
+                    else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
+                    {
+                        <li>
+                            <a href="@Url.Action("SearchStock", "User")">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                                Search Stock
                             </a>
                         </li>
                     }

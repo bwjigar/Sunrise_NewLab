@@ -641,6 +641,20 @@ namespace SunriseLabWeb_New.Controllers
             ServiceResponse<Get_SearchStock_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_Res>>(response);
             return data.Data;
         }
+        public static string CapitalizeFirstLetterAfterSpace(string input)
+        {
+            string[] words = input.Split(' ');
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(words[i]))
+                {
+                    words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1).ToLower();
+                }
+            }
+
+            return string.Join(" ", words);
+        }
         [HttpPost]
         public JsonResult UploadExcelforLabEntry(LabEntry_Req req)
         {
@@ -678,6 +692,7 @@ namespace SunriseLabWeb_New.Controllers
                     Error_msg += "</tr>";
 
                     string RefNo = "";
+                    string Fix_Lab_Status = "CONFIRM, HOLD, BIDDED, WAITING, QC PENDING, QC REJECT, BID REJECT, SOLD, TRANSIT, BUSY, CANCEL, OTHER";
                     for (int rw = 2; rw <= ws.Dimension.End.Row; rw++)
                     {
                         RefNo += Convert.ToString(ws.Cells[rw, 1].Value).Trim() + ",";
@@ -714,8 +729,12 @@ namespace SunriseLabWeb_New.Controllers
                                     decimal Offer_Disc = ((-1 * (1 - (Offer_Value / Res[i].Rap_Amount)) * 100));
 
 
+                                    if (!Fix_Lab_Status.Contains(LabStatus.ToUpper()))
+                                    {
+                                        LabStatus = "";
+                                    }
                                     Res[i].QCRequire = QCRequire;
-                                    Res[i].LabEntry_Status = LabStatus;
+                                    Res[i].LabEntry_Status = CapitalizeFirstLetterAfterSpace(LabStatus);
                                     Res[i].SUPPLIER_COST_DISC = Supplier_Cost_Disc;
                                     Res[i].SUPPLIER_COST_VALUE = Supplier_Cost_Value;
                                     Res[i].CUSTOMER_COST_DISC = Offer_Disc;

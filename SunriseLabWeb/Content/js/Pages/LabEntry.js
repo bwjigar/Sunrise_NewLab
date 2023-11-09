@@ -1,5 +1,4 @@
 var TempData_Array = [];
-var Lab_Status = "Confirm, Hold, Bidded, Waiting, QC Pending, QC Reject, Bid Reject, Sold, Transit, Busy, Cancel, Other";
 function SetCurrentDate() {
     var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
     var d = new Date();
@@ -236,7 +235,7 @@ columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cell
 columnDefs.push({ headerName: "Supplier Stone Id", field: "Supplier_Stone_Id", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Stone_Id", params); } });
 columnDefs.push({ headerName: "Certificate No", field: "Certificate_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Certificate_No", params); } });
 columnDefs.push({ headerName: "Supplier Name", field: "SupplierName", width: 230, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierName", params); } });
-columnDefs.push({ headerName: "Customer Name", field: "CustomerName", width: 120, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CustomerName", params); } });
+columnDefs.push({ headerName: "Company Name", field: "CompName", width: 150, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CompName", params); } });
 columnDefs.push({
     headerName: "QC Require",
     field: "QC_Require",
@@ -511,7 +510,7 @@ function LabEntry() {
     if ($("#ddl_User").val() != "") {
         var selectedRows = gridOptions.api.getSelectedRows();
         if (selectedRows.length > 0) {
-            var list = '';
+            var list = '', labCount = 0;
             for (var i = 0; i < selectedRows.length; i++) {
                 for (var j = 0; j < TempData_Array.length; j++) {
                     if (selectedRows[i].Ref_No == TempData_Array[j][0] && selectedRows[i].SupplierId == TempData_Array[j][1]) {
@@ -529,8 +528,18 @@ function LabEntry() {
                             PROFIT: TempData_Array[j][8],
                             PROFIT_AMOUNT: TempData_Array[j][9],
                         });
+
+                        debugger
+                        if (TempData_Array[j][3] == "") {
+                            debugger
+                            labCount += parseInt(labCount) + 1;
+                        }
                     }
                 }
+            }
+            debugger
+            if (labCount > 0) {
+                return toastr.warning("Please Select Lab Status");
             }
 
             var msg = "<label class='offerComment' style='word -break: break-word;'>Are you sure you want to Add Below Ref No in Lab Entry ?</label>"
@@ -778,12 +787,10 @@ function UploadExcelFile() {
                         PROFIT = (PROFIT != "" ? parseFloat(PROFIT).toFixed(2) : "0");
                         PROFIT_AMOUNT = (PROFIT_AMOUNT != "" ? parseFloat(PROFIT_AMOUNT).toFixed(2) : "0");
 
-                        var LabEntry_Status = "";
-                        if (Lab_Status.includes((data[i].LabEntry_Status != null ? data[i].LabEntry_Status : ""))) {
-                            LabEntry_Status = (data[i].LabEntry_Status != null ? data[i].LabEntry_Status : "");
-                        }
+                        var QCRequire = (data[i].QCRequire != null ? data[i].QCRequire : "");
+                        var LabEntry_Status = (data[i].LabEntry_Status != null ? data[i].LabEntry_Status : "");
 
-                        TempData_Array.push([data[i].Ref_No, data[i].SupplierId, (data[i].QCRequire != null ? data[i].QCRequire : ""), LabEntry_Status, SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT]);
+                        TempData_Array.push([data[i].Ref_No, data[i].SupplierId, QCRequire, LabEntry_Status, SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT]);
                     }
                     if (TempData_Array.length > 0) {
                         $(".gridview").show();
@@ -880,8 +887,8 @@ function input_Lab_Status_Indicator(params) {
         + '<option ' + ((LabStatus == "Hold") ? 'selected' : '') +' value="Hold">Hold</option>'
         + '<option ' + ((LabStatus == "Bidded") ? 'selected' : '') +' value="Bidded">Bidded</option>'
         + '<option ' + ((LabStatus == "Waiting") ? 'selected' : '') +' value="Waiting">Waiting</option>'
-        + '<option ' + ((LabStatus == "QC Pending") ? 'selected' : '') +' value="QC Pending">QC Pending</option>'
-        + '<option ' + ((LabStatus == "QC Reject") ? 'selected' : '') +' value="QC Reject">QC Reject</option>'
+        + '<option ' + ((LabStatus == "Qc Pending") ? 'selected' : '') +' value="Qc Pending">Qc Pending</option>'
+        + '<option ' + ((LabStatus == "Qc Reject") ? 'selected' : '') +' value="Qc Reject">Qc Reject</option>'
         + '<option ' + ((LabStatus == "Bid Reject") ? 'selected' : '') +' value="Bid Reject">Bid Reject</option>'
         + '<option ' + ((LabStatus == "Sold") ? 'selected' : '') +' value="Sold">Sold</option>'
         + '<option ' + ((LabStatus == "Transit") ? 'selected' : '') +' value="Transit">Transit</option>'

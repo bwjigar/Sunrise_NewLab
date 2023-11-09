@@ -35,10 +35,15 @@ namespace SunriseLabWeb_New.Filter
                          || (cntlr == "User" && act == "SupplierColumnSettingFromFile") || (cntlr == "User" && act == "SupplierPriceList")
                          || (cntlr == "User" && act == "LabEntry") || (cntlr == "User" && act == "LabAvailibility"))
                     {
-                        if (!(UserTypeId.Contains("1") || UserTypeId.Contains("4")))
+                        if (!(UserTypeId.Contains("1")))
                             filterContext.Result = new RedirectResult("~/Login/Index");
                     }
-                    
+                    else if ((cntlr == "User" && act == "MyCart") || (cntlr == "User" && act == "OrderHistory"))
+                    {
+                        if (!(UserTypeId.Contains("1") || UserTypeId.Contains("2") || UserTypeId.Contains("3")))
+                            filterContext.Result = new RedirectResult("~/Login/Index");
+                    }
+
                 }
             }
 

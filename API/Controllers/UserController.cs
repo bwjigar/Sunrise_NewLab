@@ -10362,6 +10362,14 @@ namespace API.Controllers
                                             }
                                             if (!string.IsNullOrEmpty(lab_trans_status))
                                             {
+                                                db = new Database();
+                                                List<IDbDataParameter> para2 = new List<IDbDataParameter>();
+
+                                                para2.Add(db.CreateParam("LabId", DbType.Int32, ParameterDirection.Input, Convert.ToInt32(LabDetail_dt.Rows[0]["LabId"])));
+                                                para2.Add(db.CreateParam("TransId", DbType.String, ParameterDirection.Input, lab_trans_status));
+
+                                                DataTable LabStatus_dt = db.ExecuteSP("Update_LabEntry", para2.ToArray(), false);
+
                                                 for (int j = 0; j < LabDetail_dt.Rows.Count; j++)
                                                 {
                                                     oracleDbAccess = new Oracle_DBAccess();
@@ -10601,6 +10609,10 @@ namespace API.Controllers
 
                                                     param1 = new OracleParameter("vBGM", OracleDbType.NVarchar2);
                                                     param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["BGM"]);
+                                                    paramList.Add(param1);
+
+                                                    param1 = new OracleParameter("vSTATUS", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["LabEntry_Status"]);
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vrec", OracleDbType.RefCursor);

@@ -590,7 +590,7 @@ namespace Lib.Model
         public long iSr { get; set; }
         public string SupplierShortName { get; set; }
         public int SupplierId { get; set; }
-        public string CustomerName { get; set; }
+        public string CompName { get; set; }
         public string SupplierName { get; set; }
         public string Ref_No { get; set; }
         public string Shape { get; set; }

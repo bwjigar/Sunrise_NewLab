@@ -3213,7 +3213,7 @@ namespace EpExcelExportLib
                     worksheet.Cells[3, 5].Value = "Supplier Stone Id";
                     worksheet.Cells[3, 6].Value = "Certificate No";
                     worksheet.Cells[3, 7].Value = "Supplier Name";
-                    worksheet.Cells[3, 8].Value = "Customer Name";
+                    worksheet.Cells[3, 8].Value = "Company Name";
                     worksheet.Cells[3, 9].Value = "Shape";
                     worksheet.Cells[3, 10].Value = "Pointer";
                     worksheet.Cells[3, 11].Value = "BGM";
@@ -3274,7 +3274,7 @@ namespace EpExcelExportLib
                     worksheet.Cells[3, 5].AutoFitColumns(13);
                     worksheet.Cells[3, 6].AutoFitColumns(13);
                     worksheet.Cells[3, 7].AutoFitColumns(23);
-                    worksheet.Cells[3, 8].AutoFitColumns(13);
+                    worksheet.Cells[3, 8].AutoFitColumns(15);
                     worksheet.Cells[3, 9].AutoFitColumns(12);              
                     worksheet.Cells[3, 10].AutoFitColumns(9);
                     worksheet.Cells[3, 11].AutoFitColumns(9);
@@ -3380,7 +3380,7 @@ namespace EpExcelExportLib
                         worksheet.Cells[inwrkrow, 5].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Supplier_Stone_Id"]);
                         worksheet.Cells[inwrkrow, 6].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certificate_No"]);
                         worksheet.Cells[inwrkrow, 7].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["SupplierName"]);
-                        worksheet.Cells[inwrkrow, 8].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["CustomerName"]);
+                        worksheet.Cells[inwrkrow, 8].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["CompName"]);
                         worksheet.Cells[inwrkrow, 9].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Shape"]);
                         worksheet.Cells[inwrkrow, 10].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pointer"]); 
                         worksheet.Cells[inwrkrow, 11].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["BGM"]);
