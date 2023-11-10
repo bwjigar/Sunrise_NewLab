@@ -634,10 +634,24 @@ namespace SunriseLabWeb_New.Controllers
         {
             return View();
         }
-        public List<Get_SearchStock_Res> Get_SearchStock_By_RefNo(Get_SearchStock_Req req)
+        public JsonResult Get_LabEntry(Get_SearchStock_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
-            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_SearchStock, inputJson);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_LabEntry, inputJson);
+            ServiceResponse<Get_SearchStock_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Excel_LabEntry(Get_SearchStock_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Excel_LabEntry, inputJson);
+            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public List<Get_SearchStock_Res> Get_LabEntry_By_RefNo(Get_SearchStock_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_LabEntry, inputJson);
             ServiceResponse<Get_SearchStock_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_Res>>(response);
             return data.Data;
         }
@@ -704,7 +718,7 @@ namespace SunriseLabWeb_New.Controllers
                     Req.UserId = req.UserId;
 
                     List<Get_SearchStock_Res> Res = new List<Get_SearchStock_Res>();
-                    Res = Get_SearchStock_By_RefNo(Req);
+                    Res = Get_LabEntry_By_RefNo(Req);
 
 
 
@@ -839,13 +853,6 @@ namespace SunriseLabWeb_New.Controllers
                 data_1.Message = "Lab Entry Failed";
             }
             return Json(data_1, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult Excel_LabEntry(Get_SearchStock_Req req)
-        {
-            string inputJson = (new JavaScriptSerializer()).Serialize(req);
-            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Excel_LabEntry, inputJson);
-            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
-            return Json(data, JsonRequestBehavior.AllowGet);
         }
         
         public ActionResult MyCart()

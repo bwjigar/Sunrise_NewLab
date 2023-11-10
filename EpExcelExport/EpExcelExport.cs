@@ -3274,7 +3274,7 @@ namespace EpExcelExportLib
                     worksheet.Cells[3, 5].AutoFitColumns(13);
                     worksheet.Cells[3, 6].AutoFitColumns(13);
                     worksheet.Cells[3, 7].AutoFitColumns(23);
-                    worksheet.Cells[3, 8].AutoFitColumns(15);
+                    worksheet.Cells[3, 8].AutoFitColumns(20);
                     worksheet.Cells[3, 9].AutoFitColumns(12);              
                     worksheet.Cells[3, 10].AutoFitColumns(9);
                     worksheet.Cells[3, 11].AutoFitColumns(9);

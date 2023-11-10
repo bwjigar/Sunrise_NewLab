@@ -235,7 +235,7 @@ columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cell
 columnDefs.push({ headerName: "Supplier Stone Id", field: "Supplier_Stone_Id", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Stone_Id", params); } });
 columnDefs.push({ headerName: "Certificate No", field: "Certificate_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Certificate_No", params); } });
 columnDefs.push({ headerName: "Supplier Name", field: "SupplierName", width: 230, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierName", params); } });
-columnDefs.push({ headerName: "Company Name", field: "CompName", width: 150, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CompName", params); } });
+columnDefs.push({ headerName: "Company Name", field: "CompName", width: 190, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CompName", params); } });
 columnDefs.push({
     headerName: "QC Require",
     field: "QC_Require",
@@ -435,7 +435,7 @@ const datasource1 = {
 
         Rowdata = [];
         $.ajax({
-            url: "/User/Get_SearchStock",
+            url: "/User/Get_LabEntry",
             async: false,
             type: "POST",
             data: { req: obj },

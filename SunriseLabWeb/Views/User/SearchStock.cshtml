@@ -817,29 +817,29 @@
 <div class="bottom-button-bar text-right">
     <ul class="two">
         @*@if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 9 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 15
-                || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 39 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 10) // Nilesh, Ankit Shah, Sandeep, jigijiga
-            {
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
-                if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 9 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 15) // Nilesh, Ankit Shah
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
-                }
-            }
-            else if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 2528) //mehta_ritesh
+            || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 39 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 10) // Nilesh, Ankit Shah, Sandeep, jigijiga
+        {
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
+            if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 9 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 15) // Nilesh, Ankit Shah
             {
                 <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
             }
-            else
-            {
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Customer');"><i class="fa fa-search" aria-hidden="true"></i>Customer</a></li>
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Supplier');"><i class="fa fa-search" aria-hidden="true"></i>Supplier</a></li>
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(1);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
-            }*@
+        }
+        else if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 2528) //mehta_ritesh
+        {
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
+        }
+        else
+        {
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Customer');"><i class="fa fa-search" aria-hidden="true"></i>Customer</a></li>
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Supplier');"><i class="fa fa-search" aria-hidden="true"></i>Supplier</a></li>
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(1);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
+            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
+        }*@
 
-        @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Admin" || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Buyer")
+        @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Admin")
         {
             if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
             {
@@ -864,6 +864,17 @@
             if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
             {
                 <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
+            }
+        }
+        else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Buyer")
+        {
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="BuyerList();"><i class="fa fa-search" aria-hidden="true"></i>Buyer List</a></li>
+            }
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(1);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer Excel</a></li>
             }
         }
         else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Employee")
