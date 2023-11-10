@@ -10000,13 +10000,22 @@ namespace API.Controllers
                 loSb.Append(@"<p>Thank you for placing order</p>");
 
 
-                if (EmailType == "Customer" && dtUserDetail.Rows[0]["EmailId"].ToString() != "")
+                if (EmailType == "Customer" && Convert.ToString(dtUserDetail.Rows[0]["EmailId"]) != "")
                 {
-                    Common.SendMail(dtUserDetail.Rows[0]["EmailId"].ToString(), "Connect Gia – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
+                    Common.SendMail(Convert.ToString(dtUserDetail.Rows[0]["EmailId"]), "Connect Gia – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
                 }
-                else if (EmailType == "Employee" && dtUserDetail.Rows[0]["AssistByEmailId"].ToString() != "")
+                else if (EmailType == "Employee")
                 {
-                    Common.SendMail(dtUserDetail.Rows[0]["AssistByEmailId"].ToString(), "Connect Gia – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
+                    string email = Convert.ToString(dtUserDetail.Rows[0]["AssistByEmailId"]);
+                    if(Convert.ToString(dtUserDetail.Rows[0]["SubAssistByEmailId"]) != "")
+                    {
+                        if (email != "")
+                        {
+                            email += ",";
+                        }
+                        email += Convert.ToString(dtUserDetail.Rows[0]["SubAssistByEmailId"]);
+                    }
+                    Common.SendMail(email, "Connect Gia – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
                 }
 
 
