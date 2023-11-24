@@ -314,11 +314,11 @@ namespace Lib.Model
             BoundField sStoneStatus = new BoundField(); sStoneStatus.HeaderText = "Order Status"; sStoneStatus.DataField = "sStoneStatus";
             gvData.Columns.Add(sStoneStatus);
 
-            BoundField sSupplLocation = new BoundField(); sSupplLocation.HeaderText = "Location"; sSupplLocation.DataField = "sSupplLocation";
-            gvData.Columns.Add(sSupplLocation);
+            //BoundField sSupplLocation = new BoundField(); sSupplLocation.HeaderText = "Location"; sSupplLocation.DataField = "sSupplLocation";
+            //gvData.Columns.Add(sSupplLocation);
 
-            BoundField sstatus = new BoundField(); sstatus.HeaderText = "Status"; sstatus.DataField = "sStatus";
-            gvData.Columns.Add(sstatus);
+            //BoundField sstatus = new BoundField(); sstatus.HeaderText = "Status"; sstatus.DataField = "sStatus";
+            //gvData.Columns.Add(sstatus);
 
             BoundField cRefNo = new BoundField(); cRefNo.DataField = "sRefNo"; cRefNo.HeaderText = "Ref. No.";
             gvData.Columns.Add(cRefNo);
@@ -889,11 +889,28 @@ namespace Lib.Model
                 e.NumFormat = "#0.00";
                 e.Width = 8;
             }
+            if (e.Caption == "Table Open")
+            {
+                e.ColDataType = OfficeOpenXml.eDataTypes.String;
+                e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                e.Width = 8;
+            }
+            if (e.Caption == "Crown Open")
+            {
+                e.ColDataType = OfficeOpenXml.eDataTypes.String;
+                e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                e.Width = 8;
+            }
+            if (e.Caption == "Pav Open")
+            {
+                e.ColDataType = OfficeOpenXml.eDataTypes.String;
+                e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                e.Width = 8;
+            }
             if (e.Caption == "Girdle Open")
             {
-                e.ColDataType = OfficeOpenXml.eDataTypes.Number;
+                e.ColDataType = OfficeOpenXml.eDataTypes.String;
                 e.HorizontalAllign = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                e.NumFormat = "#0.00";
                 e.Width = 8;
             }
             //if (e.ColName == "sGirdle")
@@ -963,7 +980,7 @@ namespace Lib.Model
                 }//priyanka on date [28-05-15]
                 else if (e.ColumnName == "Order Status")
                 {
-                    if (e.Text == "NOT AVAILABLE" || e.Text == "CHECKING AVAIBILITY")
+                    //if (e.Text == "NOT AVAILABLE" || e.Text == "CHECKING AVAIBILITY")
                         e.StyleInd = STatusBkgrndIndx;
                 }//********
                 //change by Hitesh on [31-03-2016] as per [Doc No 201]
