@@ -127,6 +127,15 @@ function onPageSizeChanged() {
 }
 
 function SupplierList() {
+    if ($("#txtDisc_1_1").val() != undefined) {
+        if ($("#PricingMethod_1").val() == "" && $("#txtDisc_1_1").val() != "") {
+            return toastr.warning("Please Select Pricing Method");
+        }
+        if ($("#PricingMethod_1").val() != "" && $("#txtDisc_1_1").val() == "") {
+            return toastr.warning("Please Enter Pricing Method " + $("#PricingMethod_1").val());
+        }
+    }
+
     Type = "Supplier List";
     columnDefs = [];
 
@@ -310,6 +319,15 @@ function SupplierList() {
     });
 }
 function BuyerList() {
+    if ($("#txtDisc_1_1").val() != undefined) {
+        if ($("#PricingMethod_1").val() == "" && $("#txtDisc_1_1").val() != "") {
+            return toastr.warning("Please Select Pricing Method");
+        }
+        if ($("#PricingMethod_1").val() != "" && $("#txtDisc_1_1").val() == "") {
+            return toastr.warning("Please Enter Pricing Method " + $("#PricingMethod_1").val());
+        }
+    }
+
     Type = "Buyer List";
     columnDefs = [];
 
@@ -562,6 +580,15 @@ function BuyerList() {
     });
 }
 function CustomerList() {
+    if ($("#txtDisc_1_1").val() != undefined) {
+        if ($("#PricingMethod_1").val() == "" && $("#txtDisc_1_1").val() != "") {
+            return toastr.warning("Please Select Pricing Method");
+        }
+        if ($("#PricingMethod_1").val() != "" && $("#txtDisc_1_1").val() == "") {
+            return toastr.warning("Please Enter Pricing Method " + $("#PricingMethod_1").val());
+        }
+    }
+
     Type = "Customer List";
     columnDefs = [];
 
@@ -736,16 +763,7 @@ function CustomerList() {
 function Search() {
     $("#divFilter").hide();
     $("#divGridView").show();
-    //if (type == "Customer") {
-    //    //$(".sup").hide();
-    //    isCustomer = true;
-    //    CustomerColumn();
-    //}
-    //else if (type == "Supplier") {
-    //    //$(".sup").show();
-    //    isCustomer = false;
-    //    SupplierColumn();
-    //}
+
     GetHoldDataGrid();
 }
 function GetHoldDataGrid() {
@@ -866,6 +884,15 @@ const datasource1 = {
     }
 };
 function ExcelFilter(type) {
+    if ($("#txtDisc_1_1").val() != undefined) {
+        if ($("#PricingMethod_1").val() == "" && $("#txtDisc_1_1").val() != "") {
+            return toastr.warning("Please Select Pricing Method");
+        }
+        if ($("#PricingMethod_1").val() != "" && $("#txtDisc_1_1").val() == "") {
+            return toastr.warning("Please Enter Pricing Method " + $("#PricingMethod_1").val());
+        }
+    }
+
     Type = "";
     if (type == "1") {
         Type = "Buyer List";
@@ -1064,6 +1091,12 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
     obj.ToPavHt = $('#ToPavHt').val();
 
     obj.Type = Type;
+    debugger
+    if ($("#txtDisc_1_1").val() != undefined && $("#txtDisc_1_1").val() != "") {
+        obj.PricingMethod = $("#PricingMethod_1").val();
+        obj.PricingSign = $("#PricingSign_1").val();
+        obj.PricingDisc = $("#txtDisc_1_1").val();
+    }
 
     return obj;
 }
@@ -1435,6 +1468,15 @@ var INTENSITY = [], OVERTONE = [], FANCY_COLOR = [];
 var Color_Type = 'Regular';
 var IsFiltered = true;
 var ActivityType = "";
+function _checkValue(textbox) {
+    const value = textbox.value.trim();
+    const numericValue = parseFloat(value);
+    if (numericValue >= 0 && numericValue <= 100) {
+        textbox.value = NullReplaceDecimal4ToFixed(numericValue);
+    } else {
+        textbox.value = '';
+    }
+}
 function FancyDDLHide() {
     $("#sym-sec1 .carat-dropdown-main").hide();
     $("#sym-sec2 .carat-dropdown-main").hide();
@@ -2151,8 +2193,8 @@ function GetSearchParameter() {
                 _(GirdleOpenList).each(function (girdleopen, i) {
                     $('#searchgirdleopen').append('<li onclick="SetActive(\'GIRDLEOPEN\',\'' + girdleopen.Value + '\')">' + girdleopen.Value + '</li>');
                 });
-
-                KeyToSymbolList = _.filter(ParameterList, function (e) { return e.Type == 'Key To Symboll' });
+                
+                KeyToSymbolList = _.filter(ParameterList, function (e) { return e.Type == 'Key to Symbol' });
 
 
                 loaderHide();
@@ -2484,6 +2526,9 @@ function Reset() {
     GetTransId();
     $("#txtRefNo").val("");
     $("#ddlUserId").val("");
+    $("#PricingMethod_1").val("");
+    $("#PricingSign_1").val("Plus");
+    $("#txtDisc_1_1").val("");
     
     _.map(ShapeList, function (data) { return data.ACTIVE = false; });
     _.map(ColorList, function (data) { return data.ACTIVE = false; });

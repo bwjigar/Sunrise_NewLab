@@ -583,6 +583,10 @@ namespace Lib.Model
         public string Type { get; set; }
         public bool View { get; set; }
         public bool Download { get; set; }
+
+        public string PricingMethod { get; set; }
+        public string PricingSign { get; set; }
+        public decimal PricingDisc { get; set; }
     }
     public class Get_SearchStock_Res
     {
@@ -745,6 +749,9 @@ namespace Lib.Model
     {
         public string SupplierId_RefNo_SupplierRefNo { get; set; }
         public string Comments { get; set; }
+        public string PricingMethod { get; set; }
+        public string PricingSign { get; set; }
+        public decimal PricingDisc { get; set; }
     }
     public class Get_OrderHistory_Req
     {

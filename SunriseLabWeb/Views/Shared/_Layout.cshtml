@@ -717,7 +717,7 @@ var loaderHide = function () {
                 if ($("#Comments").val().trim() == "") {
                     $("#Comments").val("");
                     $("#Comments").focus();
-                    toastr.warning("Enter Comments");
+                    toastr.warning("Please Enter Comments");
                     return;
                 }
                 loaderShow();
@@ -733,6 +733,13 @@ var loaderHide = function () {
                 var obj = {};
                 obj.SupplierId_RefNo_SupplierRefNo = list;
                 obj.Comments = $("#Comments").val();
+
+                debugger
+                if ($("#txtDisc_1_1").val() != undefined && $("#txtDisc_1_1").val() != "") {
+                    obj.PricingMethod = $("#PricingMethod_1").val();
+                    obj.PricingSign = $("#PricingSign_1").val();
+                    obj.PricingDisc = $("#txtDisc_1_1").val();
+                }
 
                 $.ajax({
                     url: '/User/PlaceOrder',

@@ -3808,6 +3808,21 @@ namespace API.Controllers
 
                 para.Add(db.CreateParam("Download", DbType.Boolean, ParameterDirection.Input, req.Download));
 
+                if (!string.IsNullOrEmpty(req.PricingMethod))
+                    para.Add(db.CreateParam("PricingMethod", DbType.String, ParameterDirection.Input, req.PricingMethod));
+                else
+                    para.Add(db.CreateParam("PricingMethod", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.PricingSign))
+                    para.Add(db.CreateParam("PricingSign", DbType.String, ParameterDirection.Input, req.PricingSign));
+                else
+                    para.Add(db.CreateParam("PricingSign", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (req.PricingDisc > 0)
+                    para.Add(db.CreateParam("PricingDisc", DbType.Decimal, ParameterDirection.Input, Convert.ToDecimal(req.PricingDisc)));
+                else
+                    para.Add(db.CreateParam("PricingDisc", DbType.Decimal, ParameterDirection.Input, DBNull.Value));
+
                 DataTable Stock_dt = db.ExecuteSP("Get_SearchStock", para.ToArray(), false);
                 return Stock_dt;
             }
@@ -9769,6 +9784,21 @@ namespace API.Controllers
                 para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
                 para.Add(db.CreateParam("Comments", DbType.String, ParameterDirection.Input, req.Comments));
                 para.Add(db.CreateParam("SupplierId_RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, req.SupplierId_RefNo_SupplierRefNo));
+
+                if (!string.IsNullOrEmpty(req.PricingMethod))
+                    para.Add(db.CreateParam("PricingMethod", DbType.String, ParameterDirection.Input, req.PricingMethod));
+                else
+                    para.Add(db.CreateParam("PricingMethod", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.PricingSign))
+                    para.Add(db.CreateParam("PricingSign", DbType.String, ParameterDirection.Input, req.PricingSign));
+                else
+                    para.Add(db.CreateParam("PricingSign", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (req.PricingDisc > 0)
+                    para.Add(db.CreateParam("PricingDisc", DbType.Decimal, ParameterDirection.Input, Convert.ToDecimal(req.PricingDisc)));
+                else
+                    para.Add(db.CreateParam("PricingDisc", DbType.Decimal, ParameterDirection.Input, DBNull.Value));
 
                 DataTable dt = db.ExecuteSP("PlaceOrder", para.ToArray(), false);
 

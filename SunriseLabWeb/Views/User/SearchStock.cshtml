@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="~/Content/Plugins/multiselect/bootstrap-multiselect.css" type="text/css">
 }
 <style>
+    .val-txtbx {
+        padding: 3.5px;
+        font-size: 13px;
+        width: 110%;
+    }
     .btn-group > .btn:first-child {
         width: 355px;
     }
@@ -377,14 +382,39 @@
                             <input type="text" autocomplete="off" maxlength="2000" class="form-control border-0 small searchStock" id="txtRefNo" onkeyup="CommaSeperated_list(event)" placeholder="Ref No / Supplier Ref No / Certificate No (Comma or Space)...">
                         </div>
                     </div>
-                    <div class="col-xl-5 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
+                    <div class="col-xl-4 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
                         <div class="order-company-name common-order">
                             <div class="offer-label">Supplier: </div>
                             <select id="ddlSupplierId" class="form-control common-control" multiple="multiple" style="width: 100%">
                             </select>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
+                    <div class="col-xl-5 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
+                        <div class="order-company-name common-order">
+                            <div class="offer-label">Price Method: </div>
+                            <div class="row m-0">
+                                <div class="col-sm-5 col-sm-4 col-xs-10 custom-box-list api-plr">
+                                    <select class="form-control common-control select2" id="PricingMethod_1" name="PricingMethod_1">
+                                        <option value="">Select Method</option>
+                                        <option value="Disc">Discount</option>
+                                        <option value="Value">Value</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 col-sm-2 col-xs-10 custom-box-list api-plr">
+                                    <select class="form-control common-control select2" id="PricingSign_1" name="PricingSign_1">
+                                        <option value="Plus">+</option>
+                                        <option value="Minus">-</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 col-sm-4 col-xs-10 custom-box-list api-plr">
+                                    <div class="api-plr txtDisc_1" style="margin-right: 12px; margin-top: 0px;">
+                                        <input onchange="_checkValue(this)" type="text" id="txtDisc_1_1" class="form-control common-control dis_val val-txtbx" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
                         <div class="order-company-name common-order">
                             <div class="offer-label">User: </div>
                             <select id="ddlUserId" class="form-control common-control">
@@ -817,27 +847,27 @@
 <div class="bottom-button-bar text-right">
     <ul class="two">
         @*@if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 9 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 15
-            || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 39 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 10) // Nilesh, Ankit Shah, Sandeep, jigijiga
-        {
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
-            if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 9 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 15) // Nilesh, Ankit Shah
+                || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 39 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 10) // Nilesh, Ankit Shah, Sandeep, jigijiga
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
+                if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 9 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 15) // Nilesh, Ankit Shah
+                {
+                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
+                }
+            }
+            else if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 2528) //mehta_ritesh
             {
                 <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
             }
-        }
-        else if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 2528) //mehta_ritesh
-        {
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
-        }
-        else
-        {
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Customer');"><i class="fa fa-search" aria-hidden="true"></i>Customer</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Supplier');"><i class="fa fa-search" aria-hidden="true"></i>Supplier</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(1);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
-            <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
-        }*@
+            else
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Customer');"><i class="fa fa-search" aria-hidden="true"></i>Customer</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Supplier');"><i class="fa fa-search" aria-hidden="true"></i>Supplier</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(1);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
+            }*@
 
         @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Admin")
         {
