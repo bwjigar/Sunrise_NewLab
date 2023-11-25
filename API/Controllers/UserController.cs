@@ -10498,10 +10498,11 @@ namespace API.Controllers
                                 if (U_dt != null && U_dt.Rows.Count > 0)
                                 {
                                     Assist_UserId = Convert.ToInt32(Convert.ToString(U_dt.Rows[0]["AssistBy"]) == "" ? "0" : Convert.ToString(U_dt.Rows[0]["AssistBy"]));
+                                    vparty_code = Convert.ToInt32(Convert.ToString(U_dt.Rows[0]["FortunePartyCode"]) == "" ? "0" : Convert.ToString(U_dt.Rows[0]["FortunePartyCode"]));
                                     vparty_name = Convert.ToString(U_dt.Rows[0]["CompName"]);
                                 }
 
-                                if (Assist_UserId > 0)
+                                if (vparty_code > 0 && Assist_UserId > 0)
                                 {
                                     Req.UserId = Assist_UserId;
 
@@ -10510,7 +10511,7 @@ namespace API.Controllers
                                     if (A_dt != null && A_dt.Rows.Count > 0)
                                     {
                                         vuser_code = Convert.ToInt32(Convert.ToString(A_dt.Rows[0]["UserCode"]) == "" ? "0" : Convert.ToString(A_dt.Rows[0]["UserCode"]));
-                                        vparty_code = Convert.ToInt32(Convert.ToString(A_dt.Rows[0]["FortunePartyCode"]) == "" ? "0" : Convert.ToString(A_dt.Rows[0]["FortunePartyCode"]));
+                                        //vparty_code = Convert.ToInt32(Convert.ToString(A_dt.Rows[0]["FortunePartyCode"]) == "" ? "0" : Convert.ToString(A_dt.Rows[0]["FortunePartyCode"]));
 
                                         if (vuser_code != 0 && vparty_code != 0 && vparty_name != "")
                                         {
