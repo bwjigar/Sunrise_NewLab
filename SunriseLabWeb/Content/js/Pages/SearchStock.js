@@ -73,7 +73,9 @@ function Master_Get() {
             }
             if (data != null && data.Data.length > 0) {
                 for (var k in data.Data) {
-                    $("#ddlUserId").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].CompName + " [" + data.Data[k].UserName + "]" + "</option>");
+                    if (data.Data[k].StockDiscMgt_Count > 0) {
+                        $("#ddlUserId").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].CompName + " [" + data.Data[k].UserName + "]" + "</option>");
+                    }
                 }
             }
         },
@@ -840,7 +842,7 @@ const datasource1 = {
         if (params.request.sortModel.length > 0) {
             OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
         }
-        
+
         obj = ObjectCreate(PageNo, pgSize, OrderBy, '');
         obj.View = true;
         obj.Download = false;
@@ -2193,7 +2195,7 @@ function GetSearchParameter() {
                 _(GirdleOpenList).each(function (girdleopen, i) {
                     $('#searchgirdleopen').append('<li onclick="SetActive(\'GIRDLEOPEN\',\'' + girdleopen.Value + '\')">' + girdleopen.Value + '</li>');
                 });
-                
+
                 KeyToSymbolList = _.filter(ParameterList, function (e) { return e.Type == 'Key to Symbol' });
 
 
@@ -2529,7 +2531,7 @@ function Reset() {
     $("#PricingMethod_1").val("");
     $("#PricingSign_1").val("Plus");
     $("#txtDisc_1_1").val("");
-    
+
     _.map(ShapeList, function (data) { return data.ACTIVE = false; });
     _.map(ColorList, function (data) { return data.ACTIVE = false; });
     _.map(ClarityList, function (data) { return data.ACTIVE = false; });

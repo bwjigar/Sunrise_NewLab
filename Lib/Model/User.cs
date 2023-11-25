@@ -54,6 +54,7 @@ namespace Lib.Model
         public int UserCode { get; set; }
         public bool View { get; set; }
         public bool Download { get; set; }
+        public int StockDiscMgt_Count { get; set; }
     }
     public class Exist_Request
     {
