@@ -79,7 +79,8 @@ var columnDefs = [
     { headerName: "Display Image", field: "Image", width: 65, cellRenderer: Status, },
     { headerName: "Display Video", field: "Video", width: 65, cellRenderer: Status, },
     { headerName: "Display Certi", field: "Certi", width: 65, cellRenderer: Status, },
-    { headerName: "Last Updated", field: "UpdateDate", width: 130 },
+    { headerName: "Last Modified", field: "UpdateDate", width: 130 },
+    { headerName: "Last Updated", field: "LastStockUploadDateTime", width: 130 },
 ];
 
 function SupplierURL(params) {

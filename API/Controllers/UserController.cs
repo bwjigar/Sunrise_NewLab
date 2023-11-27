@@ -6908,13 +6908,9 @@ namespace API.Controllers
                             row["Table Open"] = "TO2";
                         }
 
-                        else if (str.Trim() == "CO01")
+                        else if (str.Trim() == "CO01" || str.Trim() == "CHL" || str.Trim() == "CO1")
                         {
                             row["Crown Open"] = "CO1";
-                        }
-                        else if (str.Trim() == "CHL" || str.Trim() == "CO1")
-                        {
-                            row["Crown Open"] = "TO1";
                         }
                         else if (str.Trim() == "CO2")
                         {
