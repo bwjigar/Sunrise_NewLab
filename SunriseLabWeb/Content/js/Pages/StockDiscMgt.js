@@ -275,7 +275,11 @@ function AddFilters() {
         //$(".import").hide();
         $(".order-title").addClass("col-xl-12");
         $("#btnBack").show();
+        $("#txt_S_UserName").val("");
+        $("#txt_S_Password").val("");
+        $("#URL").html("");
         Get_Customer_Stock_Disc();
+        Get_Customer_Stock_Disc_Mas();
     }
     else if (_.filter(gridOptions.api.getSelectedRows()).length == 0) {
         toastr.warning("Please select user for Add Stock & Disc Filters");
@@ -2561,6 +2565,7 @@ var AddNewRow = function () {
             ErrorMsg.forEach(function (item) {
                 $("#divError").append('<li>' + item.Error + '</li>');
             });
+            $("#ErrorModel .ErrorModelInner").addClass("modal-lg");
             $("#ErrorModel").modal("show");
         }
         else {
@@ -2873,6 +2878,7 @@ function UpdateRow() {
         ErrorMsg.forEach(function (item) {
             $("#divError").append('<li>' + item.Error + '</li>');
         });
+        $("#ErrorModel .ErrorModelInner").addClass("modal-lg");
         $("#ErrorModel").modal("show");
     }
     else {
@@ -3646,6 +3652,35 @@ function UpdateCancelRow() {
 
 var GetError_1 = function () {
     ErrorMsg = [];
+
+    if ($("#txt_S_UserName").val() == "") {
+        ErrorMsg.push({
+            'Error': "Please Enter User Name.",
+        });
+    }
+    else {
+        var newlength = $("#txt_S_UserName").val().length;
+        if (newlength < 5) {
+            ErrorMsg.push({
+                'Error': "Please Enter Minimum 5 Character User Name.",
+            });
+        }
+    }
+
+    if ($("#txt_S_Password").val() == "") {
+        ErrorMsg.push({
+            'Error': "Please Enter Password.",
+        });
+    }
+    else {
+        var newlength = $("#txt_S_Password").val().length;
+        if (newlength < 6) {
+            ErrorMsg.push({
+                'Error': "Please Enter Minimum 6 Character Password.",
+            });
+        }
+    }
+
     if (parseInt($("#tblFilters #tblBodyFilters").find('tr').length) == 0 && Exists_Record == 0) {
         ErrorMsg.push({
             'Error': "Supplier Disc Pricing Filter Not Found.",
@@ -3660,6 +3695,8 @@ function SaveData() {
         ErrorMsg.forEach(function (item) {
             $("#divError").append('<li>' + item.Error + '</li>');
         });
+
+        $("#ErrorModel .ErrorModelInner").removeClass("modal-lg");
         $("#ErrorModel").modal("show");
     }
     else {
@@ -3754,6 +3791,8 @@ function SaveData() {
 
         var obj = {};
         obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
+        obj.UserName = $("#txt_S_UserName").val();
+        obj.Password = $("#txt_S_Password").val();
         obj.SuppDisc = list;
 
         loaderShow();
@@ -3766,7 +3805,8 @@ function SaveData() {
                 if (data.Status == "1") {
                     toastr.success(data.Message);
                     Get_Customer_Stock_Disc();
-                    $(window).scrollTop(100);
+                    Get_Customer_Stock_Disc_Mas();
+                    $(window).scrollTop(0);
                 }
                 else {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
@@ -4062,6 +4102,26 @@ function Get_Customer_Stock_Disc() {
                     MoveToErrorPage(0);
                 }
                 toastr.error(data.Message);
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            loaderHide();
+        }
+    });
+}
+function Get_Customer_Stock_Disc_Mas() {
+    var obj = {};
+    obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
+
+    $.ajax({
+        url: '/User/Get_Customer_Stock_Disc_Mas',
+        type: "POST",
+        data: { req: obj },
+        success: function (data) {
+            if (data.Status == "1" && data.Data.length > 0) {
+                $("#txt_S_UserName").val(data.Data[0].UserName);
+                $("#txt_S_Password").val(data.Data[0].Password);
+                $("#URL").html("Link : " + data.Data[0].URL);
             }
             loaderHide();
         },

@@ -796,7 +796,7 @@ namespace EpExcelExportLib
                                 if (dra.Length > 0)
                                 {
                                     Supplier_Base_Offer_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Supplier_Base_Offer_Value_Doller = ((Image_Video_Certi != 0 && Supplier_Base_Offer_Value_Doller > Image_Video_Certi) ? Supplier_Base_Offer_Value_Doller + 1 : Supplier_Base_Offer_Value_Doller); ;
+                                    Supplier_Base_Offer_Value_Doller = ((Image_Video_Certi != 0 && Supplier_Base_Offer_Value_Doller > Image_Video_Certi) ? Supplier_Base_Offer_Value_Doller + 1 : Supplier_Base_Offer_Value_Doller);
                                 }
 
                                 if (Rap_Amount != 0 && Supplier_Base_Offer_Value_Doller != 0)
@@ -840,7 +840,7 @@ namespace EpExcelExportLib
                                 if (dra.Length > 0)
                                 {
                                     Supplier_Final_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Supplier_Final_Value_Doller = ((Image_Video_Certi != 0 && Supplier_Final_Value_Doller > Image_Video_Certi) ? Supplier_Final_Value_Doller + 1 : Supplier_Final_Value_Doller); ;
+                                    Supplier_Final_Value_Doller = ((Image_Video_Certi != 0 && Supplier_Final_Value_Doller > Image_Video_Certi) ? Supplier_Final_Value_Doller + 1 : Supplier_Final_Value_Doller);
                                 }
 
                                 if (Rap_Amount != 0 && Supplier_Final_Value_Doller != 0)
@@ -884,7 +884,7 @@ namespace EpExcelExportLib
                                 if (dra.Length > 0)
                                 {
                                     Supplier_Final_Value_With_Max_Slab_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Supplier_Final_Value_With_Max_Slab_Doller = ((Image_Video_Certi != 0 && Supplier_Final_Value_With_Max_Slab_Doller > Image_Video_Certi) ? Supplier_Final_Value_With_Max_Slab_Doller + 1 : Supplier_Final_Value_With_Max_Slab_Doller); ;
+                                    Supplier_Final_Value_With_Max_Slab_Doller = ((Image_Video_Certi != 0 && Supplier_Final_Value_With_Max_Slab_Doller > Image_Video_Certi) ? Supplier_Final_Value_With_Max_Slab_Doller + 1 : Supplier_Final_Value_With_Max_Slab_Doller);
                                 }
 
                                 if (Rap_Amount != 0 && Supplier_Final_Value_With_Max_Slab_Doller != 0)
@@ -929,7 +929,7 @@ namespace EpExcelExportLib
                                 if (dra.Length > 0)
                                 {
                                     Bid_Amt = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Bid_Amt = ((Image_Video_Certi != 0 && Bid_Amt > Image_Video_Certi) ? Bid_Amt + 1 : Bid_Amt); ;
+                                    Bid_Amt = ((Image_Video_Certi != 0 && Bid_Amt > Image_Video_Certi) ? Bid_Amt + 1 : Bid_Amt);
                                 }
 
                                 if (Rap_Amount != 0 && Bid_Amt != 0)
@@ -973,7 +973,7 @@ namespace EpExcelExportLib
                                 if (dra.Length > 0)
                                 {
                                     Bid_Amt = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Bid_Amt = ((Image_Video_Certi != 0 && Bid_Amt > Image_Video_Certi) ? Bid_Amt + 1 : Bid_Amt); ;
+                                    Bid_Amt = ((Image_Video_Certi != 0 && Bid_Amt > Image_Video_Certi) ? Bid_Amt + 1 : Bid_Amt);
                                 }
 
                                 if (Cts != 0 && Bid_Amt != 0)
@@ -1556,7 +1556,7 @@ namespace EpExcelExportLib
                                 if (dra.Length > 0)
                                 {
                                     Supplier_Cost_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Supplier_Cost_Value_Doller = ((Image_Video != 0 && Supplier_Cost_Value_Doller > Image_Video) ? Supplier_Cost_Value_Doller + 1 : Supplier_Cost_Value_Doller); ;
+                                    Supplier_Cost_Value_Doller = ((Image_Video != 0 && Supplier_Cost_Value_Doller > Image_Video) ? Supplier_Cost_Value_Doller + 1 : Supplier_Cost_Value_Doller);
                                 }
 
                                 if (Rap_Amount != 0 && Supplier_Cost_Value_Doller != 0)
@@ -1600,7 +1600,7 @@ namespace EpExcelExportLib
                                 if (dra.Length > 0)
                                 {
                                     Sunrise_Value_US_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Sunrise_Value_US_Doller = ((Image_Video != 0 && Sunrise_Value_US_Doller > Image_Video) ? Sunrise_Value_US_Doller + 1 : Sunrise_Value_US_Doller); ;
+                                    Sunrise_Value_US_Doller = ((Image_Video != 0 && Sunrise_Value_US_Doller > Image_Video) ? Sunrise_Value_US_Doller + 1 : Sunrise_Value_US_Doller);
                                 }
 
                                 if (Rap_Amount != 0 && Sunrise_Value_US_Doller != 0)
@@ -1644,7 +1644,7 @@ namespace EpExcelExportLib
                                 if (dra.Length > 0)
                                 {
                                     Supplier_Base_Offer_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Supplier_Base_Offer_Value_Doller = ((Image_Video != 0 && Supplier_Base_Offer_Value_Doller > Image_Video) ? Supplier_Base_Offer_Value_Doller + 1 : Supplier_Base_Offer_Value_Doller); ;
+                                    Supplier_Base_Offer_Value_Doller = ((Image_Video != 0 && Supplier_Base_Offer_Value_Doller > Image_Video) ? Supplier_Base_Offer_Value_Doller + 1 : Supplier_Base_Offer_Value_Doller);
                                 }
 
                                 if (Rap_Amount != 0 && Supplier_Base_Offer_Value_Doller != 0)
@@ -2197,7 +2197,7 @@ namespace EpExcelExportLib
                                 if (dra.Length > 0)
                                 {
                                     Offer_Value_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
-                                    Offer_Value_Doller = ((Image_Video_Certi != 0 && Offer_Value_Doller > Image_Video_Certi) ? Offer_Value_Doller + 1 : Offer_Value_Doller); ;
+                                    Offer_Value_Doller = ((Image_Video_Certi != 0 && Offer_Value_Doller > Image_Video_Certi) ? Offer_Value_Doller + 1 : Offer_Value_Doller);
                                 }
 
                                 if (Rap_Amount != 0 && Offer_Value_Doller != 0)

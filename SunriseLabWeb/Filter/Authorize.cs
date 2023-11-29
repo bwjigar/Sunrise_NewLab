@@ -19,10 +19,10 @@ namespace SunriseLabWeb_New.Filter
                     Uri url = new Uri(System.Web.HttpContext.Current.Request.Url.AbsoluteUri);
                     string action = String.Format("{3}", url.Scheme, Uri.SchemeDelimiter, url.Authority, url.AbsolutePath);
 
-                    //if (action != "/Lab/Download" && action != "/Lab/DownloadAction" && action != "/Lab/Index" && action != "/Lab/LabAPI_LabDataUpload_Ora" && action != "/Lab" && action != "/Lab/LabStockDataDelete")
-                    //{
-                    filterContext.Result = new RedirectResult("~/Login/Index");
-                    //}
+                    if (action != "/User/URL")
+                    {
+                        filterContext.Result = new RedirectResult("~/Login/Index");
+                    }
                 }
                 else if (SessionFacade.UserSession != null)
                 {

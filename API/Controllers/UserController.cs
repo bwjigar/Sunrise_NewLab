@@ -31,6 +31,7 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using System.Net.Mail;
 
 
+
 namespace API.Controllers
 {
     [Authorize]
@@ -756,6 +757,9 @@ namespace API.Controllers
                 DataTable dtData = new DataTable();
                 DataTable dt = new DataTable();
                 dt.Columns.Add("UserId", typeof(string));
+                dt.Columns.Add("UserName", typeof(string));
+                dt.Columns.Add("Password", typeof(string));
+                dt.Columns.Add("URL", typeof(string));
                 dt.Columns.Add("Supplier", typeof(string));
                 dt.Columns.Add("Location", typeof(string));
                 dt.Columns.Add("Shape", typeof(string));
@@ -828,6 +832,9 @@ namespace API.Controllers
                         DataRow dr = dt.NewRow();
 
                         dr["UserId"] = req.UserId;
+                        dr["UserName"] = req.UserName;
+                        dr["Password"] = req.Password;
+                        dr["URL"] = req.URL;
                         dr["Supplier"] = req.SuppDisc[i].Supplier;
                         dr["Location"] = req.SuppDisc[i].Location;
                         dr["Shape"] = req.SuppDisc[i].Shape;
@@ -982,6 +989,63 @@ namespace API.Controllers
                 return Ok(new ServiceResponse<Obj_Supplier_Disc>
                 {
                     Data = new List<Obj_Supplier_Disc>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Get_Customer_Stock_Disc_Mas([FromBody] JObject data)
+        {
+            Save_Supplier_Disc_Req req = new Save_Supplier_Disc_Req();
+            try
+            {
+                req = JsonConvert.DeserializeObject<Save_Supplier_Disc_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_Customer_Stock_Disc_Mas_Res>
+                {
+                    Data = new List<Get_Customer_Stock_Disc_Mas_Res>(),
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+
+            }
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para;
+                para = new List<IDbDataParameter>();
+
+                if (req.UserId > 0)
+                    para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+                else
+                    para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, DBNull.Value));
+
+                DataTable dt = db.ExecuteSP("Get_Customer_Stock_Disc_Mas", para.ToArray(), false);
+
+                List<Get_Customer_Stock_Disc_Mas_Res> List_Res = new List<Get_Customer_Stock_Disc_Mas_Res>();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    List_Res = DataTableExtension.ToList<Get_Customer_Stock_Disc_Mas_Res>(dt);
+                }
+
+                return Ok(new ServiceResponse<Get_Customer_Stock_Disc_Mas_Res>
+                {
+                    Data = List_Res,
+                    Message = "SUCCESS",
+                    Status = "1"
+                });
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_Customer_Stock_Disc_Mas_Res>
+                {
+                    Data = new List<Get_Customer_Stock_Disc_Mas_Res>(),
                     Message = "Something Went wrong.\nPlease try again later",
                     Status = "0"
                 });
@@ -11268,6 +11332,206 @@ namespace API.Controllers
             {
                 Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 throw ex;
+            }
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult Add_Customer_Stock_Disc_Mas_Request([FromBody] JObject data)
+        {
+            try
+            {
+                CommonResponse resp = new CommonResponse();
+
+                Database db = new Database();
+                List<IDbDataParameter> para;
+                para = new List<IDbDataParameter>();
+
+                para.Add(db.CreateParam("Request", DbType.String, ParameterDirection.Input, data.ToString()));
+
+                DataTable dt = db.ExecuteSP("Add_Customer_Stock_Disc_Mas_Request", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    resp.Status = "1";
+                    resp.Message = Convert.ToString(dt.Rows[0]["Id"]);
+                }
+                else
+                {
+                    resp.Status = "0";
+                    resp.Message = "Failed";
+                }
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult Get_URL([FromBody] JObject data)
+        {
+            Add_LabEntry_Res Req_0 = new Add_LabEntry_Res();
+            Get_URL_Req Req = new Get_URL_Req();
+
+            try
+            {
+                if (!string.IsNullOrEmpty(Convert.ToString(data)))
+                {
+                    JObject test1 = JObject.Parse(data.ToString());
+                    Req_0 = JsonConvert.DeserializeObject<Add_LabEntry_Res>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+
+                    Database db = new Database();
+                    List<IDbDataParameter> para;
+                    para = new List<IDbDataParameter>();
+
+                    para.Add(db.CreateParam("Id", DbType.Int32, ParameterDirection.Input, Req_0.Id));
+
+                    DataTable dt = db.ExecuteSP("Get_Customer_Stock_Disc_Mas_Request", para.ToArray(), false);
+
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        string Request = Convert.ToString(dt.Rows[0]["Request"]);
+                        Req = JsonConvert.DeserializeObject<Get_URL_Req>(Request.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+
+            try
+            {
+                CommonResponse resp = new CommonResponse();
+
+                if (!String.IsNullOrEmpty(Req.UserName) && !String.IsNullOrEmpty(Req.Password) && Req.TransId > 0)
+                {
+                    Database db = new Database();
+                    List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                    if (!String.IsNullOrEmpty(Req.UserName))
+                        para.Add(db.CreateParam("UserName", DbType.String, ParameterDirection.Input, Req.UserName));
+                    else
+                        para.Add(db.CreateParam("UserName", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                    if (!String.IsNullOrEmpty(Req.Password))
+                        para.Add(db.CreateParam("Password", DbType.String, ParameterDirection.Input, Req.Password));
+                    else
+                        para.Add(db.CreateParam("Password", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                    if (Req.TransId > 0)
+                        para.Add(db.CreateParam("Id", DbType.Int32, ParameterDirection.Input, Req.TransId));
+                    else
+                        para.Add(db.CreateParam("Id", DbType.Int32, ParameterDirection.Input, DBNull.Value));
+
+                    DataTable dt = db.ExecuteSP("Get_Customer_Stock_Disc_Mas", para.ToArray(), false);
+
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        if (Convert.ToInt32(dt.Rows[0]["StockDiscMgt_Count"]) > 0)
+                        {
+                            Get_SearchStock_Req req = new Get_SearchStock_Req();
+                            req.UserId = Convert.ToInt32(dt.Rows[0]["UserId"]);
+                            req.View = false;
+                            req.Download = true;
+
+                            DataTable dt_Result = SearchStock(req);
+                            if (dt_Result != null && dt_Result.Rows.Count > 0)
+                            {
+                                string tempPath = HostingEnvironment.MapPath("~/ExcelFile/StockDisc_URL_EXPORT/");
+
+                                DateTime now = DateTime.Now;
+                                string DATE = " " + now.Day + "" + now.Month + "" + now.Year + "" + now.Hour + "" + now.Minute + "" + now.Second;
+
+                                if (!Directory.Exists(tempPath))
+                                {
+                                    Directory.CreateDirectory(tempPath);
+                                }
+                                string filename = tempPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".xlsx";
+
+                                if (File.Exists(filename))
+                                {
+                                    File.Delete(filename);
+                                }
+
+                                db = new Database();
+                                para = new List<IDbDataParameter>();
+
+                                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+                                para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "CUSTOMER"));
+
+                                DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                                EpExcelExport.Customer_Excel(dt_Result, Col_dt, tempPath, filename);
+
+                                return Ok(new CommonResponse
+                                {
+                                    Message = filename,
+                                    Status = "1",
+                                    Error = ""
+                                });
+                            }
+                            else
+                            {
+                                return Ok(new CommonResponse
+                                {
+                                    Message = "",
+                                    Status = "0",
+                                    Error = "404 Stock Not Found"
+                                });
+                            }
+                        }
+                        else
+                        {
+                            return Ok(new CommonResponse
+                            {
+                                Message = "",
+                                Status = "0",
+                                Error = "404 Stock Not Found"
+                            });
+                        }
+                    }
+                    else
+                    {
+                        return Ok(new CommonResponse
+                        {
+                            Message = "",
+                            Status = "0",
+                            Error = "401 Unauthorized request"
+                        });
+                    }
+                }
+                else
+                {
+                    return Ok(new CommonResponse
+                    {
+                        Message = "",
+                        Status = "0",
+                        Error = "400 Bad Request"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Message = "",
+                    Status = "0",
+                    Error = ex.Message
+                });
             }
         }
     }

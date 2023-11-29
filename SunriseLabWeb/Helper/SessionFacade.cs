@@ -51,7 +51,7 @@ namespace SunriseLabWeb.Helper
                     Uri url = new Uri(System.Web.HttpContext.Current.Request.Url.AbsoluteUri);
                     string action = String.Format("{3}", url.Scheme, Uri.SchemeDelimiter, url.Authority, url.AbsolutePath);
 
-                    if (action != "/Lab/Download" && action != "/Lab/DownloadAction" && action != "/Lab/Index" && action != "/Lab")
+                    if (action != "/User/URL")
                     {
                         HttpContext.Current.Response.Redirect("~/Login/Index");
                     }

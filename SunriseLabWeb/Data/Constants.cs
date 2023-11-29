@@ -78,8 +78,11 @@ namespace SunriseLabWeb_New.Data
 
         public static string Get_LabAvailibility = "/User/Get_LabAvailibility";
         public static string Excel_LabAvailibility = "/User/Excel_LabAvailibility";
-
         
+        public static string Add_Customer_Stock_Disc_Mas_Request = "/User/Add_Customer_Stock_Disc_Mas_Request";
+        public static string Get_URL = "/User/Get_URL";
+
+
 
 
         public static string RapaPort_Data_Upload_Ora = "/User/RapaPort_Data_Upload_Ora";
@@ -111,6 +114,7 @@ namespace SunriseLabWeb_New.Data
 
         public static string AddUpdate_Customer_Stock_Disc = "/User/AddUpdate_Customer_Stock_Disc";
         public static string Get_Customer_Stock_Disc = "/User/Get_Customer_Stock_Disc";
+        public static string Get_Customer_Stock_Disc_Mas = "/User/Get_Customer_Stock_Disc_Mas";
 
         public static string GetUserProfilePicture = "/User/GetUserProfilePicture";
 

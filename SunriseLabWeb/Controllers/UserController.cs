@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -523,6 +524,16 @@ namespace SunriseLabWeb_New.Controllers
         }
         public JsonResult AddUpdate_Customer_Stock_Disc(Save_Supplier_Disc_Req req)
         {
+            Uri url = new Uri(System.Web.HttpContext.Current.Request.Url.AbsoluteUri);
+
+            string AbsoluteUri = url.AbsoluteUri;
+            string AbsolutePath = url.AbsolutePath;
+            string mainurl = AbsoluteUri.Replace(AbsolutePath, "");
+
+            string DecodedUsername = WebUtility.UrlEncode(Encrypt(req.UserName));
+            string DecodedPassword = WebUtility.UrlEncode(Encrypt(req.Password));
+            req.URL = mainurl + "/User/URL?UN=" + DecodedUsername + "&PD=" + DecodedPassword + "&TransId=";
+
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.AddUpdate_Customer_Stock_Disc, inputJson);
             CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
@@ -533,6 +544,13 @@ namespace SunriseLabWeb_New.Controllers
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.Get_Customer_Stock_Disc, inputJson);
             ServiceResponse<Obj_Supplier_Disc> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Obj_Supplier_Disc>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Get_Customer_Stock_Disc_Mas(Save_Supplier_Disc_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Get_Customer_Stock_Disc_Mas, inputJson);
+            ServiceResponse<Get_Customer_Stock_Disc_Mas_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_Customer_Stock_Disc_Mas_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult AddUpdate_SupplierStock_FromSupplier(VendorResponse req)
@@ -1039,6 +1057,118 @@ namespace SunriseLabWeb_New.Controllers
 
                 return Json(lst, JsonRequestBehavior.AllowGet);
             }
+        }
+        
+        private static Byte[] Key_64 = { 42, 16, 93, 156, 78, 4, 218, 32 };
+        private static Byte[] Iv_64 = { 55, 103, 246, 79, 36, 99, 167, 3 };
+        public static string Encrypt(string cValue, bool isFile = false)
+        {
+            string cAsVal = Decrypt(cValue);
+            if (!cAsVal.Equals(cValue))
+                return cValue;
+            //if (!isFile)
+            //{
+            //    cValue = cValue.Replace("'", "•");
+            //    if (IsNumeric(cValue))
+            //        cValue = "A_°" + cValue;
+            //}
+            DESCryptoServiceProvider CryptoProvidor = new DESCryptoServiceProvider();
+            MemoryStream ms = new MemoryStream();
+            CryptoStream cs = new CryptoStream(ms, CryptoProvidor.CreateEncryptor(Key_64, Iv_64), CryptoStreamMode.Write);
+            StreamWriter sw = new StreamWriter(cs);
+            sw.Write(cValue);
+            sw.Flush();
+            cs.FlushFinalBlock();
+            ms.Flush();
+            return Convert.ToBase64String(ms.GetBuffer(), 0, Convert.ToInt32(ms.Length));
+        }
+        public static string Decrypt(string cValue, bool isFile = false)
+        {
+            try
+            {
+                DESCryptoServiceProvider CryptoProvidor = new DESCryptoServiceProvider();
+                Byte[] buf = new byte[cValue.Length];
+                buf = Convert.FromBase64String(cValue);
+                MemoryStream ms = new MemoryStream(buf);
+                CryptoStream cs = new CryptoStream(ms, CryptoProvidor.CreateDecryptor(Key_64, Iv_64), CryptoStreamMode.Read);
+                StreamReader sr = new StreamReader(cs);
+                string cRetVal = sr.ReadToEnd();
+
+                //if (!isFile)
+                //{
+                //    cRetVal = cRetVal.Replace("•", "'");//Tejas Add On 16/09/2011
+                //    if (cRetVal.StartsWith("A_°"))
+                //        cRetVal = cRetVal.Replace("A_°", "");
+                //}
+                return cRetVal;
+            }
+            catch //(Exception ex)
+            {
+                //MessageBox.Show("Error in Decryptstring : " + ex.Message);
+            }
+            return cValue;
+        }
+        public static string EncodeServerName(string serverName)
+        {
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(serverName));
+        }
+        public static string DecodeServerName(string encodedServername)
+        {
+            return Encoding.UTF8.GetString(Convert.FromBase64String(encodedServername));
+        }
+        public JsonResult URL(string UN, string PD, int TransId)
+        {
+            string username = Decrypt(UN);
+            string password = Decrypt(PD);
+
+            Get_URL_Req Req = new Get_URL_Req();
+            Req.UserName = username;
+            Req.Password = password;
+            Req.TransId = TransId;
+
+            string inputJson = (new JavaScriptSerializer()).Serialize(Req);
+            string response = _api.CallAPIWithoutToken(Constants.Add_Customer_Stock_Disc_Mas_Request, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+
+            Add_LabEntry_Res Res = new Add_LabEntry_Res();
+            CommonResponse data_1 = new CommonResponse();
+
+            if (data.Status == "1" && data.Message != "Failed")
+            {
+                Res.Id = Convert.ToInt32(data.Message);
+
+                string inputJson_1 = (new JavaScriptSerializer()).Serialize(Res);
+                string response_1 = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_URL, inputJson_1);
+                CommonResponse _data = new CommonResponse();
+                _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response_1);
+
+                if (_data.Status == "1")
+                {
+                    string path = _data.Message;
+                    string[] pathArr = path.Split('\\');
+                    string[] fileArr = pathArr.Last().Split('.');
+                    string fileName = fileArr.Last().ToString();
+
+                    Response.ContentType = fileArr.Last();
+                    Response.AddHeader("Content-Disposition", "attachment;filename=\"" + pathArr.Last() + "\"");
+                    Response.TransmitFile(_data.Message);
+                    Response.End();
+                    
+                    data_1.Status = "1";
+                    data_1.Message = "Success";
+                }
+                else
+                {
+                    data_1.Status = "0";
+                    data_1.Message = _data.Error;
+                }
+            }
+            else
+            {
+                data_1.Status = "0";
+                data_1.Message = "Something Went wrong.\nPlease try again later";
+            }
+            return Json(data_1.Message, JsonRequestBehavior.AllowGet);
         }
     }
 }

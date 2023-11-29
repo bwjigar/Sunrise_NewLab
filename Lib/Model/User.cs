@@ -404,6 +404,9 @@ namespace Lib.Model
     {
         public int UserId { get; set; }
         public int SupplierId { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string URL { get; set; }
         public List<Obj_Supplier_Disc> SuppDisc { get; set; }
         public Save_Supplier_Disc_Req()
         {
@@ -499,6 +502,15 @@ namespace Lib.Model
         public bool View { get; set; }
         public bool Download { get; set; }
     }
+    public class Get_Customer_Stock_Disc_Mas_Res
+    {
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string URL { get; set; }
+    }
+    
     public class Get_SearchStock_Req
     {
         public int UserId { get; set; }
@@ -1028,5 +1040,11 @@ namespace Lib.Model
         public string Comm_Grade { get; set; }
         public string Zone { get; set; }
         public string Para_Grade { get; set; }
+    }
+    public class Get_URL_Req
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public int TransId { get; set; }
     }
 }
