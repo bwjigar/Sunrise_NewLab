@@ -10861,6 +10861,10 @@ namespace API.Controllers
                                                     param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["LabEntry_Status"]);
                                                     paramList.Add(param1);
 
+                                                    param1 = new OracleParameter("vQC_REQUIRE", OracleDbType.NVarchar2);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["QC_Require"]);
+                                                    paramList.Add(param1);
+
                                                     param1 = new OracleParameter("vrec", OracleDbType.RefCursor);
                                                     param1.Direction = ParameterDirection.Output;
                                                     paramList.Add(param1);

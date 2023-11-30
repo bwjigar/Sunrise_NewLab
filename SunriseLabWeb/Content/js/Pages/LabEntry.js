@@ -519,7 +519,7 @@ function LabEntry() {
                             UserId: $("#ddl_User").val(),
                             Ref_No: TempData_Array[j][0],
                             SupplierId: TempData_Array[j][1],
-                            QC_Require: TempData_Array[j][2],
+                            QC_Require: (TempData_Array[j][2] == "" ? "Regular" : TempData_Array[j][2]),
                             LabEntry_Status: TempData_Array[j][3],
                             SUPPLIER_COST_DISC: TempData_Array[j][4],
                             SUPPLIER_COST_VALUE: TempData_Array[j][5],
