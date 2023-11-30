@@ -366,13 +366,13 @@ function BuyerList() {
                         columnDefs.push({ headerName: "Lab", field: "Lab", width: 50, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab", params); }, cellRenderer: function (params) { return Lab(params); } });
                     }
                     else if (item.Column_Name == "Supplier Name") {
-                        columnDefs.push({ headerName: "Supplier Name", field: "SupplierShortName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierShortName", params); } });
+                        columnDefs.push({ headerName: "Supplier Name", field: "SupplierName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierShortName", params); } });
                     }
                     else if (item.Column_Name == "Rank") {
                         columnDefs.push({ headerName: "Rank", field: "Rank", width: 50, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 0); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 0); }, cellStyle: function (params) { return cellStyle("Rank", params); } });
                     }
                     else if (item.Column_Name == "Supplier Status") {
-                        columnDefs.push({ headerName: "Supplier Status", field: "Supplier_Status", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Status", params); } });
+                        columnDefs.push({ headerName: "Supplier Status", field: "SupplierShortName", width: 180, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Status", params); } });
                     }
                     else if (item.Column_Name == "Buyer Name") {
                         columnDefs.push({ headerName: "Buyer Name", field: "Buyer_Name", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Buyer_Name", params); } });
@@ -662,8 +662,8 @@ function CustomerList() {
                     else if (item.Column_Name == "Offer Value($)") {
                         columnDefs.push({ headerName: "Offer Value($)", field: "CUSTOMER_COST_VALUE", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Value", params); } });
                     }
-                    else if (item.Column_Name == "Price Cts") {
-                        columnDefs.push({ headerName: "Price Cts", field: "Base_Price_Cts", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Base_Price_Cts", params); } });
+                    else if (item.Column_Name == "Price / Cts") {
+                        columnDefs.push({ headerName: "Price / Cts", field: "Base_Price_Cts", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Base_Price_Cts", params); } });
                     }
                     else if (item.Column_Name == "Cut") {
                         columnDefs.push({ headerName: "Cut", field: "Cut", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Cut", params); } });

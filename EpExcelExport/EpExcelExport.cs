@@ -259,7 +259,8 @@ namespace EpExcelExportLib
                                 }
                                 else if (Column_Name == "Supplier Name")
                                 {
-                                    worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["SupplierShortName"]);
+                                    //worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["SupplierShortName"]);
+                                    worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["SupplierName"]);
                                 }
                                 else if (Column_Name == "Rank")
                                 {
@@ -272,7 +273,8 @@ namespace EpExcelExportLib
                                 }
                                 else if (Column_Name == "Supplier Status")
                                 {
-                                    worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Supplier_Status"]);
+                                    //worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Supplier_Status"]);
+                                    worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["SupplierShortName"]);
                                 }
                                 else if (Column_Name == "Buyer Name")
                                 {
@@ -1960,7 +1962,7 @@ namespace EpExcelExportLib
                                     worksheet.Cells[inwrkrow, kk].Style.Fill.PatternType = ExcelFillStyle.Solid;
                                     worksheet.Cells[inwrkrow, kk].Style.Fill.BackgroundColor.SetColor(cellBg);
                                 }
-                                else if (Column_Name == "Price Cts")
+                                else if (Column_Name == "Price / Cts")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = ((dtDiamonds.Rows[i - inStartIndex]["Base_Price_Cts"] != null) ?
                                      (dtDiamonds.Rows[i - inStartIndex]["Base_Price_Cts"].GetType().Name != "DBNull" ?
@@ -3679,7 +3681,7 @@ namespace EpExcelExportLib
                         worksheet.Cells[3, 16].Value = "Rap Amount($)";
                         worksheet.Cells[3, 17].Value = "Offer Disc(%)";
                         worksheet.Cells[3, 18].Value = "Offer Value($)";
-                        worksheet.Cells[3, 19].Value = "Price Cts";
+                        worksheet.Cells[3, 19].Value = "Price / Cts";
                         worksheet.Cells[3, 20].Value = "Cut";
                         worksheet.Cells[3, 21].Value = "Polish";
                         worksheet.Cells[3, 22].Value = "Symm";
@@ -4070,7 +4072,7 @@ namespace EpExcelExportLib
                         worksheet.Cells[3, 14].Value = "Rap Amount($)";
                         worksheet.Cells[3, 15].Value = "Offer Disc(%)";
                         worksheet.Cells[3, 16].Value = "Offer Value($)";
-                        worksheet.Cells[3, 17].Value = "Price Cts";
+                        worksheet.Cells[3, 17].Value = "Price / Cts";
                         worksheet.Cells[3, 18].Value = "Cut";
                         worksheet.Cells[3, 19].Value = "Polish";
                         worksheet.Cells[3, 20].Value = "Symm";
@@ -4469,7 +4471,7 @@ namespace EpExcelExportLib
                         worksheet.Cells[3, 15].Value = "Rap Amount($)";
                         worksheet.Cells[3, 16].Value = "Offer Disc(%)";
                         worksheet.Cells[3, 17].Value = "Offer Value($)";
-                        worksheet.Cells[3, 18].Value = "Price Cts";
+                        worksheet.Cells[3, 18].Value = "Price / Cts";
                         worksheet.Cells[3, 19].Value = "Cut";
                         worksheet.Cells[3, 20].Value = "Polish";
                         worksheet.Cells[3, 21].Value = "Symm";
@@ -4853,7 +4855,7 @@ namespace EpExcelExportLib
                         worksheet.Cells[3, 13].Value = "Rap Amount($)";
                         worksheet.Cells[3, 14].Value = "Offer Disc(%)";
                         worksheet.Cells[3, 15].Value = "Offer Value($)";
-                        worksheet.Cells[3, 16].Value = "Price Cts";
+                        worksheet.Cells[3, 16].Value = "Price / Cts";
                         worksheet.Cells[3, 17].Value = "Cut";
                         worksheet.Cells[3, 18].Value = "Polish";
                         worksheet.Cells[3, 19].Value = "Symm";
