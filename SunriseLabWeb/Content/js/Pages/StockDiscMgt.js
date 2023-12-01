@@ -37,7 +37,7 @@ var columnDefs = [
     { headerName: "LastName", field: "LastName", hide: true },
     { headerName: "Customer Name", field: "FullName", tooltip: function (params) { return (params.value); }, width: 120 },
     { headerName: "Company Name", field: "CompName", tooltip: function (params) { return (params.value); }, width: 180 },
-    { headerName: "Fortune Party Code", field: "FortunePartyCode", tooltip: function (params) { return (params.value); }, width: 75 },
+    { headerName: "Fortune Party Code", field: "FortunePartyCode", tooltip: function (params) { return (params.data.FortunePartyCode > 0 ? params.data.FortunePartyCode : ""); }, cellRenderer: function (params) { return (params.data.FortunePartyCode > 0 ? params.data.FortunePartyCode : ""); }, width: 75 },
     { headerName: "Assist", field: "AssistByName", tooltip: function (params) { return (params.value); }, width: 120 },
     { headerName: "Sub Assist", field: "SubAssistByName", tooltip: function (params) { return (params.value); }, width: 120 },
     { headerName: "Mobile", field: "MobileNo", tooltip: function (params) { return (params.value); }, width: 120 },
