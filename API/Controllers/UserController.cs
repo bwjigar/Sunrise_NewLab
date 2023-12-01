@@ -758,7 +758,7 @@ namespace API.Controllers
                 DataTable dt = new DataTable();
                 dt.Columns.Add("UserId", typeof(string));
                 dt.Columns.Add("UserName", typeof(string));
-                dt.Columns.Add("Password", typeof(string));
+                //dt.Columns.Add("Password", typeof(string));
                 dt.Columns.Add("URL", typeof(string));
                 dt.Columns.Add("Supplier", typeof(string));
                 dt.Columns.Add("Location", typeof(string));
@@ -833,7 +833,7 @@ namespace API.Controllers
 
                         dr["UserId"] = req.UserId;
                         dr["UserName"] = req.UserName;
-                        dr["Password"] = req.Password;
+                        //dr["Password"] = req.Password;
                         dr["URL"] = req.URL;
                         dr["Supplier"] = req.SuppDisc[i].Supplier;
                         dr["Location"] = req.SuppDisc[i].Location;
@@ -11420,7 +11420,7 @@ namespace API.Controllers
             {
                 CommonResponse resp = new CommonResponse();
 
-                if (!String.IsNullOrEmpty(Req.UserName) && !String.IsNullOrEmpty(Req.Password) && Req.TransId > 0)
+                if (!String.IsNullOrEmpty(Req.UserName) && Req.TransId > 0)
                 {
                     Database db = new Database();
                     List<IDbDataParameter> para = new List<IDbDataParameter>();
@@ -11429,11 +11429,6 @@ namespace API.Controllers
                         para.Add(db.CreateParam("UserName", DbType.String, ParameterDirection.Input, Req.UserName));
                     else
                         para.Add(db.CreateParam("UserName", DbType.String, ParameterDirection.Input, DBNull.Value));
-
-                    if (!String.IsNullOrEmpty(Req.Password))
-                        para.Add(db.CreateParam("Password", DbType.String, ParameterDirection.Input, Req.Password));
-                    else
-                        para.Add(db.CreateParam("Password", DbType.String, ParameterDirection.Input, DBNull.Value));
 
                     if (Req.TransId > 0)
                         para.Add(db.CreateParam("Id", DbType.Int32, ParameterDirection.Input, Req.TransId));

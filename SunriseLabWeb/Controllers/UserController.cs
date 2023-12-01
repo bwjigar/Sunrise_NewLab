@@ -531,8 +531,8 @@ namespace SunriseLabWeb_New.Controllers
             string mainurl = AbsoluteUri.Replace(AbsolutePath, "");
 
             string DecodedUsername = WebUtility.UrlEncode(Encrypt(req.UserName));
-            string DecodedPassword = WebUtility.UrlEncode(Encrypt(req.Password));
-            req.URL = mainurl + "/User/URL?UN=" + DecodedUsername + "&PD=" + DecodedPassword + "&TransId=";
+            //string DecodedPassword = WebUtility.UrlEncode(Encrypt(req.Password));
+            req.URL = mainurl + "/User/URL?UN=" + DecodedUsername + "&TransId=";
 
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.AddUpdate_Customer_Stock_Disc, inputJson);
@@ -1116,14 +1116,12 @@ namespace SunriseLabWeb_New.Controllers
         {
             return Encoding.UTF8.GetString(Convert.FromBase64String(encodedServername));
         }
-        public JsonResult URL(string UN, string PD, int TransId)
+        public JsonResult URL(string UN, int TransId)
         {
             string username = Decrypt(UN);
-            string password = Decrypt(PD);
 
             Get_URL_Req Req = new Get_URL_Req();
             Req.UserName = username;
-            Req.Password = password;
             Req.TransId = TransId;
 
             string inputJson = (new JavaScriptSerializer()).Serialize(Req);

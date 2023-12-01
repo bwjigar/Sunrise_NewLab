@@ -275,8 +275,8 @@ function AddFilters() {
         //$(".import").hide();
         $(".order-title").addClass("col-xl-12");
         $("#btnBack").show();
-        $("#txt_S_UserName").val("");
-        $("#txt_S_Password").val("");
+        //$("#txt_S_UserName").val("");
+        //$("#txt_S_Password").val("");
         $("#URL").html("");
         Get_Customer_Stock_Disc();
         Get_Customer_Stock_Disc_Mas();
@@ -3653,33 +3653,33 @@ function UpdateCancelRow() {
 var GetError_1 = function () {
     ErrorMsg = [];
 
-    if ($("#txt_S_UserName").val() == "") {
-        ErrorMsg.push({
-            'Error': "Please Enter User Name.",
-        });
-    }
-    else {
-        var newlength = $("#txt_S_UserName").val().length;
-        if (newlength < 5) {
-            ErrorMsg.push({
-                'Error': "Please Enter Minimum 5 Character User Name.",
-            });
-        }
-    }
+    //if ($("#txt_S_UserName").val() == "") {
+    //    ErrorMsg.push({
+    //        'Error': "Please Enter User Name.",
+    //    });
+    //}
+    //else {
+    //    var newlength = $("#txt_S_UserName").val().length;
+    //    if (newlength < 5) {
+    //        ErrorMsg.push({
+    //            'Error': "Please Enter Minimum 5 Character User Name.",
+    //        });
+    //    }
+    //}
 
-    if ($("#txt_S_Password").val() == "") {
-        ErrorMsg.push({
-            'Error': "Please Enter Password.",
-        });
-    }
-    else {
-        var newlength = $("#txt_S_Password").val().length;
-        if (newlength < 6) {
-            ErrorMsg.push({
-                'Error': "Please Enter Minimum 6 Character Password.",
-            });
-        }
-    }
+    //if ($("#txt_S_Password").val() == "") {
+    //    ErrorMsg.push({
+    //        'Error': "Please Enter Password.",
+    //    });
+    //}
+    //else {
+    //    var newlength = $("#txt_S_Password").val().length;
+    //    if (newlength < 6) {
+    //        ErrorMsg.push({
+    //            'Error': "Please Enter Minimum 6 Character Password.",
+    //        });
+    //    }
+    //}
 
     if (parseInt($("#tblFilters #tblBodyFilters").find('tr').length) == 0 && Exists_Record == 0) {
         ErrorMsg.push({
@@ -3791,8 +3791,8 @@ function SaveData() {
 
         var obj = {};
         obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
-        obj.UserName = $("#txt_S_UserName").val();
-        obj.Password = $("#txt_S_Password").val();
+        obj.UserName = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserName').join(",");
+        //obj.Password = $("#txt_S_Password").val();
         obj.SuppDisc = list;
 
         loaderShow();
@@ -4119,8 +4119,8 @@ function Get_Customer_Stock_Disc_Mas() {
         data: { req: obj },
         success: function (data) {
             if (data.Status == "1" && data.Data.length > 0) {
-                $("#txt_S_UserName").val(data.Data[0].UserName);
-                $("#txt_S_Password").val(data.Data[0].Password);
+                //$("#txt_S_UserName").val(data.Data[0].UserName);
+                //$("#txt_S_Password").val(data.Data[0].Password);
                 $("#URL").html("Link : " + data.Data[0].URL);
             }
             loaderHide();
