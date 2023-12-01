@@ -124,3 +124,5 @@
 /SunriseLabWeb/Upload/LabAvailibility
 /API/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
 /SunriseLabWeb/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+/EpExcelExport/bin/Release
+/EpExcelExport/obj/Release
