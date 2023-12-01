@@ -507,6 +507,7 @@ function Reset() {
 var LabEntry_List = [];
 function LabEntry() {
     LabEntry_List = [];
+    LabEntry_StatusBlank = "";
     if ($("#ddl_User").val() != "") {
         var selectedRows = gridOptions.api.getSelectedRows();
         if (selectedRows.length > 0) {
@@ -533,50 +534,63 @@ function LabEntry() {
                         if (TempData_Array[j][3] == "") {
                             debugger
                             labCount += parseInt(labCount) + 1;
+                            LabEntry_StatusBlank += TempData_Array[j][0] + ", ";
                         }
                     }
                 }
             }
             debugger
+            
             if (labCount > 0) {
-                return toastr.warning("Please Select Lab Status");
+                debugger
+                //return toastr.warning("Please Select Lab Status");
+
+                LabEntry_StatusBlank = LabEntry_StatusBlank.slice(0, -2);
+
+                var final_msg = ''
+                final_msg = '<label class="offerComment" style="word-break:break-word;">Missing Lab Status For Following Ref No !!</label>';
+                final_msg += '<br><label class="offerComment" style="word-break:break-word;">' + LabEntry_StatusBlank + '</label>';
+                $("#Excel_Stone_Invalid_Modal .form-group").html(final_msg);
+                $('#Excel_Stone_Invalid_Modal').modal('show');
             }
+            else {
 
-            var msg = "<label class='offerComment' style='word -break: break-word;'>Are you sure you want to Add Below Ref No in Lab Entry ?</label>"
-            msg += "<table border='1' style='font-size:12px; width:100%; margin-top:5px; display:block; max-height:360px; overflow-y:auto;'>";
-            msg += "<tbody>";
-            msg += "<tr>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 4%;\"><center><b>No.</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 15%;\"><center><b>Ref No</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>QC Require</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Lab Status</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Supplier Cost Disc(%)</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Supplier Cost Value($)</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Sunrise Disc(%)</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Sunrise Value($)</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Profit(%)</b></center></td>";
-            msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Profit Amount($)</b></center></td>";
-            msg += "</tr>";
-
-            for (var q = 0; q < LabEntry_List.length; q++) {
+                var msg = "<label class='offerComment' style='word -break: break-word;'>Are you sure you want to Add Below Ref No in Lab Entry ?</label>"
+                msg += "<table border='1' style='font-size:12px; width:100%; margin-top:5px; display:block; max-height:360px; overflow-y:auto;'>";
+                msg += "<tbody>";
                 msg += "<tr>";
-                msg += "<td><center><b>" + (parseInt(q) + 1) + "</b></center></td>";
-                msg += "<td><center>" + LabEntry_List[q].Ref_No + "</center></td>";
-                msg += "<td><center>" + LabEntry_List[q].QC_Require + "</center></td>";
-                msg += "<td><center>" + LabEntry_List[q].LabEntry_Status + "</center></td>";
-                msg += "<td><center>" + formatNumber(LabEntry_List[q].SUPPLIER_COST_DISC) + "</center></td>";
-                msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].SUPPLIER_COST_VALUE) + "</center></td>";
-                msg += "<td><center>" + formatNumber(LabEntry_List[q].CUSTOMER_COST_DISC) + "</center></td>";
-                msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].CUSTOMER_COST_VALUE) + "</center></td>";
-                msg += "<td><center>" + formatNumber(LabEntry_List[q].PROFIT) + "</center></td>";
-                msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].PROFIT_AMOUNT) + "</center></td>";
+                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 4%;\"><center><b>No.</b></center></td>";
+                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 15%;\"><center><b>Ref No</b></center></td>";
+                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>QC Require</b></center></td>";
+                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Lab Status</b></center></td>";
+                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Supplier Cost Disc(%)</b></center></td>";
+                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Supplier Cost Value($)</b></center></td>";
+                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Sunrise Disc(%)</b></center></td>";
+                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Sunrise Value($)</b></center></td>";
+                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Profit(%)</b></center></td>";
+                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Profit Amount($)</b></center></td>";
                 msg += "</tr>";
-            }
-            msg += "</tbody>";
-            msg += "</table>";
 
-            $("#LabEntry_Modal #divList").html(msg);
-            $('#LabEntry_Modal').modal('show');
+                for (var q = 0; q < LabEntry_List.length; q++) {
+                    msg += "<tr>";
+                    msg += "<td><center><b>" + (parseInt(q) + 1) + "</b></center></td>";
+                    msg += "<td><center>" + LabEntry_List[q].Ref_No + "</center></td>";
+                    msg += "<td><center>" + LabEntry_List[q].QC_Require + "</center></td>";
+                    msg += "<td><center>" + LabEntry_List[q].LabEntry_Status + "</center></td>";
+                    msg += "<td><center>" + formatNumber(LabEntry_List[q].SUPPLIER_COST_DISC) + "</center></td>";
+                    msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].SUPPLIER_COST_VALUE) + "</center></td>";
+                    msg += "<td><center>" + formatNumber(LabEntry_List[q].CUSTOMER_COST_DISC) + "</center></td>";
+                    msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].CUSTOMER_COST_VALUE) + "</center></td>";
+                    msg += "<td><center>" + formatNumber(LabEntry_List[q].PROFIT) + "</center></td>";
+                    msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].PROFIT_AMOUNT) + "</center></td>";
+                    msg += "</tr>";
+                }
+                msg += "</tbody>";
+                msg += "</table>";
+
+                $("#LabEntry_Modal #divList").html(msg);
+                $('#LabEntry_Modal').modal('show');
+            }
         }
         else {
             toastr.warning("Please Select atleast One Stone");
