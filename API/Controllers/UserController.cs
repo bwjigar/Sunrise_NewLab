@@ -2999,7 +2999,9 @@ namespace API.Controllers
                     para.Add(db.CreateParam("Assist_UserId", DbType.Int64, ParameterDirection.Input, Req.Assist_UserId));
                 else
                     para.Add(db.CreateParam("Assist_UserId", DbType.Int64, ParameterDirection.Input, DBNull.Value));
-                
+
+                para.Add(db.CreateParam("URL_Exists", DbType.Boolean, ParameterDirection.Input, Req.URL_Exists));
+
                 DataTable dt = db.ExecuteSP("Get_UserMas", para.ToArray(), false);
 
                 return dt;

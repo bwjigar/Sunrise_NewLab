@@ -16,7 +16,13 @@ var showEntryHtml = '<div class="show_entry"><label>'
     + '</div>';
 
 $(document).ready(function () {
+    $("#txtStoneId").focus();
     contentHeight();
+    $("#txtStoneId").keyup(function (event) {
+        if (event.keyCode === 13) {
+            GetSearch();
+        }
+    });
 });
 
 function filterByProperty(data, prop, value) {

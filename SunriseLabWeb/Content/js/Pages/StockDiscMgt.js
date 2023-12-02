@@ -25,7 +25,7 @@ var columnDefs = [
         suppressMovable: false
     },
     { headerName: "UserId", field: "UserId", hide: true },
-    { headerName: "Sr", field: "iSr", tooltip: function (params) { return (params.value); }, sortable: false, width: 40 },
+    { headerName: "Sr", field: "iSr", tooltip: function (params) { return (params.value); }, sortable: false,hide:true, width: 40 },
     { headerName: "Create Date", field: "CreatedDate", tooltip: function (params) { return (params.value); }, width: 90 },
     { headerName: "Last Login Date", field: "LastLoginDate", tooltip: function (params) { return (params.value); }, width: 90 },
     { headerName: "UserTypeId", field: "UserTypeId", hide: true },
@@ -43,6 +43,7 @@ var columnDefs = [
     { headerName: "Mobile", field: "MobileNo", tooltip: function (params) { return (params.value); }, width: 120 },
     { headerName: "Email Id", field: "EmailId", tooltip: function (params) { return (params.value); }, width: 140 },
     { headerName: "Email Id 2", field: "EmailId_2", tooltip: function (params) { return (params.value); }, width: 140 },
+    { headerName: "URL", field: "URL", tooltip: function (params) { return (params.value); }, width: 440 },
 ];
 var faIndicator = function (params) {
     var element = document.createElement("a");
@@ -53,93 +54,93 @@ var faIndicator = function (params) {
     }
 }
 function GetUserList() {
-    if ($.trim($("#txtCompanyName").val()) != "") {
-        $("#divGrid").show();
+    //if ($.trim($("#txtCompanyName").val()) != "") {
+    $("#divGrid").show();
 
-        if (gridOptions.api != undefined) {
-            gridOptions.api.destroy();
+    if (gridOptions.api != undefined) {
+        gridOptions.api.destroy();
+    }
+    gridOptions = {
+        masterDetail: true,
+        detailCellRenderer: 'myDetailCellRenderer',
+        detailRowHeight: 70,
+        groupDefaultExpanded: 2,
+        defaultColDef: {
+            enableValue: false,
+            enableRowGroup: false,
+            enableSorting: false,
+            sortable: false,
+            resizable: true,
+            enablePivot: false,
+            filter: true
+        },
+        components: {
+            faIndicator: faIndicator,
+        },
+        pagination: true,
+        icons: {
+            groupExpanded:
+                '<i class="fa fa-minus-circle"/>',
+            groupContracted:
+                '<i class="fa fa-plus-circle"/>'
+        },
+        rowSelection: 'multiple',
+        overlayLoadingTemplate: '<span class="ag-overlay-loading-center">NO DATA TO SHOW..</span>',
+        suppressRowClickSelection: true,
+        columnDefs: columnDefs,
+        rowModelType: 'serverSide',
+        //onGridReady: onGridReady,
+        cacheBlockSize: pgSize, // you can have your custom page size
+        paginationPageSize: pgSize, //pagesize
+        getContextMenuItems: getContextMenuItems,
+        onBodyScroll: onBodyScroll,
+        paginationNumberFormatter: function (params) {
+            return '[' + params.value.toLocaleString() + ']';
         }
-        gridOptions = {
-            masterDetail: true,
-            detailCellRenderer: 'myDetailCellRenderer',
-            detailRowHeight: 70,
-            groupDefaultExpanded: 2,
-            defaultColDef: {
-                enableValue: false,
-                enableRowGroup: false,
-                enableSorting: false,
-                sortable: false,
-                resizable: true,
-                enablePivot: false,
-                filter: true
-            },
-            components: {
-                faIndicator: faIndicator,
-            },
-            pagination: true,
-            icons: {
-                groupExpanded:
-                    '<i class="fa fa-minus-circle"/>',
-                groupContracted:
-                    '<i class="fa fa-plus-circle"/>'
-            },
-            rowSelection: 'multiple',
-            overlayLoadingTemplate: '<span class="ag-overlay-loading-center">NO DATA TO SHOW..</span>',
-            suppressRowClickSelection: true,
-            columnDefs: columnDefs,
-            rowModelType: 'serverSide',
-            //onGridReady: onGridReady,
-            cacheBlockSize: pgSize, // you can have your custom page size
-            paginationPageSize: pgSize, //pagesize
-            getContextMenuItems: getContextMenuItems,
-            onBodyScroll: onBodyScroll,
-            paginationNumberFormatter: function (params) {
-                return '[' + params.value.toLocaleString() + ']';
-            }
-        };
+    };
 
-        var gridDiv = document.querySelector('#myGrid');
-        new agGrid.Grid(gridDiv, gridOptions);
-        gridOptions.api.setServerSideDatasource(datasource1);
+    var gridDiv = document.querySelector('#myGrid');
+    new agGrid.Grid(gridDiv, gridOptions);
+    gridOptions.api.setServerSideDatasource(datasource1);
 
-        $('#myGrid .ag-header-cell[col-id="0"] .ag-header-select-all').removeClass('ag-hidden');
+    $('#myGrid .ag-header-cell[col-id="0"] .ag-header-select-all').removeClass('ag-hidden');
 
-        setTimeout(function () {
-            if ($('#myGrid .ag-paging-panel').length > 0) {
-                $("").appendTo('#myGrid .ag-paging-panel');
-                $(lbl).appendTo('#myGrid .ag-paging-panel');
-                $("").appendTo('#myGrid .ag-paging-panel');
-                $(showEntryHtml).appendTo('#myGrid .ag-paging-panel');
-                $('#ddlPagesize').val(pgSize);
-                clearInterval(showEntryVar);
-            }
-        }, 1000);
+    setTimeout(function () {
+        if ($('#myGrid .ag-paging-panel').length > 0) {
+            $("").appendTo('#myGrid .ag-paging-panel');
+            $(lbl).appendTo('#myGrid .ag-paging-panel');
+            $("").appendTo('#myGrid .ag-paging-panel');
+            $(showEntryHtml).appendTo('#myGrid .ag-paging-panel');
+            $('#ddlPagesize').val(pgSize);
+            clearInterval(showEntryVar);
+        }
+    }, 1000);
 
-        //showEntryVar = setInterval(function () {
-        //    if ($('#myGrid .ag-paging-panel').length > 0) {
-        //        $("").appendTo('#myGrid .ag-paging-panel');
-        //        $(lbl).appendTo('#myGrid .ag-paging-panel');
-        //        $("").appendTo('#myGrid .ag-paging-panel');
-        //        $(showEntryHtml).appendTo('#myGrid .ag-paging-panel');
-        //        $('#ddlPagesize').val(pgSize);
-        //        clearInterval(showEntryVar);
-        //    }
-        //}, 1000);
-        $('#myGrid .ag-header-cell[col-id="0"] .ag-header-select-all').click(function () {
-            if ($(this).find('.ag-icon').hasClass('ag-icon-checkbox-unchecked')) {
-                gridOptions.api.forEachNode(function (node) {
-                    node.setSelected(false);
-                });
-            } else {
-                gridOptions.api.forEachNode(function (node) {
-                    node.setSelected(true);
-                });
-            }
-        });
-    }
-    else {
-        $("#divGrid").hide();
-    }
+    //showEntryVar = setInterval(function () {
+    //    if ($('#myGrid .ag-paging-panel').length > 0) {
+    //        $("").appendTo('#myGrid .ag-paging-panel');
+    //        $(lbl).appendTo('#myGrid .ag-paging-panel');
+    //        $("").appendTo('#myGrid .ag-paging-panel');
+    //        $(showEntryHtml).appendTo('#myGrid .ag-paging-panel');
+    //        $('#ddlPagesize').val(pgSize);
+    //        clearInterval(showEntryVar);
+    //    }
+    //}, 1000);
+    $('#myGrid .ag-header-cell[col-id="0"] .ag-header-select-all').click(function () {
+        if ($(this).find('.ag-icon').hasClass('ag-icon-checkbox-unchecked')) {
+            gridOptions.api.forEachNode(function (node) {
+                node.setSelected(false);
+            });
+        } else {
+            gridOptions.api.forEachNode(function (node) {
+                node.setSelected(true);
+            });
+        }
+    });
+    //}
+    //else {
+    //    $("#divGrid").hide();
+    //}
 }
 const datasource1 = {
     getRows(params) {
@@ -151,6 +152,13 @@ const datasource1 = {
         obj.PgNo = PageNo;
         obj.PgSize = pgSize;
         obj.CompanyUserCustomer = $.trim($("#txtCompanyName").val());
+
+        if ($.trim($("#txtCompanyName").val()) == "") {
+            obj.URL_Exists = true;
+        }
+        else {
+            obj.URL_Exists = false;
+        }
         Rowdata = [];
 
         $.ajax({
@@ -601,7 +609,7 @@ function greaterThanDate(evt, from, to, type) {
 $(document).ready(function () {
     //$(".apifilter .import").show();
     $("#divSearchFilter").show();
-
+    GetUserList();
     //openTab('CustomerDisc');
     Reset_API_Filter();
     Get_API_StockFilter();
@@ -2997,8 +3005,8 @@ function UpdateRow() {
                 $(this).find('.UsedView').html(($('#View:checked').val() != undefined ? "true" : "false"));
                 $(this).find('.UsedDownload').html(($('#Download:checked').val() != undefined ? "true" : "false"));
                 $(this).find('.UsedFor').html(($('#View:checked').val() == "true" ? "View" : "") + ($('#Download:checked').val() == "true" ? ($('#View:checked').val() == "true" ? " & " : "") + "Download" : ""));
-                
-                
+
+
 
                 $(this).find('.Image').html($('#Img:checked').val());
                 $(this).find('.Video').html($('#Vdo:checked').val());
@@ -3173,7 +3181,7 @@ function EditCriteria(new_id) {
                 $(this).find('.EditCriteria').hide();
                 $(this).find('.RemoveCriteria').hide();
 
-                
+
                 var Supplier = htmlDecode($(this).find('.Supplier').html());
                 if (Supplier != "") {
                     for (var i in Supplier.split(',')) {
@@ -4183,7 +4191,7 @@ function SetTableOrder() {
 };
 var DeleteAll = function () {
     $("#DeleteAll").modal("show");
-    $("#DeleteAll .modal-body li").html("Are You Sure You Want To Delete All Pricing Filter of " + _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'FirstName')[0] + " " + _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'LastName')[0] +" User ?");
+    $("#DeleteAll .modal-body li").html("Are You Sure You Want To Delete All Pricing Filter of " + _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'FirstName')[0] + " " + _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'LastName')[0] + " User ?");
 }
 var ClearRemoveModel = function () {
     $("#DeleteAll").modal("hide");

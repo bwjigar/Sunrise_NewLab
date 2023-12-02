@@ -23,6 +23,7 @@ namespace Lib.Model
         public int UserId { get; set; }
         public string CompanyUserCustomer { get; set; }
         public int Assist_UserId { get; set; }
+        public bool URL_Exists { get; set; }
     }
     public class GetUsers_Res
     {
@@ -55,6 +56,7 @@ namespace Lib.Model
         public bool View { get; set; }
         public bool Download { get; set; }
         public int StockDiscMgt_Count { get; set; }
+        public string URL { get; set; }
     }
     public class Exist_Request
     {

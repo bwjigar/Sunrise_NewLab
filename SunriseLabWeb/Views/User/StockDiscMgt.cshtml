@@ -4,6 +4,16 @@
     <link href="~/Content/css/daterangepicker.css" rel="stylesheet" />
 }
 <style>
+    .ag-paging-page-summary-panel {
+        left: 10px;
+        position: relative;
+    }
+
+    .ag-theme-balham .ag-cell {
+        white-space: normal !important;
+        line-height: inherit;
+        overflow-y: auto;
+    }
     .ui-menu {
         width: 434.328px !important;
     }
@@ -264,14 +274,14 @@
     <div class="" id="divAddFilters" style="display:none;">
         <div class="row m-0 api-full-box" style="margin-left: 5px !important;margin-right: 5px !important;font-size: 14px;">
             <div class="order-history-data admin muser col-xl-12 col-lg-12 col-md-12 col-sm-12" style="background-color: white;padding: 0;box-shadow: none;">
-                <div class="col-xl-3 col-lg-6 col-md-7 col-sm-6 col-12 float-left" id="divWithoutDatetime">
+                <div class="col-xl-12 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
                     <span id="spnUsernmList">
                         <span style="font-weight: 600;">User Name :&nbsp;</span>
                     </span>
+                    <strong style="font-size: 12px; color: red; margin-top: 9px; margin-left: 30px;" id="URL"></strong>
                 </div>
             </div>
-            <br />
-            <strong style="font-size: 12px;color:red;margin-top: 9px;" id="URL"></strong>
+            
         </div>
         <div class="row m-0">
             <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 tabbox">
