@@ -14,6 +14,7 @@
         line-height: inherit;
         overflow-y: auto;
     }
+
     .ui-menu {
         width: 434.328px !important;
     }
@@ -281,7 +282,7 @@
                     <strong style="font-size: 12px; color: red; margin-top: 9px; margin-left: 30px;" id="URL"></strong>
                 </div>
             </div>
-            
+
         </div>
         <div class="row m-0">
             <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 tabbox">
@@ -445,10 +446,69 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row m-0" style="margin-top: 8px !important;">
+                        <div class="col-sm-3 col-xs-12 api-plr">
+                            <strong>BGM</strong>
+                        </div>
+                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
+                            <p class="divCheckedBGMValue"></p>
+                        </div>
+                        <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center; ">
+                            <div class="list-icn">
+                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedBGMValue',BGMList)"></i>
+                                <a href="javascript:void(0);" onclick="ModalShow('BGM',BGMList)"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 tabbox">
                 <div class="tabboxdiv">
+                    <div class="row m-0">
+                        <div class="col-sm-3 col-xs-12 api-plr">
+                            <strong>Key to symbol</strong>
+                        </div>
+                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
+                            <div class="sym-sec" id="sym-sec0">
+                                <div class="sym-main-wrap" onclick="Key_to_symbolShow();">
+                                    <div class="sym-iner">
+                                        <span id="spanselected">0 - Selected </span> / <span id="spanunselected">0 - Deselected</span>
+                                    </div>
+                                    <div class="sym-btn">
+                                        <i class="fa fa-caret-down"></i>
+                                    </div>
+                                </div>
+                                <div class="carat-dropdown-main">
+                                    <div class="carat-dropdown-half-col src-shape-main-pcscroll ps-container ps-theme-default row m-0" id="searchkeytosymbol">
+                                        <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center;">
+                            <div class="list-icn">
+                                <span class="res-btn" style="left: 6px;">
+                                    <a href="javascript:void(0);" onclick="resetKeytoSymbol()" data-toggle="tooltip" data-placement="bottom" title="Reset">
+                                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-sm-3 col-xs-12 api-plr">
+                            <strong>Goods Type</strong>
+                        </div>
+                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
+                            <p class="divCheckedGoodsTypeValue"></p>
+                        </div>
+                        <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center; ">
+                            <div class="list-icn">
+                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedGoodsTypeValue',GoodsTypeList)"></i>
+                                <a href="javascript:void(0);" onclick="ModalShow('GoodsType',GoodsTypeList)"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
                             <strong>Length</strong>
@@ -554,46 +614,15 @@
                 <div class="tabboxdiv">
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
-                            <strong>Key to symbol</strong>
+                            <strong>Table Black</strong>
                         </div>
                         <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
-                            <div class="sym-sec" id="sym-sec0">
-                                <div class="sym-main-wrap" onclick="Key_to_symbolShow();">
-                                    <div class="sym-iner">
-                                        <span id="spanselected">0 - Selected </span> / <span id="spanunselected">0 - Deselected</span>
-                                    </div>
-                                    <div class="sym-btn">
-                                        <i class="fa fa-caret-down"></i>
-                                    </div>
-                                </div>
-                                <div class="carat-dropdown-main">
-                                    <div class="carat-dropdown-half-col src-shape-main-pcscroll ps-container ps-theme-default row m-0" id="searchkeytosymbol">
-                                        <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center;">
-                            <div class="list-icn">
-                                <span class="res-btn" style="left: 6px;">
-                                    <a href="javascript:void(0);" onclick="resetKeytoSymbol()" data-toggle="tooltip" data-placement="bottom" title="Reset">
-                                        <i class="fa fa-refresh" aria-hidden="true"></i>
-                                    </a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row m-0" style="margin-top: 8px !important;">
-                        <div class="col-sm-3 col-xs-12 api-plr">
-                            <strong>BGM</strong>
-                        </div>
-                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
-                            <p class="divCheckedBGMValue"></p>
+                            <p class="divCheckedTblBlackValue"></p>
                         </div>
                         <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center; ">
                             <div class="list-icn">
-                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedBGMValue',BGMList)"></i>
-                                <a href="javascript:void(0);" onclick="ModalShow('BGM',BGMList)"><i class="fa fa-plus"></i></a>
+                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedTblBlackValue',TableBlackList)"></i>
+                                <a href="javascript:void(0);" onclick="ModalShow('TableBlack',TableBlackList)"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
                     </div>
@@ -613,15 +642,15 @@
                     </div>
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
-                            <strong>Table Black</strong>
+                            <strong>Table White</strong>
                         </div>
                         <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
-                            <p class="divCheckedTblBlackValue"></p>
+                            <p class="divCheckedTblWhiteValue"></p>
                         </div>
                         <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center; ">
                             <div class="list-icn">
-                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedTblBlackValue',TableBlackList)"></i>
-                                <a href="javascript:void(0);" onclick="ModalShow('TableBlack',TableBlackList)"><i class="fa fa-plus"></i></a>
+                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedTblWhiteValue',TableWhiteList)"></i>
+                                <a href="javascript:void(0);" onclick="ModalShow('TableWhite',TableWhiteList)"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
                     </div>
@@ -641,32 +670,62 @@
                     </div>
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
-                            <strong>Table White</strong>
+                            <strong>Table Open</strong>
                         </div>
                         <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
-                            <p class="divCheckedTblWhiteValue"></p>
+                            <p class="divCheckedTableOpenValue"></p>
                         </div>
                         <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center; ">
                             <div class="list-icn">
-                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedTblWhiteValue',TableWhiteList)"></i>
-                                <a href="javascript:void(0);" onclick="ModalShow('TableWhite',TableWhiteList)"><i class="fa fa-plus"></i></a>
+                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedTableOpenValue',TableOpenList)"></i>
+                                <a href="javascript:void(0);" onclick="ModalShow('TableOpen',TableOpenList)"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
-                            <strong>Goods Type</strong>
+                            <strong>Girdle Open</strong>
                         </div>
                         <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
-                            <p class="divCheckedGoodsTypeValue"></p>
+                            <p class="divCheckedGirdleOpenValue"></p>
                         </div>
                         <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center; ">
                             <div class="list-icn">
-                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedGoodsTypeValue',GoodsTypeList)"></i>
-                                <a href="javascript:void(0);" onclick="ModalShow('GoodsType',GoodsTypeList)"><i class="fa fa-plus"></i></a>
+                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedGirdleOpenValue',GirdleOpenList)"></i>
+                                <a href="javascript:void(0);" onclick="ModalShow('GirdleOpen',GirdleOpenList)"><i class="fa fa-plus"></i></a>
                             </div>
                         </div>
                     </div>
+                    <div class="row m-0">
+                        <div class="col-sm-3 col-xs-12 api-plr">
+                            <strong>Crown Open</strong>
+                        </div>
+                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
+                            <p class="divCheckedCrownOpenValue"></p>
+                        </div>
+                        <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center; ">
+                            <div class="list-icn">
+                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedCrownOpenValue',CrownOpenList)"></i>
+                                <a href="javascript:void(0);" onclick="ModalShow('CrownOpen',CrownOpenList)"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-sm-3 col-xs-12 api-plr">
+                            <strong>Pavillion Open</strong>
+                        </div>
+                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
+                            <p class="divCheckedPavillionOpenValue"></p>
+                        </div>
+                        <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center; ">
+                            <div class="list-icn">
+                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedPavillionOpenValue',PavillionOpenList)"></i>
+                                <a href="javascript:void(0);" onclick="ModalShow('PavillionOpen',PavillionOpenList)"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="row m-0" style="margin-top: 8px !important;">
                         <div class="col-sm-4 col-xs-12 api-plr">
                             <strong>Used For <span style="color:red;">*</span></strong>
@@ -739,37 +798,37 @@
                         </div>
                     </div>
                     @*<div class="row m-0" style="margin-top: 6px !important;">
-                            <div class="col-sm-3 col-xs-12 api-plr">
-                                <strong>Price Method <span style="color:red;">*</span></strong>
-                            </div>
-                            <div class="col-sm-5 col-sm-5 col-xs-10 custom-box-list api-plr">
-                                <select class="form-control select2" id="PricingMethod" name="PricingMethod" onchange="PricingMethodDDL();">
-                                    <option value="">Select Method</option>
-                                    <option value="Disc">Discount</option>
-                                    <option value="Value">Value</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-3 col-sm-3 col-xs-10 custom-box-list api-plr">
-                                <select class="form-control select2" id="PricingSign" name="PricingSign">
-                                    <option value="=">=</option>
-                                    <option value="+">+</option>
-                                    <option value="-">-</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row m-0">
-                            <div class="col-sm-3 col-xs-12 api-plr">
-                                <strong>Percentage <span style="color:red;">*</span></strong>
-                            </div>
-                            <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
-                                <div class="col-md-3 api-plr txtDisc"><input type="text" id="txtDisc1" name="txtDisc1" onkeypress="return DisValValid('Disc', event)" onkeyup="LenCheckr('Disc')" class="form-control" autocomplete="off"></div>
-                                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue1" name="txtValue1" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue2" name="txtValue2" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue3" name="txtValue3" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue4" name="txtValue4" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                                <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr"></label>
-                            </div>
-                        </div>*@
+            <div class="col-sm-3 col-xs-12 api-plr">
+                <strong>Price Method <span style="color:red;">*</span></strong>
+            </div>
+            <div class="col-sm-5 col-sm-5 col-xs-10 custom-box-list api-plr">
+                <select class="form-control select2" id="PricingMethod" name="PricingMethod" onchange="PricingMethodDDL();">
+                    <option value="">Select Method</option>
+                    <option value="Disc">Discount</option>
+                    <option value="Value">Value</option>
+                </select>
+            </div>
+            <div class="col-sm-3 col-sm-3 col-xs-10 custom-box-list api-plr">
+                <select class="form-control select2" id="PricingSign" name="PricingSign">
+                    <option value="=">=</option>
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                </select>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-sm-3 col-xs-12 api-plr">
+                <strong>Percentage <span style="color:red;">*</span></strong>
+            </div>
+            <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
+                <div class="col-md-3 api-plr txtDisc"><input type="text" id="txtDisc1" name="txtDisc1" onkeypress="return DisValValid('Disc', event)" onkeyup="LenCheckr('Disc')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue1" name="txtValue1" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue2" name="txtValue2" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue3" name="txtValue3" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue4" name="txtValue4" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr"></label>
+            </div>
+        </div>*@
                 </div>
             </div>
         </div>
@@ -902,6 +961,9 @@
                             <th rowspan="3" style="vertical-align: middle;">Sym</th>
                             <th rowspan="3" style="vertical-align: middle;">Fls</th>
                             <th rowspan="3" style="vertical-align: middle;">Lab</th>
+                            <th rowspan="3" style="vertical-align: middle;">BGM</th>
+                            <th rowspan="3" style="vertical-align: middle;">Key to symbol</th>
+                            <th rowspan="3" style="vertical-align: middle;">Goods Type</th>
                             <th rowspan="3" style="vertical-align: middle;">From Length</th>
                             <th rowspan="3" style="vertical-align: middle;">To Length</th>
                             <th rowspan="3" style="vertical-align: middle;">From Width</th>
@@ -920,13 +982,17 @@
                             <th rowspan="3" style="vertical-align: middle;">To Pav Ang</th>
                             <th rowspan="3" style="vertical-align: middle;">From Pav Ht</th>
                             <th rowspan="3" style="vertical-align: middle;">To Pav Ht</th>
-                            <th rowspan="3" style="vertical-align: middle;">Key to symbol</th>
-                            <th rowspan="3" style="vertical-align: middle;">BGM</th>
-                            <th rowspan="3" style="vertical-align: middle;">Crown Black</th>
+
                             <th rowspan="3" style="vertical-align: middle;">Table Black</th>
-                            <th rowspan="3" style="vertical-align: middle;">Crown White</th>
+                            <th rowspan="3" style="vertical-align: middle;">Crown Black</th>
                             <th rowspan="3" style="vertical-align: middle;">Table White</th>
-                            <th rowspan="3" style="vertical-align: middle;">Goods Type</th>
+                            <th rowspan="3" style="vertical-align: middle;">Crown White</th>
+
+                            <th rowspan="3" style="vertical-align: middle;">Table Open</th>
+                            <th rowspan="3" style="vertical-align: middle;">Girdle Open</th>
+                            <th rowspan="3" style="vertical-align: middle;">Crown Open</th>
+                            <th rowspan="3" style="vertical-align: middle;">Pavillion Open</th>
+
                             <th rowspan="3" style="vertical-align: middle;">Used For</th>
                             <th rowspan="3" style="vertical-align: middle;">Image</th>
                             <th rowspan="3" style="vertical-align: middle;">Video</th>

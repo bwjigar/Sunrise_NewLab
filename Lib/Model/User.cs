@@ -460,6 +460,10 @@ namespace Lib.Model
         public string TableBlack { get; set; }
         public string CrownWhite { get; set; }
         public string TableWhite { get; set; }
+        public string TableOpen { get; set; }
+        public string GirdleOpen { get; set; }
+        public string CrownOpen { get; set; }
+        public string PavillionOpen { get; set; }
         public string GoodsType { get; set; }
         public string Image { get; set; }
         public string Video { get; set; }

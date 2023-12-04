@@ -800,6 +800,10 @@ namespace API.Controllers
                 dt.Columns.Add("TableBlack", typeof(string));
                 dt.Columns.Add("CrownWhite", typeof(string));
                 dt.Columns.Add("TableWhite", typeof(string));
+                dt.Columns.Add("TableOpen", typeof(string));
+                dt.Columns.Add("GirdleOpen", typeof(string));
+                dt.Columns.Add("CrownOpen", typeof(string));
+                dt.Columns.Add("PavillionOpen", typeof(string));
                 dt.Columns.Add("GoodsType", typeof(string));
                 dt.Columns.Add("Image", typeof(string));
                 dt.Columns.Add("Video", typeof(string));
@@ -875,6 +879,10 @@ namespace API.Controllers
                         dr["TableBlack"] = req.SuppDisc[i].TableBlack;
                         dr["CrownWhite"] = req.SuppDisc[i].CrownWhite;
                         dr["TableWhite"] = req.SuppDisc[i].TableWhite;
+                        dr["TableOpen"] = req.SuppDisc[i].TableOpen;
+                        dr["GirdleOpen"] = req.SuppDisc[i].GirdleOpen;
+                        dr["CrownOpen"] = req.SuppDisc[i].CrownOpen;
+                        dr["PavillionOpen"] = req.SuppDisc[i].PavillionOpen;
                         dr["GoodsType"] = req.SuppDisc[i].GoodsType;
                         dr["Image"] = req.SuppDisc[i].Image;
                         dr["Video"] = req.SuppDisc[i].Video;
@@ -3125,6 +3133,54 @@ namespace API.Controllers
                 para.Add(db.CreateParam("Download", DbType.Boolean, ParameterDirection.Input, req.Download));
 
                 DataTable dt = db.ExecuteSP("AddUpdate_User", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    resp.Status = dt.Rows[0]["Status"].ToString();
+                    resp.Message = dt.Rows[0]["Message"].ToString();
+
+                }
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = ex.StackTrace,
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Delete_UserMas([FromBody] JObject data)
+        {
+            GetUsers_Res req = new GetUsers_Res();
+            try
+            {
+                req = JsonConvert.DeserializeObject<GetUsers_Res>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+
+            try
+            {
+                CommonResponse resp = new CommonResponse();
+
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+
+                DataTable dt = db.ExecuteSP("Delete_UserMas", para.ToArray(), false);
 
                 if (dt != null && dt.Rows.Count > 0)
                 {

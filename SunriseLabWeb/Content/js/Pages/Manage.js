@@ -125,7 +125,7 @@ var columnDefs = [
 ];var deltaIndicator = function (params) {
     var element = "";
     element = '<a title="Edit" onclick="EditView(\'' + params.data.UserId + '\')" ><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 17px;cursor:pointer;"></i></a>';
-    //element += '&nbsp;&nbsp;<a title="Delete" onclick="DeleteView(\'' + params.data.UserId + '\')"><i class="fa fa-trash-o" aria-hidden="true" style="cursor:pointer;"></i></a>';
+    element += '&nbsp;&nbsp;<a title="Delete" onclick="DeleteView(\'' + params.data.UserId + '\')"><i class="fa fa-trash-o" aria-hidden="true" style="cursor:pointer;"></i></a>';
     return element;
 }
 var faIndicator = function (params) {
@@ -181,7 +181,7 @@ function EditView(UserId) {
         $("#hdn_Mng_UserId").val(data[0].UserId);
     }
 }
-var DeleteUserDetail = function (iUserid) {
+function DeleteView(iUserid) {
     $("#hdnDelUserId").val(iUserid);
     $("#Remove").modal("show");
 }
@@ -197,21 +197,23 @@ var DeleteUser = function () {
         type: "POST",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        url: '/User/Delete',
-        data: '{ "UserID": ' + $("#hdnDelUserId").val() + '}',
+        url: '/User/Delete_UserMas',
+        data: '{ "UserId": ' + $("#hdnDelUserId").val() + '}',
         success: function (data) {
             if (data.Message.indexOf('Something Went wrong') > -1) {
                 MoveToErrorPage(0);
             }
             loaderHide();
-            ClearRemoveModel();
+            
             if (data.Status == "-1") {
                 toastr.warning(data.Message, { timeOut: 3000 });
             }
             else {
+                ClearRemoveModel();
+                GetSearch();
                 toastr.success(data.Message, { timeOut: 3000 });
             }
-            GetSearch();
+            
         }
     });
 }

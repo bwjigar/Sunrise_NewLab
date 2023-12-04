@@ -25,7 +25,7 @@ var columnDefs = [
         suppressMovable: false
     },
     { headerName: "UserId", field: "UserId", hide: true },
-    { headerName: "Sr", field: "iSr", tooltip: function (params) { return (params.value); }, sortable: false,hide:true, width: 40 },
+    { headerName: "Sr", field: "iSr", tooltip: function (params) { return (params.value); }, sortable: false, hide: true, width: 40 },
     { headerName: "Create Date", field: "CreatedDate", tooltip: function (params) { return (params.value); }, width: 90 },
     { headerName: "Last Login Date", field: "LastLoginDate", tooltip: function (params) { return (params.value); }, width: 90 },
     { headerName: "UserTypeId", field: "UserTypeId", hide: true },
@@ -323,6 +323,10 @@ var CrownBlackList = [];
 var TableBlackList = [];
 var CrownWhiteList = [];
 var TableWhiteList = [];
+var TableOpenList = [];
+var GirdleOpenList = [];
+var CrownOpenList = [];
+var PavillionOpenList = [];
 var CheckedSupplierValue = "";
 var CheckedPointerValue = "";
 var CheckedGoodsTypeValue = "";
@@ -341,6 +345,11 @@ var CheckedCrnBlackValue = "";
 var CheckedTblBlackValue = "";
 var CheckedCrnWhiteValue = "";
 var CheckedTblWhiteValue = "";
+var CheckedTableOpenValue = "";
+var CheckedGirdleOpenValue = "";
+var CheckedCrownOpenValue = "";
+var CheckedPavillionOpenValue = "";
+
 var ColumnList = [];
 var _pointerlst = [];
 
@@ -807,6 +816,18 @@ function Get_API_StockFilter() {
                     if (data.Data[k].Col_Id == 66) {
                         GoodsTypeList.push(data.Data[k]);
                     }
+                    if (data.Data[k].Col_Id == 27) {
+                        TableOpenList.push(data.Data[k]);
+                    }
+                    if (data.Data[k].Col_Id == 28) {
+                        GirdleOpenList.push(data.Data[k]);
+                    }
+                    if (data.Data[k].Col_Id == 25) {
+                        CrownOpenList.push(data.Data[k]);
+                    }
+                    if (data.Data[k].Col_Id == 26) {
+                        PavillionOpenList.push(data.Data[k]);
+                    }
                 }
 
 
@@ -857,6 +878,18 @@ function Get_API_StockFilter() {
                 }
                 if (GoodsTypeList.length > 1) {
                     GoodsTypeList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Goods Type', isActive: false, Col_Id: 66 });
+                }
+                if (TableOpenList.length > 1) {
+                    TableOpenList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Table Open', isActive: false, Col_Id: 27 });
+                }
+                if (GirdleOpenList.length > 1) {
+                    GirdleOpenList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Girdle Open', isActive: false, Col_Id: 28 });
+                }
+                if (CrownOpenList.length > 1) {
+                    CrownOpenList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Crown Open', isActive: false, Col_Id: 25 });
+                }
+                if (PavillionOpenList.length > 1) {
+                    PavillionOpenList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Pav Open', isActive: false, Col_Id: 26 });
                 }
 
                 INTENSITY = ['W-X', 'Y-Z', 'FAINT', 'VERY LIGHT', 'LIGHT', 'FANCY LIGHT', 'FANCY', 'FANCY INTENSE', 'FANCY GREEN', 'FANCY DARK', 'FANCY DEEP', 'FANCY VIVID', 'FANCY FAINT', 'DARK'];
@@ -938,6 +971,14 @@ var ModalShow = function (ParameterLabel, ObjLst) {
         $('#exampleModalLabel').text("Crown White");
     else if (ParameterLabel == "TableWhite")
         $('#exampleModalLabel').text("Table White");
+    else if (ParameterLabel == "TableOpen")
+        $('#exampleModalLabel').text("Table Open");
+    else if (ParameterLabel == "GirdleOpen")
+        $('#exampleModalLabel').text("Girdle Open");
+    else if (ParameterLabel == "CrownOpen")
+        $('#exampleModalLabel').text("Crown Open");
+    else if (ParameterLabel == "PavillionOpen")
+        $('#exampleModalLabel').text("Pavillion Open");
     else if (ParameterLabel == "GoodsType")
         $('#exampleModalLabel').text("Goods Type");
     else
@@ -956,8 +997,9 @@ var ModalShow = function (ParameterLabel, ObjLst) {
 
             if (ParameterLabel == "Supplier" || ParameterLabel == "Location" || ParameterLabel == "Shape" || ParameterLabel == "Color"
                 || ParameterLabel == "Clarity" || ParameterLabel == "Cut" || ParameterLabel == "Polish" || ParameterLabel == "Sym"
-                || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM" || ParameterLabel == "CrownBlack"
-                || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
+                || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM"
+                || ParameterLabel == "CrownBlack" || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
+                || ParameterLabel == "TableOpen" || ParameterLabel == "GirdleOpen" || ParameterLabel == "CrownOpen" || ParameterLabel == "PavillionOpen"
                 || ParameterLabel == "GoodsType") {
                 IsAllActiveC = parseInt(IsAllActiveC) + 1;
             }
@@ -973,8 +1015,9 @@ var ModalShow = function (ParameterLabel, ObjLst) {
 
     if (ParameterLabel == "Supplier" || ParameterLabel == "Location" || ParameterLabel == "Shape" || ParameterLabel == "Color"
         || ParameterLabel == "Clarity" || ParameterLabel == "Cut" || ParameterLabel == "Polish" || ParameterLabel == "Sym"
-        || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM" || ParameterLabel == "CrownBlack"
-        || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
+        || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM"
+        || ParameterLabel == "CrownBlack" || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
+        || ParameterLabel == "TableOpen" || ParameterLabel == "GirdleOpen" || ParameterLabel == "CrownOpen" || ParameterLabel == "PavillionOpen"
         || ParameterLabel == "GoodsType") {
         if (IsAllActiveC == ObjLst.length - 1) {
             $("#li_" + ParameterLabel + "_0").addClass('active');
@@ -1104,11 +1147,24 @@ var ItemClicked = function (ParameterLabel, item, c, curritem) {
     if (ParameterLabel == 'TableWhite') {
         list = TableWhiteList;
     }
+    if (ParameterLabel == 'TableOpen') {
+        list = TableOpenList;
+    }
+    if (ParameterLabel == 'GirdleOpen') {
+        list = GirdleOpenList;
+    }
+    if (ParameterLabel == 'CrownOpen') {
+        list = CrownOpenList;
+    }
+    if (ParameterLabel == 'PavillionOpen') {
+        list = PavillionOpenList;
+    }
     if (item == "ALL") {
         if (ParameterLabel == "Supplier" || ParameterLabel == "Location" || ParameterLabel == "Shape" || ParameterLabel == "Color"
             || ParameterLabel == "Clarity" || ParameterLabel == "Cut" || ParameterLabel == "Polish" || ParameterLabel == "Sym"
-            || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM" || ParameterLabel == "CrownBlack"
-            || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
+            || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM"
+            || ParameterLabel == "CrownBlack" || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
+            || ParameterLabel == "TableOpen" || ParameterLabel == "GirdleOpen" || ParameterLabel == "CrownOpen" || ParameterLabel == "PavillionOpen"
             || ParameterLabel == "GoodsType") {
             if (ParameterLabel == "Color" && item == "ALL" && $("#li_" + ParameterLabel + "_0").hasClass("active") == true) {
                 R_F_All_Only_Checkbox_Clr_Rst("1");
@@ -1160,8 +1216,9 @@ var ItemClicked = function (ParameterLabel, item, c, curritem) {
 
         if (ParameterLabel == "Supplier" || ParameterLabel == "Location" || ParameterLabel == "Shape" || ParameterLabel == "Color"
             || ParameterLabel == "Clarity" || ParameterLabel == "Cut" || ParameterLabel == "Polish" || ParameterLabel == "Sym"
-            || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM" || ParameterLabel == "CrownBlack"
-            || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
+            || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM"
+            || ParameterLabel == "CrownBlack" || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
+            || ParameterLabel == "TableOpen" || ParameterLabel == "GirdleOpen" || ParameterLabel == "CrownOpen" || ParameterLabel == "PavillionOpen"
             || ParameterLabel == "GoodsType") {
             var IsAllActiveC = 0;
             for (var j = 0; j <= list.length - 1; j++) {
@@ -1201,6 +1258,11 @@ var SetSearchParameter = function () {
     var crnwhitelst = _.pluck(_.filter(CrownWhiteList, function (e) { return e.isActive == true }), 'Value').join(",");
     var tblwhitelst = _.pluck(_.filter(TableWhiteList, function (e) { return e.isActive == true }), 'Value').join(",");
     var goodstypeLst = _.pluck(_.filter(GoodsTypeList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var tableopenlist = _.pluck(_.filter(TableOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var girdleopenlist = _.pluck(_.filter(GirdleOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var crownopenlist = _.pluck(_.filter(CrownOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var pavillionopenlist = _.pluck(_.filter(PavillionOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+
 
     CheckedSupplierValue = supplierLst;
     CheckedPointerValue = pointerLst;
@@ -1219,6 +1281,11 @@ var SetSearchParameter = function () {
     CheckedCrnWhiteValue = crnwhitelst;
     CheckedTblWhiteValue = tblwhitelst;
     CheckedGoodsTypeValue = goodstypeLst;
+    CheckedTableOpenValue = tableopenlist;
+    CheckedGirdleOpenValue = girdleopenlist;
+    CheckedCrownOpenValue = crownopenlist;
+    CheckedPavillionOpenValue = pavillionopenlist;
+
 
     if (CheckedSupplierValue.split(",").length >= 1) {
         $(".divCheckedSupplierValue").empty();
@@ -1357,6 +1424,34 @@ var SetSearchParameter = function () {
             "title": CheckedTblWhiteValue
         });
     }
+    if (CheckedTableOpenValue.split(",").length >= 1) {
+        $(".divCheckedTableOpenValue").empty();
+        $(".divCheckedTableOpenValue").append(CheckedTableOpenValue);
+        $(".divCheckedTableOpenValue").attr({
+            "title": CheckedTableOpenValue
+        });
+    }
+    if (CheckedGirdleOpenValue.split(",").length >= 1) {
+        $(".divCheckedGirdleOpenValue").empty();
+        $(".divCheckedGirdleOpenValue").append(CheckedGirdleOpenValue);
+        $(".divCheckedGirdleOpenValue").attr({
+            "title": CheckedGirdleOpenValue
+        });
+    }
+    if (CheckedCrownOpenValue.split(",").length >= 1) {
+        $(".divCheckedCrownOpenValue").empty();
+        $(".divCheckedCrownOpenValue").append(CheckedCrownOpenValue);
+        $(".divCheckedCrownOpenValue").attr({
+            "title": CheckedCrownOpenValue
+        });
+    }
+    if (CheckedPavillionOpenValue.split(",").length >= 1) {
+        $(".divCheckedPavillionOpenValue").empty();
+        $(".divCheckedPavillionOpenValue").append(CheckedPavillionOpenValue);
+        $(".divCheckedPavillionOpenValue").attr({
+            "title": CheckedPavillionOpenValue
+        });
+    }
 }
 
 var LeaveTextBox = function (ele, fromid, toid) {
@@ -1434,6 +1529,10 @@ function Reset_API_Filter() {
     ResetSelectedAttr('.divCheckedTblBlackValue', CrownWhiteList);
     ResetSelectedAttr('.divCheckedCrnWhiteValue', TableBlackList);
     ResetSelectedAttr('.divCheckedTblWhiteValue', TableWhiteList);
+    ResetSelectedAttr('.divCheckedCrnWhiteValue', CrownWhiteList);
+    ResetSelectedAttr('.divCheckedTableOpenValue', TableOpenList);
+    ResetSelectedAttr('.divCheckedGirdleOpenValue', GirdleOpenList);
+    ResetSelectedAttr('.divCheckedCrownOpenValue', CrownOpenList);
 
     $("#View").prop("checked", true);
     $("#Download").prop("checked", true);
@@ -1502,6 +1601,10 @@ function Reset_API_Filter() {
     CheckedTblBlackValue = "";
     CheckedCrnWhiteValue = "";
     CheckedTblWhiteValue = "";
+    CheckedTableOpenValue = "";
+    CheckedGirdleOpenValue = "";
+    CheckedCrownOpenValue = "";
+    CheckedPavillionOpenValue = "";
 }
 function BindKeyToSymbolList() {
     $('#searchkeytosymbol').html("");
@@ -2271,7 +2374,10 @@ function HTML_CREATE(
     Supplier, Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
     FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
     FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
-    Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, View, Download, Image, Video,
+    Keytosymbol, dCheckKTS, dUNCheckKTS, BGM,
+    CrownBlack, TableBlack, CrownWhite, TableWhite,
+    TableOpen, GirdleOpen, CrownOpen, PavillionOpen,
+    GoodsType, View, Download, Image, Video,
     PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
     Chk_Speci_Additional_1, txtFromDate, txtToDate,
     PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5,
@@ -2295,6 +2401,12 @@ function HTML_CREATE(
     html += "<td><span class='Fi-Criteria Sym'>" + Sym + "</span></td>";
     html += "<td><span class='Fi-Criteria Fls'>" + Fls + "</span></td>";
     html += "<td><span class='Fi-Criteria Lab'>" + Lab + "</span></td>";
+    html += "<td><span class='Fi-Criteria BGM'>" + BGM + "</span></td>";
+    html += "<td><span class='Fi-Criteria Keytosymbol'>" + Keytosymbol + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria dCheckKTS'>" + dCheckKTS + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckKTS'>" + dUNCheckKTS + "</span></td>";
+    html += "<td><span class='Fi-Criteria GoodsType'>" + GoodsType + "</span></td>";
+
     html += "<td><span class='Fi-Criteria FromLength'>" + FromLength + "</span></td>";
     html += "<td><span class='Fi-Criteria ToLength'>" + ToLength + "</span></td>";
     html += "<td><span class='Fi-Criteria FromWidth'>" + FromWidth + "</span></td>";
@@ -2313,15 +2425,15 @@ function HTML_CREATE(
     html += "<td><span class='Fi-Criteria ToPavAng'>" + ToPavAng + "</span></td>";
     html += "<td><span class='Fi-Criteria FromPavHt'>" + FromPavHt + "</span></td>";
     html += "<td><span class='Fi-Criteria ToPavHt'>" + ToPavHt + "</span></td>";
-    html += "<td><span class='Fi-Criteria Keytosymbol'>" + Keytosymbol + "</span></td>";
-    html += "<td style='display:none;'><span class='Fi-Criteria dCheckKTS'>" + dCheckKTS + "</span></td>";
-    html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckKTS'>" + dUNCheckKTS + "</span></td>";
-    html += "<td><span class='Fi-Criteria BGM'>" + BGM + "</span></td>";
-    html += "<td><span class='Fi-Criteria CrownBlack'>" + CrownBlack + "</span></td>";
+    
     html += "<td><span class='Fi-Criteria TableBlack'>" + TableBlack + "</span></td>";
-    html += "<td><span class='Fi-Criteria CrownWhite'>" + CrownWhite + "</span></td>";
+    html += "<td><span class='Fi-Criteria CrownBlack'>" + CrownBlack + "</span></td>";
     html += "<td><span class='Fi-Criteria TableWhite'>" + TableWhite + "</span></td>";
-    html += "<td><span class='Fi-Criteria GoodsType'>" + GoodsType + "</span></td>";
+    html += "<td><span class='Fi-Criteria CrownWhite'>" + CrownWhite + "</span></td>";
+    html += "<td><span class='Fi-Criteria TableOpen'>" + TableOpen + "</span></td>";
+    html += "<td><span class='Fi-Criteria GirdleOpen'>" + GirdleOpen + "</span></td>";
+    html += "<td><span class='Fi-Criteria CrownOpen'>" + CrownOpen + "</span></td>";
+    html += "<td><span class='Fi-Criteria PavillionOpen'>" + PavillionOpen + "</span></td>";
 
     html += "<td style='display:none;'><span class='Fi-Criteria UsedView'>" + View + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria UsedDownload'>" + Download + "</span></td>";
@@ -2632,6 +2744,11 @@ var AddNewRow = function () {
             var TableBlack = _.pluck(_.filter(TableBlackList, function (e) { return e.isActive == true }), 'Value').join(",");
             var CrownWhite = _.pluck(_.filter(CrownWhiteList, function (e) { return e.isActive == true }), 'Value').join(",");
             var TableWhite = _.pluck(_.filter(TableWhiteList, function (e) { return e.isActive == true }), 'Value').join(",");
+            var TableOpen = _.pluck(_.filter(TableOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+            var GirdleOpen = _.pluck(_.filter(GirdleOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+            var CrownOpen = _.pluck(_.filter(CrownOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+            var PavillionOpen = _.pluck(_.filter(PavillionOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+
             var GoodsType = _.pluck(_.filter(GoodsTypeList, function (e) { return e.isActive == true }), 'Value').join(",");
 
             var View = ($('#View:checked').val() == undefined ? false : true);
@@ -2853,10 +2970,14 @@ var AddNewRow = function () {
 
             //html += "</tr>";
 
+
             var html = HTML_CREATE(Supplier, Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
                 FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
                 FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt,
-                Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, View, Download, Image, Video,
+                Keytosymbol, dCheckKTS, dUNCheckKTS, BGM,
+                CrownBlack, TableBlack, CrownWhite, TableWhite,
+                TableOpen, GirdleOpen, CrownOpen, PavillionOpen,
+                GoodsType, View, Download, Image, Video,
                 PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
                 Chk_Speci_Additional_1, txtFromDate, txtToDate,
                 PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5,
@@ -2996,6 +3117,15 @@ function UpdateRow() {
 
                 var TableWhite = _.pluck(_.filter(TableWhiteList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.TableWhite').html(TableWhite);
+
+                var TableOpen = _.pluck(_.filter(TableOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+                $(this).find('.TableOpen').html(TableOpen);
+                var GirdleOpen = _.pluck(_.filter(GirdleOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+                $(this).find('.GirdleOpen').html(GirdleOpen);
+                var CrownOpen = _.pluck(_.filter(CrownOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+                $(this).find('.CrownOpen').html(CrownOpen);
+                var PavillionOpen = _.pluck(_.filter(PavillionOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+                $(this).find('.PavillionOpen').html(PavillionOpen);
 
                 var GoodsType = _.pluck(_.filter(GoodsTypeList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.GoodsType').html(GoodsType);
@@ -3486,6 +3616,55 @@ function EditCriteria(new_id) {
                     }
                 }
 
+                var TableOpen = htmlDecode($(this).find('.TableOpen').html());
+                if (TableOpen != "") {
+                    for (var i in TableOpen.split(',')) {
+                        for (var j in TableOpenList) {
+                            if (j > 0) {
+                                if (TableOpen.split(',')[i] == TableOpenList[j].Value) {
+                                    TableOpenList[j].isActive = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                var GirdleOpen = htmlDecode($(this).find('.GirdleOpen').html());
+                if (GirdleOpen != "") {
+                    for (var i in GirdleOpen.split(',')) {
+                        for (var j in GirdleOpenList) {
+                            if (j > 0) {
+                                if (GirdleOpen.split(',')[i] == GirdleOpenList[j].Value) {
+                                    GirdleOpenList[j].isActive = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                var CrownOpen = htmlDecode($(this).find('.CrownOpen').html());
+                if (CrownOpen != "") {
+                    for (var i in CrownOpen.split(',')) {
+                        for (var j in CrownOpenList) {
+                            if (j > 0) {
+                                if (CrownOpen.split(',')[i] == CrownOpenList[j].Value) {
+                                    CrownOpenList[j].isActive = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                var PavillionOpen = htmlDecode($(this).find('.PavillionOpen').html());
+                if (PavillionOpen != "") {
+                    for (var i in PavillionOpen.split(',')) {
+                        for (var j in PavillionOpenList) {
+                            if (j > 0) {
+                                if (PavillionOpen.split(',')[i] == PavillionOpenList[j].Value) {
+                                    PavillionOpenList[j].isActive = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 var GoodsType = htmlDecode($(this).find('.GoodsType').html());
                 if (GoodsType != "") {
                     for (var i in GoodsType.split(',')) {
@@ -3751,6 +3930,12 @@ function SaveData() {
                 TableBlack: htmlDecode($(this).find('.TableBlack').html()),
                 CrownWhite: htmlDecode($(this).find('.CrownWhite').html()),
                 TableWhite: htmlDecode($(this).find('.TableWhite').html()),
+
+                TableOpen: htmlDecode($(this).find('.TableOpen').html()),
+                GirdleOpen: htmlDecode($(this).find('.GirdleOpen').html()),
+                CrownOpen: htmlDecode($(this).find('.CrownOpen').html()),
+                PavillionOpen: htmlDecode($(this).find('.PavillionOpen').html()),
+
                 GoodsType: htmlDecode($(this).find('.GoodsType').html()),
 
                 View: $(this).find('.UsedView').html(),
@@ -3919,6 +4104,12 @@ function Get_Customer_Stock_Disc() {
                     var TableBlack = NullReplace(itm.TableBlack);
                     var CrownWhite = NullReplace(itm.CrownWhite);
                     var TableWhite = NullReplace(itm.TableWhite);
+
+                    var TableOpen = NullReplace(itm.TableOpen);
+                    var GirdleOpen = NullReplace(itm.GirdleOpen);
+                    var CrownOpen = NullReplace(itm.CrownOpen);
+                    var PavillionOpen = NullReplace(itm.PavillionOpen);
+                    
                     var GoodsType = NullReplace(itm.GoodsType);
 
                     var View = itm.View;
@@ -4081,7 +4272,10 @@ function Get_Customer_Stock_Disc() {
 
                     html += HTML_CREATE(Supplier, Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab, FromLength, ToLength,
                         FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng, FromCrHt, ToCrHt, FromPavAng,
-                        ToPavAng, FromPavHt, ToPavHt, Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, View, Download, Image, Video,
+                        ToPavAng, FromPavHt, ToPavHt, Keytosymbol, dCheckKTS, dUNCheckKTS, BGM,
+                        CrownBlack, TableBlack, CrownWhite, TableWhite,
+                        TableOpen, GirdleOpen, CrownOpen, PavillionOpen,
+                        GoodsType, View, Download, Image, Video,
                         PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5, Chk_Speci_Additional_1, txtFromDate, txtToDate,
                         PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5, new_id);
                 });

@@ -46,6 +46,14 @@ namespace SunriseLabWeb_New.Controllers
             CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(_data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Delete_UserMas(GetUsers_Res req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Delete_UserMas, inputJson);
+            CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(_data, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult FortunePartyCode_Exist(Exist_Request req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
