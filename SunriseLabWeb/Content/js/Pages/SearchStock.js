@@ -734,14 +734,14 @@ function CustomerList() {
                     else if (item.Column_Name == "Table Open") {
                         columnDefs.push({ headerName: "Table Open", field: "Table_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Table_Open", params); } });
                     }
-                    else if (item.Column_Name == "Girdle Open") {
-                        columnDefs.push({ headerName: "Girdle Open", field: "Girdle_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Girdle_Open", params); } });
-                    }
                     else if (item.Column_Name == "Crown Open") {
                         columnDefs.push({ headerName: "Crown Open", field: "Crown_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Crown_Open", params); } });
                     }
                     else if (item.Column_Name == "Pavilion Open") {
                         columnDefs.push({ headerName: "Pavilion Open", field: "Pav_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Pav_Open", params); } });
+                    }
+                    else if (item.Column_Name == "Girdle Open") {
+                        columnDefs.push({ headerName: "Girdle Open", field: "Girdle_Open", width: 70, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Girdle_Open", params); } });
                     }
                 });
                 if (columnDefs.length > 0) {

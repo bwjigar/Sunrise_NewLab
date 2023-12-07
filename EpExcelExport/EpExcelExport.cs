@@ -2122,10 +2122,6 @@ namespace EpExcelExportLib
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Open"]);
                                 }
-                                else if (Column_Name == "Girdle Open")
-                                {
-                                    worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
-                                }
                                 else if (Column_Name == "Crown Open")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
@@ -2133,6 +2129,10 @@ namespace EpExcelExportLib
                                 else if (Column_Name == "Pav Open")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
+                                }
+                                else if (Column_Name == "Girdle Open")
+                                {
+                                    worksheet.Cells[inwrkrow, kk].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
                                 }
                             }
                         }
@@ -2369,9 +2369,9 @@ namespace EpExcelExportLib
                     worksheet.Cells[3, 22].Value = "Crown Black";
                     //worksheet.Cells[3, 26].Value = "Side Inclusion";
                     //worksheet.Cells[3, 27].Value = "Side Natts";
-                    worksheet.Cells[3, 23].Value = "Crown Open";
-                    worksheet.Cells[3, 24].Value = "Pav Open";
-                    worksheet.Cells[3, 25].Value = "Table Open";
+                    worksheet.Cells[3, 23].Value = "Table Open"; 
+                    worksheet.Cells[3, 24].Value = "Crown Open";
+                    worksheet.Cells[3, 25].Value = "Pav Open";
                     worksheet.Cells[3, 26].Value = "Girdle Open";
                     worksheet.Cells[3, 27].Value = "Crown Angle";
                     worksheet.Cells[3, 28].Value = "Pav Angle";
@@ -2720,22 +2720,22 @@ namespace EpExcelExportLib
                         //    worksheet.Cells[inwrkrow, 27].Style.Fill.BackgroundColor.SetColor(red_bg);
                         //}
 
-                        worksheet.Cells[inwrkrow, 23].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown Open"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Crown Open"))
+                        worksheet.Cells[inwrkrow, 23].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table Open"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Table Open"))
                         {
                             worksheet.Cells[inwrkrow, 23].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 23].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
-
-                        worksheet.Cells[inwrkrow, 24].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav Open"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Pav Open"))
+                        
+                        worksheet.Cells[inwrkrow, 24].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown Open"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Crown Open"))
                         {
                             worksheet.Cells[inwrkrow, 24].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 24].Style.Fill.BackgroundColor.SetColor(red_bg);
                         }
 
-                        worksheet.Cells[inwrkrow, 25].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table Open"]);
-                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Table Open"))
+                        worksheet.Cells[inwrkrow, 25].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav Open"]);
+                        if (Array.Exists(NotMappedColumn, element => element.Trim() == "Pav Open"))
                         {
                             worksheet.Cells[inwrkrow, 25].Style.Fill.PatternType = ExcelFillStyle.Solid;
                             worksheet.Cells[inwrkrow, 25].Style.Fill.BackgroundColor.SetColor(red_bg);
@@ -3252,9 +3252,9 @@ namespace EpExcelExportLib
                     worksheet.Cells[3, 42].Value = "Table Inclusion";
                     worksheet.Cells[3, 43].Value = "Crown Inclusion";
                     worksheet.Cells[3, 44].Value = "Table Open";
-                    worksheet.Cells[3, 45].Value = "Girdle Open";
-                    worksheet.Cells[3, 46].Value = "Crown Open";
-                    worksheet.Cells[3, 47].Value = "Pavilion Open";
+                    worksheet.Cells[3, 45].Value = "Crown Open";
+                    worksheet.Cells[3, 46].Value = "Pavilion Open";
+                    worksheet.Cells[3, 47].Value = "Girdle Open";
                     worksheet.Cells[3, 48].Value = "Culet";
 
 
@@ -3480,9 +3480,9 @@ namespace EpExcelExportLib
                         worksheet.Cells[inwrkrow, 42].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Inclusion"]);
                         worksheet.Cells[inwrkrow, 43].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Inclusion"]);
                         worksheet.Cells[inwrkrow, 44].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Open"]);
-                        worksheet.Cells[inwrkrow, 45].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
                         worksheet.Cells[inwrkrow, 45].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
-                        worksheet.Cells[inwrkrow, 47].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
+                        worksheet.Cells[inwrkrow, 46].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
+                        worksheet.Cells[inwrkrow, 47].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]); 
                         worksheet.Cells[inwrkrow, 48].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Culet"]);
 
                         inwrkrow++;
@@ -3705,9 +3705,9 @@ namespace EpExcelExportLib
                         worksheet.Cells[3, 40].Value = "Crown Inclusion";
                         worksheet.Cells[3, 41].Value = "Culet";
                         worksheet.Cells[3, 42].Value = "Table Open";
-                        worksheet.Cells[3, 43].Value = "Girdle Open";
-                        worksheet.Cells[3, 44].Value = "Crown Open";
-                        worksheet.Cells[3, 45].Value = "Pavilion Open";
+                        worksheet.Cells[3, 43].Value = "Crown Open";
+                        worksheet.Cells[3, 44].Value = "Pavilion Open";
+                        worksheet.Cells[3, 45].Value = "Girdle Open";
 
 
                         ExcelStyle cellStyleHeader1 = worksheet.Cells[3, 1, 3, 45].Style;
@@ -3920,9 +3920,9 @@ namespace EpExcelExportLib
                             worksheet.Cells[inwrkrow, 40].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Inclusion"]);
                             worksheet.Cells[inwrkrow, 41].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Culet"]);
                             worksheet.Cells[inwrkrow, 42].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Open"]);
-                            worksheet.Cells[inwrkrow, 43].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
-                            worksheet.Cells[inwrkrow, 44].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
-                            worksheet.Cells[inwrkrow, 45].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
+                            worksheet.Cells[inwrkrow, 43].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
+                            worksheet.Cells[inwrkrow, 44].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
+                            worksheet.Cells[inwrkrow, 45].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
 
 
                             inwrkrow++;
@@ -4096,9 +4096,9 @@ namespace EpExcelExportLib
                         worksheet.Cells[3, 38].Value = "Crown Inclusion";
                         worksheet.Cells[3, 39].Value = "Culet";
                         worksheet.Cells[3, 40].Value = "Table Open";
-                        worksheet.Cells[3, 41].Value = "Girdle Open";
-                        worksheet.Cells[3, 42].Value = "Crown Open";
-                        worksheet.Cells[3, 43].Value = "Pavilion Open";
+                        worksheet.Cells[3, 41].Value = "Crown Open";
+                        worksheet.Cells[3, 42].Value = "Pavilion Open";
+                        worksheet.Cells[3, 43].Value = "Girdle Open";
 
 
                         ExcelStyle cellStyleHeader1 = worksheet.Cells[3, 1, 3, 43].Style;
@@ -4307,9 +4307,9 @@ namespace EpExcelExportLib
                             worksheet.Cells[inwrkrow, 38].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Inclusion"]);
                             worksheet.Cells[inwrkrow, 39].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Culet"]);
                             worksheet.Cells[inwrkrow, 40].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Open"]);
-                            worksheet.Cells[inwrkrow, 41].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
-                            worksheet.Cells[inwrkrow, 42].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
-                            worksheet.Cells[inwrkrow, 43].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
+                            worksheet.Cells[inwrkrow, 41].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
+                            worksheet.Cells[inwrkrow, 42].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
+                            worksheet.Cells[inwrkrow, 43].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
 
 
                             inwrkrow++;
@@ -4495,9 +4495,9 @@ namespace EpExcelExportLib
                         worksheet.Cells[3, 39].Value = "Crown Inclusion";
                         worksheet.Cells[3, 40].Value = "Culet";
                         worksheet.Cells[3, 41].Value = "Table Open";
-                        worksheet.Cells[3, 42].Value = "Girdle Open";
-                        worksheet.Cells[3, 43].Value = "Crown Open";
-                        worksheet.Cells[3, 44].Value = "Pavilion Open";
+                        worksheet.Cells[3, 42].Value = "Crown Open";
+                        worksheet.Cells[3, 43].Value = "Pavilion Open";
+                        worksheet.Cells[3, 44].Value = "Girdle Open";
 
 
                         ExcelStyle cellStyleHeader1 = worksheet.Cells[3, 1, 3, 44].Style;
@@ -4704,9 +4704,9 @@ namespace EpExcelExportLib
                             worksheet.Cells[inwrkrow, 39].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Inclusion"]);
                             worksheet.Cells[inwrkrow, 40].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Culet"]);
                             worksheet.Cells[inwrkrow, 41].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Open"]);
-                            worksheet.Cells[inwrkrow, 42].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
-                            worksheet.Cells[inwrkrow, 43].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
-                            worksheet.Cells[inwrkrow, 44].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
+                            worksheet.Cells[inwrkrow, 42].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
+                            worksheet.Cells[inwrkrow, 43].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
+                            worksheet.Cells[inwrkrow, 44].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
 
 
                             inwrkrow++;
@@ -4879,9 +4879,9 @@ namespace EpExcelExportLib
                         worksheet.Cells[3, 37].Value = "Crown Inclusion";
                         worksheet.Cells[3, 38].Value = "Culet";
                         worksheet.Cells[3, 39].Value = "Table Open";
-                        worksheet.Cells[3, 40].Value = "Girdle Open";
-                        worksheet.Cells[3, 41].Value = "Crown Open";
-                        worksheet.Cells[3, 42].Value = "Pavilion Open";
+                        worksheet.Cells[3, 40].Value = "Crown Open";
+                        worksheet.Cells[3, 41].Value = "Pavilion Open";
+                        worksheet.Cells[3, 42].Value = "Girdle Open";
 
 
                         ExcelStyle cellStyleHeader1 = worksheet.Cells[3, 1, 3, 42].Style;
@@ -5085,9 +5085,9 @@ namespace EpExcelExportLib
                             worksheet.Cells[inwrkrow, 37].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Inclusion"]);
                             worksheet.Cells[inwrkrow, 38].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Culet"]);
                             worksheet.Cells[inwrkrow, 39].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Open"]);
-                            worksheet.Cells[inwrkrow, 40].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
-                            worksheet.Cells[inwrkrow, 41].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
-                            worksheet.Cells[inwrkrow, 42].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
+                            worksheet.Cells[inwrkrow, 40].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
+                            worksheet.Cells[inwrkrow, 41].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
+                            worksheet.Cells[inwrkrow, 42].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
 
 
                             inwrkrow++;
