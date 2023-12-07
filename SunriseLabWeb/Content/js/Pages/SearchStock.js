@@ -215,11 +215,11 @@ function SupplierList() {
                     else if (item.Column_Name == "Supplier Cost Value($)") {
                         columnDefs.push({ headerName: "Supplier Cost Value($)", field: "SUPPLIER_COST_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("SUPPLIER_COST_VALUE", params); } });
                     }
-                    else if (item.Column_Name == "Sunrise Disc(%)") {
-                        columnDefs.push({ headerName: "Sunrise Disc(%)", field: "CUSTOMER_COST_DISC", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_DISC", params); } });
+                    else if (item.Column_Name == "Final Sale Disc(%)") {
+                        columnDefs.push({ headerName: "Final Sale Disc(%)", field: "CUSTOMER_COST_DISC", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_DISC", params); } });
                     }
-                    else if (item.Column_Name == "Sunrise Value US($)") {
-                        columnDefs.push({ headerName: "Sunrise Value US($)", field: "CUSTOMER_COST_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_VALUE", params); } });
+                    else if (item.Column_Name == "Final Sale Amt US($)") {
+                        columnDefs.push({ headerName: "Final Sale Amt US($)", field: "CUSTOMER_COST_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_VALUE", params); } });
                     }
                     else if (item.Column_Name == "Supplier Base Offer(%)") {
                         columnDefs.push({ headerName: "Supplier Base Offer(%)", field: "Disc", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Disc", params); } });

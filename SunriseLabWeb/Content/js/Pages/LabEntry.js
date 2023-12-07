@@ -273,14 +273,14 @@ columnDefs.push({
     cellRenderer: 'input_SUPPLIER_COST_VALUE_Indicator'
 });
 columnDefs.push({
-    headerName: "Sunrise Disc(%)",
+    headerName: "Final Sale Disc(%)",
     field: "CUSTOMER_COST_DISC",
     width: 110,
     sortable: false,
     cellRenderer: 'input_CUSTOMER_COST_DISC_Indicator'
 });
 columnDefs.push({
-    headerName: "Sunrise Value($)",
+    headerName: "Final Sale Amt US($)",
     field: "CUSTOMER_COST_VALUE",
     width: 110,
     sortable: false,
@@ -565,8 +565,8 @@ function LabEntry() {
                 msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Lab Status</b></center></td>";
                 msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Supplier Cost Disc(%)</b></center></td>";
                 msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Supplier Cost Value($)</b></center></td>";
-                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Sunrise Disc(%)</b></center></td>";
-                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Sunrise Value($)</b></center></td>";
+                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Final Sale Disc(%)</b></center></td>";
+                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Final Sale Amt US($)</b></center></td>";
                 msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Profit(%)</b></center></td>";
                 msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Profit Amount($)</b></center></td>";
                 msg += "</tr>";
@@ -1012,7 +1012,7 @@ function input_CUSTOMER_COST_DISC_Indicator(params) {
     }
 
     var element = document.createElement("span");
-    element.title = 'Sunrise Disc(%)';
+    element.title = 'Final Sale Disc(%)';
     element.innerHTML = '<label style="text-align: center;color: #003d66;font-size: 11px;text-align:center;font-weight:600;" class="input-inc CUSTOMER_COST_DISC">' + CUSTOMER_COST_DISC + '</label>';
     return element;
 }
@@ -1028,7 +1028,7 @@ function input_CUSTOMER_COST_VALUE_Indicator(params) {
     }
 
     var element = document.createElement("span");
-    element.title = 'Sunrise Value($)'; 
+    element.title = 'Final Sale Amt US($)'; 
     element.innerHTML = '<input type="text" style="text-align: center;" class="input-inc CUSTOMER_COST_VALUE" value = "' + CUSTOMER_COST_VALUE
         + '" onkeypress="return isNumberKeyWithNegative(event)" Ref_No = "' + params.data.Ref_No
         + '" SupplierId = "' + params.data.SupplierId

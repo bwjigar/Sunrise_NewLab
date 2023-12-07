@@ -408,6 +408,7 @@ namespace Lib.Model
         public int SupplierId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string ExportType { get; set; }
         public string URL { get; set; }
         public List<Obj_Supplier_Disc> SuppDisc { get; set; }
         public Save_Supplier_Disc_Req()
@@ -515,6 +516,7 @@ namespace Lib.Model
         public string UserName { get; set; }
         public string Password { get; set; }
         public string URL { get; set; }
+        public string ExportType { get; set; }
     }
     
     public class Get_SearchStock_Req

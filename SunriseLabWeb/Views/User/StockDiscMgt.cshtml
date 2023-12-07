@@ -275,6 +275,34 @@
     <div class="" id="divAddFilters" style="display:none;">
         <div class="row m-0 api-full-box" style="margin-left: 5px !important;margin-right: 5px !important;font-size: 14px;">
             <div class="order-history-data admin muser col-xl-12 col-lg-12 col-md-12 col-sm-12" style="background-color: white;padding: 0;box-shadow: none;">
+                <div class="col-xl-3 col-lg-6 col-md-7 col-sm-6 col-12 float-left" id="divWithoutDatetime">
+                    <span id="spnUsernmList">
+                        <span style="font-weight: 600;">User Name :&nbsp;</span>
+                    </span>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
+                    <div class="order-company-name common-order">
+                        <div class="offer-label">Export Type: <span style="color:red;">*</span></div>
+                        <select class="form-control select2" id="ExportType" name="ExportType">
+                            <option value="">Select</option>
+                            <option value="EXCEL(.xlsx)">EXCEL(.xlsx)</option>
+                            <option value="EXCEL(.xls)">EXCEL(.xls)</option>
+                            <option value="CSV">CSV</option>
+                            <option value="XML">XML</option>
+                            <option value="JSON">JSON</option>
+                        </select>
+                    </div>
+                </div>
+                @*<div class="col-xl-3 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
+                    
+                </div>*@
+            </div>
+            <br />
+            <strong style="font-size: 12px;color:red;margin-top: 9px;" id="URL"></strong>
+        </div>
+
+        @*<div class="row m-0 api-full-box" style="margin-left: 5px !important;margin-right: 5px !important;font-size: 14px;">
+            <div class="order-history-data admin muser col-xl-12 col-lg-12 col-md-12 col-sm-12" style="background-color: white;padding: 0;box-shadow: none;">
                 <div class="col-xl-12 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
                     <span id="spnUsernmList">
                         <span style="font-weight: 600;">User Name :&nbsp;</span>
@@ -282,8 +310,7 @@
                     <strong style="font-size: 12px; color: red; margin-top: 9px; margin-left: 30px;" id="URL"></strong>
                 </div>
             </div>
-
-        </div>
+        </div>*@
         <div class="row m-0">
             <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 tabbox">
                 <div class="tabboxdiv">
@@ -798,37 +825,37 @@
                         </div>
                     </div>
                     @*<div class="row m-0" style="margin-top: 6px !important;">
-            <div class="col-sm-3 col-xs-12 api-plr">
-                <strong>Price Method <span style="color:red;">*</span></strong>
-            </div>
-            <div class="col-sm-5 col-sm-5 col-xs-10 custom-box-list api-plr">
-                <select class="form-control select2" id="PricingMethod" name="PricingMethod" onchange="PricingMethodDDL();">
-                    <option value="">Select Method</option>
-                    <option value="Disc">Discount</option>
-                    <option value="Value">Value</option>
-                </select>
-            </div>
-            <div class="col-sm-3 col-sm-3 col-xs-10 custom-box-list api-plr">
-                <select class="form-control select2" id="PricingSign" name="PricingSign">
-                    <option value="=">=</option>
-                    <option value="+">+</option>
-                    <option value="-">-</option>
-                </select>
-            </div>
-        </div>
-        <div class="row m-0">
-            <div class="col-sm-3 col-xs-12 api-plr">
-                <strong>Percentage <span style="color:red;">*</span></strong>
-            </div>
-            <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
-                <div class="col-md-3 api-plr txtDisc"><input type="text" id="txtDisc1" name="txtDisc1" onkeypress="return DisValValid('Disc', event)" onkeyup="LenCheckr('Disc')" class="form-control" autocomplete="off"></div>
-                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue1" name="txtValue1" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue2" name="txtValue2" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue3" name="txtValue3" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue4" name="txtValue4" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr"></label>
-            </div>
-        </div>*@
+                        <div class="col-sm-3 col-xs-12 api-plr">
+                            <strong>Price Method <span style="color:red;">*</span></strong>
+                        </div>
+                        <div class="col-sm-5 col-sm-5 col-xs-10 custom-box-list api-plr">
+                            <select class="form-control select2" id="PricingMethod" name="PricingMethod" onchange="PricingMethodDDL();">
+                                <option value="">Select Method</option>
+                                <option value="Disc">Discount</option>
+                                <option value="Value">Value</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 col-sm-3 col-xs-10 custom-box-list api-plr">
+                            <select class="form-control select2" id="PricingSign" name="PricingSign">
+                                <option value="=">=</option>
+                                <option value="+">+</option>
+                                <option value="-">-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="col-sm-3 col-xs-12 api-plr">
+                            <strong>Percentage <span style="color:red;">*</span></strong>
+                        </div>
+                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
+                            <div class="col-md-3 api-plr txtDisc"><input type="text" id="txtDisc1" name="txtDisc1" onkeypress="return DisValValid('Disc', event)" onkeyup="LenCheckr('Disc')" class="form-control" autocomplete="off"></div>
+                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue1" name="txtValue1" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue2" name="txtValue2" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue3" name="txtValue3" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue4" name="txtValue4" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                            <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr"></label>
+                        </div>
+                    </div>*@
                 </div>
             </div>
         </div>
@@ -1071,7 +1098,7 @@
                                                 <img src="~/Content/images/chebox-empty.png" class="chebox-empty img-none" id="chebox_emptyImg_1" onclick="chebox_empty('1')" style="cursor:pointer;width: 20px;margin-bottom: 7px;" />
 
                                                 @*<img src="~/Content/images/chebox-fill.png" class="chebox-fill img-none" id="chebox_fillImg_@item.icolumnId" onclick="chebox_fill('@item.icolumnId')" style="cursor:pointer;width: 20px;" />
-                                                    <img src="~/Content/images/chebox-empty.png" class="chebox-empty img-block" id="chebox_emptyImg_@item.icolumnId" onclick="chebox_empty('@item.icolumnId')" style="cursor:pointer;width: 20px;margin-top: 0px;" />*@
+                                                <img src="~/Content/images/chebox-empty.png" class="chebox-empty img-block" id="chebox_emptyImg_@item.icolumnId" onclick="chebox_empty('@item.icolumnId')" style="cursor:pointer;width: 20px;margin-top: 0px;" />*@
                                             </center>
                                         </td>
                                     </tr>
@@ -1091,7 +1118,7 @@
                                                 <img src="~/Content/images/chebox-empty.png" class="chebox-empty img-none" id="chebox_emptyImg_1" onclick="chebox_empty('1')" style="cursor:pointer;width: 20px;margin-bottom: 7px;" />
 
                                                 @*<img src="~/Content/images/chebox-fill.png" class="chebox-fill img-none" id="chebox_fillImg_@item.icolumnId" onclick="chebox_fill('@item.icolumnId')" style="cursor:pointer;width: 20px;" />
-                                                    <img src="~/Content/images/chebox-empty.png" class="chebox-empty img-block" id="chebox_emptyImg_@item.icolumnId" onclick="chebox_empty('@item.icolumnId')" style="cursor:pointer;width: 20px;margin-top: 0px;" />*@
+                                                <img src="~/Content/images/chebox-empty.png" class="chebox-empty img-block" id="chebox_emptyImg_@item.icolumnId" onclick="chebox_empty('@item.icolumnId')" style="cursor:pointer;width: 20px;margin-top: 0px;" />*@
                                             </center>
                                         </td>
                                     </tr>
@@ -1106,8 +1133,8 @@
         <div>
             <ul class="offer-inbtn pull-right mt-3" style="margin-bottom: 15px; margin-top: 25px !important;">
                 @*<li class="mr-2 DeleteAll">
-                        <button onclick="DeleteAll();" type="button" class="offer-btn"><i class="fa fa-trash"></i>Delete All</button>
-                    </li>*@
+                    <button onclick="DeleteAll();" type="button" class="offer-btn"><i class="fa fa-trash"></i>Delete All</button>
+                </li>*@
                 <li class="mr-2">
                     <button onclick="SaveData();" type="button" class="offer-btn"><i class="fa fa-save"></i>Save</button>
                 </li>

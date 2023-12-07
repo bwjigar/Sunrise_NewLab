@@ -1293,7 +1293,7 @@ namespace EpExcelExportLib
                                     worksheet.Cells[inwrkrow, kk].Style.Fill.PatternType = ExcelFillStyle.Solid;
                                     worksheet.Cells[inwrkrow, kk].Style.Fill.BackgroundColor.SetColor(cellBg1);
                                 }
-                                else if (Column_Name == "Sunrise Disc(%)")
+                                else if (Column_Name == "Final Sale Disc(%)")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = ((dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_DISC"] != null) ?
                                      (dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_DISC"].GetType().Name != "DBNull" ?
@@ -1303,7 +1303,7 @@ namespace EpExcelExportLib
                                     worksheet.Cells[inwrkrow, kk].Style.Fill.PatternType = ExcelFillStyle.Solid;
                                     worksheet.Cells[inwrkrow, kk].Style.Fill.BackgroundColor.SetColor(cellBg);
                                 }
-                                else if (Column_Name == "Sunrise Value US($)")
+                                else if (Column_Name == "Final Sale Amt US($)")
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = ((dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_VALUE"] != null) ?
                                      (dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_VALUE"].GetType().Name != "DBNull" ?
@@ -1584,7 +1584,7 @@ namespace EpExcelExportLib
                                         = cellStyleHeader_TotalAmt.Border.Top.Style = cellStyleHeader_TotalAmt.Border.Bottom.Style
                                         = ExcelBorderStyle.Medium;
                             }
-                            else if (Column_Name == "Sunrise Disc(%)")
+                            else if (Column_Name == "Final Sale Disc(%)")
                             {
                                 int Image_Video = 0, Rap_Amount = 0, Sunrise_Value_US_Doller = 0;
                                 DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video'");
@@ -1598,7 +1598,7 @@ namespace EpExcelExportLib
                                     Rap_Amount = Convert.ToInt32(dra[0]["OrderBy"]);
                                     Rap_Amount = ((Image_Video != 0 && Rap_Amount > Image_Video) ? Rap_Amount + 1 : Rap_Amount);
                                 }
-                                dra = Col_dt.Select("[Column_Name] = 'Sunrise Value US($)'");
+                                dra = Col_dt.Select("[Column_Name] = 'Final Sale Amt US($)'");
                                 if (dra.Length > 0)
                                 {
                                     Sunrise_Value_US_Doller = Convert.ToInt32(dra[0]["OrderBy"]);
@@ -1616,7 +1616,7 @@ namespace EpExcelExportLib
                                             = ExcelBorderStyle.Medium;
                                 }
                             }
-                            else if (Column_Name == "Sunrise Value US($)")
+                            else if (Column_Name == "Final Sale Amt US($)")
                             {
                                 worksheet.Cells[1, kkk].Formula = "ROUND(SUBTOTAL(109," + GetExcelColumnLetter(kkk) + "" + inStartIndex + ":" + GetExcelColumnLetter(kkk) + "" + (inwrkrow - 1) + "),2)";
                                 worksheet.Cells[1, kkk].Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -3226,8 +3226,8 @@ namespace EpExcelExportLib
                     worksheet.Cells[3, 16].Value = "Rap Amount($)";
                     worksheet.Cells[3, 17].Value = "Supplier Cost Disc(%)";
                     worksheet.Cells[3, 18].Value = "Supplier Cost Value($)";
-                    worksheet.Cells[3, 19].Value = "Sunrise Disc(%)";
-                    worksheet.Cells[3, 20].Value = "Sunrise Value($)";
+                    worksheet.Cells[3, 19].Value = "Final Sale Disc(%)";
+                    worksheet.Cells[3, 20].Value = "Final Sale Amt US($)";
                     worksheet.Cells[3, 21].Value = "Profit Amount($)";
                     worksheet.Cells[3, 22].Value = "Profit(%)";
                     worksheet.Cells[3, 23].Value = "Supplier Base Offer Disc(%)";

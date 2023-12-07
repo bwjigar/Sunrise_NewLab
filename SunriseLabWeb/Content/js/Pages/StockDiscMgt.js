@@ -286,6 +286,7 @@ function AddFilters() {
         //$("#txt_S_UserName").val("");
         //$("#txt_S_Password").val("");
         $("#URL").html("");
+        $("#ExportType").val("");
         Get_Customer_Stock_Disc();
         Get_Customer_Stock_Disc_Mas();
     }
@@ -3868,6 +3869,12 @@ var GetError_1 = function () {
     //    }
     //}
 
+    if ($("#ExportType").val() == "") {
+        ErrorMsg.push({
+            'Error': "Please Select Export Type.",
+        });
+    }
+
     if (parseInt($("#tblFilters #tblBodyFilters").find('tr').length) == 0 && Exists_Record == 0) {
         ErrorMsg.push({
             'Error': "Supplier Disc Pricing Filter Not Found.",
@@ -3985,6 +3992,7 @@ function SaveData() {
         var obj = {};
         obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
         obj.UserName = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserName').join(",");
+        obj.ExportType = $("#ExportType").val();
         //obj.Password = $("#txt_S_Password").val();
         obj.SuppDisc = list;
 
@@ -4324,6 +4332,7 @@ function Get_Customer_Stock_Disc_Mas() {
                 //$("#txt_S_UserName").val(data.Data[0].UserName);
                 //$("#txt_S_Password").val(data.Data[0].Password);
                 $("#URL").html("Link : " + data.Data[0].URL);
+                $("#ExportType").val(data.Data[0].ExportType);
             }
             loaderHide();
         },
