@@ -877,7 +877,7 @@
             }
             if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
             {
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(1);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer Excel</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(1, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer Excel</a></li>
             }
             if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
             {
@@ -885,7 +885,7 @@
             }
             if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
             {
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(2, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
             }
             if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
             {
@@ -893,7 +893,7 @@
             }
             if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
             {
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
             }
         }
         else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Buyer")
@@ -904,7 +904,7 @@
             }
             if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
             {
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(1);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer Excel</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(1, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer Excel</a></li>
             }
         }
         else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Employee")
@@ -915,7 +915,7 @@
             }
             if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
             {
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
             }
         }
         else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Customer")
@@ -926,7 +926,7 @@
             }
             if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
             {
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Download</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Download</a></li>
             }
         }
         <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Reset();"><i class="fa fa-refresh" aria-hidden="true"></i>Reset</a></li>
@@ -964,7 +964,7 @@
                 }
                 @if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
                 {
-                    <li id="li_excel"><a class="effect-one" onclick="ExcelDownload('Grid');" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="flaticon-file"></i></a></li>
+                    <li id="li_excel"><a class="effect-one" onclick="ExcelDownload('Grid','In');" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="flaticon-file"></i></a></li>
                 }
                 <li style="display:none;"><a class="effect-one" onclick="ByRequestCart();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Buy Cart"><i class="flaticon-shopping-cart"></i></a></li>
                 <li style="display:none;"><a class="effect-one" onclick="Download();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="fa fa-file-excel-o"></i></a></li>

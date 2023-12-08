@@ -3652,6 +3652,11 @@ namespace API.Controllers
                     para.Add(db.CreateParam("Pointer", DbType.String, ParameterDirection.Input, req.Pointer));
                 else
                     para.Add(db.CreateParam("Pointer", DbType.String, ParameterDirection.Input, DBNull.Value));
+                
+                if (!string.IsNullOrEmpty(req.Sub_Pointer))
+                    para.Add(db.CreateParam("Sub_Pointer", DbType.String, ParameterDirection.Input, req.Sub_Pointer));
+                else
+                    para.Add(db.CreateParam("Sub_Pointer", DbType.String, ParameterDirection.Input, DBNull.Value));
 
                 if (!string.IsNullOrEmpty(req.ColorType))
                     para.Add(db.CreateParam("ColorType", DbType.String, ParameterDirection.Input, req.ColorType));

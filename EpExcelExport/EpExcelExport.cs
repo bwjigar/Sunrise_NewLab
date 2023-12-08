@@ -615,9 +615,9 @@ namespace EpExcelExportLib
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = ((dtDiamonds.Rows[i - inStartIndex]["Table_Per"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Table_Per"].GetType().Name != "DBNull" ?
-                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Double?)null)) : null);
+                                       Convert.ToInt32(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Int32?)null)) : null);
 
-                                    worksheet.Cells[inwrkrow, kk].Style.Numberformat.Format = "0.00";
+                                    worksheet.Cells[inwrkrow, kk].Style.Numberformat.Format = "0";
                                 }
                                 else if (Column_Name == "Crown Angle")
                                 {
@@ -1393,9 +1393,9 @@ namespace EpExcelExportLib
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = ((dtDiamonds.Rows[i - inStartIndex]["Table_Per"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Table_Per"].GetType().Name != "DBNull" ?
-                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Double?)null)) : null);
+                                       Convert.ToInt32(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Int32?)null)) : null);
 
-                                    worksheet.Cells[inwrkrow, kk].Style.Numberformat.Format = "0.00";
+                                    worksheet.Cells[inwrkrow, kk].Style.Numberformat.Format = "0";
                                 }
                                 else if (Column_Name == "Key To Symbol")
                                 {
@@ -2046,9 +2046,9 @@ namespace EpExcelExportLib
                                 {
                                     worksheet.Cells[inwrkrow, kk].Value = ((dtDiamonds.Rows[i - inStartIndex]["Table_Per"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Table_Per"].GetType().Name != "DBNull" ?
-                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Double?)null)) : null);
+                                       Convert.ToInt32(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Int32?)null)) : null);
 
-                                    worksheet.Cells[inwrkrow, kk].Style.Numberformat.Format = "0.00";
+                                    worksheet.Cells[inwrkrow, kk].Style.Numberformat.Format = "0";
                                 }
                                 else if (Column_Name == "Comment")
                                 {
@@ -3451,7 +3451,7 @@ namespace EpExcelExportLib
 
                         worksheet.Cells[inwrkrow, 33].Value = ((dtDiamonds.Rows[i - inStartIndex]["Table_Per"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Table_Per"].GetType().Name != "DBNull" ?
-                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Double?)null)) : null);
+                                       Convert.ToInt32(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Int32?)null)) : null);
 
                         worksheet.Cells[inwrkrow, 34].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Key_To_Symboll"]);
 
@@ -3498,7 +3498,7 @@ namespace EpExcelExportLib
                     worksheet.Cells[inStartIndex, 15, (inwrkrow - 1), 20].Style.Numberformat.Format = "#,##0.00"; 
                     worksheet.Cells[inStartIndex, 23, (inwrkrow - 1), 24].Style.Numberformat.Format = "#,##0.00"; 
 
-                    worksheet.Cells[inStartIndex, 29, (inwrkrow - 1), 33].Style.Numberformat.Format = "0.00";
+                    worksheet.Cells[inStartIndex, 29, (inwrkrow - 1), 32].Style.Numberformat.Format = "0.00";
                     worksheet.Cells[inStartIndex, 35, (inwrkrow - 1), 39].Style.Numberformat.Format = "0.00";
                     
 
@@ -3891,7 +3891,7 @@ namespace EpExcelExportLib
 
                             worksheet.Cells[inwrkrow, 30].Value = ((dtDiamonds.Rows[i - inStartIndex]["Table_Per"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Table_Per"].GetType().Name != "DBNull" ?
-                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Double?)null)) : null);
+                                       Convert.ToInt32(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Int32?)null)) : null);
 
                             worksheet.Cells[inwrkrow, 31].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab_Comments"]);
                             worksheet.Cells[inwrkrow, 32].Value = ((dtDiamonds.Rows[i - inStartIndex]["Girdle_Per"] != null) ?
@@ -3937,7 +3937,7 @@ namespace EpExcelExportLib
                         worksheet.Cells[inStartIndex, 24, (inwrkrow - 1), 24].Style.Numberformat.Format = "0.00";
                         worksheet.Cells[inStartIndex, 14, (inwrkrow - 1), 18].Style.Numberformat.Format = "#,##0.00";
 
-                        worksheet.Cells[inStartIndex, 26, (inwrkrow - 1), 30].Style.Numberformat.Format = "0.00";
+                        worksheet.Cells[inStartIndex, 26, (inwrkrow - 1), 29].Style.Numberformat.Format = "0.00";
                         worksheet.Cells[inStartIndex, 32, (inwrkrow - 1), 36].Style.Numberformat.Format = "0.00";
 
 
@@ -4278,7 +4278,7 @@ namespace EpExcelExportLib
 
                             worksheet.Cells[inwrkrow, 28].Value = ((dtDiamonds.Rows[i - inStartIndex]["Table_Per"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Table_Per"].GetType().Name != "DBNull" ?
-                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Double?)null)) : null);
+                                       Convert.ToInt32(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Int32?)null)) : null);
 
                             worksheet.Cells[inwrkrow, 29].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab_Comments"]);
                             worksheet.Cells[inwrkrow, 30].Value = ((dtDiamonds.Rows[i - inStartIndex]["Girdle_Per"] != null) ?
@@ -4324,7 +4324,7 @@ namespace EpExcelExportLib
                         worksheet.Cells[inStartIndex, 22, (inwrkrow - 1), 22].Style.Numberformat.Format = "0.00";
                         worksheet.Cells[inStartIndex, 13, (inwrkrow - 1), 16].Style.Numberformat.Format = "#,##0.00";
 
-                        worksheet.Cells[inStartIndex, 24, (inwrkrow - 1), 28].Style.Numberformat.Format = "0.00";
+                        worksheet.Cells[inStartIndex, 24, (inwrkrow - 1), 27].Style.Numberformat.Format = "0.00";
                         worksheet.Cells[inStartIndex, 30, (inwrkrow - 1), 34].Style.Numberformat.Format = "0.00";
 
 
@@ -4675,7 +4675,7 @@ namespace EpExcelExportLib
 
                             worksheet.Cells[inwrkrow, 29].Value = ((dtDiamonds.Rows[i - inStartIndex]["Table_Per"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Table_Per"].GetType().Name != "DBNull" ?
-                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Double?)null)) : null);
+                                       Convert.ToInt32(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Int32?)null)) : null);
 
                             worksheet.Cells[inwrkrow, 30].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab_Comments"]);
                             worksheet.Cells[inwrkrow, 31].Value = ((dtDiamonds.Rows[i - inStartIndex]["Girdle_Per"] != null) ?
@@ -4721,7 +4721,7 @@ namespace EpExcelExportLib
                         worksheet.Cells[inStartIndex, 23, (inwrkrow - 1), 23].Style.Numberformat.Format = "0.00";
                         worksheet.Cells[inStartIndex, 14, (inwrkrow - 1), 17].Style.Numberformat.Format = "#,##0.00";
 
-                        worksheet.Cells[inStartIndex, 25, (inwrkrow - 1), 29].Style.Numberformat.Format = "0.00";
+                        worksheet.Cells[inStartIndex, 25, (inwrkrow - 1), 28].Style.Numberformat.Format = "0.00";
                         worksheet.Cells[inStartIndex, 31, (inwrkrow - 1), 35].Style.Numberformat.Format = "0.00";
 
 
@@ -5056,7 +5056,7 @@ namespace EpExcelExportLib
 
                             worksheet.Cells[inwrkrow, 27].Value = ((dtDiamonds.Rows[i - inStartIndex]["Table_Per"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Table_Per"].GetType().Name != "DBNull" ?
-                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Double?)null)) : null);
+                                       Convert.ToInt32(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Int32?)null)) : null);
 
                             worksheet.Cells[inwrkrow, 28].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab_Comments"]);
                             worksheet.Cells[inwrkrow, 29].Value = ((dtDiamonds.Rows[i - inStartIndex]["Girdle_Per"] != null) ?
@@ -5102,7 +5102,7 @@ namespace EpExcelExportLib
                         worksheet.Cells[inStartIndex, 21, (inwrkrow - 1), 21].Style.Numberformat.Format = "0.00";
                         worksheet.Cells[inStartIndex, 12, (inwrkrow - 1), 15].Style.Numberformat.Format = "#,##0.00";
 
-                        worksheet.Cells[inStartIndex, 23, (inwrkrow - 1), 27].Style.Numberformat.Format = "0.00";
+                        worksheet.Cells[inStartIndex, 23, (inwrkrow - 1), 26].Style.Numberformat.Format = "0.00";
                         worksheet.Cells[inStartIndex, 29, (inwrkrow - 1), 33].Style.Numberformat.Format = "0.00";
 
 

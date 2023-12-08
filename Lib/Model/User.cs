@@ -530,6 +530,7 @@ namespace Lib.Model
         public string SupplierId { get; set; }
         public string Shape { get; set; }
         public string Pointer { get; set; }
+        public string Sub_Pointer { get; set; }
         public string ColorType { get; set; }
         public string Color { get; set; }
         public string INTENSITY { get; set; }
@@ -636,7 +637,7 @@ namespace Lib.Model
         public decimal Length { get; set; }
         public decimal Width { get; set; }
         public decimal Depth { get; set; }
-        public decimal Table_Per { get; set; }
+        public int Table_Per { get; set; }
         public decimal Depth_Per { get; set; }
         public string Table_Inclusion { get; set; }
         public string Crown_Inclusion { get; set; }
@@ -818,7 +819,7 @@ namespace Lib.Model
         public decimal Length { get; set; }
         public decimal Width { get; set; }
         public decimal Depth { get; set; }
-        public decimal Table_Per { get; set; }
+        public int Table_Per { get; set; }
         public decimal Depth_Per { get; set; }
         public string Table_Inclusion { get; set; }
         public string Crown_Inclusion { get; set; }
@@ -967,7 +968,7 @@ namespace Lib.Model
         public decimal Length { get; set; }
         public decimal Width { get; set; }
         public decimal Depth { get; set; }
-        public decimal Table_Per { get; set; }
+        public int Table_Per { get; set; }
         public decimal Depth_Per { get; set; }
         public string Table_Inclusion { get; set; }
         public string Crown_Inclusion { get; set; }
