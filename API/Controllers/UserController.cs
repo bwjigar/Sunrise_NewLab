@@ -7277,14 +7277,14 @@ namespace API.Controllers
         }
         public DataTable Aspeco(DataTable Stock_dt)
         {
-            Stock_dt.DefaultView.RowFilter = "[Cash Price] <> '0'";
+            Stock_dt.DefaultView.RowFilter = "[Cash Price] <> '0.00'";
             Stock_dt = Stock_dt.DefaultView.ToTable();
 
             return Stock_dt;
         }
         public DataTable KBS(DataTable Stock_dt)
         {
-            Stock_dt.DefaultView.RowFilter = "[Asking%] <> '0'";
+            Stock_dt.DefaultView.RowFilter = "[Asking%] <> '0.00'";
             Stock_dt = Stock_dt.DefaultView.ToTable();
 
             return Stock_dt;
