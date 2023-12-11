@@ -490,7 +490,7 @@ namespace SunriseLabWeb_New.Controllers
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_SearchStock, inputJson);
-            ServiceResponse<Get_SearchStock_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_Res>>(response);
+            ServiceResponse<SearchDiamondsResponse> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Excel_SearchStock(Get_SearchStock_Req req)

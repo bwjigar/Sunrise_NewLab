@@ -611,6 +611,43 @@ namespace Lib.Model
         public string PricingSign { get; set; }
         public decimal PricingDisc { get; set; }
     }
+    public class SearchSummary
+    {
+        public int TOT_PAGE { get; set; }
+        public int PAGE_SIZE { get; set; }
+        public int TOT_PCS { get; set; }
+        public double TOT_CTS { get; set; }
+        public double TOT_RAP_AMOUNT { get; set; }
+        public double TOT_NET_AMOUNT { get; set; }
+        public double AVG_PRICE_PER_CTS { get; set; }
+        public double AVG_SALES_DISC_PER { get; set; }
+    }
+    public class SearchDiamondsResponse
+    {
+        private List<Get_SearchStock_Res> dataList;
+
+        public List<Get_SearchStock_Res> DataList
+        {
+            get { return dataList; }
+            set { dataList = value; }
+        }
+
+        private SearchSummary dataSummary;
+
+        public SearchSummary DataSummary
+        {
+            get { return dataSummary; }
+            set { dataSummary = value; }
+        }
+
+        public SearchDiamondsResponse()
+        {
+            DataList = new List<Get_SearchStock_Res>();
+            dataSummary = new SearchSummary();
+        }
+    }
+
+
     public class Get_SearchStock_Res
     {
         public long iTotalRec { get; set; }
@@ -720,6 +757,8 @@ namespace Lib.Model
         public string Para_Grade { get; set; }
         public string QCRequire { get; set; }
         public string LabEntry_Status { get; set; }
+        public int PAGE_SIZE { get; set; }
+        public float TOTAL_PAGE { get; set; }
     }
     public class Data_Get_From_File_Req
     {

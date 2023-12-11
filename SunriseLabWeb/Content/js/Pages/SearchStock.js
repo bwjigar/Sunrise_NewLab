@@ -3,6 +3,7 @@ var FortuneCodeValid_Msg = "";
 var Type = "";
 var OrderBy = "";
 var Rowdata = [];
+var summary = [];
 var pgSize = 200;
 var showEntryHtml = '<div class="show_entry"><label>'
     + 'Show <select onchange = "onPageSizeChanged()" id = "ddlPagesize">'
@@ -1183,7 +1184,7 @@ function Search() {
 }
 function GetHoldDataGrid() {
     //loaderShow();
-
+    $('#tab1TCount').hide();
     if (gridOptions.api != undefined) {
         gridOptions.api.destroy();
     }
@@ -1290,7 +1291,6 @@ const datasource1 = {
         obj.View = true;
         obj.Download = false;
 
-        debugger
         if (params.request.filterModel.Cts) {
             var str = "";
             if (params.request.filterModel.Cts.operator == "AND" || params.request.filterModel.Cts.operator == "OR") {
@@ -1373,9 +1373,7 @@ const datasource1 = {
         }
 
 
-
-
-        Rowdata = [];
+        Rowdata = [], summary = [];
         $.ajax({
             url: "/User/Get_SearchStock",
             async: false,
@@ -1385,14 +1383,47 @@ const datasource1 = {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
+                
                 if (data.Data.length > 0) {
-                    Rowdata = data.Data;
-                    params.successCallback(data.Data, data.Data[0].iTotalRec);
+                    summary = data.Data[0].DataSummary;
+                    $.map(data.Data[0].DataList, function (obj) {
+                        Rowdata.push(obj);
+                    });
+                    params.successCallback(data.Data[0].DataList, summary.TOT_PCS);
+                    
+                    $('#tab1TCount').show();
+                    $('#tab1Pcs').html(formatIntNumber(summary.TOT_PCS));
+                    $('#tab1CTS').html(formatNumber(summary.TOT_CTS));
+                    
+                    if (Type == "Buyer List") {
+                        $(".totdisc").html("Supplier Final Disc(%)");
+                        $(".totval").html("Supplier Final Value($)");
+                    }
+                    else if (Type == "Supplier List") {
+                        $(".totdisc").html("Final Sale Disc(%)");
+                        $(".totval").html("Final Sale Amt US($)");
+                    }
+                    else if (Type == "Customer List") {
+                        $(".totdisc").html("Offer Disc(%)");
+                        $(".totval").html("Offer Value($)");
+                    }
+                    $('#tab1OfferDisc').html(formatNumber(summary.AVG_SALES_DISC_PER));
+                    $('#tab1OfferValue').html(formatNumber(summary.TOT_NET_AMOUNT));
+                    $('#tab1PriceCts').html(formatNumber(summary.AVG_PRICE_PER_CTS));
                 }
                 else {
                     if (data.Data.length == 0) {
+                        gridOptions.api.showNoRowsOverlay();
+                        Rowdata = [], summary = [];
+
                         $("#divFilter").show();
                         $("#divGridView").hide();
+                        $('#tab1TCount').hide();
+                        $('#tab1Pcs').html(formatIntNumber(0));
+                        $('#tab1CTS').html(formatNumber(0));
+                        $('#tab1OfferDisc').html(formatNumber(0));
+                        $('#tab1OfferValue').html(formatNumber(0));
+                        $('#tab1PriceCts').html(formatNumber(0));
                         toastr.error("No Stock found as per filter criteria !");
                     }
 
@@ -1444,7 +1475,7 @@ function ExcelDownload(where, from) {
         obj = ObjectCreate("", "", OrderBy, where);
         obj.View = false;
         obj.Download = true;
-        debugger
+        
         if (from == 'In') {
             obj.Pointer = (Filter_Pointer != "" ? Filter_Pointer : obj.Pointer);
             obj.Lab = (Filter_Lab != "" ? Filter_Lab : obj.Lab);
@@ -2452,30 +2483,30 @@ $(document).ready(function () {
 SetCutMaster = function (item) {
     _.each(CutList, function (itm) {
         $('#searchcut li[onclick="SetActive(\'CUT\',\'' + itm.Value + '\')"]').removeClass('active');
-        itm.ACTIVE = false;
+        itm.isActive = false;
     });
     _.each(PolishList, function (itm) {
         $('#searchpolish li[onclick="SetActive(\'POLISH\',\'' + itm.Value + '\')"]').removeClass('active');
-        itm.ACTIVE = false;
+        itm.isActive = false;
     });
     _.each(SymList, function (itm) {
         $('#searchsymm li[onclick="SetActive(\'SYMM\',\'' + itm.Value + '\')"]').removeClass('active');
-        itm.ACTIVE = false;
+        itm.isActive = false;
     });
     if (item == '3EX' && !$('#li3ex').hasClass('active')) {
         $('#li3vg').removeClass('active');
 
         _.each(_.filter(CutList, function (e) { return e.Value == "EX" || e.Value == "3EX" }), function (itm) {
             $('#searchcut li[onclick="SetActive(\'CUT\',\'' + itm.Value + '\')"]').addClass('active');
-            itm.ACTIVE = true;
+            itm.isActive = true;
         });
         _.each(_.filter(PolishList, function (e) { return e.Value == "EX" }), function (itm) {
             $('#searchpolish li[onclick="SetActive(\'POLISH\',\'EX\')"]').addClass('active');
-            itm.ACTIVE = true;
+            itm.isActive = true;
         });
         _.each(_.filter(SymList, function (e) { return e.Value == "EX" }), function (itm) {
             $('#searchsymm li[onclick="SetActive(\'SYMM\',\'EX\')"]').addClass('active');
-            itm.ACTIVE = true;
+            itm.isActive = true;
         });
     }
     else if (item == '3VG' && !$('#li3vg').hasClass('active')) {
@@ -2483,15 +2514,15 @@ SetCutMaster = function (item) {
         $('#li3ex').removeClass('active');
         _.each(_.filter(CutList, function (e) { return e.Value == "EX" || e.Value == "VG" || e.Value == "3EX" }), function (itm) {
             $('#searchcut li[onclick="SetActive(\'CUT\',\'' + itm.Value + '\')"]').addClass('active');
-            itm.ACTIVE = true;
+            itm.isActive = true;
         });
         _.each(_.filter(PolishList, function (e) { return e.Value == "EX" || e.Value == "VG" }), function (itm) {
             $('#searchpolish li[onclick="SetActive(\'POLISH\',\'' + itm.Value + '\')"]').addClass('active');
-            itm.ACTIVE = true;
+            itm.isActive = true;
         });
         _.each(_.filter(SymList, function (e) { return e.Value == "EX" || e.Value == "VG" }), function (itm) {
             $('#searchsymm li[onclick="SetActive(\'SYMM\',\'' + itm.Value + '\')"]').addClass('active');
-            itm.ACTIVE = true;
+            itm.isActive = true;
         });
     }
 }
@@ -3076,22 +3107,21 @@ function Reset() {
     $("#PricingMethod_1").val("");
     $("#PricingSign_1").val("Plus");
     $("#txtDisc_1_1").val("");
+    _.map(ShapeList, function (data) { return data.isActive = false; });
+    _.map(ColorList, function (data) { return data.isActive = false; });
+    _.map(ClarityList, function (data) { return data.isActive = false; });
+    _.map(CutList, function (data) { return data.isActive = false; });
+    _.map(PolishList, function (data) { return data.isActive = false; });
+    _.map(SymList, function (data) { return data.isActive = false; });
+    _.map(FlouList, function (data) { return data.isActive = false; });
+    _.map(BGMList, function (data) { return data.isActive = false; });
 
-    _.map(ShapeList, function (data) { return data.ACTIVE = false; });
-    _.map(ColorList, function (data) { return data.ACTIVE = false; });
-    _.map(ClarityList, function (data) { return data.ACTIVE = false; });
-    _.map(CutList, function (data) { return data.ACTIVE = false; });
-    _.map(PolishList, function (data) { return data.ACTIVE = false; });
-    _.map(SymList, function (data) { return data.ACTIVE = false; });
-    _.map(FlouList, function (data) { return data.ACTIVE = false; });
-    _.map(BGMList, function (data) { return data.ACTIVE = false; });
-
-    _.map(LabList, function (data) { return data.ACTIVE = false; });
-    _.map(TblInclList, function (data) { return data.ACTIVE = false; });
-    _.map(TblNattsList, function (data) { return data.ACTIVE = false; });
-    _.map(CrwnInclList, function (data) { return data.ACTIVE = false; });
-    _.map(CrwnNattsList, function (data) { return data.ACTIVE = false; });
-    _.map(CaratList, function (data) { return data.ACTIVE = false; });
+    _.map(LabList, function (data) { return data.isActive = false; });
+    _.map(TblInclList, function (data) { return data.isActive = false; });
+    _.map(TblNattsList, function (data) { return data.isActive = false; });
+    _.map(CrwnInclList, function (data) { return data.isActive = false; });
+    _.map(CrwnNattsList, function (data) { return data.isActive = false; });
+    _.map(CaratList, function (data) { return data.isActive = false; });
 
     $('#SearchImage').removeClass('active');
     $('#SearchVideo').removeClass('active');
@@ -3498,7 +3528,7 @@ function DownloadExcel() {
     }
 
     var PointerSizeLst = "";
-    var lst = _.filter(CaratList, function (e) { return e.ACTIVE == true });
+    var lst = _.filter(CaratList, function (e) { return e.isActive == true });
     if (($('#txtfromcarat').val() != "" && parseFloat($('#txtfromcarat').val()) > 0) && ($('#txttocarat').val() != "" && parseFloat($('#txttocarat').val()) > 0)) {
         NewSizeGroup();
     }
@@ -3506,28 +3536,28 @@ function DownloadExcel() {
         PointerSizeLst = _.pluck(SizeGroupList, 'Size').join(",");
     }
     if (lst.length != 0) {
-        PointerSizeLst = _.pluck(_.filter(CaratList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
+        PointerSizeLst = _.pluck(_.filter(CaratList, function (e) { return e.isActive == true }), 'Value').join(",");
     }
 
-    var shapeLst = _.pluck(_.filter(ShapeList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var colorLst = _.pluck(_.filter(ColorList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var clarityLst = _.pluck(_.filter(ClarityList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var labLst = _.pluck(_.filter(LabList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var cutLst = _.pluck(_.filter(CutList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var polishLst = _.pluck(_.filter(PolishList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var symLst = _.pluck(_.filter(SymList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var fluoLst = _.pluck(_.filter(FlouList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var bgmLst = _.pluck(_.filter(BGMList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
+    var shapeLst = _.pluck(_.filter(ShapeList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var colorLst = _.pluck(_.filter(ColorList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var clarityLst = _.pluck(_.filter(ClarityList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var labLst = _.pluck(_.filter(LabList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var cutLst = _.pluck(_.filter(CutList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var polishLst = _.pluck(_.filter(PolishList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var symLst = _.pluck(_.filter(SymList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var fluoLst = _.pluck(_.filter(FlouList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var bgmLst = _.pluck(_.filter(BGMList, function (e) { return e.isActive == true }), 'Value').join(",");
 
-    var tblincLst = _.pluck(_.filter(TblInclList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var tblnattsLst = _.pluck(_.filter(TblNattsList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var crwincLst = _.pluck(_.filter(CrwnInclList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var crwnattsLst = _.pluck(_.filter(CrwnNattsList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
+    var tblincLst = _.pluck(_.filter(TblInclList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var tblnattsLst = _.pluck(_.filter(TblNattsList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var crwincLst = _.pluck(_.filter(CrwnInclList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var crwnattsLst = _.pluck(_.filter(CrwnNattsList, function (e) { return e.isActive == true }), 'Value').join(",");
 
-    var tableopen = _.pluck(_.filter(TableOpenList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var crownopen = _.pluck(_.filter(CrownOpenList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var pavopen = _.pluck(_.filter(PavOpenList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
-    var girdleopen = _.pluck(_.filter(GirdleOpenList, function (e) { return e.ACTIVE == true }), 'Value').join(",");
+    var tableopen = _.pluck(_.filter(TableOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var crownopen = _.pluck(_.filter(CrownOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var pavopen = _.pluck(_.filter(PavOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var girdleopen = _.pluck(_.filter(GirdleOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
 
     var KeyToSymLst_Check = _.pluck(CheckKeyToSymbolList, 'Symbol').join(",");
     var KeyToSymLst_uncheck = _.pluck(UnCheckKeyToSymbolList, 'Symbol').join(",");

@@ -3614,14 +3614,14 @@ namespace API.Controllers
                 para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, req.UserId));
 
                 if (req.PgNo > 0)
-                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, req.PgNo));
+                    para.Add(db.CreateParam("PgNo", DbType.Int32, ParameterDirection.Input, req.PgNo));
                 else
-                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+                    para.Add(db.CreateParam("PgNo", DbType.Int32, ParameterDirection.Input, DBNull.Value));
 
                 if (req.PgSize > 0)
-                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, req.PgSize));
+                    para.Add(db.CreateParam("PgSize", DbType.Int32, ParameterDirection.Input, req.PgSize));
                 else
-                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+                    para.Add(db.CreateParam("PgSize", DbType.Int32, ParameterDirection.Input, DBNull.Value));
 
                 if (!string.IsNullOrEmpty(req.OrderBy))
                     para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, req.OrderBy));
@@ -4005,16 +4005,51 @@ namespace API.Controllers
             try
             {
                 DataTable Stock_dt = SearchStock(req);
-
-                List<Get_SearchStock_Res> List_Res = new List<Get_SearchStock_Res>();
-                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
+                
+                DataRow[] dra = Stock_dt.Select("iSr IS NULL");
+                SearchSummary searchSummary = new SearchSummary();
+                if (dra.Length > 0)
                 {
-                    List_Res = Stock_dt.ToList<Get_SearchStock_Res>();
+                    searchSummary.TOT_PAGE = Convert.ToInt32(dra[0]["TOTAL_PAGE"]);
+                    searchSummary.PAGE_SIZE = Convert.ToInt32(dra[0]["PAGE_SIZE"]);
+                    searchSummary.TOT_PCS = Convert.ToInt32(dra[0]["Ref_No"]);
+                    searchSummary.TOT_CTS = Convert.ToDouble(dra[0]["Cts"]);
+                    searchSummary.TOT_RAP_AMOUNT = Convert.ToDouble((Convert.ToString(dra[0]["Rap_Amount"]) != "" && Convert.ToString(dra[0]["Rap_Amount"]) != null ? dra[0]["Rap_Amount"] : "0"));
+                    searchSummary.AVG_PRICE_PER_CTS = Convert.ToDouble(dra[0]["Base_Price_Cts"]);
+
+                    if(req.Type == "Buyer List")
+                    {
+                        searchSummary.AVG_SALES_DISC_PER = Convert.ToDouble((Convert.ToString(dra[0]["SUPPLIER_COST_DISC"]) != "" && Convert.ToString(dra[0]["SUPPLIER_COST_DISC"]) != null ? dra[0]["SUPPLIER_COST_DISC"] : "0"));
+                        searchSummary.TOT_NET_AMOUNT = Convert.ToDouble(dra[0]["SUPPLIER_COST_VALUE"]);
+                    }
+                    else if (req.Type == "Supplier List" || req.Type == "Customer List")
+                    {
+                        searchSummary.AVG_SALES_DISC_PER = Convert.ToDouble((Convert.ToString(dra[0]["CUSTOMER_COST_DISC"]) != "" && Convert.ToString(dra[0]["CUSTOMER_COST_DISC"]) != null ? dra[0]["CUSTOMER_COST_DISC"] : "0"));
+                        searchSummary.TOT_NET_AMOUNT = Convert.ToDouble(dra[0]["CUSTOMER_COST_VALUE"]);
+                    }
                 }
 
-                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                Stock_dt.DefaultView.RowFilter = "iSr IS NOT NULL";
+                Stock_dt = Stock_dt.DefaultView.ToTable();
+
+                SearchDiamondsResponse searchDiamondsResponse = new SearchDiamondsResponse();
+
+                List<Get_SearchStock_Res> listSearchStone = new List<Get_SearchStock_Res>();
+                listSearchStone = DataTableExtension.ToList<Get_SearchStock_Res>(Stock_dt);
+                List<SearchDiamondsResponse> searchDiamondsResponses = new List<SearchDiamondsResponse>();
+
+                if (listSearchStone.Count > 0)
                 {
-                    Data = List_Res,
+                    searchDiamondsResponses.Add(new SearchDiamondsResponse()
+                    {
+                        DataList = listSearchStone,
+                        DataSummary = searchSummary
+                    });
+                }
+
+                return Ok(new ServiceResponse<SearchDiamondsResponse>
+                {
+                    Data = searchDiamondsResponses,
                     Message = "SUCCESS",
                     Status = "1"
                 });
@@ -4022,9 +4057,9 @@ namespace API.Controllers
             catch (Exception ex)
             {
                 Lib.Model.Common.InsertErrorLog(ex, null, Request);
-                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                return Ok(new ServiceResponse<SearchDiamondsResponse>
                 {
-                    Data = new List<Get_SearchStock_Res>(),
+                    Data = new List<SearchDiamondsResponse>(),
                     Message = "Something Went wrong.\nPlease try again later",
                     Status = "0"
                 });
@@ -4054,6 +4089,9 @@ namespace API.Controllers
             try
             {
                 DataTable Stock_dt = SearchStock(req);
+
+                Stock_dt.DefaultView.RowFilter = "iSr IS NOT NULL";
+                Stock_dt = Stock_dt.DefaultView.ToTable();
 
                 if (Stock_dt != null && Stock_dt.Rows.Count > 0)
                 {
@@ -11578,6 +11616,10 @@ namespace API.Controllers
                             req.Download = true;
 
                             DataTable dt_Result = SearchStock(req);
+
+                            dt_Result.DefaultView.RowFilter = "iSr IS NOT NULL";
+                            dt_Result = dt_Result.DefaultView.ToTable();
+
                             if (dt_Result != null && dt_Result.Rows.Count > 0)
                             {
                                 string tempPath = HostingEnvironment.MapPath("~/ExcelFile/StockDisc_URL_EXPORT/");
