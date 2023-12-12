@@ -3611,6 +3611,11 @@ namespace API.Controllers
 
                 //int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
 
+                if (!string.IsNullOrEmpty(req.Type))
+                    para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, req.Type));
+                else
+                    para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, DBNull.Value));
+
                 para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, req.UserId));
 
                 if (req.PgNo > 0)
@@ -4017,7 +4022,7 @@ namespace API.Controllers
                     searchSummary.TOT_RAP_AMOUNT = Convert.ToDouble((Convert.ToString(dra[0]["Rap_Amount"]) != "" && Convert.ToString(dra[0]["Rap_Amount"]) != null ? dra[0]["Rap_Amount"] : "0"));
                     searchSummary.AVG_PRICE_PER_CTS = Convert.ToDouble(dra[0]["Base_Price_Cts"]);
 
-                    if(req.Type == "Buyer List")
+                    if (req.Type == "Buyer List")
                     {
                         searchSummary.AVG_SALES_DISC_PER = Convert.ToDouble((Convert.ToString(dra[0]["SUPPLIER_COST_DISC"]) != "" && Convert.ToString(dra[0]["SUPPLIER_COST_DISC"]) != null ? dra[0]["SUPPLIER_COST_DISC"] : "0"));
                         searchSummary.TOT_NET_AMOUNT = Convert.ToDouble(dra[0]["SUPPLIER_COST_VALUE"]);
@@ -11614,6 +11619,7 @@ namespace API.Controllers
                             req.UserId = Convert.ToInt32(dt.Rows[0]["UserId"]);
                             req.View = false;
                             req.Download = true;
+                            req.Type = "Customer List";
 
                             DataTable dt_Result = SearchStock(req);
 

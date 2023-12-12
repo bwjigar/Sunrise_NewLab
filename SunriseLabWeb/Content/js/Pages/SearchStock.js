@@ -1881,98 +1881,50 @@ function Imag_Video_Certi(params, Img, Vdo, Cert) {
     return data;
 }
 function onSelectionChanged(event) {
-    //var Totalpcs = 0;
-    //var TotalCts = 0.0;
-    //var TotalNetAmt = 0.0;
-    //var TotalRapAmt = 0.0;
-    //var net_amount = 0.0;
-    //var rap_amount = 0.0;
-    //var CUR_RAP_RATE = 0;
-    //var TotalPricePerCts = 0.0;
-    //var dDisc = 0, dRepPrice = 0, DCTS = 0, dNetPrice = 0, Web_Benefit = 0, Final_Disc = 0, Net_Value = 0;
+    var TOT_CTS = 0;
+    var AVG_SALES_DISC_PER = 0;
+    var AVG_PRICE_PER_CTS = 0;
+    var TOT_NET_AMOUNT = 0;
+    var TOT_PCS = 0;
+    var TOT_RAP_AMOUNT = 0;
+    var CUR_RAP_RATE = 0;
+    var dDisc = 0, dRepPrice = 0, DCTS = 0, dNetPrice = 0, Web_Benefit = 0, Final_Disc = 0, Net_Value = 0;
 
-    //var SearchResultData = gridOptions.api.getSelectedRows();
-    //if (SearchResultData.length != 0) {
-    //    for (var i = 0; i < SearchResultData.length; i++) {
-    //        Totalpcs = Totalpcs + 1;
-    //        TotalCts += parseFloat(SearchResultData[i].cts);
+    if (gridOptions.api.getSelectedRows().length > 0) {
+        if (Type == "Buyer List") {
+            dDisc = _.reduce(_.pluck(gridOptions.api.getSelectedRows(), 'SUPPLIER_COST_DISC'), function (memo, num) { return memo + num; }, 0);
+            TOT_NET_AMOUNT = _.reduce(_.pluck(gridOptions.api.getSelectedRows(), 'SUPPLIER_COST_VALUE'), function (memo, num) { return memo + num; }, 0);
+        }
+        else if (Type == "Supplier List" || Type == "Customer List") {
+            dDisc = _.reduce(_.pluck(gridOptions.api.getSelectedRows(), 'CUSTOMER_COST_DISC'), function (memo, num) { return memo + num; }, 0);
+            TOT_NET_AMOUNT = _.reduce(_.pluck(gridOptions.api.getSelectedRows(), 'CUSTOMER_COST_VALUE'), function (memo, num) { return memo + num; }, 0);
+        }
+        TOT_CTS = _.reduce(_.pluck(gridOptions.api.getSelectedRows(), 'Cts'), function (memo, num) { return memo + num; }, 0);
+        TOT_RAP_AMOUNT = _.reduce(_.pluck(gridOptions.api.getSelectedRows(), 'Rap_Amount'), function (memo, num) { return memo + num; }, 0);
+        CUR_RAP_RATE = _.reduce(_.pluck(gridOptions.api.getSelectedRows(), 'Rap_Rate'), function (memo, num) { return memo + num; }, 0);
 
-    //        net_amount = parseFloat(SearchResultData[i].net_amount);
-    //        rap_amount = parseFloat(SearchResultData[i].rap_amount);
-    //        CUR_RAP_RATE += parseFloat(SearchResultData[i].cur_rap_rate);
-    //        net_amount = isNaN(net_amount) ? 0 : net_amount.toFixed(2);
-    //        rap_amount = isNaN(rap_amount) ? 0 : rap_amount.toFixed(2);
+        AVG_SALES_DISC_PER = (-1 * (((TOT_RAP_AMOUNT - TOT_NET_AMOUNT) / TOT_RAP_AMOUNT) * 100)).toFixed(2);
+        AVG_PRICE_PER_CTS = TOT_NET_AMOUNT / TOT_CTS;
+        TOT_PCS = gridOptions.api.getSelectedRows().length;
 
-    //        TotalNetAmt += parseFloat(net_amount);
-    //        TotalRapAmt += parseFloat(rap_amount);
-    //        dDisc += parseFloat(SearchResultData[i].sales_disc_per);
-    //    }
-    //    if (Scheme_Disc_Type == "Discount") {
-    //        Net_Value = 0;
-    //        Final_Disc = 0;
-    //        Web_Benefit = 0;
-    //    }
-    //    else if (Scheme_Disc_Type == "Value") {
-    //        Net_Value = parseFloat(TotalNetAmt) + (parseFloat(TotalNetAmt) * parseFloat(Scheme_Disc) / 100);
-    //        Final_Disc = ((1 - parseFloat(Net_Value) / parseFloat(TotalRapAmt)) * 100) * -1;
-    //        Web_Benefit = parseFloat(TotalNetAmt) - parseFloat(Net_Value);
-    //    }
-    //    else {
-    //        Net_Value = parseFloat(TotalNetAmt);
-    //        Final_Disc = parseFloat(AvgDis);
-    //        Web_Benefit = 0;
-    //    }
-    //    $('#tab1_WebDisc_t').show();
-    //    $('#tab1_FinalValue_t').show();
-    //    $('#tab1_FinalDisc_t').show();
-    //}
-    //else {
-    //    SearchStoneDataList = Filtered_Data.length > 0 ? Filtered_Data : rowData;
-    //    for (var i = 0; i < SearchStoneDataList.length; i++) {
-    //        Totalpcs = Totalpcs + 1;
-    //        TotalCts += parseFloat(SearchStoneDataList[i].cts);
-
-    //        net_amount = parseFloat(SearchStoneDataList[i].net_amount);
-    //        rap_amount = parseFloat(SearchStoneDataList[i].rap_amount);
-    //        CUR_RAP_RATE += parseFloat(SearchStoneDataList[i].cur_rap_rate);
-    //        net_amount = isNaN(net_amount) ? 0 : net_amount.toFixed(2);
-    //        rap_amount = isNaN(rap_amount) ? 0 : rap_amount.toFixed(2);
-
-    //        TotalNetAmt += parseFloat(net_amount);
-    //        TotalRapAmt += parseFloat(rap_amount);
-    //        dDisc += parseFloat(SearchStoneDataList[i].sales_disc_per);
-    //    }
-    //    $('#tab1_WebDisc_t').hide();
-    //    $('#tab1_FinalValue_t').hide();
-    //    $('#tab1_FinalDisc_t').hide();
-    //}
-
-    //TotalPricePerCts = (TotalNetAmt / TotalCts).toFixed(2);
-    //AvgDis = ((1 - (TotalNetAmt / TotalRapAmt)) * (-100)).toFixed(2);
-
-    //TotalPricePerCts = isNaN(TotalPricePerCts) ? 0 : TotalPricePerCts;
-    //AvgDis = isNaN(AvgDis) ? 0 : AvgDis;
-    //if (CUR_RAP_RATE == 0) {
-    //    Final_Disc = 0;
-    //    AvgDis = 0;
-    //}
-    //setTimeout(function () {
-    //    //$('#tab1cts').html($("#hdn_Cts").val() + ' : ' + formatNumber(TotalCts) + '');
-    //    //$('#tab1disc').html($("#hdn_Avg_Disc_Per").val() + ' : ' + formatNumber(AvgDis) + '');
-    //    //$('#tab1ppcts').html($("#hdn_Price_Per_Cts").val() + ' : $ ' + formatNumber(TotalPricePerCts) + '');
-    //    //$('#tab1totAmt').html($("#hdn_Total_Amount").val() + ' : $ ' + formatNumber(TotalNetAmt) + '');
-    //    //$('#tab1pcs').html($("#hdn_Pcs").val() + ' : ' + Totalpcs + '');
-    //    $('#tab1TCount').show();
-    //    $('#tab1pcs').html(Totalpcs);
-    //    $('#tab1cts').html(formatNumber(TotalCts));
-    //    $('#tab1disc').html(formatNumber(AvgDis));
-    //    $('#tab1ppcts').html(formatNumber(TotalPricePerCts));
-    //    $('#tab1totAmt').html(formatNumber(TotalNetAmt));
-
-    //    $('#tab1Web_Disc').html(formatNumber(Web_Benefit));
-    //    $('#tab1Net_Value').html(formatNumber(Net_Value));
-    //    $('#tab1Final_Disc').html(formatNumber(Final_Disc));
-    //});
+        if (CUR_RAP_RATE == 0) {
+            Final_Disc = 0;
+            AVG_SALES_DISC_PER = 0;
+        }
+    } else {
+        TOT_CTS = summary.TOT_CTS;
+        AVG_SALES_DISC_PER = summary.AVG_SALES_DISC_PER;
+        AVG_PRICE_PER_CTS = summary.AVG_PRICE_PER_CTS;
+        TOT_NET_AMOUNT = summary.TOT_NET_AMOUNT;
+        TOT_PCS = summary.TOT_PCS;
+    }
+    setTimeout(function () {
+        $('#tab1Pcs').html(formatIntNumber(TOT_PCS));
+        $('#tab1CTS').html(formatNumber(TOT_CTS));
+        $('#tab1OfferDisc').html(formatNumber(AVG_SALES_DISC_PER));
+        $('#tab1OfferValue').html(formatNumber(TOT_NET_AMOUNT));
+        $('#tab1PriceCts').html(formatNumber(AVG_PRICE_PER_CTS));
+    });
 }
 function onBodyScroll(params) {
     $('#myGrid .ag-header-cell[col-id="0"] .ag-header-select-all').removeClass('ag-hidden');
