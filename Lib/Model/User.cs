@@ -508,6 +508,15 @@ namespace Lib.Model
         public string Value_4_5 { get; set; }
         public bool View { get; set; }
         public bool Download { get; set; }
+        public bool Length_IsBlank { get; set; }
+        public bool Width_IsBlank { get; set; }
+        public bool Depth_IsBlank { get; set; }
+        public bool DepthPer_IsBlank { get; set; }
+        public bool TablePer_IsBlank { get; set; }
+        public bool CrAng_IsBlank { get; set; }
+        public bool CrHt_IsBlank { get; set; }
+        public bool PavAng_IsBlank { get; set; }
+        public bool PavHt_IsBlank { get; set; }
     }
     public class Get_Customer_Stock_Disc_Mas_Res
     {

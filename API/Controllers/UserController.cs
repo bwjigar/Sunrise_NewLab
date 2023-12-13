@@ -776,24 +776,43 @@ namespace API.Controllers
                 dt.Columns.Add("Sym", typeof(string));
                 dt.Columns.Add("Fls", typeof(string));
                 dt.Columns.Add("Lab", typeof(string));
+
                 dt.Columns.Add("FromLength", typeof(string));
                 dt.Columns.Add("ToLength", typeof(string));
+                dt.Columns.Add("Length_IsBlank", typeof(string));
+
                 dt.Columns.Add("FromWidth", typeof(string));
                 dt.Columns.Add("ToWidth", typeof(string));
+                dt.Columns.Add("Width_IsBlank", typeof(string));
+
                 dt.Columns.Add("FromDepth", typeof(string));
                 dt.Columns.Add("ToDepth", typeof(string));
+                dt.Columns.Add("Depth_IsBlank", typeof(string));
+
                 dt.Columns.Add("FromDepthinPer", typeof(string));
                 dt.Columns.Add("ToDepthinPer", typeof(string));
+                dt.Columns.Add("DepthPer_IsBlank", typeof(string));
+
                 dt.Columns.Add("FromTableinPer", typeof(string));
                 dt.Columns.Add("ToTableinPer", typeof(string));
+                dt.Columns.Add("TablePer_IsBlank", typeof(string));
+
                 dt.Columns.Add("FromCrAng", typeof(string));
                 dt.Columns.Add("ToCrAng", typeof(string));
+                dt.Columns.Add("CrAng_IsBlank", typeof(string));
+
                 dt.Columns.Add("FromCrHt", typeof(string));
                 dt.Columns.Add("ToCrHt", typeof(string));
+                dt.Columns.Add("CrHt_IsBlank", typeof(string));
+
                 dt.Columns.Add("FromPavAng", typeof(string));
                 dt.Columns.Add("ToPavAng", typeof(string));
+                dt.Columns.Add("PavAng_IsBlank", typeof(string));
+
                 dt.Columns.Add("FromPavHt", typeof(string));
                 dt.Columns.Add("ToPavHt", typeof(string));
+                dt.Columns.Add("PavHt_IsBlank", typeof(string));
+
                 dt.Columns.Add("CheckKTS", typeof(string));
                 dt.Columns.Add("UNCheckKTS", typeof(string));
                 dt.Columns.Add("BGM", typeof(string));
@@ -856,24 +875,43 @@ namespace API.Controllers
                         dr["Sym"] = req.SuppDisc[i].Sym;
                         dr["Fls"] = req.SuppDisc[i].Fls;
                         dr["Lab"] = req.SuppDisc[i].Lab;
+
                         dr["FromLength"] = req.SuppDisc[i].FromLength;
                         dr["ToLength"] = req.SuppDisc[i].ToLength;
+                        dr["Length_IsBlank"] = req.SuppDisc[i].Length_IsBlank;
+
                         dr["FromWidth"] = req.SuppDisc[i].FromWidth;
                         dr["ToWidth"] = req.SuppDisc[i].ToWidth;
+                        dr["Width_IsBlank"] = req.SuppDisc[i].Width_IsBlank;
+
                         dr["FromDepth"] = req.SuppDisc[i].FromDepth;
                         dr["ToDepth"] = req.SuppDisc[i].ToDepth;
+                        dr["Depth_IsBlank"] = req.SuppDisc[i].Depth_IsBlank;
+
                         dr["FromDepthinPer"] = req.SuppDisc[i].FromDepthinPer;
                         dr["ToDepthinPer"] = req.SuppDisc[i].ToDepthinPer;
+                        dr["DepthPer_IsBlank"] = req.SuppDisc[i].DepthPer_IsBlank;
+
                         dr["FromTableinPer"] = req.SuppDisc[i].FromTableinPer;
                         dr["ToTableinPer"] = req.SuppDisc[i].ToTableinPer;
+                        dr["TablePer_IsBlank"] = req.SuppDisc[i].TablePer_IsBlank;
+
                         dr["FromCrAng"] = req.SuppDisc[i].FromCrAng;
                         dr["ToCrAng"] = req.SuppDisc[i].ToCrAng;
+                        dr["CrAng_IsBlank"] = req.SuppDisc[i].CrAng_IsBlank;
+
                         dr["FromCrHt"] = req.SuppDisc[i].FromCrHt;
                         dr["ToCrHt"] = req.SuppDisc[i].ToCrHt;
+                        dr["CrHt_IsBlank"] = req.SuppDisc[i].CrHt_IsBlank;
+
                         dr["FromPavAng"] = req.SuppDisc[i].FromPavAng;
                         dr["ToPavAng"] = req.SuppDisc[i].ToPavAng;
+                        dr["PavAng_IsBlank"] = req.SuppDisc[i].PavAng_IsBlank;
+
                         dr["FromPavHt"] = req.SuppDisc[i].FromPavHt;
                         dr["ToPavHt"] = req.SuppDisc[i].ToPavHt;
+                        dr["PavHt_IsBlank"] = req.SuppDisc[i].PavHt_IsBlank;
+
                         dr["CheckKTS"] = req.SuppDisc[i].CheckKTS;
                         dr["UNCheckKTS"] = req.SuppDisc[i].UNCheckKTS;
                         dr["BGM"] = req.SuppDisc[i].BGM;

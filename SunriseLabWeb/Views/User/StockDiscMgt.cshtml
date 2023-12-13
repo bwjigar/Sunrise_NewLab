@@ -294,23 +294,23 @@
                     </div>
                 </div>
                 @*<div class="col-xl-3 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
-                    
-                </div>*@
+
+                    </div>*@
             </div>
             <br />
             <strong style="font-size: 12px;color:red;margin-top: 9px;" id="URL"></strong>
         </div>
 
         @*<div class="row m-0 api-full-box" style="margin-left: 5px !important;margin-right: 5px !important;font-size: 14px;">
-            <div class="order-history-data admin muser col-xl-12 col-lg-12 col-md-12 col-sm-12" style="background-color: white;padding: 0;box-shadow: none;">
-                <div class="col-xl-12 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
-                    <span id="spnUsernmList">
-                        <span style="font-weight: 600;">User Name :&nbsp;</span>
-                    </span>
-                    <strong style="font-size: 12px; color: red; margin-top: 9px; margin-left: 30px;" id="URL"></strong>
+                <div class="order-history-data admin muser col-xl-12 col-lg-12 col-md-12 col-sm-12" style="background-color: white;padding: 0;box-shadow: none;">
+                    <div class="col-xl-12 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
+                        <span id="spnUsernmList">
+                            <span style="font-weight: 600;">User Name :&nbsp;</span>
+                        </span>
+                        <strong style="font-size: 12px; color: red; margin-top: 9px; margin-left: 30px;" id="URL"></strong>
+                    </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
         <div class="row m-0">
             <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 tabbox">
                 <div class="tabboxdiv">
@@ -540,99 +540,162 @@
                         <div class="col-sm-3 col-xs-12 api-plr">
                             <strong>Length</strong>
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="FromLength" maxlength="6" name="FromLength" onblur="LeaveTextBox('FROM','FromLength', 'ToLength');" onkeypress="return numvalid(event)" type="text">
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="ToLength" maxlength="6" name="ToLength" onblur="LeaveTextBox('TO','FromLength', 'ToLength');" onkeypress="return numvalid(event)" type="text">
+                        </div>
+                        <div class="col-sm-3 col-xs-5 api-plr">
+                            <label class="cust-chk-bx text-left api-check" style="margin-top: 9px;margin-left: 10px;">
+                                <input class="onpristine onuntouched onvalid onempty Length_Blank" id="Length_Blank" name="Length_Blank" type="checkbox" value="BLANK">
+                                <strong>BLANK</strong>
+                                <span class="cust-chkmark"></span>
+                            </label>
                         </div>
                     </div>
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
                             <strong>Width</strong>
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="FromWidth" maxlength="6" name="FromWidth" onblur="LeaveTextBox('FROM','FromWidth', 'ToWidth');" onkeypress="return numvalid(event)" type="text">
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="ToWidth" maxlength="6" name="ToWidth" onblur="LeaveTextBox('TO','FromWidth', 'ToWidth');" onkeypress="return numvalid(event)" type="text">
+                        </div>
+                        <div class="col-sm-3 col-xs-5 api-plr">
+                            <label class="cust-chk-bx text-left api-check" style="margin-top: 9px;margin-left: 10px;">
+                                <input class="onpristine onuntouched onvalid onempty Width_Blank" id="Width_Blank" name="Width_Blank" type="checkbox" value="BLANK">
+                                <strong>BLANK</strong>
+                                <span class="cust-chkmark"></span>
+                            </label>
                         </div>
                     </div>
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
                             <strong>Depth</strong>
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="FromDepth" maxlength="6" name="FromDepth" onblur="LeaveTextBox('FROM','FromDepth','ToDepth');" onkeypress="return numvalid(event)" type="text">
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="ToDepth" maxlength="6" name="ToDepth" onblur="LeaveTextBox('TO','FromDepth','ToDepth');" onkeypress="return numvalid(event)" type="text">
+                        </div>
+                        <div class="col-sm-3 col-xs-5 api-plr">
+                            <label class="cust-chk-bx text-left api-check" style="margin-top: 9px;margin-left: 10px;">
+                                <input class="onpristine onuntouched onvalid onempty Depth_Blank" id="Depth_Blank" name="Depth_Blank" type="checkbox" value="BLANK">
+                                <strong>BLANK</strong>
+                                <span class="cust-chkmark"></span>
+                            </label>
                         </div>
                     </div>
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
                             <strong>Depth(%)</strong>
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="FromDepthPer" maxlength="6" name="FromDepthPer" onblur="LeaveTextBox('FROM','FromDepthPer','ToDepthPer');" onkeypress="return numvalid(event)" type="text">
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="ToDepthPer" maxlength="6" name="ToDepthPer" onblur="LeaveTextBox('TO','FromDepthPer','ToDepthPer');" onkeypress="return numvalid(event)" type="text">
+                        </div>
+                        <div class="col-sm-3 col-xs-5 api-plr">
+                            <label class="cust-chk-bx text-left api-check" style="margin-top: 9px;margin-left: 10px;">
+                                <input class="onpristine onuntouched onvalid onempty DepthPer_Blank" id="DepthPer_Blank" name="DepthPer_Blank" type="checkbox" value="BLANK">
+                                <strong>BLANK</strong>
+                                <span class="cust-chkmark"></span>
+                            </label>
                         </div>
                     </div>
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
                             <strong>Table(%)</strong>
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="FromTablePer" maxlength="6" name="FromTablePer" onblur="LeaveTextBox('FROM','FromTablePer','ToTablePer');" onkeypress="return numvalid(event)" type="text">
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="ToTablePer" maxlength="6" name="ToTablePer" onblur="LeaveTextBox('TO','FromTablePer','ToTablePer');" onkeypress="return numvalid(event)" type="text">
+                        </div>
+                        <div class="col-sm-3 col-xs-5 api-plr">
+                            <label class="cust-chk-bx text-left api-check" style="margin-top: 9px;margin-left: 10px;">
+                                <input class="onpristine onuntouched onvalid onempty TablePer_Blank" id="TablePer_Blank" name="TablePer_Blank" type="checkbox" value="BLANK">
+                                <strong>BLANK</strong>
+                                <span class="cust-chkmark"></span>
+                            </label>
                         </div>
                     </div>
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
                             <strong>Cr Ang</strong>
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="FromCrAng" maxlength="6" name="FromCrAng" onblur="LeaveTextBox('FROM','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" type="text">
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="ToCrAng" maxlength="6" name="ToCrAng" onblur="LeaveTextBox('TO','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" type="text">
+                        </div>
+                        <div class="col-sm-3 col-xs-5 api-plr">
+                            <label class="cust-chk-bx text-left api-check" style="margin-top: 9px;margin-left: 10px;">
+                                <input class="onpristine onuntouched onvalid onempty CrAng_Blank" id="CrAng_Blank" name="CrAng_Blank" type="checkbox" value="BLANK">
+                                <strong>BLANK</strong>
+                                <span class="cust-chkmark"></span>
+                            </label>
                         </div>
                     </div>
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
                             <strong>Cr Ht</strong>
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="FromCrHt" maxlength="6" name="FromCrHt" onblur="LeaveTextBox('FROM','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" type="text">
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="ToCrHt" maxlength="6" name="ToCrHt" onblur="LeaveTextBox('TO','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" type="text">
+                        </div>
+                        <div class="col-sm-3 col-xs-5 api-plr">
+                            <label class="cust-chk-bx text-left api-check" style="margin-top: 9px;margin-left: 10px;">
+                                <input class="onpristine onuntouched onvalid onempty CrHt_Blank" id="CrHt_Blank" name="CrHt_Blank" type="checkbox" value="BLANK">
+                                <strong>BLANK</strong>
+                                <span class="cust-chkmark"></span>
+                            </label>
                         </div>
                     </div>
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
                             <strong>Pav Ang</strong>
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="FromPavAng" maxlength="6" name="FromPavAng" onblur="LeaveTextBox('FROM','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" type="text">
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="ToPavAng" maxlength="6" name="ToPavAng" onblur="LeaveTextBox('TO','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" type="text">
+                        </div>
+                        <div class="col-sm-3 col-xs-5 api-plr">
+                            <label class="cust-chk-bx text-left api-check" style="margin-top: 9px;margin-left: 10px;">
+                                <input class="onpristine onuntouched onvalid onempty PavAng_Blank" id="PavAng_Blank" name="PavAng_Blank" type="checkbox" value="BLANK">
+                                <strong>BLANK</strong>
+                                <span class="cust-chkmark"></span>
+                            </label>
                         </div>
                     </div>
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
                             <strong>Pav Ht</strong>
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="FromPavHt" maxlength="6" name="FromPavHt" onblur="LeaveTextBox('FROM','FromPavHt','ToPavHt');" onkeypress="return numvalid(event)" type="text">
                         </div>
-                        <div class="col-sm-4 col-xs-5 api-plr">
+                        <div class="col-sm-3 col-xs-5 api-plr">
                             <input autocomplete="off" class="form-control form-control onuntouched onvalid onnot-empty ondirty onvalid-parse onvalid-maxlength" id="ToPavHt" maxlength="6" name="ToPavHt" onblur="LeaveTextBox('TO','FromPavHt','ToPavHt');" onkeypress="return numvalid(event)" type="text">
+                        </div>
+                        <div class="col-sm-3 col-xs-5 api-plr">
+                            <label class="cust-chk-bx text-left api-check" style="margin-top: 9px;margin-left: 10px;">
+                                <input class="onpristine onuntouched onvalid onempty PavHt_Blank" id="PavHt_Blank" name="PavHt_Blank" type="checkbox" value="BLANK">
+                                <strong>BLANK</strong>
+                                <span class="cust-chkmark"></span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -711,20 +774,6 @@
                     </div>
                     <div class="row m-0">
                         <div class="col-sm-3 col-xs-12 api-plr">
-                            <strong>Girdle Open</strong>
-                        </div>
-                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
-                            <p class="divCheckedGirdleOpenValue"></p>
-                        </div>
-                        <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center; ">
-                            <div class="list-icn">
-                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedGirdleOpenValue',GirdleOpenList)"></i>
-                                <a href="javascript:void(0);" onclick="ModalShow('GirdleOpen',GirdleOpenList)"><i class="fa fa-plus"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row m-0">
-                        <div class="col-sm-3 col-xs-12 api-plr">
                             <strong>Crown Open</strong>
                         </div>
                         <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
@@ -751,7 +800,20 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="row m-0">
+                        <div class="col-sm-3 col-xs-12 api-plr">
+                            <strong>Girdle Open</strong>
+                        </div>
+                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
+                            <p class="divCheckedGirdleOpenValue"></p>
+                        </div>
+                        <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center; ">
+                            <div class="list-icn">
+                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedGirdleOpenValue',GirdleOpenList)"></i>
+                                <a href="javascript:void(0);" onclick="ModalShow('GirdleOpen',GirdleOpenList)"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row m-0" style="margin-top: 8px !important;">
                         <div class="col-sm-4 col-xs-12 api-plr">
@@ -825,37 +887,37 @@
                         </div>
                     </div>
                     @*<div class="row m-0" style="margin-top: 6px !important;">
-                        <div class="col-sm-3 col-xs-12 api-plr">
-                            <strong>Price Method <span style="color:red;">*</span></strong>
-                        </div>
-                        <div class="col-sm-5 col-sm-5 col-xs-10 custom-box-list api-plr">
-                            <select class="form-control select2" id="PricingMethod" name="PricingMethod" onchange="PricingMethodDDL();">
-                                <option value="">Select Method</option>
-                                <option value="Disc">Discount</option>
-                                <option value="Value">Value</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-3 col-sm-3 col-xs-10 custom-box-list api-plr">
-                            <select class="form-control select2" id="PricingSign" name="PricingSign">
-                                <option value="=">=</option>
-                                <option value="+">+</option>
-                                <option value="-">-</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row m-0">
-                        <div class="col-sm-3 col-xs-12 api-plr">
-                            <strong>Percentage <span style="color:red;">*</span></strong>
-                        </div>
-                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
-                            <div class="col-md-3 api-plr txtDisc"><input type="text" id="txtDisc1" name="txtDisc1" onkeypress="return DisValValid('Disc', event)" onkeyup="LenCheckr('Disc')" class="form-control" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue1" name="txtValue1" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue2" name="txtValue2" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue3" name="txtValue3" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue4" name="txtValue4" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                            <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr"></label>
-                        </div>
-                    </div>*@
+            <div class="col-sm-3 col-xs-12 api-plr">
+                <strong>Price Method <span style="color:red;">*</span></strong>
+            </div>
+            <div class="col-sm-5 col-sm-5 col-xs-10 custom-box-list api-plr">
+                <select class="form-control select2" id="PricingMethod" name="PricingMethod" onchange="PricingMethodDDL();">
+                    <option value="">Select Method</option>
+                    <option value="Disc">Discount</option>
+                    <option value="Value">Value</option>
+                </select>
+            </div>
+            <div class="col-sm-3 col-sm-3 col-xs-10 custom-box-list api-plr">
+                <select class="form-control select2" id="PricingSign" name="PricingSign">
+                    <option value="=">=</option>
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                </select>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-sm-3 col-xs-12 api-plr">
+                <strong>Percentage <span style="color:red;">*</span></strong>
+            </div>
+            <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
+                <div class="col-md-3 api-plr txtDisc"><input type="text" id="txtDisc1" name="txtDisc1" onkeypress="return DisValValid('Disc', event)" onkeyup="LenCheckr('Disc')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue1" name="txtValue1" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue2" name="txtValue2" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue3" name="txtValue3" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue4" name="txtValue4" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr"></label>
+            </div>
+        </div>*@
                 </div>
             </div>
         </div>
@@ -991,24 +1053,33 @@
                             <th rowspan="3" style="vertical-align: middle;">BGM</th>
                             <th rowspan="3" style="vertical-align: middle;">Key to symbol</th>
                             <th rowspan="3" style="vertical-align: middle;">Goods Type</th>
-                            <th rowspan="3" style="vertical-align: middle;">From Length</th>
-                            <th rowspan="3" style="vertical-align: middle;">To Length</th>
-                            <th rowspan="3" style="vertical-align: middle;">From Width</th>
-                            <th rowspan="3" style="vertical-align: middle;">To Width</th>
-                            <th rowspan="3" style="vertical-align: middle;">From Depth</th>
-                            <th rowspan="3" style="vertical-align: middle;">To Depth</th>
-                            <th rowspan="3" style="vertical-align: middle;">From Depth(%)</th>
-                            <th rowspan="3" style="vertical-align: middle;">To Depth(%)</th>
-                            <th rowspan="3" style="vertical-align: middle;">From Table(%)</th>
-                            <th rowspan="3" style="vertical-align: middle;">To Table(%)</th>
-                            <th rowspan="3" style="vertical-align: middle;">From Cr Ang</th>
-                            <th rowspan="3" style="vertical-align: middle;">To Cr Ang</th>
-                            <th rowspan="3" style="vertical-align: middle;">From Cr Ht</th>
-                            <th rowspan="3" style="vertical-align: middle;">To Cr Ht</th>
-                            <th rowspan="3" style="vertical-align: middle;">From Pav Ang</th>
-                            <th rowspan="3" style="vertical-align: middle;">To Pav Ang</th>
-                            <th rowspan="3" style="vertical-align: middle;">From Pav Ht</th>
-                            <th rowspan="3" style="vertical-align: middle;">To Pav Ht</th>
+                            @*<th rowspan="3" style="vertical-align: middle;">From Length</th>
+        <th rowspan="3" style="vertical-align: middle;">To Length</th>*@
+                            <th rowspan="3" style="vertical-align: middle;">Length</th>
+                            @*<th rowspan="3" style="vertical-align: middle;">From Width</th>
+        <th rowspan="3" style="vertical-align: middle;">To Width</th>*@
+                            <th rowspan="3" style="vertical-align: middle;">Width</th>
+                            @*<th rowspan="3" style="vertical-align: middle;">From Depth</th>
+        <th rowspan="3" style="vertical-align: middle;">To Depth</th>*@
+                            <th rowspan="3" style="vertical-align: middle;">Depth</th>
+                            @*<th rowspan="3" style="vertical-align: middle;">From Depth(%)</th>
+        <th rowspan="3" style="vertical-align: middle;">To Depth(%)</th>*@
+                            <th rowspan="3" style="vertical-align: middle;">Depth(%)</th>
+                            @*<th rowspan="3" style="vertical-align: middle;">From Table(%)</th>
+        <th rowspan="3" style="vertical-align: middle;">To Table(%)</th>*@
+                            <th rowspan="3" style="vertical-align: middle;">Table(%)</th>
+                            @*<th rowspan="3" style="vertical-align: middle;">From Cr Ang</th>
+        <th rowspan="3" style="vertical-align: middle;">To Cr Ang</th>*@
+                            <th rowspan="3" style="vertical-align: middle;">Cr Ang</th>
+                            @*<th rowspan="3" style="vertical-align: middle;">From Cr Ht</th>
+        <th rowspan="3" style="vertical-align: middle;">To Cr Ht</th>*@
+                            <th rowspan="3" style="vertical-align: middle;">Cr Ht</th>
+                            @*<th rowspan="3" style="vertical-align: middle;">From Pav Ang</th>
+        <th rowspan="3" style="vertical-align: middle;">To Pav Ang</th>*@
+                            <th rowspan="3" style="vertical-align: middle;">Pav Ang</th>
+                            @*<th rowspan="3" style="vertical-align: middle;">From Pav Ht</th>
+        <th rowspan="3" style="vertical-align: middle;">To Pav Ht</th>*@
+                            <th rowspan="3" style="vertical-align: middle;">Pav Ht</th>
 
                             <th rowspan="3" style="vertical-align: middle;">Table Black</th>
                             <th rowspan="3" style="vertical-align: middle;">Crown Black</th>
@@ -1016,9 +1087,9 @@
                             <th rowspan="3" style="vertical-align: middle;">Crown White</th>
 
                             <th rowspan="3" style="vertical-align: middle;">Table Open</th>
-                            <th rowspan="3" style="vertical-align: middle;">Girdle Open</th>
                             <th rowspan="3" style="vertical-align: middle;">Crown Open</th>
                             <th rowspan="3" style="vertical-align: middle;">Pavillion Open</th>
+                            <th rowspan="3" style="vertical-align: middle;">Girdle Open</th>
 
                             <th rowspan="3" style="vertical-align: middle;">Used For</th>
                             <th rowspan="3" style="vertical-align: middle;">Image</th>
@@ -1098,7 +1169,7 @@
                                                 <img src="~/Content/images/chebox-empty.png" class="chebox-empty img-none" id="chebox_emptyImg_1" onclick="chebox_empty('1')" style="cursor:pointer;width: 20px;margin-bottom: 7px;" />
 
                                                 @*<img src="~/Content/images/chebox-fill.png" class="chebox-fill img-none" id="chebox_fillImg_@item.icolumnId" onclick="chebox_fill('@item.icolumnId')" style="cursor:pointer;width: 20px;" />
-                                                <img src="~/Content/images/chebox-empty.png" class="chebox-empty img-block" id="chebox_emptyImg_@item.icolumnId" onclick="chebox_empty('@item.icolumnId')" style="cursor:pointer;width: 20px;margin-top: 0px;" />*@
+                                                    <img src="~/Content/images/chebox-empty.png" class="chebox-empty img-block" id="chebox_emptyImg_@item.icolumnId" onclick="chebox_empty('@item.icolumnId')" style="cursor:pointer;width: 20px;margin-top: 0px;" />*@
                                             </center>
                                         </td>
                                     </tr>
@@ -1118,7 +1189,7 @@
                                                 <img src="~/Content/images/chebox-empty.png" class="chebox-empty img-none" id="chebox_emptyImg_1" onclick="chebox_empty('1')" style="cursor:pointer;width: 20px;margin-bottom: 7px;" />
 
                                                 @*<img src="~/Content/images/chebox-fill.png" class="chebox-fill img-none" id="chebox_fillImg_@item.icolumnId" onclick="chebox_fill('@item.icolumnId')" style="cursor:pointer;width: 20px;" />
-                                                <img src="~/Content/images/chebox-empty.png" class="chebox-empty img-block" id="chebox_emptyImg_@item.icolumnId" onclick="chebox_empty('@item.icolumnId')" style="cursor:pointer;width: 20px;margin-top: 0px;" />*@
+                                                    <img src="~/Content/images/chebox-empty.png" class="chebox-empty img-block" id="chebox_emptyImg_@item.icolumnId" onclick="chebox_empty('@item.icolumnId')" style="cursor:pointer;width: 20px;margin-top: 0px;" />*@
                                             </center>
                                         </td>
                                     </tr>
@@ -1133,8 +1204,8 @@
         <div>
             <ul class="offer-inbtn pull-right mt-3" style="margin-bottom: 15px; margin-top: 25px !important;">
                 @*<li class="mr-2 DeleteAll">
-                    <button onclick="DeleteAll();" type="button" class="offer-btn"><i class="fa fa-trash"></i>Delete All</button>
-                </li>*@
+                        <button onclick="DeleteAll();" type="button" class="offer-btn"><i class="fa fa-trash"></i>Delete All</button>
+                    </li>*@
                 <li class="mr-2">
                     <button onclick="SaveData();" type="button" class="offer-btn"><i class="fa fa-save"></i>Save</button>
                 </li>
