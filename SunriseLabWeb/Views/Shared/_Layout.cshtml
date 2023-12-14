@@ -775,7 +775,10 @@ var loaderHide = function () {
             return []
 ;
         }
-
+        function isFloat(value) {
+            // Use a regular expression to check if the value is a valid float
+            return /^-?\d*(\.\d+)?$/.test(value);
+        }
     </script>
 </body>
 

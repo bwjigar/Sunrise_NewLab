@@ -1159,6 +1159,16 @@ namespace API.Controllers
                 dt.Columns.Add("ToPavAng", typeof(string));
                 dt.Columns.Add("FromPavHt", typeof(string));
                 dt.Columns.Add("ToPavHt", typeof(string));
+                
+                dt.Columns.Add("FromBaseDisc", typeof(string));
+                dt.Columns.Add("ToBaseDisc", typeof(string));
+                dt.Columns.Add("FromBaseAmt", typeof(string));
+                dt.Columns.Add("ToBaseAmt", typeof(string));
+                dt.Columns.Add("FromFinalDisc", typeof(string));
+                dt.Columns.Add("ToFinalDisc", typeof(string));
+                dt.Columns.Add("FromFinalAmt", typeof(string));
+                dt.Columns.Add("ToFinalAmt", typeof(string));
+
                 dt.Columns.Add("Culet", typeof(string));
                 dt.Columns.Add("CheckKTS", typeof(string));
                 dt.Columns.Add("UNCheckKTS", typeof(string));
@@ -1248,6 +1258,14 @@ namespace API.Controllers
                         dr["ToPavAng"] = req.SuppDisc[i].ToPavAng;
                         dr["FromPavHt"] = req.SuppDisc[i].FromPavHt;
                         dr["ToPavHt"] = req.SuppDisc[i].ToPavHt;
+                        dr["FromBaseDisc"] = req.SuppDisc[i].FromBaseDisc;
+                        dr["ToBaseDisc"] = req.SuppDisc[i].ToBaseDisc;
+                        dr["FromBaseAmt"] = req.SuppDisc[i].FromBaseAmt;
+                        dr["ToBaseAmt"] = req.SuppDisc[i].ToBaseAmt;
+                        dr["FromFinalDisc"] = req.SuppDisc[i].FromFinalDisc;
+                        dr["ToFinalDisc"] = req.SuppDisc[i].ToFinalDisc;
+                        dr["FromFinalAmt"] = req.SuppDisc[i].FromFinalAmt;
+                        dr["ToFinalAmt"] = req.SuppDisc[i].ToFinalAmt;
                         dr["Culet"] = req.SuppDisc[i].Culet;
                         dr["CheckKTS"] = req.SuppDisc[i].CheckKTS;
                         dr["UNCheckKTS"] = req.SuppDisc[i].UNCheckKTS;

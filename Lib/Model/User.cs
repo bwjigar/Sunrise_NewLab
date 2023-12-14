@@ -453,6 +453,14 @@ namespace Lib.Model
         public string ToPavAng { get; set; }
         public string FromPavHt { get; set; }
         public string ToPavHt { get; set; }
+        public string FromBaseDisc { get; set; }
+        public string ToBaseDisc { get; set; }
+        public string FromBaseAmt { get; set; }
+        public string ToBaseAmt { get; set; }
+        public string FromFinalDisc { get; set; }
+        public string ToFinalDisc { get; set; }
+        public string FromFinalAmt { get; set; }
+        public string ToFinalAmt { get; set; }
         public string CheckKTS { get; set; }
         public string UNCheckKTS { get; set; }
         public string Culet { get; set; }

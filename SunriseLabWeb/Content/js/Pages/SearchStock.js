@@ -1383,18 +1383,18 @@ const datasource1 = {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
-                
+
                 if (data.Data.length > 0) {
                     summary = data.Data[0].DataSummary;
                     $.map(data.Data[0].DataList, function (obj) {
                         Rowdata.push(obj);
                     });
                     params.successCallback(data.Data[0].DataList, summary.TOT_PCS);
-                    
+
                     $('#tab1TCount').show();
                     $('#tab1Pcs').html(formatIntNumber(summary.TOT_PCS));
                     $('#tab1CTS').html(formatNumber(summary.TOT_CTS));
-                    
+
                     if (Type == "Buyer List") {
                         $(".totdisc").html("Supplier Final Disc(%)");
                         $(".totval").html("Supplier Final Value($)");
@@ -1475,7 +1475,7 @@ function ExcelDownload(where, from) {
         obj = ObjectCreate("", "", OrderBy, where);
         obj.View = false;
         obj.Download = true;
-        
+
         if (from == 'In') {
             obj.Pointer = (Filter_Pointer != "" ? Filter_Pointer : obj.Pointer);
             obj.Lab = (Filter_Lab != "" ? Filter_Lab : obj.Lab);
@@ -3425,8 +3425,11 @@ function checkValue(textbox, point) {
     }
 }
 var LeaveTextBox = function (ele, fromid, toid, point) {
-    $("#" + fromid).val($("#" + fromid).val() == "" ? "0.00" : $("#" + fromid).val() == undefined ? "0.00" : parseFloat($("#" + fromid).val()).toFixed(point));
-    $("#" + toid).val($("#" + toid).val() == "" ? "0.00" : $("#" + toid).val() == undefined ? "0.00" : parseFloat($("#" + toid).val()).toFixed(point));
+    var from = $("#" + fromid).val() == "" ? "0.00" : $("#" + fromid).val() == undefined ? "0.00" : parseFloat($("#" + fromid).val()).toFixed(point);
+    var to = $("#" + toid).val() == "" ? "0.00" : $("#" + toid).val() == undefined ? "0.00" : parseFloat($("#" + toid).val()).toFixed(point);
+
+    $("#" + fromid).val(isFloat(from) == true ? from : 0);
+    $("#" + toid).val(isFloat(to) == true ? to : 0);
 
     var fromvalue = parseFloat($("#" + fromid).val()).toFixed(point) == "" ? 0 : parseFloat($("#" + fromid).val()).toFixed(point);
     var tovalue = parseFloat($("#" + toid).val()).toFixed(point) == "" ? 0 : parseFloat($("#" + toid).val()).toFixed(point);

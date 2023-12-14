@@ -364,18 +364,18 @@ $(document).ready(function () {
     document.getElementById('copy').addEventListener('change', function () {
         if (this.checked) {
             //if ($("#PricingMethod_1").val() != "") {
-                $("#PricingMethod_3").val($("#PricingMethod_1").val());
-                PricingMethodDDL('3');
-                if ($("#PricingMethod_3").val() == "Disc") {
-                    $("#txtDisc_3_1").val($("#txtDisc_1_1").val());
-                }
-                else {
-                    $("#txtValue_3_1").val($("#txtValue_1_1").val());
-                    $("#txtValue_3_2").val($("#txtValue_1_2").val());
-                    $("#txtValue_3_3").val($("#txtValue_1_3").val());
-                    $("#txtValue_3_4").val($("#txtValue_1_4").val());
-                    $("#txtValue_3_5").val($("#txtValue_1_5").val());
-                }
+            $("#PricingMethod_3").val($("#PricingMethod_1").val());
+            PricingMethodDDL('3');
+            if ($("#PricingMethod_3").val() == "Disc") {
+                $("#txtDisc_3_1").val($("#txtDisc_1_1").val());
+            }
+            else {
+                $("#txtValue_3_1").val($("#txtValue_1_1").val());
+                $("#txtValue_3_2").val($("#txtValue_1_2").val());
+                $("#txtValue_3_3").val($("#txtValue_1_3").val());
+                $("#txtValue_3_4").val($("#txtValue_1_4").val());
+                $("#txtValue_3_5").val($("#txtValue_1_5").val());
+            }
             //}
             $("#PricingSign_3").val($("#PricingSign_1").val());
 
@@ -389,18 +389,18 @@ $(document).ready(function () {
             }
             againCalendarCall("2");
             //if ($("#PricingMethod_2").val() != "") {
-                $("#PricingMethod_4").val($("#PricingMethod_2").val());
-                PricingMethodDDL('4');
-                if ($("#PricingMethod_4").val() == "Disc") {
-                    $("#txtDisc_4_1").val($("#txtDisc_2_1").val());
-                }
-                else {
-                    $("#txtValue_4_1").val($("#txtValue_2_1").val());
-                    $("#txtValue_4_2").val($("#txtValue_2_2").val());
-                    $("#txtValue_4_3").val($("#txtValue_2_3").val());
-                    $("#txtValue_4_4").val($("#txtValue_2_4").val());
-                    $("#txtValue_4_5").val($("#txtValue_2_5").val());
-                }
+            $("#PricingMethod_4").val($("#PricingMethod_2").val());
+            PricingMethodDDL('4');
+            if ($("#PricingMethod_4").val() == "Disc") {
+                $("#txtDisc_4_1").val($("#txtDisc_2_1").val());
+            }
+            else {
+                $("#txtValue_4_1").val($("#txtValue_2_1").val());
+                $("#txtValue_4_2").val($("#txtValue_2_2").val());
+                $("#txtValue_4_3").val($("#txtValue_2_3").val());
+                $("#txtValue_4_4").val($("#txtValue_2_4").val());
+                $("#txtValue_4_5").val($("#txtValue_2_5").val());
+            }
             //}
             $("#PricingSign_4").val($("#PricingSign_2").val());
             setTimeout(function () {
@@ -417,19 +417,19 @@ function checkValue(textbox, type, id) {
         if (type != "" && id != "") {
             type = parseInt(type);
             id = parseInt(id);
-            for (var i = id-1; i <= 5 && i != 0; i--) {
+            for (var i = id - 1; i <= 5 && i != 0; i--) {
                 if ($("#txtValue_" + type + "_" + i).val() == "") {
                     $("#txtValue_" + type + "_" + id).val("");
                 }
             }
         }
-        
+
     } else {
         textbox.value = '';
         if (type != "" && id != "") {
             type = parseInt(type);
             id = parseInt(id);
-            for (var i = id+1; i <= 5 && i != 0; i++) {
+            for (var i = id + 1; i <= 5 && i != 0; i++) {
                 $("#txtValue_" + type + "_" + i).val("");
             }
         }
@@ -962,7 +962,7 @@ var SetSearchParameter = function () {
     if (CheckedColorValue == "") {
         Set_FancyColor();
     }
-    
+
     if (Regular_All == true) {
         $(".divCheckedColorValue").empty();
         $(".divCheckedColorValue").append("<b>REGULAR ALL</b>");
@@ -1064,8 +1064,11 @@ var SetSearchParameter = function () {
 }
 
 var LeaveTextBox = function (ele, fromid, toid) {
-    $("#" + fromid).val($("#" + fromid).val() == "" ? "0.00" : $("#" + fromid).val() == undefined ? "0.00" : parseFloat($("#" + fromid).val()).toFixed(2));
-    $("#" + toid).val($("#" + toid).val() == "" ? "0.00" : $("#" + toid).val() == undefined ? "0.00" : parseFloat($("#" + toid).val()).toFixed(2));
+    var from = $("#" + fromid).val() == "" ? "0.00" : $("#" + fromid).val() == undefined ? "0.00" : parseFloat($("#" + fromid).val()).toFixed(2);
+    var to = $("#" + toid).val() == "" ? "0.00" : $("#" + toid).val() == undefined ? "0.00" : parseFloat($("#" + toid).val()).toFixed(2);
+
+    $("#" + fromid).val(isFloat(from) == true ? from :0);
+    $("#" + toid).val(isFloat(to) == true ? to : 0);
 
     var fromvalue = parseFloat($("#" + fromid).val()).toFixed(2) == "" ? 0 : parseFloat($("#" + fromid).val()).toFixed(2);
     var tovalue = parseFloat($("#" + toid).val()).toFixed(2) == "" ? 0 : parseFloat($("#" + toid).val()).toFixed(2);
@@ -1133,6 +1136,15 @@ function Reset_API_Filter() {
     $("#ToPavAng").val("");
     $("#FromPavHt").val("");
     $("#ToPavHt").val("");
+    $("#FromBaseDisc").val("");
+    $("#ToBaseDisc").val("");
+    $("#FromBaseAmt").val("");
+    $("#ToBaseAmt").val("");
+    $("#FromFinalDisc").val("");
+    $("#ToFinalDisc").val("");
+    $("#FromFinalAmt").val("");
+    $("#ToFinalAmt").val("");
+
     resetKeytoSymbol();
     ResetSelectedAttr('.divCheckedBGMValue', BGMList);
     ResetSelectedAttr('.divCheckedCrnBlackValue', CrownBlackList);
@@ -1836,9 +1848,12 @@ var SetFinalColors = function () {
     //    "title": _.pluck(_.filter(_pointerlst, function (e) { return e.isActive == true }), 'Value').join(",")
     //});
 }
-function numvalid(evt) {
+function numvalid(evt, minalow = 0) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+    if (minalow == 1 && charCode == 45) {
+        return true;
+    }
+    else if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
         return false;
     }
     return true;
@@ -1996,8 +2011,20 @@ function generate_uuidv4() {
 
 function HTML_CREATE(
     Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
-    FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
-    FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt, Culet,
+    FromLength, ToLength, Length_IsBlank,
+    FromWidth, ToWidth, Width_IsBlank,
+    FromDepth, ToDepth, Depth_IsBlank,
+    FromDepthinPer, ToDepthinPer, DepthPer_IsBlank,
+    FromTableinPer, ToTableinPer, TablePer_IsBlank,
+    FromCrAng, ToCrAng, CrAng_IsBlank,
+    FromCrHt, ToCrHt, CrHt_IsBlank,
+    FromPavAng, ToPavAng, PavAng_IsBlank,
+    FromPavHt, ToPavHt, PavHt_IsBlank,
+    FromBaseDisc, ToBaseDisc, BaseDisc_IsBlank,
+    FromBaseAmt, ToBaseAmt, BaseAmt_IsBlank,
+    FromFinalDisc, ToFinalDisc, FinalDisc_IsBlank,
+    FromFinalAmt, ToFinalAmt, FinalAmt_IsBlank,
+    Culet,
     Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
     PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
     Chk_Speci_Additional_1, txtFromDate, txtToDate,
@@ -2024,34 +2051,101 @@ function HTML_CREATE(
     html += "<td><span class='Fi-Criteria Sym'>" + Sym + "</span></td>";
     html += "<td><span class='Fi-Criteria Fls'>" + Fls + "</span></td>";
     html += "<td><span class='Fi-Criteria Lab'>" + Lab + "</span></td>";
-    html += "<td><span class='Fi-Criteria FromLength'>" + FromLength + "</span></td>";
-    html += "<td><span class='Fi-Criteria ToLength'>" + ToLength + "</span></td>";
-    html += "<td><span class='Fi-Criteria FromWidth'>" + FromWidth + "</span></td>";
-    html += "<td><span class='Fi-Criteria ToWidth'>" + ToWidth + "</span></td>";
-    html += "<td><span class='Fi-Criteria FromDepth'>" + FromDepth + "</span></td>";
-    html += "<td><span class='Fi-Criteria ToDepth'>" + ToDepth + "</span></td>";
-    html += "<td><span class='Fi-Criteria FromDepthinPer'>" + FromDepthinPer + "</span></td>";
-    html += "<td><span class='Fi-Criteria ToDepthinPer'>" + ToDepthinPer + "</span></td>";
-    html += "<td><span class='Fi-Criteria FromTableinPer'>" + FromTableinPer + "</span></td>";
-    html += "<td><span class='Fi-Criteria ToTableinPer'>" + ToTableinPer + "</span></td>";
-    html += "<td><span class='Fi-Criteria FromCrAng'>" + FromCrAng + "</span></td>";
-    html += "<td><span class='Fi-Criteria ToCrAng'>" + ToCrAng + "</span></td>";
-    html += "<td><span class='Fi-Criteria FromCrHt'>" + FromCrHt + "</span></td>";
-    html += "<td><span class='Fi-Criteria ToCrHt'>" + ToCrHt + "</span></td>";
-    html += "<td><span class='Fi-Criteria FromPavAng'>" + FromPavAng + "</span></td>";
-    html += "<td><span class='Fi-Criteria ToPavAng'>" + ToPavAng + "</span></td>";
-    html += "<td><span class='Fi-Criteria FromPavHt'>" + FromPavHt + "</span></td>";
-    html += "<td><span class='Fi-Criteria ToPavHt'>" + ToPavHt + "</span></td>";
-    html += "<td><span class='Fi-Criteria Culet'>" + Culet + "</span></td>";
+    html += "<td><span class='Fi-Criteria BGM'>" + BGM + "</span></td>";
     html += "<td><span class='Fi-Criteria Keytosymbol'>" + Keytosymbol + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dCheckKTS'>" + dCheckKTS + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckKTS'>" + dUNCheckKTS + "</span></td>";
-    html += "<td><span class='Fi-Criteria BGM'>" + BGM + "</span></td>";
-    html += "<td><span class='Fi-Criteria CrownBlack'>" + CrownBlack + "</span></td>";
-    html += "<td><span class='Fi-Criteria TableBlack'>" + TableBlack + "</span></td>";
-    html += "<td><span class='Fi-Criteria CrownWhite'>" + CrownWhite + "</span></td>";
-    html += "<td><span class='Fi-Criteria TableWhite'>" + TableWhite + "</span></td>";
     html += "<td><span class='Fi-Criteria GoodsType'>" + GoodsType + "</span></td>";
+
+    //html += "<td><span class='Fi-Criteria FromLength'>" + FromLength + "</span></td>";
+    //html += "<td><span class='Fi-Criteria ToLength'>" + ToLength + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria FromLength'>" + FromLength + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ToLength'>" + ToLength + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria Length_IsBlank'>" + Length_IsBlank + "</span></td>";
+    html += "<td style=''><span class='Fi-Criteria Length' style='margin: -20px -20px -20px -20px;'>" + (FromLength == "" && ToLength == "" ? "" : FromLength + "-" + ToLength) + "" + (Length_IsBlank == 1 ? (FromLength.toString() != "" && ToLength.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
+
+    //html += "<td><span class='Fi-Criteria FromWidth'>" + FromWidth + "</span></td>";
+    //html += "<td><span class='Fi-Criteria ToWidth'>" + ToWidth + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria FromWidth'>" + FromWidth + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ToWidth'>" + ToWidth + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria Width_IsBlank'>" + Width_IsBlank + "</span></td>";
+    html += "<td style=''><span class='Fi-Criteria Width' style='margin: -20px -20px -20px -20px;'>" + (FromWidth == "" && ToWidth == "" ? "" : FromWidth + "-" + ToWidth) + "" + (Width_IsBlank == 1 ? (FromWidth.toString() != "" && ToWidth.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
+
+    //html += "<td><span class='Fi-Criteria FromDepth'>" + FromDepth + "</span></td>";
+    //html += "<td><span class='Fi-Criteria ToDepth'>" + ToDepth + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria FromDepth'>" + FromDepth + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ToDepth'>" + ToDepth + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria Depth_IsBlank'>" + Depth_IsBlank + "</span></td>";
+    html += "<td style=''><span class='Fi-Criteria Depth' style='margin: -20px -20px -20px -20px;'>" + (FromDepth == "" && ToDepth == "" ? "" : FromDepth + "-" + ToDepth) + "" + (Depth_IsBlank == 1 ? (FromDepth.toString() != "" && ToDepth.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
+
+    //html += "<td><span class='Fi-Criteria FromDepthinPer'>" + FromDepthinPer + "</span></td>";
+    //html += "<td><span class='Fi-Criteria ToDepthinPer'>" + ToDepthinPer + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria FromDepthinPer'>" + FromDepthinPer + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ToDepthinPer'>" + ToDepthinPer + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria DepthPer_IsBlank'>" + DepthPer_IsBlank + "</span></td>";
+    html += "<td style=''><span class='Fi-Criteria DepthinPer' style='margin: -20px -20px -20px -20px;'>" + (FromDepthinPer == "" && ToDepthinPer == "" ? "" : FromDepthinPer + "-" + ToDepthinPer) + "" + (DepthPer_IsBlank == 1 ? (FromDepthinPer.toString() != "" && ToDepthinPer.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
+
+    //html += "<td><span class='Fi-Criteria FromTableinPer'>" + FromTableinPer + "</span></td>";
+    //html += "<td><span class='Fi-Criteria ToTableinPer'>" + ToTableinPer + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria FromTableinPer'>" + FromTableinPer + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ToTableinPer'>" + ToTableinPer + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria TablePer_IsBlank'>" + TablePer_IsBlank + "</span></td>";
+    html += "<td style=''><span class='Fi-Criteria TableinPer' style='margin: -20px -20px -20px -20px;'>" + (FromTableinPer == "" && ToTableinPer == "" ? "" : FromTableinPer + "-" + ToTableinPer) + "" + (TablePer_IsBlank == 1 ? (FromTableinPer.toString() != "" && ToTableinPer.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
+
+    //html += "<td><span class='Fi-Criteria FromCrAng'>" + FromCrAng + "</span></td>";
+    //html += "<td><span class='Fi-Criteria ToCrAng'>" + ToCrAng + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria FromCrAng'>" + FromCrAng + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ToCrAng'>" + ToCrAng + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria CrAng_IsBlank'>" + CrAng_IsBlank + "</span></td>";
+    html += "<td style=''><span class='Fi-Criteria CrAng' style='margin: -20px -20px -20px -20px;'>" + (FromCrAng == "" && ToCrAng == "" ? "" : FromCrAng + "-" + ToCrAng) + "" + (CrAng_IsBlank == 1 ? (FromCrAng.toString() != "" && ToCrAng.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
+
+    //html += "<td><span class='Fi-Criteria FromCrHt'>" + FromCrHt + "</span></td>";
+    //html += "<td><span class='Fi-Criteria ToCrHt'>" + ToCrHt + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria FromCrHt'>" + FromCrHt + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ToCrHt'>" + ToCrHt + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria CrHt_IsBlank'>" + CrHt_IsBlank + "</span></td>";
+    html += "<td style=''><span class='Fi-Criteria CrHt' style='margin: -20px -20px -20px -20px;'>" + (FromCrHt == "" && ToCrHt == "" ? "" : FromCrHt + "-" + ToCrHt) + "" + (CrHt_IsBlank == 1 ? (FromCrHt.toString() != "" && ToCrHt.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
+
+    //html += "<td><span class='Fi-Criteria FromPavAng'>" + FromPavAng + "</span></td>";
+    //html += "<td><span class='Fi-Criteria ToPavAng'>" + ToPavAng + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria FromPavAng'>" + FromPavAng + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ToPavAng'>" + ToPavAng + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria PavAng_IsBlank'>" + PavAng_IsBlank + "</span></td>";
+    html += "<td style=''><span class='Fi-Criteria PavAng' style='margin: -20px -20px -20px -20px;'>" + (FromPavAng == "" && ToPavAng == "" ? "" : FromPavAng + "-" + ToPavAng) + "" + (PavAng_IsBlank == 1 ? (FromPavAng.toString() != "" && ToPavAng.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
+
+    //html += "<td><span class='Fi-Criteria FromPavHt'>" + FromPavHt + "</span></td>";
+    //html += "<td><span class='Fi-Criteria ToPavHt'>" + ToPavHt + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria FromPavHt'>" + FromPavHt + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ToPavHt'>" + ToPavHt + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria PavHt_IsBlank'>" + PavHt_IsBlank + "</span></td>";
+    html += "<td style=''><span class='Fi-Criteria PavHt' style='margin: -20px -20px -20px -20px;'>" + (FromPavHt == "" && ToPavHt == "" ? "" : FromPavHt + "-" + ToPavHt) + "" + (PavHt_IsBlank == 1 ? (FromPavHt.toString() != "" && ToPavHt.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
+
+    html += "<td style='display:none;'><span class='Fi-Criteria FromBaseDisc'>" + FromBaseDisc + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ToBaseDisc'>" + ToBaseDisc + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria BaseDisc_IsBlank'>" + BaseDisc_IsBlank + "</span></td>";
+    html += "<td style=''><span class='Fi-Criteria BaseDisc' style='margin: -20px -20px -20px -20px;'>" + (FromBaseDisc == "" && ToBaseDisc == "" ? "" : FromBaseDisc + "-" + ToBaseDisc) + "" + (BaseDisc_IsBlank == 1 ? (FromBaseDisc.toString() != "" && ToBaseDisc.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
+
+    html += "<td style='display:none;'><span class='Fi-Criteria FromBaseAmt'>" + FromBaseAmt + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ToBaseAmt'>" + ToBaseAmt + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria BaseAmt_IsBlank'>" + BaseAmt_IsBlank + "</span></td>";
+    html += "<td style=''><span class='Fi-Criteria BaseAmt' style='margin: -20px -20px -20px -20px;'>" + (FromBaseAmt == "" && ToBaseAmt == "" ? "" : FromBaseAmt + "-" + ToBaseAmt) + "" + (BaseAmt_IsBlank == 1 ? (FromBaseAmt.toString() != "" && ToBaseAmt.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
+
+    html += "<td style='display:none;'><span class='Fi-Criteria FromFinalDisc'>" + FromFinalDisc + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ToFinalDisc'>" + ToFinalDisc + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria FinalDisc_IsBlank'>" + FinalDisc_IsBlank + "</span></td>";
+    html += "<td style=''><span class='Fi-Criteria FinalDisc' style='margin: -20px -20px -20px -20px;'>" + (FromFinalDisc == "" && ToFinalDisc == "" ? "" : FromFinalDisc + "-" + ToFinalDisc) + "" + (FinalDisc_IsBlank == 1 ? (FromFinalDisc.toString() != "" && ToFinalDisc.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
+
+    html += "<td style='display:none;'><span class='Fi-Criteria FromFinalAmt'>" + FromFinalAmt + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ToFinalAmt'>" + ToFinalAmt + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria FinalAmt_IsBlank'>" + FinalAmt_IsBlank + "</span></td>";
+    html += "<td style=''><span class='Fi-Criteria FinalAmt' style='margin: -20px -20px -20px -20px;'>" + (FromFinalAmt == "" && ToFinalAmt == "" ? "" : FromFinalAmt + "-" + ToFinalAmt) + "" + (FinalAmt_IsBlank == 1 ? (FromFinalAmt.toString() != "" && ToFinalAmt.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
+
+    html += "<td><span class='Fi-Criteria Culet'>" + Culet + "</span></td>";
+    html += "<td><span class='Fi-Criteria TableBlack'>" + TableBlack + "</span></td>";
+    html += "<td><span class='Fi-Criteria CrownBlack'>" + CrownBlack + "</span></td>";
+    html += "<td><span class='Fi-Criteria TableWhite'>" + TableWhite + "</span></td>";
+    html += "<td><span class='Fi-Criteria CrownWhite'>" + CrownWhite + "</span></td>";
+    
     html += "<td><span class='Fi-Criteria Image'>" + Image + "</span></td>";
     html += "<td><span class='Fi-Criteria Video'>" + Video + "</span></td>";
 
@@ -2347,6 +2441,15 @@ var AddNewRow = function () {
             var FromPavHt = NullReplaceDecimalToFixed($("#FromPavHt").val());
             var ToPavHt = NullReplaceDecimalToFixed($("#ToPavHt").val());
             
+            var FromBaseDisc = NullReplaceDecimalToFixed($("#FromBaseDisc").val());
+            var ToBaseDisc = NullReplaceDecimalToFixed($("#ToBaseDisc").val());
+            var FromBaseAmt = NullReplaceDecimalToFixed($("#FromBaseAmt").val());
+            var ToBaseAmt = NullReplaceDecimalToFixed($("#ToBaseAmt").val());
+            var FromFinalDisc = NullReplaceDecimalToFixed($("#FromFinalDisc").val());
+            var ToFinalDisc = NullReplaceDecimalToFixed($("#ToFinalDisc").val());
+            var FromFinalAmt = NullReplaceDecimalToFixed($("#FromFinalAmt").val());
+            var ToFinalAmt = NullReplaceDecimalToFixed($("#ToFinalAmt").val());
+
             var KeyToSymLst_Check1 = _.pluck(CheckKeyToSymbolList, 'Symbol').join(",");
             var KeyToSymLst_uncheck1 = _.pluck(UnCheckKeyToSymbolList, 'Symbol').join(",");
             var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : "-") + KeyToSymLst_uncheck1;
@@ -2402,183 +2505,21 @@ var AddNewRow = function () {
             var txtValue_4_5 = NullReplaceDecimal4ToFixed($("#txtValue_4_5").val());
 
 
-            //var html = "<tr class='tr11'>";
-            //html += "<th class='Row Fi-Criteria' style=''></th>";
-            //html += "<td><span class='Fi-Criteria Shape'>" + Shape + "</span></td>";
-            //html += "<td><span class='Fi-Criteria Carat'>" + Carat + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria ColorType'>" + Color_Type + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria Color'>" + Color + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria dCheckINTENSITY'>" + F_INTENSITY + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria dCheckOVERTONE'>" + F_OVERTONE + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria dCheckFANCY_COLOR'>" + F_FANCY_COLOR + "</span></td>";
-            //html += "<td><span class='Fi-Criteria MixColor'>" + MixColor + "</span></td>";
-            //html += "<td><span class='Fi-Criteria Clarity'>" + Clarity + "</span></td>";
-            //html += "<td><span class='Fi-Criteria Cut'>" + Cut + "</span></td>";
-            //html += "<td><span class='Fi-Criteria Polish'>" + Polish + "</span></td>";
-            //html += "<td><span class='Fi-Criteria Sym'>" + Sym + "</span></td>";
-            //html += "<td><span class='Fi-Criteria Fls'>" + Fls + "</span></td>";
-            //html += "<td><span class='Fi-Criteria Lab'>" + Lab + "</span></td>";
-            //html += "<td><span class='Fi-Criteria FromLength'>" + FromLength + "</span></td>";
-            //html += "<td><span class='Fi-Criteria ToLength'>" + ToLength + "</span></td>";
-            //html += "<td><span class='Fi-Criteria FromWidth'>" + FromWidth + "</span></td>";
-            //html += "<td><span class='Fi-Criteria ToWidth'>" + ToWidth + "</span></td>";
-            //html += "<td><span class='Fi-Criteria FromDepth'>" + FromDepth + "</span></td>";
-            //html += "<td><span class='Fi-Criteria ToDepth'>" + ToDepth + "</span></td>";
-            //html += "<td><span class='Fi-Criteria FromDepthinPer'>" + FromDepthinPer + "</span></td>";
-            //html += "<td><span class='Fi-Criteria ToDepthinPer'>" + ToDepthinPer + "</span></td>";
-            //html += "<td><span class='Fi-Criteria FromTableinPer'>" + FromTableinPer + "</span></td>";
-            //html += "<td><span class='Fi-Criteria ToTableinPer'>" + ToTableinPer + "</span></td>";
-            //html += "<td><span class='Fi-Criteria FromCrAng'>" + FromCrAng + "</span></td>";
-            //html += "<td><span class='Fi-Criteria ToCrAng'>" + ToCrAng + "</span></td>";
-            //html += "<td><span class='Fi-Criteria FromCrHt'>" + FromCrHt + "</span></td>";
-            //html += "<td><span class='Fi-Criteria ToCrHt'>" + ToCrHt + "</span></td>";
-            //html += "<td><span class='Fi-Criteria FromPavAng'>" + FromPavAng + "</span></td>";
-            //html += "<td><span class='Fi-Criteria ToPavAng'>" + ToPavAng + "</span></td>";
-            //html += "<td><span class='Fi-Criteria FromPavHt'>" + FromPavHt + "</span></td>";
-            //html += "<td><span class='Fi-Criteria ToPavHt'>" + ToPavHt + "</span></td>";
-            //html += "<td><span class='Fi-Criteria Keytosymbol'>" + Keytosymbol + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria dCheckKTS'>" + dCheckKTS + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckKTS'>" + dUNCheckKTS + "</span></td>";
-            //html += "<td><span class='Fi-Criteria BGM'>" + BGM + "</span></td>";
-            //html += "<td><span class='Fi-Criteria CrownBlack'>" + CrownBlack + "</span></td>";
-            //html += "<td><span class='Fi-Criteria TableBlack'>" + TableBlack + "</span></td>";
-            //html += "<td><span class='Fi-Criteria CrownWhite'>" + CrownWhite + "</span></td>";
-            //html += "<td><span class='Fi-Criteria TableWhite'>" + TableWhite + "</span></td>";
-            //html += "<td><span class='Fi-Criteria GoodsType'>" + GoodsType + "</span></td>";
-            //html += "<td><span class='Fi-Criteria Image'>" + Image + "</span></td>";
-            //html += "<td><span class='Fi-Criteria Video'>" + Video + "</span></td>";
-
-            //html += "<td style='display:none;'><span class='Fi-Criteria PricingMethod_1'>" + PricingMethod_1 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria PricingSign_1'>" + PricingSign_1 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtDisc_1_1'>" + txtDisc_1_1 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_1'>" + txtValue_1_1 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_2'>" + txtValue_1_2 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_3'>" + txtValue_1_3 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_4'>" + txtValue_1_4 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria Chk_Speci_Additional_1'>" + Chk_Speci_Additional_1 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtFromDate'>" + txtFromDate + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtToDate'>" + txtToDate + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria PricingMethod_2'>" + PricingMethod_2 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria PricingSign_2'>" + PricingSign_2 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtDisc_2_1'>" + txtDisc_2_1 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_1'>" + txtValue_2_1 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_2'>" + txtValue_2_2 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_3'>" + txtValue_2_3 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_4'>" + txtValue_2_4 + "</span></td>";
-
-            //html += "<td style='display:none;'><span class='Fi-Criteria PricingMethod_3'>" + PricingMethod_3 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria PricingSign_3'>" + PricingSign_3 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtDisc_3_1'>" + txtDisc_3_1 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_3_1'>" + txtValue_3_1 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_3_2'>" + txtValue_3_2 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_3_3'>" + txtValue_3_3 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_3_4'>" + txtValue_3_4 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria Chk_Speci_Additional_2'>" + Chk_Speci_Additional_2 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtFromDate1'>" + txtFromDate1 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtToDate1'>" + txtToDate1 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria PricingMethod_4'>" + PricingMethod_4 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria PricingSign_4'>" + PricingSign_4 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtDisc_4_1'>" + txtDisc_4_1 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_4_1'>" + txtValue_4_1 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_4_2'>" + txtValue_4_2 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_4_3'>" + txtValue_4_3 + "</span></td>";
-            //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_4_4'>" + txtValue_4_4 + "</span></td>";
-
-            //html += "<td><span class='Fi-Criteria _PricingMethod_1'>" + (PricingMethod_1 == "Disc" ? 'Discount' : 'Value') + "</span></td>";
-            //html += "<td><span class='Fi-Criteria _PricingSign_1'>" + PricingSign_1 + "</span></td>";
-
-            ////html += "<td><span class='Fi-Criteria _PricingAmt_1'>" + (PricingMethod_1 == "Disc" ? txtDisc_1_1 : txtValue_1_1 + ', ' + txtValue_1_2 + ', ' + txtValue_1_3 + ', ' + txtValue_1_4) + "</span></td>";
-            //html += "<td>";
-            //html += "<div>";
-            //if (PricingMethod_1 == "Disc") {
-            //    html += (txtDisc_1_1 == "" ? '<span class="Fi-Criteria _txtDisc_1_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtDisc_1_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtDisc_1_1 + '</span>');
-            //}
-            //else if (PricingMethod_1 == "Value") {
-            //    html += (txtValue_1_1 == "" ? '<span class="Fi-Criteria _txtValue_1_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_1 + '</span>');
-            //    html += (txtValue_1_2 == "" ? '<span class="Fi-Criteria _txtValue_1_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_2 + '</span>');
-            //    html += (txtValue_1_3 == "" ? '<span class="Fi-Criteria _txtValue_1_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_3 + '</span>');
-            //    html += (txtValue_1_4 == "" ? '<span class="Fi-Criteria _txtValue_1_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_1_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_1_4 + '</span>');
-            //}
-            //html += "</div>";
-            //html += "</td>";
-
-            //html += "<td><span class='Fi-Criteria _PricingAddi_2'>" + (PricingMethod_2 != "" ? (Chk_Speci_Additional_1 == true ? 'Yes' : 'No') : '') + "</span></td>";
-            //html += "<td><span class='Fi-Criteria _PricingFromDate_2'>" + (PricingMethod_2 != "" ? txtFromDate : '') + "</span></td>";
-            //html += "<td><span class='Fi-Criteria _PricingToDate_2'>" + (PricingMethod_2 != "" ? txtToDate : '') + "</span></td>";
-            //html += "<td><span class='Fi-Criteria _PricingMethod_2'>" + (PricingMethod_2 != "" ? (PricingMethod_2 == "Disc" ? 'Discount' : 'Value') : '') + "</span></td>";
-            //html += "<td><span class='Fi-Criteria _PricingSign_2'>" + (PricingMethod_2 != "" ? PricingSign_2 : '') + "</span></td>";
-
-            ////html += "<td><span class='Fi-Criteria _PricingAmt_2'>" + (PricingMethod_2 != "" ? (PricingMethod_2 == "Disc" ? txtDisc_2_1 : txtValue_2_1 + ', ' + txtValue_2_2 + ', ' + txtValue_2_3 + ', ' + txtValue_2_4) : '') + "</span></td>";
-            //html += "<td>";
-            //if (PricingMethod_2 != "") {
-            //    html += "<div>";
-            //    if (PricingMethod_2 == "Disc") {
-            //        html += (txtDisc_1_1 == "" ? '<span class="Fi-Criteria _txtDisc_2_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtDisc_2_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtDisc_2_1 + '</span>');
-            //    }
-            //    else if (PricingMethod_2 == "Value") {
-            //        html += (txtValue_2_1 == "" ? '<span class="Fi-Criteria _txtValue_2_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_1 + '</span>');
-            //        html += (txtValue_2_2 == "" ? '<span class="Fi-Criteria _txtValue_2_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_2 + '</span>');
-            //        html += (txtValue_2_2 == "" ? '<span class="Fi-Criteria _txtValue_2_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_2 + '</span>');
-            //        html += (txtValue_2_4 == "" ? '<span class="Fi-Criteria _txtValue_2_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_2_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_2_4 + '</span>');
-            //    }
-            //    html += "</div>";
-            //}
-            //html += "</td>";
-
-
-            //html += "<td><span class='Fi-Criteria _PricingMethod_3'>" + (PricingMethod_3 == "Disc" ? 'Discount' : 'Value') + "</span></td>";
-            //html += "<td><span class='Fi-Criteria _PricingSign_3'>" + PricingSign_3 + "</span></td>";
-
-            ////html += "<td><span class='Fi-Criteria _PricingAmt_3'>" + (PricingMethod_3 == "Disc" ? txtDisc_3_1 : txtValue_3_1 + ', ' + txtValue_3_2 + ', ' + txtValue_3_3 + ', ' + txtValue_3_4) + "</span></td>";
-            //html += "<td>";
-            //html += "<div>";
-            //if (PricingMethod_3 == "Disc") {
-            //    html += (txtDisc_3_1 == "" ? '<span class="Fi-Criteria _txtDisc_3_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtDisc_3_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtDisc_3_1 + '</span>');
-            //}
-            //else if (PricingMethod_3 == "Value") {
-            //    html += (txtValue_3_1 == "" ? '<span class="Fi-Criteria _txtValue_3_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_3_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_3_1 + '</span>');
-            //    html += (txtValue_3_1 == "" ? '<span class="Fi-Criteria _txtValue_3_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_3_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_3_1 + '</span>');
-            //    html += (txtValue_3_1 == "" ? '<span class="Fi-Criteria _txtValue_3_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_3_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_3_1 + '</span>');
-            //    html += (txtValue_3_1 == "" ? '<span class="Fi-Criteria _txtValue_3_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_3_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_3_1 + '</span>');
-            //}
-            //html += "</div>";
-            //html += "</td>";
-
-            //html += "<td><span class='Fi-Criteria _PricingAddi_4'>" + (PricingMethod_4 != "" ? (Chk_Speci_Additional_2 == true ? 'Yes' : 'No') : '') + "</span></td>";
-            //html += "<td><span class='Fi-Criteria _PricingFromDate_4'>" + (PricingMethod_4 != "" ? txtFromDate1 : '') + "</span></td>";
-            //html += "<td><span class='Fi-Criteria _PricingToDate_4'>" + (PricingMethod_4 != "" ? txtToDate1 : '') + "</span></td>";
-            //html += "<td><span class='Fi-Criteria _PricingMethod_4'>" + (PricingMethod_4 != "" ? (PricingMethod_4 == "Disc" ? 'Discount' : 'Value') : '') + "</span></td>";
-            //html += "<td><span class='Fi-Criteria _PricingSign_4'>" + (PricingMethod_4 != "" ? PricingSign_4 : '') + "</span></td>";
-
-            ////html += "<td><span class='Fi-Criteria _PricingAmt_4'>" + (PricingMethod_4 != "" ? (PricingMethod_4 == "Disc" ? txtDisc_4_1 : txtValue_4_1 + ', ' + txtValue_4_2 + ', ' + txtValue_4_3 + ', ' + txtValue_4_4) : '') + "</span></td>";
-            //html += "<td>";
-            //if (PricingMethod_4 != "") {
-            //    html += "<div>";
-            //    if (PricingMethod_4 == "Disc") {
-            //        html += (txtDisc_4_1 == "" ? '<span class="Fi-Criteria _txtDisc_4_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtDisc_4_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtDisc_4_1 + '</span>');
-            //    }
-            //    else if (PricingMethod_4 == "Value") {
-            //        html += (txtValue_4_1 == "" ? '<span class="Fi-Criteria _txtValue_4_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_4_1" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_4_1 + '</span>');
-            //        html += (txtValue_4_2 == "" ? '<span class="Fi-Criteria _txtValue_4_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_4_2" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_4_2 + '</span>');
-            //        html += (txtValue_4_3 == "" ? '<span class="Fi-Criteria _txtValue_4_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_4_3" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_4_3 + '</span>');
-            //        html += (txtValue_4_4 == "" ? '<span class="Fi-Criteria _txtValue_4_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' : '<span class="Fi-Criteria _txtValue_4_4" style="border: 1px solid #003d66;padding: 3px 4px 3px 4px;margin: 0px 3px 0px 0px;">' + txtValue_4_4 + '</span>');
-            //    }
-            //    html += "</div>";
-            //}
-            //html += "</td>";
-
-
-            //html += "<td style='width: 50px'>";
-            //html += '<input type="hidden" class="hdn_UniqueId" value="' + new_id + '" />';
-            //html += '<i onclick="EditCriteria(\'' + new_id + '\');" style="cursor:pointer;" class="error EditCriteria"><img src="/Content/images/edit-icon.png" style="width: 23px;"/></i>';
-            //html += '&nbsp;&nbsp;<i style="cursor:pointer;" class="error RemoveCriteria"><img src="/Content/images/trash-delete-icon.png" style="width: 20px;"/></i>';
-            //html += "</td>";
-
-            //html += "</tr>";
-            
             var html = HTML_CREATE(Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
-                FromLength, ToLength, FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng,
-                FromCrHt, ToCrHt, FromPavAng, ToPavAng, FromPavHt, ToPavHt, Culet,
+                FromLength, ToLength,0,
+                FromWidth, ToWidth, 0,
+                FromDepth, ToDepth, 0,
+                FromDepthinPer, ToDepthinPer, 0,
+                FromTableinPer, ToTableinPer, 0,
+                FromCrAng, ToCrAng, 0,
+                FromCrHt, ToCrHt, 0,
+                FromPavAng, ToPavAng, 0,
+                FromPavHt, ToPavHt, 0,
+                FromBaseDisc, ToBaseDisc,0,
+                FromBaseAmt, ToBaseAmt, 0,
+                FromFinalDisc, ToFinalDisc, 0,
+                FromFinalAmt, ToFinalAmt, 0,
+                Culet,
                 Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
                 PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
                 Chk_Speci_Additional_1, txtFromDate, txtToDate,
@@ -2677,24 +2618,109 @@ function UpdateRow() {
                 var Culet = _.pluck(_.filter(CuletList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.Culet').html(Culet);
 
-                $(this).find('.FromLength').html(NullReplaceDecimalToFixed($("#FromLength").val()));
-                $(this).find('.ToLength').html(NullReplaceDecimalToFixed($("#ToLength").val()));
-                $(this).find('.FromWidth').html(NullReplaceDecimalToFixed($("#FromWidth").val()));
-                $(this).find('.ToWidth').html(NullReplaceDecimalToFixed($("#ToWidth").val()));
-                $(this).find('.FromDepth').html(NullReplaceDecimalToFixed($("#FromDepth").val()));
-                $(this).find('.ToDepth').html(NullReplaceDecimalToFixed($("#ToDepth").val()));
-                $(this).find('.FromDepthinPer').html(NullReplaceDecimalToFixed($("#FromDepthPer").val()));
-                $(this).find('.ToDepthinPer').html(NullReplaceDecimalToFixed($("#ToDepthPer").val()));
-                $(this).find('.FromTableinPer').html(NullReplaceDecimalToFixed($("#FromTablePer").val()));
-                $(this).find('.ToTableinPer').html(NullReplaceDecimalToFixed($("#ToTablePer").val()));
-                $(this).find('.FromCrAng').html(NullReplaceDecimalToFixed($("#FromCrAng").val()));
-                $(this).find('.ToCrAng').html(NullReplaceDecimalToFixed($("#ToCrAng").val()));
-                $(this).find('.FromCrHt').html(NullReplaceDecimalToFixed($("#FromCrHt").val()));
-                $(this).find('.ToCrHt').html(NullReplaceDecimalToFixed($("#ToCrHt").val()));
-                $(this).find('.FromPavAng').html(NullReplaceDecimalToFixed($("#FromPavAng").val()));
-                $(this).find('.ToPavAng').html(NullReplaceDecimalToFixed($("#ToPavAng").val()));
-                $(this).find('.FromPavHt').html(NullReplaceDecimalToFixed($("#FromPavHt").val()));
-                $(this).find('.ToPavHt').html(NullReplaceDecimalToFixed($("#ToPavHt").val()));
+                var FromLength = NullReplaceDecimalToFixed($("#FromLength").val());
+                var ToLength = NullReplaceDecimalToFixed($("#ToLength").val());
+                var Length_IsBlank = "";
+                $(this).find('.FromLength').html(FromLength);
+                $(this).find('.ToLength').html(ToLength);
+                $(this).find('.Length_IsBlank').html(Length_IsBlank);
+                $(this).find('.Length').html((FromLength == "" && ToLength == "" ? "" : FromLength + "-" + ToLength) + "" + (Length_IsBlank == 1 ? (FromLength.toString() != "" && ToLength.toString() != "" ? ", BLANK" : "BLANK") : ""));
+
+                var FromWidth = NullReplaceDecimalToFixed($("#FromWidth").val());
+                var ToWidth = NullReplaceDecimalToFixed($("#ToWidth").val());
+                var Width_IsBlank = "";
+                $(this).find('.FromWidth').html(FromWidth);
+                $(this).find('.ToWidth').html(ToWidth);
+                $(this).find('.Width_IsBlank').html(Width_IsBlank);
+                $(this).find('.Width').html((FromWidth == "" && ToWidth == "" ? "" : FromWidth + "-" + ToWidth) + "" + (Width_IsBlank == 1 ? (FromWidth.toString() != "" && ToWidth.toString() != "" ? ", BLANK" : "BLANK") : ""));
+
+                var FromDepth = NullReplaceDecimalToFixed($("#FromDepth").val());
+                var ToDepth = NullReplaceDecimalToFixed($("#ToDepth").val());
+                var Depth_IsBlank = "";
+                $(this).find('.FromDepth').html(FromDepth);
+                $(this).find('.ToDepth').html(ToDepth);
+                $(this).find('.Depth_IsBlank').html(Depth_IsBlank);
+                $(this).find('.Depth').html((FromDepth == "" && ToDepth == "" ? "" : FromDepth + "-" + ToDepth) + "" + (Depth_IsBlank == 1 ? (FromDepth.toString() != "" && ToDepth.toString() != "" ? ", BLANK" : "BLANK") : ""));
+
+                var FromDepthinPer = NullReplaceDecimalToFixed($("#FromDepthPer").val());
+                var ToDepthinPer = NullReplaceDecimalToFixed($("#ToDepthPer").val());
+                var DepthPer_IsBlank = "";
+                $(this).find('.FromDepthinPer').html(FromDepthinPer);
+                $(this).find('.ToDepthinPer').html(ToDepthinPer);
+                $(this).find('.DepthPer_IsBlank').html(DepthPer_IsBlank);
+                $(this).find('.DepthinPer').html((FromDepthinPer == "" && ToDepthinPer == "" ? "" : FromDepthinPer + "-" + ToDepthinPer) + "" + (DepthPer_IsBlank == 1 ? (FromDepthinPer.toString() != "" && ToDepthinPer.toString() != "" ? ", BLANK" : "BLANK") : ""));
+
+                var FromTableinPer = NullReplaceDecimalToFixed($("#FromTablePer").val());
+                var ToTableinPer = NullReplaceDecimalToFixed($("#ToTablePer").val());
+                var TablePer_IsBlank = "";
+                $(this).find('.FromTableinPer').html(FromTableinPer);
+                $(this).find('.ToTableinPer').html(ToTableinPer);
+                $(this).find('.TablePer_IsBlank').html(TablePer_IsBlank);
+                $(this).find('.TableinPer').html((FromTableinPer == "" && ToTableinPer == "" ? "" : FromTableinPer + "-" + ToTableinPer) + "" + (TablePer_IsBlank == 1 ? (FromTableinPer.toString() != "" && ToTableinPer.toString() != "" ? ", BLANK" : "BLANK") : ""));
+
+                var FromCrAng = NullReplaceDecimalToFixed($("#FromCrAng").val());
+                var ToCrAng = NullReplaceDecimalToFixed($("#ToCrAng").val());
+                var CrAng_IsBlank = "";
+                $(this).find('.FromCrAng').html(FromCrAng);
+                $(this).find('.ToCrAng').html(ToCrAng);
+                $(this).find('.CrAng_IsBlank').html(CrAng_IsBlank);
+                $(this).find('.CrAng').html((FromCrAng == "" && ToCrAng == "" ? "" : FromCrAng + "-" + ToCrAng) + "" + (CrAng_IsBlank == 1 ? (FromCrAng.toString() != "" && ToCrAng.toString() != "" ? ", BLANK" : "BLANK") : ""));
+
+                var FromCrHt = NullReplaceDecimalToFixed($("#FromCrHt").val());
+                var ToCrHt = NullReplaceDecimalToFixed($("#ToCrHt").val());
+                var CrHt_IsBlank = "";
+                $(this).find('.FromCrHt').html(FromCrHt);
+                $(this).find('.ToCrHt').html(ToCrHt);
+                $(this).find('.CrHt_IsBlank').html(CrHt_IsBlank);
+                $(this).find('.CrHt').html((FromCrHt == "" && ToCrHt == "" ? "" : FromCrHt + "-" + ToCrHt) + "" + (CrHt_IsBlank == 1 ? (FromCrHt.toString() != "" && ToCrHt.toString() != "" ? ", BLANK" : "BLANK") : ""));
+
+                var FromPavAng = NullReplaceDecimalToFixed($("#FromPavAng").val());
+                var ToPavAng = NullReplaceDecimalToFixed($("#ToPavAng").val());
+                var PavAng_IsBlank = "";
+                $(this).find('.FromPavAng').html(FromPavAng);
+                $(this).find('.ToPavAng').html(ToPavAng);
+                $(this).find('.PavAng_IsBlank').html(PavAng_IsBlank);
+                $(this).find('.PavAng').html((FromPavAng == "" && ToPavAng == "" ? "" : FromPavAng + "-" + ToPavAng) + "" + (PavAng_IsBlank == 1 ? (FromPavAng.toString() != "" && ToPavAng.toString() != "" ? ", BLANK" : "BLANK") : ""));
+
+                var FromPavHt = NullReplaceDecimalToFixed($("#FromPavHt").val());
+                var ToPavHt = NullReplaceDecimalToFixed($("#ToPavHt").val());
+                var PavHt_IsBlank = "";
+                $(this).find('.FromPavHt').html(FromPavHt);
+                $(this).find('.ToPavHt').html(ToPavHt);
+                $(this).find('.PavHt_IsBlank').html(PavHt_IsBlank);
+                $(this).find('.PavHt').html((FromPavHt == "" && ToPavHt == "" ? "" : FromPavHt + "-" + ToPavHt) + "" + (PavHt_IsBlank == 1 ? (FromPavHt.toString() != "" && ToPavHt.toString() != "" ? ", BLANK" : "BLANK") : ""));
+                
+                var FromBaseDisc = NullReplaceDecimalToFixed($("#FromBaseDisc").val());
+                var ToBaseDisc = NullReplaceDecimalToFixed($("#ToBaseDisc").val());
+                var BaseDisc_IsBlank = "";
+                $(this).find('.FromBaseDisc').html(FromBaseDisc);
+                $(this).find('.ToBaseDisc').html(ToBaseDisc);
+                $(this).find('.BaseDisc_IsBlank').html(BaseDisc_IsBlank);
+                $(this).find('.BaseDisc').html((FromBaseDisc == "" && ToBaseDisc == "" ? "" : FromBaseDisc + "-" + ToBaseDisc) + "" + (BaseDisc_IsBlank == 1 ? (FromBaseDisc.toString() != "" && ToBaseDisc.toString() != "" ? ", BLANK" : "BLANK") : ""));
+
+                var FromBaseAmt = NullReplaceDecimalToFixed($("#FromBaseAmt").val());
+                var ToBaseAmt = NullReplaceDecimalToFixed($("#ToBaseAmt").val());
+                var BaseAmt_IsBlank = "";
+                $(this).find('.FromBaseAmt').html(FromBaseAmt);
+                $(this).find('.ToBaseAmt').html(ToBaseAmt);
+                $(this).find('.BaseAmt_IsBlank').html(BaseAmt_IsBlank);
+                $(this).find('.BaseAmt').html((FromBaseAmt == "" && ToBaseAmt == "" ? "" : FromBaseAmt + "-" + ToBaseAmt) + "" + (BaseAmt_IsBlank == 1 ? (FromBaseAmt.toString() != "" && ToBaseAmt.toString() != "" ? ", BLANK" : "BLANK") : ""));
+
+                var FromFinalDisc = NullReplaceDecimalToFixed($("#FromFinalDisc").val());
+                var ToFinalDisc = NullReplaceDecimalToFixed($("#ToFinalDisc").val());
+                var FinalDisc_IsBlank = "";
+                $(this).find('.FromFinalDisc').html(FromFinalDisc);
+                $(this).find('.ToFinalDisc').html(ToFinalDisc);
+                $(this).find('.FinalDisc_IsBlank').html(FinalDisc_IsBlank);
+                $(this).find('.FinalDisc').html((FromFinalDisc == "" && ToFinalDisc == "" ? "" : FromFinalDisc + "-" + ToFinalDisc) + "" + (FinalDisc_IsBlank == 1 ? (FromFinalDisc.toString() != "" && ToFinalDisc.toString() != "" ? ", BLANK" : "BLANK") : ""));
+
+                var FromFinalAmt = NullReplaceDecimalToFixed($("#FromFinalAmt").val());
+                var ToFinalAmt = NullReplaceDecimalToFixed($("#ToFinalAmt").val());
+                var FinalAmt_IsBlank = "";
+                $(this).find('.FromFinalAmt').html(FromFinalAmt);
+                $(this).find('.ToFinalAmt').html(ToFinalAmt);
+                $(this).find('.FinalAmt_IsBlank').html(FinalAmt_IsBlank);
+                $(this).find('.FinalAmt').html((FromFinalAmt == "" && ToFinalAmt == "" ? "" : FromFinalAmt + "-" + ToFinalAmt) + "" + (FinalAmt_IsBlank == 1 ? (FromFinalAmt.toString() != "" && ToFinalAmt.toString() != "" ? ", BLANK" : "BLANK") : ""));
 
                 var KeyToSymLst_Check1 = _.pluck(CheckKeyToSymbolList, 'Symbol').join(",");
                 var KeyToSymLst_uncheck1 = _.pluck(UnCheckKeyToSymbolList, 'Symbol').join(",");
@@ -2938,7 +2964,7 @@ function EditCriteria(new_id) {
                         $('.divCheckedPointerValue').append('<li id="C_' + i + '" class="carat-li-top allcrt">' + Carat.split(',')[i] + '<i class="fa fa-times-circle" aria-hidden="true" onclick="NewSizeGroupRemove(' + i + ');"></i></li>');
                     }
                 }
-                
+
                 var ColorType = htmlDecode($(this).find('.ColorType').html());
                 Regular_All = (ColorType == "Regular" ? true : false);
                 Fancy_All = (ColorType == "Fancy" ? true : false);
@@ -2958,7 +2984,7 @@ function EditCriteria(new_id) {
                     Fancy_All = true;
                     Key_to_symbolShow();
                 }
-                
+
                 if (Color != "") {
                     for (var i in Color.split(',')) {
                         for (var j in ColorList) {
@@ -3098,7 +3124,7 @@ function EditCriteria(new_id) {
                         }
                     }
                 }
-                
+
                 $("#FromLength").val(NullReplaceDecimalToFixed($(this).find('.FromLength').html()));
                 $("#ToLength").val(NullReplaceDecimalToFixed($(this).find('.ToLength').html()));
                 $("#FromWidth").val(NullReplaceDecimalToFixed($(this).find('.FromWidth').html()));
@@ -3117,6 +3143,15 @@ function EditCriteria(new_id) {
                 $("#ToPavAng").val(NullReplaceDecimalToFixed($(this).find('.ToPavAng').html()));
                 $("#FromPavHt").val(NullReplaceDecimalToFixed($(this).find('.FromPavHt').html()));
                 $("#ToPavHt").val(NullReplaceDecimalToFixed($(this).find('.ToPavHt').html()));
+
+                $("#FromBaseDisc").val(NullReplaceDecimalToFixed($(this).find('.FromBaseDisc').html()));
+                $("#ToBaseDisc").val(NullReplaceDecimalToFixed($(this).find('.ToBaseDisc').html()));
+                $("#FromBaseAmt").val(NullReplaceDecimalToFixed($(this).find('.FromBaseAmt').html()));
+                $("#ToBaseAmt").val(NullReplaceDecimalToFixed($(this).find('.ToBaseAmt').html()));
+                $("#FromFinalDisc").val(NullReplaceDecimalToFixed($(this).find('.FromFinalDisc').html()));
+                $("#ToFinalDisc").val(NullReplaceDecimalToFixed($(this).find('.ToFinalDisc').html()));
+                $("#FromFinalAmt").val(NullReplaceDecimalToFixed($(this).find('.FromFinalAmt').html()));
+                $("#ToFinalAmt").val(NullReplaceDecimalToFixed($(this).find('.ToFinalAmt').html()));
 
                 var dCheckKTS = htmlDecode($(this).find('.dCheckKTS').html());
                 var dUNCheckKTS = htmlDecode($(this).find('.dUNCheckKTS').html());
@@ -3434,6 +3469,16 @@ function SaveData() {
                 ToPavAng: $(this).find('.ToPavAng').html(),
                 FromPavHt: $(this).find('.FromPavHt').html(),
                 ToPavHt: $(this).find('.ToPavHt').html(),
+
+                FromBaseDisc: $(this).find('.FromBaseDisc').html(),
+                ToBaseDisc: $(this).find('.ToBaseDisc').html(),
+                FromBaseAmt: $(this).find('.FromBaseAmt').html(),
+                ToBaseAmt: $(this).find('.ToBaseAmt').html(),
+                FromFinalDisc: $(this).find('.FromFinalDisc').html(),
+                ToFinalDisc: $(this).find('.ToFinalDisc').html(),
+                FromFinalAmt: $(this).find('.FromFinalAmt').html(),
+                ToFinalAmt: $(this).find('.ToFinalAmt').html(),
+
                 Culet: htmlDecode($(this).find('.Culet').html()),
                 CheckKTS: htmlDecode($(this).find('.dCheckKTS').html()),
                 UNCheckKTS: htmlDecode($(this).find('.dUNCheckKTS').html()),
@@ -3593,6 +3638,15 @@ function Get_Supplier_Disc() {
                         var FromPavHt = NullReplaceDecimalToFixed(itm.FromPavHt);
                         var ToPavHt = NullReplaceDecimalToFixed(itm.ToPavHt);
 
+                        var FromBaseDisc = NullReplaceDecimalToFixed(itm.FromBaseDisc);
+                        var ToBaseDisc = NullReplaceDecimalToFixed(itm.ToBaseDisc);
+                        var FromBaseAmt = NullReplaceDecimalToFixed(itm.FromBaseAmt);
+                        var ToBaseAmt = NullReplaceDecimalToFixed(itm.ToBaseAmt);
+                        var FromFinalDisc = NullReplaceDecimalToFixed(itm.FromFinalDisc);
+                        var ToFinalDisc = NullReplaceDecimalToFixed(itm.ToFinalDisc);
+                        var FromFinalAmt = NullReplaceDecimalToFixed(itm.FromFinalAmt);
+                        var ToFinalAmt = NullReplaceDecimalToFixed(itm.ToFinalAmt);
+
                         var Culet = NullReplace(itm.Culet);
                         var KeyToSymLst_Check1 = NullReplace(itm.CheckKTS);
                         var KeyToSymLst_uncheck1 = NullReplace(itm.UNCheckKTS);
@@ -3648,123 +3702,22 @@ function Get_Supplier_Disc() {
                         var txtValue_4_4 = NullReplaceDecimal4ToFixed(itm.Value_4_4);
                         var txtValue_4_5 = NullReplaceDecimal4ToFixed(itm.Value_4_5);
 
-                        //html += "<tr class='tr11'>";
-                        //html += "<th class='Row Fi-Criteria' style=''></th>";
-                        //html += "<td><span class='Fi-Criteria Shape'>" + Shape + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria Carat'>" + Carat + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria ColorType'>" + Color_Type + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria Color'>" + Color + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria dCheckINTENSITY'>" + F_INTENSITY + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria dCheckOVERTONE'>" + F_OVERTONE + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria dCheckFANCY_COLOR'>" + F_FANCY_COLOR + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria MixColor'>" + MixColor + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria Clarity'>" + Clarity + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria Cut'>" + Cut + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria Polish'>" + Polish + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria Sym'>" + Sym + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria Fls'>" + Fls + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria Lab'>" + Lab + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria FromLength'>" + FromLength + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria ToLength'>" + ToLength + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria FromWidth'>" + FromWidth + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria ToWidth'>" + ToWidth + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria FromDepth'>" + FromDepth + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria ToDepth'>" + ToDepth + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria FromDepthinPer'>" + FromDepthinPer + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria ToDepthinPer'>" + ToDepthinPer + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria FromTableinPer'>" + FromTableinPer + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria ToTableinPer'>" + ToTableinPer + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria FromCrAng'>" + FromCrAng + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria ToCrAng'>" + ToCrAng + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria FromCrHt'>" + FromCrHt + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria ToCrHt'>" + ToCrHt + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria FromPavAng'>" + FromPavAng + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria ToPavAng'>" + ToPavAng + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria FromPavHt'>" + FromPavHt + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria ToPavHt'>" + ToPavHt + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria Keytosymbol'>" + Keytosymbol + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria dCheckKTS'>" + dCheckKTS + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckKTS'>" + dUNCheckKTS + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria BGM'>" + BGM + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria CrownBlack'>" + CrownBlack + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria TableBlack'>" + TableBlack + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria CrownWhite'>" + CrownWhite + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria TableWhite'>" + TableWhite + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria GoodsType'>" + GoodsType + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria Image'>" + Image + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria Video'>" + Video + "</span></td>";
 
-                        //html += "<td style='display:none;'><span class='Fi-Criteria PricingMethod_1'>" + PricingMethod_1 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria PricingSign_1'>" + PricingSign_1 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtDisc_1_1'>" + txtDisc_1_1 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_1'>" + txtValue_1_1 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_2'>" + txtValue_1_2 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_3'>" + txtValue_1_3 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_1_4'>" + txtValue_1_4 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria Chk_Speci_Additional_1'>" + Chk_Speci_Additional_1 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtFromDate'>" + txtFromDate + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtToDate'>" + txtToDate + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria PricingMethod_2'>" + PricingMethod_2 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria PricingSign_2'>" + PricingSign_2 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtDisc_2_1'>" + txtDisc_2_1 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_1'>" + txtValue_2_1 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_2'>" + txtValue_2_2 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_3'>" + txtValue_2_3 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_2_4'>" + txtValue_2_4 + "</span></td>";
-
-                        //html += "<td style='display:none;'><span class='Fi-Criteria PricingMethod_3'>" + PricingMethod_3 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria PricingSign_3'>" + PricingSign_3 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtDisc_3_1'>" + txtDisc_3_1 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_3_1'>" + txtValue_3_1 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_3_2'>" + txtValue_3_2 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_3_3'>" + txtValue_3_3 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_3_4'>" + txtValue_3_4 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria Chk_Speci_Additional_2'>" + Chk_Speci_Additional_2 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtFromDate1'>" + txtFromDate1 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtToDate1'>" + txtToDate1 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria PricingMethod_4'>" + PricingMethod_4 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria PricingSign_4'>" + PricingSign_4 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtDisc_4_1'>" + txtDisc_4_1 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_4_1'>" + txtValue_4_1 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_4_2'>" + txtValue_4_2 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_4_3'>" + txtValue_4_3 + "</span></td>";
-                        //html += "<td style='display:none;'><span class='Fi-Criteria txtValue_4_4'>" + txtValue_4_4 + "</span></td>";
-
-                        //html += "<td><span class='Fi-Criteria _PricingMethod_1'>" + (PricingMethod_1 == "Disc" ? 'Discount' : 'Value') + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingSign_1'>" + PricingSign_1 + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingAmt_1'>" + (PricingMethod_1 == "Disc" ? txtDisc_1_1 : txtValue_1_1 + ', ' + txtValue_1_2 + ', ' + txtValue_1_3 + ', ' + txtValue_1_4) + "</span></td>";
-
-                        //html += "<td><span class='Fi-Criteria _PricingAddi_2'>" + (PricingMethod_2 != "" ? (Chk_Speci_Additional_1 == true ? 'Yes' : 'No') : '') + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingFromDate_2'>" + (PricingMethod_2 != "" ? txtFromDate : '') + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingToDate_2'>" + (PricingMethod_2 != "" ? txtToDate : '') + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingMethod_2'>" + (PricingMethod_2 != "" ? (PricingMethod_2 == "Disc" ? 'Discount' : 'Value') : '') + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingSign_2'>" + (PricingMethod_2 != "" ? PricingSign_2 : '') + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingAmt_2'>" + (PricingMethod_2 != "" ? (PricingMethod_2 == "Disc" ? txtDisc_2_1 : txtValue_2_1 + ', ' + txtValue_2_2 + ', ' + txtValue_2_3 + ', ' + txtValue_2_4) : '') + "</span></td>";
-
-                        //html += "<td><span class='Fi-Criteria _PricingMethod_3'>" + (PricingMethod_3 == "Disc" ? 'Discount' : 'Value') + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingSign_3'>" + PricingSign_3 + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingAmt_3'>" + (PricingMethod_3 == "Disc" ? txtDisc_3_1 : txtValue_3_1 + ', ' + txtValue_3_2 + ', ' + txtValue_3_3 + ', ' + txtValue_3_4) + "</span></td>";
-
-                        //html += "<td><span class='Fi-Criteria _PricingAddi_4'>" + (PricingMethod_4 != "" ? (Chk_Speci_Additional_2 == true ? 'Yes' : 'No') : '') + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingFromDate_4'>" + (PricingMethod_4 != "" ? txtFromDate1 : '') + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingToDate_4'>" + (PricingMethod_4 != "" ? txtToDate1 : '') + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingMethod_4'>" + (PricingMethod_4 != "" ? (PricingMethod_4 == "Disc" ? 'Discount' : 'Value') : '') + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingSign_4'>" + (PricingMethod_4 != "" ? PricingSign_4 : '') + "</span></td>";
-                        //html += "<td><span class='Fi-Criteria _PricingAmt_4'>" + (PricingMethod_4 != "" ? (PricingMethod_4 == "Disc" ? txtDisc_4_1 : txtValue_4_1 + ', ' + txtValue_4_2 + ', ' + txtValue_4_3 + ', ' + txtValue_4_4) : '') + "</span></td>";
-
-
-
-                        //html += "<td style='width: 50px'>";
-                        //html += '<input type="hidden" class="hdn_UniqueId" value="' + new_id + '" />';
-                        //html += '<i onclick="EditCriteria(\'' + new_id + '\');" style="cursor:pointer;" class="error EditCriteria"><img src="/Content/images/edit-icon.png" style="width: 23px;"/></i>';
-                        //html += '&nbsp;&nbsp;<i style="cursor:pointer;" class="error RemoveCriteria"><img src="/Content/images/trash-delete-icon.png" style="width: 20px;"/></i>';
-                        //html += "</td>";
-
-                        //html += "</tr>";
-
-                        html += HTML_CREATE(Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab, FromLength, ToLength,
-                            FromWidth, ToWidth, FromDepth, ToDepth, FromDepthinPer, ToDepthinPer, FromTableinPer, ToTableinPer, FromCrAng, ToCrAng, FromCrHt, ToCrHt, FromPavAng,
-                            ToPavAng, FromPavHt, ToPavHt, Culet, Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
+                        html += HTML_CREATE(Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
+                            FromLength, ToLength, 0,
+                            FromWidth, ToWidth, 0,
+                            FromDepth, ToDepth, 0,
+                            FromDepthinPer, ToDepthinPer, 0,
+                            FromTableinPer, ToTableinPer, 0,
+                            FromCrAng, ToCrAng, 0,
+                            FromCrHt, ToCrHt, 0,
+                            FromPavAng, ToPavAng, 0,
+                            FromPavHt, ToPavHt, 0,
+                            FromBaseDisc, ToBaseDisc, 0,
+                            FromBaseAmt, ToBaseAmt, 0,
+                            FromFinalDisc, ToFinalDisc, 0,
+                            FromFinalAmt, ToFinalAmt, 0,
+                            Culet, Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
                             PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5, Chk_Speci_Additional_1, txtFromDate, txtToDate,
                             PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5, PricingMethod_3, PricingSign_3, txtDisc_3_1, txtValue_3_1,
                             txtValue_3_2, txtValue_3_3, txtValue_3_4, txtValue_3_5, Chk_Speci_Additional_2, txtFromDate1, txtToDate1, PricingMethod_4, PricingSign_4, txtDisc_4_1, txtValue_4_1,
