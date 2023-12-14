@@ -2403,7 +2403,6 @@ function HTML_CREATE(
     Chk_Speci_Additional_1, txtFromDate, txtToDate,
     PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5,
     new_id) {
-        debugger
     var html = "<tr class='tr11'>";
     html += "<th class='Row Fi-Criteria' style=''></th>";
     html += "<td><span class='Fi-Criteria Supplier' style='margin: -20px -20px -20px -20px;'>" + Supplier + "</span></td>";
@@ -2776,7 +2775,7 @@ var AddNewRow = function () {
             var FromDepth = NullReplaceDecimalToFixed($("#FromDepth").val());
             var ToDepth = NullReplaceDecimalToFixed($("#ToDepth").val());
             var Depth_IsBlank = (document.getElementById("Depth_Blank").checked == true ? true : "");
-
+            
             var FromDepthinPer = NullReplaceDecimalToFixed($("#FromDepthPer").val());
             var ToDepthinPer = NullReplaceDecimalToFixed($("#ToDepthPer").val());
             var DepthPer_IsBlank = (document.getElementById("DepthPer_Blank").checked == true ? true : "");
@@ -2843,7 +2842,6 @@ var AddNewRow = function () {
             var txtValue_2_3 = NullReplaceDecimal4ToFixed($("#txtValue_2_3").val());
             var txtValue_2_4 = NullReplaceDecimal4ToFixed($("#txtValue_2_4").val());
             var txtValue_2_5 = NullReplaceDecimal4ToFixed($("#txtValue_2_5").val());
-
 
             var html = HTML_CREATE(Supplier, Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish, Sym, Fls, Lab,
                 FromLength, ToLength, Length_IsBlank,
@@ -2956,7 +2954,7 @@ function UpdateRow() {
                 var Lab = _.pluck(_.filter(LabList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.Lab').html(Lab);
 
-                debugger
+                
                 var FromLength = NullReplaceDecimalToFixed($("#FromLength").val());
                 var ToLength = NullReplaceDecimalToFixed($("#ToLength").val());
                 var Length_IsBlank = (document.getElementById("Length_Blank").checked == true ? true : "");
@@ -2980,14 +2978,14 @@ function UpdateRow() {
                 $(this).find('.ToDepth').html(ToDepth);
                 $(this).find('.Depth_IsBlank').html(Depth_IsBlank);
                 $(this).find('.Depth').html((FromDepth == "" && ToDepth == "" ? "" : FromDepth + "-" + ToDepth) + "" + (Depth_IsBlank == 1 ? (FromDepth.toString() != "" && ToDepth.toString() != "" ? ", BLANK" : "BLANK") : ""));
-
+                
                 var FromDepthinPer = NullReplaceDecimalToFixed($("#FromDepthPer").val());
                 var ToDepthinPer = NullReplaceDecimalToFixed($("#ToDepthPer").val());
                 var DepthPer_IsBlank = (document.getElementById("DepthPer_Blank").checked == true ? true : "");
                 $(this).find('.FromDepthinPer').html(FromDepthinPer);
                 $(this).find('.ToDepthinPer').html(ToDepthinPer);
                 $(this).find('.DepthPer_IsBlank').html(DepthPer_IsBlank);
-                $(this).find('.DepthPer').html((FromDepthinPer == "" && ToDepthinPer == "" ? "" : FromDepthinPer + "-" + ToDepthinPer) + "" + (DepthPer_IsBlank == 1 ? (FromDepthinPer.toString() != "" && ToDepthinPer.toString() != "" ? ", BLANK" : "BLANK") : ""));
+                $(this).find('.DepthinPer').html((FromDepthinPer == "" && ToDepthinPer == "" ? "" : FromDepthinPer + "-" + ToDepthinPer) + "" + (DepthPer_IsBlank == 1 ? (FromDepthinPer.toString() != "" && ToDepthinPer.toString() != "" ? ", BLANK" : "BLANK") : ""));
 
                 var FromTableinPer = NullReplaceDecimalToFixed($("#FromTablePer").val());
                 var ToTableinPer = NullReplaceDecimalToFixed($("#ToTablePer").val());
@@ -3067,11 +3065,9 @@ function UpdateRow() {
                 $(this).find('.GoodsType').html(GoodsType);
 
 
-                debugger
                 $(this).find('.UsedView').html(($('#View:checked').val() != undefined ? "true" : "false"));
                 $(this).find('.UsedDownload').html(($('#Download:checked').val() != undefined ? "true" : "false"));
                 $(this).find('.UsedFor').html(($('#View:checked').val() == "true" ? "View" : "") + ($('#Download:checked').val() == "true" ? ($('#View:checked').val() == "true" ? " & " : "") + "Download" : ""));
-
 
 
                 $(this).find('.Image').html($('#Img:checked').val());
@@ -3375,7 +3371,7 @@ function EditCriteria(new_id) {
                         }
                     }
                 }
-                debugger
+                
                 $("#FromLength").val(NullReplaceDecimalToFixed($(this).find('.FromLength').html()));
                 $("#ToLength").val(NullReplaceDecimalToFixed($(this).find('.ToLength').html()));
                 $("#Length_Blank").prop("checked", ($(this).find('.Length_IsBlank').html() == "true" ? true : false));
@@ -3563,7 +3559,6 @@ function EditCriteria(new_id) {
                     }
                 }
 
-                debugger
                 $("#View").prop("checked", ($(this).find('.UsedView').html() == "true" ? true : false));
                 $("#Download").prop("checked", ($(this).find('.UsedDownload').html() == "true" ? true : false));
 
@@ -4058,7 +4053,6 @@ function Get_Customer_Stock_Disc() {
                     var txtValue_2_3 = NullReplaceDecimal4ToFixed(itm.Value_2_3);
                     var txtValue_2_4 = NullReplaceDecimal4ToFixed(itm.Value_2_4);
                     var txtValue_2_5 = NullReplaceDecimal4ToFixed(itm.Value_2_5);
-                    debugger
 
                     html += HTML_CREATE(Supplier, Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish,
                         Sym, Fls, Lab, 
