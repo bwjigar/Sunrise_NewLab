@@ -2600,6 +2600,11 @@ namespace API.Controllers
                 para.Add(db.CreateParam("WebAPIFTPStockUpload", DbType.Boolean, ParameterDirection.Input, Req.WebAPIFTPStockUpload));
                 para.Add(db.CreateParam("FileStockUpload", DbType.Boolean, ParameterDirection.Input, Req.FileStockUpload));
 
+                if (!string.IsNullOrEmpty(Req.IsActive))
+                    para.Add(db.CreateParam("IsActive", DbType.Boolean, ParameterDirection.Input, Convert.ToBoolean(Convert.ToInt32(Req.IsActive))));
+                else
+                    para.Add(db.CreateParam("IsActive", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
                 DataTable dt = db.ExecuteSP("Get_SupplierMaster", para.ToArray(), false);
 
                 if (dt != null && dt.Rows.Count > 0)
@@ -8339,11 +8344,29 @@ namespace API.Controllers
         [HttpPost]
         public IHttpActionResult AddUpdate_SupplierStock_FromFile([FromBody] JObject data)
         {
-            JObject test1 = JObject.Parse(data.ToString());
             Data_Get_From_File_Req req = new Data_Get_From_File_Req();
+
             try
             {
-                req = JsonConvert.DeserializeObject<Data_Get_From_File_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+                if (!string.IsNullOrEmpty(Convert.ToString(data)))
+                {
+                    JObject test1 = JObject.Parse(data.ToString());
+                    req = JsonConvert.DeserializeObject<Data_Get_From_File_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+
+                    Database db = new Database();
+                    List<IDbDataParameter> para;
+                    para = new List<IDbDataParameter>();
+
+                    para.Add(db.CreateParam("Id", DbType.Int32, ParameterDirection.Input, req.Id));
+
+                    DataTable dt = db.ExecuteSP("Get_Stock_FileUpload_Request", para.ToArray(), false);
+
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        string Request = Convert.ToString(dt.Rows[0]["Stock_FileUpload_Request"]);
+                        req = JsonConvert.DeserializeObject<Data_Get_From_File_Req>(Request.ToString());
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -8355,6 +8378,7 @@ namespace API.Controllers
                     Status = "0"
                 });
             }
+
             try
             {
                 string path = HttpContext.Current.Server.MapPath("~/Supplier_Stock_Upload.txt");
@@ -12078,6 +12102,44 @@ namespace API.Controllers
                     Message = "",
                     Status = "0",
                     Error = ex.Message
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Add_Stock_FileUpload_Request([FromBody] JObject data)
+        {
+            try
+            {
+                CommonResponse resp = new CommonResponse();
+
+                Database db = new Database();
+                List<IDbDataParameter> para;
+                para = new List<IDbDataParameter>();
+
+                para.Add(db.CreateParam("Stock_FileUpload_Request", DbType.String, ParameterDirection.Input, data.ToString()));
+
+                DataTable dt = db.ExecuteSP("Add_Stock_FileUpload_Request", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    resp.Status = "1";
+                    resp.Message = Convert.ToString(dt.Rows[0]["Id"]);
+                }
+                else
+                {
+                    resp.Status = "0";
+                    resp.Message = "Failed";
+                }
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
+                    Message = "Failed",
+                    Status = "0"
                 });
             }
         }

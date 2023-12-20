@@ -250,6 +250,7 @@ namespace Lib.Model
         public string OrderBy { get; set; }
         public bool WebAPIFTPStockUpload { get; set; }
         public bool FileStockUpload { get; set; }
+        public string IsActive { get; set; }
     }
     public class Get_SupplierMaster_Res
     {
@@ -300,6 +301,8 @@ namespace Lib.Model
         public string CertiFormat { get; set; }
         public string ShortName { get; set; }
         public string LastStockUploadDateTime { get; set; }
+        public int Uploaded_Stone { get; set; }
+        public int Not_Uploaded_Stone { get; set; }
     }
     public class Get_ColumnMaster_Res
     {
@@ -779,6 +782,8 @@ namespace Lib.Model
     }
     public class Data_Get_From_File_Req
     {
+        public int Id { get; set; }
+        public int UserId { get; set; }
         public int SupplierId { get; set; }
         public string SupplierName { get; set; }
         public string SheetName { get; set; }

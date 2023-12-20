@@ -81,6 +81,8 @@ var columnDefs = [
     { headerName: "Display Certi", field: "Certi", width: 65, cellRenderer: Status, },
     { headerName: "Last Modified", field: "UpdateDate", width: 130 },
     { headerName: "Last Updated", field: "LastStockUploadDateTime", width: 130 },
+    { headerName: "Uploaded Stone", field: "Uploaded_Stone", width: 80 },
+    { headerName: "Not Uploaded Stone", field: "Not_Uploaded_Stone", width: 80 },
 ];
 
 function SupplierURL(params) {
@@ -365,6 +367,7 @@ const datasource1 = {
         obj.PgNo = PageNo;
         obj.PgSize = "50";
         obj.SupplierName = $("#txt_S_SupplierName").val();
+        obj.IsActive = $('#ddlIsActive').val();
 
         Rowdata = [];
         $.ajax({
@@ -406,6 +409,7 @@ function onGridReady(params) {
 }
 var Reset = function () {
     $('#txt_S_SupplierName').val('');
+    $('#ddlIsActive').val('1');
     GetSearch();
 }
 
@@ -460,6 +464,7 @@ function FTP_View() {
 
 var API_Type = "WEB_API", DATA_GET_FROM = "WEB_API_FTP";
 $(document).ready(function (e) {
+    $('#ddlIsActive').val('1');
     GetSearch();
     contentHeight();
     $("input[name$='API']").click(function () {

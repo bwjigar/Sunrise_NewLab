@@ -302,6 +302,7 @@ var SortDirection = "";const datasource1 = {
             type: "POST",
             data: { req: obj },
             success: function (data, textStatus, jqXHR) {
+                loaderHide();
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
@@ -317,7 +318,6 @@ var SortDirection = "";const datasource1 = {
                 setInterval(function () {
                     $(".ag-header-cell-text").addClass("grid_prewrap");
                 }, 30);
-                loaderHide();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 params.successCallback([], 0);

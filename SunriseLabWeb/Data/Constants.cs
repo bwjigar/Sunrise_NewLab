@@ -54,7 +54,8 @@ namespace SunriseLabWeb_New.Data
         public static string AddUpdate_SupplierColumnSetting_FromFile = "/User/AddUpdate_SupplierColumnSetting_FromFile";
         public static string Delete_SupplierColumnSetting_FromFile = "/User/Delete_SupplierColumnSetting_FromFile";
         public static string AddUpdate_SupplierStock_FromFile = "/User/AddUpdate_SupplierStock_FromFile";
-
+        public static string Add_Stock_FileUpload_Request = "/User/Add_Stock_FileUpload_Request";
+        
 
 
         public static string Get_FancyColor = "/User/Get_FancyColor";

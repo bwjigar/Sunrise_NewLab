@@ -356,6 +356,7 @@ namespace SunriseLabWeb_New.Controllers
         {
             return View();
         }
+        /*
         public JsonResult AddUpdate_SupplierStock_FromFile(Data_Get_From_File_Req req)
         {
             CommonResponse data = new CommonResponse();
@@ -405,7 +406,123 @@ namespace SunriseLabWeb_New.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+        */
 
+        public JsonResult Thread_AddUpdate_SupplierStock_FromFile(Data_Get_From_File_Req req)
+        {
+            CommonResponse data = new CommonResponse();
+            try
+            {
+                if (Request.Files.Count > 0)
+                {
+                    string folder = Server.MapPath("~/Stock_File/");
+                    string ProjectName = ConfigurationManager.AppSettings["ProjectName"];
+                    string APIName = ConfigurationManager.AppSettings["APIName"];
+
+                    folder = folder.Replace("\\" + ProjectName + "\\", "\\" + APIName + "\\");
+
+                    if (!Directory.Exists(folder))
+                    {
+                        Directory.CreateDirectory(folder);
+                    }
+
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        HttpPostedFileBase file = files[i];
+                        string fname = file.FileName;
+                        string NewFileName = req.SupplierId + "_StockUpload_" + Guid.NewGuid() + Path.GetExtension(fname).ToLower();
+
+                        string savePath = Path.Combine(folder, NewFileName);
+                        file.SaveAs(savePath);
+
+                        req.FilePath = savePath;
+                    }
+                    string inputJson = (new JavaScriptSerializer()).Serialize(req);
+                    string response = _api.CallAPI(Constants.Add_Stock_FileUpload_Request, inputJson);
+                    data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+
+                    String arg = req.UserId + "_" + data.Status + "_" + data.Message;
+
+                    Thread APIGet = new Thread(AddUpdate_SupplierStock_FromFile_Thread);
+                    APIGet.Start(arg);
+                    return Json("1_Stock Upload Process is Started Response Message will get Shortly", JsonRequestBehavior.AllowGet);
+
+                    //return Json(data, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("0_File Not Exists", JsonRequestBehavior.AllowGet);
+                    //data.Message = "File Not Exists";
+                    //data.Status = "0";
+                    //return Json(data, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json("0_" + "Message " + ex.Message + " StackTrace " + ex.StackTrace, JsonRequestBehavior.AllowGet);
+                //data.Message = "Message " + ex.Message + " StackTrace " + ex.StackTrace;
+                //data.Status = "0";
+                //return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public void AddUpdate_SupplierStock_FromFile_Thread(object arg)
+        {
+            String arg1 = arg.ToString();
+            API _api = new API();
+            Data_Get_From_File_Req req = new Data_Get_From_File_Req();
+            string[] Req = arg1.Split('_');
+            
+            if (Req[1] =="1" && Req[2] != "Failed")
+            {
+                req.UserId = Convert.ToInt32(Req[0]);
+                req.Id = Convert.ToInt32(Req[2]);
+
+                string inputJson = (new JavaScriptSerializer()).Serialize(req);
+                string response = _api.CallAPIUrlEncodedWithWebReq(Constants.AddUpdate_SupplierStock_FromFile, inputJson);
+                CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+
+                StockUpload_Response_Res req1 = new StockUpload_Response_Res();
+                req1.Message = data.Message;
+                req1.Status = Convert.ToInt32(data.Status);
+                req1.UserId = req.UserId;
+
+                string inputJson1 = (new JavaScriptSerializer()).Serialize(req1);
+                string response1 = _api.CallAPIUrlEncodedWithWebReq(Constants.Add_StockUpload_Response, inputJson1);
+            }
+        }
+
+        /*
+        public JsonResult Thread_AddUpdate_SupplierStock_FromSupplier(VendorResponse req)
+        {
+            String arg = req.SUPPLIER + '_' + req.Id;
+
+            Thread APIGet = new Thread(AddUpdate_SupplierStock_FromSupplier_Thread);
+            APIGet.Start(arg);
+            return Json("Stock Upload Process is Started Response Message will get Shortly", JsonRequestBehavior.AllowGet);
+        }
+        public void AddUpdate_SupplierStock_FromSupplier_Thread(object arg)
+        {
+            String arg1 = arg.ToString();
+            API _api = new API();
+            VendorResponse req = new VendorResponse();
+            string[] Req = arg1.Split('_');
+            req.SUPPLIER = Req[0];
+            req.Id = Convert.ToInt32(Req[1]);
+
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.AddUpdate_SupplierStock, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+
+            StockUpload_Response_Res req1 = new StockUpload_Response_Res();
+            req1.Message = data.Message;
+            req1.Status = Convert.ToInt32(data.Status);
+            req1.UserId = req.Id;
+
+            string inputJson1 = (new JavaScriptSerializer()).Serialize(req1);
+            string response1 = _api.CallAPIUrlEncodedWithWebReq(Constants.Add_StockUpload_Response, inputJson1);
+        }  
+        */
         public JsonResult Get_FancyColor()
         {
             string response = _api.CallAPI(Constants.Get_FancyColor, string.Empty);

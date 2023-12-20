@@ -112,7 +112,8 @@ function Stock_Upload() {
         const fileInput = $('#file_upload')[0];
         if (fileInput.files.length > 0) {
             if (((filetype == "xlsx" || filetype == "xls") && $("#DdlSheetName").val() != "") || (filetype == "csv")) {
-                loaderShow_stk_upload();
+                //loaderShow_stk_upload();
+                loaderShow();
                 debugger
                 setTimeout(function () {
                     debugger
@@ -121,28 +122,40 @@ function Stock_Upload() {
                     formData.append('SupplierName', $("#DdlSupplierName option:selected").text());
                     formData.append('SheetName', $("#DdlSheetName").val() + "$");
                     formData.append('File', fileInput.files[0]);
+                    formData.append('UserId', $("#hdn_UserId").val());
 
                     debugger
                     $.ajax({
                         type: "POST",
-                        url: "/User/AddUpdate_SupplierStock_FromFile",
+                        //url: "/User/AddUpdate_SupplierStock_FromFile",
+                        url: "/User/Thread_AddUpdate_SupplierStock_FromFile",
                         contentType: false,
                         processData: false,
                         data: formData,
                         async: false,
                         success: function (data) {
-                            loaderHide_stk_upload();
-                            if (data.Status == "1") {
-                                debugger
-                                toastr.success(data.Message);
+                            //loaderHide_stk_upload();
+                            loaderHide();
+                            debugger
+                            var myArray = data.split("_");
+                            if (myArray[0] == "1") {
+                                toastr.success(myArray[1]);
                             }
                             else {
-                                debugger
-                                toastr.error(data.Message);
+                                toastr.error(myArray[1]);
                             }
+                            //if (data.Status == "1") {
+                            //    debugger
+                            //    toastr.success(data.Message);
+                            //}
+                            //else {
+                            //    debugger
+                            //    toastr.error(data.Message);
+                            //}
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            loaderHide_stk_upload();
+                            //loaderHide_stk_upload();
+                            loaderHide();
                         }
                     });
 
