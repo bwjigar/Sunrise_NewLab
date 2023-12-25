@@ -1159,7 +1159,7 @@ namespace API.Controllers
                 dt.Columns.Add("ToPavAng", typeof(string));
                 dt.Columns.Add("FromPavHt", typeof(string));
                 dt.Columns.Add("ToPavHt", typeof(string));
-                
+
                 dt.Columns.Add("FromBaseDisc", typeof(string));
                 dt.Columns.Add("ToBaseDisc", typeof(string));
                 dt.Columns.Add("FromBaseAmt", typeof(string));
@@ -3718,7 +3718,7 @@ namespace API.Controllers
                     para.Add(db.CreateParam("Pointer", DbType.String, ParameterDirection.Input, req.Pointer));
                 else
                     para.Add(db.CreateParam("Pointer", DbType.String, ParameterDirection.Input, DBNull.Value));
-                
+
                 if (!string.IsNullOrEmpty(req.Sub_Pointer))
                     para.Add(db.CreateParam("Sub_Pointer", DbType.String, ParameterDirection.Input, req.Sub_Pointer));
                 else
@@ -4071,7 +4071,7 @@ namespace API.Controllers
             try
             {
                 DataTable Stock_dt = SearchStock(req);
-                
+
                 DataRow[] dra = Stock_dt.Select("iSr IS NULL");
                 SearchSummary searchSummary = new SearchSummary();
                 if (dra.Length > 0)
@@ -7895,8 +7895,54 @@ namespace API.Controllers
             }
             else if (filetype == ".csv")
             {
+                string[] fields = null;
                 Int32 KGK_Id = Convert.ToInt32(ConfigurationManager.AppSettings["KGK_Id"]);
 
+                // Use TextFieldParser to read the CSV file
+                using (TextFieldParser parser = new TextFieldParser(connString))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(",");
+
+                    string[] headers = parser.ReadFields();
+                    foreach (string header in headers)
+                    {
+                        table.Columns.Add(header);
+                    }
+                    if (SupplierId == KGK_Id)
+                    {
+                        table.Columns.Add("Blank 1");
+                    }
+
+                    
+                    while (!parser.EndOfData)
+                    {
+                        try
+                        {
+                            fields = parser.ReadFields();
+                        }
+                        catch (MalformedLineException ex)
+                        {
+                            fields = null;
+                        }
+
+                        if (fields != null)
+                        {
+                            DataRow row = table.NewRow();
+                            for (int i = 0; i < table.Columns.Count; i++)
+                            {
+                                if (fields.Length > i)
+                                {
+                                    row[i] = fields[i];
+                                }
+                            }
+                            table.Rows.Add(row);
+                        }
+                    }
+                }
+
+
+                /*
                 using (TextFieldParser parser = new TextFieldParser(connString))
                 {
                     string[] delimiters = new string[] { "," };
@@ -7925,9 +7971,11 @@ namespace API.Controllers
                         index++;
                     }
                 }
+                */
             }
             return table;
         }
+
         public static List<Get_SheetName_From_File_Res> Get_SheetName_From_FILE(string filetype, string connString)
         {
             List<Get_SheetName_From_File_Res> List_Res = new List<Get_SheetName_From_File_Res>();
