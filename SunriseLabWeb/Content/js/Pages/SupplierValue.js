@@ -35,6 +35,7 @@ function Master_Get() {
     Supplierdata = [];
     var obj = {};
     obj.OrderBy = "SupplierName asc";
+    obj.IsActive = "1";
     $.ajax({
         url: "/User/Get_SupplierMaster",
         async: false,
