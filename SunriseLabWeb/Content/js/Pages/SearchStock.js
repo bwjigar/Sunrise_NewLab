@@ -173,7 +173,9 @@ function SupplierList() {
                     }
                     else if (item.Column_Name == "Lab") {
                         columnDefs.push({
-                            headerName: "Lab", field: "Lab", filter: getValuesAsync1("Lab"),
+                            headerName: "Lab", field: "Lab",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Lab"),
                             filterParams: {
                                 values: getValuesAsync("Lab"),
                                 resetButton: true,
@@ -199,7 +201,9 @@ function SupplierList() {
                     }
                     else if (item.Column_Name == "Shape") {
                         columnDefs.push({
-                            headerName: "Shape", field: "Shape", filter: getValuesAsync1("Shape"),
+                            headerName: "Shape", field: "Shape",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Shape"),
                             filterParams: {
                                 values: getValuesAsync("Shape"),
                                 resetButton: true,
@@ -213,7 +217,9 @@ function SupplierList() {
                     }
                     else if (item.Column_Name == "Pointer") {
                         columnDefs.push({
-                            headerName: "Pointer", field: "Pointer", filter: getValuesAsync1("Pointer"),
+                            headerName: "Pointer", field: "Pointer",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Pointer"),
                             filterParams: {
                                 values: getValuesAsync("Pointer"),
                                 resetButton: true,
@@ -227,7 +233,9 @@ function SupplierList() {
                     }
                     else if (item.Column_Name == "BGM") {
                         columnDefs.push({
-                            headerName: "BGM", field: "BGM", filter: getValuesAsync1("BGM"),
+                            headerName: "BGM", field: "BGM",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("BGM"),
                             filterParams: {
                                 values: getValuesAsync("BGM"),
                                 resetButton: true,
@@ -241,7 +249,9 @@ function SupplierList() {
                     }
                     else if (item.Column_Name == "Color") {
                         columnDefs.push({
-                            headerName: "Color", field: "Color", filter: getValuesAsync1("Color"),
+                            headerName: "Color", field: "Color",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Color"),
                             filterParams: {
                                 values: getValuesAsync("Color"),
                                 resetButton: true,
@@ -255,7 +265,9 @@ function SupplierList() {
                     }
                     else if (item.Column_Name == "Clarity") {
                         columnDefs.push({
-                            headerName: "Clarity", field: "Clarity", filter: getValuesAsync1("Clarity"),
+                            headerName: "Clarity", field: "Clarity",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Clarity"),
                             filterParams: {
                                 values: getValuesAsync("Clarity"),
                                 resetButton: true,
@@ -269,7 +281,9 @@ function SupplierList() {
                     }
                     else if (item.Column_Name == "Cts") {
                         columnDefs.push({
-                            headerName: "Cts", field: "Cts", filter: getValuesAsync1("Cts"),
+                            headerName: "Cts", field: "Cts",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Cts"),
                             filterParams: {
                                 values: getValuesAsync("Cts"),
                                 resetButton: true,
@@ -307,7 +321,9 @@ function SupplierList() {
                     }
                     else if (item.Column_Name == "Cut") {
                         columnDefs.push({
-                            headerName: "Cut", field: "Cut", filter: getValuesAsync1("Cut"),
+                            headerName: "Cut", field: "Cut",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Cut"),
                             filterParams: {
                                 values: getValuesAsync("Cut"),
                                 resetButton: true,
@@ -321,7 +337,9 @@ function SupplierList() {
                     }
                     else if (item.Column_Name == "Polish") {
                         columnDefs.push({
-                            headerName: "Polish", field: "Polish", filter: getValuesAsync1("Polish"),
+                            headerName: "Polish", field: "Polish",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Polish"),
                             filterParams: {
                                 values: getValuesAsync("Polish"),
                                 resetButton: true,
@@ -335,7 +353,9 @@ function SupplierList() {
                     }
                     else if (item.Column_Name == "Symm") {
                         columnDefs.push({
-                            headerName: "Symm", field: "Symm", filter: getValuesAsync1("Symm"),
+                            headerName: "Symm", field: "Symm",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Symm"),
                             filterParams: {
                                 values: getValuesAsync("Symm"),
                                 resetButton: true,
@@ -349,7 +369,9 @@ function SupplierList() {
                     }
                     else if (item.Column_Name == "Fls") {
                         columnDefs.push({
-                            headerName: "Fls", field: "Fls", filter: getValuesAsync1("Fls"),
+                            headerName: "Fls", field: "Fls",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Fls"),
                             filterParams: {
                                 values: getValuesAsync("Fls"),
                                 resetButton: true,
@@ -486,7 +508,9 @@ function BuyerList() {
                     }
                     else if (item.Column_Name == "Lab") {
                         columnDefs.push({
-                            headerName: "Lab", field: "Lab", filter: getValuesAsync1("Lab"),
+                            headerName: "Lab", field: "Lab",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Lab"),
                             filterParams: {
                                 values: getValuesAsync("Lab"),
                                 resetButton: true,
@@ -521,7 +545,9 @@ function BuyerList() {
                     }
                     else if (item.Column_Name == "Shape") {
                         columnDefs.push({
-                            headerName: "Shape", field: "Shape", filter: getValuesAsync1("Shape"),
+                            headerName: "Shape", field: "Shape",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Shape"),
                             filterParams: {
                                 values: getValuesAsync("Shape"),
                                 resetButton: true,
@@ -535,7 +561,9 @@ function BuyerList() {
                     }
                     else if (item.Column_Name == "Pointer") {
                         columnDefs.push({
-                            headerName: "Pointer", field: "Pointer", filter: getValuesAsync1("Pointer"),
+                            headerName: "Pointer", field: "Pointer",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Pointer"),
                             filterParams: {
                                 values: getValuesAsync("Pointer"),
                                 resetButton: true,
@@ -549,7 +577,9 @@ function BuyerList() {
                     }
                     else if (item.Column_Name == "Sub Pointer") {
                         columnDefs.push({
-                            headerName: "Sub Pointer", field: "Sub_Pointer", filter: getValuesAsync1("Sub_Pointer"),
+                            headerName: "Sub Pointer", field: "Sub_Pointer",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Sub_Pointer"),
                             filterParams: {
                                 values: getValuesAsync("Sub_Pointer"),
                                 resetButton: true,
@@ -563,7 +593,9 @@ function BuyerList() {
                     }
                     else if (item.Column_Name == "Color") {
                         columnDefs.push({
-                            headerName: "Color", field: "Color", filter: getValuesAsync1("Color"),
+                            headerName: "Color", field: "Color",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Color"),
                             filterParams: {
                                 values: getValuesAsync("Color"),
                                 resetButton: true,
@@ -577,7 +609,9 @@ function BuyerList() {
                     }
                     else if (item.Column_Name == "Clarity") {
                         columnDefs.push({
-                            headerName: "Clarity", field: "Clarity", filter: getValuesAsync1("Clarity"),
+                            headerName: "Clarity", field: "Clarity",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Clarity"),
                             filterParams: {
                                 values: getValuesAsync("Clarity"),
                                 resetButton: true,
@@ -591,7 +625,9 @@ function BuyerList() {
                     }
                     else if (item.Column_Name == "Cts") {
                         columnDefs.push({
-                            headerName: "Cts", field: "Cts", filter: getValuesAsync1("Cts"),
+                            headerName: "Cts", field: "Cts",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Cts"),
                             filterParams: {
                                 values: getValuesAsync("Cts"),
                                 resetButton: true,
@@ -668,7 +704,9 @@ function BuyerList() {
                     }
                     else if (item.Column_Name == "Cut") {
                         columnDefs.push({
-                            headerName: "Cut", field: "Cut", filter: getValuesAsync1("Cut"),
+                            headerName: "Cut", field: "Cut",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Cut"),
                             filterParams: {
                                 values: getValuesAsync("Cut"),
                                 resetButton: true,
@@ -682,7 +720,9 @@ function BuyerList() {
                     }
                     else if (item.Column_Name == "Polish") {
                         columnDefs.push({
-                            headerName: "Polish", field: "Polish", filter: getValuesAsync1("Polish"),
+                            headerName: "Polish", field: "Polish",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Polish"),
                             filterParams: {
                                 values: getValuesAsync("Polish"),
                                 resetButton: true,
@@ -696,7 +736,9 @@ function BuyerList() {
                     }
                     else if (item.Column_Name == "Symm") {
                         columnDefs.push({
-                            headerName: "Symm", field: "Symm", filter: getValuesAsync1("Symm"),
+                            headerName: "Symm", field: "Symm",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Symm"),
                             filterParams: {
                                 values: getValuesAsync("Symm"),
                                 resetButton: true,
@@ -710,7 +752,9 @@ function BuyerList() {
                     }
                     else if (item.Column_Name == "Fls") {
                         columnDefs.push({
-                            headerName: "Fls", field: "Fls", filter: getValuesAsync1("Fls"),
+                            headerName: "Fls", field: "Fls",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Fls"),
                             filterParams: {
                                 values: getValuesAsync("Fls"),
                                 resetButton: true,
@@ -868,7 +912,9 @@ function CustomerList() {
                     }
                     else if (item.Column_Name == "Lab") {
                         columnDefs.push({
-                            headerName: "Lab", field: "Lab", filter: getValuesAsync1("Lab"),
+                            headerName: "Lab", field: "Lab",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Lab"),
                             filterParams: {
                                 values: getValuesAsync("Lab"),
                                 resetButton: true,
@@ -885,7 +931,9 @@ function CustomerList() {
                     }
                     else if (item.Column_Name == "Shape") {
                         columnDefs.push({
-                            headerName: "Shape", field: "Shape", filter: getValuesAsync1("Shape"),
+                            headerName: "Shape", field: "Shape",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Shape"),
                             filterParams: {
                                 values: getValuesAsync("Shape"),
                                 resetButton: true,
@@ -899,7 +947,9 @@ function CustomerList() {
                     }
                     else if (item.Column_Name == "Pointer") {
                         columnDefs.push({
-                            headerName: "Pointer", field: "Pointer", filter: getValuesAsync1("Pointer"),
+                            headerName: "Pointer", field: "Pointer",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Pointer"),
                             filterParams: {
                                 values: getValuesAsync("Pointer"),
                                 resetButton: true,
@@ -913,7 +963,9 @@ function CustomerList() {
                     }
                     else if (item.Column_Name == "BGM") {
                         columnDefs.push({
-                            headerName: "BGM", field: "BGM", filter: getValuesAsync1("BGM"),
+                            headerName: "BGM", field: "BGM",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("BGM"),
                             filterParams: {
                                 values: getValuesAsync("BGM"),
                                 resetButton: true,
@@ -927,7 +979,9 @@ function CustomerList() {
                     }
                     else if (item.Column_Name == "Color") {
                         columnDefs.push({
-                            headerName: "Color", field: "Color", filter: getValuesAsync1("Color"),
+                            headerName: "Color", field: "Color",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Color"),
                             filterParams: {
                                 values: getValuesAsync("Color"),
                                 resetButton: true,
@@ -941,7 +995,9 @@ function CustomerList() {
                     }
                     else if (item.Column_Name == "Clarity") {
                         columnDefs.push({
-                            headerName: "Clarity", field: "Clarity", filter: getValuesAsync1("Clarity"),
+                            headerName: "Clarity", field: "Clarity",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Clarity"),
                             filterParams: {
                                 values: getValuesAsync("Clarity"),
                                 resetButton: true,
@@ -955,7 +1011,9 @@ function CustomerList() {
                     }
                     else if (item.Column_Name == "Cts") {
                         columnDefs.push({
-                            headerName: "Cts", field: "Cts", filter: getValuesAsync1("Cts"),
+                            headerName: "Cts", field: "Cts",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Cts"),
                             filterParams: {
                                 values: getValuesAsync("Cts"),
                                 resetButton: true,
@@ -984,7 +1042,9 @@ function CustomerList() {
                     }
                     else if (item.Column_Name == "Cut") {
                         columnDefs.push({
-                            headerName: "Cut", field: "Cut", filter: getValuesAsync1("Cut"),
+                            headerName: "Cut", field: "Cut",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Cut"),
                             filterParams: {
                                 values: getValuesAsync("Cut"),
                                 resetButton: true,
@@ -998,7 +1058,9 @@ function CustomerList() {
                     }
                     else if (item.Column_Name == "Polish") {
                         columnDefs.push({
-                            headerName: "Polish", field: "Polish", filter: getValuesAsync1("Polish"),
+                            headerName: "Polish", field: "Polish",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Polish"),
                             filterParams: {
                                 values: getValuesAsync("Polish"),
                                 resetButton: true,
@@ -1012,7 +1074,9 @@ function CustomerList() {
                     }
                     else if (item.Column_Name == "Symm") {
                         columnDefs.push({
-                            headerName: "Symm", field: "Symm", filter: getValuesAsync1("Symm"),
+                            headerName: "Symm", field: "Symm",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Symm"),
                             filterParams: {
                                 values: getValuesAsync("Symm"),
                                 resetButton: true,
@@ -1026,7 +1090,9 @@ function CustomerList() {
                     }
                     else if (item.Column_Name == "Fls") {
                         columnDefs.push({
-                            headerName: "Fls", field: "Fls", filter: getValuesAsync1("Fls"),
+                            headerName: "Fls", field: "Fls",
+                            menuTabs: ['filterMenuTab', 'generalMenuTab', 'columnsMenuTab'],
+                            filter: getValuesAsync1("Fls"),
                             filterParams: {
                                 values: getValuesAsync("Fls"),
                                 resetButton: true,
@@ -1681,6 +1747,8 @@ function onGridReady(params) {
     if (navigator.userAgent.indexOf('Windows') > -1) {
         this.api.sizeColumnsToFit();
     }
+    const api = params.api;
+    api.selectTab('ag-tab-header', 'ag-icon-filter');
 }
 function contentHeight() {
     var winH = $(window).height(),

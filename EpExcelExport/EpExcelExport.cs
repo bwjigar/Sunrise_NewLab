@@ -3603,7 +3603,7 @@ namespace EpExcelExportLib
         {
             try
             {
-                if (UserTypeList == "Admin" || UserTypeList == "Employee" || UserTypeList == "Buyer")
+                if (UserTypeList == "1" || UserTypeList == "2" || UserTypeList == "4")
                 {
                     using (ExcelPackage p = new ExcelPackage())
                     {
@@ -4394,7 +4394,7 @@ namespace EpExcelExportLib
         {
             try
             {
-                if (UserTypeList == "Admin" || UserTypeList == "Employee" || UserTypeList == "Buyer")
+                if (UserTypeList == "1" || UserTypeList == "2" || UserTypeList == "4")
                 {
                     using (ExcelPackage p = new ExcelPackage())
                     {

@@ -209,7 +209,7 @@ columnDefs.push({
 columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
 columnDefs.push({ headerName: "Date", field: "TransDate", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("OrderDate", params); } });
 
-if ($("#hdn_UserTypeList").val() == "Admin" || $("#hdn_UserTypeList").val() == "Employee" || $("#hdn_UserTypeList").val() == "Buyer") {
+if ($("#hdn_UserType").val() == "1" || $("#hdn_UserType").val() == "2" || $("#hdn_UserType").val() == "4") {
     columnDefs.push({ headerName: "Customer Name", field: "UserFullName", width: 120, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("UserFullName", params); } });
     columnDefs.push({ headerName: "Company Name", field: "CompName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CompName", params); } });
 }
@@ -412,7 +412,7 @@ function Excel_MyCart() {
 
             var obj = {};
             obj.RefNo_SupplierRefNo = (CartId == "" ? $("#txt_S_StoneId").val() : "");
-            obj.UserTypeList = $("#hdn_UserTypeList").val();
+            obj.UserTypeList = $("#hdn_UserType").val();
             obj.CartId = CartId;
             obj.OrderBy = OrderBy;
 

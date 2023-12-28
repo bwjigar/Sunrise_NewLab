@@ -396,37 +396,33 @@
                             </a>
                         </li>
                     }
-                    else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
+                    else
                     {
-                        <li>
-                            <a href="@Url.Action("SearchStock", "User")">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                                Search Stock
-                            </a>
-                        </li>
+                        if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
+                        {
+                            <li>
+                                <a href="@Url.Action("SearchStock", "User")">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                    Search Stock
+                                </a>
+                            </li>
+                        }
+                        if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
+                        {
+                            <li>
+                                <a href="@Url.Action("MyCart", "User")">
+                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                    My Cart
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("OrderHistory", "User")">
+                                    <i class="fa fa-file-text" aria-hidden="true"></i>
+                                    Order History
+                                </a>
+                            </li>
+                        }
                     }
-                    else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
-                    {
-                        <li>
-                            <a href="@Url.Action("SearchStock", "User")">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                                Search Stock
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("MyCart", "User")">
-                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                My Cart
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("OrderHistory", "User")">
-                                <i class="fa fa-file-text" aria-hidden="true"></i>
-                                Order History
-                            </a>
-                        </li>
-                    }
-
                 </ul>
             </div>
         </nav>

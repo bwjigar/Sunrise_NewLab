@@ -210,7 +210,7 @@ columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cell
 columnDefs.push({ headerName: "Order Date", field: "OrderDate", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("OrderDate", params); } });
 columnDefs.push({ headerName: "Order No", field: "OrderId", width: 90, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("OrderId", params); } });
 
-if ($("#hdn_UserTypeList").val() == "Admin" || $("#hdn_UserTypeList").val() == "Employee" || $("#hdn_UserTypeList").val() == "Buyer") {
+if ($("#hdn_UserType").val() == "1" || $("#hdn_UserType").val() == "2" || $("#hdn_UserType").val() == "4") {
     columnDefs.push({ headerName: "Customer Name", field: "UserFullName", width: 120, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("UserFullName", params); } });
     columnDefs.push({ headerName: "Company Name", field: "CompName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CompName", params); } });
 }
@@ -412,7 +412,7 @@ function Excel_OderHistory() {
 
             var obj = {};
             obj.StoneId = (OrderDetId == "" ? $("#txt_S_StoneId").val() : "");
-            obj.UserTypeList = $("#hdn_UserTypeList").val();
+            obj.UserTypeList = $("#hdn_UserType").val();
             obj.OrderDetId = OrderDetId;
             obj.OrderBy = OrderBy;
 
