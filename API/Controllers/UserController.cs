@@ -2215,52 +2215,53 @@ namespace API.Controllers
                     Stock_dt = Convert_FILE_To_DataTable(".csv", Req.FilePath, "", Req.SupplierId);
                 }
 
-                Int32 VishindasHolaram_Lakhi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["VishindasHolaram_Lakhi_Id"]);
-                Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
-                Int32 JewelParadise_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JewelParadise_Id"]);
-                Int32 Diamart_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Diamart_Id"]);
-                Int32 Laxmi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Laxmi_Id"]);
-                Int32 JB_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JB_Id"]);
-                Int32 Aspeco_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Aspeco_Id"]);
-                Int32 KBS_Id = Convert.ToInt32(ConfigurationManager.AppSettings["KBS_Id"]);
-
-                if (Req.SupplierId == VishindasHolaram_Lakhi_Id)
-                {
-                    Stock_dt = Lakhi_TableCrown_BlackWhite(Stock_dt);
-                }
-                else if (Req.SupplierId == StarRays_Id)
-                {
-                    Stock_dt = StarRays_TableCrownPav_Open(Stock_dt);
-                }
-                else if (Req.SupplierId == JewelParadise_Id)
-                {
-                    Stock_dt = JewelParadise_Shade(Stock_dt);
-                }
-                else if (Req.SupplierId == Diamart_Id)
-                {
-                    Stock_dt = Diamart_Shade(Stock_dt);
-                }
-                else if (Req.SupplierId == Laxmi_Id)
-                {
-                    Stock_dt = Laxmi_Grading(Stock_dt);
-                }
-                else if (Req.SupplierId == JB_Id)
-                {
-                    Stock_dt = JB(Stock_dt);
-                }
-                else if (Req.SupplierId == Aspeco_Id)
-                {
-                    Stock_dt = Aspeco(Stock_dt);
-                }
-                else if (Req.SupplierId == KBS_Id)
-                {
-                    Stock_dt = KBS(Stock_dt);
-                }
-
-                List<Get_SupplierColumnSetting_FromAPI_Res> List_Res = new List<Get_SupplierColumnSetting_FromAPI_Res>();
-
                 if (Stock_dt != null && Stock_dt.Rows.Count > 0)
                 {
+                    Int32 VishindasHolaram_Lakhi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["VishindasHolaram_Lakhi_Id"]);
+                    Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
+                    Int32 JewelParadise_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JewelParadise_Id"]);
+                    Int32 Diamart_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Diamart_Id"]);
+                    Int32 Laxmi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Laxmi_Id"]);
+                    Int32 JB_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JB_Id"]);
+                    Int32 Aspeco_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Aspeco_Id"]);
+                    Int32 KBS_Id = Convert.ToInt32(ConfigurationManager.AppSettings["KBS_Id"]);
+
+                    if (Req.SupplierId == VishindasHolaram_Lakhi_Id)
+                    {
+                        Stock_dt = Lakhi_TableCrown_BlackWhite(Stock_dt);
+                    }
+                    else if (Req.SupplierId == StarRays_Id)
+                    {
+                        Stock_dt = StarRays_TableCrownPav_Open(Stock_dt);
+                    }
+                    else if (Req.SupplierId == JewelParadise_Id)
+                    {
+                        Stock_dt = JewelParadise_Shade(Stock_dt);
+                    }
+                    else if (Req.SupplierId == Diamart_Id)
+                    {
+                        Stock_dt = Diamart_Shade(Stock_dt);
+                    }
+                    else if (Req.SupplierId == Laxmi_Id)
+                    {
+                        Stock_dt = Laxmi_Grading(Stock_dt);
+                    }
+                    else if (Req.SupplierId == JB_Id)
+                    {
+                        Stock_dt = JB(Stock_dt);
+                    }
+                    else if (Req.SupplierId == Aspeco_Id)
+                    {
+                        Stock_dt = Aspeco(Stock_dt);
+                    }
+                    else if (Req.SupplierId == KBS_Id)
+                    {
+                        Stock_dt = KBS(Stock_dt);
+                    }
+
+                    List<Get_SupplierColumnSetting_FromAPI_Res> List_Res = new List<Get_SupplierColumnSetting_FromAPI_Res>();
+
+
                     DataTable table2 = new DataTable();
                     int num = 1;
                     table2.Columns.Add("Id", typeof(int));
@@ -2290,7 +2291,8 @@ namespace API.Controllers
                     {
                         Data = null,
                         //Message = "Supplier " + ((str == ".xls" || str == ".xlsx") ? "Excel" : "CSV") + " File "+ ((str == ".xls" || str == ".xlsx") ? Req.SheetName.Remove(Req.SheetName.Length - 1, 1) + " Sheet " : "")+ "in Columns not found.",
-                        Message = "Columns not found From Supplier's " + ((str == ".xls" || str == ".xlsx") ? "Excel" : "CSV") + " File" + ((str == ".xls" || str == ".xlsx") ? " in " + Req.SheetName.Remove(Req.SheetName.Length - 1, 1) + " Sheet." : "."),
+                        //Message = "Columns not found From Supplier's " + ((str == ".xls" || str == ".xlsx") ? "Excel" : "CSV") + " File" + ((str == ".xls" || str == ".xlsx") ? " in " + Req.SheetName.Remove(Req.SheetName.Length - 1, 1) + " Sheet." : "."),
+                        Message = "Data not Found From Supplier's " + ((str == ".xls" || str == ".xlsx") ? "Excel" : "CSV") + " File" + ((str == ".xls" || str == ".xlsx") ? " in " + Req.SheetName.Remove(Req.SheetName.Length - 1, 1) + " Sheet." : "."),
                         Status = "2"
                     });
                 }
@@ -6776,50 +6778,50 @@ namespace API.Controllers
                 return ("ERROR", ex.Message, null);
             }
 
-            Int32 VishindasHolaram_Lakhi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["VishindasHolaram_Lakhi_Id"]);
-            Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
-            Int32 JewelParadise_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JewelParadise_Id"]);
-            Int32 Diamart_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Diamart_Id"]);
-            Int32 Laxmi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Laxmi_Id"]);
-            Int32 JB_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JB_Id"]);
-            Int32 Aspeco_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Aspeco_Id"]);
-            Int32 KBS_Id = Convert.ToInt32(ConfigurationManager.AppSettings["KBS_Id"]);
+            if (dt_APIRes != null && dt_APIRes.Rows.Count > 0)
+            {
+                Int32 VishindasHolaram_Lakhi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["VishindasHolaram_Lakhi_Id"]);
+                Int32 StarRays_Id = Convert.ToInt32(ConfigurationManager.AppSettings["StarRays_Id"]);
+                Int32 JewelParadise_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JewelParadise_Id"]);
+                Int32 Diamart_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Diamart_Id"]);
+                Int32 Laxmi_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Laxmi_Id"]);
+                Int32 JB_Id = Convert.ToInt32(ConfigurationManager.AppSettings["JB_Id"]);
+                Int32 Aspeco_Id = Convert.ToInt32(ConfigurationManager.AppSettings["Aspeco_Id"]);
+                Int32 KBS_Id = Convert.ToInt32(ConfigurationManager.AppSettings["KBS_Id"]);
 
-            if (SupplierId == VishindasHolaram_Lakhi_Id)
-            {
-                dt_APIRes = Lakhi_TableCrown_BlackWhite(dt_APIRes);
-            }
-            else if (SupplierId == StarRays_Id)
-            {
-                dt_APIRes = StarRays_TableCrownPav_Open(dt_APIRes);
-            }
-            else if (SupplierId == JewelParadise_Id)
-            {
-                dt_APIRes = JewelParadise_Shade(dt_APIRes);
-            }
-            else if (SupplierId == Diamart_Id)
-            {
-                dt_APIRes = Diamart_Shade(dt_APIRes);
-            }
-            else if (SupplierId == Laxmi_Id)
-            {
-                dt_APIRes = Laxmi_Grading(dt_APIRes);
-            }
-            else if (SupplierId == JB_Id)
-            {
-                dt_APIRes = JB(dt_APIRes);
-            }
-            else if (SupplierId == Aspeco_Id)
-            {
-                dt_APIRes = Aspeco(dt_APIRes);
-            }
-            else if (SupplierId == KBS_Id)
-            {
-                dt_APIRes = KBS(dt_APIRes);
-            }
+                if (SupplierId == VishindasHolaram_Lakhi_Id)
+                {
+                    dt_APIRes = Lakhi_TableCrown_BlackWhite(dt_APIRes);
+                }
+                else if (SupplierId == StarRays_Id)
+                {
+                    dt_APIRes = StarRays_TableCrownPav_Open(dt_APIRes);
+                }
+                else if (SupplierId == JewelParadise_Id)
+                {
+                    dt_APIRes = JewelParadise_Shade(dt_APIRes);
+                }
+                else if (SupplierId == Diamart_Id)
+                {
+                    dt_APIRes = Diamart_Shade(dt_APIRes);
+                }
+                else if (SupplierId == Laxmi_Id)
+                {
+                    dt_APIRes = Laxmi_Grading(dt_APIRes);
+                }
+                else if (SupplierId == JB_Id)
+                {
+                    dt_APIRes = JB(dt_APIRes);
+                }
+                else if (SupplierId == Aspeco_Id)
+                {
+                    dt_APIRes = Aspeco(dt_APIRes);
+                }
+                else if (SupplierId == KBS_Id)
+                {
+                    dt_APIRes = KBS(dt_APIRes);
+                }
 
-            if (dt_APIRes != null)
-            {
                 return ("SUCCESS", string.Empty, dt_APIRes);
             }
             else
@@ -7895,7 +7897,9 @@ namespace API.Controllers
             }
             else if (filetype == ".csv")
             {
+                string[] headers = null; 
                 string[] fields = null;
+                
                 Int32 KGK_Id = Convert.ToInt32(ConfigurationManager.AppSettings["KGK_Id"]);
 
                 // Use TextFieldParser to read the CSV file
@@ -7903,40 +7907,49 @@ namespace API.Controllers
                 {
                     parser.TextFieldType = FieldType.Delimited;
                     parser.SetDelimiters(",");
-
-                    string[] headers = parser.ReadFields();
-                    foreach (string header in headers)
+                    try
                     {
-                        table.Columns.Add(header);
+                        headers = parser.ReadFields();
                     }
-                    if (SupplierId == KGK_Id)
+                    catch (MalformedLineException ex)
                     {
-                        table.Columns.Add("Blank 1");
+                        headers = null;
                     }
-
                     
-                    while (!parser.EndOfData)
+                    if (headers != null)
                     {
-                        try
+                        foreach (string header in headers)
                         {
-                            fields = parser.ReadFields();
+                            table.Columns.Add(header);
                         }
-                        catch (MalformedLineException ex)
+                        if (SupplierId == KGK_Id)
                         {
-                            fields = null;
+                            table.Columns.Add("Blank 1");
                         }
 
-                        if (fields != null)
+                        while (!parser.EndOfData)
                         {
-                            DataRow row = table.NewRow();
-                            for (int i = 0; i < table.Columns.Count; i++)
+                            try
                             {
-                                if (fields.Length > i)
-                                {
-                                    row[i] = fields[i];
-                                }
+                                fields = parser.ReadFields();
                             }
-                            table.Rows.Add(row);
+                            catch (MalformedLineException ex)
+                            {
+                                fields = null;
+                            }
+
+                            if (fields != null)
+                            {
+                                DataRow row = table.NewRow();
+                                for (int i = 0; i < table.Columns.Count; i++)
+                                {
+                                    if (fields.Length > i)
+                                    {
+                                        row[i] = fields[i];
+                                    }
+                                }
+                                table.Rows.Add(row);
+                            }
                         }
                     }
                 }

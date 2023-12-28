@@ -47,6 +47,7 @@ function Master_Get() {
 
     $("#ddl_User").html("<option value=''>Select</option>");
     var obj = {};
+    obj.OrderBy = "CompName asc";
     $.ajax({
         url: "/User/GetUsers",
         async: false,
@@ -59,7 +60,7 @@ function Master_Get() {
             }
             if (data != null && data.Data.length > 0) {
                 for (var k in data.Data) {
-                    if (data.Data[k].UserTypeId.includes("2") || data.Data[k].UserTypeId.includes("3")) {
+                    if (data.Data[k].UserTypeId.includes("3")) {
                         $("#ddl_User").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].CompName + " [" + data.Data[k].UserName + "]" + "</option>");
                     }
                 }
