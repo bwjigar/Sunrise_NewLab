@@ -618,6 +618,14 @@ namespace SunriseLabWeb_New.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult Email_SearchStock(Get_SearchStock_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Email_SearchStock, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult CustomerPriceList()
         {
             return View();

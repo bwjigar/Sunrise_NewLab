@@ -1,4 +1,5 @@
-﻿var FortuneCodeValid = true;
+﻿var obj = {};
+var FortuneCodeValid = true;
 var FortuneCodeValid_Msg = "";
 var Type = "";
 var OrderBy = "";
@@ -1581,7 +1582,7 @@ function ExcelDownload(where, from) {
 }
 
 function ObjectCreate(PageNo, pgSize, OrderBy, where) {
-    var obj = {};
+    obj = {};
 
     var SizeLst = "";
     var CaratType = "";
@@ -2498,8 +2499,51 @@ $(document).ready(function () {
         }
     });
 
-
+    $('#EmailModal').on('show.bs.modal', function (event) {
+        debugger
+        ClearSendMail();
+    });
 });
+function validmail(e) {
+    debugger
+    var emailID = $(e).val();
+    if (emailID != "") {
+        emailID = emailID.split(',');
+        var finalemailId = "";
+        for (var i = 0; i < emailID.length; i++) {
+            if (!checkemail(emailID[i])) {
+                //toastr.error("Invalid Email Format");
+                //$("#txtemail").val('');
+                //return;
+            }
+            else {
+                finalemailId += emailID[i] + ",";
+            }
+        }
+        $("#txtemail").val(finalemailId);
+        return;
+    }
+}
+function checkemail(valemail) {
+    var forgetfilter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)(\s*(;|,)\s*|\s*$)/;  ///^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    if (forgetfilter.test(valemail)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+function ClearSendMail() {debugger
+    //$('#txtemail').val("");
+    $('#txtNotes').val("");
+    var count = 0;
+    count = gridOptions.api.getSelectedRows().length;
+    if (count > 0) {
+        $('#customRadiomail2').prop('checked', true);
+    } else {
+        $('#customRadiomail').prop('checked', true);
+    }
+}
 SetCutMaster = function (item) {
     _.each(CutList, function (itm) {
         $('#searchcut li[onclick="SetActive(\'CUT\',\'' + itm.Value + '\')"]').removeClass('active');
@@ -3739,6 +3783,98 @@ function AddToCart() {
         else {
             toastr.warning("Please Select atlease One Stone");
             return;
+        }
+    }
+}
+
+
+function SendMail() {debugger
+    var isValid = $('#frmSendMail').valid();
+    if ($('#txtemail').val() == "") {
+        return false;
+    }
+    debugger
+    if ($('#customRadiomail').prop('checked')) {
+        debugger
+        var old_PgNo = obj.PgNo;
+        var old_PgSize = obj.PgSize;
+
+        obj.PgNo = "";
+        obj.PgSize = "";
+        obj.ToAddress = $('#txtemail').val();
+        obj.Comments = $('#txtNotes').val();
+
+        loaderShow();
+
+        $.ajax({
+            url: "/User/Email_SearchStock",
+            type: "POST",
+            data: { req: obj },
+            success: function (data, textStatus, jqXHR) {
+                debugger
+                if (data.Status == "0") {
+                    if (data.Message.indexOf('Something Went wrong') > -1) {
+                        MoveToErrorPage(0);
+                    }
+                    toastr.error(data.Message);
+                } else {
+                    toastr.success(data.Message);
+                    $('#EmailModal').modal('hide');
+                }
+                loaderHide();
+                obj.PgNo = old_PgNo;
+                obj.PgSize = old_PgSize;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                loaderHide();
+            }
+        });
+    } else {
+        debugger
+        loaderShow();
+
+        var count = gridOptions.api.getSelectedRows().length;
+        var stoneno = _.pluck(gridOptions.api.getSelectedRows(), 'Ref_No').join(",");
+
+        if (count > 0) {
+            debugger
+            var old_RefNo = obj.RefNo;
+            var old_PgNo = obj.PgNo;
+            var old_PgSize = obj.PgSize;
+
+            obj.PgNo = "";
+            obj.PgSize = "";
+            obj.ToAddress = $('#txtemail').val();
+            obj.Comments = $('#txtNotes').val();
+            obj.RefNo = stoneno; 
+
+            $.ajax({
+                url: "/User/Email_SearchStock",
+                type: "POST",
+                data: { req: obj },
+                success: function (data, textStatus, jqXHR) {
+                    debugger
+                    if (data.Status == "0") {
+                        if (data.Message.indexOf('Something Went wrong') > -1) {
+                            MoveToErrorPage(0);
+                        }
+                        toastr.error(data.Message);
+                    } else {
+                        toastr.success(data.Message);
+                        $('#EmailModal').modal('hide');
+                    }
+                    loaderHide();
+                    obj.RefNo = old_RefNo;
+                    obj.PgNo = old_PgNo;
+                    obj.PgSize = old_PgSize;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    loaderHide();
+                }
+            });
+        } else {
+            toastr.warning("No stones selected to send email");
+            loaderHide();
         }
     }
 }

@@ -630,6 +630,9 @@ namespace Lib.Model
         public string PricingMethod { get; set; }
         public string PricingSign { get; set; }
         public decimal PricingDisc { get; set; }
+        public string ToAddress { get; set; }
+        public string Comments { get; set; }
+        
     }
     public class SearchSummary
     {

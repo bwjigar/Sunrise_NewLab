@@ -1096,31 +1096,32 @@
                 }
                 @if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
                 {
+                    <li><a class="effect-one aEmailStone" href="javascript:void(0);" data-toggle="modal" data-placement="bottom" data-target="#EmailModal" title="Email Stone"><i class="flaticon-email"></i></a></li>
                     <li id="li_excel"><a class="effect-one" onclick="ExcelDownload('Grid','In');" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="flaticon-file"></i></a></li>
                 }
                 <li style="display:none;"><a class="effect-one" onclick="ByRequestCart();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Buy Cart"><i class="flaticon-shopping-cart"></i></a></li>
                 <li style="display:none;"><a class="effect-one" onclick="Download();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="fa fa-file-excel-o"></i></a></li>
 
                 @*<li>
-                        <a onclick="OpenDownloadCheck()" class="effect-one download-popup" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="@LanguageProvider.get("download")"><i class="flaticon-file"></i></a>
-                        <ul class="download-toggle tab_2">
-                            <li id="liAll_2">
-                            <a href="javascript:void(0);" onclick="ALLDownload()" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel"), @LanguageProvider.get("image"), @LanguageProvider.get("video"), @LanguageProvider.get("certificate")">@LanguageProvider.get("All")</a>
-                        </li>
-                            <li>
-                                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Excel')" id="Export" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel")">@LanguageProvider.get("excel")</a>
-                            </li>
-                            <li class="excel-modelAll">
-                            <a href="javascript:void(0);" onclick="OpenDownloadPopup('Image')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("image")">@LanguageProvider.get("image")</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" onclick="OpenDownloadPopup('Video')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("video")">@LanguageProvider.get("video")</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" onclick="OpenDownloadPopup('Certificate')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("certificate")">@LanguageProvider.get("certificate")</a>
-                        </li>
-                        </ul>
-                    </li>*@
+            <a onclick="OpenDownloadCheck()" class="effect-one download-popup" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="@LanguageProvider.get("download")"><i class="flaticon-file"></i></a>
+            <ul class="download-toggle tab_2">
+                <li id="liAll_2">
+                <a href="javascript:void(0);" onclick="ALLDownload()" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel"), @LanguageProvider.get("image"), @LanguageProvider.get("video"), @LanguageProvider.get("certificate")">@LanguageProvider.get("All")</a>
+            </li>
+                <li>
+                    <a href="javascript:void(0);" onclick="OpenDownloadPopup('Excel')" id="Export" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel")">@LanguageProvider.get("excel")</a>
+                </li>
+                <li class="excel-modelAll">
+                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Image')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("image")">@LanguageProvider.get("image")</a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Video')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("video")">@LanguageProvider.get("video")</a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Certificate')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("certificate")">@LanguageProvider.get("certificate")</a>
+            </li>
+            </ul>
+        </li>*@
             </ul>
         </div>
     </div>
@@ -1133,6 +1134,43 @@
         </div>
     </div>
 </div>
+</div>
+<div class="modal fade social-model" id="EmailModal" aria-modal="true" style="padding-left: 17px;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Send Mail</h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <form class="form-horizontal" id="frmSendMail">
+                <div class="modal-body">
+                    <span class="note">Note: you can send email to multiple email addresses which must be separated by comma(,)</span>
+                    <div class="mail-stone-radio-btn">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="customRadiomail" name="example" value="1" checked>
+                            <label class="custom-control-label" for="customRadiomail">All Stone</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="customRadiomail2" name="example" value="2">
+                            <label class="custom-control-label" for="customRadiomail2">Selected Stone</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address : <span class="reqvalidation"> * </span></label>
+                        <input type="text" class="input-main required" id="txtemail" name="email" onblur="validmail(this)" placeholder="Email Address" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.EmailId," style="height: 40px;" autocomplete="off">
+                    </div>
+                    <div class="form-group mb-0">
+                        <label for="pwd">Remark :</label>
+                        <textarea class="input-main" id="txtNotes" placeholder="Remark" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSendMail" class="fdbk-snd-btn" type="button" onclick="SendMail()">Send Mail</button>
+                    <button type="button" class="fdbk-snd-btn" onclick="ClearSendMail()">Clear</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 @section scripts{

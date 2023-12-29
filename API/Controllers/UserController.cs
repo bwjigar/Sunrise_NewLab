@@ -29,8 +29,7 @@ using System.Data.OleDb;
 using Oracle.DataAccess.Client;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using System.Net.Mail;
-
-
+using System.Net.Mime;
 
 namespace API.Controllers
 {
@@ -4227,6 +4226,152 @@ namespace API.Controllers
             {
                 Lib.Model.Common.InsertErrorLog(ex, null, Request);
                 throw ex;
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult Email_SearchStock([FromBody] JObject data)
+        {
+            Get_SearchStock_Req req = new Get_SearchStock_Req();
+
+            try
+            {
+                if (!string.IsNullOrEmpty(Convert.ToString(data)))
+                {
+                    JObject test1 = JObject.Parse(data.ToString());
+                    req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(((Newtonsoft.Json.Linq.JProperty)test1.Last).Name.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = ex.StackTrace,
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+
+            try
+            {
+                DataTable Stock_dt = SearchStock(req);
+
+                Stock_dt.DefaultView.RowFilter = "iSr IS NOT NULL";
+                Stock_dt = Stock_dt.DefaultView.ToTable();
+                CommonResponse resp = new CommonResponse();
+
+                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
+                {
+                    string filename = req.Type + " " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string _path = ConfigurationManager.AppSettings["data"];
+                    _path = _path.Replace("Temp", "ExcelFile");
+                    string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
+
+                    if (req.Type == "Buyer List")
+                    {
+                        Database db = new Database();
+                        List<IDbDataParameter> para;
+                        para = new List<IDbDataParameter>();
+
+                        //int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "BUYER"));
+
+                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                        EpExcelExport.Buyer_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+                    }
+                    else if (req.Type == "Supplier List")
+                    {
+                        Database db = new Database();
+                        List<IDbDataParameter> para;
+                        para = new List<IDbDataParameter>();
+
+                        //int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "SUPPLIER"));
+
+                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                        EpExcelExport.Supplier_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+                    }
+                    else if (req.Type == "Customer List")
+                    {
+                        Database db = new Database();
+                        List<IDbDataParameter> para;
+                        para = new List<IDbDataParameter>();
+
+                        //int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                        para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+                        para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "CUSTOMER"));
+
+                        DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                        EpExcelExport.Customer_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+                    }
+
+                    string _strxml = _path + filename + ".xlsx";
+
+                    MailMessage xloMail = new MailMessage();
+                    SmtpClient xloSmtp = new SmtpClient();
+
+                    xloMail.From = new MailAddress(ConfigurationManager.AppSettings["FromEmail"], "Connect Gia");
+                    xloMail.Bcc.Add("hardik@brainwaves.co.in");
+                    if (req.ToAddress.EndsWith(","))
+                        req.ToAddress = req.ToAddress.Remove(req.ToAddress.Length - 1);
+
+                    xloMail.To.Add(req.ToAddress);
+                    xloMail.Subject = "Stone Selection";
+                    xloMail.IsBodyHtml = false;
+                    AlternateView av = AlternateView.CreateAlternateViewFromString(((string.IsNullOrEmpty(req.Comments)) ? "" : req.Comments), null, "");
+                    xloMail.AlternateViews.Add(av);
+
+                    ContentType contentType = new System.Net.Mime.ContentType();
+                    contentType.MediaType = System.Net.Mime.MediaTypeNames.Application.Octet;
+                    contentType.Name = filename + ".xlsx";
+                    Attachment attachFile = new Attachment(realpath + filename + ".xlsx", contentType);
+                    xloMail.Attachments.Add(attachFile);
+
+                    xloSmtp.Timeout = 500000;
+                    xloSmtp.Send(xloMail);
+
+                    xloMail.Attachments.Dispose();
+                    xloMail.AlternateViews.Dispose();
+                    xloMail.Dispose();
+
+                    if (filename.Length > 0)
+                        if (System.IO.File.Exists(filename))
+                            System.IO.File.Delete(filename);
+
+                    resp.Status = "1";
+                    resp.Message = "Mail sent successfully.";
+                    resp.Error = "";
+
+                    return Ok(resp);
+                }
+                else
+                {
+                    resp.Status = "0";
+                    resp.Message = "No Stock found as per filter criteria !";
+                    resp.Error = "";
+
+                    return Ok(resp);
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = ex.StackTrace,
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
             }
         }
 
