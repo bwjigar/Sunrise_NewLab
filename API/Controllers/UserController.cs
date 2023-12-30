@@ -2606,6 +2606,26 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("IsActive", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
 
+                if (!string.IsNullOrEmpty(Req.ShortName))
+                    para.Add(db.CreateParam("ShortName", DbType.String, ParameterDirection.Input, Req.ShortName));
+                else
+                    para.Add(db.CreateParam("ShortName", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(Req.APIType))
+                    para.Add(db.CreateParam("APIType", DbType.String, ParameterDirection.Input, Req.APIType));
+                else
+                    para.Add(db.CreateParam("APIType", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(Req.LastStockUploadDateTime))
+                    para.Add(db.CreateParam("LastStockUploadDateTime", DbType.String, ParameterDirection.Input, Req.LastStockUploadDateTime));
+                else
+                    para.Add(db.CreateParam("LastStockUploadDateTime", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(Req.LastStockUploadDateTime_Type))
+                    para.Add(db.CreateParam("LastStockUploadDateTime_Type", DbType.String, ParameterDirection.Input, Req.LastStockUploadDateTime_Type));
+                else
+                    para.Add(db.CreateParam("LastStockUploadDateTime_Type", DbType.String, ParameterDirection.Input, DBNull.Value));
+
                 DataTable dt = db.ExecuteSP("Get_SupplierMaster", para.ToArray(), false);
 
                 if (dt != null && dt.Rows.Count > 0)

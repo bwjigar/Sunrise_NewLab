@@ -251,6 +251,10 @@ namespace Lib.Model
         public bool WebAPIFTPStockUpload { get; set; }
         public bool FileStockUpload { get; set; }
         public string IsActive { get; set; }
+        public string ShortName { get; set; }
+        public string APIType { get; set; }
+        public string LastStockUploadDateTime { get; set; }
+        public string LastStockUploadDateTime_Type { get; set; }
     }
     public class Get_SupplierMaster_Res
     {
@@ -303,6 +307,7 @@ namespace Lib.Model
         public string LastStockUploadDateTime { get; set; }
         public int Uploaded_Stone { get; set; }
         public int Not_Uploaded_Stone { get; set; }
+        public string APIType1 { get; set; }
     }
     public class Get_ColumnMaster_Res
     {

@@ -1,7 +1,21 @@
 ﻿var FortuneCodeValid = true;
 var FortuneCodeValid_Msg = "";
 var Rowdata = [];
-
+var pgSize = 50;
+function onPageSizeChanged() {
+    var value = $("#ddlPagesize").val();
+    pgSize = Number(value);
+    GetSearch();
+}
+var showEntryHtml = '<div class="show_entry"><label>'
+    + 'Show <select onchange = "onPageSizeChanged()" id = "ddlPagesize">'
+    + '<option value="50">50</option>'
+    + '<option value="200">200</option>'
+    + '<option value="500">500</option>'
+    + '<option value="1000">1000</option>'
+    + '</select> entries'
+    + '</label>'
+    + '</div>';
 var gridOptions = {};
 var iUserid = 0;
 var today = new Date();
@@ -46,44 +60,124 @@ function filterByProperty(data, prop, value) {
 
 
 var columnDefs = [
-    { headerName: "Id", field: "Id", hide: true },
-    { headerName: "APIType", field: "APIType", hide: true },
-    { headerName: "SupplierHitUrl", field: "SupplierHitUrl", hide: true },
-    { headerName: "SupplierResponseFormat", field: "SupplierResponseFormat", hide: true },
-    { headerName: "FileLocation", field: "FileLocation", hide: true },
-    { headerName: "LocationExportType", field: "LocationExportType", hide: true },
-    { headerName: "RepeateveryType", field: "RepeateveryType", hide: true },
-    { headerName: "Repeatevery", field: "Repeatevery", hide: true },
-    { headerName: "SupplierAPIMethod", field: "SupplierAPIMethod", hide: true },
-    { headerName: "UserName", field: "UserName", hide: true },
-    { headerName: "Password", field: "Password", hide: true },
-    { headerName: "FileName", field: "FileName", hide: true },
-    { headerName: "DiscInverse", field: "DiscInverse", hide: true },
-    { headerName: "DataGetFrom", field: "DataGetFrom", hide: true },
-    { headerName: "Image", field: "Image", hide: true },
-    { headerName: "Video", field: "Video", hide: true },
-    { headerName: "Certi", field: "Certi", hide: true },
-    { headerName: "DocumentViewType", field: "DocumentViewType", hide: true },
-
-    { headerName: "Sr", field: "iSr", tooltip: function (params) { return (params.value); }, sortable: false, width: 40 },
-    { headerName: "Action", field: "Action", tooltip: function (params) { return (params.value); }, width: 50, cellRenderer: 'Action', sortable: false },
-    { headerName: "Upload Stock", field: "StockUpload", width: 60, cellRenderer: 'StockUpload', sortable: false },
-    { headerName: "Last Not Mapped Stock Download", field: "NotMappedStock", width: 120, cellRenderer: 'NotMappedStock', sortable: false },
-    { headerName: "Supplier Name", field: "SupplierName", tooltip: function (params) { return (params.value); }, width: 280 },
-    { headerName: "Short Name", field: "ShortName", tooltip: function (params) { return (params.value); }, width: 100 },
-    { headerName: "API Type", field: "APIType", width: 90, cellRenderer: APIType, sortable: false },
-    { headerName: "Auto Upload Stock", field: "AutoUploadStock", width: 120, sortable: false },
-    { headerName: "Supplier URL", field: "SupplierURL", width: 630, cellRenderer: SupplierURL, hide: true },
-    { headerName: "Active", field: "Active", width: 58, cellRenderer: Status, },
-    { headerName: "New RefNo Gen", field: "NewRefNoGenerate", width: 100, cellRenderer: _NewRefNoGenerate },
-    { headerName: "Display Image", field: "Image", width: 65, cellRenderer: Status, },
-    { headerName: "Display Video", field: "Video", width: 65, cellRenderer: Status, },
-    { headerName: "Display Certi", field: "Certi", width: 65, cellRenderer: Status, },
-    { headerName: "Last Modified", field: "UpdateDate", width: 130 },
-    { headerName: "Last Updated", field: "LastStockUploadDateTime", width: 130 },
-    { headerName: "Uploaded Stone", field: "Uploaded_Stone", width: 80 },
-    { headerName: "Not Uploaded Stone", field: "Not_Uploaded_Stone", width: 80 },
+    {
+        headerName: "Sr", field: "iSr", tooltip: function (params) { return (params.value); }, sortable: false, width: 40,
+        suppressMenu: true
+    },
+    {
+        headerName: "Action", field: "Action", tooltip: function (params) { return (params.value); }, width: 50, cellRenderer: 'Action', sortable: false,
+        menuTabs: ['filterMenuTab'], suppressMenu: true
+    },
+    {
+        headerName: "Upload Stock", field: "StockUpload", width: 60, cellRenderer: 'StockUpload', sortable: false,
+        menuTabs: ['filterMenuTab'], suppressMenu: true
+    },
+    {
+        headerName: "Last Not Mapped Stock Download", field: "NotMappedStock", width: 120, cellRenderer: 'NotMappedStock', sortable: false,
+        menuTabs: ['filterMenuTab'], suppressMenu: true
+    },
+    {
+        headerName: "Supplier Name", field: "SupplierName", tooltip: function (params) { return (params.value); }, width: 280,
+        menuTabs: ['filterMenuTab'],
+        filter: getValuesAsync1("SupplierName"),
+        filterParams: {
+            values: getValuesAsync("SupplierName"),
+            resetButton: true,
+            applyButton: true,
+            suppressAndOrCondition: true,
+            filterOptions: ['contains'],
+            comparator: function (a, b) {
+                return 0;
+            }
+        }
+    },
+    {
+        headerName: "Short Name", field: "ShortName", tooltip: function (params) { return (params.value); }, width: 100,
+        menuTabs: ['filterMenuTab'],
+        filter: getValuesAsync1("ShortName"),
+        filterParams: {
+            values: getValuesAsync("ShortName"),
+            resetButton: true,
+            applyButton: true,
+            suppressAndOrCondition: true,
+            filterOptions: ['contains'],
+            comparator: function (a, b) {
+                return 0;
+            }
+        }
+    },
+    {
+        headerName: "API Type", field: "APIType1", width: 90, tooltip: function (params) { return (params.value); }, sortable: false,
+        menuTabs: ['filterMenuTab'],
+        filter: getValuesAsync1("APIType1"),
+        filterParams: {
+            values: getValuesAsync("APIType1"),
+            resetButton: true,
+            applyButton: true,
+            suppressAndOrCondition: true,
+            filterOptions: ['contains'],
+            comparator: function (a, b) {
+                return 0;
+            }
+        }
+    },
+    {
+        headerName: "Auto Upload Stock", field: "AutoUploadStock", width: 120, sortable: false,
+        menuTabs: ['filterMenuTab'], suppressMenu: true
+    },
+    { headerName: "Supplier URL", field: "SupplierURL", width: 630, cellRenderer: SupplierURL, hide: true, suppressMenu: true },
+    {
+        headerName: "Active", field: "Active", width: 58, cellRenderer: Status,
+        suppressMenu: true
+    },
+    {
+        headerName: "New RefNo Gen", field: "NewRefNoGenerate", width: 100, cellRenderer: _NewRefNoGenerate,
+        suppressMenu: true
+    },
+    { headerName: "Display Image", field: "Image", width: 65, cellRenderer: Status, suppressMenu: true },
+    { headerName: "Display Video", field: "Video", width: 65, cellRenderer: Status, suppressMenu: true },
+    { headerName: "Display Certi", field: "Certi", width: 65, cellRenderer: Status, suppressMenu: true },
+    { headerName: "Last Modified", field: "UpdateDate", width: 130, suppressMenu: true },
+    {
+        headerName: "Last Updated", field: "LastStockUploadDateTime", width: 130, menuTabs: ['filterMenuTab'],
+        menuTabs: ['filterMenuTab'],
+        filter: getValuesAsync1("LastStockUploadDateTime"),
+        filterParams: {
+            values: getValuesAsync("LastStockUploadDateTime"),
+            resetButton: true,
+            applyButton: true,
+            suppressAndOrCondition: true,
+            filterOptions: ['equals', 'notEqual', 'lessThan', 'greaterThan'],
+            comparator: function (a, b) {
+                return 0;
+            }
+        }
+    },
+    {
+        headerName: "Uploaded Stone", field: "Uploaded_Stone", width: 80,
+        suppressMenu: true
+    },
+    { headerName: "Not Uploaded Stone", field: "Not_Uploaded_Stone", width: 80, menuTabs: ['filterMenuTab'], suppressMenu: true },
 ];
+function getValuesAsync1(field) {
+    if (field == "SupplierName" || field == "ShortName") {
+        return "agTextColumnFilter";
+    }
+    else if (field == "APIType1") {
+        return "agSetColumnFilter";
+    }
+    else if (field == "LastStockUploadDateTime") {
+        return "agDateColumnFilter";
+    }
+    else {
+        return false;
+    }
+}
+function getValuesAsync(field) {
+    if (field == "APIType1") {
+        return ['WEB API', 'WEB API (FILE)', 'FTP', 'FTP (FILE)'];
+    }
+}
 
 function SupplierURL(params) {
     if (params.data.APIType == "WEB_API") {
@@ -161,14 +255,14 @@ function NotMappedStockExcelDownload(Id) {
     setTimeout(function () {
         var obj = {};
         obj.SupplierId = Id;
-        
+
         $.ajax({
             url: "/User/Get_Not_Mapped_SupplierStock",
             async: false,
             type: "POST",
             data: { req: obj },
             success: function (data, textStatus, jqXHR) {
-                
+
                 loaderHide();
                 if (data.search('.xlsx') == -1) {
                     if (data.indexOf('Something Went wrong') > -1) {
@@ -188,7 +282,7 @@ function NotMappedStockExcelDownload(Id) {
 function EditView(Id) {
     var data = filterByProperty(Rowdata, "Id", Id);
     if (data.length == 1) {
-        
+
         $("#hdn_Id").val(data[0].Id);
         $("#txtSupplierName").val(data[0].SupplierName);
         $("#DdlRepeatevery").val(data[0].RepeateveryType);
@@ -257,7 +351,7 @@ function EditView(Id) {
         $("#CertiURL").val(data[0].CertiURL);
         $("#CertiFormat").val(data[0].CertiFormat);
         $("#txtShortName").val(data[0].ShortName);
-        
+
         $(".gridview").hide();
         $(".AddEdit").show();
         $("#btn_AddNew").hide();
@@ -340,8 +434,8 @@ function GetSearch() {
         //rowData: data,
         rowModelType: 'serverSide',
         //onGridReady: onGridReady,
-        cacheBlockSize: 50, // you can have your custom page size
-        paginationPageSize: 50, //pagesize
+        cacheBlockSize: pgSize, // you can have your custom page size
+        paginationPageSize: pgSize, //pagesize
         getContextMenuItems: getContextMenuItems,
         paginationNumberFormatter: function (params) {
             return '[' + params.value.toLocaleString() + ']';
@@ -353,20 +447,64 @@ function GetSearch() {
     $(".ag-header-cell-text").addClass("grid_prewrap");
 
     gridOptions.api.setServerSideDatasource(datasource1);
+
+    showEntryVar = setInterval(function () {
+        if ($('#Cart-Gride .ag-paging-panel').length > 0) {
+            $('#Cart-Gride .ag-header-cell[col-id="0"] .ag-header-select-all').removeClass('ag-hidden');
+
+            $(showEntryHtml).appendTo('#Cart-Gride .ag-paging-panel');
+            $('#ddlPagesize').val(pgSize);
+            clearInterval(showEntryVar);
+        }
+    }, 1000);
 }
 var SortColumn = "";
 var SortDirection = "";
+
+var Filter_SupplierName = '';
+var Filter_ShortName = '';
+var Filter_APIType = '';
+var Filter_LastStockUploadDateTime = '';
+var Filter_LastStockUploadDateTime_Type = '';
+
 const datasource1 = {
     getRows(params) {
         var PageNo = gridOptions.api.paginationGetCurrentPage() + 1;
         var obj = {};
 
+        Filter_SupplierName = '';
+        Filter_ShortName = '';
+        Filter_APIType = '';
+        Filter_LastStockUploadDateTime = '';
+        Filter_LastStockUploadDateTime_Type = '';
+
+        debugger
+        if (params.request.filterModel.SupplierName) {
+            Filter_SupplierName = params.request.filterModel.SupplierName.filter;
+        }
+        if (params.request.filterModel.ShortName) {
+            obj.ShortName = params.request.filterModel.ShortName.filter;
+
+            Filter_ShortName = obj.ShortName;
+        }
+        if (params.request.filterModel.APIType1) {
+            obj.APIType = params.request.filterModel.APIType1.values.join(",");
+
+            Filter_APIType = obj.APIType;
+        }
+        if (params.request.filterModel.LastStockUploadDateTime) {
+            obj.LastStockUploadDateTime = params.request.filterModel.LastStockUploadDateTime.dateFrom;
+            obj.LastStockUploadDateTime_Type = params.request.filterModel.LastStockUploadDateTime.type;
+            
+            Filter_LastStockUploadDateTime = obj.LastStockUploadDateTime;
+            Filter_LastStockUploadDateTime_Type = obj.LastStockUploadDateTime_Type;
+        }
         if (params.request.sortModel.length > 0) {
             obj.OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
         }
-        obj.PgNo = PageNo;
-        obj.PgSize = "50";
-        obj.SupplierName = $("#txt_S_SupplierName").val();
+        obj.iPgNo = PageNo;
+        obj.iPgSize = pgSize;
+        obj.SupplierName = (Filter_SupplierName != "" ? Filter_SupplierName : $("#txt_S_SupplierName").val());
         obj.IsActive = $('#ddlIsActive').val();
 
         Rowdata = [];
@@ -592,7 +730,7 @@ var GetError = function () {
             'Error': "Please Enter Short Name.",
         });
     }
-    
+
 
     if (API_Type == "FTP") {
         if ($("#txtFTPFileLocation").val() == "") {
@@ -804,7 +942,7 @@ var Save = function () {
         obj.CertiURL = $("#CertiURL").val();
         obj.CertiFormat = $("#CertiFormat").val();
         obj.ShortName = $("#txtShortName").val();
-        
+
 
         loaderShow();
 
