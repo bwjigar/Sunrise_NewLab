@@ -11123,7 +11123,7 @@ namespace API.Controllers
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vCTS", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Cts"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Cts"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Cts"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vCOLOR", OracleDbType.NVarchar2);
@@ -11151,11 +11151,11 @@ namespace API.Controllers
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vSUPP_OFFER_PER", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Base Dis"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Base Dis"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Base Dis"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vOFFER", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["SUPPLIER COST DISC"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["SUPPLIER COST DISC"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["SUPPLIER COST DISC"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vSOURCE_PARTY", OracleDbType.NVarchar2);
@@ -11167,47 +11167,47 @@ namespace API.Controllers
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vSUPP_BASE_VALUE", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Base Amt"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Base Amt"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Base Amt"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vRAP_PRICE", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Rap Rate"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Rap Rate"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Rap Rate"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vRAP_VALUE", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Rap Amount"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Rap Amount"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Rap Amount"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vLENGTH", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Length"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Length"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Length"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vWIDTH", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Width"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Width"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Width"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vDEPTH", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Depth"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Depth"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Depth"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vDEPTH_PER", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Depth %"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Depth %"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Depth %"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vCROWN_ANGEL", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Crown Angle"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Crown Angle"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Crown Angle"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vCROWN_HEIGHT", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Crown Height"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Crown Height"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Crown Height"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vPAV_ANGEL", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Pav Angle"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Pav Angle"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Pav Angle"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vPAV_HEIGHT", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Pav Height"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Pav Height"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Pav Height"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vculet", OracleDbType.NVarchar2);
@@ -11218,8 +11218,8 @@ namespace API.Controllers
                                                     param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Key to Symbol"]);
                                                     paramList.Add(param1);
 
-                                                    param1 = new OracleParameter("vTABLE_PER", OracleDbType.NVarchar2);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Table %"]);
+                                                    param1 = new OracleParameter("vTABLE_PER", OracleDbType.Double);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Table %"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Table %"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vCROWN_NATTS", OracleDbType.NVarchar2);
@@ -11239,20 +11239,22 @@ namespace API.Controllers
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vFINAL_VALUE", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["CUSTOMER COST VALUE"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["CUSTOMER COST VALUE"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["CUSTOMER COST VALUE"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vFINAL_DISC_PER", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["CUSTOMER COST DISC"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["CUSTOMER COST DISC"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["CUSTOMER COST DISC"]) : "0");
                                                     paramList.Add(param1);
 
-                                                    param1 = new OracleParameter("vMONTH", OracleDbType.NVarchar2);
-                                                    param1.Value = Convert.ToString(DateTime.Now.ToString("MMMM"));
-                                                    paramList.Add(param1);
+                                                    //param1 = new OracleParameter("vMONTH", OracleDbType.NVarchar2);
+                                                    ////param1.Value = Convert.ToString(DateTime.Now.ToString("MMMM"));
+                                                    //param1.Value = "";
+                                                    //paramList.Add(param1);
 
-                                                    param1 = new OracleParameter("vFILE_DATE", OracleDbType.Date);
-                                                    param1.Value = Convert.ToString(DateTime.Now.ToString("dd-MMM-yyyy"));
-                                                    paramList.Add(param1);
+                                                    //param1 = new OracleParameter("vFILE_DATE", OracleDbType.Date);
+                                                    ////param1.Value = Convert.ToString(DateTime.Now.ToString("dd-MMM-yyyy"));
+                                                    //param1.Value = "";
+                                                    //paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vIMG_PATH", OracleDbType.NVarchar2);
                                                     param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Image Real"]);
@@ -11275,15 +11277,15 @@ namespace API.Controllers
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vSUPP_FINAL_VALUE", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["SUPPLIER COST VALUE"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["SUPPLIER COST VALUE"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["SUPPLIER COST VALUE"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vSUPP_FINAL_DISC", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["SUPPLIER COST DISC"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["SUPPLIER COST DISC"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["SUPPLIER COST DISC"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vGIRDLE_PER", OracleDbType.Double);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Girdle %"]);
+                                                    param1.Value = (Convert.ToString(LabDetail_dt.Rows[j]["Girdle %"]) != "" ? Convert.ToString(LabDetail_dt.Rows[j]["Girdle %"]) : "0");
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vGIRDLE_TYPE", OracleDbType.NVarchar2);
@@ -11349,7 +11351,7 @@ namespace API.Controllers
                                                     param1 = new OracleParameter("vQC_REQUIRE", OracleDbType.NVarchar2);
                                                     param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["QC_Require"]);
                                                     paramList.Add(param1);
-
+                                                    
                                                     param1 = new OracleParameter("vrec", OracleDbType.RefCursor);
                                                     param1.Direction = ParameterDirection.Output;
                                                     paramList.Add(param1);
