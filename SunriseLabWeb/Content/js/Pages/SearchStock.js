@@ -189,7 +189,7 @@ function SupplierList() {
                         });
                     }
                     else if (item.Column_Name == "Image-Video") {
-                        columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", filter: getValuesAsync1("Imag_Video_Certi"), width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, false); }, suppressSorting: true, suppressMenu: true, sortable: false });
+                        columnDefs.push({ headerName: "VIEW", field: "DNA_Image_Video_Certi", filter: getValuesAsync1("DNA_Image_Video_Certi"), width: 65, cellRenderer: function (params) { return DNA_Image_Video_Certi(params, false, true, true, false); }, suppressSorting: true, suppressMenu: true, sortable: false });
                     }
                     else if (item.Column_Name == "Supplier Ref No") {
                         columnDefs.push({ headerName: "Supplier Ref No", field: "Supplier_Stone_Id", filter: getValuesAsync1("Supplier_Stone_Id"), width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Stone_Id", params); } });
@@ -504,8 +504,8 @@ function BuyerList() {
                     suppressMovable: false
                 });
                 data.Data.forEach(function (item) {
-                    if (item.Column_Name == "Image-Video") {
-                        columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", filter: getValuesAsync1("Imag_Video_Certi"), width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
+                    if (item.Column_Name == "DNA-Image-Video") {
+                        columnDefs.push({ headerName: "VIEW", field: "DNA_Image_Video_Certi", filter: getValuesAsync1("DNA_Image_Video_Certi"), width: 85, cellRenderer: function (params) { return DNA_Image_Video_Certi(params, true, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
                     }
                     else if (item.Column_Name == "Lab") {
                         columnDefs.push({
@@ -906,7 +906,7 @@ function CustomerList() {
                 });
                 data.Data.forEach(function (item) {
                     if (item.Column_Name == "Image-Video") {
-                        columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", filter: getValuesAsync1("Imag_Video_Certi"), width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
+                        columnDefs.push({ headerName: "VIEW", field: "DNA_Image_Video_Certi", filter: getValuesAsync1("DNA_Image_Video_Certi"), width: 65, cellRenderer: function (params) { return DNA_Image_Video_Certi(params, false, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
                     }
                     else if (item.Column_Name == "Ref No") {
                         columnDefs.push({ headerName: "Ref No", field: "Ref_No", filter: getValuesAsync1("Ref_No"), width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("RefNo", params); } });
@@ -1894,14 +1894,29 @@ function gridOptions_Selected_Calculation(data) {
     //});
 
 }
-function Imag_Video_Certi(params, Img, Vdo, Cert) {
+function DNA_Image_Video_Certi(params, DNA, Img, Vdo, Cert) {
     if (params.data == undefined) {
         return '';
     }
 
+    var DNA_url = (params.data.DNA == null ? "" : params.data.DNA);
     var image_url = (params.data.Image_URL == null ? "" : params.data.Image_URL);
     var movie_url = (params.data.Video_URL == null ? "" : params.data.Video_URL);
     var certi_url = (params.data.Certificate_URL == null ? "" : params.data.Certificate_URL);
+
+    if (DNA == true) {
+        if (DNA_url != "") {
+            DNA_url = '<li><a href="' + DNA_url + '" target="_blank" title="View Diamond DNA">' +
+                '<img src="../Content/images/medal.svg" class="frame-icon"></a></li>';
+        }
+        else {
+            DNA_url = '<li><a href="javascript:void(0);" title="View Diamond DNA">' +
+                '<img src="../Content/images/medal-not-available.svg" class="frame-icon"></a></li>';
+        }
+    }
+    else {
+        DNA_url = "";
+    }
 
     if (Img == true) {
         if (image_url != "") {
@@ -1945,7 +1960,7 @@ function Imag_Video_Certi(params, Img, Vdo, Cert) {
     //    certi_url = "";
     //}
 
-    var data = ('<ul class="flat-icon-ul">' + image_url + movie_url + '</ul>');
+    var data = ('<ul class="flat-icon-ul">' + DNA_url + image_url + movie_url + '</ul>');
     return data;
 }
 function onSelectionChanged(event) {
