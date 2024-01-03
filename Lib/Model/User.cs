@@ -550,6 +550,7 @@ namespace Lib.Model
         public int PgNo { get; set; }
         public int PgSize { get; set; }
         public string OrderBy { get; set; }
+        public string Location { get; set; }
         public string RefNo { get; set; }
         public string SupplierId_RefNo_SupplierRefNo { get; set; }
         public string SupplierId { get; set; }

@@ -76,7 +76,7 @@ function greaterThanDate(evt) {
             }
             else {
                 evt.currentTarget.value = "";
-                toastr.warning($("#hdn_To_date_must_be_greater_than_From_date").val());
+                toastr.warning("To date must be greater than From date");
                 FromTo_Date();
                 return false;
             }

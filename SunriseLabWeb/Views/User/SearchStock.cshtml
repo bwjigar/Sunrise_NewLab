@@ -775,19 +775,19 @@
                     </div>
 <div class="col-lg-3">
     <ul class="part2 ul-b">
-        <li class="label">Supplier Final Disc (%) :</li>
+        <li class="label">Final Disc(%) :</li>
         <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromDiscount','ToDiscount', 4);" id="FromDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromDiscount','ToDiscount', 4);" id="ToDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromDiscount','ToDiscount', 2);" id="FromDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromDiscount','ToDiscount', 2);" id="ToDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
 </div>
                         </ul>
                     </div>
 <div class="col-lg-3">
     <ul class="part2 ul-b">
-        <li class="label">Supplier Final Amt ($) :</li>
+        <li class="label">Final Amt US($) :</li>
         <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromTotalAmt','ToTotalAmt', 4);" onkeypress="return numvalid(event)" id="FromTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromTotalAmt','ToTotalAmt', 4);" onkeypress="return numvalid(event)" id="ToTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">To</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return numvalid(event)" id="FromTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">From</span></li>
+        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return numvalid(event)" id="ToTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">To</span></li>
 </div>
                         </ul>
                     </div>
@@ -907,10 +907,23 @@
         <div id="divPavHtBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
         <li id="PavHtBlank" onclick="SetActive('PavHtBlank','BLANK')">BLANK</li>
 </div>
+
+
                             </div>
+
+
                         </ul>
                     </div>
-
+@if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
+{
+    <div class="col-xl-6">
+        <ul class="color common-li ul-b">
+            <li class="label">Location:</li>
+            <div id="searchlocation" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+            </div>
+        </ul>
+    </div>
+}
                 </div>
 @*<div id="divButtons" class="row">*@
 <div class="bottom-button-bar text-right">
@@ -1103,25 +1116,25 @@
                 <li style="display:none;"><a class="effect-one" onclick="Download();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="fa fa-file-excel-o"></i></a></li>
 
                 @*<li>
-            <a onclick="OpenDownloadCheck()" class="effect-one download-popup" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="@LanguageProvider.get("download")"><i class="flaticon-file"></i></a>
-            <ul class="download-toggle tab_2">
-                <li id="liAll_2">
-                <a href="javascript:void(0);" onclick="ALLDownload()" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel"), @LanguageProvider.get("image"), @LanguageProvider.get("video"), @LanguageProvider.get("certificate")">@LanguageProvider.get("All")</a>
-            </li>
-                <li>
-                    <a href="javascript:void(0);" onclick="OpenDownloadPopup('Excel')" id="Export" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel")">@LanguageProvider.get("excel")</a>
-                </li>
-                <li class="excel-modelAll">
-                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Image')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("image")">@LanguageProvider.get("image")</a>
-            </li>
-            <li>
-                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Video')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("video")">@LanguageProvider.get("video")</a>
-            </li>
-            <li>
-                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Certificate')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("certificate")">@LanguageProvider.get("certificate")</a>
-            </li>
-            </ul>
-        </li>*@
+                        <a onclick="OpenDownloadCheck()" class="effect-one download-popup" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="@LanguageProvider.get("download")"><i class="flaticon-file"></i></a>
+                        <ul class="download-toggle tab_2">
+                            <li id="liAll_2">
+                            <a href="javascript:void(0);" onclick="ALLDownload()" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel"), @LanguageProvider.get("image"), @LanguageProvider.get("video"), @LanguageProvider.get("certificate")">@LanguageProvider.get("All")</a>
+                        </li>
+                            <li>
+                                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Excel')" id="Export" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel")">@LanguageProvider.get("excel")</a>
+                            </li>
+                            <li class="excel-modelAll">
+                            <a href="javascript:void(0);" onclick="OpenDownloadPopup('Image')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("image")">@LanguageProvider.get("image")</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" onclick="OpenDownloadPopup('Video')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("video")">@LanguageProvider.get("video")</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" onclick="OpenDownloadPopup('Certificate')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("certificate")">@LanguageProvider.get("certificate")</a>
+                        </li>
+                        </ul>
+                    </li>*@
             </ul>
         </div>
     </div>

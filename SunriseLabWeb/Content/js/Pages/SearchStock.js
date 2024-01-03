@@ -308,11 +308,11 @@ function SupplierList() {
                     else if (item.Column_Name == "Supplier Cost Value($)") {
                         columnDefs.push({ headerName: "Supplier Cost Value($)", field: "SUPPLIER_COST_VALUE", filter: getValuesAsync1("SUPPLIER_COST_VALUE"), width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("SUPPLIER_COST_VALUE", params); } });
                     }
-                    else if (item.Column_Name == "Final Sale Disc(%)") {
-                        columnDefs.push({ headerName: "Final Sale Disc(%)", field: "CUSTOMER_COST_DISC", filter: getValuesAsync1("CUSTOMER_COST_DISC"), width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_DISC", params); } });
+                    else if (item.Column_Name == "Final Disc(%)") {
+                        columnDefs.push({ headerName: "Final Disc(%)", field: "CUSTOMER_COST_DISC", filter: getValuesAsync1("CUSTOMER_COST_DISC"), width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_DISC", params); } });
                     }
-                    else if (item.Column_Name == "Final Sale Amt US($)") {
-                        columnDefs.push({ headerName: "Final Sale Amt US($)", field: "CUSTOMER_COST_VALUE", filter: getValuesAsync1("CUSTOMER_COST_VALUE"), width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_VALUE", params); } });
+                    else if (item.Column_Name == "Final Amt US($)") {
+                        columnDefs.push({ headerName: "Final Amt US($)", field: "CUSTOMER_COST_VALUE", filter: getValuesAsync1("CUSTOMER_COST_VALUE"), width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_VALUE", params); } });
                     }
                     else if (item.Column_Name == "Supplier Base Offer(%)") {
                         columnDefs.push({ headerName: "Supplier Base Offer(%)", field: "Disc", filter: getValuesAsync1("Disc"), width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Disc", params); } });
@@ -1032,11 +1032,11 @@ function CustomerList() {
                     else if (item.Column_Name == "Rap Amount($)") {
                         columnDefs.push({ headerName: "Rap Amount($)", field: "Rap_Amount", filter: getValuesAsync1("Rap_Amount"), width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } });
                     }
-                    else if (item.Column_Name == "Offer Disc(%)") {
-                        columnDefs.push({ headerName: "Offer Disc(%)", field: "CUSTOMER_COST_DISC", filter: getValuesAsync1("CUSTOMER_COST_DISC"), width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Disc", params); } });
+                    else if (item.Column_Name == "Final Disc(%)") {
+                        columnDefs.push({ headerName: "Final Disc(%)", field: "CUSTOMER_COST_DISC", filter: getValuesAsync1("CUSTOMER_COST_DISC"), width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Disc", params); } });
                     }
-                    else if (item.Column_Name == "Offer Value($)") {
-                        columnDefs.push({ headerName: "Offer Value($)", field: "CUSTOMER_COST_VALUE", filter: getValuesAsync1("CUSTOMER_COST_VALUE"), width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Value", params); } });
+                    else if (item.Column_Name == "Final Amt US($)") {
+                        columnDefs.push({ headerName: "Final Amt US($)", field: "CUSTOMER_COST_VALUE", filter: getValuesAsync1("CUSTOMER_COST_VALUE"), width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Value", params); } });
                     }
                     else if (item.Column_Name == "Price / Cts") {
                         columnDefs.push({ headerName: "Price / Cts", field: "Base_Price_Cts", filter: getValuesAsync1("Base_Price_Cts"), width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Base_Price_Cts", params); } });
@@ -1466,13 +1466,9 @@ const datasource1 = {
                         $(".totdisc").html("Supplier Final Disc(%)");
                         $(".totval").html("Supplier Final Value($)");
                     }
-                    else if (Type == "Supplier List") {
-                        $(".totdisc").html("Final Sale Disc(%)");
-                        $(".totval").html("Final Sale Amt US($)");
-                    }
-                    else if (Type == "Customer List") {
-                        $(".totdisc").html("Offer Disc(%)");
-                        $(".totval").html("Offer Value($)");
+                    else if (Type == "Supplier List" || Type == "Customer List") {
+                        $(".totdisc").html("Final Disc(%)");
+                        $(".totval").html("Final Amt US($)");
                     }
                     $('#tab1OfferDisc').html(formatNumber(summary.AVG_SALES_DISC_PER));
                     $('#tab1OfferValue').html(formatNumber(summary.TOT_NET_AMOUNT));
@@ -1625,6 +1621,8 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
     var crownopen = _.pluck(_.filter(CrownOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
     var pavopen = _.pluck(_.filter(PavOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
     var girdleopen = _.pluck(_.filter(GirdleOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var location = _.pluck(_.filter(LocationList, function (e) { return e.isActive == true }), 'Value').join(",");
+
 
     var KeyToSymLst_Check = _.pluck(CheckKeyToSymbolList, 'Symbol').join(",");
     var KeyToSymLst_uncheck = _.pluck(UnCheckKeyToSymbolList, 'Symbol').join(",");
@@ -1646,6 +1644,7 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
     obj.OrderBy = OrderBy;
 
     obj.RefNo = (Selected_Ref_No == "" ? refno : Selected_Ref_No);
+    obj.Location = location;
     obj.SupplierId = supplier;
     obj.Shape = shapeLst;
     obj.Pointer = SizeLst;
@@ -2021,6 +2020,7 @@ function NullReplaceDecimalToFixed(value) {
 
 var isCustomer = false;
 var ParameterList;
+var LocationList = [];
 var ShapeList = [];
 var CaratList = [];
 var SubPointerList = [];
@@ -2710,7 +2710,7 @@ function GetSearchParameter() {
                 //    ParameterList.push({ Id: 4, Value: "BLANK", ListType: "PAVILIONOPEN", UrlValue: "", UrlValueHov: "", ACTIVE: false })
                 //    ParameterList.push({ Id: 4, Value: "BLANK", ListType: "GIRDLEOPEN", UrlValue: "", UrlValueHov: "", ACTIVE: false })
                 //}
-
+                
                 $('#searchcaratgen').html("");
                 CaratList = _.filter(ParameterList, function (e) { return e.Type == 'Pointer' });
                 SubPointerList = _.filter(ParameterList, function (e) { return e.Type == 'Sub Pointer' });
@@ -2836,6 +2836,14 @@ function GetSearchParameter() {
                     $('#searchgirdleopen').append('<li onclick="SetActive(\'GIRDLEOPEN\',\'' + girdleopen.Value + '\')">' + girdleopen.Value + '</li>');
                 });
 
+                $('#searchlocation').html("");
+                LocationList = _.filter(ParameterList, function (e) { return e.Type == 'Location' });
+                _(LocationList).each(function (location, i) {
+                    $('#searchlocation').append('<li onclick="SetActive(\'LOCATION\',\'' + location.Value + '\')">' + location.Value + '</li>');
+                });
+
+                
+
                 KeyToSymbolList = _.filter(ParameterList, function (e) { return e.Type == 'Key to Symbol' });
 
 
@@ -2944,6 +2952,13 @@ function SetActive(flag, value) {
     //        _.findWhere(ShapeList, { Value: value }).ACTIVE = true;
     //    }
     //}
+    else if (flag == "LOCATION") {
+        if (_.find(LocationList, function (num) { return num.isActive == true && num.Value == value; })) {
+            _.findWhere(LocationList, { Value: value }).isActive = false;
+        } else {
+            _.findWhere(LocationList, { Value: value }).isActive = true;
+        }
+    }
     else if (flag == "COLOR") {
         if (_.find(ColorList, function (num) { return num.isActive == true && num.Value == value; })) {
             _.findWhere(ColorList, { Value: value }).isActive = false;
@@ -3215,7 +3230,10 @@ function Reset() {
     //_(ShapeList).each(function (shape, i) {
     //    $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'Shape\',\'' + shape.Value + '\')" class="common-ico"><div class="icon-image one"><img src="' + shape.UrlValue + '" class="first-ico"><img src="' + shape.UrlValueHov + '" class="second-ico"></div><span>' + shape.Value + '</span></a></li>');
     //});
-
+    $('#searchlocation').html("");
+    _(ClarityList).each(function (location, i) {
+        $('#searchlocation').append('<li onclick="SetActive(\'LOCATION\',\'' + location.Value + '\')">' + location.Value + '</li>');
+    });
     $('#searchcolor').html("");
     _(ColorList).each(function (color, i) {
         $('#searchcolor').append('<li onclick="SetActive(\'COLOR\',\'' + color.Value + '\')">' + color.Value + '</li>');

@@ -3715,6 +3715,11 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, DBNull.Value));
 
+                if (!string.IsNullOrEmpty(req.Location))
+                    para.Add(db.CreateParam("Location", DbType.String, ParameterDirection.Input, req.Location));
+                else
+                    para.Add(db.CreateParam("Location", DbType.String, ParameterDirection.Input, DBNull.Value)); 
+                
                 if (!string.IsNullOrEmpty(req.RefNo))
                     para.Add(db.CreateParam("RefNo", DbType.String, ParameterDirection.Input, req.RefNo));
                 else
