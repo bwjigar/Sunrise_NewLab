@@ -686,6 +686,13 @@ namespace SunriseLabWeb_New.Controllers
             ServiceResponse<Get_Customer_Stock_Disc_Mas_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_Customer_Stock_Disc_Mas_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Get_Customer_Stock_Disc_Count(Save_Supplier_Disc_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Get_Customer_Stock_Disc_Count, inputJson);
+            ServiceResponse<Get_Customer_Stock_Disc_Count> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_Customer_Stock_Disc_Count>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult AddUpdate_SupplierStock_FromSupplier(VendorResponse req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);

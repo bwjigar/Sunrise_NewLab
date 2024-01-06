@@ -1042,7 +1042,7 @@ namespace API.Controllers
             }
         }
         [HttpPost]
-        public IHttpActionResult Get_Customer_Stock_Disc_Mas([FromBody] JObject data)
+        public IHttpActionResult Get_Customer_Stock_Disc_Count([FromBody] JObject data)
         {
             Save_Supplier_Disc_Req req = new Save_Supplier_Disc_Req();
             try
@@ -1052,9 +1052,9 @@ namespace API.Controllers
             catch (Exception ex)
             {
                 Lib.Model.Common.InsertErrorLog(ex, null, Request);
-                return Ok(new ServiceResponse<Get_Customer_Stock_Disc_Mas_Res>
+                return Ok(new ServiceResponse<Get_Customer_Stock_Disc_Count>
                 {
-                    Data = new List<Get_Customer_Stock_Disc_Mas_Res>(),
+                    Data = new List<Get_Customer_Stock_Disc_Count>(),
                     Message = "Input Parameters are not in the proper format",
                     Status = "0"
                 });
@@ -1071,16 +1071,16 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, DBNull.Value));
 
-                DataTable dt = db.ExecuteSP("Get_Customer_Stock_Disc_Mas", para.ToArray(), false);
+                DataTable dt = db.ExecuteSP("Get_Customer_Stock_Disc_Count", para.ToArray(), false);
 
-                List<Get_Customer_Stock_Disc_Mas_Res> List_Res = new List<Get_Customer_Stock_Disc_Mas_Res>();
+                List<Get_Customer_Stock_Disc_Count> List_Res = new List<Get_Customer_Stock_Disc_Count>();
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    List_Res = DataTableExtension.ToList<Get_Customer_Stock_Disc_Mas_Res>(dt);
+                    List_Res = DataTableExtension.ToList<Get_Customer_Stock_Disc_Count>(dt);
                 }
 
-                return Ok(new ServiceResponse<Get_Customer_Stock_Disc_Mas_Res>
+                return Ok(new ServiceResponse<Get_Customer_Stock_Disc_Count>
                 {
                     Data = List_Res,
                     Message = "SUCCESS",
@@ -1090,9 +1090,9 @@ namespace API.Controllers
             catch (Exception ex)
             {
                 Lib.Model.Common.InsertErrorLog(ex, null, Request);
-                return Ok(new ServiceResponse<Get_Customer_Stock_Disc_Mas_Res>
+                return Ok(new ServiceResponse<Get_Customer_Stock_Disc_Count>
                 {
-                    Data = new List<Get_Customer_Stock_Disc_Mas_Res>(),
+                    Data = new List<Get_Customer_Stock_Disc_Count>(),
                     Message = "Something Went wrong.\nPlease try again later",
                     Status = "0"
                 });
@@ -4059,7 +4059,12 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("PricingDisc", DbType.Decimal, ParameterDirection.Input, DBNull.Value));
 
-                DataTable Stock_dt = db.ExecuteSP("Get_SearchStock", para.ToArray(), false);
+                //DataTable Stock_dt = db.ExecuteSP("Get_SearchStock", para.ToArray(), false);
+                DataTable Stock_dt = null;
+                if (!string.IsNullOrEmpty(req.SP_Name))
+                {
+                    Stock_dt = db.ExecuteSP(req.SP_Name, para.ToArray(), false);
+                }
                 return Stock_dt;
             }
             catch (Exception ex)
@@ -11933,6 +11938,7 @@ namespace API.Controllers
                             req.View = false;
                             req.Download = true;
                             req.Type = "Customer List";
+                            req.SP_Name = "Get_SearchStock_in_remove_specific_stock_disc";
 
                             DataTable dt_Result = SearchStock(req);
 

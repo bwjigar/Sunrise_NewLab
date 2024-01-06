@@ -543,9 +543,14 @@ namespace Lib.Model
         public string URL { get; set; }
         public string ExportType { get; set; }
     }
+    public class Get_Customer_Stock_Disc_Count
+    {
+        public long TotCount { get; set; }
+    }
     
     public class Get_SearchStock_Req
     {
+        public string SP_Name { get; set; }
         public int UserId { get; set; }
         public int PgNo { get; set; }
         public int PgSize { get; set; }
