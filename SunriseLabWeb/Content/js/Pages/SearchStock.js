@@ -1331,7 +1331,6 @@ var Filter_Cut = '';
 var Filter_Polish = '';
 var Filter_Symm = '';
 var Filter_Fls = '';
-var StockDisc_Exists = 'No';
 const datasource1 = {
     getRows(params) {
         Filter_Pointer = '';
@@ -1734,43 +1733,10 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
 
     obj.Type = Type;
 
-
-    StockDisc_Exists = 'No';
-    var obj_1 = {};
-    obj_1.UserId = obj.UserId
-    $.ajax({
-        url: '/User/Get_Customer_Stock_Disc_Count',
-        type: "POST",
-        data: { req: obj_1 },
-        success: function (data) {
-            if (data.Status == "1" && data.Data.length > 0) {
-                if (parseInt(data.Data[0].TotCount) > 0) {
-                    StockDisc_Exists = 'Yes';
-                }
-                else {
-                    StockDisc_Exists = 'No';
-                }
-            }
-        },
-        error: function (xhr, textStatus, errorThrown) {
-        }
-    });
-
     if ($("#txtDisc_1_1").val() != undefined && $("#txtDisc_1_1").val() != "") {
         obj.PricingMethod = $("#PricingMethod_1").val();
         obj.PricingSign = $("#PricingSign_1").val();
         obj.PricingDisc = $("#txtDisc_1_1").val();
-
-        obj.SP_Name = "Get_SearchStock";
-    }
-    else if (StockDisc_Exists == 'Yes') {
-        obj.SP_Name = "Get_SearchStock_in_Remove_Specific_Stock_Disc";
-    }
-    else if (StockDisc_Exists == 'No') {
-        obj.SP_Name = "Get_SearchStock_in_Remove_Stock_Disc";
-    }
-    else {
-        obj.SP_Name = "Get_SearchStock";
     }
 
     return obj;

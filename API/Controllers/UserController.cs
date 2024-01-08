@@ -4060,7 +4060,47 @@ namespace API.Controllers
                     para.Add(db.CreateParam("PricingDisc", DbType.Decimal, ParameterDirection.Input, DBNull.Value));
 
                 //DataTable Stock_dt = db.ExecuteSP("Get_SearchStock", para.ToArray(), false);
+
                 DataTable Stock_dt = null;
+
+                string StockDisc_Exists = "NO";
+
+                Database db1 = new Database();
+                List<IDbDataParameter> para1;
+                para1 = new List<IDbDataParameter>();
+
+                if (req.UserId > 0)
+                    para1.Add(db1.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+                else
+                    para1.Add(db1.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, DBNull.Value));
+
+                DataTable dt = db1.ExecuteSP("Get_Customer_Stock_Disc_Count", para1.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    if (Convert.ToInt32(dt.Rows[0]["TotCount"]) > 0)
+                    {
+                        StockDisc_Exists = "YES";
+                    }
+                }
+
+                if ((!string.IsNullOrEmpty(req.PricingMethod)) && req.PricingDisc > 0)
+                {
+                    req.SP_Name = "Get_SearchStock";
+                }
+                else if (StockDisc_Exists == "YES")
+                {
+                    req.SP_Name = "Get_SearchStock_in_Remove_Specific_Stock_Disc";
+                }
+                else if (StockDisc_Exists == "NO")
+                {
+                    req.SP_Name = "Get_SearchStock_in_Remove_Stock_Disc";
+                }
+                else
+                {
+                    req.SP_Name = "Get_SearchStock";
+                }
+
                 if (!string.IsNullOrEmpty(req.SP_Name))
                 {
                     Stock_dt = db.ExecuteSP(req.SP_Name, para.ToArray(), false);
