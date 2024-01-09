@@ -4100,10 +4100,29 @@ namespace API.Controllers
                 {
                     req.SP_Name = "Get_SearchStock";
                 }
+                string path = HttpContext.Current.Server.MapPath("~/Search_Stock_and_Excel_Time.txt");
+                if (!File.Exists(@"" + path + ""))
+                {
+                    File.Create(@"" + path + "").Dispose();
+                }
+                StringBuilder sb = new StringBuilder();
+
 
                 if (!string.IsNullOrEmpty(req.SP_Name))
                 {
+                    sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                    sb.Append("Search Stock Start, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                    sb.AppendLine("");
+                    File.AppendAllText(path, sb.ToString());
+                    sb.Clear();
+
                     Stock_dt = db.ExecuteSP(req.SP_Name, para.ToArray(), false);
+
+                    sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                    sb.Append("Search Stock End, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                    sb.AppendLine("");
+                    File.AppendAllText(path, sb.ToString());
+                    sb.Clear();
                 }
                 return Stock_dt;
             }
@@ -4250,7 +4269,26 @@ namespace API.Controllers
 
                         DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
 
+                        string path = HttpContext.Current.Server.MapPath("~/Search_Stock_and_Excel_Time.txt");
+                        if (!File.Exists(@"" + path + ""))
+                        {
+                            File.Create(@"" + path + "").Dispose();
+                        }
+                        StringBuilder sb = new StringBuilder();
+
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append("Buyer Excel Make Start, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
+
                         EpExcelExport.Buyer_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append("Buyer Excel Make End, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
                     }
                     else if (req.Type == "Supplier List")
                     {
@@ -4265,7 +4303,26 @@ namespace API.Controllers
 
                         DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
 
+                        string path = HttpContext.Current.Server.MapPath("~/Search_Stock_and_Excel_Time.txt");
+                        if (!File.Exists(@"" + path + ""))
+                        {
+                            File.Create(@"" + path + "").Dispose();
+                        }
+                        StringBuilder sb = new StringBuilder();
+
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append("Supplier Excel Make Start, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
+
                         EpExcelExport.Supplier_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append("Supplier Excel Make End, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
                     }
                     else if (req.Type == "Customer List")
                     {
@@ -4280,7 +4337,26 @@ namespace API.Controllers
 
                         DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
 
+                        string path = HttpContext.Current.Server.MapPath("~/Search_Stock_and_Excel_Time.txt");
+                        if (!File.Exists(@"" + path + ""))
+                        {
+                            File.Create(@"" + path + "").Dispose();
+                        }
+                        StringBuilder sb = new StringBuilder();
+
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append("Customer Excel Make Start, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
+
                         EpExcelExport.Customer_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append("Customer Excel Make End, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
                     }
 
                     string _strxml = _path + filename + ".xlsx";
