@@ -90,8 +90,14 @@ function cellStyle(field, params) {
         if (params.data.Cut == '3EX' && (field == 'Cut' || field == 'Polish' || field == 'Symm')) {
             return { 'font-size': '11px', 'font-weight': 'bold' };
         }
-        else if (field == "Disc" || field == "Value" || field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE" || field == "MAX_DISC" || field == "MAX_VALUE" ||
-            field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE" || field == "Bid_Disc" || field == "Bid_Amt" || field == "Avg_Stock_Disc" ||
+        else if (field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE") {
+            return { 'font-weight': '600', 'background-color': '#ccffff', 'text-align': 'center', 'font-size': '11px' };
+        }
+        else if (field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE") {
+            return { 'font-weight': '600', 'background-color': '#ff99cc', 'text-align': 'center', 'font-size': '11px' };
+        }
+        else if (field == "Disc" || field == "Value" || field == "MAX_DISC" || field == "MAX_VALUE" ||
+            field == "Bid_Disc" || field == "Bid_Amt" || field == "Avg_Stock_Disc" ||
             field == "Avg_Pur_Disc" || field == "Avg_Sales_Disc") {
             //return { 'color': 'red', 'font-weight': 'bold', 'font-size': '11px', 'text-align': 'center' };
             return { 'color': '#003d66', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
@@ -1033,10 +1039,10 @@ function CustomerList() {
                         columnDefs.push({ headerName: "Rap Amount($)", field: "Rap_Amount", filter: getValuesAsync1("Rap_Amount"), width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } });
                     }
                     else if (item.Column_Name == "Final Disc(%)") {
-                        columnDefs.push({ headerName: "Final Disc(%)", field: "CUSTOMER_COST_DISC", filter: getValuesAsync1("CUSTOMER_COST_DISC"), width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Disc", params); } });
+                        columnDefs.push({ headerName: "Final Disc(%)", field: "CUSTOMER_COST_DISC", filter: getValuesAsync1("CUSTOMER_COST_DISC"), width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_DISC", params); } });
                     }
                     else if (item.Column_Name == "Final Amt US($)") {
-                        columnDefs.push({ headerName: "Final Amt US($)", field: "CUSTOMER_COST_VALUE", filter: getValuesAsync1("CUSTOMER_COST_VALUE"), width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Value", params); } });
+                        columnDefs.push({ headerName: "Final Amt US($)", field: "CUSTOMER_COST_VALUE", filter: getValuesAsync1("CUSTOMER_COST_VALUE"), width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_VALUE", params); } });
                     }
                     else if (item.Column_Name == "Price / Cts") {
                         columnDefs.push({ headerName: "Price / Cts", field: "Base_Price_Cts", filter: getValuesAsync1("Base_Price_Cts"), width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Base_Price_Cts", params); } });
