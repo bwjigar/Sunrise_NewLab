@@ -38,7 +38,7 @@ namespace SunriseLabWeb_New.Filter
                         if (!(UserTypeId.Contains("1")))
                             filterContext.Result = new RedirectResult("~/Login/Index");
                     }
-                    else if ((cntlr == "User" && act == "LabAvailibility"))
+                    else if ((cntlr == "User" && act == "LabAvailibility") || (cntlr == "User" && act == "StockDiscMgt"))
                     {
                         if (!(UserTypeId.Contains("1") || UserTypeId.Contains("2")))
                             filterContext.Result = new RedirectResult("~/Login/Index");

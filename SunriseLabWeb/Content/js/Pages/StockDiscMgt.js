@@ -37,7 +37,7 @@ var columnDefs = [
     { headerName: "LastName", field: "LastName", hide: true },
     { headerName: "Customer Name", field: "FullName", tooltip: function (params) { return (params.value); }, width: 120 },
     { headerName: "Company Name", field: "CompName", tooltip: function (params) { return (params.value); }, width: 180 },
-    { headerName: "Fortune Party Code", field: "FortunePartyCode", tooltip: function (params) { return (params.data.FortunePartyCode > 0 ? params.data.FortunePartyCode : ""); }, cellRenderer: function (params) { return (params.data.FortunePartyCode > 0 ? params.data.FortunePartyCode : ""); }, width: 75 },
+    { headerName: "Fortune Party Code", field: "FortunePartyCode", tooltip: function (params) { return (params.data != undefined && params.data.FortunePartyCode > 0 ? params.data.FortunePartyCode : ""); }, cellRenderer: function (params) { return (params.data.FortunePartyCode > 0 ? params.data.FortunePartyCode : ""); }, width: 75 },
     { headerName: "Assist", field: "AssistByName", tooltip: function (params) { return (params.value); }, width: 120 },
     { headerName: "Sub Assist", field: "SubAssistByName", tooltip: function (params) { return (params.value); }, width: 120 },
     { headerName: "Mobile", field: "MobileNo", tooltip: function (params) { return (params.value); }, width: 120 },
@@ -159,6 +159,11 @@ const datasource1 = {
         else {
             obj.URL_Exists = false;
         }
+        
+        if (!($("#hdn_UserType").val().includes("1")) && ($("#hdn_UserType").val().includes("2"))) {
+            obj.Assist_UserId = $("#hdn_UserId").val();
+        }
+        
         Rowdata = [];
 
         $.ajax({
@@ -171,12 +176,15 @@ const datasource1 = {
                     MoveToErrorPage(0);
                 }
                 if (data.Data.length > 0) {
+                    $("#divGrid").show();
                     Rowdata = data.Data;
                     params.successCallback(data.Data, data.Data[0].iTotalRec);
                 }
                 else {
+                    $("#divGrid").hide();
                     Rowdata = [];
-                    //toastr.error(data.Message, { timeOut: 2500 });
+                    toastr.clear();
+                    toastr.error("No Data Found", { timeOut: 2500 });
                     params.successCallback([], 0);
                     gridOptions.api.showNoRowsOverlay();
                 }
@@ -2612,9 +2620,11 @@ function HTML_CREATE(
 
 
     html += "<td style='width: 50px'>";
-    html += '<input type="hidden" class="hdn_UniqueId" value="' + new_id + '" />';
-    html += '<i onclick="EditCriteria(\'' + new_id + '\');" style="cursor:pointer;" class="error EditCriteria"><img src="/Content/images/edit-icon.png" style="width: 23px;"/></i>';
-    html += '&nbsp;&nbsp;<i style="cursor:pointer;" class="error RemoveCriteria"><img src="/Content/images/trash-delete-icon.png" style="width: 20px;"/></i>';
+    if (!(!($("#hdn_UserType").val().includes("1")) && ($("#hdn_UserType").val().includes("2")))) {
+        html += '<input type="hidden" class="hdn_UniqueId" value="' + new_id + '" />';
+        html += '<i onclick="EditCriteria(\'' + new_id + '\');" style="cursor:pointer;" class="error EditCriteria"><img src="/Content/images/edit-icon.png" style="width: 23px;"/></i>';
+        html += '&nbsp;&nbsp;<i style="cursor:pointer;" class="error RemoveCriteria"><img src="/Content/images/trash-delete-icon.png" style="width: 20px;"/></i>';
+    }
     html += "</td>";
 
     html += "</tr>";

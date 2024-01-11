@@ -887,37 +887,37 @@
                         </div>
                     </div>
                     @*<div class="row m-0" style="margin-top: 6px !important;">
-            <div class="col-sm-3 col-xs-12 api-plr">
-                <strong>Price Method <span style="color:red;">*</span></strong>
-            </div>
-            <div class="col-sm-5 col-sm-5 col-xs-10 custom-box-list api-plr">
-                <select class="form-control select2" id="PricingMethod" name="PricingMethod" onchange="PricingMethodDDL();">
-                    <option value="">Select Method</option>
-                    <option value="Disc">Discount</option>
-                    <option value="Value">Value</option>
-                </select>
-            </div>
-            <div class="col-sm-3 col-sm-3 col-xs-10 custom-box-list api-plr">
-                <select class="form-control select2" id="PricingSign" name="PricingSign">
-                    <option value="=">=</option>
-                    <option value="+">+</option>
-                    <option value="-">-</option>
-                </select>
-            </div>
-        </div>
-        <div class="row m-0">
-            <div class="col-sm-3 col-xs-12 api-plr">
-                <strong>Percentage <span style="color:red;">*</span></strong>
-            </div>
-            <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
-                <div class="col-md-3 api-plr txtDisc"><input type="text" id="txtDisc1" name="txtDisc1" onkeypress="return DisValValid('Disc', event)" onkeyup="LenCheckr('Disc')" class="form-control" autocomplete="off"></div>
-                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue1" name="txtValue1" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue2" name="txtValue2" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue3" name="txtValue3" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue4" name="txtValue4" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr"></label>
-            </div>
-        </div>*@
+                            <div class="col-sm-3 col-xs-12 api-plr">
+                                <strong>Price Method <span style="color:red;">*</span></strong>
+                            </div>
+                            <div class="col-sm-5 col-sm-5 col-xs-10 custom-box-list api-plr">
+                                <select class="form-control select2" id="PricingMethod" name="PricingMethod" onchange="PricingMethodDDL();">
+                                    <option value="">Select Method</option>
+                                    <option value="Disc">Discount</option>
+                                    <option value="Value">Value</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 col-sm-3 col-xs-10 custom-box-list api-plr">
+                                <select class="form-control select2" id="PricingSign" name="PricingSign">
+                                    <option value="=">=</option>
+                                    <option value="+">+</option>
+                                    <option value="-">-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="col-sm-3 col-xs-12 api-plr">
+                                <strong>Percentage <span style="color:red;">*</span></strong>
+                            </div>
+                            <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
+                                <div class="col-md-3 api-plr txtDisc"><input type="text" id="txtDisc1" name="txtDisc1" onkeypress="return DisValValid('Disc', event)" onkeyup="LenCheckr('Disc')" class="form-control" autocomplete="off"></div>
+                                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue1" name="txtValue1" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue2" name="txtValue2" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue3" name="txtValue3" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue4" name="txtValue4" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                                <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr"></label>
+                            </div>
+                        </div>*@
                 </div>
             </div>
         </div>
@@ -1016,17 +1016,19 @@
                 </div>
             </div>
         </div>
-        <div>
-            <ul class="offer-inbtn pull-right mt-3" style="margin-bottom: 15px; margin-top: 25px !important;">
-                <li class="mr-2">
-                    <button onclick="AddNewRow();" type="button" id="btn_Add_in_Stock_Disc" name="btn_Add_in_Stock_Disc" class="offer-btn"><i class="fa fa-plus"></i>Add Row</button>
-                </li>
-                <li class="mr-2 UpdateCancelRow" style="display:none;">
-                    <button onclick="UpdateCancelRow();" type="button" id="btn_Cancel_in_Supplier" name="btn_Cancel_in_Supplier" class="offer-btn"><i class="fa fa-close"></i>Cancel</button>
-                </li>
-            </ul>
-        </div>
-
+        @if (!(!(SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1")) && (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))))
+        {
+            <div>
+                <ul class="offer-inbtn pull-right mt-3" style="margin-bottom: 15px; margin-top: 25px !important;">
+                    <li class="mr-2">
+                        <button onclick="AddNewRow();" type="button" id="btn_Add_in_Stock_Disc" name="btn_Add_in_Stock_Disc" class="offer-btn"><i class="fa fa-plus"></i>Add Row</button>
+                    </li>
+                    <li class="mr-2 UpdateCancelRow" style="display:none;">
+                        <button onclick="UpdateCancelRow();" type="button" id="btn_Cancel_in_Supplier" name="btn_Cancel_in_Supplier" class="offer-btn"><i class="fa fa-close"></i>Cancel</button>
+                    </li>
+                </ul>
+            </div>
+        }
         <div style="margin-top: 40px;">
             <div class="row">
                 <div class="order-title">
@@ -1054,31 +1056,31 @@
                             <th rowspan="3" style="vertical-align: middle;">Key to symbol</th>
                             <th rowspan="3" style="vertical-align: middle;">Goods Type</th>
                             @*<th rowspan="3" style="vertical-align: middle;">From Length</th>
-        <th rowspan="3" style="vertical-align: middle;">To Length</th>*@
+                                <th rowspan="3" style="vertical-align: middle;">To Length</th>*@
                             <th rowspan="3" style="vertical-align: middle;">Length</th>
                             @*<th rowspan="3" style="vertical-align: middle;">From Width</th>
-        <th rowspan="3" style="vertical-align: middle;">To Width</th>*@
+                                <th rowspan="3" style="vertical-align: middle;">To Width</th>*@
                             <th rowspan="3" style="vertical-align: middle;">Width</th>
                             @*<th rowspan="3" style="vertical-align: middle;">From Depth</th>
-        <th rowspan="3" style="vertical-align: middle;">To Depth</th>*@
+                                <th rowspan="3" style="vertical-align: middle;">To Depth</th>*@
                             <th rowspan="3" style="vertical-align: middle;">Depth</th>
                             @*<th rowspan="3" style="vertical-align: middle;">From Depth(%)</th>
-        <th rowspan="3" style="vertical-align: middle;">To Depth(%)</th>*@
+                                <th rowspan="3" style="vertical-align: middle;">To Depth(%)</th>*@
                             <th rowspan="3" style="vertical-align: middle;">Depth(%)</th>
                             @*<th rowspan="3" style="vertical-align: middle;">From Table(%)</th>
-        <th rowspan="3" style="vertical-align: middle;">To Table(%)</th>*@
+                                <th rowspan="3" style="vertical-align: middle;">To Table(%)</th>*@
                             <th rowspan="3" style="vertical-align: middle;">Table(%)</th>
                             @*<th rowspan="3" style="vertical-align: middle;">From Cr Ang</th>
-        <th rowspan="3" style="vertical-align: middle;">To Cr Ang</th>*@
+                                <th rowspan="3" style="vertical-align: middle;">To Cr Ang</th>*@
                             <th rowspan="3" style="vertical-align: middle;">Cr Ang</th>
                             @*<th rowspan="3" style="vertical-align: middle;">From Cr Ht</th>
-        <th rowspan="3" style="vertical-align: middle;">To Cr Ht</th>*@
+                                <th rowspan="3" style="vertical-align: middle;">To Cr Ht</th>*@
                             <th rowspan="3" style="vertical-align: middle;">Cr Ht</th>
                             @*<th rowspan="3" style="vertical-align: middle;">From Pav Ang</th>
-        <th rowspan="3" style="vertical-align: middle;">To Pav Ang</th>*@
+                                <th rowspan="3" style="vertical-align: middle;">To Pav Ang</th>*@
                             <th rowspan="3" style="vertical-align: middle;">Pav Ang</th>
                             @*<th rowspan="3" style="vertical-align: middle;">From Pav Ht</th>
-        <th rowspan="3" style="vertical-align: middle;">To Pav Ht</th>*@
+                                <th rowspan="3" style="vertical-align: middle;">To Pav Ht</th>*@
                             <th rowspan="3" style="vertical-align: middle;">Pav Ht</th>
 
                             <th rowspan="3" style="vertical-align: middle;">Table Black</th>
@@ -1200,17 +1202,19 @@
                 </div>
             </div>
         </div>
-
-        <div>
-            <ul class="offer-inbtn pull-right mt-3" style="margin-bottom: 15px; margin-top: 25px !important;">
-                @*<li class="mr-2 DeleteAll">
-                        <button onclick="DeleteAll();" type="button" class="offer-btn"><i class="fa fa-trash"></i>Delete All</button>
-                    </li>*@
-                <li class="mr-2">
-                    <button onclick="SaveData();" type="button" class="offer-btn"><i class="fa fa-save"></i>Save</button>
-                </li>
-            </ul>
-        </div>
+        @if (!(!(SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1")) && (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))))
+        {
+            <div>
+                <ul class="offer-inbtn pull-right mt-3" style="margin-bottom: 15px; margin-top: 25px !important;">
+                    @*<li class="mr-2 DeleteAll">
+                            <button onclick="DeleteAll();" type="button" class="offer-btn"><i class="fa fa-trash"></i>Delete All</button>
+                        </li>*@
+                    <li class="mr-2">
+                        <button onclick="SaveData();" type="button" class="offer-btn"><i class="fa fa-save"></i>Save</button>
+                    </li>
+                </ul>
+            </div>
+        }
     </div>
 </div>
 <div class="modal fade social-model" id="ErrorModel">
