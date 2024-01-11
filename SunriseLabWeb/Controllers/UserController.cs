@@ -617,6 +617,13 @@ namespace SunriseLabWeb_New.Controllers
             string data = (new JavaScriptSerializer()).Deserialize<string>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Get_Auto_Excel_Download(Get_SearchStock_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_Auto_Excel_Download, inputJson);
+            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult Email_SearchStock(Get_SearchStock_Req req)
         {

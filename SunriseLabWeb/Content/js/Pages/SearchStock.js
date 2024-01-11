@@ -1552,27 +1552,86 @@ function ExcelDownload(where, from) {
             obj.Symm = (Filter_Symm != "" ? Filter_Symm : obj.Symm);
             obj.Fls = (Filter_Fls != "" ? Filter_Fls : obj.Fls);
         }
+        debugger
+
+        var Stock_Disc_Count = 0;
+
+        var _obj = {};
+        _obj.UserId = obj.UserId
 
         $.ajax({
-            url: "/User/Excel_SearchStock",
-            async: false,
+            url: '/User/Get_Customer_Stock_Disc_Count',
             type: "POST",
-            data: { req: obj },
-            success: function (data, textStatus, jqXHR) {
-                loaderHide();
-                if (data.search('.xlsx') == -1) {
-                    if (data.indexOf('Something Went wrong') > -1) {
-                        MoveToErrorPage(0);
-                    }
-                    toastr.error(data);
-                } else {
-                    location.href = data;
+            async: false,
+            data: { req: _obj },
+            success: function (data) {
+                debugger
+                if (data.Status == "1" && data.Data.length > 0) {
+                    Stock_Disc_Count = parseFloat(data.Data[0].TotCount);
                 }
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                loaderHide();
+            error: function (xhr, textStatus, errorThrown) {
             }
         });
+
+        debugger
+        if (obj.BGM == "" && obj.Certi == "" && obj.CheckKTS == "" && obj.Clarity == "" && obj.Color == "" && obj.ColorType == "Regular" && obj.CrAngBlank == "" && obj.CrHtBlank == ""
+            && obj.CrownBlack == "" && obj.CrownOpen == "" && obj.CrownWhite == "" && obj.Cut == "" && obj.DepthBlank == "" && obj.DepthPerBlank == "" && obj.Download == true
+            && obj.FANCY_COLOR == "" && obj.Fls == "" && obj.FromCrAng == "" && obj.FromCrHt == "" && obj.FromDepth == "" && obj.FromDepthPer == "" && obj.FromDisc == ""
+            && obj.FromLength == "" && obj.FromPavAng == "" && obj.FromPavHt == "" && obj.FromTablePer == "" && obj.FromTotAmt == "" && obj.FromWidth == "" && obj.GirdleOpen == ""
+            && obj.INTENSITY == "" && obj.Img == "" && obj.KTSBlank == "" && obj.Keytosymbol == "-" && obj.Lab == "" && obj.LengthBlank == "" && obj.Location == "" && obj.OVERTONE == ""
+            && obj.OrderBy == "" && obj.PavAngBlank == "" && obj.PavHtBlank == "" && obj.PavOpen == "" && obj.PgNo == "" && obj.PgSize == "" && obj.Pointer == "" && obj.Polish == ""
+            && obj.RefNo == "" && obj.Shape == "" && obj.SupplierId == "" && obj.Symm == "" && obj.TableBlack == "" && obj.TableOpen == "" && obj.TablePerBlank == "" && obj.TableWhite == ""
+            && obj.ToCrAng == "" && obj.ToCrHt == "" && obj.ToDepth == "" && obj.ToDepthPer == "" && obj.ToDisc == "" && obj.ToLength == "" && obj.ToPavAng == "" && obj.ToPavHt == ""
+            && obj.ToTablePer == "" && obj.ToTotAmt == "" && obj.ToWidth == "" && obj.UNCheckKTS == "" && obj.Vdo == "" && obj.View == false && obj.WidthBlank == ""
+            && (obj.PricingDisc == undefined || obj.PricingDisc == "") && Stock_Disc_Count == 0) {
+            debugger
+            $.ajax({
+                url: "/User/Get_Auto_Excel_Download",
+                async: false,
+                type: "POST",
+                data: { req: obj },
+                success: function (data, textStatus, jqXHR) {
+                    debugger
+                    loaderHide();
+                    if (data.search('.xlsx') == -1) {
+                        if (data.indexOf('Something Went wrong') > -1) {
+                            MoveToErrorPage(0);
+                        }
+                        toastr.error(data);
+                    } else {
+                        location.href = data;
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    loaderHide();
+                }
+            });
+        }
+        else {
+            debugger
+            $.ajax({
+                url: "/User/Excel_SearchStock",
+                async: false,
+                type: "POST",
+                data: { req: obj },
+                success: function (data, textStatus, jqXHR) {
+                    debugger
+                    loaderHide();
+                    if (data.search('.xlsx') == -1) {
+                        if (data.indexOf('Something Went wrong') > -1) {
+                            MoveToErrorPage(0);
+                        }
+                        toastr.error(data);
+                    } else {
+                        location.href = data;
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    loaderHide();
+                }
+            });
+        }
     }, 50);
 }
 
@@ -1626,7 +1685,7 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
     var KeyToSymLst_Check = _.pluck(CheckKeyToSymbolList, 'Symbol').join(",");
     var KeyToSymLst_uncheck = _.pluck(UnCheckKeyToSymbolList, 'Symbol').join(",");
 
-  
+
     if ($('#ddlUserId').val() != undefined) {
         if ($('#ddlUserId').val() == "") {
             obj.UserId = $('#hdn_UserId').val();
@@ -2547,7 +2606,8 @@ function checkemail(valemail) {
         return false;
     }
 }
-function ClearSendMail() {debugger
+function ClearSendMail() {
+    debugger
     //$('#txtemail').val("");
     $('#txtNotes').val("");
     var count = 0;
@@ -2724,7 +2784,7 @@ function GetSearchParameter() {
                 //    ParameterList.push({ Id: 4, Value: "BLANK", ListType: "PAVILIONOPEN", UrlValue: "", UrlValueHov: "", ACTIVE: false })
                 //    ParameterList.push({ Id: 4, Value: "BLANK", ListType: "GIRDLEOPEN", UrlValue: "", UrlValueHov: "", ACTIVE: false })
                 //}
-                
+
                 $('#searchcaratgen').html("");
                 CaratList = _.filter(ParameterList, function (e) { return e.Type == 'Pointer' });
                 SubPointerList = _.filter(ParameterList, function (e) { return e.Type == 'Sub Pointer' });
@@ -2856,7 +2916,7 @@ function GetSearchParameter() {
                     $('#searchlocation').append('<li onclick="SetActive(\'LOCATION\',\'' + location.Value + '\')">' + location.Value + '</li>');
                 });
 
-                
+
 
                 KeyToSymbolList = _.filter(ParameterList, function (e) { return e.Type == 'Key to Symbol' });
 
@@ -3820,7 +3880,8 @@ function AddToCart() {
 }
 
 
-function SendMail() {debugger
+function SendMail() {
+    debugger
     var isValid = $('#frmSendMail').valid();
     if ($('#txtemail').val() == "") {
         return false;
@@ -3878,7 +3939,7 @@ function SendMail() {debugger
             obj.PgSize = "";
             obj.ToAddress = $('#txtemail').val();
             obj.Comments = $('#txtNotes').val();
-            obj.RefNo = stoneno; 
+            obj.RefNo = stoneno;
 
             $.ajax({
                 url: "/User/Email_SearchStock",

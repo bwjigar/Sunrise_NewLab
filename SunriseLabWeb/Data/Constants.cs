@@ -111,6 +111,7 @@ namespace SunriseLabWeb_New.Data
 
         public static string Get_SearchStock = "/User/Get_SearchStock";
         public static string Excel_SearchStock = "/User/Excel_SearchStock";
+        public static string Get_Auto_Excel_Download = "/User/Get_Auto_Excel_Download";
         public static string Email_SearchStock = "/User/Email_SearchStock";
         
 
