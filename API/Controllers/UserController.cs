@@ -11731,7 +11731,7 @@ namespace API.Controllers
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vSUPPLIER_NAME", OracleDbType.NVarchar2);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["SupplierName"]);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["SupplierShortName"]);
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vSUPP_FINAL_VALUE", OracleDbType.Double);
