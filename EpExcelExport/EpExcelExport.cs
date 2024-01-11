@@ -1839,7 +1839,7 @@ namespace EpExcelExportLib
             {
                 using (ExcelPackage p = new ExcelPackage())
                 {
-                    int Row_Count = Col_dt.Rows.Count;
+                    //int Row_Count = Col_dt.Rows.Count;
                     int inStartIndex = 3;
                     int inwrkrow = 3;
                     int inEndCounter = dtDiamonds.Rows.Count + inStartIndex;
@@ -3368,7 +3368,7 @@ namespace EpExcelExportLib
             {
                 using (ExcelPackage p = new ExcelPackage())
                 {
-                    int Row_Count = Col_dt.Rows.Count;
+                    //int Row_Count = Col_dt.Rows.Count;
                     int inStartIndex = 3;
                     int inwrkrow = 3;
                     int inEndCounter = dtDiamonds.Rows.Count + inStartIndex;
@@ -4508,7 +4508,7 @@ namespace EpExcelExportLib
             {
                 using (ExcelPackage p = new ExcelPackage())
                 {
-                    int Row_Count = Col_dt.Rows.Count;
+                    //int Row_Count = Col_dt.Rows.Count;
                     int inStartIndex = 3;
                     int inwrkrow = 3;
                     int inEndCounter = dtDiamonds.Rows.Count + inStartIndex;
@@ -4982,6 +4982,7 @@ namespace EpExcelExportLib
                 throw ex;
             }
         }
+
         private static void removingGreenTagWarning(ExcelWorksheet template1, string address)
         {
             var xdoc = template1.WorksheetXml;

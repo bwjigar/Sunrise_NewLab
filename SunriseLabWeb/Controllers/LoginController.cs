@@ -227,6 +227,19 @@ namespace SunriseLabWeb_New.Controllers
             API _api = new API();
             _api.CallAPIWithoutToken(Constants.AddUpdate_SupplierStock, string.Empty);
         }
+
+        public JsonResult Auto_Excel_Download()
+        {
+            Thread APIGet = new Thread(Auto_Excel_Download_Thread);
+            APIGet.Start();
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        public static void Auto_Excel_Download_Thread()
+        {
+            API _api = new API();
+            _api.CallAPIWithoutToken(Constants.Auto_Excel_Download, string.Empty);
+        }
+
         public JsonResult RapaPort_Data_Upload_Ora()
         {
             Thread APIGet = new Thread(RapaPort_Data_Upload_Ora_Thread);

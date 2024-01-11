@@ -86,7 +86,8 @@ namespace SunriseLabWeb_New.Data
 
 
 
-
+        
+        public static string Auto_Excel_Download = "/User/Auto_Excel_Download";
         public static string RapaPort_Data_Upload_Ora = "/User/RapaPort_Data_Upload_Ora";
         public static string get_stock_disc_Ora = "/User/get_stock_disc_Ora";
         public static string get_stock_kts_Ora = "/User/get_stock_kts_Ora";
