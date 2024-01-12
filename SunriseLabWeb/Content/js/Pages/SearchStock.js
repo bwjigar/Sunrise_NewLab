@@ -2798,24 +2798,22 @@ function GetSearchParameter() {
                     $('#searchcaratgen').append('<li onclick="SetActive(\'CARAT\',\'' + carat.Value + '\')">' + carat.Value + '</li>');
                 });
 
-                //$('#searchshape').html("");
-                //ShapeList = _.filter(ParameterList, function (e) { return e.Type == 'Shape' });
-                //_(ShapeList).each(function (shape, i) {
-                //    $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'Shape\',\'' + shape.Value + '\')" class="common-ico"><div class="icon-image one"><img src="' + shape.UrlValue + '" class="first-ico"><img src="' + shape.UrlValueHov + '" class="second-ico"></div><span>' + shape.Value + '</span></a></li>');
-                //});
+                
 
                 ParameterList.push({
-                    Id: 0, Value: "ALL", SORT_NO: 1, Type: "Shape", isActive: false, Col_Id: 1
+                    Id: 0, Value: "ALL", SORT_NO: 1, Type: "Shape", isActive: false, Col_Id: 1, Icon_Url:""
+                })
+                ParameterList.push({
+                    Id: 50, Value: "OTHERS", SORT_NO: 1, Type: "Shape", isActive: false, Col_Id: 1, Icon_Url: "https://sunrisediamonds.com.hk/Images/Shape/ROUND.svg__https://sunrisediamonds.com.hk/Images/Shape/ROUND_Trans.png"
                 })
 
                 $('#searchshape').html("");
                 $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'SHAPE\',\'' + 'ALL' + '\')" class="common-ico"><div class="icon-image one"><span class="first-ico">ALL</span></div></a></li>');
-                //$('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'Shape\',\'' + 'ALL' + '\')" class="common-ico"><div class="icon-image one"><span class="first-ico">ALL</span></div><span>ALL</span></a></li>');
-
-                ShapeList = _.filter(ParameterList, function (e) { return e.Type == 'Shape' });
+                ShapeList = _.filter(ParameterList, function (e) { return e.Type == 'Shape' && e.Icon_Url != null });
                 _(ShapeList).each(function (shape, i) {
                     if (shape.Value != 'ALL') {
-                        $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'SHAPE\',\'' + shape.Value + '\')" class="common-ico"><div class="icon-image one"><img src="https://sunrisediamonds.com.hk/Images/Shape/ROUND.svg" class="first-ico"><img src="https://sunrisediamonds.com.hk/Images/Shape/ROUND_Trans.png" class="second-ico"></div><span>' + shape.Value + '</span></a></li>');
+                        var iconurl = shape.Icon_Url.split("__");
+                        $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'SHAPE\',\'' + shape.Value + '\')" class="common-ico"><div class="icon-image one"><img src="' + iconurl[0] + '" class="first-ico"><img src="' + iconurl[1] +'" class="second-ico"></div><span>' + shape.Value + '</span></a></li>');
                     }
                 });
 

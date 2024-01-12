@@ -148,6 +148,7 @@ namespace Lib.Model
         public string Type { get; set; }
         public bool isActive { get; set; }
         public int Col_Id { get; set; }
+        public string Icon_Url { get; set; }
     }
 
     public class Get_Supplier_Value_Req
@@ -471,6 +472,7 @@ namespace Lib.Model
         public string ToFinalAmt { get; set; }
         public string CheckKTS { get; set; }
         public string UNCheckKTS { get; set; }
+        public bool KTS_IsBlank { get; set; }
         public string Culet { get; set; }
         public string BGM { get; set; }
         public string CrownBlack { get; set; }

@@ -31,12 +31,12 @@ var columnDefs = [
     { headerName: "UserTypeId", field: "UserTypeId", hide: true },
     { headerName: "User Type", field: "UserType", sortable: false, tooltip: function (params) { return (params.value); }, width: 190 },
     { headerName: "Active", field: "IsActive", cellRenderer: 'faIndicator', tooltip: function (params) { if (params.value == true) { return 'Yes'; } else { return 'No'; } }, cellClass: ['muser-fa-font'], width: 55 },
-    { headerName: "User Name", field: "UserName", tooltip: function (params) { return (params.value); }, width: 95 },
+    { headerName: "User Name", field: "UserName", tooltip: function (params) { return (params.value); }, width: 120 },
     { headerName: "Password", field: "Password", hide: true },
     { headerName: "FirstName", field: "FirstName", hide: true },
     { headerName: "LastName", field: "LastName", hide: true },
     { headerName: "Customer Name", field: "FullName", tooltip: function (params) { return (params.value); }, width: 120 },
-    { headerName: "Company Name", field: "CompName", tooltip: function (params) { return (params.value); }, width: 180 },
+    { headerName: "Company Name", field: "CompName", tooltip: function (params) { return (params.value); }, width: 200 },
     { headerName: "Fortune Party Code", field: "FortunePartyCode", tooltip: function (params) { return (params.data != undefined && params.data.FortunePartyCode > 0 ? params.data.FortunePartyCode : ""); }, cellRenderer: function (params) { return (params.data.FortunePartyCode > 0 ? params.data.FortunePartyCode : ""); }, width: 75 },
     { headerName: "Assist", field: "AssistByName", tooltip: function (params) { return (params.value); }, width: 120 },
     { headerName: "Sub Assist", field: "SubAssistByName", tooltip: function (params) { return (params.value); }, width: 120 },
@@ -279,6 +279,7 @@ function Back() {
     $(".order-title").removeClass("col-xl-12");
     $("#divSearchFilter").show();
     //$(".import").show();
+    UpdateCancelRow();
 }
 function AddFilters() {
     if (_.filter(gridOptions.api.getSelectedRows()).length == 1) {
@@ -1546,6 +1547,7 @@ function Reset_API_Filter() {
     $("#PavHt_Blank").prop("checked", false);
 
     resetKeytoSymbol();
+    $("#Key_to_symbol_Blank").prop("checked", false);
     ResetSelectedAttr('.divCheckedBGMValue', BGMList);
     ResetSelectedAttr('.divCheckedCrnBlackValue', CrownBlackList);
     ResetSelectedAttr('.divCheckedTblBlackValue', CrownWhiteList);
@@ -2406,7 +2408,8 @@ function HTML_CREATE(
     FromCrHt, ToCrHt, CrHt_IsBlank,
     FromPavAng, ToPavAng, PavAng_IsBlank,
     FromPavHt, ToPavHt, PavHt_IsBlank,
-    Keytosymbol, dCheckKTS, dUNCheckKTS, BGM,
+    Keytosymbol, dCheckKTS, dUNCheckKTS, Keytosymbol_IsBlank,
+    BGM,
     CrownBlack, TableBlack, CrownWhite, TableWhite,
     TableOpen, GirdleOpen, CrownOpen, PavillionOpen,
     GoodsType, View, Download, Image, Video,
@@ -2433,9 +2436,13 @@ function HTML_CREATE(
     html += "<td><span class='Fi-Criteria Fls' style='margin: -20px -20px -20px -20px;'>" + Fls + "</span></td>";
     html += "<td><span class='Fi-Criteria Lab' style='margin: -20px -20px -20px -20px;'>" + Lab + "</span></td>";
     html += "<td><span class='Fi-Criteria BGM' style='margin: -20px -20px -20px -20px;'>" + BGM + "</span></td>";
-    html += "<td><span class='Fi-Criteria Keytosymbol' style='margin: -20px -20px -20px -20px;'>" + Keytosymbol + "</span></td>";
+
+    html += "<td><span class='Fi-Criteria Keytosymbol' style='margin: -20px -20px -20px -20px;'>" + (Keytosymbol_IsBlank == 1 ? (Keytosymbol.toString() != "" ? "BLANK&nbsp;" : "BLANK") : "")  +" "+ Keytosymbol + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dCheckKTS'>" + dCheckKTS + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckKTS'>" + dUNCheckKTS + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria Keytosymbol_IsBlank'>" + Keytosymbol_IsBlank + "</span></td>";
+    
+
     html += "<td><span class='Fi-Criteria GoodsType' style='margin: -20px -20px -20px -20px;'>" + GoodsType + "</span></td>";
 
     //html += "<td><span class='Fi-Criteria FromLength'>" + FromLength + "</span></td>";
@@ -2815,9 +2822,15 @@ var AddNewRow = function () {
 
             var KeyToSymLst_Check1 = _.pluck(CheckKeyToSymbolList, 'Symbol').join(",");
             var KeyToSymLst_uncheck1 = _.pluck(UnCheckKeyToSymbolList, 'Symbol').join(",");
-            var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : "-") + KeyToSymLst_uncheck1;
             var dCheckKTS = KeyToSymLst_Check1;
             var dUNCheckKTS = KeyToSymLst_uncheck1;
+
+            KeyToSymLst_Check1 = (KeyToSymLst_Check1 != "" ? '<span style="color: green;">' + KeyToSymLst_Check1 + '</span>' : '');
+            KeyToSymLst_uncheck1 = (KeyToSymLst_uncheck1 != "" ? '<span style="color: red;">' + KeyToSymLst_uncheck1 + '</span>' : '');
+
+            var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : " - ") + KeyToSymLst_uncheck1;
+            var Keytosymbol_IsBlank = (document.getElementById("Key_to_symbol_Blank").checked == true ? true : "");
+
             var BGM = _.pluck(_.filter(BGMList, function (e) { return e.isActive == true }), 'Value').join(",");
             var CrownBlack = _.pluck(_.filter(CrownBlackList, function (e) { return e.isActive == true }), 'Value').join(",");
             var TableBlack = _.pluck(_.filter(TableBlackList, function (e) { return e.isActive == true }), 'Value').join(",");
@@ -2867,7 +2880,8 @@ var AddNewRow = function () {
                 FromPavAng, ToPavAng, PavAng_IsBlank,
                 FromPavHt, ToPavHt, PavHt_IsBlank,
 
-                Keytosymbol, dCheckKTS, dUNCheckKTS, BGM,
+                Keytosymbol, dCheckKTS, dUNCheckKTS, Keytosymbol_IsBlank,
+                BGM,
                 CrownBlack, TableBlack, CrownWhite, TableWhite,
                 TableOpen, GirdleOpen, CrownOpen, PavillionOpen,
                 GoodsType, View, Download, Image, Video,
@@ -3042,13 +3056,20 @@ function UpdateRow() {
 
                 var KeyToSymLst_Check1 = _.pluck(CheckKeyToSymbolList, 'Symbol').join(",");
                 var KeyToSymLst_uncheck1 = _.pluck(UnCheckKeyToSymbolList, 'Symbol').join(",");
-                var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : "-") + KeyToSymLst_uncheck1;
                 var dCheckKTS = KeyToSymLst_Check1;
                 var dUNCheckKTS = KeyToSymLst_uncheck1;
+
+                KeyToSymLst_Check1 = (KeyToSymLst_Check1 != "" ? '<span style="color: green;">' + KeyToSymLst_Check1 +'</span>' : '');
+                KeyToSymLst_uncheck1 = (KeyToSymLst_uncheck1 != "" ? '<span style="color: red;">' + KeyToSymLst_uncheck1 +'</span>' : '');
+
+                var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : " - ") + KeyToSymLst_uncheck1;
+                var Keytosymbol_IsBlank = (document.getElementById("Key_to_symbol_Blank").checked == true ? true : "");
+                Keytosymbol = (Keytosymbol_IsBlank == 1 ? (Keytosymbol.toString() != "" ? "BLANK&nbsp;" : "BLANK") : "") + " " + Keytosymbol;
 
                 $(this).find('.Keytosymbol').html(Keytosymbol);
                 $(this).find('.dCheckKTS').html(dCheckKTS);
                 $(this).find('.dUNCheckKTS').html(dUNCheckKTS);
+                $(this).find('.Keytosymbol_IsBlank').html(Keytosymbol_IsBlank);
 
                 var BGM = _.pluck(_.filter(BGMList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.BGM').html(BGM);
@@ -3423,6 +3444,7 @@ function EditCriteria(new_id) {
 
                 var dCheckKTS = htmlDecode($(this).find('.dCheckKTS').html());
                 var dUNCheckKTS = htmlDecode($(this).find('.dUNCheckKTS').html());
+                $("#Key_to_symbol_Blank").prop("checked", ($(this).find('.Keytosymbol_IsBlank').html() == "true" ? true : false));
 
                 if (dCheckKTS != "") {
                     for (var i in dCheckKTS.split(',')) {
@@ -3843,6 +3865,8 @@ function SaveData() {
 
                 CheckKTS: htmlDecode($(this).find('.dCheckKTS').html()),
                 UNCheckKTS: htmlDecode($(this).find('.dUNCheckKTS').html()),
+                KTS_IsBlank: $(this).find('.Keytosymbol_IsBlank').html(),
+
                 BGM: htmlDecode($(this).find('.BGM').html()),
                 CrownBlack: htmlDecode($(this).find('.CrownBlack').html()),
                 TableBlack: htmlDecode($(this).find('.TableBlack').html()),
@@ -4025,9 +4049,15 @@ function Get_Customer_Stock_Disc() {
 
                     var KeyToSymLst_Check1 = NullReplace(itm.CheckKTS);
                     var KeyToSymLst_uncheck1 = NullReplace(itm.UNCheckKTS);
-                    var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : "-") + KeyToSymLst_uncheck1;
                     var dCheckKTS = KeyToSymLst_Check1;
                     var dUNCheckKTS = KeyToSymLst_uncheck1;
+
+                    KeyToSymLst_Check1 = (KeyToSymLst_Check1 != "" ? '<span style="color: green;">' + KeyToSymLst_Check1 + '</span>' : '');
+                    KeyToSymLst_uncheck1 = (KeyToSymLst_uncheck1 != "" ? '<span style="color: red;">' + KeyToSymLst_uncheck1 + '</span>' : '');
+
+                    var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : " - ") + KeyToSymLst_uncheck1;
+                    var Keytosymbol_IsBlank = itm.KTS_IsBlank;
+
                     var BGM = NullReplace(itm.BGM);
                     var CrownBlack = NullReplace(itm.CrownBlack);
                     var TableBlack = NullReplace(itm.TableBlack);
@@ -4078,7 +4108,8 @@ function Get_Customer_Stock_Disc() {
                         FromCrHt, ToCrHt, CrHt_IsBlank,
                         FromPavAng, ToPavAng, PavAng_IsBlank,
                         FromPavHt, ToPavHt, PavHt_IsBlank,
-                        Keytosymbol, dCheckKTS, dUNCheckKTS, BGM,
+                        Keytosymbol, dCheckKTS, dUNCheckKTS, Keytosymbol_IsBlank,
+                        BGM,
                         CrownBlack, TableBlack, CrownWhite, TableWhite,
                         TableOpen, GirdleOpen, CrownOpen, PavillionOpen,
                         GoodsType, View, Download, Image, Video,

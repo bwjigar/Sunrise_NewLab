@@ -816,6 +816,8 @@ namespace API.Controllers
 
                 dt.Columns.Add("CheckKTS", typeof(string));
                 dt.Columns.Add("UNCheckKTS", typeof(string));
+                dt.Columns.Add("KTS_IsBlank", typeof(string));
+
                 dt.Columns.Add("BGM", typeof(string));
                 dt.Columns.Add("CrownBlack", typeof(string));
                 dt.Columns.Add("TableBlack", typeof(string));
@@ -915,6 +917,8 @@ namespace API.Controllers
 
                         dr["CheckKTS"] = req.SuppDisc[i].CheckKTS;
                         dr["UNCheckKTS"] = req.SuppDisc[i].UNCheckKTS;
+                        dr["KTS_IsBlank"] = req.SuppDisc[i].KTS_IsBlank;
+
                         dr["BGM"] = req.SuppDisc[i].BGM;
                         dr["CrownBlack"] = req.SuppDisc[i].CrownBlack;
                         dr["TableBlack"] = req.SuppDisc[i].TableBlack;
@@ -12401,7 +12405,7 @@ namespace API.Controllers
                             req.View = false;
                             req.Download = true;
                             req.Type = "Customer List";
-                            req.SP_Name = "Get_SearchStock_in_remove_specific_stock_disc";
+                            req.SP_Name = "Get_SearchStock_For_Customer_API";
 
                             DataTable dt_Result = SearchStock(req);
 
