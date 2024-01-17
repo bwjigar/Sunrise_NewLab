@@ -113,7 +113,8 @@ namespace SunriseLabWeb_New.Data
         public static string Excel_SearchStock = "/User/Excel_SearchStock";
         public static string Get_Auto_Excel_Download = "/User/Get_Auto_Excel_Download";
         public static string Email_SearchStock = "/User/Email_SearchStock";
-        
+        public static string Add_Save_Search = "/User/Add_Save_Search";
+
 
         public static string AddUpdate_Customer_Disc = "/User/AddUpdate_Customer_Disc";
         public static string Get_Customer_Disc = "/User/Get_Customer_Disc";

@@ -1659,7 +1659,7 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
         SizeLst = _.pluck(_.filter(CaratList, function (e) { return e.isActive == true }), 'Value').join(",");
         CaratType = 'General';
     }
-
+    
     var refno = $("#txtRefNo").val().replace(/ /g, ',');
     var Selected_Ref_No = (where == 'Filter' ? '' : _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'Ref_No').join(","));
     var supplier = "";
@@ -2581,6 +2581,10 @@ $(document).ready(function () {
     $('#EmailModal').on('show.bs.modal', function (event) {
         debugger
         ClearSendMail();
+    });
+    $('#SaveSearchModal').on('show.bs.modal', function (event) {
+        $("#txtSearchName").val("");
+        $("#frmSaveSearch").validate().resetForm();
     });
 });
 function validmail(e) {
@@ -3974,4 +3978,38 @@ function SendMail() {
             loaderHide();
         }
     }
+}
+function SaveSearch() {
+    var isValid = $('#frmSaveSearch').valid();
+    if ($('#txtSearchName').val() == "") {
+        return false;
+    }
+    loaderShow();
+    debugger
+    var obj = ObjectCreate('1', '200', '', 'Filter');
+    obj.SearchName = $('#txtSearchName').val();
+    obj.UserId = $('#hdn_UserId').val();
+    
+    $.ajax({
+        url: "/User/Add_Save_Search",
+        type: "POST",
+        async: false,
+        data: { req: obj },
+        success: function (data, textStatus, jqXHR) {
+            loaderHide();
+            debugger
+            if (data.Status == "0") {
+                if (data.Message.indexOf('Something Went wrong') > -1) {
+                    MoveToErrorPage(0);
+                }
+                toastr.error(data.Message);
+            } else {
+                toastr.success(data.Message);
+                $('#SaveSearchModal').modal('hide');
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            loaderHide();
+        }
+    });
 }

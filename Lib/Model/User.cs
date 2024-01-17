@@ -645,7 +645,8 @@ namespace Lib.Model
         public decimal PricingDisc { get; set; }
         public string ToAddress { get; set; }
         public string Comments { get; set; }
-        
+        public string SearchName { get; set; }
+
     }
     public class SearchSummary
     {

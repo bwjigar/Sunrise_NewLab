@@ -632,6 +632,13 @@ namespace SunriseLabWeb_New.Controllers
             CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Add_Save_Search(Get_SearchStock_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Add_Save_Search, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult CustomerPriceList()
         {

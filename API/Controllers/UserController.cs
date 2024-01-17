@@ -4673,6 +4673,382 @@ namespace API.Controllers
                 });
             }
         }
+        [NonAction]
+        private DataTable Add_Save_Search(Get_SearchStock_Req req)
+        {
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, req.UserId));
+                para.Add(db.CreateParam("SearchName", DbType.String, ParameterDirection.Input, req.SearchName));
+
+                if (!string.IsNullOrEmpty(req.SupplierId))
+                    para.Add(db.CreateParam("SupplierId", DbType.String, ParameterDirection.Input, req.SupplierId));
+                else
+                    para.Add(db.CreateParam("SupplierId", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Shape))
+                    para.Add(db.CreateParam("Shape", DbType.String, ParameterDirection.Input, req.Shape));
+                else
+                    para.Add(db.CreateParam("Shape", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Pointer))
+                    para.Add(db.CreateParam("Pointer", DbType.String, ParameterDirection.Input, req.Pointer));
+                else
+                    para.Add(db.CreateParam("Pointer", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ColorType))
+                    para.Add(db.CreateParam("ColorType", DbType.String, ParameterDirection.Input, req.ColorType));
+                else
+                    para.Add(db.CreateParam("ColorType", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Color))
+                    para.Add(db.CreateParam("Color", DbType.String, ParameterDirection.Input, req.Color));
+                else
+                    para.Add(db.CreateParam("Color", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.INTENSITY))
+                    para.Add(db.CreateParam("INTENSITY", DbType.String, ParameterDirection.Input, req.INTENSITY));
+                else
+                    para.Add(db.CreateParam("INTENSITY", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.OVERTONE))
+                    para.Add(db.CreateParam("OVERTONE", DbType.String, ParameterDirection.Input, req.OVERTONE));
+                else
+                    para.Add(db.CreateParam("OVERTONE", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FANCY_COLOR))
+                    para.Add(db.CreateParam("FANCY_COLOR", DbType.String, ParameterDirection.Input, req.FANCY_COLOR));
+                else
+                    para.Add(db.CreateParam("FANCY_COLOR", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Clarity))
+                    para.Add(db.CreateParam("Clarity", DbType.String, ParameterDirection.Input, req.Clarity));
+                else
+                    para.Add(db.CreateParam("Clarity", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Cut))
+                    para.Add(db.CreateParam("Cut", DbType.String, ParameterDirection.Input, req.Cut));
+                else
+                    para.Add(db.CreateParam("Cut", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Polish))
+                    para.Add(db.CreateParam("Polish", DbType.String, ParameterDirection.Input, req.Polish));
+                else
+                    para.Add(db.CreateParam("Polish", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Symm))
+                    para.Add(db.CreateParam("Symm", DbType.String, ParameterDirection.Input, req.Symm));
+                else
+                    para.Add(db.CreateParam("Symm", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Fls))
+                    para.Add(db.CreateParam("Fls", DbType.String, ParameterDirection.Input, req.Fls));
+                else
+                    para.Add(db.CreateParam("Fls", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.BGM))
+                    para.Add(db.CreateParam("BGM", DbType.String, ParameterDirection.Input, req.BGM));
+                else
+                    para.Add(db.CreateParam("BGM", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Lab))
+                    para.Add(db.CreateParam("Lab", DbType.String, ParameterDirection.Input, req.Lab));
+                else
+                    para.Add(db.CreateParam("Lab", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.CrownBlack))
+                    para.Add(db.CreateParam("CrownBlack", DbType.String, ParameterDirection.Input, req.CrownBlack));
+                else
+                    para.Add(db.CreateParam("CrownBlack", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.TableBlack))
+                    para.Add(db.CreateParam("TableBlack", DbType.String, ParameterDirection.Input, req.TableBlack));
+                else
+                    para.Add(db.CreateParam("TableBlack", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.TableWhite))
+                    para.Add(db.CreateParam("TableWhite", DbType.String, ParameterDirection.Input, req.TableWhite));
+                else
+                    para.Add(db.CreateParam("TableWhite", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.CrownWhite))
+                    para.Add(db.CreateParam("CrownWhite", DbType.String, ParameterDirection.Input, req.CrownWhite));
+                else
+                    para.Add(db.CreateParam("CrownWhite", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.TableOpen))
+                    para.Add(db.CreateParam("TableOpen", DbType.String, ParameterDirection.Input, req.TableOpen));
+                else
+                    para.Add(db.CreateParam("TableOpen", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.CrownOpen))
+                    para.Add(db.CreateParam("CrownOpen", DbType.String, ParameterDirection.Input, req.CrownOpen));
+                else
+                    para.Add(db.CreateParam("CrownOpen", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.PavOpen))
+                    para.Add(db.CreateParam("PavOpen", DbType.String, ParameterDirection.Input, req.PavOpen));
+                else
+                    para.Add(db.CreateParam("PavOpen", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.GirdleOpen))
+                    para.Add(db.CreateParam("GirdleOpen", DbType.String, ParameterDirection.Input, req.GirdleOpen));
+                else
+                    para.Add(db.CreateParam("GirdleOpen", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.CheckKTS))
+                    para.Add(db.CreateParam("CheckKTS", DbType.String, ParameterDirection.Input, req.CheckKTS));
+                else
+                    para.Add(db.CreateParam("CheckKTS", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.UNCheckKTS))
+                    para.Add(db.CreateParam("UNCheckKTS", DbType.String, ParameterDirection.Input, req.UNCheckKTS));
+                else
+                    para.Add(db.CreateParam("UNCheckKTS", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.KTSBlank))
+                    para.Add(db.CreateParam("KTS_IsBlank", DbType.Boolean, ParameterDirection.Input, req.KTSBlank));
+                else
+                    para.Add(db.CreateParam("KTS_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromDisc))
+                    para.Add(db.CreateParam("FromFinalDisc", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromDisc)));
+                else
+                    para.Add(db.CreateParam("FromFinalDisc", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToDisc))
+                    para.Add(db.CreateParam("ToFinalDisc", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToDisc)));
+                else
+                    para.Add(db.CreateParam("ToFinalDisc", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromTotAmt))
+                    para.Add(db.CreateParam("FromFinalVal", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromTotAmt)));
+                else
+                    para.Add(db.CreateParam("FromFinalVal", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToTotAmt))
+                    para.Add(db.CreateParam("ToFinalVal", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToTotAmt)));
+                else
+                    para.Add(db.CreateParam("ToFinalVal", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromLength))
+                    para.Add(db.CreateParam("FromLength", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromLength)));
+                else
+                    para.Add(db.CreateParam("FromLength", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToLength))
+                    para.Add(db.CreateParam("ToLength", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToLength)));
+                else
+                    para.Add(db.CreateParam("ToLength", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.LengthBlank))
+                    para.Add(db.CreateParam("Length_IsBlank", DbType.Boolean, ParameterDirection.Input, req.LengthBlank));
+                else
+                    para.Add(db.CreateParam("Length_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromWidth))
+                    para.Add(db.CreateParam("FromWidth", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromWidth)));
+                else
+                    para.Add(db.CreateParam("FromWidth", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToWidth))
+                    para.Add(db.CreateParam("ToWidth", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToWidth)));
+                else
+                    para.Add(db.CreateParam("ToWidth", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.WidthBlank))
+                    para.Add(db.CreateParam("Width_IsBlank", DbType.Boolean, ParameterDirection.Input, req.WidthBlank));
+                else
+                    para.Add(db.CreateParam("Width_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromDepth))
+                    para.Add(db.CreateParam("FromDepth", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromDepth)));
+                else
+                    para.Add(db.CreateParam("FromDepth", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToDepth))
+                    para.Add(db.CreateParam("ToDepth", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToDepth)));
+                else
+                    para.Add(db.CreateParam("ToDepth", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.DepthBlank))
+                    para.Add(db.CreateParam("Depth_IsBlank", DbType.Boolean, ParameterDirection.Input, req.DepthBlank));
+                else
+                    para.Add(db.CreateParam("Depth_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromDepthPer))
+                    para.Add(db.CreateParam("FromDepthinPer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromDepthPer)));
+                else
+                    para.Add(db.CreateParam("FromDepthinPer", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToDepthPer))
+                    para.Add(db.CreateParam("ToDepthinPer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToDepthPer)));
+                else
+                    para.Add(db.CreateParam("ToDepthinPer", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.DepthPerBlank))
+                    para.Add(db.CreateParam("DepthPer_IsBlank", DbType.Boolean, ParameterDirection.Input, req.DepthPerBlank));
+                else
+                    para.Add(db.CreateParam("DepthPer_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromTablePer))
+                    para.Add(db.CreateParam("FromTableinPer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromTablePer)));
+                else
+                    para.Add(db.CreateParam("FromTableinPer", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToTablePer))
+                    para.Add(db.CreateParam("ToTableinPer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToTablePer)));
+                else
+                    para.Add(db.CreateParam("ToTableinPer", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.TablePerBlank))
+                    para.Add(db.CreateParam("TablePer_IsBlank", DbType.Boolean, ParameterDirection.Input, req.TablePerBlank));
+                else
+                    para.Add(db.CreateParam("TablePer_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Img))
+                    para.Add(db.CreateParam("Image", DbType.String, ParameterDirection.Input, req.Img));
+                else
+                    para.Add(db.CreateParam("Image", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Vdo))
+                    para.Add(db.CreateParam("Video", DbType.String, ParameterDirection.Input, req.Vdo));
+                else
+                    para.Add(db.CreateParam("Video", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Certi))
+                    para.Add(db.CreateParam("Certi", DbType.String, ParameterDirection.Input, req.Certi));
+                else
+                    para.Add(db.CreateParam("Certi", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromCrAng))
+                    para.Add(db.CreateParam("FromCrAng", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromCrAng)));
+                else
+                    para.Add(db.CreateParam("FromCrAng", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToCrAng))
+                    para.Add(db.CreateParam("ToCrAng", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToCrAng)));
+                else
+                    para.Add(db.CreateParam("ToCrAng", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.CrAngBlank))
+                    para.Add(db.CreateParam("CrAng_IsBlank", DbType.Boolean, ParameterDirection.Input, req.CrAngBlank));
+                else
+                    para.Add(db.CreateParam("CrAng_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromCrHt))
+                    para.Add(db.CreateParam("FromCrHt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromCrHt)));
+                else
+                    para.Add(db.CreateParam("FromCrHt", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToCrHt))
+                    para.Add(db.CreateParam("ToCrHt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToCrHt)));
+                else
+                    para.Add(db.CreateParam("ToCrHt", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.CrHtBlank))
+                    para.Add(db.CreateParam("CrHt_IsBlank", DbType.Boolean, ParameterDirection.Input, req.CrHtBlank));
+                else
+                    para.Add(db.CreateParam("CrHt_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromPavAng))
+                    para.Add(db.CreateParam("FromPavAng", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromPavAng)));
+                else
+                    para.Add(db.CreateParam("FromPavAng", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToPavAng))
+                    para.Add(db.CreateParam("ToPavAng", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToPavAng)));
+                else
+                    para.Add(db.CreateParam("ToPavAng", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.PavAngBlank))
+                    para.Add(db.CreateParam("PavAng_IsBlank", DbType.Boolean, ParameterDirection.Input, req.PavAngBlank));
+                else
+                    para.Add(db.CreateParam("PavAng_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromPavHt))
+                    para.Add(db.CreateParam("FromPavHt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromPavHt)));
+                else
+                    para.Add(db.CreateParam("FromPavHt", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToPavHt))
+                    para.Add(db.CreateParam("ToPavHt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToPavHt)));
+                else
+                    para.Add(db.CreateParam("ToPavHt", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.PavHtBlank))
+                    para.Add(db.CreateParam("PavHt_IsBlank", DbType.Boolean, ParameterDirection.Input, req.PavHtBlank));
+                else
+                    para.Add(db.CreateParam("PavHt_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Location))
+                    para.Add(db.CreateParam("Location", DbType.String, ParameterDirection.Input, req.Location));
+                else
+                    para.Add(db.CreateParam("Location", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                DataTable dt = db.ExecuteSP("Add_Save_Search", para.ToArray(), false);
+
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, null);
+                return null;
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Add_Save_Search([FromBody] JObject data)
+        {
+            Get_SearchStock_Req req = new Get_SearchStock_Req();
+
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_SearchStock_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+
+            CommonResponse resp = new CommonResponse();
+
+            try
+            {
+                DataTable dt = Add_Save_Search(req);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    resp.Status = Convert.ToString(dt.Rows[0]["Status"]);
+                    resp.Message = Convert.ToString(dt.Rows[0]["Message"]);
+                }
+                else
+                {
+                    resp.Status = "0";
+                    resp.Message = "Save Search Fail";
+                }
+
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = "",
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
 
         [HttpPost]
         public IHttpActionResult get_UserType()
@@ -7031,6 +7407,55 @@ namespace API.Controllers
 
                                 try
                                 {
+                                    json = json.Replace("[", "").Replace("]", "");
+                                    json = json.Replace("null", "");
+
+                                    if (!string.IsNullOrEmpty(json))
+                                    {
+                                        dt_APIRes = jDt.JsonStringToDataTable(json);
+                                    }
+                                    else
+                                    {
+                                        return ("Data not Found", string.Empty, null);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    return ("Data Response Format Changed", ex.Message, null);
+                                }
+                            }
+                            else if (SupplierURL.ToUpper() == "HTTPS://PCK.SNJDIAM.COM/SHARESTOCK/API")
+                            {
+                                try
+                                {
+                                    WebClient client = new WebClient();
+                                    client.Headers["User-Agent"] = @"Mozilla/4.0 (Compatible; Windows NT 5.1;MSIE 6.0) (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)";
+                                    ServicePointManager.Expect100Continue = false;
+                                    ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+                                    json = client.DownloadString("https://pck.snjdiam.com/ShareStock/Api?loginname=sun&password=snj123");
+                                    client.Dispose();
+                                }
+                                catch (Exception ex)
+                                {
+                                    return ("API Not Working", ex.Message, null);
+                                }
+                                
+                                try
+                                {
+                                    JObject o = JObject.Parse(json);
+                                    var t = string.Empty;
+                                    if (o != null)
+                                    {
+                                        var test = o.First;
+                                        if (test != null)
+                                        {
+                                            var test2 = test.Next.First.ToString();
+                                            t = test2;
+                                        }
+                                    }
+                                    var json_1 = JsonConvert.DeserializeObject<List<dynamic>>(t);
+                                    json = JsonConvert.SerializeObject(json_1);
                                     json = json.Replace("[", "").Replace("]", "");
                                     json = json.Replace("null", "");
 
