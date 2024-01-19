@@ -12046,7 +12046,7 @@ namespace API.Controllers
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vSOURCE_PARTY", OracleDbType.NVarchar2);
-                                                    param1.Value = Convert.ToString(U_dt.Rows[0]["FullName"]);
+                                                    param1.Value = Convert.ToString(U_dt.Rows[0]["CompName"]);
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vcerti_no", OracleDbType.NVarchar2);
