@@ -414,6 +414,7 @@
     <Content Include="Content\Login\js\popper.min.js" />
     <Content Include="Content\Login\js\select2.min.js" />
     <Content Include="Content\Login\js\wow.min.js" />
+    <Content Include="Content\NewLogin\1221.jpeg" />
     <Content Include="Content\NewLogin\6.png" />
     <Content Include="Content\NewLogin\login.css" />
     <Content Include="Content\OldProject\dtc-new-wht.png" />
@@ -578,7 +579,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\Old_Login.cshtml" />
     <Content Include="Views\Login\Logout.cshtml" />
     <Content Include="Views\DashBoard\Index.cshtml" />
     <Content Include="Views\User\Manage.cshtml" />
@@ -603,6 +604,7 @@
     <Content Include="Views\User\LabEntry.cshtml" />
     <Content Include="Views\User\MyCart.cshtml" />
     <Content Include="Views\User\LabAvailibility.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
