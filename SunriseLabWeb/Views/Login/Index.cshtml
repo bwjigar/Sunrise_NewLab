@@ -2,256 +2,325 @@
 @{
     Layout = null;
 }
+
 @*<!DOCTYPE html>
     <html lang="en">
-
     <head>
-        <link rel="stylesheet" href="~/Content/Login/css/bootstrap.min.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Login</title>
+        <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="~/Content/NewLogin/login - Copy.css">
         <link href="~/Content/Plugins/toastr/toastr.css" rel="stylesheet" />
+        <style>
+            .form-control:focus {
+                color: #495057;
+                background-color: #fff;
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem #00000059;
+            }
+        </style>
     </head>
-
     <body>
-        <div class="col-md-12 container row">
-            @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { id = "login-form" }))
-            {
-                @Html.AntiForgeryToken();
-                @Html.ValidationSummary(true);
-                <div class="form-group">
-                    @Html.TextBoxFor(a => a.Username, new { @class = "form-control form-control-lg", placeholder = "Username" })
-                    @Html.ValidationMessageFor(m => m.Username)
-                </div>
-                <div class="form-group">
-                    @Html.PasswordFor(a => a.Password, new { @value = Model.Password, @class = "form-control form-control-lg", placeholder = "Password" })
-                    @Html.ValidationMessageFor(m => m.Password)
-                </div>
-                <div class="mt-3">
-                    <button type="submit" id="btnLogin" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" data-wow-delay="1s">SIGN IN</button>
-                </div>
-                <div class="my-2 d-flex justify-content-between align-items-center">
-                    <div class="form-check">
-                        <label class="form-check-label text-muted">
-                            @Html.CheckBoxFor(x => x.isRemember, new { @class = "form-check-input" })
-                            Keep me signed in
-                        </label>
+        <main>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-4 login-section-wrapper">
+                        <div class="login-wrapper my-auto">
+
+                            @using (Html.BeginForm("New_Login", "Login", FormMethod.Post, new { id = "login-form" }))
+                            {
+                                <h1 class="login-title">Log in</h1>
+
+                                @Html.AntiForgeryToken();
+                                @Html.ValidationSummary(true);
+                                <div class="form-group">
+                                    <label for="email">Username</label>
+                                    @Html.TextBoxFor(a => a.Username, new { @class = "form-control", placeholder = "Enter Your Username" })
+                                    @Html.ValidationMessageFor(m => m.Username)
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="password">Password</label>
+                                    @Html.PasswordFor(a => a.Password, new { @value = Model.Password, @class = "form-control", placeholder = "Enter Your Password" })
+                                    @Html.ValidationMessageFor(m => m.Password)
+                                </div>
+                                <input name="login" id="login" class="btn btn-block login-btn" type="submit" value="Login">
+
+
+
+                                <div class="custom-control custom-checkbox">
+                                    <label class="form-check-input" for="isRemember">
+                                        @Html.CheckBoxFor(x => x.isRemember)
+                                        <b>Remember Me</b>
+                                        <span class="checkbox-mark"></span>
+                                    </label>
+                                    <a href="javascript:a_ForgotPassword();" id="forgot-form-link" class="float-right">Forgot Password ?</a>
+                                </div>
+                            }
+
+
+                            @using (Html.BeginForm("ForgotPassword", "Login", FormMethod.Post, new { id = "forgot-form", style = "display: none;" }))
+                            {
+                                <h1 class="login-title">Forgot Password</h1>
+
+                                <span>Fill your username below and we will send you an email with further instructions</span>
+                                <br /><br />
+                                <div class="form-group">
+                                    <label for="email">Username</label>
+                                    <input type="text" name="ForgotUsername" id="txtForgotUsername" class="form-control" placeholder="Enter Your Username" required autocomplete="off">
+                                </div>
+                                <input name="Recover" id="login" class="btn btn-block login-btn" type="submit" value="Recover">
+
+                                <div class="custom-control custom-checkbox">
+                                    <div class="text-right forgot-pass">
+                                        <a href="javascript:void(0);" id="login-form-link" class="float-right">Back To Login</a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-sm-8 px-0 d-none d-sm-block">
+                        <img src="~/Content/NewLogin/1221.jpeg" alt="login image" class="login-img">
                     </div>
                 </div>
-            }
-        </div>
+            </div>
+        </main>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
         <script src="~/Content/Login/js/jquery.min.js"></script>
-        <script src="~/Content/Login/js/bootstrap.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
         <script src="~/Content/Plugins/toastr/toastr.js"></script>
-
-
         <script type="text/javascript">
-            $(document).ready(function () {
-                var str = '';
-                if ('@TempData["Message"]' != '') {
-                    str = replaceSpecialHtml('@TempData["Message"]');
-                    $.alert({
-                        title: '',
-                        content:str,
-                    });
-                }
-                else if (location.href.indexOf("Msg=") > -1) {
-                    str = location.href.substring(location.href.indexOf("Msg=") + 4);
-                    str = str.replace(/%20/g, ' ');
-
-                    $.alert({
-                        title: '',
-                        content: str,
-                    });
-                }
-            });
-            function replaceSpecialHtml(str) {
-                str = str.replace(/&lt;/g, '<');
-                str = str.replace(/&quot;/g, '"');
-                str = str.replace(/&amp;/g, '&');
-                str = str.replace(/&gt;/g, '>')
-                return str;
-            }
-            function hardik() {
-                debugger
-                var obj = {};
-                obj.UserName = "abcuser";
-                obj.Password = "qwerty";
-
-                $.ajax({
-                    url: "/User/React_API",
-                    async: false,
-                    type: "POST",
-                    data: { req: obj },
-                    success: function (data, textStatus, jqXHR) {
-                        debugger
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        debugger
+                $(document).ready(function () {
+                    var str = '';
+                    if ('@TempData["Message"]' != '') {
+                        str = replaceSpecialHtml('@TempData["Message"]');
+                        $.alert({
+                            title: '',
+                            content:str,
+                        });
                     }
+                    else if (location.href.indexOf("Msg=") > -1) {
+                        str = location.href.substring(location.href.indexOf("Msg=") + 4);
+                        str = str.replace(/%20/g, ' ');
+
+                        $.alert({
+                            title: '',
+                            content: str,
+                        });
+                    }
+
+                    $('#login-form-link').click(function (e) {
+                        $("#login-form").delay(100).fadeIn(100);
+                        $("#forgot-form").fadeOut(100);
+                        e.preventDefault();
+                    });
+                    $('#forgot-form-link').click(function (e) {
+                        $("#forgot-form").delay(100).fadeIn(100);
+                        $("#login-form").fadeOut(100);
+                        e.preventDefault();
+                    });
                 });
+                function replaceSpecialHtml(str) {
+                    str = str.replace(/&lt;/g, '<');
+                    str = str.replace(/&quot;/g, '"');
+                    str = str.replace(/&amp;/g, '&');
+                    str = str.replace(/&gt;/g, '>')
+                    return str;
+                }
+                function hardik() {
+                    debugger
+                    var obj = {};
+                    obj.UserName = "abcuser";
+                    obj.Password = "qwerty";
+
+                    $.ajax({
+                        url: "/User/React_API",
+                        async: false,
+                        type: "POST",
+                        data: { req: obj },
+                        success: function (data, textStatus, jqXHR) {
+                            debugger
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            debugger
+                        }
+                    });
             }
         </script>
     </body>
-
     </html>*@
 
 
-
-
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.js"></script>
+
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/Content/NewLogin/login.css">
-    @*<link rel="stylesheet" href="~/Content/Login/css/bootstrap.min.css">*@
     <link href="~/Content/Plugins/toastr/toastr.css" rel="stylesheet" />
     <style>
         .form-control:focus {
             color: #495057;
             background-color: #fff;
-            /*border-color: #80bdff;*/
             outline: 0;
             box-shadow: 0 0 0 0.2rem #00000059;
         }
+        .bg {
+            background-image: url('../../content/newlogin/1221.jpeg');
+            background-repeat: no-repeat;
+            background-size: 100% 88.1%;
+            height: 106% !important;
+            max-height: 106% !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        body {
+            overflow: hidden;
+        }
     </style>
 </head>
-<body>
-    <main>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-4 login-section-wrapper">
-                    <div class="login-wrapper my-auto">
+<body class="bg">
+    <div>
+        <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+            <center>
+                <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                    <div class="card bg-glass">
+                        <div class="card-body px-4 py-5 px-md-5">
 
-                        @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { id = "login-form" }))
-                        {
-                            <h1 class="login-title">Log in</h1>
+                            @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { id = "login-form" }))
+                            {
+                                <h3 class="mb-4 text-center">Sign In</h3>
 
-                            @Html.AntiForgeryToken();
-                            @Html.ValidationSummary(true);
-                            <div class="form-group">
-                                <label for="email">Username</label>
-                                @Html.TextBoxFor(a => a.Username, new { @class = "form-control", placeholder = "Enter Your Username" })
-                                @Html.ValidationMessageFor(m => m.Username)
-                            </div>
-                            <div class="form-group mb-4">
-                                <label for="password">Password</label>
-                                @Html.PasswordFor(a => a.Password, new { @value = Model.Password, @class = "form-control", placeholder = "Enter Your Password" })
-                                @Html.ValidationMessageFor(m => m.Password)
-                            </div>
-                            <input name="login" id="login" class="btn btn-block login-btn" type="submit" value="Login">
+                                @Html.AntiForgeryToken();
+                                @Html.ValidationSummary(true);
 
-
-
-                            <div class="custom-control custom-checkbox">
-                                <label class="form-check-input" for="isRemember">
-                                    @Html.CheckBoxFor(x => x.isRemember)
-                                    <b>Remember Me</b>
-                                    <span class="checkbox-mark"></span>
-                                </label>
-                                <a href="javascript:a_ForgotPassword();" id="forgot-form-link" class="float-right">Forgot Password ?</a>
-                            </div>
-                        }
-
-
-                        @using (Html.BeginForm("ForgotPassword", "Login", FormMethod.Post, new { id = "forgot-form", style = "display: none;" }))
-                        {
-                            <h1 class="login-title">Forgot Password</h1>
-
-                            <span>Fill your username below and we will send you an email with further instructions</span>
-                            <br /><br />
-                            <div class="form-group">
-                                <label for="email">Username</label>
-                                <input type="text" name="ForgotUsername" id="txtForgotUsername" class="form-control" placeholder="Enter Your Username" required autocomplete="off">
-                            </div>
-                            <input name="Recover" id="login" class="btn btn-block login-btn" type="submit" value="Recover">
-
-                            <div class="custom-control custom-checkbox">
-                                <div class="text-right forgot-pass">
-                                    <a href="javascript:void(0);" id="login-form-link" class="float-right">Back To Login</a>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(a => a.Username, new { @class = "border form-control", placeholder = "Enter Username" })
+                                    @Html.ValidationMessageFor(m => m.Username)
                                 </div>
-                            </div>
-                        }
+                                <div class="form-group">
+                                    @Html.PasswordFor(a => a.Password, new { @value = Model.Password, @class = "border form-control", placeholder = "Enter Password" })
+                                    @Html.ValidationMessageFor(m => m.Password)
+                                </div>
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md">
+                                            @Html.CheckBoxFor(x => x.isRemember, new { @class = "form-check-input" })
+                                            <label class="form-check-label" for="isRemember">
+                                                Remember Me
+                                            </label>
+                                        </div>
+                                        <div class="col-md text-end">
+                                            <a href="javascript:a_ForgotPassword();" id="forgot-form-link" class="float-right">Forgot Password ?</a>
+                                        </div>
+                                    </div>
+                                </div><br>
+
+                                <button type="submit" id="login" class="btn btn-primary btn-block mb-4">
+                                    Login
+                                </button>
+
+                            }
+
+
+                            @using (Html.BeginForm("ForgotPassword", "Login", FormMethod.Post, new { id = "forgot-form", style = "display: none;" }))
+                            {
+                                <h3 class="mb-4 text-center">Forgot Password</h3>
+
+                                <span>Fill your username below and we will send you an email with further instructions</span>
+                                <br /><br />
+
+
+                                <div class="form-group">
+                                    <input type="text" name="ForgotUsername" id="txtForgotUsername" class="border form-control" placeholder="Enter Username" required autocomplete="off">
+                                </div>
+                                <input name="Recover" id="login" class="btn btn-primary btn-block mb-4" type="submit" value="Recover">
+
+                                <div class="custom-control custom-checkbox">
+                                    <div class="text-right forgot-pass">
+                                        <a href="javascript:void(0);" id="login-form-link" class="float-right">Back To Login</a>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-8 px-0 d-none d-sm-block">
-                    <img src="~/Content/NewLogin/6.png" alt="login image" class="login-img">
-                </div>
-            </div>
+            </center>
         </div>
-    </main>
-    @*<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>*@
-
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-    <script src="~/Content/Login/js/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    @*<script src="~/Content/Login/js/bootstrap.min.js"></script>*@
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-    <script src="~/Content/Plugins/toastr/toastr.js"></script>
-    <script type="text/javascript">
-            $(document).ready(function () {
-                var str = '';
-                if ('@TempData["Message"]' != '') {
-                    str = replaceSpecialHtml('@TempData["Message"]');
-                    $.alert({
-                        title: '',
-                        content:str,
-                    });
-                }
-                else if (location.href.indexOf("Msg=") > -1) {
-                    str = location.href.substring(location.href.indexOf("Msg=") + 4);
-                    str = str.replace(/%20/g, ' ');
-
-                    $.alert({
-                        title: '',
-                        content: str,
-                    });
-                }
-
-                $('#login-form-link').click(function (e) {
-                    $("#login-form").delay(100).fadeIn(100);
-                    $("#forgot-form").fadeOut(100);
-                    e.preventDefault();
-                });
-                $('#forgot-form-link').click(function (e) {
-                    $("#forgot-form").delay(100).fadeIn(100);
-                    $("#login-form").fadeOut(100);
-                    e.preventDefault();
-                });
-            });
-            function replaceSpecialHtml(str) {
-                str = str.replace(/&lt;/g, '<');
-                str = str.replace(/&quot;/g, '"');
-                str = str.replace(/&amp;/g, '&');
-                str = str.replace(/&gt;/g, '>')
-                return str;
-            }
-            function hardik() {
-                debugger
-                var obj = {};
-                obj.UserName = "abcuser";
-                obj.Password = "qwerty";
-
-                $.ajax({
-                    url: "/User/React_API",
-                    async: false,
-                    type: "POST",
-                    data: { req: obj },
-                    success: function (data, textStatus, jqXHR) {
-                        debugger
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        debugger
-                    }
-                });
-        }
-    </script>
+    </div>
 </body>
-</html>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="~/Content/Login/js/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="~/Content/Plugins/toastr/toastr.js"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            var str = '';
+            if ('@TempData["Message"]' != '') {
+                str = replaceSpecialHtml('@TempData["Message"]');
+                $.alert({
+                    title: '',
+                    content:str,
+                });
+            }
+            else if (location.href.indexOf("Msg=") > -1) {
+                str = location.href.substring(location.href.indexOf("Msg=") + 4);
+                str = str.replace(/%20/g, ' ');
+
+                $.alert({
+                    title: '',
+                    content: str,
+                });
+            }
+
+            $('#login-form-link').click(function (e) {
+                $("#login-form").delay(100).fadeIn(100);
+                $("#forgot-form").fadeOut(100);
+                e.preventDefault();
+            });
+            $('#forgot-form-link').click(function (e) {
+                $("#forgot-form").delay(100).fadeIn(100);
+                $("#login-form").fadeOut(100);
+                e.preventDefault();
+            });
+        });
+        function replaceSpecialHtml(str) {
+            str = str.replace(/&lt;/g, '<');
+            str = str.replace(/&quot;/g, '"');
+            str = str.replace(/&amp;/g, '&');
+            str = str.replace(/&gt;/g, '>')
+            return str;
+        }
+        function hardik() {
+            debugger
+            var obj = {};
+            obj.UserName = "abcuser";
+            obj.Password = "qwerty";
+
+            $.ajax({
+                url: "/User/React_API",
+                async: false,
+                type: "POST",
+                data: { req: obj },
+                success: function (data, textStatus, jqXHR) {
+                    debugger
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    debugger
+                }
+            });
+    }
+</script>
