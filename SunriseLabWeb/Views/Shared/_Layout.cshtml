@@ -267,6 +267,9 @@
         #txtCompanyName_suggestion, #_txtCompanyName_suggestion, #___txtCompanyName_suggestion {
             font-size: 11.5px;
         }
+        .bg-color {
+            background-color: #dbd7d76e;
+        }
     </style>
 
 </head>
@@ -783,8 +786,12 @@ var loaderHide = function () {
             return [];
         }
         function getMainMenuItems(params) {
-            return []
-;
+            var result = [
+                'copy',
+                'copyWithHeaders',
+                'paste',
+            ];
+            return result;
         }
         function isFloat(value) {
             // Use a regular expression to check if the value is a valid float

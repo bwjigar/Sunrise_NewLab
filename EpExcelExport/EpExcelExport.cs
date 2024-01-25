@@ -6326,7 +6326,7 @@ namespace EpExcelExportLib
         {
             try
             {
-                if (UserTypeList == "1" || UserTypeList == "2" || UserTypeList == "4")
+                if (UserTypeList.Contains("1") || UserTypeList.Contains("2") || UserTypeList.Contains("4"))
                 {
                     using (ExcelPackage p = new ExcelPackage())
                     {
@@ -7117,7 +7117,7 @@ namespace EpExcelExportLib
         {
             try
             {
-                if (UserTypeList == "1" || UserTypeList == "2" || UserTypeList == "4")
+                if (UserTypeList.Contains("1") || UserTypeList.Contains("2") || UserTypeList.Contains("4"))
                 {
                     using (ExcelPackage p = new ExcelPackage())
                     {

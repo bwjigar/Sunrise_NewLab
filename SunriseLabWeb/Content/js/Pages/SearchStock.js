@@ -1659,7 +1659,7 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
         SizeLst = _.pluck(_.filter(CaratList, function (e) { return e.isActive == true }), 'Value').join(",");
         CaratType = 'General';
     }
-    
+
     var refno = $("#txtRefNo").val().replace(/ /g, ',');
     var Selected_Ref_No = (where == 'Filter' ? '' : _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'Ref_No').join(","));
     var supplier = "";
@@ -2583,9 +2583,9 @@ $(document).ready(function () {
         ClearSendMail();
     });
     $('#SaveSearchModal').on('show.bs.modal', function (event) {
-        $("#txtSearchName").val("");
         $("#frmSaveSearch").validate().resetForm();
     });
+    SetSavedSearchParameter();
 });
 function validmail(e) {
     debugger
@@ -2802,10 +2802,10 @@ function GetSearchParameter() {
                     $('#searchcaratgen').append('<li onclick="SetActive(\'CARAT\',\'' + carat.Value + '\')">' + carat.Value + '</li>');
                 });
 
-                
+
 
                 ParameterList.push({
-                    Id: 0, Value: "ALL", SORT_NO: 1, Type: "Shape", isActive: false, Col_Id: 1, Icon_Url:""
+                    Id: 0, Value: "ALL", SORT_NO: 1, Type: "Shape", isActive: false, Col_Id: 1, Icon_Url: ""
                 })
                 ParameterList.push({
                     Id: 50, Value: "OTHERS", SORT_NO: 1, Type: "Shape", isActive: false, Col_Id: 1, Icon_Url: "https://sunrisediamonds.com.hk/Images/Shape/ROUND.svg__https://sunrisediamonds.com.hk/Images/Shape/ROUND_Trans.png"
@@ -2817,7 +2817,7 @@ function GetSearchParameter() {
                 _(ShapeList).each(function (shape, i) {
                     if (shape.Value != 'ALL') {
                         var iconurl = shape.Icon_Url.split("__");
-                        $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'SHAPE\',\'' + shape.Value + '\')" class="common-ico"><div class="icon-image one"><img src="' + iconurl[0] + '" class="first-ico"><img src="' + iconurl[1] +'" class="second-ico"></div><span>' + shape.Value + '</span></a></li>');
+                        $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'SHAPE\',\'' + shape.Value + '\')" class="common-ico"><div class="icon-image one"><img src="' + iconurl[0] + '" class="first-ico"><img src="' + iconurl[1] + '" class="second-ico"></div><span>' + shape.Value + '</span></a></li>');
                     }
                 });
 
@@ -3989,9 +3989,10 @@ function SaveSearch() {
     var obj = ObjectCreate('1', '200', '', 'Filter');
     obj.SearchName = $('#txtSearchName').val();
     obj.UserId = $('#hdn_UserId').val();
-    
+    obj.SearchID = $('#hdnSavedSearchId').val();
+
     $.ajax({
-        url: "/User/Add_Save_Search",
+        url: "/User/AddUpdate_Save_Search",
         type: "POST",
         async: false,
         data: { req: obj },
@@ -4012,4 +4013,451 @@ function SaveSearch() {
             loaderHide();
         }
     });
+}
+
+function SetSavedSearchParameter() {
+    if ($('#hdnType').val() == 'SaveSearch') {
+        loaderShow();
+        $.ajax({
+            url: "/User/SavedSearchDataSessionGet",
+            async: false,
+            type: "POST",
+            data: null,
+            success: function (data, textStatus, jqXHR) {
+                $('#hdnSavedSearchId').val(data.SearchID);
+                $('#txtSearchName').val(data.SearchName);
+
+                if ($('#ddlSupplierId').val() != undefined) {
+                    if (data.SupplierId != null) {
+                        if (data.SupplierId != "") {
+                            var selectedOptions = data.SupplierId.split(",");
+                            for (var i in selectedOptions) {
+                                var optionVal = selectedOptions[i];
+                                $("#ddlSupplierId").find("option[value=" + optionVal + "]").prop("selected", "selected");
+                            }
+                            $("#ddlSupplierId").multiselect('refresh');
+                        }
+                    }
+                }
+                var shape = data.Shape;
+                if (shape != null) {
+                    shape = shape.split(',');
+                    $(shape).each(function (i, res) {
+                        if (_.find(ShapeList, function (num) { return num.Value == res; })) {
+                            _.findWhere(ShapeList, { Value: res }).isActive = true;
+                            $('#searchshape li a[onclick="SetActive(\'SHAPE\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                if (data.Pointer != null) {
+                    var pointer = data.Pointer.split(',');
+                    _.each(pointer, function (item) {
+                        _.each(_.filter(CaratList, function (e) { return e.value == item }), function (itm) {
+                            itm.isActive = true;
+                        });
+                    });
+                    var lst = _.filter(CaratList, function (e) { return e.isActive == true })
+                    if (lst.length == 0) {
+                        $(pointer).each(function (i, res) {
+                            var res1 = res.split('-')
+                            var NewID = SizeGroupList.length + 1;
+                            SizeGroupList.push({
+                                "NewID": NewID,
+                                "FromCarat": res1[0],
+                                "ToCarat": res1[1],
+                                "Size": res,
+                            });
+                            //<li class="carat-li-top">1.00-1.00<i class="fa fa-plus-circle" aria-hidden="true"></i></li>
+                            $('#searchcaratspecific').append('<li id="' + NewID + '" class="carat-li-top">' + res + '<i class="fa fa-times-circle" aria-hidden="true" onclick="NewSizeGroupRemove(' + NewID + ');"></i></li>');
+                        });
+                        $('a[href="#carat1"]').click();
+                    }
+                    else {
+
+                        $(pointer).each(function (i, res) {
+                            if (_.find(CaratList, function (num) { return num.Value == res; })) {
+                                $('#searchcaratgen li[onclick="SetActive(\'CARAT\',\'' + res + '\')"]').addClass('active');
+                            }
+                        });
+                        $('a[href="#carat2"]').click()
+                    }
+                }
+                if (data.ColorType == "Regular") {
+                    Color_Hide_Show('1');
+                    var color = data.Color;
+                    if (color != null) {
+                        color = color.split(',');
+                        $(color).each(function (i, res) {
+
+                            if (_.find(ColorList, function (num) { return num.Value == res; })) {
+                                _.findWhere(ColorList, { Value: res }).isActive = true;
+                                $('#searchcolor li[onclick="SetActive(\'COLOR\',\'' + res + '\')"]').addClass('active');
+                            }
+                        });
+                    }
+                }
+                else if (data.ColorType == "Fancy") {
+                    Color_Hide_Show('2');
+                    $(".carat-dropdown-main").hide();
+                    C1 = 0, C2 = 0, C3 = 0;
+                    if (data.INTENSITY != null) {
+                        var i = data.INTENSITY;
+                        var _INTENSITY = i.split(',');
+                        if (_INTENSITY.length == INTENSITY.length - 1) {
+                            $("#CHK_I_0").prop('checked', true);
+                            GetCheck_INTENSITY_List('ALL SELECTED', 0);
+                        }
+                        else {
+                            for (var _j = 0; _j <= _INTENSITY.length - 1; _j++) {
+                                for (var j = 0; j <= INTENSITY.length - 1; j++) {
+                                    if (_INTENSITY[_j] == INTENSITY[j]) {
+                                        $("#CHK_I_" + j).prop('checked', true);
+                                        GetCheck_INTENSITY_List(INTENSITY[j], j);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (data.OVERTONE != null) {
+                        var o = data.OVERTONE;
+                        var _OVERTONE = o.split(',');
+                        if (_OVERTONE.length == OVERTONE.length - 1) {
+                            $("#CHK_O_0").prop('checked', true);
+                            GetCheck_OVERTONE_List('ALL SELECTED', 0);
+                        }
+                        else {
+                            for (var _j = 0; _j <= _OVERTONE.length - 1; _j++) {
+                                for (var j = 0; j <= OVERTONE.length - 1; j++) {
+                                    if (_OVERTONE[_j] == OVERTONE[j]) {
+                                        $("#CHK_O_" + j).prop('checked', true);
+                                        GetCheck_OVERTONE_List(OVERTONE[j], j);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (data.FANCY_COLOR != null) {
+                        var fc = data.FANCY_COLOR;
+                        var _FANCY_COLOR = fc.split(',');
+                        if (_FANCY_COLOR.length == FANCY_COLOR.length - 1) {
+                            $("#CHK_F_0").prop('checked', true);
+                            GetCheck_FANCY_COLOR_List('ALL SELECTED', 0);
+                        }
+                        else {
+                            for (var _j = 0; _j <= _FANCY_COLOR.length - 1; _j++) {
+                                for (var j = 0; j <= FANCY_COLOR.length - 1; j++) {
+                                    if (_FANCY_COLOR[_j] == FANCY_COLOR[j]) {
+                                        $("#CHK_F_" + j).prop('checked', true);
+                                        GetCheck_FANCY_COLOR_List(FANCY_COLOR[j], j);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                var clarity = data.Clarity;
+                if (clarity != null) {
+                    clarity = clarity.split(',');
+                    $(clarity).each(function (i, res) {
+
+                        if (_.find(ClarityList, function (num) { return num.Value == res; })) {
+                            _.findWhere(ClarityList, { Value: res }).isActive = true;
+                            $('#searchclarity li[onclick="SetActive(\'CLARITY\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                var cut = data.Cut;
+                var polish = data.Polish;
+                var symm = data.Symm;
+
+                if (cut == "EX" && polish == "EX" && symm == "EX") {
+                    $('#li3ex').addClass('active');
+                }
+                else {
+                    $('#li3ex').removeClass('active');
+                }
+                if (cut == "EX,VG" && polish == "EX,VG" && symm == "EX,VG") {
+                    $('#li3vg').addClass('active');
+                }
+                else {
+                    $('#li3vg').removeClass('active');
+                }
+                if (cut != null) {
+                    cut = cut.split(',');
+                    $(cut).each(function (i, res) {
+
+                        if (_.find(CutList, function (num) { return num.Value == res; })) {
+                            _.findWhere(CutList, { Value: res }).isActive = true;
+                            $('#searchcut li[onclick="SetActive(\'CUT\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                if (polish != null) {
+                    polish = polish.split(',');
+                    $(polish).each(function (i, res) {
+
+                        if (_.find(PolishList, function (num) { return num.Value == res; })) {
+                            _.findWhere(PolishList, { Value: res }).isActive = true;
+                            $('#searchpolish li[onclick="SetActive(\'POLISH\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                if (symm != null) {
+                    symm = symm.split(',');
+                    $(symm).each(function (i, res) {
+
+                        if (_.find(SymList, function (num) { return num.Value == res; })) {
+                            _.findWhere(SymList, { Value: res }).isActive = true;
+                            $('#searchsymm li[onclick="SetActive(\'SYMM\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                var fls = data.Fls;
+                if (fls != null) {
+                    fls = fls.split(',');
+                    $(fls).each(function (i, res) {
+
+                        if (_.find(FlouList, function (num) { return num.Value == res; })) {
+                            _.findWhere(FlouList, { Value: res }).isActive = true;
+                            $('#searchfls li[onclick="SetActive(\'FLS\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                var bgm = data.BGM;
+                if (bgm != null) {
+                    bgm = bgm.split(',');
+                    $(bgm).each(function (i, res) {
+
+                        if (_.find(BGMList, function (num) { return num.Value == res; })) {
+                            _.findWhere(BGMList, { Value: res }).isActive = true;
+                            $('#searchbgm li[onclick="SetActive(\'BGM\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                var lab = data.Lab;
+                if (lab != null) {
+                    lab = lab.split(',');
+                    $(lab).each(function (i, res) {
+
+                        if (_.find(LabList, function (num) { return num.Value == res; })) {
+                            _.findWhere(LabList, { Value: res }).isActive = true;
+                            $('#searchlab li[onclick="SetActive(\'LAB\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                var crownnatts = data.CrownBlack;
+                if (crownnatts != null) {
+                    crownnatts = crownnatts.split(',');
+                    $(crownnatts).each(function (i, res) {
+
+                        if (_.find(CrwnNattsList, function (num) { return num.Value == res; })) {
+                            _.findWhere(CrwnNattsList, { Value: res }).isActive = true;
+                            $('#searchcrownnatts li[onclick="SetActive(\'CROWN_NATTS\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                var natts = data.TableBlack;
+                if (natts != null) {
+                    natts = natts.split(',');
+                    $(natts).each(function (i, res) {
+
+                        if (_.find(TblNattsList, function (num) { return num.Value == res; })) {
+                            _.findWhere(TblNattsList, { Value: res }).isActive = true;
+                            $('#searchtablenatts li[onclick="SetActive(\'TABLE_NATTS\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                var inclusion = data.TableWhite;
+                if (inclusion != null) {
+                    inclusion = inclusion.split(',');
+                    $(inclusion).each(function (i, res) {
+
+                        if (_.find(TblInclList, function (num) { return num.Value == res; })) {
+                            _.findWhere(TblInclList, { Value: res }).isActive = true;
+                            $('#searchtableincl li[onclick="SetActive(\'TABLE_INCL\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                var crowninclusion = data.CrownWhite;
+                if (crowninclusion != null) {
+                    crowninclusion = crowninclusion.split(',');
+                    $(crowninclusion).each(function (i, res) {
+
+                        if (_.find(CrwnInclList, function (num) { return num.Value == res; })) {
+                            _.findWhere(CrwnInclList, { Value: res }).isActive = true;
+                            $('#searchcrownincl li[onclick="SetActive(\'CROWN_INCL\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                var _tableopenlist = data.TableOpen;
+                if (_tableopenlist != null) {
+                    _tableopenlist = _tableopenlist.split(',');
+                    $(_tableopenlist).each(function (i, res) {
+                        if (_.find(TableOpenList, function (num) { return num.Value == res; })) {
+                            _.findWhere(TableOpenList, { Value: res }).isActive = true;
+                            $('#searchtableopen li[onclick="SetActive(\'TABLEOPEN\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+
+                var _crownopenlist = data.CrownOpen;
+                if (_crownopenlist != null) {
+                    _crownopenlist = _crownopenlist.split(',');
+                    $(_crownopenlist).each(function (i, res) {
+                        if (_.find(CrownOpenList, function (num) { return num.Value == res; })) {
+                            _.findWhere(CrownOpenList, { Value: res }).isActive = true;
+                            $('#searchcrownopen li[onclick="SetActive(\'CROWNOPEN\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+
+                var _pavopenlist = data.PavOpen;
+                if (_pavopenlist != null) {
+                    _pavopenlist = _pavopenlist.split(',');
+                    $(_pavopenlist).each(function (i, res) {
+                        if (_.find(PavOpenList, function (num) { return num.Value == res; })) {
+                            _.findWhere(PavOpenList, { Value: res }).isActive = true;
+                            $('#searchpavopen li[onclick="SetActive(\'PAVILIONOPEN\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+
+                var _girdleopenlist = data.GirdleOpen;
+                if (_girdleopenlist != null) {
+                    _girdleopenlist = _girdleopenlist.split(',');
+                    $(_girdleopenlist).each(function (i, res) {
+                        if (_.find(GirdleOpenList, function (num) { return num.Value == res; })) {
+                            _.findWhere(GirdleOpenList, { Value: res }).isActive = true;
+                            $('#searchgirdleopen li[onclick="SetActive(\'GIRDLEOPEN\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                if (data.CheckKTS != null) {
+                    var KeyToSymbol = data.CheckKTS;
+                    KeyToSymbol = KeyToSymbol.split(',');
+                    $(KeyToSymbol).each(function (i, res) {
+
+                        CheckKeyToSymbolList.push({
+                            "NewID": KeyToSymbolList.length + 1,
+                            "Symbol": res,
+                        });
+                        $('#searchkeytosymbol input[onclick="GetCheck_KTS_List(\'' + res + '\');"]').prop('checked', true);
+                    });
+                    $('#spanselected').html('' + CheckKeyToSymbolList.length + ' - Selected');
+                }
+                if (data.UNCheckKTS != null) {
+                    var KeyToSymbol = data.UNCheckKTS;
+                    KeyToSymbol = KeyToSymbol.split(',');
+                    $(KeyToSymbol).each(function (i, res) {
+
+                        UnCheckKeyToSymbolList.push({
+                            "NewID": KeyToSymbolList.length + 1,
+                            "Symbol": res,
+                        });
+                        $('#searchkeytosymbol input[onclick="GetUnCheck_KTS_List(\'' + res + '\');"]').prop('checked', true);
+                    });
+                    $('#spanunselected').html('' + UnCheckKeyToSymbolList.length + ' - Selected');
+                }
+                if (data.KTSBlank == "true") {
+                    SetActive("KTSBlank", "");
+                }
+                
+                $('#FromDiscount').val(data.FromDisc);
+                $('#ToDiscount').val(data.ToDisc);
+                $('#FromTotalAmt').val(data.FromTotAmt);
+                $('#ToTotalAmt').val(data.ToTotAmt);
+
+                if (data.LengthBlank == "true") {
+                    SetActive("LengthBlank", "");
+                }
+                $('#FromLength').val(data.FromLength);
+                $('#ToLength').val(data.ToLength);
+
+                if (data.WidthBlank == "true") {
+                    SetActive("WidthBlank", "");
+                }
+                $('#FromWidth').val(data.FromWidth);
+                $('#ToWidth').val(data.ToWidth);
+
+                if (data.DepthBlank == "true") {
+                    SetActive("DepthBlank", "");
+                }
+                $('#FromDepth').val(data.FromDepth);
+                $('#ToDepth').val(data.ToDepth);
+
+                if (data.DepthPerBlank == "true") {
+                    SetActive("DepthPerBlank", "");
+                }
+                $('#FromDepthPer').val(data.FromDepthPer);
+                $('#ToDepthPer').val(data.ToDepthPer);
+
+                if (data.TablePerBlank == "true") {
+                    SetActive("TablePerBlank", "");
+                }
+                $('#FromTablePer').val(data.FromTablePer);
+                $('#ToTablePer').val(data.ToTablePer);
+              
+                if (data.Img == "YES") {
+                    $('#SearchImage').addClass('active');
+                }
+                if (data.Vdo == "YES") {
+                    $('#SearchVideo').addClass('active');
+                }
+                if (data.Certi == "YES") {
+                    $('#SearchCerti').addClass('active');
+                }
+
+                if (data.CrAngBlank == "true") {
+                    SetActive("CrAngBlank", "");
+                }
+                $('#FromCrAng').val(data.FromCrAng);
+                $('#ToCrAng').val(data.ToCrAng);
+
+                if (data.CrHtBlank == "true") {
+                    SetActive("CrHtBlank", "");
+                }
+                $('#FromCrHt').val(data.FromCrHt);
+                $('#ToCrHt').val(data.ToCrHt);
+
+                if (data.PavAngBlank == "true") {
+                    SetActive("PavAngBlank", "");
+                }
+                $('#FromPavAng').val(data.FromPavAng);
+                $('#ToPavAng').val(data.ToPavAng);
+
+                if (data.PavHtBlank == "true") {
+                    SetActive("PavHtBlank", "");
+                }
+                $('#FromPavHt').val(data.FromPavHt);
+                $('#ToPavHt').val(data.ToPavHt);
+
+                var location = data.Location;
+                if (location != null) {
+                    location = location.split(',');
+                    $(location).each(function (i, res) {
+
+                        if (_.find(LocationList, function (num) { return num.Value == res; })) {
+                            _.findWhere(LocationList, { Value: res }).isActive = true;
+                            $('#searchlocation li[onclick="SetActive(\'LOCATION\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+
+                Type = data.Type;
+
+                setTimeout(function () {
+                    $("#sym-sec0 .carat-dropdown-main").hide();
+                    $("#sym-sec1 .carat-dropdown-main").hide();
+                    $("#sym-sec2 .carat-dropdown-main").hide();
+                    $("#sym-sec3 .carat-dropdown-main").hide();
+                }, 2);
+
+
+                CustomerList();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                loaderHide();
+            }
+        });
+    }
 }

@@ -28,6 +28,40 @@ namespace SunriseLabWeb_New.Controllers
     public class UserController : Controller
     {
         API _api = new API();
+        public JsonResult Get_DashboardCnt()
+        {
+            string response = _api.CallAPI(Constants.Get_DashboardCnt, string.Empty);
+            ServiceResponse<Get_DashboardCnt_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_DashboardCnt_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Get_MyCart_For_DashBoard()
+        {
+            string response = _api.CallAPI(Constants.Get_MyCart_For_DashBoard, string.Empty);
+            ServiceResponse<Get_MyCart_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_MyCart_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Get_OrderHistory_For_DashBoard()
+        {
+            string response = _api.CallAPI(Constants.Get_OrderHistory_For_DashBoard, string.Empty);
+            ServiceResponse<Get_OrderHistory_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_OrderHistory_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Get_Save_Search_For_DashBoard()
+        {
+            string response = _api.CallAPI(Constants.Get_Save_Search_For_DashBoard, string.Empty);
+            ServiceResponse<Get_SaveSearch_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SaveSearch_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SavedSearchDataSessionStore(Get_SearchStock_Req obj)
+        {
+            Session["SavedSearchDiamondStock"] = obj;
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SavedSearchDataSessionGet()
+        {
+            Get_SearchStock_Req obj = (Get_SearchStock_Req)Session["SavedSearchDiamondStock"];
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Manage()
         {
             return View();
@@ -599,8 +633,13 @@ namespace SunriseLabWeb_New.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult SearchStock()
+        public ActionResult SearchStock(string type = "")
         {
+            if (type == "")
+            {
+                Session["SavedSearchDiamondStock"] = null;
+            }
+            ViewBag.type = type;
             return View();
         }
         public JsonResult Get_SearchStock(Get_SearchStock_Req req)
@@ -632,10 +671,10 @@ namespace SunriseLabWeb_New.Controllers
             CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult Add_Save_Search(Get_SearchStock_Req req)
+        public JsonResult AddUpdate_Save_Search(Get_SearchStock_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
-            string response = _api.CallAPI(Constants.Add_Save_Search, inputJson);
+            string response = _api.CallAPI(Constants.AddUpdate_Save_Search, inputJson);
             CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -919,7 +958,7 @@ namespace SunriseLabWeb_New.Controllers
                                     {
                                         LabStatus = "";
                                     }
-                                    Res[i].QCRequire = QCRequire;
+                                    Res[i].QCRequire = (QCRequire != "" ? QCRequire : "REGULAR");
                                     Res[i].LabEntry_Status = CapitalizeFirstLetterAfterSpace(LabStatus);
                                     Res[i].SUPPLIER_COST_DISC = Supplier_Cost_Disc;
                                     Res[i].SUPPLIER_COST_VALUE = Supplier_Cost_Value;

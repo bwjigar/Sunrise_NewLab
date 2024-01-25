@@ -4,5 +4,299 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Dashboard</h2>
+@{
+    <input type="hidden" id="hdn_LogoutURL" value='@System.Configuration.ConfigurationManager.AppSettings["WebsiteLogoutURL"]' />
+    <input type="hidden" id="apiurl" value='@System.Configuration.ConfigurationManager.AppSettings["APIURL"]' />
 
+    <link href="~/Content/css/select2.min.css" rel="stylesheet" />
+    @*<link href="~/Content/css/mdb.min.css" rel="stylesheet">*@
+    @*<link href="~/Content/css/owl.carousel.css" rel="stylesheet">*@
+    @*<link href="~/Content/css/owl.theme.default.css" rel="stylesheet">*@
+    <style>
+        input.select2-search__field {
+            display: none;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            top: 1px;
+        }
+
+        .select2-container--open .select2-dropdown {
+            top: -8px;
+        }
+
+        .index-graph-select .select2-container,
+        .select-custom.year .select2-container {
+            width: 105px !important;
+        }
+
+        .index-graph-select span.selection, .select-custom.year span.selection {
+            width: 100%;
+        }
+
+        @@media (max-width: 767px) {
+            .modalPopupnew {
+                height: 250px;
+            }
+
+            .promoimg {
+                height: 89%;
+            }
+        }
+
+        @@media (min-width: 768px) {
+            .modalPopupnew {
+                height: 570px;
+            }
+
+            .promoimg {
+                height: 95%;
+            }
+        }
+
+        .collapsible {
+            background-color: #777;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+
+            .active, .collapsible:hover {
+                background-color: #555;
+            }
+
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: #f1f1f1;
+        }
+
+        @@media (max-width: 425px) {
+            .RS {
+                padding: 3px 3px 1px 27px !important;
+            }
+        }
+        /*.CB-hide{
+            display:none;
+        }
+         .CB-show{
+            display:block;
+        }*/
+        table {
+            display: block;
+            max-width: -moz-fit-content;
+            overflow-x: auto !important;
+            white-space: nowrap !important;
+        }
+
+        .dark {
+            color: #003d66;
+            font-weight: bold;
+        }
+
+        .triangle-topright {
+            width: 0;
+            height: 0;
+            border-top: 80px solid red;
+            border-left: 80px solid transparent;
+            margin-left: 491px;
+            margin-top: -12px;
+        }
+
+        .bx-cnt {
+            top: 55px;
+        }
+
+        .bx-icn {
+            top: 48px;
+        }
+
+        .bc-smry {
+            margin-top: 38px;
+            line-height: 1;
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+
+        .bc-smry-txt-s {
+            margin-right: 5px;
+            cursor: pointer;
+            font-size: 9px;
+            font-weight: 600;
+            color: #26af5b;
+            margin-left: -2px;
+            text-transform: uppercase;
+        }
+
+        .bc-smry-txt-e {
+            margin-right: 5px;
+            cursor: pointer;
+            font-size: 9px;
+            font-weight: 600;
+            color: #d40e0e;
+            margin-left: -2px;
+            text-transform: uppercase;
+        }
+
+        .bc-smry-txt-cnt {
+            font-size: 11.5px;
+            font-family: monospace;
+        }
+
+        .Fi-Criteria {
+            font-size: 13px;
+        }
+
+        .table td {
+            padding: 0.10rem;
+        }
+
+        .table th {
+            padding: 0.40rem;
+        }
+        .tooltip-inner {
+            max-width: 800px !important;
+            background-color: white;
+            color: #003d66;
+            border: 1.1px solid #003d66;
+            opacity: 1 !important;
+            text-align:left;
+        }
+       
+    </style>
+}
+<div class="container-fluid">
+    <div class="service-panel" style="margin-top: 30px; padding-left: 50px; padding-right: 50px;">
+        <div class="row">
+            <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('TotalStock')" style="padding-right: 75px;">
+                <div class="card top border-left-primary shadow h-100">
+                    <div class="card-body top one bg-cl-1" style="background: none;">
+                        <div class="row no-gutters align-items-center">
+                            <div class="">
+                                <div class="text-xs mb-1">Total Stock</div>
+                                <div id="cntTotalStock" class="cart-value h5 mb-0 font-weight-bold text-gray-800 bx-cnt"></div>
+                            </div>
+                            <div class="cart-icon bx-icn">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('Cart')" style="padding-right: 75px; padding-left: 75px;">
+                <div class="card top border-left-primary shadow h-100">
+                    <div class="card-body top one bg-cl-1" style="background: none;">
+                        <div class="row no-gutters align-items-center">
+                            <div class="">
+                                <div class="text-xs mb-1">Cart</div>
+                                <div id="cntCart" class="cart-value h5 mb-0 font-weight-bold text-gray-800 bx-cnt"></div>
+                            </div>
+                            <div class="cart-icon bx-icn">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('Order')" style="padding-left: 75px;">
+                <div class="card top border-left-primary shadow h-100">
+                    <div class="card-body top one bg-cl-1" style="background: none;">
+                        <div class="row no-gutters align-items-center">
+                            <div class="">
+                                <div class="text-xs mb-1">Order</div>
+                                <div id="cntOrder" class="cart-value h5 mb-0 font-weight-bold text-gray-800 bx-cnt"></div>
+                            </div>
+                            <div class="cart-icon bx-icn">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p><b style="color: #003d66;">Cart</b></p>
+        <div style="width: 100%; overflow-x: auto;" id="tblCart">
+            <table class="table table-bordered">
+                <thead style="background-color: #003d66; color: white; font-size: 13px;">
+                    <tr>
+                        <th style="width: 4%;"><center>Stock</center></th>
+                        <th style="width: 4%;"><center>Shape</center></th>
+                        <th style="width: 4%;"><center>Color</center></th>
+                        <th style="width: 4%;"><center>Clarity</center></th>
+                        <th style="width: 4%;"><center>Cts</center></th>
+                        <th style="width: 4%;"><center>Cut</center></th>
+                        <th style="width: 4%;"><center>Polish</center></th>
+                        <th style="width: 4%;"><center>Symm</center></th>
+                        <th style="width: 4%;"><center>Rap</center></th>
+                        <th style="width: 4%;"><center>Disc</center></th>
+                        <th style="width: 4%;"><center>Value</center></th>
+                    </tr>
+                </thead>
+                <tbody style="color: #003d66; background-color: white;" id="tblBodyCart">
+                    <tr>
+                        <td colspan="11"><center><span class='Fi-Criteria'>No Data Found</span></center></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p><b style="color: #003d66;">Save Search</b></p>
+        <div style="width: 100%; overflow-x: auto;" id="tblSaveSearch">
+            <table class="table table-bordered">
+                <thead style="background-color: #003d66; color: white; font-size: 13px;">
+                    <tr>
+                        <th style="width: 4%;"><center>Date</center></th>
+                        <th style="width: 4%;"><center>Name</center></th>
+                        <th style="width: 4%;"><center>Criteria</center></th>
+                    </tr>
+                </thead>
+                <tbody style="color: #003d66; background-color: white;" id="tblBodySaveSearch">
+                    <tr>
+                        <td colspan="3"><center><span class='Fi-Criteria'>No Data Found</span></center></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <p><b style="color: #003d66;">Order History</b></p>
+        <div style="width: 100%; overflow-x: auto;" id="tblOrder">
+            <table class="table table-bordered">
+                <thead style="background-color: #003d66; color: white; font-size: 13px;">
+                    <tr>
+                        <th style="width: 4%;"><center>Stock</center></th>
+                        <th style="width: 4%;"><center>Shape</center></th>
+                        <th style="width: 4%;"><center>Color</center></th>
+                        <th style="width: 4%;"><center>Clarity</center></th>
+                        <th style="width: 4%;"><center>Cts</center></th>
+                        <th style="width: 4%;"><center>Cut</center></th>
+                        <th style="width: 4%;"><center>Polish</center></th>
+                        <th style="width: 4%;"><center>Symm</center></th>
+                        <th style="width: 4%;"><center>Rap</center></th>
+                        <th style="width: 4%;"><center>Disc</center></th>
+                        <th style="width: 4%;"><center>Value</center></th>
+                    </tr>
+                </thead>
+                <tbody style="color: #003d66; background-color: white;" id="tblBodyOrder">
+                    <tr>
+                        <td colspan="11"><center><span class='Fi-Criteria'>No Data Found</span></center></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        
+
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/js/Pages/DashBoard.js"></script>
+}

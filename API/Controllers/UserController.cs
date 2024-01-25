@@ -123,6 +123,194 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        public IHttpActionResult Get_DashboardCnt([FromBody] JObject data)
+        {
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, userID));
+
+                DataTable dt = db.ExecuteSP("Get_DashboardCnt", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    List<Get_DashboardCnt_Res> List_Res = new List<Get_DashboardCnt_Res>();
+                    List_Res = DataTableExtension.ToList<Get_DashboardCnt_Res>(dt);
+
+                    return Ok(new ServiceResponse<Get_DashboardCnt_Res>
+                    {
+                        Data = List_Res,
+                        Message = "SUCCESS",
+                        Status = "1"
+                    });
+                }
+                else
+                {
+                    return Ok(new ServiceResponse<Get_DashboardCnt_Res>
+                    {
+                        Data = new List<Get_DashboardCnt_Res>(),
+                        Message = "No records found.",
+                        Status = "1"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_DashboardCnt_Res>
+                {
+                    Data = new List<Get_DashboardCnt_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Get_MyCart_For_DashBoard([FromBody] JObject data)
+        {
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, userID));
+
+                DataTable dt = db.ExecuteSP("Get_MyCart_For_DashBoard", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    List<Get_MyCart_Res> List_Res = new List<Get_MyCart_Res>();
+                    List_Res = DataTableExtension.ToList<Get_MyCart_Res>(dt);
+
+                    return Ok(new ServiceResponse<Get_MyCart_Res>
+                    {
+                        Data = List_Res,
+                        Message = "SUCCESS",
+                        Status = "1"
+                    });
+                }
+                else
+                {
+                    return Ok(new ServiceResponse<Get_MyCart_Res>
+                    {
+                        Data = new List<Get_MyCart_Res>(),
+                        Message = "No records found.",
+                        Status = "1"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_MyCart_Res>
+                {
+                    Data = new List<Get_MyCart_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Get_OrderHistory_For_DashBoard([FromBody] JObject data)
+        {
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, userID));
+
+                DataTable dt = db.ExecuteSP("Get_OrderHistory_For_DashBoard", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    List<Get_OrderHistory_Res> List_Res = new List<Get_OrderHistory_Res>();
+                    List_Res = DataTableExtension.ToList<Get_OrderHistory_Res>(dt);
+
+                    return Ok(new ServiceResponse<Get_OrderHistory_Res>
+                    {
+                        Data = List_Res,
+                        Message = "SUCCESS",
+                        Status = "1"
+                    });
+                }
+                else
+                {
+                    return Ok(new ServiceResponse<Get_OrderHistory_Res>
+                    {
+                        Data = new List<Get_OrderHistory_Res>(),
+                        Message = "No records found.",
+                        Status = "1"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_OrderHistory_Res>
+                {
+                    Data = new List<Get_OrderHistory_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Get_Save_Search_For_DashBoard([FromBody] JObject data)
+        {
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, userID));
+
+                DataTable dt = db.ExecuteSP("Get_Save_Search_For_DashBoard", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    List<Get_SaveSearch_Res> List_Res = new List<Get_SaveSearch_Res>();
+                    List_Res = DataTableExtension.ToList<Get_SaveSearch_Res>(dt);
+
+                    return Ok(new ServiceResponse<Get_SaveSearch_Res>
+                    {
+                        Data = List_Res,
+                        Message = "SUCCESS",
+                        Status = "1"
+                    });
+                }
+                else
+                {
+                    return Ok(new ServiceResponse<Get_SaveSearch_Res>
+                    {
+                        Data = new List<Get_SaveSearch_Res>(),
+                        Message = "No records found.",
+                        Status = "1"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_SaveSearch_Res>
+                {
+                    Data = new List<Get_SaveSearch_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
         public IHttpActionResult AddUpdate_Category_Value([FromBody] JObject data)
         {
             Get_Category_Value_Res res = new Get_Category_Value_Res();
@@ -4486,7 +4674,7 @@ namespace API.Controllers
                 para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, req.Type));
 
                 DataTable dt = db.ExecuteSP("Get_Auto_Excel_Download", para.ToArray(), false);
-                
+
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     if (!string.IsNullOrEmpty(Convert.ToString(dt.Rows[0]["ExcelPath"])))
@@ -4545,7 +4733,7 @@ namespace API.Controllers
                 {
                     Stock_dt.DefaultView.RowFilter = "iSr IS NOT NULL";
                     Stock_dt = Stock_dt.DefaultView.ToTable();
-                    
+
 
                     if (Stock_dt != null && Stock_dt.Rows.Count > 0)
                     {
@@ -4674,7 +4862,7 @@ namespace API.Controllers
             }
         }
         [NonAction]
-        private DataTable Add_Save_Search(Get_SearchStock_Req req)
+        private DataTable AddUpdate_Save_Search(Get_SearchStock_Req req)
         {
             try
             {
@@ -4683,6 +4871,11 @@ namespace API.Controllers
 
                 para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, req.UserId));
                 para.Add(db.CreateParam("SearchName", DbType.String, ParameterDirection.Input, req.SearchName));
+
+                if (req.SearchID > 0)
+                    para.Add(db.CreateParam("SearchID", DbType.Int64, ParameterDirection.Input, req.SearchID));
+                else
+                    para.Add(db.CreateParam("SearchID", DbType.Int64, ParameterDirection.Input, DBNull.Value));
 
                 if (!string.IsNullOrEmpty(req.SupplierId))
                     para.Add(db.CreateParam("SupplierId", DbType.String, ParameterDirection.Input, req.SupplierId));
@@ -4989,7 +5182,7 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("Location", DbType.String, ParameterDirection.Input, DBNull.Value));
 
-                DataTable dt = db.ExecuteSP("Add_Save_Search", para.ToArray(), false);
+                DataTable dt = db.ExecuteSP("AddUpdate_Save_Search", para.ToArray(), false);
 
                 return dt;
             }
@@ -5000,7 +5193,7 @@ namespace API.Controllers
             }
         }
         [HttpPost]
-        public IHttpActionResult Add_Save_Search([FromBody] JObject data)
+        public IHttpActionResult AddUpdate_Save_Search([FromBody] JObject data)
         {
             Get_SearchStock_Req req = new Get_SearchStock_Req();
 
@@ -5023,7 +5216,7 @@ namespace API.Controllers
 
             try
             {
-                DataTable dt = Add_Save_Search(req);
+                DataTable dt = AddUpdate_Save_Search(req);
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
@@ -7440,7 +7633,7 @@ namespace API.Controllers
                                 {
                                     return ("API Not Working", ex.Message, null);
                                 }
-                                
+
                                 try
                                 {
                                     JObject o = JObject.Parse(json);
@@ -12200,7 +12393,7 @@ namespace API.Controllers
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vluster", OracleDbType.NVarchar2);
-                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Luster"]);
+                                                    param1.Value = Convert.ToString(LabDetail_dt.Rows[j]["Milky"]);
                                                     paramList.Add(param1);
 
                                                     param1 = new OracleParameter("vLASER_INCLUSION", OracleDbType.NVarchar2);

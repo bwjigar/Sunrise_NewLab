@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace Lib.Model
 {
+    public class Get_DashboardCnt_Res
+    {
+        public int MyCart_Count { get; set; }
+        public int SearchStock_Count { get; set; }
+        public int OrderHistory_Count { get; set; }
+    }
     public class GetUsers_Req
     {
         public string OrderBy { get; set; }
@@ -552,6 +558,8 @@ namespace Lib.Model
     
     public class Get_SearchStock_Req
     {
+        public int SearchID { get; set; }
+        public string SearchName { get; set; }
         public string SP_Name { get; set; }
         public int UserId { get; set; }
         public int PgNo { get; set; }
@@ -645,8 +653,6 @@ namespace Lib.Model
         public decimal PricingDisc { get; set; }
         public string ToAddress { get; set; }
         public string Comments { get; set; }
-        public string SearchName { get; set; }
-
     }
     public class SearchSummary
     {
@@ -1133,5 +1139,75 @@ namespace Lib.Model
         public string UserName { get; set; }
         public string Password { get; set; }
         public int TransId { get; set; }
+    }
+    public class Get_SaveSearch_Res
+    {
+        public long Sr { get; set; }
+        public int Id { get; set; }
+        public string TransDate { get; set; }
+        public int UserId { get; set; }
+        public string SearchName { get; set; }
+        public string SupplierId { get; set; }
+        public string SupplierName { get; set; }
+        public string Shape { get; set; }
+        public string Carat { get; set; }
+        public string ColorType { get; set; }
+        public string Color { get; set; }
+        public string INTENSITY { get; set; }
+        public string OVERTONE { get; set; }
+        public string FANCY_COLOR { get; set; }
+        public string Clarity { get; set; }
+        public string Cut { get; set; }
+        public string Polish { get; set; }
+        public string Sym { get; set; }
+        public string Fls { get; set; }
+        public string BGM { get; set; }
+        public string Lab { get; set; }
+        public string CrownBlack { get; set; }
+        public string TableBlack { get; set; }
+        public string CrownWhite { get; set; }
+        public string TableWhite { get; set; }
+        public string TableOpen { get; set; }
+        public string GirdleOpen { get; set; }
+        public string CrownOpen { get; set; }
+        public string PavillionOpen { get; set; }
+        public string CheckKTS { get; set; }
+        public string UNCheckKTS { get; set; }
+        public bool KTS_IsBlank { get; set; }
+        public string FromFinalDisc { get; set; }
+        public string ToFinalDisc { get; set; }
+        public string FromFinalVal { get; set; }
+        public string ToFinalVal { get; set; }
+        public string FromLength { get; set; }
+        public string ToLength { get; set; }
+        public bool Length_IsBlank { get; set; }
+        public string FromWidth { get; set; }
+        public string ToWidth { get; set; }
+        public bool Width_IsBlank { get; set; }
+        public string FromDepth { get; set; }
+        public string ToDepth { get; set; }
+        public bool Depth_IsBlank { get; set; }
+        public string FromDepthinPer { get; set; }
+        public string ToDepthinPer { get; set; }
+        public bool DepthPer_IsBlank { get; set; }
+        public string FromTableinPer { get; set; }
+        public string ToTableinPer { get; set; }
+        public bool TablePer_IsBlank { get; set; }
+        public string Image { get; set; }
+        public string Video { get; set; }
+        public string Certi { get; set; }
+        public string FromCrAng { get; set; }
+        public string ToCrAng { get; set; }
+        public bool CrAng_IsBlank { get; set; }
+        public string FromCrHt { get; set; }
+        public string ToCrHt { get; set; }
+        public bool CrHt_IsBlank { get; set; }
+        public string FromPavAng { get; set; }
+        public string ToPavAng { get; set; }
+        public bool PavAng_IsBlank { get; set; }
+        public string FromPavHt { get; set; }
+        public string ToPavHt { get; set; }
+        public bool PavHt_IsBlank { get; set; }
+        public string Location { get; set; }
     }
 }

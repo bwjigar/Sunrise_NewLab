@@ -14,6 +14,11 @@ namespace SunriseLabWeb_New.Data
         public static string IP_Wise_Login_Detail = "/Login/IP_Wise_Login_Detail";
         public static string LogoutWithoutToken = "/Login/LogoutWithoutToken";
 
+        public static string Get_DashboardCnt = "/User/Get_DashboardCnt";
+        public static string Get_MyCart_For_DashBoard = "/User/Get_MyCart_For_DashBoard";
+        public static string Get_OrderHistory_For_DashBoard = "/User/Get_OrderHistory_For_DashBoard";
+        public static string Get_Save_Search_For_DashBoard = "/User/Get_Save_Search_For_DashBoard";
+        
 
         public static string FortunePartyCode_Exist = "/User/FortunePartyCode_Exist";
         public static string UserCode_Exists = "/User/UserCode_Exists";
@@ -113,7 +118,7 @@ namespace SunriseLabWeb_New.Data
         public static string Excel_SearchStock = "/User/Excel_SearchStock";
         public static string Get_Auto_Excel_Download = "/User/Get_Auto_Excel_Download";
         public static string Email_SearchStock = "/User/Email_SearchStock";
-        public static string Add_Save_Search = "/User/Add_Save_Search";
+        public static string AddUpdate_Save_Search = "/User/AddUpdate_Save_Search";
 
 
         public static string AddUpdate_Customer_Disc = "/User/AddUpdate_Customer_Disc";
