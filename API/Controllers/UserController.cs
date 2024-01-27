@@ -11388,7 +11388,7 @@ namespace API.Controllers
             {
                 CommonResponse resp = new CommonResponse();
                 Int32 OrderId;
-                DateTime OrderDate;
+                string OrderDate;
 
                 Database db = new Database();
                 List<IDbDataParameter> para;
@@ -11422,12 +11422,34 @@ namespace API.Controllers
                     OrderId = Convert.ToInt32(dt.Rows[0]["OrderId"].ToString());
                     resp.Status = dt.Rows[0]["Status"].ToString();
                     resp.Message = dt.Rows[0]["Message"].ToString();
-                    OrderDate = DateTime.Now;
+                    OrderDate = DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
 
                     if (resp.Status == "1" && OrderId > 0)
                     {
-                        SendOrderMail(OrderId, req.Comments, UserId, OrderDate, "Customer");
-                        SendOrderMail(OrderId, req.Comments, UserId, OrderDate, "Employee");
+                        string filename = "Order_" + DateTime.Now.ToString("dd-MMM-yyyy") + "-" + OrderId + ".xlsx";
+                        string _path = ConfigurationManager.AppSettings["data"];
+                        _path = _path.Replace("Temp", "ExcelFile");
+                        string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
+
+                        if (!Directory.Exists(realpath))
+                        {
+                            Directory.CreateDirectory(realpath);
+                        }
+
+                        db = new Database();
+                        para = new List<IDbDataParameter>();
+
+                        para.Add(db.CreateParam("OrderId", DbType.String, ParameterDirection.Input, Convert.ToInt32(OrderId)));
+                        DataTable dtOrderDetail = db.ExecuteSP("OrderDet_SelectAllByOrderId_EmailExcel", para.ToArray(), false);
+
+                        if (dtOrderDetail != null && dtOrderDetail.Rows.Count > 0)
+                        {
+                            EpExcelExport.PlaceOrder_Excel(dtOrderDetail, realpath, realpath + filename, OrderId);
+
+                            SendOrderMail(OrderId, req.Comments, UserId, OrderDate, "Customer", realpath, filename);
+                            SendOrderMail(OrderId, req.Comments, UserId, OrderDate, "Employee", realpath, filename);
+                        }
+                        
                     }
                 }
                 else
@@ -11449,7 +11471,7 @@ namespace API.Controllers
             }
         }
         [NonAction]
-        private static bool SendOrderMail(Int32 OrderId, String Comments, Int32 UserId, DateTime OrderDate, String EmailType)
+        private static bool SendOrderMail_Old(Int32 OrderId, String Comments, Int32 UserId, DateTime OrderDate, String EmailType)
         {
             try
             {
@@ -11647,7 +11669,7 @@ namespace API.Controllers
 
                 if (EmailType == "Customer" && Convert.ToString(dtUserDetail.Rows[0]["EmailId"]) != "")
                 {
-                    Common.SendMail(Convert.ToString(dtUserDetail.Rows[0]["EmailId"]), "Connect Gia – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
+                    Common.SendMail(Convert.ToString(dtUserDetail.Rows[0]["EmailId"]), "Connect Gia – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId, "","");
                 }
                 else if (EmailType == "Employee")
                 {
@@ -11660,7 +11682,186 @@ namespace API.Controllers
                         }
                         email += Convert.ToString(dtUserDetail.Rows[0]["SubAssistByEmailId"]);
                     }
-                    Common.SendMail(email, "Connect Gia – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId);
+                    Common.SendMail(email, "Connect Gia – Order Confirmation – " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss") + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId,"","");
+                }
+
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, null);
+                return false;
+            }
+        }
+        [NonAction]
+        private static bool SendOrderMail(Int32 OrderId, String Comments, Int32 UserId, string OrderDate, String EmailType, String realpath, String filename)
+        {
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+                para.Clear();
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
+                DataTable dtUserDetail = db.ExecuteSP("Get_UserMas", para.ToArray(), false);
+
+                StringBuilder loSb = new StringBuilder();
+                //loSb.Append(EmailHeader());
+                loSb.Append(@"<table cellpadding=""0"" cellspacing=""0"" width=""100%"">");
+                loSb.Append(@"<tr><td colspan=""2"">Thank you for Your Order!</td></tr>");
+                loSb.Append(@"<tr><td colspan=""2"">Hello "+ Convert.ToString(dtUserDetail.Rows[0]["FirstName"]) + " " + Convert.ToString(dtUserDetail.Rows[0]["LastName"]) + (!string.IsNullOrEmpty(Convert.ToString(dtUserDetail.Rows[0]["CompName"])) ? " (" + Convert.ToString(dtUserDetail.Rows[0]["CompName"]) + ")" : "") + "</td></tr>");
+                loSb.Append(@"<tr><td colspan=""2"" style=""font-weight: 700;"">We have well received your order. Please contact your KAM for order confirmation.</td></tr>");
+                loSb.Append(@"<tr><td colspan=""2"" style=""font-weight: 700;"">Visit Order History section to get further updates on your order. </td></tr>");
+                loSb.Append(@"<tr><td colspan=""2"" style=""font-weight: 700;"">Your Order Details are as below :</td></tr>");
+                loSb.Append(@"<tr><td style=""font-weight: 700;width: 50%;"">Order No : "+ Convert.ToString(OrderId) + "</td>");
+                loSb.Append(@"<td style=""font-weight: 700;float: right;"">Order Date & Time : " + OrderDate + "</td></tr>");
+                loSb.Append("</table>");
+                loSb.Append("<br/> <br/>");
+
+
+
+                db = new Database();
+                para.Clear();
+                para.Add(db.CreateParam("OrderId", DbType.Int32, ParameterDirection.Input, OrderId));
+                DataTable dtOrderDetail = db.ExecuteSP("OrderDet_SelectAllByOrderId_Email", para.ToArray(), false);
+
+                dtOrderDetail.Columns.Remove("Id");
+
+                loSb.Append("<table border = '1' style='overflow-x:scroll !important; width:1000px !important;'>");
+
+                loSb.Append("<tr>");
+
+                string _strfont = "\"font-size: 12px; font-family: Tahoma;text-align:center; background-color: #143f58; color: white;\"";
+                foreach (DataColumn column in dtOrderDetail.Columns)
+                {
+                    loSb.Append("<th style = " + _strfont + ">");
+                    loSb.Append(column.ColumnName);
+                    loSb.Append("</th>");
+                }
+                loSb.Append("</tr>");
+
+                _strfont = "\"font-size: 10px; font-family: Tahoma;text-align:center;white-space: nowrap; \"";
+                //Building the Data rows.
+                foreach (DataRow row in dtOrderDetail.Rows)
+                {
+                    loSb.Append("<tr>");
+                    foreach (DataColumn column in dtOrderDetail.Columns)
+                    {
+                        string _strcheck = "";
+                        //if (column.ColumnName.ToString() == "Disc %" || column.ColumnName.ToString() == "Net Amt($)")
+                        if (column.ColumnName.ToString() == "Dis %" || column.ColumnName.ToString() == "Amt $")
+                        {
+                            string _strstyle = "\"font-size: 10px; font-family: Tahoma;text-align:center;font-weight:bold;background-color: #ade0e9;color:red;white-space: nowrap;\"";
+                            loSb.Append("<td style = " + _strstyle + ">");
+                        }
+
+                        else if (column.ColumnName.ToString() == "Status" && row["Ref No"].ToString() != "Total")
+                        {
+                            if (row["Status"].ToString().ToLower() == "confirmed")
+                            {
+                                string _strstyle = "\"font-size: 10px; font-family: Tahoma;text-align:center;font-weight:bold;background-color: #c6ffbe;white-space: nowrap;\"";
+                                loSb.Append("<td style = " + _strstyle + ">");
+                            }
+                            else
+                            {
+                                string _strstyle = "\"font-size: 10px; font-family: Tahoma;text-align:center;font-weight:bold;background-color: yellow;color:red;white-space: nowrap;\"";
+                                loSb.Append("<td style = " + _strstyle + ">");
+                            }
+                        }
+                        else if (column.ColumnName.ToString() == "Cut" || column.ColumnName.ToString() == "Polish" || column.ColumnName.ToString() == "Symm")
+                        {
+                            loSb.Append("<td style = " + _strfont + ">");
+                            if (row["Cut"].ToString() == "3EX" && row["Polish"].ToString() == "EX" && row["Symm"].ToString() == "EX")
+                            {
+                                loSb.Append("<b>" + row[column.ColumnName] + "<b>");
+                                _strcheck = "Y";
+                            }
+                        }
+                        else
+                        {
+                            loSb.Append("<td style = " + _strfont + ">");
+                        }
+
+                        if (_strcheck != "Y")
+                        {
+                            if (column.ColumnName.ToString() == "Rap" || column.ColumnName.ToString() == "Rap Amt" || column.ColumnName.ToString() == "Amt $" || column.ColumnName.ToString() == "Price/Ct")
+                            {
+                                if (row[column.ColumnName].ToString() != "")
+                                {
+
+                                    if (column.ColumnName.ToString() == "Rap")
+                                    {
+                                        loSb.Append(Convert.ToInt32(row[column.ColumnName]).ToString("C", new System.Globalization.CultureInfo("en-US")).Replace("$", "").Replace("(", "").Replace(")", "").Replace(".00", ""));
+                                    }
+                                    else
+                                    {
+                                        loSb.Append(Convert.ToDecimal(row[column.ColumnName]).ToString("C", new System.Globalization.CultureInfo("en-US")).Replace("(", "").Replace(")", "").Replace("$", ""));
+                                    }
+                                }
+                                else
+                                {
+                                    loSb.Append(row[column.ColumnName]);
+                                }
+                            }
+                            else if (column.ColumnName.ToString() == "Cts")
+                            {
+                                loSb.Append(String.Format("{0:0.00}", Convert.ToDecimal(row[column.ColumnName])));
+                            }
+                            else if (column.ColumnName.ToString() == "Image")
+                            {
+                                if (row["image"].ToString() != "")
+                                {
+                                    loSb.Append(string.Format("<a href='" + row[column.ColumnName] + "'>Image</a>"));
+                                }
+                            }
+
+                            else if (column.ColumnName.ToString() == "Video")
+                            {
+                                if (row["video"].ToString() != "")
+                                {
+                                    loSb.Append(string.Format("<a href='" + row[column.ColumnName] + "'>Video</a>"));
+                                }
+                            }
+
+                            else if (column.ColumnName.ToString() == "DNA")
+                            {
+                                if (row["dna"].ToString() != "")
+                                {
+                                    loSb.Append(string.Format("<a href='" + row[column.ColumnName] + "'>Dna</a>"));
+                                }
+                            }
+                            else
+                            {
+                                loSb.Append(row[column.ColumnName]);
+                            }
+                        }
+                        loSb.Append("</td>");
+
+                    }
+                    loSb.Append("</tr>");
+                }
+
+                loSb.Append("</table>");
+
+
+
+                if (EmailType == "Customer" && Convert.ToString(dtUserDetail.Rows[0]["EmailId"]) != "")
+                {
+                    Common.SendMail(Convert.ToString(dtUserDetail.Rows[0]["EmailId"]), "Connect Gia – Order Confirmation – " + OrderDate + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId, realpath, filename);
+                }
+                else if (EmailType == "Employee")
+                {
+                    string email = Convert.ToString(dtUserDetail.Rows[0]["AssistByEmailId"]);
+                    if (Convert.ToString(dtUserDetail.Rows[0]["SubAssistByEmailId"]) != "")
+                    {
+                        if (email != "")
+                        {
+                            email += ",";
+                        }
+                        email += Convert.ToString(dtUserDetail.Rows[0]["SubAssistByEmailId"]);
+                    }
+                    Common.SendMail(email, "Connect Gia – Order Confirmation – " + OrderDate + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId, realpath, filename);
                 }
 
 

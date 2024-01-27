@@ -755,12 +755,13 @@ var loaderHide = function () {
                     obj.PricingSign = $("#PricingSign_1").val();
                     obj.PricingDisc = $("#txtDisc_1_1").val();
                 }
-
+                debugger
                 $.ajax({
                     url: '/User/PlaceOrder',
                     type: "POST",
                     data: { req: obj },
                     success: function (data) {
+                        debugger
                         loaderHide();
                         if (data.Status == "1") {
                             $('#PlaceOrderModal').modal('hide');
@@ -781,6 +782,7 @@ var loaderHide = function () {
                         }
                     },
                     error: function (xhr, textStatus, errorThrown) {
+                        debugger
                         loaderHide();
                     }
                 });

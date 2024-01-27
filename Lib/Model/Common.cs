@@ -186,6 +186,14 @@ namespace Lib.Model
                 <div style=""padding:10px;"">";
         }
 
+        public static String EmailHeader_PlaceOrder()
+        {
+            return @"<html><head><style type=""text/css"">body{font-family: Verdana,'sans-serif';font-size:12px;}p{text-align:justify;margin:10px 0 !important;}
+                a{color:#1a4e94;text-decoration:none;font-weight:bold;}a:hover{color:#3c92fe;}table td{font-family: Verdana,'sans-serif' !important;font-size:12px;padding:3px;}
+                </style></head><body>
+                <div style=""width:100%; margin:5px auto;font-family: Verdana,'sans-serif';font-size:12px;line-height:20px; background-color:#f2f2f2;"">
+                <div style=""padding:10px;"">";
+        }
         public static String EmailSignature()
         {
             return @"<p>Please do let us know if you have any questions. Email us on <a href=""mailto:support@sunrisediamonds.com.hk"">support@sunrisediamonds.com.hk</a></p>
@@ -254,7 +262,7 @@ namespace Lib.Model
             }
         }
        
-        public static void SendMail(string ToAdd, string Subject, string MsgBody, int? OrderId, int? UserCode)
+        public static void SendMail(string ToAdd, string Subject, string MsgBody, int? OrderId, int? UserCode, String realpath, String filename)
         {
             MailMessage loMail = new MailMessage();
             SmtpClient loSmtp = new SmtpClient();
@@ -267,15 +275,22 @@ namespace Lib.Model
                 loMail.Subject = Subject;
                 loMail.IsBodyHtml = true;
 
-                MsgBody = EmailHeader() + MsgBody;
+                MsgBody = EmailHeader_PlaceOrder() + MsgBody;
 
                 AlternateView av = AlternateView.CreateAlternateViewFromString(MsgBody, null, MediaTypeNames.Text.Html);
                 loMail.AlternateViews.Add(av);
 
 
-                System.IO.MemoryStream ms = ExportToStreamEpPlus(Convert.ToInt32(OrderId));
-                Attachment attachFile = new Attachment(ms, "Order_" + DateTime.Now.ToString("dd-MMM-yyyy") + "-" + OrderId + ".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                //System.IO.MemoryStream ms = ExportToStreamEpPlus(Convert.ToInt32(OrderId));
+                //Attachment attachFile = new Attachment(ms, "Order_" + DateTime.Now.ToString("dd-MMM-yyyy") + "-" + OrderId + ".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                //loMail.Attachments.Add(attachFile);
+
+                ContentType contentType = new System.Net.Mime.ContentType();
+                contentType.MediaType = System.Net.Mime.MediaTypeNames.Application.Octet;
+                contentType.Name = filename;
+                Attachment attachFile = new Attachment(realpath + filename, contentType);
                 loMail.Attachments.Add(attachFile);
+
 
                 Thread email = new Thread(delegate ()
                 {
