@@ -1,4 +1,4 @@
-var pgSize = 50;
+var pgSize = 200;
 var ExcelUploadRefNo = "";
 function onPageSizeChanged() {
     var value = $("#ddlPagesize").val();
@@ -7,7 +7,6 @@ function onPageSizeChanged() {
 }
 var showEntryHtml = '<div class="show_entry"><label>'
     + 'Show <select onchange = "onPageSizeChanged()" id = "ddlPagesize">'
-    + '<option value="50">50</option>'
     + '<option value="200">200</option>'
     + '<option value="500">500</option>'
     + '<option value="1000">1000</option>'
@@ -23,6 +22,7 @@ $(document).ready(function () {
             GetSearch();
         }
     });
+    $("#li_User_LabAvailibility").addClass("menuActive");
 });
 
 function filterByProperty(data, prop, value) {
@@ -98,16 +98,16 @@ function cellStyle(field, params) {
             field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE" || field == "Bid_Disc" || field == "Bid_Amt" || field == "Avg_Stock_Disc" ||
             field == "Avg_Pur_Disc" || field == "Avg_Sales_Disc") {
             //return { 'color': 'red', 'font-weight': 'bold', 'font-size': '11px', 'text-align': 'center' };
-            return { 'color': '#003d66', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
+            return { 'color': '#143f58', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
         }
         else if (field == "Cts" || field == "Rap_Rate" || field == "Rap_Amount" || field == "Base_Price_Cts" || field == "RATIO" || field == "Length" ||
             field == "Width" || field == "Depth" || field == "Depth_Per" || field == "Table_Per" || field == "Crown_Angle" || field == "Pav_Angle" ||
             field == "Crown_Height" || field == "Pav_Height" || field == "Girdle_Per" || field == "RANK" || field == "Avg_Stock_Pcs" || field == "Avg_Pur_Pcs" ||
             field == "Sales_Pcs") {
-            return { 'color': '#003d66', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
+            return { 'color': '#143f58', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
         }
         else if (field == "Rank") {
-            return { 'color': '#003d66', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
+            return { 'color': '#143f58', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
         }
         else {
             return { 'font-size': '11px', 'text-align': 'center' }
@@ -332,6 +332,10 @@ const datasource1 = {
                     $(".excel").show();
                     Rowdata = data.Data;
                     params.successCallback(data.Data, data.Data[0].iTotalRec);
+
+                    gridOptions.api.forEachNode(function (node) {
+                        node.setSelected(true);
+                    });
                 }
                 else {
                     if (data.Data.length == 0) {

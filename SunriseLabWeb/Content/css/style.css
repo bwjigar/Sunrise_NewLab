@@ -90,7 +90,7 @@ span {
 
 /* Track */
 .sidebar-info::-webkit-scrollbar-track {
-    background: #003d66;
+    background: #143f58;
 }
 
 /* Handle */
@@ -106,7 +106,7 @@ span {
 
 #sidebar {
     width: 220px;
-    background: #003d66;
+    background: #143f58;
     color: #fff;
     transition: 1s;
     position: fixed;
@@ -237,7 +237,7 @@ span {
     }
 
         #sidebar ul li a:hover {
-            color: #003d66;
+            color: #143f58;
             background: #fff;
         }
 
@@ -295,7 +295,7 @@ ul.CTAs {
 
 a.download {
     background: #fff;
-    color: #003d66;
+    color: #143f58;
 }
 
 a.article,
@@ -401,7 +401,7 @@ img.cloud-down {
         top: -20px;
         border-top: 10px solid transparent;
         border-right: 10px solid transparent;
-        border-bottom: 10px solid #003d66;
+        border-bottom: 10px solid #143f58;
         border-left: 10px solid transparent;
     }
 
@@ -412,8 +412,8 @@ img.cloud-down {
 }
 
 .topbar .dropdown-list .dropdown-header {
-    background-color: #003d66;
-    border: 1px solid #003d66;
+    background-color: #143f58;
+    border: 1px solid #143f58;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     color: #fff;
@@ -514,15 +514,15 @@ img.cloud-down {
 .btn-info, .btn-info:hover, .btn-info:focus, .btn-info:active,
 .btn-primary, .btn-primary:hover, .btn-primary:focus {
     color: #fff;
-    background-color: #003d66 !important;
-    border-color: #003d66;
+    background-color: #143f58 !important;
+    border-color: #143f58;
     outline: none;
     box-shadow: none !important;
 }
 
 .navbar-search .form-control {
     border-radius: 20px;
-    border: 1px solid #003d66;
+    border: 1px solid #143f58;
     box-shadow: 0 0px #437e80, 1PX 1px 8px -3px rgba(0, 0, 0, 0.4);
     -webkit-box-shadow: 0 0px #437e80, 1PX 1px 8px -3px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 0 0px #437e80, 1PX 1px 8px -3px rgba(0, 0, 0, 0.4);
@@ -535,7 +535,7 @@ img.cloud-down {
 .dropdown-item.active, .dropdown-item:active {
     color: #fff;
     text-decoration: none;
-    background-color: #003d66;
+    background-color: #143f58;
 }
 
 .dropdown-item.english.active {
@@ -628,7 +628,7 @@ a.user-img-cl span {
     position: relative;
     height: 120px;
     border-radius: 8px;
-    color: #003d66;
+    color: #143f58;
     cursor: pointer;
     z-index: 1;
     overflow: hidden;
@@ -859,7 +859,7 @@ a.user-img-cl span {
 
 .card-header h6.title {
     text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
-    color: #003d66;
+    color: #143f58;
     float: left;
     margin: 10px 0;
 }
@@ -1075,7 +1075,7 @@ ul.chart-navigation {
             left: 50%;
             transform: rotate(45deg) translatex(-50%);
             transform-origin: left;
-            background-color: #003d66;
+            background-color: #143f58;
             box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
             position: absolute;
             display: none;
@@ -1083,8 +1083,8 @@ ul.chart-navigation {
 
 .nav-item .nav-link.active {
     background-color: #fff !important;
-    color: #023059;
-    border-bottom: 3px solid #023059;
+    color: #143f58;
+    border-bottom: 3px solid #143f58;
     border-left: none;
     border-top: none;
     border-right: none;
@@ -1160,11 +1160,11 @@ ul.tabs-marker {
     }
 
     .search-page-content ul.ul-b:hover::before {
-        border-left: 10px solid #003d66;
+        border-left: 10px solid #143f58;
     }
 
     .search-page-content ul.ul-b:hover {
-        border-left: 2px solid #003d66;
+        border-left: 2px solid #143f58;
     }
 
 .search-page-content ul li, .result-page-content ul li {
@@ -1176,13 +1176,13 @@ ul.tabs-marker {
     .search-page-content ul li.label {
         width: auto !important;
         text-align: left;
-        border: 2px solid #003d66;
+        border: 2px solid #143f58;
         font-weight: bold;
         box-shadow: none;
         transform: unset;
         font-size: 13px;
         padding: 2px 15px 2px 20px;
-        background: #003d66;
+        background: #143f58;
         color: #fff;
         border-radius: 0px 15px 15px 0;
         margin-top: 0;
@@ -1222,7 +1222,7 @@ ul.search .li-content-width {
 }
 
 .search-page-content ul.search li a.active .icon-image, .search-page-content ul.search li a:hover .icon-image {
-    background: #003d66;
+    background: #143f58;
 }
 
 .search-page-content ul.search li {
@@ -1272,7 +1272,7 @@ ul.search .li-content-width {
 }
 
 .search-page-content ul.search li a span {
-    color: #003d66;
+    color: #143f58;
     transition: transform 0.3s ease-in-out;
     font-size: 13px;
     margin-top: 10px;
@@ -1352,7 +1352,7 @@ ul.search .li-content-width {
     }
 
     .search-page-content ul.part2 li textarea {
-        border: 1px dotted #003d66;
+        border: 1px dotted #143f58;
         border-radius: 10px;
         width: 100%;
         max-height: 100px;
@@ -1376,14 +1376,14 @@ ul.search .li-content-width {
 .search-page-content.tab-pane ul li input:focus, .search-page-content ul li input.active {
     border-radius: 25px;
     outline: none;
-    border: 1px solid #003d66;
+    border: 1px solid #143f58;
     box-shadow: 0 0 0 0.2rem rgba(0, 61, 102,0.25);
 }
 
 .search-page-content ul.part2 li textarea:focus, .search-page-content ul.part2 li textarea.active {
     border-radius: 25px;
     outline: none;
-    border: 1px solid #003d66;
+    border: 1px solid #143f58;
     box-shadow: 0 0 0 0.2rem rgba(0, 61, 102,0.25);
 }
 
@@ -1442,7 +1442,7 @@ span.res-btn {
 
 .search-page-content.tab-pane li i.fa.fa-plus-circle {
     margin-top: 5px;
-    color: #003d66;
+    color: #143f58;
 }
 
 .search-page-content.tab-pane li a i {
@@ -1465,7 +1465,7 @@ span.res-btn {
     white-space: nowrap;
     font-weight: 600;
     background: #fff;
-    color: #003d66;
+    color: #143f58;
     position: relative;
     z-index: 0;
     overflow: hidden;
@@ -1628,9 +1628,9 @@ span.res-btn {
             }
 
             .search-page-content .bottom-button-bar ul.two li a.obtn:hover {
-                background: #003d66;
+                background: #143f58;
                 color: #fff;
-                border: 1px solid #003d66;
+                border: 1px solid #143f58;
             }
 
         .search-page-content .bottom-button-bar ul.two li a::before {
@@ -1761,7 +1761,7 @@ ul.part2 li.sym {
     top: -20px;
     border-top: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-bottom: 10px solid #003d66;
+    border-bottom: 10px solid #143f58;
     border-left: 10px solid transparent;
 }
 
@@ -1888,12 +1888,12 @@ ul.part2 li.sym {
 }
 
 .tooltip-inner {
-    background-color: #003d66;
+    background-color: #143f58;
     padding: 4px;
 }
 
 .tooltip .arrow::before {
-    border-bottom-color: #003d66;
+    border-bottom-color: #143f58;
 }
 
 .result-three ul li a {
@@ -1902,7 +1902,7 @@ ul.part2 li.sym {
     width: 40px;
     display: block;
     margin-right: 2px;
-    color: #003d66;
+    color: #143f58;
     position: relative;
     overflow: hidden;
     padding: 0 8px;
@@ -1933,7 +1933,7 @@ ul.part2 li.sym {
         -webkit-border-radius: 3px;
         -moz-border-radius: 3px;
         border-radius: 3px;
-        color: #003d66;
+        color: #143f58;
         -webkit-transition: all 0.3s;
         -moz-transition: all 0.3s;
         -ms-transition: all 0.3s;
@@ -1943,7 +1943,7 @@ ul.part2 li.sym {
     }
 
         .result-three ul li ul.download-toggle li a:hover {
-            background: #003d66;
+            background: #143f58;
             color: #fff;
         }
 
@@ -1978,7 +1978,7 @@ ul.download-toggle {
         top: -20px;
         border-top: 10px solid transparent;
         border-right: 10px solid transparent;
-        border-bottom: 10px solid #003d66;
+        border-bottom: 10px solid #143f58;
         border-left: 10px solid transparent;
     }
 
@@ -2020,7 +2020,7 @@ ul.download-toggle {
 
 .result-three ul li a.effect-one::before,
 .result-three ul li a.effect-one::after {
-    background: #003d66;
+    background: #143f58;
 }
 
 .result-three ul li a:hover i, .result-three ul li a.active i {
@@ -2155,7 +2155,7 @@ ul.download-toggle {
 
 .quick-search-section .scroll-table-inner table thead tr th {
     color: #ffffff;
-    background: #003d66;
+    background: #143f58;
 }
 
 .quick-search-section .ps-container {
@@ -2207,7 +2207,7 @@ ul.download-toggle {
 
 .quick-search-section .tab-dark-bg {
     color: #ffffff;
-    background: #003d66;
+    background: #143f58;
 }
 
 .scroll-table-inner tbody {
@@ -2250,7 +2250,7 @@ ul.download-toggle {
 }
 
 .quik-src .modal-header {
-    background-color: #003d66;
+    background-color: #143f58;
     color: #fff;
     padding: 5px 0px;
     text-align: center;
@@ -2326,7 +2326,7 @@ ul.download-toggle {
         overflow: hidden;
         position: relative;
         z-index: 0;
-        border: 1px solid #023059;
+        border: 1px solid #143f58;
     }
 
         .quik-src .modal-footer button::before {
@@ -2337,7 +2337,7 @@ ul.download-toggle {
             top: 0;
             left: 0;
             right: 0;
-            background: #023059;
+            background: #143f58;
             transition: all 0.3s;
             z-index: -1;
         }
@@ -2350,7 +2350,7 @@ ul.download-toggle {
             left: 0;
             right: 0;
             bottom: 0;
-            background: #023059;
+            background: #143f58;
             transition: all 0.3s;
             z-index: -1;
         }
@@ -2364,7 +2364,7 @@ ul.download-toggle {
         }
 
         .quik-src .modal-footer button:hover {
-            color: #023059;
+            color: #143f58;
             background: #fff;
         }
 /*======================== end quick-search ============================*/
@@ -2387,7 +2387,7 @@ ul.download-toggle {
     }
 
 .order-history-section .offer-label {
-    color: #003d66;
+    color: #143f58;
     margin-bottom: 0;
     font-size: 12px;
     font-style: normal;
@@ -2410,7 +2410,7 @@ ul.download-toggle {
     border-radius: 50px;
     border: none;
     margin: 0 0 0 0px;
-    background: #023059;
+    background: #143f58;
     color: #fff !important;
     white-space: nowrap;
     -moz-transition: all 0.15s ease-in-out;
@@ -2540,12 +2540,12 @@ ul.download-toggle {
         top: -20px;
         border-top: 10px solid transparent;
         border-right: 10px solid transparent;
-        border-bottom: 10px solid #003d66;
+        border-bottom: 10px solid #143f58;
         border-left: 10px solid transparent;
     }
 
 .order-history-data li.check-uncheck a {
-    color: #003d66 !important;
+    color: #143f58 !important;
 }
 
     .order-history-data li.check-uncheck a:hover {
@@ -2768,7 +2768,7 @@ ul.orderhistory-admin-data-ul {
 }
 
 .full-acform label {
-    color: #003d66;
+    color: #143f58;
     margin-bottom: 0;
     font-size: 12px;
 }
@@ -2788,7 +2788,7 @@ ul.orderhistory-admin-data-ul {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    border-color: #003d66;
+    border-color: #143f58;
 }
 
 .full-acform select {
@@ -2803,7 +2803,7 @@ ul.orderhistory-admin-data-ul {
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #003d66;
+    background-color: #143f58;
     color: #fff;
 }
 
@@ -2830,8 +2830,8 @@ ul.orderhistory-admin-data-ul {
 }
 
 .myaccount .forn-btn button {
-    background: #003d66;
-    border-color: #003d66;
+    background: #143f58;
+    border-color: #143f58;
     color: #fff;
     padding: 7px 25px;
     margin: 0 3px;
@@ -2890,8 +2890,8 @@ ul.result-one-fir-ul.viewcart.offerresult-ul {
 }
 
 .brws-img .btn.btn-primary {
-    background-color: #003d66;
-    border-color: #003d66;
+    background-color: #143f58;
+    border-color: #143f58;
     outline: none;
     border-radius: 0px 5px 5px 0px;
     height: 38px;
@@ -3027,7 +3027,7 @@ input.input-inc {
 }
 
 .but-input button.offer-btn {
-    background: #003d66;
+    background: #143f58;
     color: #fff;
     border: none;
     border-radius: 15px;
@@ -3067,7 +3067,7 @@ input.input-inc {
     border-radius: 50px;
     border: none;
     margin: 0 0 0 0px;
-    background: #023059;
+    background: #143f58;
     color: #fff !important;
     white-space: nowrap;
     -webkit-transition: all 0.3s;
@@ -3114,7 +3114,7 @@ input.input-inc {
 }
 
 .column-setting-table .cust-chk-bx input:checked ~ .cust-chkmark {
-    background-color: #003d66;
+    background-color: #143f58;
 }
 
 .column-setting-table .cust-chk-bx {
@@ -3124,7 +3124,7 @@ input.input-inc {
     margin-bottom: 0;
     cursor: pointer;
     font-size: 13px;
-    color: #003d66;
+    color: #143f58;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -3208,7 +3208,7 @@ input.input-inc {
     color: #fff;
     font-size: 16px;
     font-weight: 700;
-    background: #003d66;
+    background: #143f58;
     padding: 5px 15px;
 }
 
@@ -3233,7 +3233,7 @@ input.input-inc {
         padding: 5px 10px;
         overflow: hidden;
         text-overflow: ellipsis;
-        color: #023059;
+        color: #143f58;
         font-size: 14px;
         text-align: left;
     }
@@ -3251,7 +3251,7 @@ input.input-inc {
 }
 
 .stone-details-img-caption .nav-item a.nav-link.active, .stone-details-img-caption .nav-item a.nav-link:hover {
-    background: #003d66 !important;
+    background: #143f58 !important;
     color: #fff;
 }
 
@@ -3344,7 +3344,7 @@ input.input-inc {
         border-radius: 50px;
         margin: 10px 4px;
         position: relative;
-        background: #003d66;
+        background: #143f58;
         padding: 7px 14px;
         color: #fff;
         font-size: 14px;
@@ -3387,7 +3387,7 @@ input.input-inc {
 
     .search-page-content ul.social li a {
         background: #d8d8d8;
-        color: #003d66;
+        color: #143f58;
     }
 
         .search-page-content ul.social li a:hover {
@@ -3545,7 +3545,7 @@ select.form-control {
     margin-bottom: 0;
     cursor: pointer;
     font-size: 13px;
-    color: #003d66;
+    color: #143f58;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -3594,7 +3594,7 @@ select.form-control {
 }
 
 .apifilter .cust-chk-bx input:checked ~ .cust-chkmark {
-    background-color: #003d66;
+    background-color: #143f58;
 }
 
 .apifilter .myoffer-form {
@@ -3657,7 +3657,7 @@ select.form-control {
 }
 
 #CompareStone.compare_stn .modal-header {
-    background-color: #023059;
+    background-color: #143f58;
     border-radius: 0rem;
     padding: 10px;
 }
@@ -3721,7 +3721,7 @@ select.form-control {
 }
 
 .gallery-view.gallery-view .modal-header {
-    background-color: #023059;
+    background-color: #143f58;
     border-radius: 0rem;
     padding: 10px;
 }
@@ -3874,7 +3874,7 @@ div.gallery-view {
 }
 
     .gallery-view .gallery-card .card-content .center-text a:hover, .gallery-view .gallary-viewdetail-btn:hover {
-        background-color: #003d66;
+        background-color: #143f58;
         color: #fff;
     }
 /*======================== end galery icon popup ============================*/
@@ -3882,7 +3882,7 @@ div.gallery-view {
 
 /*======================== start feedback ============================*/
 button.btn.feedback-btn {
-    background: #003d66;
+    background: #143f58;
     color: #fff;
     float: right;
     margin-bottom: 10px;
@@ -4099,7 +4099,7 @@ button.btn.pd-btn {
 /*======================== end parameter discount ============================*/
 
 .udiscount .cust-chk-bx input:checked ~ .cust-chkmark {
-    background-color: #003d66;
+    background-color: #143f58;
 }
 
     .udiscount .cust-chk-bx input:checked ~ .cust-chkmark:after {
@@ -4220,7 +4220,7 @@ ul.udiscount {
 }
 
     .muser-edit-data .cust-chk-bx input:checked ~ .cust-chkmark {
-        background-color: #003d66;
+        background-color: #143f58;
     }
 
 .muser-edit-data .cust-chkmark {
@@ -4266,7 +4266,7 @@ ul.udiscount {
 }
 
 .muser-edit-back button.btn {
-    background: #003d66;
+    background: #143f58;
     color: #fff;
     font-size: 14px;
     border-radius: 20px;
@@ -4346,7 +4346,7 @@ ul.udiscount {
     border-radius: 50px;
     border: none;
     margin: 0 0 0 0px;
-    background: #023059;
+    background: #143f58;
     color: #fff !important;
     white-space: nowrap;
     -webkit-transition: all 0.3s;
@@ -4357,7 +4357,7 @@ ul.udiscount {
 }
 
 .offer-label {
-    color: #003d66;
+    color: #143f58;
     margin-bottom: 0;
     font-size: 12px;
     font-style: normal;
@@ -4375,7 +4375,7 @@ ul.udiscount {
 }
 
     .compare_stn .modal-header {
-        background-color: #023059;
+        background-color: #143f58;
         border-radius: 0rem;
         padding: 10px;
     }

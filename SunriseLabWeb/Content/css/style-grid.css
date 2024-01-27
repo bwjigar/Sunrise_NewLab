@@ -65,7 +65,7 @@
 }
 
 .common-font {
-    color: #003d66 !important;
+    color: #143f58 !important;
 }
 
 .red-font {
@@ -74,7 +74,7 @@
 }
 
 i.flaticon-frame {
-    color: #003d66;
+    color: #143f58;
 }
 
 span.ag-selection-checkbox {
@@ -84,7 +84,7 @@ span.ag-selection-checkbox {
 
 .ag-theme-balham .ag-icon-checkbox-checked {
     color: #fff !important;
-    background: #003d66 !important;
+    background: #143f58 !important;
 }
 
 .view {
@@ -92,7 +92,7 @@ span.ag-selection-checkbox {
 }
 
     .view a i.fa.fa-plus-circle {
-        color: #003d66;
+        color: #143f58;
         font-size: 22px;
         line-height: 25px;
     }
@@ -103,11 +103,11 @@ i.flaticon-frame::before {
 
 .stock-font {
     font-style: italic;
-    color: #003d66 !important;
+    color: #143f58 !important;
 }
 
 .order-history-stock-font {
-    color: #003d66 !important;
+    color: #143f58 !important;
 }
 
 .ag-theme-balham .ag-header-cell-menu-button .ag-icon-menu {
@@ -159,7 +159,7 @@ i.flaticon-frame::before {
     .ag-theme-balham .ag-paging-page-summary-panel .ag-paging-button .ag-icon::after {
         content: '';
         position: absolute;
-        background: #003d66 !important;
+        background: #143f58 !important;
         height: 0;
         width: 0;
         transition: 0.3s;
@@ -180,7 +180,7 @@ i.flaticon-frame::before {
 .ag-theme-balham .ag-paging-page-summary-panel .ag-paging-button.ag-disabled .ag-icon.ag-icon-first::after {
     content: '';
     position: absolute;
-    background: #003d66 !important;
+    background: #143f58 !important;
     height: 100%;
     width: 100%;
     transition: 0.3s;

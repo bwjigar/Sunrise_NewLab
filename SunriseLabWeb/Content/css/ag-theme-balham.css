@@ -602,7 +602,7 @@ margin-left: 3px;	}
   .ag-theme-balham .ag-rtl .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected),
   .ag-theme-balham .ag-rtl .ag-has-focus .ag-cell-focus.ag-cell-range-single-cell,
   .ag-theme-balham .ag-rtl .ag-cell-focus.ag-cell-range-single-cell.ag-cell-range-handle {
-    border: 1px solid #003d66 !important;
+    border: 1px solid #143f58 !important;
     outline: initial; }
   .ag-theme-balham .ag-header-cell-resize {
     width: 8px; }

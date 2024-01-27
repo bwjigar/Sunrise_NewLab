@@ -43,13 +43,13 @@
 .slick-prev
 {
     border-left: 0 solid transparent;
-    border-right: 15px solid #023059;
+    border-right: 15px solid #143f58;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
 }
 .slick-next
 {
-    border-left: 15px solid #023059;
+    border-left: 15px solid #143f58;
     border-right: 0px solid transparent;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;

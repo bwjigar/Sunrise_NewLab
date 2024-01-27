@@ -76,17 +76,17 @@ span ul.flat-icon-ul {
 
 .stock-font {
     font-style: italic;
-    color: #003d66;
+    color: #143f58;
 }
 
 .view a i.fa.fa-plus-circle {
-    color: #003d66;
+    color: #143f58;
     font-size: 22px;
     line-height: 25px;
 }
 
 .view a i.fa.fa-minus-circle {
-    color: #003d66;
+    color: #143f58;
     font-size: 22px;
     line-height: 25px;
 }
@@ -217,7 +217,7 @@ button.close-order-confirm {
 }
 
 .social-model .modal-header {
-    background-color: #003D66;
+    background-color: #143f58;
     border-radius: 0rem;
     padding: 12px 10px;
 }
@@ -230,7 +230,7 @@ button.close-order-confirm {
     }
 
     .social-model .modal-header .close {
-        color: #003d66;
+        color: #143f58;
         opacity: 1 !important;
         background: #fff;
         position: absolute;
@@ -247,13 +247,13 @@ button.close-order-confirm {
     }
 
 .social-model .modal-footer button {
-    background: #023059;
+    background: #143f58;
     font-size: 14px;
     text-transform: capitalize;
 }
 
     .social-model .modal-footer button:hover {
-        background: #023059;
+        background: #143f58;
     }
 
     .social-model .modal-footer button:focus {
@@ -264,7 +264,7 @@ button.close-order-confirm {
 .social-model .form-control:focus {
     color: #495057;
     background-color: #fff;
-    border-color: #023059;
+    border-color: #143f58;
     outline: 0;
     box-shadow: none;
 }
@@ -275,7 +275,7 @@ button.close-order-confirm {
 
 
 .fdbk-snd-btn {
-    background: #003d66;
+    background: #143f58;
     border: 0;
     color: #fff;
     padding: 7px 30px;
@@ -288,8 +288,8 @@ button.close-order-confirm {
 }
 .social-model .custom-control-input:checked ~ .custom-control-label::before {
     color: #fff;
-    border-color: #023059;
-    background-color: #023059;
+    border-color: #143f58;
+    background-color: #143f58;
 }
 
 .modal-dialog {
@@ -314,7 +314,7 @@ textarea.input-main {
     padding: 5px 10px;
 }
 .social-model .modal-dialog .modal-body label {
-    color: #003d66;
+    color: #143f58;
     margin-bottom: 0;
     font-size: 12px;
     font-style: normal;
@@ -353,14 +353,14 @@ textarea.input-main {
 }
 
 .btn-darkblue {
-    background-color: #023059 !important;
+    background-color: #143f58 !important;
     font-size: 0.8rem !important;
     color: #fff !important;
 }
 
     .btn-darkblue:hover {
         color: #fff !important;
-        background-color: #023059 !important;
+        background-color: #143f58 !important;
         font-size: 0.8rem !important;
     }
 

@@ -10013,7 +10013,7 @@ namespace API.Controllers
                 req.Download = true;
                 req.SP_Name = "Get_SearchStock_in_Remove_Stock_Disc";
                 req.Type = "Buyer List";
-
+                
                 DataTable Stock_dt = SearchStock(req);
 
                 if (Stock_dt != null && Stock_dt.Rows.Count > 0)

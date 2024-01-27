@@ -190,7 +190,7 @@ label {
 }
 
 .coming-soon-center p {
-    color: #003d66;
+    color: #143f58;
     font-size: 16px;
     margin-bottom: 30px;
     position: relative;
@@ -203,7 +203,7 @@ label {
 }
 
     .sld-app-download ul li a {
-        color: #003d66;
+        color: #143f58;
         background: #fff;
         display: block;
         font-weight: 400;
@@ -254,7 +254,7 @@ label {
 }
 
 .login-field i {
-    background: #003d66;
+    background: #143f58;
     color: #fff;
     border-radius: 50%;
     height: 40px;
@@ -367,7 +367,7 @@ label {
     margin-bottom: 0;
     cursor: pointer;
     font-size: 13px;
-    color: #003d66;
+    color: #143f58;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -384,7 +384,7 @@ label {
 
     .checkbox-label b, .forgot-pass b {
         font-size: 14px;
-        color: #003d66;
+        color: #143f58;
     }
 
 .forgot-pass a {
@@ -414,7 +414,7 @@ label {
 }
 
 .checkbox-label input:checked ~ .checkbox-mark {
-    background-color: #003d66;
+    background-color: #143f58;
 }
 
 .checkbox-mark {
@@ -443,7 +443,7 @@ label {
     }
 
 .login-button button, .login-button .signup {
-    border: 1px solid #003d66;
+    border: 1px solid #143f58;
     color: #fff;
     padding: 12px 15px;
     font-size: 15px;
@@ -464,7 +464,7 @@ label {
         top: 0;
         width: 50%;
         margin: auto;
-        background: #003d66;
+        background: #143f58;
         z-index: -1;
         height: 100%;
         border-radius: 50px 0 0 50px;
@@ -478,7 +478,7 @@ label {
         top: 0;
         width: 50%;
         margin: auto;
-        background: #003d66;
+        background: #143f58;
         z-index: -1;
         height: 100%;
         border-radius: 0 50px 50px 0;
@@ -491,7 +491,7 @@ label {
     }
 
     .login-button button:hover, .login-button .signup:hover {
-        color: #003d66;
+        color: #143f58;
         font-weight: 700;
     }
 
@@ -510,7 +510,7 @@ label {
 }
 
     .app-download a {
-        color: #003d66;
+        color: #143f58;
         background: rgba(0, 61, 102,0.1);
         display: inline-block;
         font-weight: 400;
@@ -532,7 +532,7 @@ label {
             top: -23px;
             right: 0;
             margin: auto;
-            border: 1px solid #003d66;
+            border: 1px solid #143f58;
             border-radius: 50%;
             padding: 5px 5px;
             background: #fff;

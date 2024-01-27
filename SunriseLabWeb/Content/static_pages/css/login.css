@@ -205,7 +205,7 @@ label {
     margin: 20px 0 0 0;
 }
 .coming-soon-center p {
-    color: #003d66;
+    color: #143f58;
     font-size: 16px;
     margin-bottom: 30px;
     position: relative;
@@ -216,7 +216,7 @@ label {
     display: inline-block;
 }
 .sld-app-download ul li a {
-    color: #003d66;
+    color: #143f58;
     background: #fff;
     display: block;
     font-weight: 400;
@@ -264,7 +264,7 @@ label {
 }
 
 .login-field i {
-    background: #003d66;
+    background: #143f58;
     color: #fff;
     border-radius: 50%;
     height: 40px;
@@ -373,7 +373,7 @@ label {
     margin-bottom: 0;
     cursor: pointer;
     font-size: 13px;
-    color: #003d66;
+    color: #143f58;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -389,7 +389,7 @@ label {
 }
 .checkbox-label b,.forgot-pass b{
 	font-size: 14px;
-	color: #003d66;
+	color: #143f58;
 }
 .forgot-pass a{
 	cursor: pointer;
@@ -413,7 +413,7 @@ label {
 	text-align: center;
 }
 .checkbox-label input:checked ~ .checkbox-mark {
-    background-color: #003d66;
+    background-color: #143f58;
 }
 
 .checkbox-mark {
@@ -440,7 +440,7 @@ label {
     transform: rotate(45deg);
 }
 .login-button button,.login-button .signup {
-    border: 1px solid #003d66;
+    border: 1px solid #143f58;
     color: #fff;
     padding: 12px 15px;
     font-size: 15px;
@@ -460,7 +460,7 @@ label {
     top: 0;
     width: 50%;
     margin: auto;
-    background: #003d66;
+    background: #143f58;
     z-index: -1;
     height: 100%;
     border-radius: 50px 0 0 50px;
@@ -473,7 +473,7 @@ label {
     top: 0;
     width: 50%;
     margin: auto;
-    background: #003d66;
+    background: #143f58;
     z-index: -1;
     height: 100%;
     border-radius: 0 50px 50px 0;
@@ -484,7 +484,7 @@ label {
 	width: 0;
 }
 .login-button button:hover,.login-button .signup:hover{
-	color: #003d66;
+	color: #143f58;
 	font-weight: 700;
 }
 
@@ -503,7 +503,7 @@ label {
 }
 
 .app-download a {
-    color: #003d66;
+    color: #143f58;
     background: rgba(0, 61, 102,0.1);
     display: inline-block;
     font-weight: 400;
@@ -525,7 +525,7 @@ label {
     top: -23px;
     right: 0;
     margin: auto;
-    border: 1px solid #003d66;
+    border: 1px solid #143f58;
     border-radius: 50%;
     padding: 5px 5px;
     background: #fff;
@@ -793,7 +793,7 @@ canvas {
 /*sidebar navigation*/
 
 .login-myScrollspy #myScrollspy {
-  background: #003d66 none repeat scroll 0 0;
+  background: #143f58 none repeat scroll 0 0;
   left: 0px;
   position: fixed;
   top: 88px;
@@ -848,7 +848,7 @@ canvas {
     padding-top: 15px;
 }
 .login-myScrollspy #myScrollspy .nav-pills li a:hover{
-	color: #003d66;
+	color: #143f58;
 }
 .login-myScrollspy #myScrollspy .nav-pills li a:hover::before,.login-myScrollspy #myScrollspy .nav-pills li a.active::before{
 	width: 100%;
@@ -1051,7 +1051,7 @@ span.placeholder-three b,span.placeholder-three-custom b {
 	margin-top: 15px;
 }
 .ragistration .login-button button {
-    border: 1px solid #003d66;
+    border: 1px solid #143f58;
     color: #fff;
     padding: 12px 15px;
     font-size: 15px;
@@ -1071,7 +1071,7 @@ span.placeholder-three b,span.placeholder-three-custom b {
     top: 0;
     width: 50%;
     margin: auto;
-    background: #003d66;
+    background: #143f58;
     z-index: -1;
     height: 100%;
     border-radius: 50px 0 0 50px;
@@ -1084,7 +1084,7 @@ span.placeholder-three b,span.placeholder-three-custom b {
     top: 0;
     width: 50%;
     margin: auto;
-    background: #003d66;
+    background: #143f58;
     z-index: -1;
     height: 100%;
     border-radius: 0 50px 50px 0;
@@ -1098,7 +1098,7 @@ span.placeholder-three b,span.placeholder-three-custom b {
 	width: 0;
 }
 .ragistration .login-button button:hover{
-	color: #003d66;
+	color: #143f58;
     font-weight: 700;
 }
 .ragistration .login-button b {
@@ -1139,7 +1139,7 @@ span.placeholder-three b,span.placeholder-three-custom b {
     position: relative;
 }
  .select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #003d66;
+    background-color: #143f58;
     color: #fff;
 }
 .select2-container--default .select2-results>.select2-results__options::-webkit-scrollbar {
@@ -1162,7 +1162,7 @@ span.placeholder-three b,span.placeholder-three-custom b {
 .ragistration .r-label {
     float: left;
     position: relative;
-    background: #003d66;
+    background: #143f58;
     padding: 10px;
     margin-left: -23px;
     margin-top: -15px;
@@ -1175,7 +1175,7 @@ span.placeholder-three b,span.placeholder-three-custom b {
     border-top: 8px solid transparent;
     border-right: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-left: 8px solid #003d66;
+    border-left: 8px solid #143f58;
     transform: rotate(90deg);
 }
  .ragistration .r-label p{

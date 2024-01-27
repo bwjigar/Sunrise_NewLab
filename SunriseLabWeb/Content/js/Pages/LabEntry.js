@@ -8,7 +8,7 @@ function SetCurrentDate() {
     var FinalDate = (curr_date + "-" + m_names[curr_month] + "-" + curr_year);
     return FinalDate;
 }
-var pgSize = 50;
+var pgSize = 200;
 function onPageSizeChanged() {
     var value = $("#ddlPagesize").val();
     pgSize = Number(value);
@@ -16,7 +16,6 @@ function onPageSizeChanged() {
 }
 var showEntryHtml = '<div class="show_entry"><label>'
     + 'Show <select onchange = "onPageSizeChanged()" id = "ddlPagesize">'
-    + '<option value="50">50</option>'
     + '<option value="200">200</option>'
     + '<option value="500">500</option>'
     + '<option value="1000">1000</option>'
@@ -41,6 +40,7 @@ $(document).ready(function () {
 
     Master_Get();
     contentHeight();
+    $("#li_User_LabEntry").addClass("menuActive");
 });
 function Master_Get() {
     loaderShow();
@@ -145,16 +145,16 @@ function cellStyle(field, params) {
             field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE" || field == "Bid_Disc" || field == "Bid_Amt" || field == "Avg_Stock_Disc" ||
             field == "Avg_Pur_Disc" || field == "Avg_Sales_Disc") {
             //return { 'color': 'red', 'font-weight': 'bold', 'font-size': '11px', 'text-align': 'center' };
-            return { 'color': '#003d66', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
+            return { 'color': '#143f58', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
         }
         else if (field == "Cts" || field == "Rap_Rate" || field == "Rap_Amount" || field == "Base_Price_Cts" || field == "RATIO" || field == "Length" ||
             field == "Width" || field == "Depth" || field == "Depth_Per" || field == "Table_Per" || field == "Crown_Angle" || field == "Pav_Angle" ||
             field == "Crown_Height" || field == "Pav_Height" || field == "Girdle_Per" || field == "RANK" || field == "Avg_Stock_Pcs" || field == "Avg_Pur_Pcs" ||
             field == "Sales_Pcs") {
-            return { 'color': '#003d66', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
+            return { 'color': '#143f58', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
         }
         else if (field == "Rank") {
-            return { 'color': '#003d66', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
+            return { 'color': '#143f58', 'font-size': '11px', 'text-align': 'center', 'font-weight': '600' };
         }
         else {
             return { 'font-size': '11px', 'text-align': 'center' }
@@ -460,8 +460,12 @@ const datasource1 = {
                         PROFIT = (PROFIT != "" ? parseFloat(PROFIT).toFixed(2) : "0");
                         PROFIT_AMOUNT = (PROFIT_AMOUNT != "" ? parseFloat(PROFIT_AMOUNT).toFixed(2) : "0");
 
-                        TempData_Array.push([data.Data[i].Ref_No, data.Data[i].SupplierId, "", (data.Data[i].LabEntry_Status != null ? data.Data[i].LabEntry_Status : ""), SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT]);
+                        TempData_Array.push([data.Data[i].Ref_No, data.Data[i].SupplierId, "REGULAR", (data.Data[i].LabEntry_Status != null ? data.Data[i].LabEntry_Status : ""), SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT]);
                     }
+
+                    gridOptions.api.forEachNode(function (node) {
+                        node.setSelected(true);
+                    });
                 }
                 else {
                     Rowdata = [];
@@ -521,7 +525,7 @@ function LabEntry() {
                             UserId: $("#ddl_User").val(),
                             Ref_No: TempData_Array[j][0],
                             SupplierId: TempData_Array[j][1],
-                            QC_Require: (TempData_Array[j][2] == "" ? "Regular" : TempData_Array[j][2]),
+                            QC_Require: TempData_Array[j][2],
                             LabEntry_Status: TempData_Array[j][3],
                             SUPPLIER_COST_DISC: TempData_Array[j][4],
                             SUPPLIER_COST_VALUE: TempData_Array[j][5],
@@ -560,16 +564,16 @@ function LabEntry() {
                 msg += "<table border='1' style='font-size:12px; width:100%; margin-top:5px; display:block; max-height:360px; overflow-y:auto;'>";
                 msg += "<tbody>";
                 msg += "<tr>";
-                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 4%;\"><center><b>No.</b></center></td>";
-                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 15%;\"><center><b>Ref No</b></center></td>";
-                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>QC Require</b></center></td>";
-                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Lab Status</b></center></td>";
-                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Supplier Cost Disc(%)</b></center></td>";
-                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Supplier Cost Value($)</b></center></td>";
-                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Final Sale Disc(%)</b></center></td>";
-                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Final Sale Amt US($)</b></center></td>";
-                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 8%;\"><center><b>Profit(%)</b></center></td>";
-                msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 10%;\"><center><b>Profit Amount($)</b></center></td>";
+                msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 4%;\"><center><b>No.</b></center></td>";
+                msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 15%;\"><center><b>Ref No</b></center></td>";
+                msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 10%;\"><center><b>QC Require</b></center></td>";
+                msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 10%;\"><center><b>Lab Status</b></center></td>";
+                msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 8%;\"><center><b>Supplier Cost Disc(%)</b></center></td>";
+                msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 10%;\"><center><b>Supplier Cost Value($)</b></center></td>";
+                msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 8%;\"><center><b>Final Sale Disc(%)</b></center></td>";
+                msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 10%;\"><center><b>Final Sale Amt US($)</b></center></td>";
+                msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 8%;\"><center><b>Profit(%)</b></center></td>";
+                msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 10%;\"><center><b>Profit Amount($)</b></center></td>";
                 msg += "</tr>";
 
                 for (var q = 0; q < LabEntry_List.length; q++) {
@@ -579,11 +583,11 @@ function LabEntry() {
                     msg += "<td><center>" + LabEntry_List[q].QC_Require + "</center></td>";
                     msg += "<td><center>" + LabEntry_List[q].LabEntry_Status + "</center></td>";
                     msg += "<td><center>" + formatNumber(LabEntry_List[q].SUPPLIER_COST_DISC) + "</center></td>";
-                    msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].SUPPLIER_COST_VALUE) + "</center></td>";
+                    msg += "<td style='color: #143f58;font-weight:600'><center>" + formatNumber(LabEntry_List[q].SUPPLIER_COST_VALUE) + "</center></td>";
                     msg += "<td><center>" + formatNumber(LabEntry_List[q].CUSTOMER_COST_DISC) + "</center></td>";
-                    msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].CUSTOMER_COST_VALUE) + "</center></td>";
+                    msg += "<td style='color: #143f58;font-weight:600'><center>" + formatNumber(LabEntry_List[q].CUSTOMER_COST_VALUE) + "</center></td>";
                     msg += "<td><center>" + formatNumber(LabEntry_List[q].PROFIT) + "</center></td>";
-                    msg += "<td style='color: #003d66;font-weight:600'><center>" + formatNumber(LabEntry_List[q].PROFIT_AMOUNT) + "</center></td>";
+                    msg += "<td style='color: #143f58;font-weight:600'><center>" + formatNumber(LabEntry_List[q].PROFIT_AMOUNT) + "</center></td>";
                     msg += "</tr>";
                 }
                 msg += "</tbody>";
@@ -934,7 +938,7 @@ function input_SUPPLIER_COST_DISC_Indicator(params) {
 
     var element = document.createElement("span");
     element.title = 'Supplier Cost Disc(%)';
-    element.innerHTML = '<label style="text-align: center;color: #003d66;font-size: 11px;text-align:center;font-weight:600;" class="input-inc SUPPLIER_COST_DISC">' + SUPPLIER_COST_DISC + '</label>';
+    element.innerHTML = '<label style="text-align: center;color: #143f58;font-size: 11px;text-align:center;font-weight:600;" class="input-inc SUPPLIER_COST_DISC">' + SUPPLIER_COST_DISC + '</label>';
     return element;
 }
 
@@ -1014,7 +1018,7 @@ function input_CUSTOMER_COST_DISC_Indicator(params) {
 
     var element = document.createElement("span");
     element.title = 'Final Sale Disc(%)';
-    element.innerHTML = '<label style="text-align: center;color: #003d66;font-size: 11px;text-align:center;font-weight:600;" class="input-inc CUSTOMER_COST_DISC">' + CUSTOMER_COST_DISC + '</label>';
+    element.innerHTML = '<label style="text-align: center;color: #143f58;font-size: 11px;text-align:center;font-weight:600;" class="input-inc CUSTOMER_COST_DISC">' + CUSTOMER_COST_DISC + '</label>';
     return element;
 }
 
@@ -1094,7 +1098,7 @@ function input_PROFIT_Indicator(params) {
 
     var element = document.createElement("span");
     element.title = 'Profit(%)';
-    element.innerHTML = '<label style="text-align: center;color: #003d66;font-size: 11px;text-align:center;font-weight:600;" class="input-inc PROFIT">' + PROFIT + '</label>';
+    element.innerHTML = '<label style="text-align: center;color: #143f58;font-size: 11px;text-align:center;font-weight:600;" class="input-inc PROFIT">' + PROFIT + '</label>';
     return element;
 }
 function input_PROFIT_AMOUNT_Indicator(params) {
@@ -1110,7 +1114,7 @@ function input_PROFIT_AMOUNT_Indicator(params) {
 
     var element = document.createElement("span");
     element.title = 'Profit Amount($)';
-    element.innerHTML = '<label style="text-align: center;color: #003d66;font-size: 11px;text-align:center;font-weight:600;" class="input-inc PROFIT_AMOUNT">' + PROFIT_AMOUNT + '</label>';
+    element.innerHTML = '<label style="text-align: center;color: #143f58;font-size: 11px;text-align:center;font-weight:600;" class="input-inc PROFIT_AMOUNT">' + PROFIT_AMOUNT + '</label>';
     return element;
 }
 

@@ -427,6 +427,7 @@ var SortDirection = "";const datasource1 = {
     //$('#txt_UserCode').onFocusout(function () {
     //    Check_UserCode_Exist();
     //});
+    $("#li_User_Manage").addClass("menuActive");
 });
 
 $(window).resize(function () {

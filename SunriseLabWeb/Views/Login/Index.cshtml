@@ -186,6 +186,45 @@
         body {
             overflow: hidden;
         }
+        .btn-primary {
+            color: #fff;
+            background-color: #143f58;
+            border-color: #143f58;
+        }
+            .btn-primary:hover {
+                color: #fff;
+                background-color: #143f58c7;
+                border-color: #143f58c7;
+            }
+            .btn-primary:focus {
+                color: #fff;
+                background-color: #143f58;
+                border-color: #143f58;
+                box-shadow: 0 0 0 0.2rem #205c7f69;
+            }
+            .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+                color: #fff;
+                background-color: #143f58;
+                border-color: #143f58;
+            }
+        .btn:focus-visible {
+            border-color: #143f58;
+            outline: 0;
+            box-shadow: var(--mdb-btn-box-shadow),var(--mdb-btn-focus-box-shadow);
+        }
+        .btn:focus-visible {
+            color: var(--mdb-btn-hover-color);
+            background-color: #143f58;
+        }
+        a {
+            color: #143f58;
+            text-decoration: none;
+            background-color: transparent;
+        }
+            a:hover {
+                color: #143f58c7;
+                text-decoration: underline;
+            }
     </style>
 </head>
 <body class="bg">

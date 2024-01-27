@@ -585,6 +585,7 @@ function formatNumber_with_point(number) {
 
 $(document).ready(function (e) {
     $("#content").addClass("bg-color");
+    $("#li_Dashboard").addClass("menuActive");
     GetDashboardCount();
     GetMyCart();
     GetSaveSearch();

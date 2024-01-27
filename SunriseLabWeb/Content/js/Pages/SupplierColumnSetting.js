@@ -5,6 +5,7 @@ var SupplierColumn_ddl = "";
 
 $(document).ready(function () {
     Master_Get();
+    $("#li_User_SupplierColumnSetting").addClass("menuActive");
 });
 
 function Master_Get() {

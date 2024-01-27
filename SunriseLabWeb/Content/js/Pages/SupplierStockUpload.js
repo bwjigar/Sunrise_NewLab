@@ -16,6 +16,7 @@ $(document).ready(function () {
         }
     });
     Master_Get();
+    $("#li_User_SupplierStockUpload").addClass("menuActive");
 });
 function Get_SheetName_From_File() {
     debugger

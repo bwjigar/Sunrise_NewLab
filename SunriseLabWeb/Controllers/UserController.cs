@@ -910,10 +910,10 @@ namespace SunriseLabWeb_New.Controllers
                     Error_msg = "<table border='1' style='font-size:12px;width: 80%;margin-top:5px;display:block;max-height:360px;overflow-y:auto;'>";
                     Error_msg += "<tbody>";
                     Error_msg += "<tr>";
-                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 7%;\"><center><b>No.</b></center></td>";
-                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 27%;\"><center><b>Ref No</b></center></td>";
-                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 25%;\"><center><b>Supplier Cost Value($)</b></center></td>";
-                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 25%;\"><center><b>Sunrise Value($)</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 7%;\"><center><b>No.</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 27%;\"><center><b>Ref No</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 25%;\"><center><b>Supplier Cost Value($)</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 25%;\"><center><b>Sunrise Value($)</b></center></td>";
                     Error_msg += "</tr>";
 
                     string RefNo = "";
@@ -977,8 +977,8 @@ namespace SunriseLabWeb_New.Controllers
                                 Error_msg_1 += "<tr>";
                                 Error_msg_1 += "<td><center><b>" + Error_count + "</b></center></td>";
                                 Error_msg_1 += "<td><center>" + ws.Cells[rw, 1].Value + "</center></td>";
-                                Error_msg_1 += "<td style='color: #003d66;font-weight:600'><center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 4].Value)) + "</center></td>";
-                                Error_msg_1 += "<td style='color: #003d66;font-weight:600'><center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 5].Value)) + "</center></td>";
+                                Error_msg_1 += "<td style='color: #143f58;font-weight:600'><center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 4].Value)) + "</center></td>";
+                                Error_msg_1 += "<td style='color: #143f58;font-weight:600'><center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 5].Value)) + "</center></td>";
                                 Error_msg_1 += "</tr>";
                             }
                         }
@@ -989,8 +989,8 @@ namespace SunriseLabWeb_New.Controllers
                             Error_msg_1 += "<tr>";
                             Error_msg_1 += "<td>center><b>" + Error_count + "</b></center></td>";
                             Error_msg_1 += "<td>center>" + ws.Cells[rw, 1].Value + "</center></td>";
-                            Error_msg_1 += "<td style='color: #003d66;font-weight:600'>center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 4].Value)) + "</center></td>";
-                            Error_msg_1 += "<td style='color: #003d66;font-weight:600'>center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 5].Value)) + "</center></td>";
+                            Error_msg_1 += "<td style='color: #143f58;font-weight:600'>center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 4].Value)) + "</center></td>";
+                            Error_msg_1 += "<td style='color: #143f58;font-weight:600'>center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 5].Value)) + "</center></td>";
                             Error_msg_1 += "</tr>";
                         }
                     }
@@ -1154,8 +1154,8 @@ namespace SunriseLabWeb_New.Controllers
                     Error_msg = "<table border='1' style='font-size:12px;width: 40%;margin-top:5px;display:block;max-height:360px;overflow-y:auto;'>";
                     Error_msg += "<tbody>";
                     Error_msg += "<tr>";
-                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 5%;\"><center><b>No.</b></center></td>";
-                    Error_msg += "<td style=\"background-color: #003d66;color: white;padding: 3px;width: 30%;\"><center><b>Ref No / Certi No</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 5%;\"><center><b>No.</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 30%;\"><center><b>Ref No / Certi No</b></center></td>";
                     Error_msg += "</tr>";
 
                     string RefNo = "", RefNo1 = "";

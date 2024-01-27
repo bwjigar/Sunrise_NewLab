@@ -617,6 +617,7 @@ $(document).ready(function (e) {
     $("input[name$='DATA_GET_FROM']").click(function () {
         DATA_GET_FROM = $(this).val();
     });
+    $("#li_User_SupplierMas").addClass("menuActive");
 });
 
 $(window).resize(function () {

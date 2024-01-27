@@ -17,6 +17,7 @@ $(document).ready(function () {
             SetTableOrder("Customer");
         }
     });
+    $("#li_User_ColumnSetting").addClass("menuActive");
 });
 function Master_Get() {
     loaderShow();

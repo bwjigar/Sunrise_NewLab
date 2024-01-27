@@ -48,7 +48,7 @@ label {
 /*sidebar navigation*/
 
 .ragistration-page #myScrollspy {
-    background: #003d66 none repeat scroll 0 0;
+    background: #143f58 none repeat scroll 0 0;
     left: 0px;
     position: fixed;
     top: 88px;
@@ -292,7 +292,7 @@ span.placeholder-three-custom {
 }
 
     .ragistration .login-button button {
-        border: 1px solid #003d66;
+        border: 1px solid #143f58;
         color: #fff;
         padding: 12px 15px;
         font-size: 15px;
@@ -313,7 +313,7 @@ span.placeholder-three-custom {
             top: 0;
             width: 50%;
             margin: auto;
-            background: #003d66;
+            background: #143f58;
             z-index: -1;
             height: 100%;
             border-radius: 50px 0 0 50px;
@@ -327,7 +327,7 @@ span.placeholder-three-custom {
             top: 0;
             width: 50%;
             margin: auto;
-            background: #003d66;
+            background: #143f58;
             z-index: -1;
             height: 100%;
             border-radius: 0 50px 50px 0;
@@ -344,7 +344,7 @@ span.placeholder-three-custom {
         }
 
         .ragistration .login-button button:hover {
-            color: #003d66;
+            color: #143f58;
             font-weight: 700;
         }
 
@@ -396,7 +396,7 @@ span.placeholder-three-custom {
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #003d66;
+    background-color: #143f58;
     color: #fff;
 }
 
@@ -417,7 +417,7 @@ span.placeholder-three-custom {
 .ragistration .r-label {
     float: left;
     position: relative;
-    background: #003d66;
+    background: #143f58;
     padding: 10px;
     margin-left: -23px;
     margin-top: -15px;
@@ -431,7 +431,7 @@ span.placeholder-three-custom {
     border-top: 8px solid transparent;
     border-right: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-left: 8px solid #003d66;
+    border-left: 8px solid #143f58;
     transform: rotate(90deg);
 }
 

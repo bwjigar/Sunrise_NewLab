@@ -13,3 +13,7 @@
         Get_Supplier_Disc();
     }
 }
+
+$(document).ready(function () {
+    $("#li_User_SupplierPriceList").addClass("menuActive");
+});

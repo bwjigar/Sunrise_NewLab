@@ -57,7 +57,7 @@ span {
 
 /* Track */
 .sidebar-info::-webkit-scrollbar-track {
-  background: #003d66;
+  background: #143f58;
 }
 
 /* Handle */
@@ -75,7 +75,7 @@ span {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #003d66;
+    background: #143f58;
     color: #fff;
     transition: all 0.3s;
     position: fixed;
@@ -132,10 +132,10 @@ span {
     padding: 10px !important;
 }
 #sidebar.active .sidebar-header img{
-	display: none;#003d66
+	display: none;#143f58
 }
 #sidebar.active .sidebar-header{
-	background:#003d66;
+	background:#143f58;
 }
 #sidebar.active .dropdown-toggle::after {
     top: auto;
@@ -173,7 +173,7 @@ span {
 }
 
 #sidebar ul li a:hover {
-    color: #003d66;
+    color: #143f58;
     background: #fff;
 }
 
@@ -219,7 +219,7 @@ ul.CTAs a {
 
 a.download {
     background: #fff;
-    color: #003d66;
+    color: #143f58;
 }
 
 a.article,
@@ -284,7 +284,7 @@ a.article:hover {
     top: -20px;
     border-top: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-bottom: 10px solid #003d66;
+    border-bottom: 10px solid #143f58;
     border-left: 10px solid transparent;
 }
 .dropdown .dropdown-menu .dropdown-header {
@@ -293,8 +293,8 @@ a.article:hover {
     color: #b7b9cc;
 }
 .topbar .dropdown-list .dropdown-header {
-    background-color: #003d66;
-    border: 1px solid #003d66;
+    background-color: #143f58;
+    border: 1px solid #143f58;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     color: #fff;
@@ -379,8 +379,8 @@ a.article:hover {
 .btn-info,.btn-info:hover,.btn-info:focus,.btn-info:active,
 .btn-primary,.btn-primary:hover,.btn-primary:focus {
     color: #fff;
-    background-color: #003d66 !important;
-    border-color: #003d66;
+    background-color: #143f58 !important;
+    border-color: #143f58;
 	outline: none;
 	box-shadow: none !important;
 }
@@ -393,7 +393,7 @@ a.article:hover {
 .dropdown-item.active, .dropdown-item:active {
     color: #fff;
     text-decoration: none;
-    background-color: #003d66;
+    background-color: #143f58;
 }
 .dropdown-item.english.active{
 	color: #fff;
@@ -749,7 +749,7 @@ a.user-img-cl span {
 }
 .card-header h6.title{
 	text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
-	color:#003d66;
+	color:#143f58;
 }
 .cart-icon{
 	animation: bounce 2s infinite;
@@ -925,12 +925,12 @@ ul.chart-navigation li a.active {
 	left: 50%;
 	transform: rotate(45deg) translatex(-50%);
 	transform-origin: left;
-	background-color: #003d66;
+	background-color: #143f58;
  	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
 	position: absolute;
 }
 .nav-item .nav-link.active {
-	background-color: #003d66!important;
+	background-color: #143f58!important;
 	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
 	color: #fff;
 }
@@ -968,8 +968,8 @@ ul.search li a .icon-image{
 	transition: transform 0.3s ease-in-out;
 }
 ul.search li a.active .icon-image{
-	box-shadow:inset 0px 0px 25px -8px #003d66;
-	-webkit-box-shadow:inset 0px 0px 25px -8px #003d66;
+	box-shadow:inset 0px 0px 25px -8px #143f58;
+	-webkit-box-shadow:inset 0px 0px 25px -8px #143f58;
 }
 ul.search li a img {
     height: 40px;
@@ -992,7 +992,7 @@ ul.search li a:hover .icon-image,ul.search li a:hover span,ul.search li a.active
     }
 }
 ul.search li a span{
-	color: #003d66;
+	color: #143f58;
 	transition: transform 0.3s ease-in-out;
 	font-size: 14px;
 	margin-top: 10px;
@@ -1047,7 +1047,7 @@ ul.carat ul {
 }
 
 .common-li li:hover,.common-li li.active{
-	background: #003d66;
+	background: #143f58;
 	color:#fff;	
 	box-shadow: none;
 }
@@ -1254,10 +1254,10 @@ ul.carat ul {
     font-size: 15px;
 }
 .tooltip-inner {
-    background-color: #003d66;
+    background-color: #143f58;
 }
 .tooltip.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .tooltip.bs-tooltip-bottom .arrow::before {
-    border-bottom-color: #003d66;
+    border-bottom-color: #143f58;
 }
 .result-three ul li a {
     border: 1px solid #e5e5e5;
@@ -1265,7 +1265,7 @@ ul.carat ul {
     width: 40px;
     display: block;
     margin-right: 2px;
-    color: #003d66;
+    color: #143f58;
 	position:relative;
 	overflow: hidden;
 	padding: 0 8px;
@@ -1275,7 +1275,7 @@ ul.carat ul {
     position: absolute;
     height: 100px;
     width: 100px;
-    background: #003d66;
+    background: #143f58;
     transform: rotate(-45deg);
     top: -120px;
     left: -58px;
@@ -1292,7 +1292,7 @@ ul.carat ul {
     position: absolute;
     height: 100px;
     width: 100px;
-    background: #003d66;
+    background: #143f58;
     transform: rotate(-45deg);
     bottom: -120px;
     right: -58px;

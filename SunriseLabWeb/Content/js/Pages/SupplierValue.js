@@ -24,12 +24,13 @@ $(document).ready(function (e) {
     $('#Modal_CategoryMas').on('shown.bs.modal', function (e) {
         CateMas_Back();
         CateMas_GetSearch();
-    })
+    });
     $('#Modal_CategoryMas').on('hidden.bs.modal', function (e) {
         //Master_Get();
         //GetSearch();
         BindCategoryTab();
-    })
+    });
+    $("#li_User_SupplierValue").addClass("menuActive");
 });
 function Master_Get() {
     Supplierdata = [];
