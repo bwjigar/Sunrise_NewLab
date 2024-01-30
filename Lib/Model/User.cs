@@ -854,6 +854,7 @@ namespace Lib.Model
     }
     public class PlaceOrder_Req
     {
+        public int UserId { get; set; }
         public string SupplierId_RefNo_SupplierRefNo { get; set; }
         public string Comments { get; set; }
         public string PricingMethod { get; set; }
@@ -985,6 +986,17 @@ namespace Lib.Model
         public string Zone { get; set; }
         public string Para_Grade { get; set; }
     }
+    public class Get_Company_PlaceOrder_Res
+    {
+        public string UserId { get; set; }
+        public string CompName { get; set; }
+        public string FortunePartyCode { get; set; }
+        public string UserName { get; set; }
+        public string CustName { get; set; }
+        public string AssistBy { get; set; }
+        public string SubAssistBy { get; set; }
+    }
+    
     public class Add_LabEntry_Res
     {
         public int Id { get; set; }

@@ -392,6 +392,7 @@ $(document).ready(function (e) {
     GetSearch();
     contentHeight();
     $("#li_User_MyCart").addClass("menuActive");
+    GetCompanyList();
 });
 
 $(window).resize(function () {

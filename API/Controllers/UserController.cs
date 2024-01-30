@@ -11387,16 +11387,14 @@ namespace API.Controllers
             try
             {
                 CommonResponse resp = new CommonResponse();
-                Int32 OrderId;
-                string OrderDate;
-
                 Database db = new Database();
                 List<IDbDataParameter> para;
                 para = new List<IDbDataParameter>();
 
                 int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
 
-                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, UserId));
+                para.Add(db.CreateParam("OrderFrom_UserId", DbType.Int32, ParameterDirection.Input, UserId));
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
                 para.Add(db.CreateParam("Comments", DbType.String, ParameterDirection.Input, req.Comments));
                 para.Add(db.CreateParam("SupplierId_RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, req.SupplierId_RefNo_SupplierRefNo));
 
@@ -11419,10 +11417,9 @@ namespace API.Controllers
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    OrderId = Convert.ToInt32(dt.Rows[0]["OrderId"].ToString());
+                    Int32 OrderId = Convert.ToInt32(dt.Rows[0]["OrderId"].ToString());
                     resp.Status = dt.Rows[0]["Status"].ToString();
                     resp.Message = dt.Rows[0]["Message"].ToString();
-                    OrderDate = DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
 
                     if (resp.Status == "1" && OrderId > 0)
                     {
@@ -11430,6 +11427,7 @@ namespace API.Controllers
                         string _path = ConfigurationManager.AppSettings["data"];
                         _path = _path.Replace("Temp", "ExcelFile");
                         string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
+                        string OrderDate = DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
 
                         if (!Directory.Exists(realpath))
                         {
@@ -11446,10 +11444,9 @@ namespace API.Controllers
                         {
                             EpExcelExport.PlaceOrder_Excel(dtOrderDetail, realpath, realpath + filename, OrderId);
 
-                            SendOrderMail(OrderId, req.Comments, UserId, OrderDate, "Customer", realpath, filename);
-                            SendOrderMail(OrderId, req.Comments, UserId, OrderDate, "Employee", realpath, filename);
+                            SendOrderMail(OrderId, req.Comments, req.UserId, OrderDate, "Customer", realpath, filename);
+                            SendOrderMail(OrderId, req.Comments, req.UserId, OrderDate, "Employee", realpath, filename);
                         }
-                        
                     }
                 }
                 else
@@ -11465,6 +11462,53 @@ namespace API.Controllers
                 return Ok(new CommonResponse
                 {
                     Error = "",
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Get_Company_PlaceOrder([FromBody] JObject data)
+        {
+            try
+            {
+                Database db = new Database(Request);
+                List<IDbDataParameter> para;
+                para = new List<IDbDataParameter>();
+
+                int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, userID));
+
+                DataTable dt = db.ExecuteSP("Get_Company_PlaceOrder", para.ToArray(), false);
+
+                List<Get_Company_PlaceOrder_Res> response = new List<Get_Company_PlaceOrder_Res>();
+                response = DataTableExtension.ToList<Get_Company_PlaceOrder_Res>(dt);
+                if (response.Count > 0)
+                {
+                    return Ok(new ServiceResponse<Get_Company_PlaceOrder_Res>
+                    {
+                        Data = response,
+                        Message = "SUCCESS",
+                        Status = "1"
+                    });
+                }
+                else
+                {
+                    return Ok(new ServiceResponse<Get_Company_PlaceOrder_Res>
+                    {
+                        Data = response,
+                        Message = "No Data Found",
+                        Status = "0"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_Company_PlaceOrder_Res>
+                {
+                    Data = new List<Get_Company_PlaceOrder_Res>(),
                     Message = "Something Went wrong.\nPlease try again later",
                     Status = "0"
                 });

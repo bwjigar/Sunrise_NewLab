@@ -70,6 +70,7 @@ namespace SunriseLabWeb_New.Data
         public static string Get_StockUpload_Response = "/User/Get_StockUpload_Response";
         
         public static string PlaceOrder = "/User/PlaceOrder";
+        public static string Get_Company_PlaceOrder = "/User/Get_Company_PlaceOrder";
         public static string Get_OrderHistory = "/User/Get_OrderHistory";
         public static string Excel_OrderHistory = "/User/Excel_OrderHistory";
         

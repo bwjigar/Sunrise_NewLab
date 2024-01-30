@@ -2587,6 +2587,7 @@ $(document).ready(function () {
     });
     SetSavedSearchParameter();
     $("#li_User_SearchStock").addClass("menuActive");
+    GetCompanyList();
 });
 function validmail(e) {
     debugger
@@ -3301,13 +3302,15 @@ function Reset() {
     });
 
     $('#searchshape').html("");
-    $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'SHAPE\',\'' + 'ALL' + '\')" class="common-ico"><div class="icon-image one"><span class="first-ico">ALL</span></div><span>ALL</span></a></li>');
-
+    $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'SHAPE\',\'' + 'ALL' + '\')" class="common-ico"><div class="icon-image one"><span class="first-ico">ALL</span></div></a></li>');
+    ShapeList = _.filter(ParameterList, function (e) { return e.Type == 'Shape' && e.Icon_Url != null });
     _(ShapeList).each(function (shape, i) {
         if (shape.Value != 'ALL') {
-            $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'SHAPE\',\'' + shape.Value + '\')" class="common-ico"><div class="icon-image one"><img src="https://sunrisediamonds.com.hk/Images/Shape/ROUND.svg" class="first-ico"><img src="https://sunrisediamonds.com.hk/Images/Shape/ROUND_Trans.png" class="second-ico"></div><span>' + shape.Value + '</span></a></li>');
+            var iconurl = shape.Icon_Url.split("__");
+            $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'SHAPE\',\'' + shape.Value + '\')" class="common-ico"><div class="icon-image one"><img src="' + iconurl[0] + '" class="first-ico"><img src="' + iconurl[1] + '" class="second-ico"></div><span>' + shape.Value + '</span></a></li>');
         }
     });
+
 
     //$('#searchshape').html("");
     //_(ShapeList).each(function (shape, i) {

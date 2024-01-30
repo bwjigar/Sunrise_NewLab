@@ -822,6 +822,12 @@ namespace SunriseLabWeb_New.Controllers
             CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Get_Company_PlaceOrder()
+        {
+            string response = _api.CallAPI(Constants.Get_Company_PlaceOrder, string.Empty);
+            ServiceResponse<Get_Company_PlaceOrder_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_Company_PlaceOrder_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult OrderHistory()
         {
             return View();

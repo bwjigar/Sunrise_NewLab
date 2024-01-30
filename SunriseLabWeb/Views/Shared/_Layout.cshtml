@@ -271,8 +271,12 @@
             background-color: #dbd7d76e;
         }
         .menuActive {
-            background-color: white;
+            background-color: black;
+            color: white;
+        }
+        .text-head {
             color: #143f58;
+            font-weight: 600;
         }
     </style>
 
@@ -491,6 +495,10 @@
                 </div>
                 <form class="form-horizontal" id="frmSaveOrder">
                     <div class="col-md-12" id="pPlaceOrderMsg" style="font-size: 13px;margin-top: 4px;"></div>
+                    <div class="col-md-12" id="divPlaceOrderHoldCompany" style="display:none;">
+                        <span style="font-size: 12px;font-weight: 600;color: #003d66;">Company Name :</span>
+                        <input type="text" tabindex="1" class="form-control" onkeydown="CmpnynmRst();" id="txtCompanyName" name="txtCompanyName" placeholder="Search with Company Name, User Name, Fortune Party Code" autocomplete="none" style="font-size: 12.5px;">
+                    </div>
                     <div class="modal-body" id="Selected" style="margin-top: -13px;">
                         <div class="form-group">
                             <label>Comments : <span class="reqvalidation">*</span></label>
@@ -566,6 +574,16 @@
                     $('#frmSaveOrder #Selected').hide();
                     $('#frmSaveOrder #NotSelected').show();
                     $('.modal-footer #btnsaveOrderstone').hide();
+                }
+                if ($("#hdn_UserType").val().includes("1") || $("#hdn_UserType").val().includes("2")) {
+                    $("#divPlaceOrderHoldCompany").show();
+                    $("#txtCompanyName_hidden").val("");
+                    $("#txtCompanyName").val("");
+                }
+                else {
+                    $("#divPlaceOrderHoldCompany").hide();
+                    $("#txtCompanyName_hidden").val("");
+                    $("#txtCompanyName").val("");
                 }
             });
         });
@@ -756,6 +774,13 @@ var loaderHide = function () {
                     obj.PricingDisc = $("#txtDisc_1_1").val();
                 }
                 debugger
+                if ($("#txtCompanyName_hidden").val() != undefined && $("#txtCompanyName_hidden").val().split("__").length == 2) {
+                    obj.UserId = $("#txtCompanyName_hidden").val().split("__")[0];
+                }
+                else {
+                    obj.UserId = $("#hdn_UserId").val();
+                }
+                debugger
                 $.ajax({
                     url: '/User/PlaceOrder',
                     type: "POST",
@@ -787,6 +812,79 @@ var loaderHide = function () {
                     }
                 });
             }
+        }
+        var CompanyList = [];
+        function GetCompanyList() {
+            $.ajax({
+                url: "/User/Get_Company_PlaceOrder",
+                async: false,
+                type: "POST",
+                data: null,
+                success: function (data, textStatus, jqXHR) {
+                    if (data.Data != null) {
+                        CompanyList = data.Data;
+                        for (var i = 0; i < CompanyList.length; i++) {
+                            CompanyList[i].UserId = CompanyList[i].UserId + "__" + CompanyList[i].FortunePartyCode;
+                        }
+                        if ($("#hdn_UserType").val().includes("1")) {
+                            $('#txtCompanyName').ejAutocomplete({
+                                dataSource: CompanyList,
+                                filterType: 'contains',
+                                fields: { key: "UserId" },
+                                highlightSearch: true,
+                                watermarkText: "Search with Company Name, Assist By, Party Code, Customer Name",
+                                width: "100%",
+                                showPopupButton: true,
+                                multiColumnSettings: {
+                                    enable: true,
+                                    showHeader: true,
+                                    stringFormat: "{0}",
+                                    searchColumnIndices: [0, 1, 2, 3],
+                                    columns: [
+                                        { "field": "CompName", "headerText": "COMPANY NAME" },
+                                        { "field": "AssistBy", "headerText": "ASSIST BY" },
+                                        { "field": "FortunePartyCode", "headerText": "PARTY CODE" },
+                                        { "field": "CustName", "headerText": "CUSTOMER NAME" }
+                                    ]
+                                }
+                            });
+                        }
+                        else if ($("#hdn_UserType").val().includes("2")) {
+                            $('#txtCompanyName').ejAutocomplete({
+                                dataSource: CompanyList,
+                                filterType: 'contains',
+                                fields: { key: "UserId" },
+                                highlightSearch: true,
+                                watermarkText: "Search with Company Name, Party Code, Customer Name",
+                                width: "100%",
+                                showPopupButton: true,
+                                multiColumnSettings: {
+                                    enable: true,
+                                    showHeader: true,
+                                    stringFormat: "{0}",
+                                    searchColumnIndices: [0, 1, 2],
+                                    columns: [
+                                        { "field": "CompName", "headerText": "COMPANY NAME" },
+                                        { "field": "FortunePartyCode", "headerText": "PARTY CODE" },
+                                        { "field": "CustName", "headerText": "CUSTOMER NAME" }
+                                    ]
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        }
+        function CmpnynmSelectRequired() {
+            setTimeout(function () {
+                if ($("#txtCompanyName_hidden").val().split("__").length != 2) {
+                    $("#txtCompanyName").val("");
+                    $("#txtCompanyName_hidden").val("");
+                }
+            }, 250);
+        }
+        function CmpnynmRst() {
+            $("#txtCompanyName_hidden").val("");
         }
         function getContextMenuItems() {
             return [];
