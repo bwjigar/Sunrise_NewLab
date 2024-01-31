@@ -95,7 +95,7 @@ span {
 
 /* Handle */
 .sidebar-info::-webkit-scrollbar-thumb {
-    background: black;
+    background: #143f58;
     border-radius: 15px;
 }
 
@@ -107,7 +107,7 @@ span {
 #sidebar {
     width: 220px;
     background: white;
-    color: black;
+    color: #143f58;
     transition: 1s;
     position: fixed;
     top: 0;
@@ -223,7 +223,8 @@ span {
 
 #sidebar ul.data {
     padding: 0 0 20px 0;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #143f58;
+    border-right: 1px solid #efeeee;
 }
 
 #sidebar ul li {
@@ -238,7 +239,7 @@ span {
 
         #sidebar ul li a:hover {
             color: white;
-            background: black;
+            background: #143f58;
         }
 
         #sidebar ul li a i {

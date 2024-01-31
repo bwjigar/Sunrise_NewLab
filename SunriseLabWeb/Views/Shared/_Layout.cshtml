@@ -271,7 +271,7 @@
             background-color: #dbd7d76e;
         }
         .menuActive {
-            background-color: black;
+            background-color: #143f58;
             color: white;
         }
         .text-head {
@@ -570,21 +570,27 @@
                     $('#frmSaveOrder #Selected').show();
                     $('#frmSaveOrder #NotSelected').hide();
                     $('.modal-footer #btnsaveOrderstone').show();
+
+                    if ($("#hdn_UserType").val().includes("1") || $("#hdn_UserType").val().includes("2")) {
+                        $("#divPlaceOrderHoldCompany").show();
+                        $("#txtCompanyName_hidden").val("");
+                        $("#txtCompanyName").val("");
+                    }
+                    else {
+                        $("#divPlaceOrderHoldCompany").hide();
+                        $("#txtCompanyName_hidden").val("");
+                        $("#txtCompanyName").val("");
+                    }
                 } else {
                     $('#frmSaveOrder #Selected').hide();
                     $('#frmSaveOrder #NotSelected').show();
                     $('.modal-footer #btnsaveOrderstone').hide();
-                }
-                if ($("#hdn_UserType").val().includes("1") || $("#hdn_UserType").val().includes("2")) {
-                    $("#divPlaceOrderHoldCompany").show();
-                    $("#txtCompanyName_hidden").val("");
-                    $("#txtCompanyName").val("");
-                }
-                else {
+
                     $("#divPlaceOrderHoldCompany").hide();
                     $("#txtCompanyName_hidden").val("");
                     $("#txtCompanyName").val("");
                 }
+                
             });
         });
 var loaderShow = function () {
