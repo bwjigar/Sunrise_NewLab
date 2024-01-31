@@ -2118,6 +2118,7 @@ var CrwnInclList = [];
 var CrwnNattsList = [];
 
 var KTSBlank = false;
+var RCommentBlank = false;
 var LengthBlank = false;
 var WidthBlank = false;
 var DepthBlank = false;
@@ -2137,10 +2138,15 @@ var KeyToSymbolList = [];
 var CheckKeyToSymbolList = [];
 var UnCheckKeyToSymbolList = [];
 
+var RCommentList = [];
+var CheckRCommentList = [];
+var UnCheckRCommentList = [];
+
+
 var Check_Color_1 = [];
 var Check_Color_2 = [];
 var Check_Color_3 = [];
-var KTS = 0, C1 = 0, C2 = 0, C3 = 0;
+var RC = 0, KTS = 0, C1 = 0, C2 = 0, C3 = 0;
 var INTENSITY = [], OVERTONE = [], FANCY_COLOR = [];
 var Color_Type = 'Regular';
 var IsFiltered = true;
@@ -2165,13 +2171,14 @@ function INTENSITYShow() {
             $("#sym-sec0 .carat-dropdown-main").hide();
             $("#sym-sec2 .carat-dropdown-main").hide();
             $("#sym-sec3 .carat-dropdown-main").hide();
+            $("#sym-sec4 .carat-dropdown-main").hide();
             $("#sym-sec1 .carat-dropdown-main").show();
             C1 = 1;
-            KTS = 0, C2 = 0, C3 = 0;
+            RC=0, KTS = 0, C2 = 0, C3 = 0;
         }
         else {
             $("#sym-sec1 .carat-dropdown-main").hide();
-            C1 = 0, KTS = 0, C2 = 0, C3 = 0;
+            RC=0, C1 = 0, KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
@@ -2181,13 +2188,14 @@ function OVERTONEShow() {
             $("#sym-sec0 .carat-dropdown-main").hide();
             $("#sym-sec1 .carat-dropdown-main").hide();
             $("#sym-sec3 .carat-dropdown-main").hide();
+            $("#sym-sec4 .carat-dropdown-main").hide();
             $("#sym-sec2 .carat-dropdown-main").show();
             C2 = 1;
-            C1 = 0, KTS = 0, C3 = 0;
+            RC=0,C1 = 0, KTS = 0, C3 = 0;
         }
         else {
             $("#sym-sec2 .carat-dropdown-main").hide();
-            C1 = 0, KTS = 0, C2 = 0, C3 = 0;
+            RC=0,C1 = 0, KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
@@ -2197,13 +2205,14 @@ function FANCY_COLORShow() {
             $("#sym-sec0 .carat-dropdown-main").hide();
             $("#sym-sec1 .carat-dropdown-main").hide();
             $("#sym-sec2 .carat-dropdown-main").hide();
+            $("#sym-sec4 .carat-dropdown-main").hide();
             $("#sym-sec3 .carat-dropdown-main").show();
             C3 = 1;
-            C1 = 0, KTS = 0, C2 = 0;
+            RC=0,C1 = 0, KTS = 0, C2 = 0;
         }
         else {
             $("#sym-sec3 .carat-dropdown-main").hide();
-            C1 = 0, KTS = 0, C2 = 0, C3 = 0;
+            C=0,C1 = 0, KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
@@ -2213,13 +2222,14 @@ function Key_to_symbolShow() {
             $("#sym-sec1 .carat-dropdown-main").hide();
             $("#sym-sec2 .carat-dropdown-main").hide();
             $("#sym-sec3 .carat-dropdown-main").hide();
+            $("#sym-sec4 .carat-dropdown-main").hide();
             $("#sym-sec0 .carat-dropdown-main").show();
             KTS = 1;
-            C1 = 0, C2 = 0, C3 = 0;
+            RC=0,C1 = 0, C2 = 0, C3 = 0;
         }
         else {
             $("#sym-sec0 .carat-dropdown-main").hide();
-            C1 = 0, KTS = 0, C2 = 0, C3 = 0;
+            RC=0,C1 = 0, KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
@@ -2558,6 +2568,7 @@ $(document).ready(function () {
         }, 0.1);
     });
     BindKeyToSymbolList();
+    BindRCommentList();
     $('#divGridView li a.download-popup').on('click', function (event) {
         $('.download-toggle').toggleClass('active');
         event.stopPropagation();
@@ -2929,7 +2940,7 @@ function GetSearchParameter() {
 
 
                 KeyToSymbolList = _.filter(ParameterList, function (e) { return e.Type == 'Key to Symbol' });
-
+                RCommentList = _.filter(ParameterList, function (e) { return e.Type == 'Key to Symbol' });
 
                 loaderHide();
             }
@@ -3179,6 +3190,15 @@ function SetActive(flag, value) {
         } else {
             KTSBlank = true;
             $("#KTSBlank").addClass("active");
+        }
+    }
+    else if (flag == "RCommentBlank") {
+        if (KTSBlank) {
+            KTSBlank = false;
+            $("#RCommentBlank").removeClass("active");
+        } else {
+            KTSBlank = true;
+            $("#RCommentBlank").addClass("active");
         }
     }
     else if (flag == "LengthBlank") {
@@ -3488,68 +3508,50 @@ function resetKeytoSymbol() {
     KTS = 1;
     Key_to_symbolShow();
 }
+function resetRComment() {
+    CheckRCommentList = [];
+    UnCheckRCommentList = [];
+    $('#RComment_spanselected').html('' + CheckRCommentList.length + ' - Selected');
+    $('#RComment_spanunselected').html('' + UnCheckRCommentList.length + ' - Deselected');
+    $('#searchRComment input[type="radio"]').prop('checked', false);
+    KTS = 1;
+    RCommentShow();
+}
 function Key_to_symbolShow() {
     setTimeout(function () {
         if (KTS == 0) {
             $("#sym-sec1 .carat-dropdown-main").hide();
             $("#sym-sec2 .carat-dropdown-main").hide();
             $("#sym-sec3 .carat-dropdown-main").hide();
+            $("#sym-sec4 .carat-dropdown-main").hide();
             $("#sym-sec0 .carat-dropdown-main").show();
             KTS = 1;
-            C1 = 0, C2 = 0, C3 = 0;
+            RC = 0, C1 = 0, C2 = 0, C3 = 0;
         }
         else {
             $("#sym-sec0 .carat-dropdown-main").hide();
-            C1 = 0, KTS = 0, C2 = 0, C3 = 0;
+            RC = 0, C1 = 0, KTS = 0, C2 = 0, C3 = 0;
+        }
+    }, 2);
+}
+function RCommentShow() {
+    setTimeout(function () {
+        if (RC == 0) {
+            $("#sym-sec1 .carat-dropdown-main").hide();
+            $("#sym-sec2 .carat-dropdown-main").hide();
+            $("#sym-sec3 .carat-dropdown-main").hide();
+            $("#sym-sec0 .carat-dropdown-main").hide();
+            $("#sym-sec4 .carat-dropdown-main").show();
+            RC = 1;
+            KTS = 0, C1 = 0, C2 = 0, C3 = 0;
+        }
+        else {
+            $("#sym-sec4 .carat-dropdown-main").hide();
+            RC = 0, C1 = 0, KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
 function BindKeyToSymbolList() {
-    //$.ajax({
-    //    url: "/SearchStock/GetKeyToSymbolList",
-    //    async: false,
-    //    type: "POST",
-    //    data: null,
-    //    success: function (data, textStatus, jqXHR) {
-    //        var KeytoSymbolList = data.Data;
-    //        $('#searchkeytosymbol').html("");
-    //        if (KeytoSymbolList != null) {
-    //            if (KeytoSymbolList.length > 0) {
-    //                $.each(KeytoSymbolList, function (i, itm) {
-    //                    $('#searchkeytosymbol').append('<div class="col-12 pl-0 pr-0 ng-scope">'
-    //                        + '<ul class="row m-0">'
-    //                        + '<li class="carat-dropdown-chkbox">'
-    //                        + '<div class="main-cust-check">'
-    //                        + '<label class="cust-rdi-bx mn-check">'
-    //                        + '<input type="radio" class="checkradio" id="CHK_KTS_Radio_' + (i + 1) + '" name="radio' + (i + 1) + '" onclick="GetCheck_KTS_List(\'' + itm.sSymbol + '\');">'
-    //                        + '<span class="cust-rdi-check">'
-    //                        + '<i class="fa fa-check"></i>'
-    //                        + '</span>'
-    //                        + '</label>'
-    //                        + '<label class="cust-rdi-bx mn-time">'
-    //                        + '<input type="radio" id="UNCHK_KTS_Radio_' + (i + 1) + '" class="checkradio" name="radio' + (i + 1) + '" onclick="GetUnCheck_KTS_List(\'' + itm.sSymbol + '\');">'
-    //                        + '<span class="cust-rdi-check">'
-    //                        + '<i class="fa fa-times"></i>'
-    //                        + '</span>'
-    //                        + '</label>'
-    //                        + '</div>'
-    //                        + '</li>'
-    //                        + '<li class="col" style="text-align: left;margin-left: -15px;">'
-    //                        + '<span>' + itm.sSymbol + '</span>'
-    //                        + '</li>'
-    //                        + '</ul>'
-    //                        + '</div>')
-    //                });
-    //                $('#searchkeytosymbol').append('<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>');
-    //            }
-    //        }
-    //    },
-    //    error: function (jqXHR, textStatus, errorThrown) {
-    //        $('.loading-overlay-image-container').hide();
-    //        $('.loading-overlay').hide();
-    //    }
-    //});
-
     if (KeyToSymbolList.length > 0) {
         $.each(KeyToSymbolList, function (i, itm) {
             $('#searchkeytosymbol').append('<div class="col-12 pl-0 pr-0 ng-scope">'
@@ -3577,6 +3579,36 @@ function BindKeyToSymbolList() {
                 + '</div>')
         });
         $('#searchkeytosymbol').append('<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>');
+    }
+}
+function BindRCommentList() {
+    if (RCommentList.length > 0) {
+        $.each(RCommentList, function (i, itm) {
+            $('#searchRComment').append('<div class="col-12 pl-0 pr-0 ng-scope">'
+                + '<ul class="row m-0">'
+                + '<li class="carat-dropdown-chkbox">'
+                + '<div class="main-cust-check">'
+                + '<label class="cust-rdi-bx mn-check">'
+                + '<input type="radio" class="checkradio" id="CHK_RC_Radio_' + (i + 1) + '" name="radio' + (i + 1) + '" onclick="GetCheck_RC_List(\'' + itm.Value + '\');">'
+                + '<span class="cust-rdi-check">'
+                + '<i class="fa fa-check"></i>'
+                + '</span>'
+                + '</label>'
+                + '<label class="cust-rdi-bx mn-time">'
+                + '<input type="radio" id="UNCHK_RC_Radio_' + (i + 1) + '" class="checkradio" name="radio' + (i + 1) + '" onclick="GetUnCheck_RC_List(\'' + itm.Value + '\');">'
+                + '<span class="cust-rdi-check">'
+                + '<i class="fa fa-times"></i>'
+                + '</span>'
+                + '</label>'
+                + '</div>'
+                + '</li>'
+                + '<li class="col" style="text-align: left;margin-left: -15px;">'
+                + '<span>' + itm.Value + '</span>'
+                + '</li>'
+                + '</ul>'
+                + '</div>')
+        });
+        $('#searchRComment').append('<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>');
     }
 }
 function GetCheck_KTS_List(item) {
@@ -3614,6 +3646,44 @@ function GetUnCheck_KTS_List(item) {
     setTimeout(function () {
         $("#sym-sec0 .carat-dropdown-main").show();
         KTS = 0;
+        return;
+    }, 2);
+}
+function GetCheck_RC_List(item) {
+    var SList = _.reject(UnCheckRCommentList, function (e) { return e.Symbol == item });
+    UnCheckRCommentList = SList;
+
+    var res = _.filter(CheckRCommentList, function (e) { return (e.Symbol == item) });
+    if (res.length == 0) {
+        CheckRCommentList.push({
+            "NewID": CheckRCommentList.length + 1,
+            "Symbol": item,
+        });
+        $('#RComment_spanselected').html('' + CheckRCommentList.length + ' - Selected');
+        $('#RComment_spanunselected').html('' + UnCheckRCommentList.length + ' - Deselected');
+    }
+    setTimeout(function () {
+        $("#sym-sec4 .carat-dropdown-main").show();
+        RC = 0;
+        return;
+    }, 2);
+}
+function GetUnCheck_RC_List(item) {
+    var SList = _.reject(CheckRCommentList, function (e) { return e.Symbol == item });
+    CheckRCommentList = SList
+
+    var res = _.filter(UnCheckRCommentList, function (e) { return (e.Symbol == item) });
+    if (res.length == 0) {
+        UnCheckRCommentList.push({
+            "NewID": UnCheckRCommentList.length + 1,
+            "Symbol": item,
+        });
+        $('#RComment_spanselected').html('' + CheckRCommentList.length + ' - Selected');
+        $('#RComment_spanunselected').html('' + UnCheckRCommentList.length + ' - Deselected');
+    }
+    setTimeout(function () {
+        $("#sym-sec4 .carat-dropdown-main").show();
+        RC = 0;
         return;
     }, 2);
 }

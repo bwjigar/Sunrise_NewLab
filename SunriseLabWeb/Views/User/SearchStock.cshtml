@@ -359,20 +359,15 @@
         </div>
     </div>
     <div id="divFilter">
-        <div class="row rw_mar_rmv">
+        <div class="row rw_mar_rmv" style="margin-left: 2px;margin-bottom: 10px;">
 
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12 float-left" style="margin-bottom: 15px;">
-                    <div class="order-stone-id common-order form-inline ml-md-3 mt-3 navbar-search">
-                        <input type="text" autocomplete="off" maxlength="2000" class="form-control border-0 small searchStock" id="txtRefNo" onkeyup="CommaSeperated_list(event)" placeholder="Ref No / Supplier Ref No / Certificate No (Comma or Space)...">
-                    </div>
-                </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin" style="box-shadow: none; margin-bottom: -42px;">
                 @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
                 {
                     if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))
                     {
                         <div class="col-xl-4 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
-                            <div class="order-company-name common-order">
+                            <div class="order-company-name common-order" style="margin-left: -10px;">
                                 <div class="offer-label">Supplier: </div>
                                 <select id="ddlSupplierId" class="form-control common-control" multiple="multiple" style="width: 100%">
                                 </select>
@@ -382,7 +377,7 @@
                     else
                     {
                         <div class="col-xl-5 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
-                            <div class="order-company-name common-order">
+                            <div class="order-company-name common-order" style="margin-left: -10px;">
                                 <div class="offer-label">Supplier: </div>
                                 <select id="ddlSupplierId" class="form-control common-control" multiple="multiple" style="width: 100%">
                                 </select>
@@ -392,78 +387,23 @@
                 }
                 @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))
                 {
+                    <div class="col-xl-3 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
+                        <div class="order-company-name common-order">
+                            <div class="offer-label">User: </div>
+                            <select id="ddlUserId" class="form-control common-control">
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-xl-5 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
                         <div class="order-company-name common-order">
                             <div class="offer-label">Price Method: </div>
                             <div class="row m-0">
-                                <div class="col-sm-5 col-sm-4 col-xs-10 custom-box-list api-plr">
-                                    <select class="form-control common-control select2" id="PricingMethod_1" name="PricingMethod_1">
-                                        <option value="">Select Method</option>
-                                        <option value="Disc">Discount</option>
-                                        <option value="Value">Value</option>
-                                    </select>
-                                </div>
                                 <div class="col-sm-3 col-sm-2 col-xs-10 custom-box-list api-plr">
                                     <select class="form-control common-control select2" id="PricingSign_1" name="PricingSign_1">
                                         <option value="Plus">+</option>
                                         @*<option value="Minus">-</option>*@
                                     </select>
                                 </div>
-                                <div class="col-sm-4 col-sm-4 col-xs-10 custom-box-list api-plr">
-                                    <div class="api-plr txtDisc_1" style="margin-right: 12px; margin-top: 0px;">
-                                        <input onchange="_checkValue(this)" type="text" id="txtDisc_1_1" class="form-control common-control dis_val val-txtbx" autocomplete="off">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
-                        <div class="order-company-name common-order">
-                            <div class="offer-label">User: </div>
-                            <select id="ddlUserId" class="form-control common-control">
-                            </select>
-                        </div>
-                    </div>
-                }
-            </div>
-
-
-            @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
-            {
-                @*<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12 float-left" style="margin-bottom: 15px;">
-                            <div class="order-stone-id common-order form-inline ml-md-3 mt-3 navbar-search">
-                                <input type="text" autocomplete="off" maxlength="2000" class="form-control border-0 small searchStock" id="txtRefNo" onkeyup="CommaSeperated_list(event)" placeholder="Ref No / Supplier Ref No / Certificate No (Comma or Space)...">
-                            </div>
-                        </div>
-                        <div class="col-xl-5 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
-                            <div class="order-company-name common-order">
-                                <div class="offer-label">Supplier: </div>
-                                <select id="ddlSupplierId" class="form-control common-control" multiple="multiple" style="width: 100%">
-                                </select>
-                            </div>
-                        </div>
-                    </div>*@
-            }
-            else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))
-            {
-                <!--<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12 float-left" style="margin-bottom: 15px;">
-                        <div class="order-stone-id common-order form-inline ml-md-3 mt-3 navbar-search">
-                            <input type="text" autocomplete="off" maxlength="2000" class="form-control border-0 small searchStock" id="txtRefNo" onkeyup="CommaSeperated_list(event)" placeholder="Ref No / Supplier Ref No / Certificate No (Comma or Space)...">
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
-                        <div class="order-company-name common-order">
-                            <div class="offer-label">Supplier: </div>
-                            <select id="ddlSupplierId" class="form-control common-control" multiple="multiple" style="width: 100%">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
-                        <div class="order-company-name common-order">
-                            <div class="offer-label">Price Method: </div>
-                            <div class="row m-0">
                                 <div class="col-sm-5 col-sm-4 col-xs-10 custom-box-list api-plr">
                                     <select class="form-control common-control select2" id="PricingMethod_1" name="PricingMethod_1">
                                         <option value="">Select Method</option>
@@ -471,12 +411,6 @@
                                         <option value="Value">Value</option>
                                     </select>
                                 </div>
-                                <div class="col-sm-3 col-sm-2 col-xs-10 custom-box-list api-plr">
-                                    <select class="form-control common-control select2" id="PricingSign_1" name="PricingSign_1">
-                                        <option value="Plus">+</option>-->
-                @*<option value="Minus">-</option>*@
-                <!--</select>
-                                </div>
                                 <div class="col-sm-4 col-sm-4 col-xs-10 custom-box-list api-plr">
                                     <div class="api-plr txtDisc_1" style="margin-right: 12px; margin-top: 0px;">
                                         <input onchange="_checkValue(this)" type="text" id="txtDisc_1_1" class="form-control common-control dis_val val-txtbx" autocomplete="off">
@@ -485,274 +419,289 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
-                        <div class="order-company-name common-order">
-                            <div class="offer-label">User: </div>
-                            <select id="ddlUserId" class="form-control common-control">
-                            </select>
-                        </div>
-                    </div>
-                </div>-->
-            }
-            else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
-            {
-                @*<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12 float-left" style="margin-bottom: 15px;">
-                            <div class="order-stone-id common-order form-inline ml-md-3 mt-3 navbar-search">
-                                <input type="text" autocomplete="off" maxlength="2000" class="form-control border-0 small searchStock" id="txtRefNo" onkeyup="CommaSeperated_list(event)" placeholder="Ref No / Supplier Ref No / Certificate No (Comma or Space)...">
-                            </div>
-                        </div>
-                    </div>*@
-            }
-        </div>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show search-page-content active" id="home-tab2" role="tabpanel" aria-labelledby="home-tab">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <ul class="search shape ul-b">
-                            <li class="label">Shape:</li>
-                            <div class="li-content-width" id="searchshape">
-                            </div>
-                        </ul>
-                    </div>
-                    <div class="col-xl-12">
-                        <ul class="carat ul-b">
-                            <li class="label">Carat:</li>
-                            <ul class="nav specific-ul" id="CaratTab" role="tablist" style=" width: 57%; ">
-                                <li>
-                                    <a class="active" id="home" data-toggle="tab" href="#carat1" role="tab" aria-controls="home" aria-selected="true">Specific</a>
-                                </li>
-                                <li>
-                                    <a class="" id="profile" data-toggle="tab" href="#carat2" role="tab" aria-controls="profile" aria-selected="false">General</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content row col-md-12" id="myTabContent">
-                                <div class="tab-pane fade show active row col-md-12" id="carat1" role="tabpanel" aria-labelledby="home-tab">
-                                    <div class="li-content-width one wow fadeInLeft animated dv_Crt_Wgt" data-wow-delay="0.1s" style=" width: 104%;">
-                            <li class="carat-li-top"><input type="text" id="txtfromcarat" onblur="setFromCarat()" onkeypress="return isNumberKey_ISD(event)" autocomplete="off"><span class="from-to">From</span></li>
-                            <li class="carat-li-top"><input type="text" id="txttocarat" onblur="setToCarat()" onkeypress="return isNumberKey_ISD(event)" autocomplete="off"><span class="from-to">To</span></li>
-                            <li class="carat-li-top"><a href="javascript:void(0);" onclick="NewSizeGroup()"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
-                    </div>
-                    <div id="searchcaratspecific" class="li-content-width two wow fadeInLeft animated dv_Crt_Wgt1" data-wow-delay="0.1s" style="width: 104%;">
 
-                    </div>
-                </div>
-                <div class="tab-pane fade carat2 common-li" id="carat2" role="tabpanel" aria-labelledby="home-tab">
-                    <div id="searchcaratgen" class="li-content-width  fadeInRight animated" data-wow-delay="0.8s">
+                }
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12 float-left" style="margin-left: -14px; margin-top: -14px;">
+                    <div class="order-stone-id common-order form-inline ml-md-3 mt-3 navbar-search">
+                        <input type="text" autocomplete="off" maxlength="2000" class="form-control border-0 small searchStock" id="txtRefNo" onkeyup="CommaSeperated_list(event)" placeholder="Ref No / Supplier Ref No / Certificate No (Comma or Space)...">
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show search-page-content active" id="home-tab2" role="tabpanel" aria-labelledby="home-tab" style="background: none;">
+                <div class="row">
+                    <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin" style="margin-left: 0px; margin-bottom: 10px;">
+                        <div class="col-xl-12">
+                            <ul class="search shape" style="border-bottom: 1px solid #80808091;border-radius: 0px;">
+                                <li class="" style="margin-left: -22px;">Shape</li>
+                                <div class="li-content-width" id="searchshape" style="margin-left: -27px; margin-top: -11px;">
+                                </div>
+                            </ul>
+                        </div>
+
+                        <div class="col-xl-6">
+                            <ul class="carat " style="border-bottom: 1px solid #80808091; border-radius: 0px;">
+                                <li class="">Carat</li>
+                                <ul class="nav specific-ul" id="CaratTab" role="tablist" style="width: 57%;display:none;">
+                                    <li>
+                                        <a class="active" id="home" data-toggle="tab" href="#carat1" role="tab" aria-controls="home" aria-selected="true">Specific</a>
+                                    </li>
+                                    <li>
+                                        <a class="" id="profile" data-toggle="tab" href="#carat2" role="tab" aria-controls="profile" aria-selected="false">General</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content row col-md-12" id="myTabContent">
+                                    <div class="tab-pane fade show active row col-md-12" id="carat1" role="tabpanel" aria-labelledby="home-tab" style="margin-left: -21px;">
+                                        <div class="li-content-width one wow fadeInLeft animated dv_Crt_Wgt" data-wow-delay="0.1s" style=" width: 104%;">
+                                <li class="carat-li-top"><input type="text" id="txtfromcarat" onblur="setFromCarat()" onkeypress="return isNumberKey_ISD(event)" autocomplete="off"><span class="from-to">From</span></li>
+                                <li class="carat-li-top"><input type="text" id="txttocarat" onblur="setToCarat()" onkeypress="return isNumberKey_ISD(event)" autocomplete="off"><span class="from-to">To</span></li>
+                                <li class="carat-li-top"><a href="javascript:void(0);" onclick="NewSizeGroup()"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
+                        </div>
+                        <div id="searchcaratspecific" class="li-content-width two wow fadeInLeft animated dv_Crt_Wgt1" data-wow-delay="0.1s" style="width: 104%;">
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade carat2 common-li" id="carat2" role="tabpanel" aria-labelledby="home-tab">
+                        <div id="searchcaratgen" class="li-content-width  fadeInRight animated" data-wow-delay="0.8s">
+                        </div>
+                    </div>
+                </div>
+                </ul>
+            </div>
+
+
+
+            <div class="col-xl-3">
+                <ul class="part2" style="border-bottom: 1px solid #80808091; border-radius: 0px;">
+                    <li class="" style="margin-bottom: 15px;">Discount %</li>
+                    <div class="li-content-width sec" style="margin-left: -7px;">
+                    <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromDiscount','ToDiscount', 2);" id="FromDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                    <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromDiscount','ToDiscount', 2);" id="ToDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            </div>
             </ul>
         </div>
-        <div class="col-xl-6" id="div_Color">
-            <ul class="color cl common-li ul-b">
-                <li class="label">Color:</li>
-                <div>
-                <li onclick="Color_Hide_Show('1')" id="Color_Hide_Show_1" class="active">Regular</li>
-                <li onclick="Color_Hide_Show('2')" id="Color_Hide_Show_2">Fancy</li>
-        </div>
-        <div id="searchcolor" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+        <div class="col-xl-3">
+            <ul class="part2 " style="border-bottom: 1px solid #80808091; border-radius: 0px;">
+                <li class="" style="margin-bottom: 15px;">Amount</li>
+                <div class="li-content-width sec" style="margin-left: -7px;">
+                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return numvalid(event)" id="FromTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return numvalid(event)" id="ToTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">To</span></li>
         </div>
         </ul>
     </div>
-    <div class="col-xl-6" id="div_Fancy_Color" style="display:none;">
-        @*<ul class="color cl common-li ul-b">*@
-        <ul class="part2 ul-b">
-            <li class="label">Color:&nbsp;&nbsp;</li>
-            <div>
-            <li onclick="Color_Hide_Show('3')" class="active_btn regclr" id="Color_Hide_Show_3" style="margin-left: 5px;">Regular</li>
-            <li onclick="Color_Hide_Show('4')" class="active_btn" id="Color_Hide_Show_4">Fancy</li>
-    </div>
-    <div id="searchcolor" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s" style="display:none;">
-    </div>
-    @*<div id="searchFANCYCOLOR">*@
-    <div class="row col-md-12">
-        <div class="col-md-4">
-            <p class="p_f_clr" style="padding-left: 12px;font-size: 11px;color: #79797e;font-weight: bold;margin-bottom: -3px;margin-top: -8px;">INTENSITY</p>
-            <li class="sym" id="div_INTENSITY">
-                <div class="sym-sec" id="sym-sec1">
-                    <div class="sym-main-wrap" onclick="INTENSITYShow();">
-                        <div class="sym-iner">
-                            <span id="c1_spanselected">0 - Selected</span>
-                        </div>
-                        <div class="sym-btn">
-                            <i class="fa fa-caret-down"></i>
-                        </div>
-                    </div>
-                    <div class="carat-dropdown-main" style="width: 102%;display:none;">
-                        <div class="carat-dropdown-half-col src-shape-main-pcscroll ps-container ps-theme-default row m-0" id="ddl_INTENSITY">
 
-                        </div>
+
+    <div class="col-xl-12" id="div_Color">
+        <ul class="color cl common-li" style="border-bottom: 1px solid #80808091; border-radius: 0px;">
+            <div class="row" style="margin-left: 0px;">
+                <span class="" style="margin-bottom: 10px;">Color</span>
+                <div style="margin-left: 10px; margin-top: -5px;">
+            <li onclick="Color_Hide_Show('1')" id="Color_Hide_Show_1" class="active">Regular</li>
+            <li onclick="Color_Hide_Show('2')" id="Color_Hide_Show_2">Fancy</li>
+    </div>
+</div>
+<div id="searchcolor" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s" style="margin-left: -7px;">
+</div>
+    </ul>
+</div>
+<div class="col-xl-12" id="div_Fancy_Color" style="display:none;">
+    @*<ul class="color cl common-li ul-b">*@
+    <ul class="part2" style="border-bottom: 1px solid #80808091; border-radius: 0px;">
+
+
+        <div class="row" style="margin-left: 0px;">
+            <span class="" style="margin-bottom: 10px;">Color</span>
+            <div style="margin-left: 10px; margin-top: -5px;">
+        <li onclick="Color_Hide_Show('3')" class="active_btn regclr" id="Color_Hide_Show_3" style="margin-left: 5px;">Regular</li>
+        <li onclick="Color_Hide_Show('4')" class="active_btn" id="Color_Hide_Show_4">Fancy</li>
+</div>
+</div>
+
+
+
+<div id="searchcolor" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s" style="display:none;">
+</div>
+@*<div id="searchFANCYCOLOR">*@
+<div class="row col-md-12" style="margin-left: -32px;">
+    <div class="col-md-4">
+        <p class="p_f_clr" style="padding-left: 12px;font-size: 11px;color: #79797e;font-weight: bold;margin-bottom: -3px;margin-top: -8px;">INTENSITY</p>
+        <li class="sym" id="div_INTENSITY">
+            <div class="sym-sec" id="sym-sec1">
+                <div class="sym-main-wrap" onclick="INTENSITYShow();">
+                    <div class="sym-iner">
+                        <span id="c1_spanselected">0 - Selected</span>
+                    </div>
+                    <div class="sym-btn">
+                        <i class="fa fa-caret-down"></i>
                     </div>
                 </div>
-            </li>
-            <span class="fncy-rst"><a href="javascript:void(0);" onclick="resetINTENSITY()" data-toggle="tooltip" data-placement="bottom" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
-        </div>
-        <div class="col-md-4">
-            <p class="p_f_clr" style="padding-left: 12px;font-size: 11px;color: #79797e;font-weight: bold;margin-bottom: -3px;margin-top: -8px;">OVERTONE</p>
-            <li class="sym" id="div_OVERTONE">
-                <div class="sym-sec" id="sym-sec2">
-                    <div class="sym-main-wrap" onclick="OVERTONEShow();">
-                        <div class="sym-iner">
-                            <span id="c2_spanselected">0 - Selected</span>
-                        </div>
-                        <div class="sym-btn">
-                            <i class="fa fa-caret-down"></i>
-                        </div>
-                    </div>
-                    <div class="carat-dropdown-main" style="width: 102%;display:none;">
-                        <div class="carat-dropdown-half-col src-shape-main-pcscroll ps-container ps-theme-default row m-0" id="ddl_OVERTONE">
+                <div class="carat-dropdown-main" style="width: 102%;display:none;">
+                    <div class="carat-dropdown-half-col src-shape-main-pcscroll ps-container ps-theme-default row m-0" id="ddl_INTENSITY">
 
-                        </div>
                     </div>
                 </div>
-            </li>
-            <span class="fncy-rst"><a href="javascript:void(0);" onclick="resetOVERTONE()" data-toggle="tooltip" data-placement="bottom" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
-        </div>
-        <div class="col-md-4">
-            <p class="p_f_clr" style="padding-left: 12px;font-size: 11px;color: #79797e;font-weight: bold;margin-bottom: -3px;margin-top: -8px;">FANCY COLOR</p>
-            <li class="sym" id="div_FANCY_COLOR">
-                <div class="sym-sec" id="sym-sec3">
-                    <div class="sym-main-wrap" onclick="FANCY_COLORShow();">
-                        <div class="sym-iner">
-                            <span id="c3_spanselected">0 - Selected</span>
-                        </div>
-                        <div class="sym-btn">
-                            <i class="fa fa-caret-down"></i>
-                        </div>
+            </div>
+        </li>
+        <span class="fncy-rst"><a href="javascript:void(0);" onclick="resetINTENSITY()" data-toggle="tooltip" data-placement="bottom" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
+    </div>
+    <div class="col-md-4">
+        <p class="p_f_clr" style="padding-left: 12px;font-size: 11px;color: #79797e;font-weight: bold;margin-bottom: -3px;margin-top: -8px;">OVERTONE</p>
+        <li class="sym" id="div_OVERTONE">
+            <div class="sym-sec" id="sym-sec2">
+                <div class="sym-main-wrap" onclick="OVERTONEShow();">
+                    <div class="sym-iner">
+                        <span id="c2_spanselected">0 - Selected</span>
                     </div>
-                    <div class="carat-dropdown-main" style="width: 102%;display:none;">
-                        <div class="carat-dropdown-half-col src-shape-main-pcscroll ps-container ps-theme-default row m-0" id="ddl_FANCY_COLOR">
-
-                        </div>
+                    <div class="sym-btn">
+                        <i class="fa fa-caret-down"></i>
                     </div>
                 </div>
-            </li>
-            <span class="fncy-rst"><a href="javascript:void(0);" onclick="resetFANCY_COLOR()" data-toggle="tooltip" data-placement="bottom" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
+                <div class="carat-dropdown-main" style="width: 102%;display:none;">
+                    <div class="carat-dropdown-half-col src-shape-main-pcscroll ps-container ps-theme-default row m-0" id="ddl_OVERTONE">
+
+                    </div>
+                </div>
+            </div>
+        </li>
+        <span class="fncy-rst"><a href="javascript:void(0);" onclick="resetOVERTONE()" data-toggle="tooltip" data-placement="bottom" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
+    </div>
+    <div class="col-md-4">
+        <p class="p_f_clr" style="padding-left: 12px;font-size: 11px;color: #79797e;font-weight: bold;margin-bottom: -3px;margin-top: -8px;">FANCY COLOR</p>
+        <li class="sym" id="div_FANCY_COLOR">
+            <div class="sym-sec" id="sym-sec3">
+                <div class="sym-main-wrap" onclick="FANCY_COLORShow();">
+                    <div class="sym-iner">
+                        <span id="c3_spanselected">0 - Selected</span>
+                    </div>
+                    <div class="sym-btn">
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                </div>
+                <div class="carat-dropdown-main" style="width: 102%;display:none;">
+                    <div class="carat-dropdown-half-col src-shape-main-pcscroll ps-container ps-theme-default row m-0" id="ddl_FANCY_COLOR">
+
+                    </div>
+                </div>
+            </div>
+        </li>
+        <span class="fncy-rst"><a href="javascript:void(0);" onclick="resetFANCY_COLOR()" data-toggle="tooltip" data-placement="bottom" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
+    </div>
+</div>
+    </ul>
+</div>
+
+
+
+
+<div class="col-xl-12">
+    <ul class="color common-li" style="border-bottom: 1px solid #80808091; border-radius: 0px;">
+        <span class="">Clarity</span>
+        <div id="searchclarity" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s" style="margin-left: -7px;">
+        </div>
+    </ul>
+</div>
+
+
+
+<div class="row col-xl-12" style="margin-left: -17px; margin-right: 5px; margin-bottom: -24px;">
+    <div class="col-xl-6" style="padding-right: 0px; border-bottom: 1px solid #80808091; border-radius: 0px;">
+        <span style="margin-bottom: 15px;">CUT / POLISH / SYMMETRY</span>
+        <div class="row col-xl-12" style="padding-right: 0px; margin-bottom: -22px;">
+            <div class="row col-xl-2"></div>
+            <div class="row col-xl-10" style="margin-left: 1px;">
+                <ul class="color common-li">
+                    <li id="li3ex" onclick="SetCutMaster('3EX')">3EX</li>
+                    <li id="li3vg" onclick="SetCutMaster('3VG')">3vg+</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="row col-xl-12" style="padding-right: 0px; margin-bottom: -12px;">
+
+
+            <div class="row col-xl-2"><span class="">Cut</span></div>
+            <div class="row col-xl-10" style="margin: -8px;">
+                <ul class="color common-li">
+                    <div id="searchcut" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+                    </div>
+                </ul>
+            </div>
+
+
+        </div>
+        <div class="row col-xl-12" style="padding-right: 0px; margin-bottom: -12px;">
+            <div class="row col-xl-2"><span class="">Symmetry</span></div>
+            <div class="row col-xl-10" style="margin: -8px;">
+                <ul class="color common-li">
+                    <div id="searchsymm" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="row col-xl-12" style="padding-right: 0px; margin-bottom: -12px;">
+            <div class="row col-xl-2"><span class="">Polish</span></div>
+            <div class="row col-xl-10" style="margin: -8px;">
+                <ul class="color common-li">
+                    <div id="searchpolish" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+                    </div>
+                </ul>
+            </div>
         </div>
     </div>
-    </ul>
-</div>
-<div class="col-xl-6">
-    <ul class="color common-li ul-b">
-        <li class="label">Clarity:</li>
-        <div id="searchclarity" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+
+    <div class="col-xl-6" style="padding-right: 0px; border-bottom: 1px solid #80808091; border-radius: 0px;">
+        <span style="margin-bottom: 15px; padding-left: 15px;">FLUORESCENCE / BGM / MEDIA / LAB</span>
+        <div class="row col-xl-12" style="padding-left: 0px; padding-right: 0px; float: right; margin-bottom: -12px;">
+            <div class="row col-xl-2"><span class="">Fluorescence</span></div>
+            <div class="row col-xl-10" style="margin: -8px; margin-left: 17px;">
+                <ul class="color common-li">
+                    <div id="searchfls" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+                    </div>
+                </ul>
+            </div>
         </div>
-    </ul>
+        <div class="row col-xl-12" style="padding-left: 0px; padding-right: 0px; float: right; margin-bottom: -12px;">
+            <div class="row col-xl-2"><span class="">BGM</span></div>
+            <div class="row col-xl-10" style="margin: -8px; margin-left: 17px;">
+                <ul class="color common-li">
+                    <div id="searchbgm" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="row col-xl-12" style="padding-left: 0px; padding-right: 0px; float: right; margin-bottom: -12px;">
+            <div class="row col-xl-2"><span class="">Media</span></div>
+            <div class="row col-xl-10" style="margin: -8px; margin-left: 17px;">
+                <ul class="color common-li">
+                    <div class="li-content-width">
+                    <li id="SearchImage" class="wow flipInY animated" data-wow-delay="0.8s" style="padding: 5px 8px 5px 8px;"><i class="fa fa-picture-o" aria-hidden="true"></i>Images</li>
+                    <li id="SearchVideo" class="wow flipInY animated" data-wow-delay="0.8s" style="padding: 5px 8px 5px 8px;"><i class="fa fa-video-camera" aria-hidden="true"></i>Video</li>
+                    <li id="SearchCerti" class="wow flipInY animated" data-wow-delay="0.8s" style="padding: 5px 8px 5px 8px;"><i class="fa fa-certificate" aria-hidden="true"></i>Certificate</li>
+            </div>
+            </ul>
+        </div>
+    </div>
+    <div class="row col-xl-12" style="padding-left: 0px; padding-right: 0px; float: right;">
+        <div class="row col-xl-2"><span class="">Lab</span></div>
+        <div class="row col-xl-10" style="margin: -8px; margin-left: 17px;">
+            <ul class="color common-li">
+                <div id="searchlab" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+                </div>
+            </ul>
+        </div>
+    </div>
 </div>
 
 
 <div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">Cut:</li>
-        <li id="li3ex" onclick="SetCutMaster('3EX')">3EX</li>
-        <li id="li3vg" onclick="SetCutMaster('3VG')">3vg+</li>
-        <div id="searchcut" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-<div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">Polish:</li>
-        <div id="searchpolish" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-<div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">Symm:</li>
-        <div id="searchsymm" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-
-<div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">Fls:</li>
-        <div id="searchfls" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-<div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">BGM:</li>
-        <div id="searchbgm" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-<div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">Lab:</li>
-        <div id="searchlab" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-
-<div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">Crown Black:</li>
-        <div id="searchcrownnatts" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-<div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">Table Black:</li>
-        <div id="searchtablenatts" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-
-<div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">Table White:</li>
-        <div id="searchtableincl" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-
-<div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">Crown White:</li>
-        <div id="searchcrownincl" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-
-<div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">Table Open:</li>
-        <div id="searchtableopen" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-<div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">Crown Open:</li>
-        <div id="searchcrownopen" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-<div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">Pav Open:</li>
-        <div id="searchpavopen" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-<div class="col-xl-4">
-    <ul class="color common-li ul-b">
-        <li class="label">Girdle Open:</li>
-        <div id="searchgirdleopen" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
-        </div>
-    </ul>
-</div>
-
-<div class="col-lg-4">
-    <ul class="part2 ul-b">
-        <li class="label">Key to symbol:</li>
+    <ul class="part2">
+        <span class="" style="float: left; margin-left: 7px;">Key to symbol</span>
         <div id="divKTSBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: 123px;margin-top: 1px;margin-bottom: -8px;">
-        <li id="KTSBlank" onclick="SetActive('KTSBlank','BLANK')">BLANK</li>
+        <li id="KTSBlank" onclick="SetActive('KTSBlank','BLANK')" style="margin-bottom: 10px;">BLANK</li>
 </div>
 <span class="res-btn"><a href="javascript:void(0);" onclick="resetKeytoSymbol()" data-toggle="tooltip" data-placement="bottom" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
 <li class="sym">
@@ -773,247 +722,375 @@
     </div>
 </li>
 
-                        </ul>
-                    </div>
-<div class="col-lg-3">
-    <ul class="part2 ul-b">
-        <li class="label">Final Disc(%) :</li>
-        <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromDiscount','ToDiscount', 2);" id="FromDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromDiscount','ToDiscount', 2);" id="ToDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
-</div>
-                        </ul>
-                    </div>
-<div class="col-lg-3">
-    <ul class="part2 ul-b">
-        <li class="label">Final Amt US($) :</li>
-        <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return numvalid(event)" id="FromTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return numvalid(event)" id="ToTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">To</span></li>
-</div>
-                        </ul>
-                    </div>
-
-<div class="col-lg-3">
-    <ul class="part2 ul-b">
-        <li class="label">Length :</li>
-        <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromLength','ToLength', 2);" onkeypress="return numvalid(event)" id="FromLength" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromLength','ToLength', 2);" onkeypress="return numvalid(event)" id="ToLength" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
-        <div id="divLengthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
-        <li id="LengthBlank" onclick="SetActive('LengthBlank','BLANK')">BLANK</li>
-</div>
-                            </div>
-                        </ul>
-                    </div>
-<div class="col-lg-3">
-    <ul class="part2 ul-b">
-        <li class="label">Width :</li>
-        <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromWidth','ToWidth', 2);" onkeypress="return numvalid(event)" id="FromWidth" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromWidth','ToWidth', 2);" onkeypress="return numvalid(event)" id="ToWidth" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
-        <div id="divWidthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
-        <li id="WidthBlank" onclick="SetActive('WidthBlank','BLANK')">BLANK</li>
-</div>
-                            </div>
-                        </ul>
-                    </div>
-<div class="col-lg-3">
-    <ul class="part2 ul-b">
-        <li class="label">Depth :</li>
-        <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromDepth','ToDepth', 2);" onkeypress="return numvalid(event)" id="FromDepth" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromDepth','ToDepth', 2);" onkeypress="return numvalid(event)" id="ToDepth" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
-        <div id="divDepthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
-        <li id="DepthBlank" onclick="SetActive('DepthBlank','BLANK')">BLANK</li>
-</div>
-                            </div>
-                        </ul>
-                    </div>
-<div class="col-lg-3">
-    <ul class="part2 ul-b">
-        <li class="label">Depth Per :</li>
-        <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromDepthPer','ToDepthPer', 2);" onkeypress="return numvalid(event)" id="FromDepthPer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromDepthPer','ToDepthPer', 2);" onkeypress="return numvalid(event)" id="ToDepthPer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
-        <div id="divDepthPerBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
-        <li id="DepthPerBlank" onclick="SetActive('DepthPerBlank','BLANK')">BLANK</li>
-</div>
-                            </div>
-                        </ul>
-                    </div>
-<div class="col-lg-3">
-    <ul class="part2 ul-b">
-        <li class="label">Table Per :</li>
-        <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromTablePer','ToTablePer', 2);" onkeypress="return numvalid(event)" id="FromTablePer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromTablePer','ToTablePer', 2);" onkeypress="return numvalid(event)" id="ToTablePer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
-        <div id="divTablePerBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
-        <li id="TablePerBlank" onclick="SetActive('TablePerBlank','BLANK')">BLANK</li>
-</div>
-                            </div>
-                        </ul>
-                    </div>
-<div class="col-xl-3">
-    <ul class="color common-li ul-b">
-        <li class="label">Media :</li>
-        <div class="li-content-width">
-        <li id="SearchImage" class="wow flipInY animated" data-wow-delay="0.8s" style="padding: 5px 8px 5px 8px;"><i class="fa fa-picture-o" aria-hidden="true"></i>Images</li>
-        <li id="SearchVideo" class="wow flipInY animated" data-wow-delay="0.8s" style="padding: 5px 8px 5px 8px;"><i class="fa fa-video-camera" aria-hidden="true"></i>Video</li>
-        <li id="SearchCerti" class="wow flipInY animated" data-wow-delay="0.8s" style="padding: 5px 8px 5px 8px;"><i class="fa fa-certificate" aria-hidden="true"></i>Certificate</li>
-</div>
-                        </ul>
-                    </div>
-<div class="col-lg-3">
-    <ul class="part2 ul-b">
-        <li class="label">Cr Ang :</li>
-        <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" id="FromCrAng" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" id="ToCrAng" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
-        <div id="divCrAngBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
-        <li id="CrAngBlank" onclick="SetActive('CrAngBlank','BLANK')">BLANK</li>
-</div>
-                            </div>
-                        </ul>
-                    </div>
-<div class="col-lg-3">
-    <ul class="part2 ul-b">
-        <li class="label">Cr Ht :</li>
-        <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" id="FromCrHt" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" id="ToCrHt" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
-        <div id="divCrHtBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
-        <li id="CrHtBlank" onclick="SetActive('CrHtBlank','BLANK')">BLANK</li>
-</div>
-                            </div>
-                        </ul>
-                    </div>
-<div class="col-lg-3">
-    <ul class="part2 ul-b">
-        <li class="label">Pav Ang :</li>
-        <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" id="FromPavAng" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" id="ToPavAng" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
-        <div id="divPavAngBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
-        <li id="PavAngBlank" onclick="SetActive('PavAngBlank','BLANK')">BLANK</li>
-</div>
-                            </div>
-                        </ul>
-                    </div>
-<div class="col-lg-3">
-    <ul class="part2 ul-b pavht">
-        <li class="label">Pav Ht :</li>
-        <div class="li-content-width sec">
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromPavHt','ToPavHt');" onkeypress="return numvalid(event)" id="FromPavHt" class="numeric_value" type="text" autocomplete="off"><span class="from-to">From</span></li>
-        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromPavHt','ToPavHt');" onkeypress="return numvalid(event)" id="ToPavHt" class="numeric_value" type="text" autocomplete="off"><span class="from-to">To</span></li>
-        <div id="divPavHtBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
-        <li id="PavHtBlank" onclick="SetActive('PavHtBlank','BLANK')">BLANK</li>
+    </ul>
 </div>
 
 
-                            </div>
+<div class="col-xl-4">
+    <ul class="part2">
+        <span class="" style="float: left; margin-left: 7px;">Report Comments</span>
+        <div id="divRCommentBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: 100px;margin-top: 1px;margin-bottom: -8px;">
+        <li id="RCommentBlank" onclick="SetActive('RCommentBlank','BLANK')" style="margin-bottom: 10px;">BLANK</li>
+</div>
+<span class="res-btn"><a href="javascript:void(0);" onclick="resetRComment()" data-toggle="tooltip" data-placement="bottom" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
+<li class="sym">
+    <div class="sym-sec" id="sym-sec4">
+        <div class="sym-main-wrap" onclick="RCommentShow();">
+            <div class="sym-iner">
+                <span id="RComment_spanselected">0 - Selected</span> / <span id="RComment_spanunselected">0 - Deselected</span>
+            </div>
+            <div class="sym-btn">
+                <i class="fa fa-caret-down"></i>
+            </div>
+        </div>
+        <div class="carat-dropdown-main">
+            <div class="carat-dropdown-half-col src-shape-main-pcscroll ps-container ps-theme-default row m-0" id="searchRComment">
+                @*<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>*@
+            </div>
+        </div>
+    </div>
+</li>
 
+    </ul>
+</div>
 
-                        </ul>
-                    </div>
 @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
 {
-    <div class="col-xl-6">
-        <ul class="color common-li ul-b">
-            <li class="label">Location:</li>
-            <div id="searchlocation" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+    <div class="col-xl-4">
+        <ul class="color common-li">
+            <span class="">Location</span>
+            <div id="searchlocation" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s" style="margin-left: -7px;">
             </div>
         </ul>
     </div>
 }
+
+
+
+
+    </div>
+
+
+
+
+
+
+    </div>
+
+
+<span class="" style="background-color: #143f58; padding: 3px; padding-right: 12px; padding-left: 8px; color: white; border-radius: 9px; margin-bottom: 7px; margin-left: 12px;">Search Parameters <i class="fa fa-search" style="margin-left: 23px;"></i> </span>
+<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin" style="margin-left: 0px; margin-bottom: 10px;">
+    <div class="row col-xl-12" style="margin-left: 5px; margin-right: 5px; margin-bottom: -24px;">
+        <div class="col-xl-6" style="padding-right: 0px; margin-left: -35px;">
+            <div class="row col-lg-12" style="margin-bottom: -12px;">
+                <div class="col-lg-3">
+                    <span class="">Length  &nbsp;</span>
                 </div>
-@*<div id="divButtons" class="row">*@
+                <div class="col-lg-9">
+                    <ul class="part2">
+
+                        <div class="li-content-width sec">
+
+                        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromLength','ToLength', 2);" onkeypress="return numvalid(event)" id="FromLength" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromLength','ToLength', 2);" onkeypress="return numvalid(event)" id="ToLength" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+                        <div id="divLengthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
+                        <li class="wow flipInY animated" data-wow-delay="0.8s" id="LengthBlank" onclick="SetActive('LengthBlank','BLANK')">BLANK</li>
+                </div>
+
+            </div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row col-lg-12" style="margin-bottom: -12px;">
+        <div class="col-lg-3">
+            <span class="">Width  &nbsp;</span>
+        </div>
+        <div class="col-lg-9">
+            <ul class="part2">
+                <div class="li-content-width sec">
+                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromWidth','ToWidth', 2);" onkeypress="return numvalid(event)" id="FromWidth" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromWidth','ToWidth', 2);" onkeypress="return numvalid(event)" id="ToWidth" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+                <div id="divWidthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
+                <li class="wow flipInY animated" data-wow-delay="0.8s" id="WidthBlank" onclick="SetActive('WidthBlank','BLANK')">BLANK</li>
+        </div>
+    </div>
+    </ul>
+</div>
+    </div>
+
+
+<div class="row col-lg-12" style="margin-bottom: -12px;">
+    <div class="col-lg-3">
+        <span class="">Depth  &nbsp;</span>
+    </div>
+    <div class="col-lg-9">
+        <ul class="part2">
+            <div class="li-content-width sec">
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromDepth','ToDepth', 2);" onkeypress="return numvalid(event)" id="FromDepth" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromDepth','ToDepth', 2);" onkeypress="return numvalid(event)" id="ToDepth" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <div id="divDepthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
+            <li class="wow flipInY animated" data-wow-delay="0.8s" id="DepthBlank" onclick="SetActive('DepthBlank','BLANK')">BLANK</li>
+    </div>
+</div>
+    </ul>
+    </div>
+    </div>
+
+
+<div class="row col-lg-12" style="margin-bottom: -12px;">
+    <div class="col-lg-3">
+        <span class="">Depth %  &nbsp;</span>
+    </div>
+    <div class="col-lg-9">
+        <ul class="part2">
+            <div class="li-content-width sec">
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromDepthPer','ToDepthPer', 2);" onkeypress="return numvalid(event)" id="FromDepthPer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromDepthPer','ToDepthPer', 2);" onkeypress="return numvalid(event)" id="ToDepthPer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <div id="divDepthPerBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
+            <li class="wow flipInY animated" data-wow-delay="0.8s" id="DepthPerBlank" onclick="SetActive('DepthPerBlank','BLANK')">BLANK</li>
+    </div>
+</div>
+    </ul>
+    </div>
+    </div>
+<div class="row col-lg-12" style="margin-bottom: -12px;">
+    <div class="col-lg-3">
+        <span class="">Table %  &nbsp;</span>
+    </div>
+    <div class="col-lg-9">
+        <ul class="part2">
+            <div class="li-content-width sec">
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromTablePer','ToTablePer', 2);" onkeypress="return numvalid(event)" id="FromTablePer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromTablePer','ToTablePer', 2);" onkeypress="return numvalid(event)" id="ToTablePer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <div id="divTablePerBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
+            <li class="wow flipInY animated" data-wow-delay="0.8s" id="TablePerBlank" onclick="SetActive('TablePerBlank','BLANK')">BLANK</li>
+    </div>
+</div>
+    </ul>
+    </div>
+
+    </div>
+
+<div class="row col-lg-12">
+    <div class="col-lg-3">
+        <span class="">Girdle %  &nbsp;</span>
+    </div>
+    <div class="col-lg-9">
+        <ul class="part2">
+            <div class="li-content-width sec">
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromGirdlePer','ToGirdlePer', 2);" onkeypress="return numvalid(event)" id="FromGirdlePer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromGirdlePer','ToGirdlePer', 2);" onkeypress="return numvalid(event)" id="ToGirdlePer" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <div id="divGirdlePerBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
+            <li class="wow flipInY animated" data-wow-delay="0.8s" id="GirdlePerBlank" onclick="SetActive('GirdlePerBlank','BLANK')">BLANK</li>
+    </div>
+</div>
+    </ul>
+    </div>
+
+    </div>
+
+
+
+    </div>
+
+
+<div class="col-xl-6" style="padding-right: 0px;">
+
+    <div class="row col-lg-12" style="margin-bottom: -12px;">
+        <div class="col-lg-3">
+            <span class="">Crown Angle  &nbsp;</span>
+        </div>
+        <div class="col-lg-9">
+            <ul class="part2">
+                <div class="li-content-width sec">
+                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" id="FromCrAng" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" id="ToCrAng" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+                <div id="divCrAngBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
+                <li class="wow flipInY animated" data-wow-delay="0.8s" id="CrAngBlank" onclick="SetActive('CrAngBlank','BLANK')">BLANK</li>
+        </div>
+    </div>
+    </ul>
+</div>
+    </div>
+
+
+<div class="row col-lg-12" style="margin-bottom: -12px;">
+    <div class="col-lg-3">
+        <span class="">Crown Height  &nbsp;</span>
+    </div>
+    <div class="col-lg-9">
+        <ul class="part2">
+            <div class="li-content-width sec">
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" id="FromCrHt" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" id="ToCrHt" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <div id="divCrHtBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
+            <li class="wow flipInY animated" data-wow-delay="0.8s" id="CrHtBlank" onclick="SetActive('CrHtBlank','BLANK')">BLANK</li>
+    </div>
+</div>
+    </ul>
+    </div>
+    </div>
+
+
+<div class="row col-lg-12" style="margin-bottom: -12px;">
+    <div class="col-lg-3">
+        <span class="">Pavilion Angle  &nbsp;</span>
+    </div>
+    <div class="col-lg-9">
+        <ul class="part2">
+            <div class="li-content-width sec">
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" id="FromPavAng" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" id="ToPavAng" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <div id="divPavAngBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
+            <li class="wow flipInY animated" data-wow-delay="0.8s" id="PavAngBlank" onclick="SetActive('PavAngBlank','BLANK')">BLANK</li>
+    </div>
+</div>
+    </ul>
+    </div>
+    </div>
+
+
+<div class="row col-lg-12" style="margin-bottom: -12px;">
+    <div class="col-lg-3">
+        <span class="">Pav Height  &nbsp;</span>
+    </div>
+    <div class="col-lg-9">
+        <ul class="part2">
+            <div class="li-content-width sec">
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromPavHt','ToPavHt');" onkeypress="return numvalid(event)" id="FromPavHt" class="numeric_value" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromPavHt','ToPavHt');" onkeypress="return numvalid(event)" id="ToPavHt" class="numeric_value" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <div id="divPavHtBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
+            <li class="wow flipInY animated" data-wow-delay="0.8s" id="PavHtBlank" onclick="SetActive('PavHtBlank','BLANK')">BLANK</li>
+    </div>
+</div>
+    </ul>
+    </div>
+    </div>
+
+
+<div class="row col-lg-12" style="margin-bottom: -12px;">
+    <div class="col-lg-3">
+        <span class="">Star Length  &nbsp;</span>
+    </div>
+    <div class="col-lg-9">
+        <ul class="part2">
+            <div class="li-content-width sec">
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromStarLength','ToStarLength');" onkeypress="return numvalid(event)" id="FromStarLength" class="numeric_value" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromStarLength','ToStarLength');" onkeypress="return numvalid(event)" id="ToStarLength" class="numeric_value" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <div id="divStarLengthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
+            <li class="wow flipInY animated" data-wow-delay="0.8s" id="StarLengthBlank" onclick="SetActive('StarLengthBlank','BLANK')">BLANK</li>
+    </div>
+</div>
+    </ul>
+    </div>
+    </div>
+
+
+
+<div class="row col-lg-12" style="margin-bottom: -12px;">
+    <div class="col-lg-3">
+        <span class="">Lower Half &nbsp;</span>
+    </div>
+    <div class="col-lg-9">
+        <ul class="part2">
+            <div class="li-content-width sec">
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromLowerHalf','ToLowerHalf');" onkeypress="return numvalid(event)" id="FromLowerHalf" class="numeric_value" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromLowerHalf','ToLowerHalf');" onkeypress="return numvalid(event)" id="ToLowerHalf" class="numeric_value" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <div id="divLowerHalfBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px;margin-top: -4px;margin-bottom: -8px;">
+            <li class="wow flipInY animated" data-wow-delay="0.8s" id="LowerHalfBlank" onclick="SetActive('LowerHalfBlank','BLANK')">BLANK</li>
+    </div>
+</div>
+    </ul>
+    </div>
+    </div>
+
+
+    </div>
+
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
+<span class="" style="background-color: #143f58; padding: 3px; padding-right: 12px; padding-left: 8px; color: white; border-radius: 9px; margin-bottom: 7px; margin-left: 12px;">Search By Inclusion <i class="fa fa-search" style="margin-left: 23px;"></i> </span>
+<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin" style="margin-left: 0px; margin-bottom: 10px;">
+
+    <div class="col-xl-3">
+        <ul class="color common-li ul-b">
+            <li class="label">Table Black:</li>
+            <div id="searchtablenatts" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+            </div>
+        </ul>
+    </div>
+    <div class="col-xl-3">
+        <ul class="color common-li ul-b">
+            <li class="label">Crown Black:</li>
+            <div id="searchcrownnatts" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+            </div>
+        </ul>
+    </div>
+    <div class="col-xl-3">
+        <ul class="color common-li ul-b">
+            <li class="label">Table White:</li>
+            <div id="searchtableincl" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+            </div>
+        </ul>
+    </div>
+    <div class="col-xl-3">
+        <ul class="color common-li ul-b">
+            <li class="label">Crown White:</li>
+            <div id="searchcrownincl" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+            </div>
+        </ul>
+    </div>
+
+    <div class="col-xl-3">
+        <ul class="color common-li ul-b">
+            <li class="label">Table Open:</li>
+            <div id="searchtableopen" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+            </div>
+        </ul>
+    </div>
+    <div class="col-xl-3">
+        <ul class="color common-li ul-b">
+            <li class="label">Crown Open:</li>
+            <div id="searchcrownopen" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+            </div>
+        </ul>
+    </div>
+    <div class="col-xl-3">
+        <ul class="color common-li ul-b">
+            <li class="label">Pav Open:</li>
+            <div id="searchpavopen" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+            </div>
+        </ul>
+    </div>
+    <div class="col-xl-3">
+        <ul class="color common-li ul-b">
+            <li class="label">Girdle Open:</li>
+            <div id="searchgirdleopen" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s">
+            </div>
+        </ul>
+    </div>
+
+
+
+
+
+
+
+
+
+</div>
 <div class="bottom-button-bar text-right">
     <ul class="two">
-        @*@if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 9 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 15
-                || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 39 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 10) // Nilesh, Ankit Shah, Sandeep, jigijiga
-            {
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
-                if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 9 || SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 15) // Nilesh, Ankit Shah
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
-                }
-            }
-            else if (SunriseWeb.Helper.SessionFacade.UserSession.iUserid == 2528) //mehta_ritesh
-            {
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
-            }
-            else
-            {
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Customer');"><i class="fa fa-search" aria-hidden="true"></i>Customer</a></li>
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Search('Supplier');"><i class="fa fa-search" aria-hidden="true"></i>Supplier</a></li>
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(1);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(2);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel With Image</a></li>
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(3);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
-                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerExcel(4);"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer List</a></li>
-            }*@
-
-        @*@if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Admin")
-            {
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="BuyerList();"><i class="fa fa-search" aria-hidden="true"></i>Buyer List</a></li>
-                }
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(1, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer Excel</a></li>
-                }
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="SupplierList();"><i class="fa fa-search" aria-hidden="true"></i>Supplier List</a></li>
-                }
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(2, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel</a></li>
-                }
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Customer List</a></li>
-                }
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
-                }
-            }
-            else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Buyer")
-            {
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="BuyerList();"><i class="fa fa-search" aria-hidden="true"></i>Buyer List</a></li>
-                }
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(1, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer Excel</a></li>
-                }
-            }
-            else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Employee")
-            {
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Customer List</a></li>
-                }
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel</a></li>
-                }
-            }
-            else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList.ToString() == "Customer")
-            {
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Search</a></li>
-                }
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
-                {
-                    <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Download</a></li>
-                }
-            }*@
-
         <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" data-toggle="modal" data-target="#SaveSearchModal"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Search</a></li>
         @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1"))
         {
@@ -1096,8 +1173,9 @@
     </ul>
 </div>
 @*</div>*@
-            </div>
-        </div>
+    </div>
+    </div>
+    </div>
     </div>
 
 <div class="tab-pane result-page-content" id="divGridView" role="tabpanel" style="display:none;">
@@ -1161,7 +1239,7 @@
         </div>
     </div>
 </div>
-</div>
+    </div>
 <div class="modal fade social-model" id="EmailModal" aria-modal="true" style="padding-left: 17px;">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

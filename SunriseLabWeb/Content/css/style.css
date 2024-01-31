@@ -85,7 +85,7 @@ span {
 }
 /* width */
 .sidebar-info::-webkit-scrollbar {
-    width: 10px;
+    width: 7px;
 }
 
 /* Track */
@@ -106,8 +106,8 @@ span {
 
 #sidebar {
     width: 220px;
-    background: white;
-    color: #143f58;
+    background: #143f58;
+    color: white;
     transition: 1s;
     position: fixed;
     top: 0;
@@ -238,8 +238,8 @@ span {
     }
 
         #sidebar ul li a:hover {
-            color: white;
-            background: #143f58;
+            color: #143f58;
+            background: white;
         }
 
         #sidebar ul li a i {
@@ -1310,7 +1310,7 @@ ul.search .li-content-width {
 }
 
 .search-page-content.tab-pane ul li input {
-    border-radius: 25px;
+    /*border-radius: 25px;*/
     border: 1px solid #999;
     padding: 4px 10px;
     width: 156px;
@@ -1375,10 +1375,10 @@ ul.search .li-content-width {
 }
 
 .search-page-content.tab-pane ul li input:focus, .search-page-content ul li input.active {
-    border-radius: 25px;
+   /* border-radius: 25px;*/
     outline: none;
     border: 1px solid #143f58;
-    box-shadow: 0 0 0 0.2rem rgba(0, 61, 102,0.25);
+    /*box-shadow: 0 0 0 0.2rem rgba(0, 61, 102,0.25);*/
 }
 
 .search-page-content ul.part2 li textarea:focus, .search-page-content ul.part2 li textarea.active {
