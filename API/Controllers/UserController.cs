@@ -11758,7 +11758,7 @@ namespace API.Controllers
                 loSb.Append(@"<tr><td colspan=""2"" style=""font-weight: 700;"">We have well received your order. Please contact your KAM for order confirmation.</td></tr>");
                 loSb.Append(@"<tr><td colspan=""2"" style=""font-weight: 700;"">Visit Order History section to get further updates on your order. </td></tr>");
                 loSb.Append(@"<tr><td colspan=""2"" style=""font-weight: 700;"">Your Order Details are as below :</td></tr>");
-                loSb.Append(@"<tr><td style=""font-weight: 700;width: 50%;"">Order No : "+ Convert.ToString(OrderId) + "</td>");
+                loSb.Append(@"<tr><td style=""font-weight: 700;width: 20%;"">Order No : "+ Convert.ToString(OrderId) + "</td>");
                 loSb.Append(@"<td style=""font-weight: 700;float: right;"">Order Date & Time : " + OrderDate + "</td></tr>");
                 loSb.Append("</table>");
                 loSb.Append("<br/> <br/>");
@@ -11772,7 +11772,7 @@ namespace API.Controllers
 
                 dtOrderDetail.Columns.Remove("Id");
 
-                loSb.Append("<table border = '1' style='overflow-x:scroll !important; width:1000px !important;'>");
+                loSb.Append("<table border = '1' style='overflow-x:scroll !important; width:1200px !important;'>");
 
                 loSb.Append("<tr>");
 
@@ -11800,7 +11800,7 @@ namespace API.Controllers
                             loSb.Append("<td style = " + _strstyle + ">");
                         }
 
-                        else if (column.ColumnName.ToString() == "Status" && row["Ref No"].ToString() != "Total")
+                        else if ((column.ColumnName.ToString() == "Status" && Convert.ToString(row["Status"])  != "") && row["Ref No"].ToString() != "Total")
                         {
                             if (row["Status"].ToString().ToLower() == "confirmed")
                             {
