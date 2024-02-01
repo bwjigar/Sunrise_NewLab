@@ -3514,7 +3514,7 @@ function resetRComment() {
     $('#RComment_spanselected').html('' + CheckRCommentList.length + ' - Selected');
     $('#RComment_spanunselected').html('' + UnCheckRCommentList.length + ' - Deselected');
     $('#searchRComment input[type="radio"]').prop('checked', false);
-    KTS = 1;
+    RC = 1;
     RCommentShow();
 }
 function Key_to_symbolShow() {

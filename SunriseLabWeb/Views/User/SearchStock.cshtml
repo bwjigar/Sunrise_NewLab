@@ -344,6 +344,11 @@
         border-radius: 16px;
         font-weight: bold;
     }
+
+    ul.cl .li-content-width {
+        overflow-x: auto;
+        display: block;
+    }
 </style>
 
 <input type="hidden" id="hdnType" value="@ViewBag.type" />
@@ -431,18 +436,18 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show search-page-content active" id="home-tab2" role="tabpanel" aria-labelledby="home-tab" style="background: none;">
                 <div class="row">
-                    <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin" style="margin-left: 0px; margin-bottom: 10px;">
+                    <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin" style="margin-left: 0px; margin-bottom: 10px; padding-bottom: 0px;">
                         <div class="col-xl-12">
-                            <ul class="search shape" style="border-bottom: 1px solid #80808091;border-radius: 0px;">
-                                <li class="" style="margin-left: -22px;">Shape</li>
-                                <div class="li-content-width" id="searchshape" style="margin-left: -27px; margin-top: -11px;">
+                            <ul class="search shape">
+                                <li class="" style="margin-left: -22px;"><b>Shape</b></li>
+                                <div class="li-content-width" id="searchshape" style="margin-left: -27px; margin-top: -3px; margin-bottom: -12px;">
                                 </div>
                             </ul>
                         </div>
-
+                        <div class="col-xl-12" style="border-bottom: 1px solid #80808091;border-radius: 0px;margin-left: 2px;margin-top: 0px;margin-bottom: 7px;"></div>
                         <div class="col-xl-6">
-                            <ul class="carat " style="border-bottom: 1px solid #80808091; border-radius: 0px;">
-                                <li class="">Carat</li>
+                            <ul class="carat ">
+                                <li class=""><b>Carat</b></li>
                                 <ul class="nav specific-ul" id="CaratTab" role="tablist" style="width: 57%;display:none;">
                                     <li>
                                         <a class="active" id="home" data-toggle="tab" href="#carat1" role="tab" aria-controls="home" aria-selected="true">Specific</a>
@@ -473,8 +478,8 @@
 
 
             <div class="col-xl-3">
-                <ul class="part2" style="border-bottom: 1px solid #80808091; border-radius: 0px;">
-                    <li class="" style="margin-bottom: 15px;">Discount %</li>
+                <ul class="part2">
+                    <li class="" style="margin-bottom: 15px;"><b>Discount %</b></li>
                     <div class="li-content-width sec" style="margin-left: -7px;">
                     <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromDiscount','ToDiscount', 2);" id="FromDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
                     <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromDiscount','ToDiscount', 2);" id="ToDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
@@ -482,8 +487,8 @@
             </ul>
         </div>
         <div class="col-xl-3">
-            <ul class="part2 " style="border-bottom: 1px solid #80808091; border-radius: 0px;">
-                <li class="" style="margin-bottom: 15px;">Amount</li>
+            <ul class="part2">
+                <li class="" style="margin-bottom: 15px;"><b>Amount</b></li>
                 <div class="li-content-width sec" style="margin-left: -7px;">
                 <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return numvalid(event)" id="FromTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">From</span></li>
                 <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return numvalid(event)" id="ToTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">To</span></li>
@@ -491,11 +496,12 @@
         </ul>
     </div>
 
+    <div class="col-xl-12" style="border-bottom: 1px solid #80808091;border-radius: 0px;margin-left: 2px;margin-top: 0px;margin-bottom: 7px;"></div>
 
     <div class="col-xl-12" id="div_Color">
-        <ul class="color cl common-li" style="border-bottom: 1px solid #80808091; border-radius: 0px;">
+        <ul class="color cl common-li" style="padding-top: 10px; padding-bottom: 0px;">
             <div class="row" style="margin-left: 0px;">
-                <span class="" style="margin-bottom: 10px;">Color</span>
+                <span class="" style="margin-bottom: 10px;"><b>Color</b></span>
                 <div style="margin-left: 10px; margin-top: -5px;">
             <li onclick="Color_Hide_Show('1')" id="Color_Hide_Show_1" class="active">Regular</li>
             <li onclick="Color_Hide_Show('2')" id="Color_Hide_Show_2">Fancy</li>
@@ -511,7 +517,7 @@
 
 
         <div class="row" style="margin-left: 0px;">
-            <span class="" style="margin-bottom: 10px;">Color</span>
+            <span class="" style="margin-bottom: 10px;"><b>Color</b></span>
             <div style="margin-left: 10px; margin-top: -5px;">
         <li onclick="Color_Hide_Show('3')" class="active_btn regclr" id="Color_Hide_Show_3" style="margin-left: 5px;">Regular</li>
         <li onclick="Color_Hide_Show('4')" class="active_btn" id="Color_Hide_Show_4">Fancy</li>
@@ -592,27 +598,28 @@
 </div>
 
 
-
+<div class="col-xl-12" style="border-bottom: 1px solid #80808091;border-radius: 0px;margin-left: 2px;margin-top: 0px;margin-bottom: 7px;"></div>
 
 <div class="col-xl-12">
-    <ul class="color common-li" style="border-bottom: 1px solid #80808091; border-radius: 0px;">
-        <span class="">Clarity</span>
+    <ul class="color common-li" style="padding-top: 6px; ">
+        <span class=""><b>Clarity</b></span>
         <div id="searchclarity" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s" style="margin-left: -7px;">
         </div>
     </ul>
 </div>
 
+<div class="col-xl-12" style="border-bottom: 1px solid #80808091;border-radius: 0px;margin-left: 2px;margin-top: 0px;margin-bottom: 7px;"></div>
 
+<div class="row col-xl-12" style="margin-left: -17px; margin-right: 5px; margin-bottom: -10px;">
+    <div class="col-xl-6" style="padding-right: 0px;">
+        <span style="background-color: #143f58; padding: 3px; padding-right: 12px; padding-left: 8px; color: white; border-radius: 9px; margin-bottom: 7px;">Cut / Polish / Symmetry</span>
 
-<div class="row col-xl-12" style="margin-left: -17px; margin-right: 5px; margin-bottom: -24px;">
-    <div class="col-xl-6" style="padding-right: 0px; border-bottom: 1px solid #80808091; border-radius: 0px;">
-        <span style="margin-bottom: 15px;">CUT / POLISH / SYMMETRY</span>
         <div class="row col-xl-12" style="padding-right: 0px; margin-bottom: -22px;">
             <div class="row col-xl-2"></div>
             <div class="row col-xl-10" style="margin-left: 1px;">
                 <ul class="color common-li">
                     <li id="li3ex" onclick="SetCutMaster('3EX')">3EX</li>
-                    <li id="li3vg" onclick="SetCutMaster('3VG')">3vg+</li>
+                    <li id="li3vg" onclick="SetCutMaster('3VG')">3VG+</li>
                 </ul>
             </div>
         </div>
@@ -653,8 +660,9 @@
         </div>
     </div>
 
-    <div class="col-xl-6" style="padding-right: 0px; border-bottom: 1px solid #80808091; border-radius: 0px;">
-        <span style="margin-bottom: 15px; padding-left: 15px;">FLUORESCENCE / BGM / MEDIA / LAB</span>
+    <div class="col-xl-6" style="padding-right: 0px;">
+        <span style="margin-left: 15px; background-color: #143f58; padding: 3px; padding-right: 12px; padding-left: 8px; color: white; border-radius: 9px; margin-bottom: 15px;">Fluorescence / Bgm / Media / Lab</span>
+
         <div class="row col-xl-12" style="padding-left: 0px; padding-right: 0px; float: right; margin-bottom: -12px;">
             <div class="row col-xl-2"><span class="">Fluorescence</span></div>
             <div class="row col-xl-10" style="margin: -8px; margin-left: 17px;">
@@ -695,12 +703,14 @@
         </div>
     </div>
 </div>
+</div>
 
+<div class="col-xl-12" style="border-bottom: 1px solid #80808091;border-radius: 0px;margin-left: 2px;margin-top: 0px;margin-bottom: 7px;"></div>
 
-<div class="col-xl-4">
+<div class="col-xl-3" style="margin-top: 10px;">
     <ul class="part2">
-        <span class="" style="float: left; margin-left: 7px;">Key to symbol</span>
-        <div id="divKTSBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: 123px;margin-top: 1px;margin-bottom: -8px;">
+        <span class="" style="float: left; margin-left: 7px;"><b>Key to Symbol</b></span>
+        <div id="divKTSBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: 28px;margin-top: -3px;margin-bottom: -8px;">
         <li id="KTSBlank" onclick="SetActive('KTSBlank','BLANK')" style="margin-bottom: 10px;">BLANK</li>
 </div>
 <span class="res-btn"><a href="javascript:void(0);" onclick="resetKeytoSymbol()" data-toggle="tooltip" data-placement="bottom" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
@@ -726,10 +736,10 @@
 </div>
 
 
-<div class="col-xl-4">
+<div class="col-xl-3" style="margin-top: 10px;">
     <ul class="part2">
-        <span class="" style="float: left; margin-left: 7px;">Report Comments</span>
-        <div id="divRCommentBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: 100px;margin-top: 1px;margin-bottom: -8px;">
+        <span class="" style="float: left; margin-left: 7px;"><b>Report Comments</b></span>
+        <div id="divRCommentBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: 6px;margin-top: -3px;margin-bottom: -8px;">
         <li id="RCommentBlank" onclick="SetActive('RCommentBlank','BLANK')" style="margin-bottom: 10px;">BLANK</li>
 </div>
 <span class="res-btn"><a href="javascript:void(0);" onclick="resetRComment()" data-toggle="tooltip" data-placement="bottom" title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
@@ -756,9 +766,9 @@
 
 @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
 {
-    <div class="col-xl-4">
+    <div class="col-xl-6" style="margin-top: 10px;">
         <ul class="color common-li">
-            <span class="">Location</span>
+            <span class=""><b>Location</b></span>
             <div id="searchlocation" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s" style="margin-left: -7px;">
             </div>
         </ul>
@@ -768,7 +778,6 @@
 
 
 
-    </div>
 
 
 
@@ -778,7 +787,7 @@
     </div>
 
 
-<span class="" style="background-color: #143f58; padding: 3px; padding-right: 12px; padding-left: 8px; color: white; border-radius: 9px; margin-bottom: 7px; margin-left: 12px;">Search Parameters <i class="fa fa-search" style="margin-left: 23px;"></i> </span>
+<span style="background-color: #143f58; padding: 3px; padding-right: 12px; padding-left: 8px; color: white; border-radius: 9px; margin-bottom: 7px; margin-left: 12px;">Search Parameters <i class="fa fa-search" style="margin-left: 23px;"></i> </span>
 <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin" style="margin-left: 0px; margin-bottom: 10px;">
     <div class="row col-xl-12" style="margin-left: 5px; margin-right: 5px; margin-bottom: -24px;">
         <div class="col-xl-6" style="padding-right: 0px; margin-left: -35px;">

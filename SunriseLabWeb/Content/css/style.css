@@ -1310,7 +1310,7 @@ ul.search .li-content-width {
 }
 
 .search-page-content.tab-pane ul li input {
-    /*border-radius: 25px;*/
+    border-radius: 25px;
     border: 1px solid #999;
     padding: 4px 10px;
     width: 156px;
