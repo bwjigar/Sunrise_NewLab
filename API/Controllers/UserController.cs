@@ -7158,7 +7158,46 @@ namespace API.Controllers
 
                             string json = "";
 
-                            if (SupplierURL.ToUpper() == "HTTPS://WEBSVR.JBBROS.COM/JBAPI.ASPX")
+                            if (SupplierURL.ToUpper() == "HTTP://WWW.LIVETRADE9.COM:8086/API/STOCK/4762")
+                            {
+                                try
+                                {
+                                    WebClient client = new WebClient();
+                                    client.Headers["User-Agent"] = @"Mozilla/4.0 (Compatible; Windows NT 5.1;MSIE 6.0) (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)";
+                                    ServicePointManager.Expect100Continue = false;
+                                    ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+                                    json = client.DownloadString(SupplierURL);
+                                    client.Dispose();
+                                }
+                                catch (Exception ex)
+                                {
+                                    return ("API Not Working", ex.Message, null);
+                                }
+
+                                try
+                                {
+                                    json = json.Replace("\"[{", "{");
+                                    json = json.Replace("}]\"", "}");
+                                    json = json.Replace("null", "");
+                                    json = json.Replace("\\", "");
+
+
+                                    if (!string.IsNullOrEmpty(json))
+                                    {
+                                        dt_APIRes = jDt.JsonStringToDataTable(json);
+                                    }
+                                    else
+                                    {
+                                        return ("Data not Found", string.Empty, null);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    return ("Data Response Format Changed", ex.Message, null);
+                                }
+                            }
+                            else if (SupplierURL.ToUpper() == "HTTPS://WEBSVR.JBBROS.COM/JBAPI.ASPX")
                             {
                                 try
                                 {
