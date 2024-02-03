@@ -27,15 +27,21 @@ namespace SunriseLabWeb_New.Filter
                 else if (SessionFacade.UserSession != null)
                 {
                     string UserTypeId = SessionFacade.UserSession.UserTypeId;
+                    Int32 UserId = Convert.ToInt32(SessionFacade.UserSession.UserId);
                     string cntlr = filterContext.RouteData.Values["controller"].ToString();
                     string act = filterContext.RouteData.Values["action"].ToString();
                     
-                    if ((cntlr == "User" && act == "Manage") || (cntlr == "User" && act == "SupplierMas") || (cntlr == "User" && act == "Category")
+                    if ((cntlr == "User" && act == "SupplierMas") || (cntlr == "User" && act == "Category")
                          || (cntlr == "User" && act == "SupplierValue") || (cntlr == "User" && act == "SupplierColumnSetting") 
                          || (cntlr == "User" && act == "SupplierColumnSettingFromFile") || (cntlr == "User" && act == "SupplierPriceList")
                          || (cntlr == "User" && act == "LabEntry"))
                     {
                         if (!(UserTypeId.Contains("1")))
+                            filterContext.Result = new RedirectResult("~/Login/Index");
+                    }
+                    else if ((cntlr == "User" && act == "Manage"))
+                    {
+                        if (!(UserTypeId.Contains("1") || UserId == 8))
                             filterContext.Result = new RedirectResult("~/Login/Index");
                     }
                     else if ((cntlr == "User" && act == "LabAvailibility") || (cntlr == "User" && act == "StockDiscMgt"))

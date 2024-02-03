@@ -411,6 +411,15 @@
                     {
                         if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
                         {
+                            if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserId == 8)
+                            {
+                                <li id="li_User_Manage">
+                                    <a href="@Url.Action("Manage", "User")">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        Manage User
+                                    </a>
+                                </li>
+                            }
                             <li id="li_User_SearchStock">
                                 <a href="@Url.Action("SearchStock", "User")">
                                     <i class="fa fa-search" aria-hidden="true"></i>

@@ -295,6 +295,8 @@ var SortDirection = "";const datasource1 = {
         }
         obj.IsActive = $('#ddlIsActive').val();
         obj.UserType = $('#ddlUserType').val();
+        obj.UserId_Grid = $('#hdn_UserId').val();
+
         Rowdata = [];
         $.ajax({
             url: "/User/GetUsers",
@@ -509,8 +511,15 @@ function AssistBy_Get() {
             }
             if (data != null && data.Data.length > 0) {
                 for (var k in data.Data) {
-                    $("#ddl_AssistBy").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].FullName + "</option>");
-                    $("#ddl_SubAssistBy").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].FullName + "</option>");
+                    //if ($("#hdn_UserType").val().includes("2")) {
+                    //    if ($("#hdn_UserId").val() == data.Data[k].UserId) {
+                    //        $("#ddl_AssistBy").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].FullName + "</option>");
+                    //        $("#ddl_SubAssistBy").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].FullName + "</option>");
+                    //    }
+                    //} else {
+                        $("#ddl_AssistBy").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].FullName + "</option>");
+                        $("#ddl_SubAssistBy").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].FullName + "</option>");
+                    //}
                 }
             }
         },

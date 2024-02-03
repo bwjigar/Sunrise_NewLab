@@ -2628,7 +2628,7 @@ function HTML_CREATE(
 
 
     html += "<td style='width: 50px'>";
-    if (!(!($("#hdn_UserType").val().includes("1")) && ($("#hdn_UserType").val().includes("2")))) {
+    if (!(!($("#hdn_UserId").val().includes("8")) && !($("#hdn_UserType").val().includes("1")) && ($("#hdn_UserType").val().includes("2")))) {
         html += '<input type="hidden" class="hdn_UniqueId" value="' + new_id + '" />';
         html += '<i onclick="EditCriteria(\'' + new_id + '\');" style="cursor:pointer;" class="error EditCriteria"><img src="/Content/images/edit-icon.png" style="width: 23px;"/></i>';
         html += '&nbsp;&nbsp;<i style="cursor:pointer;" class="error RemoveCriteria"><img src="/Content/images/trash-delete-icon.png" style="width: 20px;"/></i>';

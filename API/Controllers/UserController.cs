@@ -3348,6 +3348,11 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("UserType", DbType.Int64, ParameterDirection.Input, DBNull.Value));
 
+                if (Req.UserId_Grid > 0)
+                    para.Add(db.CreateParam("UserId_Grid", DbType.Int64, ParameterDirection.Input, Req.UserId_Grid));
+                else
+                    para.Add(db.CreateParam("UserId_Grid", DbType.Int64, ParameterDirection.Input, DBNull.Value)); 
+                
                 if (Req.UserId > 0)
                     para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, Req.UserId));
                 else

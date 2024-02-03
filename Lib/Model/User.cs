@@ -26,6 +26,7 @@ namespace Lib.Model
         public string CompName { get; set; }
         public string IsActive { get; set; }
         public int UserType { get; set; }
+        public int UserId_Grid { get; set; }
         public int UserId { get; set; }
         public string CompanyUserCustomer { get; set; }
         public int Assist_UserId { get; set; }
