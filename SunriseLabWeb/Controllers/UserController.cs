@@ -923,7 +923,7 @@ namespace SunriseLabWeb_New.Controllers
                     Error_msg += "</tr>";
 
                     string RefNo = "";
-                    string Fix_Lab_Status = "CONFIRM, HOLD, BIDDED, WAITING, QC PENDING, QC REJECT, BID REJECT, SOLD, TRANSIT, BUSY, CANCEL, OTHER";
+                    string Fix_Lab_Status = "CONFIRM HOLD, CONFIRM, HOLD, BIDDED, WAITING, QC PENDING, QC REJECT, BID REJECT, SOLD, TRANSIT, BUSY, CANCEL, OTHER";
                     for (int rw = 2; rw <= ws.Dimension.End.Row; rw++)
                     {
                         RefNo += Convert.ToString(ws.Cells[rw, 1].Value).Trim() + ",";

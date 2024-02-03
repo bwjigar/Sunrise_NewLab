@@ -813,6 +813,9 @@ function UploadExcelFile() {
                     }
                     if (TempData_Array.length > 0) {
                         $(".gridview").show();
+                        gridOptions.api.forEachNode(function (node) {
+                            node.setSelected(true);
+                        });
                     }
                     else {
                         $(".gridview").hide();
@@ -902,7 +905,8 @@ function input_Lab_Status_Indicator(params) {
         + '" SupplierId = "' + params.data.SupplierId
         + '" onblur="LabStatus(this);">'
         + '<option ' + ((LabStatus == "") ? 'selected' : '') +' value="">Select</option>'
-        + '<option ' + ((LabStatus == "Confirm") ? 'selected' : '') +' value="Confirm">Confirm</option>'
+        + '<option ' + ((LabStatus == "Confirm Hold") ? 'selected' : '') +' value="Confirm Hold">Confirm Hold</option>'
+        + '<option ' + ((LabStatus == "Confirm") ? 'selected' : '') + ' value="Confirm">Confirm</option>'
         + '<option ' + ((LabStatus == "Hold") ? 'selected' : '') +' value="Hold">Hold</option>'
         + '<option ' + ((LabStatus == "Bidded") ? 'selected' : '') +' value="Bidded">Bidded</option>'
         + '<option ' + ((LabStatus == "Waiting") ? 'selected' : '') +' value="Waiting">Waiting</option>'
