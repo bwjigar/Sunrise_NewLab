@@ -870,6 +870,12 @@ namespace Lib.Model
         public string StoneId { get; set; }
         public string OrderDetId { get; set; }
         public string UserTypeList { get; set; }
+        public bool Confirm { get; set; }
+        public bool CheckingAvailability { get; set; }
+        public bool Busy { get; set; }
+        public bool Hold { get; set; }
+        public bool Sold { get; set; }
+        public bool QCReject { get; set; }
 
     }
     public class Get_OrderHistory_Res
@@ -985,6 +991,10 @@ namespace Lib.Model
         public string Comm_Grade { get; set; }
         public string Zone { get; set; }
         public string Para_Grade { get; set; }
+        public string Order_Status { get; set; }
+        public string LabEntry_Status { get; set; }
+        public string LabEntry_Status_FromOracle { get; set; }
+        public string Final_Order_Status { get; set; }
     }
     public class Get_Company_PlaceOrder_Res
     {

@@ -100,6 +100,7 @@ namespace SunriseLabWeb_New.Data
         public static string get_sal_disc_new_Ora = "/User/get_sal_disc_new_Ora";
         public static string get_sal_clg_new_Ora = "/User/get_sal_clg_new_Ora";
         public static string get_pur_disc_Ora = "/User/get_pur_disc_Ora";
+        public static string lab_entry_notification_Ora = "/User/lab_entry_notification_Ora";
 
         public static string Get_ColumnSetting_UserWise = "/User/Get_ColumnSetting_UserWise";
         public static string AddUpdate_ColumnSetting_UserWise = "/User/AddUpdate_ColumnSetting_UserWise";

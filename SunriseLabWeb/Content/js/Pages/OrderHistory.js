@@ -215,6 +215,7 @@ if ($("#hdn_UserType").val().includes("1") || $("#hdn_UserType").val().includes(
     columnDefs.push({ headerName: "Company Name", field: "CompName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CompName", params); } });
 }
 columnDefs.push({ headerName: "Ref No", field: "Ref_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("RefNo", params); } });
+columnDefs.push({ headerName: "Status", field: "Final_Order_Status", width: 125, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Order_Status", params); } });
 columnDefs.push({ headerName: "Lab", field: "Lab", width: 50, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Lab", params); }, cellRenderer: function (params) { return Lab(params); } });
 columnDefs.push({ headerName: "Shape", field: "Shape", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Shape", params); } });
 columnDefs.push({ headerName: "Pointer", field: "Pointer", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Pointer", params); } });
@@ -334,6 +335,12 @@ const datasource1 = {
         obj.PgNo = PageNo;
         obj.PgSize = pgSize;
         obj.StoneId = $("#txt_S_StoneId").val()
+        obj.Confirm = Confirm;
+        obj.CheckingAvailability = CheckingAvailability;
+        obj.Busy = Busy;
+        obj.Hold = Hold;
+        obj.Sold = Sold;
+        obj.QCReject = QCReject;
 
         OrderBy = obj.OrderBy;
 
@@ -377,6 +384,18 @@ function onGridReady(params) {
 }
 var Reset = function () {
     $('#txt_S_StoneId').val('');
+    Confirm = false;
+    CheckingAvailability = false;
+    Busy = false;
+    Hold = false;
+    Sold = false;
+    QCReject = false;
+    $("#Confirm").removeClass("btn-spn-opt-active");
+    $("#CheckingAvailability").removeClass("btn-spn-opt-active");
+    $("#Busy").removeClass("btn-spn-opt-active");
+    $("#Hold").removeClass("btn-spn-opt-active");
+    $("#Sold").removeClass("btn-spn-opt-active");
+    $("#QCReject").removeClass("btn-spn-opt-active");
     GetSearch();
 }
 
@@ -415,6 +434,12 @@ function Excel_OderHistory() {
             obj.UserTypeList = $("#hdn_UserType").val();
             obj.OrderDetId = OrderDetId;
             obj.OrderBy = OrderBy;
+            obj.Confirm = Confirm;
+            obj.CheckingAvailability = CheckingAvailability;
+            obj.Busy = Busy;
+            obj.Hold = Hold;
+            obj.Sold = Sold;
+            obj.QCReject = QCReject;
 
             $.ajax({
                 url: "/User/Excel_OrderHistory",
@@ -438,4 +463,56 @@ function Excel_OderHistory() {
             });
         }, 50);
     }
+}
+
+var Confirm = false;
+var CheckingAvailability = false;
+var Busy = false;
+var Hold = false;
+var Sold = false;
+var QCReject = false;
+function ActiveOrNot(id) {
+    if ($("#" + id).hasClass("btn-spn-opt-active")) {
+        $("#" + id).removeClass("btn-spn-opt-active");
+        if (id == "Confirm") {
+            Confirm = false;
+        }
+        else if (id == "CheckingAvailability") {
+            CheckingAvailability = false;
+        }
+        else if (id == "Busy") {
+            Busy = false;
+        }
+        else if (id == "Hold") {
+            Hold = false;
+        }
+        else if (id == "Sold") {
+            Sold = false;
+        }
+        else if (id == "QCReject") {
+            QCReject = false;
+        }
+    }
+    else {
+        $("#" + id).addClass("btn-spn-opt-active");
+        if (id == "Confirm") {
+            Confirm = true;
+        }
+        else if (id == "CheckingAvailability") {
+            CheckingAvailability = true;
+        }
+        else if (id == "Busy") {
+            Busy = true;
+        }
+        else if (id == "Hold") {
+            Hold = true;
+        }
+        else if (id == "Sold") {
+            Sold = true;
+        }
+        else if (id == "QCReject") {
+            QCReject = true;
+        }
+    }
+    GetSearch();
 }

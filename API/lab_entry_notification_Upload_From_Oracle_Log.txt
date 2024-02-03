@@ -1,0 +1,7 @@
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+ORA-06550: line 1, column 7:
+PLS-00201: identifier 'LAB_ENTRY_NOTIFICATION' must be declared
+ORA-06550: line 1, column 7:
+PL/SQL: Statement ignored, Log Time : 03-02-2024 11:45:29 AM
+= = = = = = = = = = = = = = = = = = = = = = = = = = = 
+SUCCESS 760 Data Found, process time 03-Feb-2024 12:44:49 PM to 03-Feb-2024 12:45:10 PM, Log Time : 03-02-2024 12:45:12 PM

@@ -10196,9 +10196,9 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IHttpActionResult RapaPort_Data_Upload_Ora()
+        public IHttpActionResult lab_entry_notification_Ora()
         {
-            string path = HttpContext.Current.Server.MapPath("~/RapaPort_Data_Upload_From_Oracle_Log.txt");
+            string path = HttpContext.Current.Server.MapPath("~/lab_entry_notification_Upload_From_Oracle_Log.txt");
             if (!File.Exists(@"" + path + ""))
             {
                 File.Create(@"" + path + "").Dispose();
@@ -10214,11 +10214,15 @@ namespace API.Controllers
                 Oracle_DBAccess oracleDbAccess = new Oracle_DBAccess();
                 List<OracleParameter> paramList = new List<OracleParameter>();
 
-                OracleParameter param1 = new OracleParameter("vrec", OracleDbType.RefCursor);
+                OracleParameter param1 = new OracleParameter("vtrans_ID", OracleDbType.Int32);
+                param1.Value = DBNull.Value;
+                paramList.Add(param1);
+
+                param1 = new OracleParameter("vrec", OracleDbType.RefCursor);
                 param1.Direction = ParameterDirection.Output;
                 paramList.Add(param1);
 
-                System.Data.DataTable dt = oracleDbAccess.CallSP("get_rap", paramList);
+                System.Data.DataTable dt = oracleDbAccess.CallSP("web_trans.lab_entry_notification", paramList);
 
                 int Count = 0;
                 if (dt != null && dt.Rows.Count > 0)
@@ -10231,7 +10235,7 @@ namespace API.Controllers
                     param.Value = dt;
                     para.Add(param);
 
-                    DataTable dt1 = db.ExecuteSP("RapaPort_Data_Ora_Insert", para.ToArray(), false);
+                    DataTable dt1 = db.ExecuteSP("lab_entry_notification_Data_Ora_Insert", para.ToArray(), false);
 
                     string Message = string.Empty;
                     if (dt1 != null && dt1.Rows.Count > 0)
@@ -10243,13 +10247,13 @@ namespace API.Controllers
                     if (Message == "SUCCESS")
                     {
                         sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                        sb.Append(Message + " " + Count + " RapaPort Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.Append(Message + " " + Count + " Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                         sb.AppendLine("");
                         File.AppendAllText(path, sb.ToString());
                         sb.Clear();
                         return Ok(new CommonResponse
                         {
-                            Message = Message + " " + Count + " RapaPort Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
+                            Message = Message + " " + Count + " Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
                             Status = "1",
                             Error = ""
                         });
@@ -10257,13 +10261,13 @@ namespace API.Controllers
                     else
                     {
                         sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                        sb.Append("RapaPort Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.Append("Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                         sb.AppendLine("");
                         File.AppendAllText(path, sb.ToString());
                         sb.Clear();
                         return Ok(new CommonResponse
                         {
-                            Message = "RapaPort Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
+                            Message = "Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
                             Status = "1",
                             Error = ""
                         });
@@ -10272,13 +10276,13 @@ namespace API.Controllers
                 else
                 {
                     sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
-                    sb.Append("No RapaPort Data Found From Oracle, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                    sb.Append("No Data Found From Oracle, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
                     sb.AppendLine("");
                     File.AppendAllText(path, sb.ToString());
                     sb.Clear();
                     return Ok(new CommonResponse
                     {
-                        Message = "No RapaPort Data Found From Oracle",
+                        Message = "No Data Found From Oracle",
                         Status = "1",
                         Error = ""
                     });
@@ -12013,6 +12017,13 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("OrderDetId", DbType.String, ParameterDirection.Input, DBNull.Value));
 
+                para.Add(db.CreateParam("Confirm", DbType.Boolean, ParameterDirection.Input, req.Confirm));
+                para.Add(db.CreateParam("CheckingAvailability", DbType.Boolean, ParameterDirection.Input, req.CheckingAvailability));
+                para.Add(db.CreateParam("Busy", DbType.Boolean, ParameterDirection.Input, req.Busy));
+                para.Add(db.CreateParam("Hold", DbType.Boolean, ParameterDirection.Input, req.Hold));
+                para.Add(db.CreateParam("Sold", DbType.Boolean, ParameterDirection.Input, req.Sold));
+                para.Add(db.CreateParam("QCReject", DbType.Boolean, ParameterDirection.Input, req.QCReject));
+
                 DataTable Order_dt = db.ExecuteSP("Get_OrderHistory", para.ToArray(), false);
                 return Order_dt;
             }
@@ -12106,7 +12117,7 @@ namespace API.Controllers
                 }
                 else
                 {
-                    return Ok("No Stock found as per filter criteria !");
+                    return Ok("No Data Found");
                 }
 
             }

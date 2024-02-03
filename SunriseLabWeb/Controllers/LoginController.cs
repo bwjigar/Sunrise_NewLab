@@ -319,5 +319,17 @@ namespace SunriseLabWeb_New.Controllers
             API _api = new API();
             _api.CallAPIWithoutToken(Constants.get_pur_disc_Ora, string.Empty);
         }
+
+        public JsonResult lab_entry_notification_Ora()
+        {
+            Thread APIGet = new Thread(lab_entry_notification_Ora_Thread);
+            APIGet.Start();
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        public static void lab_entry_notification_Ora_Thread()
+        {
+            API _api = new API();
+            _api.CallAPIWithoutToken(Constants.lab_entry_notification_Ora, string.Empty);
+        }
     }
 }
