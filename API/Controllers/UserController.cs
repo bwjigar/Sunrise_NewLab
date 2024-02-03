@@ -11924,10 +11924,12 @@ namespace API.Controllers
                     }
                     loSb.Append("</tr>");
                 }
-
                 loSb.Append("</table>");
 
-
+                if (Comments != "")
+                {
+                    loSb.Append("<br> <b>Remark : " + Comments + "</b>");
+                }
 
                 if (EmailType == "Customer" && Convert.ToString(dtUserDetail.Rows[0]["EmailId"]) != "")
                 {
