@@ -137,3 +137,8 @@
 /API/Search_Stock_and_Excel_Time.txt
 /API/AutoExcelFile
 /SunriseLabWeb/Properties/PublishProfiles/FolderProfile2.pubxml.user
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Content/css/style.css
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Content/js/Pages/ColumnSetting.js
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Content/js/Pages/SupplierPriceList.js
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Views/DashBoard/Index.cshtml
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Views/User/Category.cshtml
