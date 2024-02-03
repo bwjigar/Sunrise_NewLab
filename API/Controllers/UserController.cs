@@ -11935,6 +11935,16 @@ namespace API.Controllers
                 }
                 else if (EmailType == "Employee")
                 {
+                    db = new Database();
+                    para.Clear();
+                    DataTable dtAdminEmail = db.ExecuteSP("Get_Admin_EmailId", para.ToArray(), false);
+                    
+                    string adminemail = "";
+                    if (dtAdminEmail != null && dtAdminEmail.Rows.Count > 0)
+                    {
+                        adminemail = Convert.ToString(dtAdminEmail.Rows[0]["Admin_EmailId"]);
+                    }
+
                     string email = Convert.ToString(dtUserDetail.Rows[0]["AssistByEmailId"]);
                     if (Convert.ToString(dtUserDetail.Rows[0]["SubAssistByEmailId"]) != "")
                     {
@@ -11944,9 +11954,17 @@ namespace API.Controllers
                         }
                         email += Convert.ToString(dtUserDetail.Rows[0]["SubAssistByEmailId"]);
                     }
+                    if (adminemail != "")
+                    {
+                        if (email != "")
+                        {
+                            email += ",";
+                        }
+                        email += adminemail;
+                    }
+
                     Common.SendMail(email, "Connect Gia – Order Confirmation – " + OrderDate + " - " + OrderId.ToString(), Convert.ToString(loSb), OrderId, UserId, realpath, filename);
                 }
-
 
                 return true;
             }
