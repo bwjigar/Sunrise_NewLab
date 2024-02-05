@@ -10201,6 +10201,113 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        public IHttpActionResult RapaPort_Data_Upload_Ora()
+        {
+            string path = HttpContext.Current.Server.MapPath("~/RapaPort_Data_Upload_From_Oracle_Log.txt");
+            if (!File.Exists(@"" + path + ""))
+            {
+                File.Create(@"" + path + "").Dispose();
+            }
+            StringBuilder sb = new StringBuilder();
+
+            try
+            {
+                string fromtime = string.Format("{0:dd-MMM-yyyy hh:mm:ss tt}", DateTime.Now);
+
+                Database db = new Database(Request);
+
+                Oracle_DBAccess oracleDbAccess = new Oracle_DBAccess();
+                List<OracleParameter> paramList = new List<OracleParameter>();
+
+                OracleParameter param1 = new OracleParameter("vrec", OracleDbType.RefCursor);
+                param1.Direction = ParameterDirection.Output;
+                paramList.Add(param1);
+
+                System.Data.DataTable dt = oracleDbAccess.CallSP("get_rap", paramList);
+
+                int Count = 0;
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    Count = dt.Rows.Count;
+
+                    List<SqlParameter> para = new List<SqlParameter>();
+
+                    SqlParameter param = new SqlParameter("tableInq", SqlDbType.Structured);
+                    param.Value = dt;
+                    para.Add(param);
+
+                    DataTable dt1 = db.ExecuteSP("RapaPort_Data_Ora_Insert", para.ToArray(), false);
+
+                    string Message = string.Empty;
+                    if (dt1 != null && dt1.Rows.Count > 0)
+                    {
+                        Message = dt1.Rows[0]["Message"].ToString();
+                    }
+                    string totime = string.Format("{0:dd-MMM-yyyy hh:mm:ss tt}", DateTime.Now);
+
+                    if (Message == "SUCCESS")
+                    {
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append(Message + " " + Count + " RapaPort Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
+                        return Ok(new CommonResponse
+                        {
+                            Message = Message + " " + Count + " RapaPort Data Found, process time " + fromtime + " to " + totime + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
+                            Status = "1",
+                            Error = ""
+                        });
+                    }
+                    else
+                    {
+                        sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                        sb.Append("RapaPort Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
+                        return Ok(new CommonResponse
+                        {
+                            Message = "RapaPort Data Upload in Issue" + (!string.IsNullOrEmpty(Message) ? " " + Message : "") + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"),
+                            Status = "1",
+                            Error = ""
+                        });
+                    }
+                }
+                else
+                {
+                    sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                    sb.Append("No RapaPort Data Found From Oracle, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                    sb.AppendLine("");
+                    File.AppendAllText(path, sb.ToString());
+                    sb.Clear();
+                    return Ok(new CommonResponse
+                    {
+                        Message = "No RapaPort Data Found From Oracle",
+                        Status = "1",
+                        Error = ""
+                    });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                sb.Append(ex.Message + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                sb.AppendLine("");
+                File.AppendAllText(path, sb.ToString());
+                sb.Clear();
+                return Ok(new CommonResponse
+                {
+                    Message = ex.Message,
+                    Status = "0",
+                    Error = ex.StackTrace
+                });
+            }
+
+        }
+        [AllowAnonymous]
+        [HttpPost]
         public IHttpActionResult lab_entry_notification_Ora()
         {
             string path = HttpContext.Current.Server.MapPath("~/lab_entry_notification_Upload_From_Oracle_Log.txt");
