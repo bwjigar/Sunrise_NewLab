@@ -390,12 +390,12 @@ function GetSaveSearch() {
                         html += '<td><center><span class="Fi-Criteria">' + data.Data[i].TransDate + '</span></center></td>';
                         html += '<td><center><span class="Fi-Criteria">' + data.Data[i].SearchName + '</span></center></td>';
                         html += '<td>' +
-                                '<center>' +
-                                '<span onclick="SaveSearch_LoadSearchData(' + data.Data[i].Id + ',\'Show\')" class="Fi-Criteria" style="cursor:pointer;" data-toggle="tooltip" data-html="true" data-placement="left" title="' + str + '">' +
-                                'Search'+
-                                '</span>' +
-                                '</center>' +
-                                '</td>';
+                            '<center>' +
+                            '<span onclick="SaveSearch_LoadSearchData(' + data.Data[i].Id + ',\'Show\')" class="Fi-Criteria" style="cursor:pointer;" data-toggle="tooltip" data-html="true" data-placement="left" title="' + str + '">' +
+                            'Search' +
+                            '</span>' +
+                            '</center>' +
+                            '</td>';
                         html += '</tr>';
                     }
                 }
@@ -433,23 +433,19 @@ function GetOrderHistory() {
                 if (data.Data != null && data.Data.length > 0) {
                     for (var i = 0; i <= data.Data.length - 1; i++) {
                         html += '<tr>';
-                        html += '<td><center><span class="Fi-Criteria">' + data.Data[i].Ref_No + '</span></center></td>';
-                        html += '<td><center><span class="Fi-Criteria">' + data.Data[i].Shape + '</span></center></td>';
-                        html += '<td><center><span class="Fi-Criteria">' + data.Data[i].Color + '</span></center></td>';
-                        html += '<td><center><span class="Fi-Criteria">' + data.Data[i].Clarity + '</span></center></td>';
-                        html += '<td><center><span class="Fi-Criteria">' + parseFloat(data.Data[i].Cts).toFixed(2) + '</span></center></td>';
-                        html += '<td><center><span class="Fi-Criteria">' + data.Data[i].Cut + '</span></center></td>';
-                        html += '<td><center><span class="Fi-Criteria">' + data.Data[i].Polish + '</span></center></td>';
-                        html += '<td><center><span class="Fi-Criteria">' + data.Data[i].Symm + '</span></center></td>';
-                        html += '<td><center><span class="Fi-Criteria">' + NullReplaceCommaPointDecimalToFixed(data.Data[i].Rap_Rate, 2) + '</span></center></td>';
-                        html += '<td><center><span class="Fi-Criteria">' + NullReplaceCommaPointDecimalToFixed(data.Data[i].CUSTOMER_COST_DISC, 2) + '</span></center></td>';
-                        html += '<td><center><span class="Fi-Criteria">' + NullReplaceCommaPointDecimalToFixed(data.Data[i].CUSTOMER_COST_VALUE, 2) + '</span></center></td>';
+                        html += '<td><center><span onclick="OrderHistory_LoadSearchData(' + data.Data[i].OrderId + ')" style="cursor:pointer;" class="Fi-Criteria order">&nbsp;' + data.Data[i].OrderId + '&nbsp;</span></center></td>';
+                        html += '<td><center><span class="Fi-Criteria">' + data.Data[i].OrderDate + '</span></center></td>';
+                        html += '<td><center><span class="Fi-Criteria">' + breakString(data.Data[i].CustName,50) + '</span></center></td>';
+                        html += '<td><center><span class="Fi-Criteria">' + breakString(data.Data[i].Remarks,65) + '</span></center></td>';
+                        html += '<td><center><span class="Fi-Criteria">' + data.Data[i].TotPcs + '</span></center></td>';
+                        html += '<td><center><span class="Fi-Criteria">' + parseFloat(data.Data[i].TotCts).toFixed(2) + '</span></center></td>';
+                        html += '<td><center><span class="Fi-Criteria">' + NullReplaceCommaPointDecimalToFixed(data.Data[i].TotAmt, 2) + '</span></center></td>';
                         html += '</tr>';
                     }
                 }
                 else {
                     html += '<tr>';
-                    html += '<td colspan="11"><center><span class="Fi-Criteria">No Data Found</span></center></td>';
+                    html += '<td colspan="7"><center><span class="Fi-Criteria">No Data Found</span></center></td>';
                     html += '</tr>';
                 }
                 $("#tblBodyOrder").html(html);
@@ -574,6 +570,36 @@ function SaveSearch_LoadSearchData(Id) {
             }
         });
     }
+}
+function OrderHistory_LoadSearchData(OrderId) {
+    var obj = {};
+    obj.OrderId = OrderId;
+
+    loaderShow();
+    $.ajax({
+        url: "/User/OrderHistory_OrderDataSessionStore",
+        async: false,
+        type: "POST",
+        data: { obj: obj },
+        success: function (data, textStatus, jqXHR) {
+            loaderHide();
+            window.location.href = '/User/OrderHistory';
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            loaderHide();
+        }
+    });
+}
+function breakString(str, nxt) {
+    // Use regular expression to break the string every 45 characters, preserving whole words
+    const regex = new RegExp(`.{1,` + nxt +`}(\\s|$)`, 'g');
+    const splitString = str.match(regex);
+    var har="";
+    // Now 'splitString' is an array of substrings, each containing up to 45 characters without splitting words
+    splitString.forEach(part => {
+        har += part +"<br/>"
+    });
+    return har.substring(0, har.length - 5); ;
 }
 function formatNumber(number) {
     return (parseInt(number)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");

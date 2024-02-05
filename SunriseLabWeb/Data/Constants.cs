@@ -129,6 +129,7 @@ namespace SunriseLabWeb_New.Data
         public static string AddUpdate_Customer_Stock_Disc = "/User/AddUpdate_Customer_Stock_Disc";
         public static string Get_Customer_Stock_Disc = "/User/Get_Customer_Stock_Disc";
         public static string Get_Customer_Stock_Disc_Mas = "/User/Get_Customer_Stock_Disc_Mas";
+        public static string Get_API_ColumnSetting_UserWise = "/User/Get_API_ColumnSetting_UserWise";
         public static string Get_Customer_Stock_Disc_Count = "/User/Get_Customer_Stock_Disc_Count";
         
 

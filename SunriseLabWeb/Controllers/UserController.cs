@@ -46,6 +46,21 @@ namespace SunriseLabWeb_New.Controllers
             ServiceResponse<Get_OrderHistory_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_OrderHistory_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult OrderHistory_OrderDataSessionStore(Get_OrderHistory_Res obj)
+        {
+            Session["OrderHistory_Order"] = obj;
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult OrderHistory_OrderDataSessionGet()
+        {
+            Get_OrderHistory_Res obj = new Get_OrderHistory_Res();
+            if (Session["OrderHistory_Order"] != null)
+            {
+                obj = (Get_OrderHistory_Res)Session["OrderHistory_Order"];
+                Session["OrderHistory_Order"] = null;
+            }
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult Get_Save_Search_For_DashBoard()
         {
             string response = _api.CallAPI(Constants.Get_Save_Search_For_DashBoard, string.Empty);
@@ -737,6 +752,13 @@ namespace SunriseLabWeb_New.Controllers
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.Get_Customer_Stock_Disc_Mas, inputJson);
             ServiceResponse<Get_Customer_Stock_Disc_Mas_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_Customer_Stock_Disc_Mas_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Get_API_ColumnSetting_UserWise(Save_Supplier_Disc_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Get_API_ColumnSetting_UserWise, inputJson);
+            ServiceResponse<Get_ColumnSetting_UserWise_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_ColumnSetting_UserWise_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Get_Customer_Stock_Disc_Count(Save_Supplier_Disc_Req req)

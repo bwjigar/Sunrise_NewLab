@@ -298,6 +298,7 @@ function AddFilters() {
         $("#ExportType").val("");
         Get_Customer_Stock_Disc();
         Get_Customer_Stock_Disc_Mas();
+        Get_API_ColumnSetting_UserWise();
     }
     else if (_.filter(gridOptions.api.getSelectedRows()).length == 0) {
         toastr.warning("Please select user for Add Stock & Disc Filters");
@@ -686,7 +687,7 @@ $(document).ready(function () {
             }
         });
     });
-    $("#mytable tbody").sortable({
+    $("#tblCol tbody").sortable({
         update: function () {
             SetTableOrder();
         }
@@ -3792,9 +3793,43 @@ var GetError_1 = function () {
 
     if (parseInt($("#tblFilters #tblBodyFilters").find('tr').length) == 0 && Exists_Record == 0) {
         ErrorMsg.push({
-            'Error': "Supplier Disc Pricing Filter Not Found.",
+            'Error': "Stock & Disc Pricing Filter Not Found.",
         });
     }
+
+
+    var Arr1 = [];
+    var Arr2 = [];
+    $("#tblCol #tblBodyCol tr").each(function () {
+        var Index = $(this).index();
+        var icolumnId = $(this).find("td:eq(4)").html().trim();
+        var ColumnName = $(this).find("td:eq(2)").html().trim();
+        var EditColumnName = $(this).find("input").val();
+        if ($('#chebox_fillImg_' + icolumnId).hasClass('img-block')) {
+            var Visibility = true;
+        }
+        else {
+            var Visibility = false;
+        }
+        Arr2.push({ iPriority: Index, sUser_ColumnName: ColumnName, IsActive: Visibility, EditColumnName: EditColumnName, icolumnId: icolumnId });
+        Arr1 = _.filter(Arr2, function (e) { return e.IsActive == true });
+    });
+
+    var List1 = [];
+    Arr1.forEach(function (e) {
+        List1.push({
+            "Id": e.icolumnId,
+            "ColumnName": e.EditColumnName,
+            "OrderBy": e.iPriority + 1
+        });
+    });
+
+    if (List1.length == 0) {
+        ErrorMsg.push({
+            'Error': "Stock & Disc Columns Not Found.",
+        });
+    }
+
     return ErrorMsg;
 }
 function SaveData() {
@@ -3925,19 +3960,51 @@ function SaveData() {
             });
         });
 
+
+        var Arr1 = [];
+        var Arr2 = [];
+        $("#tblCol #tblBodyCol tr").each(function () {
+            var Index = $(this).index();
+            var icolumnId = $(this).find("td:eq(4)").html().trim();
+            var ColumnName = $(this).find("td:eq(2)").html().trim();
+            var EditColumnName = $(this).find("input").val();
+            if ($('#chebox_fillImg_' + icolumnId).hasClass('img-block')) {
+                var Visibility = true;
+            }
+            else {
+                var Visibility = false;
+            }
+            Arr2.push({ iPriority: Index, sUser_ColumnName: ColumnName, IsActive: Visibility, EditColumnName: EditColumnName, icolumnId: icolumnId });
+            Arr1 = _.filter(Arr2, function (e) { return e.IsActive == true });
+        });
+
+        var List1 = [];
+        Arr1.forEach(function (e) {
+            List1.push({
+                "Id": e.icolumnId,
+                "ColumnName": e.EditColumnName,
+                "OrderBy": e.iPriority + 1
+            });
+        });
+        
+
+
+        debugger
         var obj = {};
         obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
         obj.UserName = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserName').join(",");
         obj.ExportType = $("#ExportType").val();
         //obj.Password = $("#txt_S_Password").val();
         obj.SuppDisc = list;
-
+        obj.CUSTOMER = List1;
+        debugger
         loaderShow();
         $.ajax({
             url: '/User/AddUpdate_Customer_Stock_Disc',
             type: "POST",
             data: { req: obj },
             success: function (data) {
+                debugger
                 loaderHide();
                 if (data.Status == "1") {
                     toastr.success(data.Message);
@@ -4165,6 +4232,54 @@ function Get_Customer_Stock_Disc_Mas() {
                 $("#ExportType").val(data.Data[0].ExportType);
             }
             loaderHide();
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            loaderHide();
+        }
+    });
+}
+function Get_API_ColumnSetting_UserWise() {
+    loaderShow();
+    var obj = {};
+    obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
+
+    $.ajax({
+        url: '/User/Get_API_ColumnSetting_UserWise',
+        type: "POST",
+        data: { req: obj },
+        success: function (data) {
+            if (data.Status == "1" && data.Data.length > 0) {
+                var html = "";
+                $.each(data.Data, function (i, itm) {
+                    html += '<tr>';
+                    html += '<td id="lblCoolName" style="display: none;"></td>';
+                    html += '<td><i style="cursor: move;" class="fa fa-bars" aria-hidden="true"></i></td>';
+                    html += '<td id="lblFieldName" class="onbinding">' + itm.Column_Name +'</td>';
+                    html += '<td class="CustName">';
+                    html += '<input onblur="" type="text" class="form-control form-control onpristine onvalid onnot-empty onvalid-maxlength ontouched" value="' + itm.API_Column_Name +'" maxlength="100">';
+                    html += '</td>';
+                    html += '<td id="lblColId" style="display: none;" class="onbinding">' + itm.Id +'</td>';
+                    html += '<td id="lblOrder" class="ColumnOrder onbinding">' + itm.OrderBy +'</td>';
+                    html += '<td><center>';
+                    if (itm.Visible == true) {
+                        html += '<img src="/Content/images/chebox-fill.png" class="chebox-fill img-block" id="chebox_fillImg_' + itm.Id + '" onclick="chebox_fill(' + itm.Id + ')" style="cursor: pointer; width: 20px;" />';
+                        html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty img-none" id="chebox_emptyImg_' + itm.Id + '" onclick="chebox_empty(' + itm.Id + ')" style="cursor: pointer; width: 20px; margin - bottom: 7px;" />';
+                    }
+                    else {
+                        html += '<img src="/Content/images/chebox-fill.png" class="chebox-fill img-none" id="chebox_fillImg_' + itm.Id + '" onclick="chebox_fill(' + itm.Id + ')" style="cursor: pointer; width: 20px;" />';
+                        html += '<img src="/Content/images/chebox-empty.png" class="chebox-empty img-block" id="chebox_emptyImg_' + itm.Id + '" onclick="chebox_empty(' + itm.Id + ')" style="cursor: pointer; width: 20px; margin - bottom: 7px;" />';
+                    }
+                    html += '</center></td>';
+                    html += '</tr>';
+                });
+                $("#tblCol #tblBodyCol").html(html);
+            }
+            else {
+                if (data.Message.indexOf('Something Went wrong') > -1) {
+                    MoveToErrorPage(0);
+                }
+                toastr.error(data.Message);
+            }
         },
         error: function (xhr, textStatus, errorThrown) {
             loaderHide();

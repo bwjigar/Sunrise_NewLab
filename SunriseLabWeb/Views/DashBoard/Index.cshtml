@@ -69,7 +69,7 @@
             .active, .collapsible:hover {
                 background-color: #555;
             }
-
+       
         .content {
             padding: 0 18px;
             max-height: 0;
@@ -169,7 +169,10 @@
             opacity: 1 !important;
             text-align:left;
         }
-       
+        .order:hover {
+            color: #2594d5;
+            text-decoration: underline;
+        }
     </style>
 }
 <div class="container-fluid">
@@ -271,17 +274,13 @@
             <table class="table">
                 <thead style="background-color: #143f58; color: white; font-size: 13px; border: 1px solid #143f5887; ">
                     <tr>
-                        <th style="width: 4%;"><center>Stock</center></th>
-                        <th style="width: 4%;"><center>Shape</center></th>
-                        <th style="width: 4%;"><center>Color</center></th>
-                        <th style="width: 4%;"><center>Clarity</center></th>
-                        <th style="width: 4%;"><center>Cts</center></th>
-                        <th style="width: 4%;"><center>Cut</center></th>
-                        <th style="width: 4%;"><center>Polish</center></th>
-                        <th style="width: 4%;"><center>Symm</center></th>
-                        <th style="width: 4%;"><center>Rap</center></th>
-                        <th style="width: 4%;"><center>Disc</center></th>
-                        <th style="width: 4%;"><center>Value</center></th>
+                        <th style="width: 4%;"><center>Order Id</center></th>
+                        <th style="width: 4%;"><center>Order Date</center></th>
+                        <th style="width: 4%;"><center>Customer Name</center></th>
+                        <th style="width: 4%;"><center>Remarks</center></th>
+                        <th style="width: 4%;"><center>Total Pcs</center></th>
+                        <th style="width: 4%;"><center>Total Cts</center></th>
+                        <th style="width: 4%;"><center>Total Amt</center></th>
                     </tr>
                 </thead>
                 <tbody style="color: #143f58; background-color: white; border: 1px solid #143f5887; " id="tblBodyOrder">

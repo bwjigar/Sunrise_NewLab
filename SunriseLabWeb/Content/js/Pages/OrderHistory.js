@@ -398,7 +398,24 @@ var Reset = function () {
     $("#QCReject").removeClass("btn-spn-opt-active");
     GetSearch();
 }
-
+function OrderHistory_LoadSearchData() {
+    loaderShow();
+    $.ajax({
+        url: "/User/OrderHistory_OrderDataSessionGet",
+        async: false,
+        type: "POST",
+        success: function (data, textStatus, jqXHR) {
+            loaderHide();
+            if (parseInt(data.OrderId) > 0) {
+                $("#txt_S_StoneId").val(data.OrderId);
+            }
+            GetSearch();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            loaderHide();
+        }
+    });
+}
 
 function contentHeight() {
     var winH = $(window).height(),
@@ -409,7 +426,7 @@ function contentHeight() {
 }
 
 $(document).ready(function (e) {
-    GetSearch();
+    OrderHistory_LoadSearchData();
     contentHeight();
     $("#li_User_OrderHistory").addClass("menuActive");
 });

@@ -427,9 +427,11 @@ namespace Lib.Model
         public string ExportType { get; set; }
         public string URL { get; set; }
         public List<Obj_Supplier_Disc> SuppDisc { get; set; }
+        public List<Obj_ColumnSetting_UserWise> CUSTOMER { get; set; }
         public Save_Supplier_Disc_Req()
         {
             SuppDisc = new List<Obj_Supplier_Disc>();
+            CUSTOMER = new List<Obj_ColumnSetting_UserWise>();
         }
     }
     public class Obj_Supplier_Disc
@@ -819,6 +821,7 @@ namespace Lib.Model
         public int Id { get; set; }
         public string Type { get; set; }
         public string Column_Name { get; set; }
+        public string API_Column_Name { get; set; }
         public long OrderBy { get; set; }
         public bool Visible { get; set; }
         public bool Access { get; set; }
@@ -839,6 +842,7 @@ namespace Lib.Model
     {
         public int UserId { get; set; }
         public int Id { get; set; }
+        public string ColumnName { get; set; }
         public int OrderBy { get; set; }
     }
     public class Get_SearchStock_ColumnSetting_Req
@@ -996,6 +1000,13 @@ namespace Lib.Model
         public string LabEntry_Status { get; set; }
         public string LabEntry_Status_FromOracle { get; set; }
         public string Final_Order_Status { get; set; }
+
+
+        public string CustName { get; set; }
+        public string Remarks { get; set; }
+        public int TotPcs { get; set; }
+        public decimal TotCts { get; set; }
+        public decimal TotAmt { get; set; }
     }
     public class Get_Company_PlaceOrder_Res
     {
