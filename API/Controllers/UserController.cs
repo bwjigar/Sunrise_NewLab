@@ -9350,6 +9350,20 @@ namespace API.Controllers
 
                                             if (Convert.ToString(SupStkUploadDT.Rows[0]["Status"]) == "1")
                                             {
+                                                db = new Database();
+                                                para = new List<IDbDataParameter>();
+
+                                                if (SupplierId > 0)
+                                                    para.Add(db.CreateParam("SupplierId", DbType.Int64, ParameterDirection.Input, SupplierId));
+                                                else
+                                                    para.Add(db.CreateParam("SupplierId", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                                                para.Add(db.CreateParam("ValidityDays", DbType.Int64, ParameterDirection.Input, 0));
+                                                para.Add(db.CreateParam("Reason", DbType.String, ParameterDirection.Input, Convert.ToString(dtSuppl.Rows[i]["APIType"] + " through Stock Upload").Replace("_"," ")));
+
+                                                db.ExecuteSP("AddUpdate_ValidityDays", para.ToArray(), false);
+
+
                                                 if (!string.IsNullOrEmpty(Return_Msg))
                                                 {
                                                     Return_Msg = RemoveBeforeWord(Return_Msg, "Stock");
@@ -9749,6 +9763,24 @@ namespace API.Controllers
 
                                 if (SupStkUploadDT.Rows[0]["Message"].ToString().Contains("SUCCESS"))
                                 {
+                                    db = new Database();
+                                    para = new List<IDbDataParameter>();
+
+                                    if (req.SupplierId > 0)
+                                        para.Add(db.CreateParam("SupplierId", DbType.Int64, ParameterDirection.Input, req.SupplierId));
+                                    else
+                                        para.Add(db.CreateParam("SupplierId", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                                    if (req.ValidityDays > 0)
+                                        para.Add(db.CreateParam("ValidityDays", DbType.Int64, ParameterDirection.Input, req.ValidityDays));
+                                    else
+                                        para.Add(db.CreateParam("ValidityDays", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                                    para.Add(db.CreateParam("Reason", DbType.String, ParameterDirection.Input, "New File Upload"));
+
+                                    db.ExecuteSP("AddUpdate_ValidityDays", para.ToArray(), false);
+
+
                                     return Ok(new CommonResponse
                                     {
                                         Error = "",
@@ -10109,6 +10141,61 @@ namespace API.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult Supplier_File_Stock_Validity_Scheduler()
+        {
+            string path = HttpContext.Current.Server.MapPath("~/Supplier_File_Stock_Validity_Scheduler.txt");
+            if (!File.Exists(@"" + path + ""))
+            {
+                File.Create(@"" + path + "").Dispose();
+            }
+            StringBuilder sb = new StringBuilder();
+
+            Database db;
+            List<IDbDataParameter> para;
+
+            try
+            {
+                db = new Database();
+                para = new List<IDbDataParameter>();
+                DataTable dt = db.ExecuteSP("Supplier_File_Stock_Validity_Scheduler", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                    sb.Append(Convert.ToString(dt.Rows[0]["Message"]) + ", Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                    sb.AppendLine("");
+                    File.AppendAllText(path, sb.ToString());
+                    sb.Clear();
+                }
+                else
+                {
+                    sb.AppendLine("= = = = = = = = = = = = = = = = = = = = = = = = = = = ");
+                    sb.Append("Stock Validity Scheduler in Issue, Log Time : " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                    sb.AppendLine("");
+                    File.AppendAllText(path, sb.ToString());
+                    sb.Clear();
+                }
+
+                return Ok(new CommonResponse
+                {
+                    Message = "SUCCESS",
+                    Status = "1",
+                    Error = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new CommonResponse
+                {
+                    Message = ex.Message,
+                    Status = "0",
+                    Error = ex.StackTrace
+                });
+            }
+        }
+        
         [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult Auto_Excel_Download()

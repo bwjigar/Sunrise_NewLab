@@ -815,6 +815,7 @@ namespace Lib.Model
         public string SheetName { get; set; }
         public string File { get; set; }
         public string FilePath { get; set; }
+        public int ValidityDays { get; set; }
     }
     public class Get_ColumnSetting_UserWise_Res
     {

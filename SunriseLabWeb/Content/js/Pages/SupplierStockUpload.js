@@ -74,6 +74,14 @@ function Get_SheetName_From_File() {
         toastr.error("Please Select Supplier Name");
     }
 }
+function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    // Allow numbers (0-9)
+    if ((charCode < 48 || charCode > 57) || charCode == 46 || charCode == 44) {
+        return false;
+    }
+    return true;
+}
 function Master_Get() {
     loaderShow();
     $("#DdlSupplierName").html("<option value=''>Select</option>");
@@ -109,68 +117,78 @@ function onchange_SupplierName() {
 function Stock_Upload() {
     debugger
     if ($("#DdlSupplierName").val() != "") {
-        debugger
-        const fileInput = $('#file_upload')[0];
-        if (fileInput.files.length > 0) {
-            if (((filetype == "xlsx" || filetype == "xls") && $("#DdlSheetName").val() != "") || (filetype == "csv")) {
-                //loaderShow_stk_upload();
-                loaderShow();
-                debugger
-                setTimeout(function () {
+        if (parseInt(($("#txtValidityDays").val() == "" ? 0 : $("#txtValidityDays").val())) > 0) {
+            debugger
+            const fileInput = $('#file_upload')[0];
+            if (fileInput.files.length > 0) {
+                if (((filetype == "xlsx" || filetype == "xls") && $("#DdlSheetName").val() != "") || (filetype == "csv")) {
+                    //loaderShow_stk_upload();
+                    loaderShow();
                     debugger
-                    const formData = new FormData();
-                    formData.append('SupplierId', $("#DdlSupplierName").val());
-                    formData.append('SupplierName', $("#DdlSupplierName option:selected").text());
-                    formData.append('SheetName', $("#DdlSheetName").val() + "$");
-                    formData.append('File', fileInput.files[0]);
-                    formData.append('UserId', $("#hdn_UserId").val());
+                    setTimeout(function () {
+                        debugger
+                        const formData = new FormData();
+                        formData.append('SupplierId', $("#DdlSupplierName").val());
+                        formData.append('SupplierName', $("#DdlSupplierName option:selected").text());
+                        formData.append('SheetName', $("#DdlSheetName").val() + "$");
+                        formData.append('File', fileInput.files[0]);
+                        formData.append('UserId', $("#hdn_UserId").val());
+                        formData.append('ValidityDays', $("#txtValidityDays").val());
 
-                    debugger
-                    $.ajax({
-                        type: "POST",
-                        //url: "/User/AddUpdate_SupplierStock_FromFile",
-                        url: "/User/Thread_AddUpdate_SupplierStock_FromFile",
-                        contentType: false,
-                        processData: false,
-                        data: formData,
-                        async: false,
-                        success: function (data) {
-                            //loaderHide_stk_upload();
-                            loaderHide();
-                            debugger
-                            var myArray = data.split("_");
-                            if (myArray[0] == "1") {
-                                toastr.success(myArray[1]);
+                        debugger
+                        $.ajax({
+                            type: "POST",
+                            //url: "/User/AddUpdate_SupplierStock_FromFile",
+                            url: "/User/Thread_AddUpdate_SupplierStock_FromFile",
+                            contentType: false,
+                            processData: false,
+                            data: formData,
+                            async: false,
+                            success: function (data) {
+                                //loaderHide_stk_upload();
+                                loaderHide();
+                                debugger
+                                var myArray = data.split("_");
+                                if (myArray[0] == "1") {
+                                    toastr.success(myArray[1]);
+                                }
+                                else {
+                                    toastr.error(myArray[1]);
+                                }
+                                //if (data.Status == "1") {
+                                //    debugger
+                                //    toastr.success(data.Message);
+                                //}
+                                //else {
+                                //    debugger
+                                //    toastr.error(data.Message);
+                                //}
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //loaderHide_stk_upload();
+                                loaderHide();
                             }
-                            else {
-                                toastr.error(myArray[1]);
-                            }
-                            //if (data.Status == "1") {
-                            //    debugger
-                            //    toastr.success(data.Message);
-                            //}
-                            //else {
-                            //    debugger
-                            //    toastr.error(data.Message);
-                            //}
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            //loaderHide_stk_upload();
-                            loaderHide();
-                        }
-                    });
+                        });
 
-                }, 50);
+                    }, 50);
+                }
+                else {
+                    $("#DdlSheetName").focus();
+                    toastr.error("Please Select Sheet Name");
+                }
             }
             else {
-                toastr.error("Please Select Sheet Name");
+                $("#file_upload").focus();
+                toastr.error("Please Select File (.XLSX, .XLS, .CSV)");
             }
         }
         else {
-            toastr.error("Please Select File (.XLSX, .XLS, .CSV)");
+            $("#txtValidityDays").focus();
+            toastr.error("Please Enter Validity Days");
         }
     }
     else {
+        $("#DdlSupplierName").focus();
         toastr.error("Please Select Supplier Name");
     }
 }

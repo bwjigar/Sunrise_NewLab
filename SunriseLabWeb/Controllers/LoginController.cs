@@ -227,6 +227,17 @@ namespace SunriseLabWeb_New.Controllers
             API _api = new API();
             _api.CallAPIWithoutToken(Constants.AddUpdate_SupplierStock, string.Empty);
         }
+        public JsonResult Supplier_File_Stock_Validity_Scheduler()
+        {
+            Thread APIGet = new Thread(Supplier_File_Stock_Validity_Scheduler_Thread);
+            APIGet.Start();
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        public static void Supplier_File_Stock_Validity_Scheduler_Thread()
+        {
+            API _api = new API();
+            _api.CallAPIWithoutToken(Constants.Supplier_File_Stock_Validity_Scheduler, string.Empty);
+        }
 
         public JsonResult Auto_Excel_Download()
         {

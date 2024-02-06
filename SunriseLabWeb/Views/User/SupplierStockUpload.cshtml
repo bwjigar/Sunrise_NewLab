@@ -13,36 +13,65 @@
             </div>
         </div>
     </div>
-    <div class="order-history-data admin">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <div class="col-xl-5 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
-                    <div class="order-company-name common-order">
-                        <div class="offer-label">Supplier Name: <span style="color:red;">*</span></div>
-                        <select class="form-control select2" id="DdlSupplierName" name="DdlSupplierName" onchange="onchange_SupplierName()">
-                        </select>
+    <div class="row AddEdit">
+        <div class="col-xl-6 col-lg-8 col-md-12 col-sm-12">
+            <div class="myoffer-form full-acform mt-0">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="row fl-sec-form">
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
+                                <div class="offer-label">Supplier Name :<span class="reqvalidation"> * </span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <select class="form-control select2" id="DdlSupplierName" name="DdlSupplierName" onchange="onchange_SupplierName()">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
+                                <div class="offer-label">Validity Days :<span class="reqvalidation"> * </span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input type="text" id="txtValidityDays" name="txtValidityDays" value="2" class="form-control" autocomplete="off" onkeypress="return isNumberKey(event)">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3">
+                                <div class="offer-label">File Upload :<span class="reqvalidation"> * </span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input accept=".xlsx,.xls,.csv" type="file" id="file_upload" name="file_upload" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 SheetName" style="display:none;">
+                                <div class="offer-label">Sheet Name :<span class="reqvalidation"> * </span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 SheetName" style="display:none;">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <select class="form-control select2" id="DdlSheetName" name="DdlSheetName">
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 pt-2" style="border-top:1px solid #ddd;">
+                                <ul class="offer-inbtn pull-right mrtop">
+                                    <li>
+                                        <button onclick="Stock_Upload();" class="save offer-btn" id="Stock_Upload_btn"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;Stock Upload</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
-                    <div class="order-company-name common-order">
-                        <div class="offer-label">File Upload: <span style="color:red;">*</span></div>
-                        <input accept=".xlsx,.xls,.csv" type="file" id="file_upload" name="file_upload" class="form-control" />
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 col-md-7 col-sm-6 col-12 float-left SheetName" style="display:none;">
-                    <div class="order-company-name common-order">
-                        <div class="offer-label">Sheet Name: <span style="color:red;">*</span></div>
-                        <select class="form-control select2" id="DdlSheetName" name="DdlSheetName">
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <ul class="offer-inbtn pull-right mrtop src-rest-topbtn mt-2 mb-2" style="margin: 20px 54px 0;">
-                    <li class="mr-2">
-                        <button onclick="Stock_Upload();" class="save offer-btn" id="Stock_Upload_btn"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;Stock Upload</button>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
