@@ -911,7 +911,7 @@ function CustomerList() {
                     suppressMovable: false
                 });
                 data.Data.forEach(function (item) {
-                    if (item.Column_Name == "Image-Video") {
+                    if (item.Column_Name == "Image-Video-Certi") {
                         columnDefs.push({ headerName: "VIEW", field: "DNA_Image_Video_Certi", filter: getValuesAsync1("DNA_Image_Video_Certi"), width: 65, cellRenderer: function (params) { return DNA_Image_Video_Certi(params, false, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
                     }
                     else if (item.Column_Name == "Ref No") {

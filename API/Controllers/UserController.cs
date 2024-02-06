@@ -13636,7 +13636,7 @@ namespace API.Controllers
                                                 string API_Column_Name = Convert.ToString(Col_dt.Rows[j]["API_Column_Name"]);
                                                 double AutoFitColumns = Convert.ToDouble(Col_dt.Rows[j]["ExcelWidth"]);
 
-                                                if (Column_Name == "Image-Video")
+                                                if (Column_Name == "Image-Video-Certi")
                                                 {
                                                     dt_data.Columns.Add("Image", typeof(string));
                                                     dt_data.Columns.Add("Video", typeof(string));
@@ -13657,7 +13657,11 @@ namespace API.Controllers
                                                     string Column_Name = Convert.ToString(Col_dt.Rows[k]["Column_Name"]);
                                                     string API_Column_Name = Convert.ToString(Col_dt.Rows[k]["API_Column_Name"]);
 
-                                                    if (Column_Name == "Ref No")
+                                                    if (Column_Name == "Sr No")
+                                                    {
+                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["iSr"]);
+                                                    }
+                                                    else if (Column_Name == "Ref No")
                                                     {
                                                         dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Ref_No"]);
                                                     }
@@ -13665,7 +13669,7 @@ namespace API.Controllers
                                                     {
                                                         dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Lab"]);
                                                     }
-                                                    else if (Column_Name == "Image-Video")
+                                                    else if (Column_Name == "Image-Video-Certi")
                                                     {
                                                         dr["Image"] = Convert.ToString(dt_Result.Rows[j]["Image_URL"]);
                                                         dr["Video"] = Convert.ToString(dt_Result.Rows[j]["Video_URL"]);
@@ -13709,13 +13713,13 @@ namespace API.Controllers
                                                                    (dt_Result.Rows[j]["Rap_Amount"].GetType().Name != "DBNull" ?
                                                                    Convert.ToDouble(dt_Result.Rows[j]["Rap_Amount"]) : ((Double?)null)) : null);
                                                     }
-                                                    else if (Column_Name == "Offer Disc(%)")
+                                                    else if (Column_Name == "Final Disc(%)")
                                                     {
                                                         dr[API_Column_Name] = ((dt_Result.Rows[j]["CUSTOMER_COST_DISC"] != null) ?
                                                                    (dt_Result.Rows[j]["CUSTOMER_COST_DISC"].GetType().Name != "DBNull" ?
                                                                    Convert.ToDouble(dt_Result.Rows[j]["CUSTOMER_COST_DISC"]) : ((Double?)null)) : null);
                                                     }
-                                                    else if (Column_Name == "Offer Value($)")
+                                                    else if (Column_Name == "Final Amt US($)")
                                                     {
                                                         dr[API_Column_Name] = ((dt_Result.Rows[j]["CUSTOMER_COST_VALUE"] != null) ?
                                                                    (dt_Result.Rows[j]["CUSTOMER_COST_VALUE"].GetType().Name != "DBNull" ?
@@ -13852,6 +13856,56 @@ namespace API.Controllers
                                                     else if (Column_Name == "Girdle Open")
                                                     {
                                                         dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Girdle_Open"]);
+                                                    }
+                                                    else if (Column_Name == "Shade")
+                                                    {
+                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Shade"]);
+                                                    }
+                                                    else if (Column_Name == "Luster")
+                                                    {
+                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Luster"]);
+                                                    }
+                                                    else if (Column_Name == "Measurement")
+                                                    {
+                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Measurement"]);
+                                                    }
+                                                    else if (Column_Name == "H&A")
+                                                    {
+                                                        dr[API_Column_Name] = "";
+                                                    }
+                                                    else if (Column_Name == "Milky")
+                                                    {
+                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Milky"]);
+                                                    }
+                                                    else if (Column_Name == "Location")
+                                                    {
+                                                        dr[API_Column_Name] = "";
+                                                    }
+                                                    else if (Column_Name == "Certi No")
+                                                    {
+                                                        dr[API_Column_Name] = "";
+                                                    }
+                                                    else if (Column_Name == "RO")
+                                                    {
+                                                        dr[API_Column_Name] = "";
+                                                    }
+                                                    else if (Column_Name == "EC")
+                                                    {
+                                                        dr[API_Column_Name] = "";
+                                                    }
+                                                    else if (Column_Name == "Fancy Color")
+                                                    {
+                                                        dr[API_Column_Name] = "";
+                                                    }
+                                                    else if (Column_Name == "Price Of Origin")
+                                                    {
+                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["CUSTOMER_COST_VALUE"] != null) ?
+                                                                   (dt_Result.Rows[j]["CUSTOMER_COST_VALUE"].GetType().Name != "DBNull" ?
+                                                                   Convert.ToDouble(dt_Result.Rows[j]["CUSTOMER_COST_VALUE"]) : ((Double?)null)) : null);
+                                                    }
+                                                    else if (Column_Name == "Laser Incription")
+                                                    {
+                                                        dr[API_Column_Name] = (Convert.ToString(dt_Result.Rows[j]["Inscription"]) == "" ? "N" : "Y");
                                                     }
                                                 }
                                                 dt_data.Rows.Add(dr);

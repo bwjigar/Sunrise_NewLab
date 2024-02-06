@@ -3992,7 +3992,7 @@ namespace EpExcelExportLib
                         string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
                         double AutoFitColumns = Convert.ToDouble(Col_dt.Rows[j]["ExcelWidth"]);
 
-                        if (Column_Name == "Image-Video")
+                        if (Column_Name == "Image-Video-Certi")
                         {
                             Row_Count += 1;
 
@@ -4065,7 +4065,7 @@ namespace EpExcelExportLib
                             string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
                             double AutoFitColumns = Convert.ToDouble(Col_dt.Rows[j]["ExcelWidth"]);
 
-                            if (Column_Name == "Image-Video")
+                            if (Column_Name == "Image-Video-Certi")
                             {
                                 kk += 1;
 
@@ -4391,7 +4391,7 @@ namespace EpExcelExportLib
                     {
                         string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
 
-                        if (Column_Name == "Image-Video")
+                        if (Column_Name == "Image-Video-Certi")
                         {
                             kkk += 2;
                         }
@@ -4426,7 +4426,7 @@ namespace EpExcelExportLib
                             else if (Column_Name == "Final Disc(%)")
                             {
                                 int Image_Video_Certi = 0, Rap_Amount = 0, Offer_Value_Doller = 0;
-                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video'");
+                                DataRow[] dra = Col_dt.Select("[Column_Name] = 'Image-Video-Certi'");
                                 if (dra.Length > 0)
                                 {
                                     Image_Video_Certi = Convert.ToInt32(dra[0]["OrderBy"]);
