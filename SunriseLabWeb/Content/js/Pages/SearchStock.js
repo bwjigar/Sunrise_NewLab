@@ -1257,7 +1257,15 @@ function Search() {
 }
 function GetHoldDataGrid() {
     //loaderShow();
-    $('#tab1TCount').hide();
+    //$('#tab1TCount').hide();
+
+    $(".tab1Pcs").html("0");
+    $(".tab1CTS").html("0");
+    $(".tab1OfferDisc").html("0");
+    $(".tab1OfferValue").html("0");
+    $(".tab1PriceCts").html("0");
+
+
     if (gridOptions.api != undefined) {
         gridOptions.api.destroy();
     }
@@ -1463,9 +1471,9 @@ const datasource1 = {
                     });
                     params.successCallback(data.Data[0].DataList, summary.TOT_PCS);
 
-                    $('#tab1TCount').show();
-                    $('#tab1Pcs').html(formatIntNumber(summary.TOT_PCS));
-                    $('#tab1CTS').html(formatNumber(summary.TOT_CTS));
+                    //$('#tab1TCount').show();
+                    $('.tab1Pcs').html(formatIntNumber(summary.TOT_PCS));
+                    $('.tab1CTS').html(formatNumber(summary.TOT_CTS));
 
                     if (Type == "Buyer List") {
                         $(".totdisc").html("Supplier Final Disc(%)");
@@ -1475,9 +1483,9 @@ const datasource1 = {
                         $(".totdisc").html("Final Disc(%)");
                         $(".totval").html("Final Amt US($)");
                     }
-                    $('#tab1OfferDisc').html(formatNumber(summary.AVG_SALES_DISC_PER));
-                    $('#tab1OfferValue').html(formatNumber(summary.TOT_NET_AMOUNT));
-                    $('#tab1PriceCts').html(formatNumber(summary.AVG_PRICE_PER_CTS));
+                    $('.tab1OfferDisc').html(formatNumber(summary.AVG_SALES_DISC_PER));
+                    $('.tab1OfferValue').html(formatNumber(summary.TOT_NET_AMOUNT));
+                    $('.tab1PriceCts').html(formatNumber(summary.AVG_PRICE_PER_CTS));
                 }
                 else {
                     if (data.Data.length == 0) {
@@ -1486,12 +1494,12 @@ const datasource1 = {
 
                         $("#divFilter").show();
                         $("#divGridView").hide();
-                        $('#tab1TCount').hide();
-                        $('#tab1Pcs').html(formatIntNumber(0));
-                        $('#tab1CTS').html(formatNumber(0));
-                        $('#tab1OfferDisc').html(formatNumber(0));
-                        $('#tab1OfferValue').html(formatNumber(0));
-                        $('#tab1PriceCts').html(formatNumber(0));
+                        //$('#tab1TCount').hide();
+                        $('.tab1Pcs').html(formatIntNumber(0));
+                        $('.tab1CTS').html(formatNumber(0));
+                        $('.tab1OfferDisc').html(formatNumber(0));
+                        $('.tab1OfferValue').html(formatNumber(0));
+                        $('.tab1PriceCts').html(formatNumber(0));
                         toastr.error("No Stock found as per filter criteria !");
                     }
 
@@ -2066,11 +2074,11 @@ function onSelectionChanged(event) {
         TOT_PCS = summary.TOT_PCS;
     }
     setTimeout(function () {
-        $('#tab1Pcs').html(formatIntNumber(TOT_PCS));
-        $('#tab1CTS').html(formatNumber(TOT_CTS));
-        $('#tab1OfferDisc').html(formatNumber(AVG_SALES_DISC_PER));
-        $('#tab1OfferValue').html(formatNumber(TOT_NET_AMOUNT));
-        $('#tab1PriceCts').html(formatNumber(AVG_PRICE_PER_CTS));
+        $('.tab1Pcs').html(formatIntNumber(TOT_PCS));
+        $('.tab1CTS').html(formatNumber(TOT_CTS));
+        $('.tab1OfferDisc').html(formatNumber(AVG_SALES_DISC_PER));
+        $('.tab1OfferValue').html(formatNumber(TOT_NET_AMOUNT));
+        $('.tab1PriceCts').html(formatNumber(AVG_PRICE_PER_CTS));
     });
 }
 function onBodyScroll(params) {
@@ -2825,7 +2833,7 @@ function GetSearchParameter() {
                 })
 
                 $('#searchshape').html("");
-                $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'SHAPE\',\'' + 'ALL' + '\')" class="common-ico"><div class="icon-image one"><span class="first-ico">ALL</span></div></a></li>');
+                $('#searchshape').append('<li style="margin-left: -21px;" class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'SHAPE\',\'' + 'ALL' + '\')" class="common-ico"><div class="icon-image one"><span class="first-ico">ALL</span></div></a></li>');
                 ShapeList = _.filter(ParameterList, function (e) { return e.Type == 'Shape' && e.Icon_Url != null });
                 _(ShapeList).each(function (shape, i) {
                     if (shape.Value != 'ALL') {
@@ -2940,7 +2948,7 @@ function GetSearchParameter() {
 
 
                 KeyToSymbolList = _.filter(ParameterList, function (e) { return e.Type == 'Key to Symbol' });
-                RCommentList = _.filter(ParameterList, function (e) { return e.Type == 'Key to Symbol' });
+                RCommentList = _.filter(ParameterList, function (e) { return e.Type == 'Comment' });
 
                 loaderHide();
             }

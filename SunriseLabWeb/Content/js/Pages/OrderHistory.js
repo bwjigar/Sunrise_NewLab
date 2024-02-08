@@ -422,6 +422,7 @@ function contentHeight() {
         navbarHei = $(".order-title").height(),
         serachHei = $(".order-history-data").height(),
         contentHei = winH - serachHei - navbarHei - 125;
+        contentHei = (contentHei < 200 ? 369 : contentHei);
     $("#Cart-Gride").css("height", contentHei);
 }
 

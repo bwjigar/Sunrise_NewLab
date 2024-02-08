@@ -173,12 +173,24 @@
             color: #2594d5;
             text-decoration: underline;
         }
+        @@media screen and (min-width: 550px) and (max-width: 1500px) {
+            .service-panel {
+                padding: 26px;
+            }
+        }
+        @@media screen and (min-width: 0px) and (max-width: 550px) {
+            .service-panel {
+                margin-top: 26px;
+            }
+        }
     </style>
+
+
 }
 <div class="container-fluid">
-    <div class="service-panel" style="margin-top: 30px; padding-left: 50px; padding-right: 50px;">
+    <div class="service-panel" style="">
         <div class="row">
-            <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('TotalStock')" style="padding-right: 75px;">
+            <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('TotalStock')">
                 <div class="card top border-left-primary shadow h-100">
                     <div class="card-body top one bg-cl-1" style="background: none;">
                         <div class="row no-gutters align-items-center">
@@ -193,7 +205,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('Cart')" style="padding-right: 75px; padding-left: 75px;">
+            <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('Cart')">
                 <div class="card top border-left-primary shadow h-100">
                     <div class="card-body top one bg-cl-1" style="background: none;">
                         <div class="row no-gutters align-items-center">
@@ -208,7 +220,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('Order')" style="padding-left: 75px;">
+            <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('Order')">
                 <div class="card top border-left-primary shadow h-100">
                     <div class="card-body top one bg-cl-1" style="background: none;">
                         <div class="row no-gutters align-items-center">

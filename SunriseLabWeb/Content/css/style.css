@@ -1751,7 +1751,7 @@ ul.part2 li.sym {
 }
 
 .sym-sec .carat-dropdown-main .carat-dropdown-half-col {
-    height: 250px;
+    max-height: 250px;
     overflow: auto;
 }
 
