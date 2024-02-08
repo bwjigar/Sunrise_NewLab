@@ -36,15 +36,6 @@ function SetCurrentDate() {
     var FinalDate = (curr_date + "-" + m_names[curr_month] + "-" + curr_year);
     return FinalDate;
 }
-function isNumberKey(evt) {
-    var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode != 46 && charCode > 31
-        && (charCode < 48 || charCode > 57)) {
-        //toastr.warning("Please Enter Only Number only.");
-        return false;
-    }
-    return true;
-}
 
 //single node get from Multi diamension Array List
 function filterByProperty(data, prop, value) {
@@ -3749,6 +3740,64 @@ var LeaveTextBox = function (ele, fromid, toid, point) {
     if (parseFloat(parseFloat($("#" + fromid).val())) == "0" && parseFloat(parseFloat($("#" + toid).val())) == "0") {
         $("#" + fromid).val("");
         $("#" + toid).val("");
+    }
+
+    var f = parseFloat(parseFloat(($("#" + fromid).val() == "" ? "0" : $("#" + fromid).val())).toFixed(point));
+    var t = parseFloat(parseFloat(($("#" + toid).val() == "" ? "0" : $("#" + toid).val())).toFixed(point));
+    var cal_fromval = "";
+    var cal_toval = "";
+
+    if (fromid == "txtfromcarat" && toid == "txttocarat" && $("#" + fromid).val() != "" && $("#" + toid).val() != "") {
+        var cal_fromval = 0.01;
+        var cal_toval = 99.99;
+    }
+    else if (fromid == "FromDiscount" && toid == "ToDiscount" && $("#" + fromid).val() != "" && $("#" + toid).val() != "") {
+        var cal_fromval = -99.99;
+        var cal_toval = 99.99;
+    }
+    else if (fromid == "FromTotalAmt" && toid == "ToTotalAmt" && $("#" + fromid).val() != "" && $("#" + toid).val() != "") {
+        var cal_fromval = 1;
+        var cal_toval = 999999;
+    }
+    else if (((fromid == "FromLength" && toid == "ToLength") || (fromid == "FromWidth" && toid == "ToWidth") || (fromid == "FromDepth" && toid == "ToDepth")
+        || (fromid == "FromDepthPer" && toid == "ToDepthPer") || (fromid == "FromTablePer" && toid == "ToTablePer") || (fromid == "FromGirdlePer" && toid == "ToGirdlePer")
+        || (fromid == "FromCrAng" && toid == "ToCrAng") || (fromid == "FromCrHt" && toid == "ToCrHt") || (fromid == "FromPavAng" && toid == "ToPavAng")
+        || (fromid == "FromPavHt" && toid == "ToPavHt") || (fromid == "FromStarLength" && toid == "ToStarLength") || (fromid == "FromLowerHalf" && toid == "ToLowerHalf"))
+        && $("#" + fromid).val() != "" && $("#" + toid).val() != "") {
+        var cal_fromval = 0.01;
+        var cal_toval = 99.99;
+    }
+
+    if (cal_fromval != "" && cal_toval != "") {
+        if (f >= cal_fromval && f <= cal_toval) {
+            if (t >= cal_fromval && t <= cal_toval) {
+            } else {
+                $("#" + toid).val(f);
+                //toastr.error("You can enter only " + cal_fromval + " to " + cal_toval);
+            }
+        } else {
+            $("#" + fromid).val("");
+            $("#" + toid).val("");
+            toastr.error("You can enter only " + formatNumber(cal_fromval) + " to " + formatNumber(cal_toval));
+        }
+    }
+}
+function isNumberKey(evt, sign = "") {
+    if (sign == "-") {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        // Allow numbers (0-9)
+        if ((charCode < 48 || charCode > 57) && charCode !== 46 && charCode !== 45) {
+            return false;
+        }
+        return true;
+    }
+    else {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        // Allow numbers (0-9)
+        if ((charCode < 48 || charCode > 57) && charCode !== 46) {
+            return false;
+        }
+        return true;
     }
 }
 function SetModifyParameter() {

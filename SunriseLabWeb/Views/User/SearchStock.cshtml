@@ -567,8 +567,8 @@
                                 <div class="tab-content row col-md-12" id="myTabContent">
                                     <div class="tab-pane fade show active row col-md-12" id="carat1" role="tabpanel" aria-labelledby="home-tab" style="margin-left: -21px; padding-right: 0px;">
                                         <div class="li-content-width one wow fadeInLeft animated dv_Crt_Wgt" data-wow-delay="0.1s" style=" width: 104%;">
-                                <li class="carat-li-top"><input type="text" id="txtfromcarat" onblur="setFromCarat()" onkeypress="return isNumberKey_ISD(event)" autocomplete="off"><span class="from-to">From</span></li>
-                                <li class="carat-li-top"><input type="text" id="txttocarat" onblur="setToCarat()" onkeypress="return isNumberKey_ISD(event)" autocomplete="off"><span class="from-to">To</span></li>
+                                <li class="carat-li-top"><input type="text" id="txtfromcarat" onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','txtfromcarat','txttocarat', 2);" onkeypress="return isNumberKey(event)" autocomplete="off"><span class="from-to">From</span></li>
+                                <li class="carat-li-top"><input type="text" id="txttocarat" onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','txtfromcarat','txttocarat', 2);" onkeypress="return isNumberKey(event)" autocomplete="off"><span class="from-to">To</span></li>
                                 <li class="carat-li-top"><a href="javascript:void(0);" onclick="NewSizeGroup()"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
                         </div>
                         <div id="searchcaratspecific" class="li-content-width two wow fadeInLeft animated dv_Crt_Wgt1" data-wow-delay="0.1s" style="width: 104%;">
@@ -589,8 +589,8 @@
                 <ul class="part2">
                     <li class="sp-c" style="margin-bottom: 15px;"><b>Discount %</b></li>
                     <div class="li-content-width sec" style="margin-left: -7px;">
-                    <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromDiscount','ToDiscount', 2);" id="FromDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-                    <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromDiscount','ToDiscount', 2);" id="ToDiscount" class="numeric_value" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+                    <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromDiscount','ToDiscount', 2);" onkeypress="return isNumberKey(event,'-')" id="FromDiscount" class="numeric_value" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                    <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromDiscount','ToDiscount', 2);" onkeypress="return isNumberKey(event,'-')" id="ToDiscount" class="numeric_value" type="text" autocomplete="off"><span class="from-to">To</span></li>
             </div>
             </ul>
         </div>
@@ -598,8 +598,8 @@
             <ul class="part2">
                 <li class="sp-c" style="margin-bottom: 15px;"><b>Amount</b></li>
                 <div class="li-content-width sec" style="margin-left: -7px;">
-                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return numvalid(event)" id="FromTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">From</span></li>
-                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return numvalid(event)" id="ToTotalAmt" class="numeric_value" maxlength="15" type="text" autocomplete="off"><span class="from-to">To</span></li>
+                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('FROM','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return isNumberKey(event)" id="FromTotalAmt" class="numeric_value" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,4)" onblur="LeaveTextBox('TO','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return isNumberKey(event)" id="ToTotalAmt" class="numeric_value" type="text" autocomplete="off"><span class="from-to">To</span></li>
         </div>
         </ul>
     </div>
@@ -900,8 +900,8 @@
 
                         <div class="li-content-width sec">
 
-                        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromLength','ToLength', 2);" onkeypress="return numvalid(event)" id="FromLength" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-                        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromLength','ToLength', 2);" onkeypress="return numvalid(event)" id="ToLength" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+                        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromLength','ToLength', 2);" onkeypress="return numvalid(event)" id="FromLength" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromLength','ToLength', 2);" onkeypress="return numvalid(event)" id="ToLength" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">To</span></li>
                         <div id="divLengthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px; margin-top: -4px; margin-bottom: -8px; width: 10%;">
                         <li class="wow flipInY animated" data-wow-delay="0.8s" id="LengthBlank" onclick="SetActive('LengthBlank','BLANK')">BLANK</li>
                 </div>
@@ -918,8 +918,8 @@
         <div class="col-lg-9">
             <ul class="part2">
                 <div class="li-content-width sec">
-                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromWidth','ToWidth', 2);" onkeypress="return numvalid(event)" id="FromWidth" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromWidth','ToWidth', 2);" onkeypress="return numvalid(event)" id="ToWidth" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromWidth','ToWidth', 2);" onkeypress="return numvalid(event)" id="FromWidth" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromWidth','ToWidth', 2);" onkeypress="return numvalid(event)" id="ToWidth" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">To</span></li>
                 <div id="divWidthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px; margin-top: -4px; margin-bottom: -8px; width: 10%;">
                 <li class="wow flipInY animated" data-wow-delay="0.8s" id="WidthBlank" onclick="SetActive('WidthBlank','BLANK')">BLANK</li>
         </div>
@@ -936,8 +936,8 @@
     <div class="col-lg-9">
         <ul class="part2">
             <div class="li-content-width sec">
-            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromDepth','ToDepth', 2);" onkeypress="return numvalid(event)" id="FromDepth" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromDepth','ToDepth', 2);" onkeypress="return numvalid(event)" id="ToDepth" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromDepth','ToDepth', 2);" onkeypress="return numvalid(event)" id="FromDepth" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromDepth','ToDepth', 2);" onkeypress="return numvalid(event)" id="ToDepth" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">To</span></li>
             <div id="divDepthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px; margin-top: -4px; margin-bottom: -8px; width: 10%;">
             <li class="wow flipInY animated" data-wow-delay="0.8s" id="DepthBlank" onclick="SetActive('DepthBlank','BLANK')">BLANK</li>
     </div>
@@ -954,8 +954,8 @@
     <div class="col-lg-9">
         <ul class="part2">
             <div class="li-content-width sec">
-            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromDepthPer','ToDepthPer', 2);" onkeypress="return numvalid(event)" id="FromDepthPer" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromDepthPer','ToDepthPer', 2);" onkeypress="return numvalid(event)" id="ToDepthPer" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromDepthPer','ToDepthPer', 2);" onkeypress="return numvalid(event)" id="FromDepthPer" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromDepthPer','ToDepthPer', 2);" onkeypress="return numvalid(event)" id="ToDepthPer" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">To</span></li>
             <div id="divDepthPerBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px; margin-top: -4px; margin-bottom: -8px; width: 10%;">
             <li class="wow flipInY animated" data-wow-delay="0.8s" id="DepthPerBlank" onclick="SetActive('DepthPerBlank','BLANK')">BLANK</li>
     </div>
@@ -970,8 +970,8 @@
     <div class="col-lg-9">
         <ul class="part2">
             <div class="li-content-width sec">
-            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromTablePer','ToTablePer', 2);" onkeypress="return numvalid(event)" id="FromTablePer" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromTablePer','ToTablePer', 2);" onkeypress="return numvalid(event)" id="ToTablePer" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromTablePer','ToTablePer', 2);" onkeypress="return numvalid(event)" id="FromTablePer" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromTablePer','ToTablePer', 2);" onkeypress="return numvalid(event)" id="ToTablePer" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">To</span></li>
             <div id="divTablePerBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px; margin-top: -4px; margin-bottom: -8px; width: 10%;">
             <li class="wow flipInY animated" data-wow-delay="0.8s" id="TablePerBlank" onclick="SetActive('TablePerBlank','BLANK')">BLANK</li>
     </div>
@@ -988,8 +988,8 @@
     <div class="col-lg-9">
         <ul class="part2">
             <div class="li-content-width sec">
-            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromGirdlePer','ToGirdlePer', 2);" onkeypress="return numvalid(event)" id="FromGirdlePer" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromGirdlePer','ToGirdlePer', 2);" onkeypress="return numvalid(event)" id="ToGirdlePer" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('FROM','FromGirdlePer','ToGirdlePer', 2);" onkeypress="return numvalid(event)" id="FromGirdlePer" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onchange="checkValue(this,2)" onblur="LeaveTextBox('TO','FromGirdlePer','ToGirdlePer', 2);" onkeypress="return numvalid(event)" id="ToGirdlePer" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">To</span></li>
             <div id="divGirdlePerBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px; margin-top: -4px; margin-bottom: -8px; width: 10%;">
             <li class="wow flipInY animated" data-wow-delay="0.8s" id="GirdlePerBlank" onclick="SetActive('GirdlePerBlank','BLANK')">BLANK</li>
     </div>
@@ -1013,8 +1013,8 @@
         <div class="col-lg-9">
             <ul class="part2">
                 <div class="li-content-width sec">
-                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" id="FromCrAng" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" id="ToCrAng" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" id="FromCrAng" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromCrAng','ToCrAng');" onkeypress="return numvalid(event)" id="ToCrAng" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">To</span></li>
                 <div id="divCrAngBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px; margin-top: -4px; margin-bottom: -8px; width: 10%;">
                 <li class="wow flipInY animated" data-wow-delay="0.8s" id="CrAngBlank" onclick="SetActive('CrAngBlank','BLANK')">BLANK</li>
         </div>
@@ -1031,8 +1031,8 @@
     <div class="col-lg-9">
         <ul class="part2">
             <div class="li-content-width sec">
-            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" id="FromCrHt" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" id="ToCrHt" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" id="FromCrHt" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromCrHt','ToCrHt');" onkeypress="return numvalid(event)" id="ToCrHt" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">To</span></li>
             <div id="divCrHtBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px; margin-top: -4px; margin-bottom: -8px; width: 10%;">
             <li class="wow flipInY animated" data-wow-delay="0.8s" id="CrHtBlank" onclick="SetActive('CrHtBlank','BLANK')">BLANK</li>
     </div>
@@ -1049,8 +1049,8 @@
     <div class="col-lg-9">
         <ul class="part2">
             <div class="li-content-width sec">
-            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" id="FromPavAng" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">From</span></li>
-            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" id="ToPavAng" class="numeric_value para_txt" maxlength="10" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" id="FromPavAng" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromPavAng','ToPavAng');" onkeypress="return numvalid(event)" id="ToPavAng" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">To</span></li>
             <div id="divPavAngBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px; margin-top: -4px; margin-bottom: -8px; width: 10%;">
             <li class="wow flipInY animated" data-wow-delay="0.8s" id="PavAngBlank" onclick="SetActive('PavAngBlank','BLANK')">BLANK</li>
     </div>
