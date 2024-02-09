@@ -3321,7 +3321,7 @@ function Reset() {
     });
 
     $('#searchshape').html("");
-    $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'SHAPE\',\'' + 'ALL' + '\')" class="common-ico"><div class="icon-image one"><span class="first-ico">ALL</span></div></a></li>');
+    $('#searchshape').append('<li style="margin-left: -21px;" class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'SHAPE\',\'' + 'ALL' + '\')" class="common-ico"><div class="icon-image one"><span class="first-ico">ALL</span></div></a></li>');
     ShapeList = _.filter(ParameterList, function (e) { return e.Type == 'Shape' && e.Icon_Url != null });
     _(ShapeList).each(function (shape, i) {
         if (shape.Value != 'ALL') {
@@ -3767,7 +3767,7 @@ var LeaveTextBox = function (ele, fromid, toid, point) {
         var cal_fromval = 0.01;
         var cal_toval = 99.99;
     }
-
+    debugger
     if (cal_fromval != "" && cal_toval != "") {
         if (f >= cal_fromval && f <= cal_toval) {
             if (t >= cal_fromval && t <= cal_toval) {
