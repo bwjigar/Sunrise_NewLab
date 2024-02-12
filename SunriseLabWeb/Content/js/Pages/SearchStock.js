@@ -1580,16 +1580,42 @@ function ExcelDownload(where, from) {
         });
 
         debugger
-        if (obj.BGM == "" && obj.Certi == "" && obj.CheckKTS == "" && obj.Clarity == "" && obj.Color == "" && obj.ColorType == "Regular" && obj.CrAngBlank == "" && obj.CrHtBlank == ""
-            && obj.CrownBlack == "" && obj.CrownOpen == "" && obj.CrownWhite == "" && obj.Cut == "" && obj.DepthBlank == "" && obj.DepthPerBlank == "" && obj.Download == true
-            && obj.FANCY_COLOR == "" && obj.Fls == "" && obj.FromCrAng == "" && obj.FromCrHt == "" && obj.FromDepth == "" && obj.FromDepthPer == "" && obj.FromDisc == ""
-            && obj.FromLength == "" && obj.FromPavAng == "" && obj.FromPavHt == "" && obj.FromTablePer == "" && obj.FromTotAmt == "" && obj.FromWidth == "" && obj.GirdleOpen == ""
-            && obj.INTENSITY == "" && obj.Img == "" && obj.KTSBlank == "" && obj.Keytosymbol == "-" && obj.Lab == "" && obj.LengthBlank == "" && obj.Location == "" && obj.OVERTONE == ""
-            && obj.OrderBy == "" && obj.PavAngBlank == "" && obj.PavHtBlank == "" && obj.PavOpen == "" && obj.PgNo == "" && obj.PgSize == "" && obj.Pointer == "" && obj.Polish == ""
-            && obj.RefNo == "" && obj.Shape == "" && obj.SupplierId == "" && obj.Symm == "" && obj.TableBlack == "" && obj.TableOpen == "" && obj.TablePerBlank == "" && obj.TableWhite == ""
-            && obj.ToCrAng == "" && obj.ToCrHt == "" && obj.ToDepth == "" && obj.ToDepthPer == "" && obj.ToDisc == "" && obj.ToLength == "" && obj.ToPavAng == "" && obj.ToPavHt == ""
-            && obj.ToTablePer == "" && obj.ToTotAmt == "" && obj.ToWidth == "" && obj.UNCheckKTS == "" && obj.Vdo == "" && obj.View == false && obj.WidthBlank == ""
-            && (obj.PricingDisc == undefined || obj.PricingDisc == "") && Stock_Disc_Count == 0) {
+        if (obj.PgNo == "" && obj.PgSize == "" && obj.OrderBy == "" &&
+            obj.Location == "" &&
+            obj.RefNo == "" &&
+            obj.SupplierId == "" &&
+            obj.Shape == "" &&
+            obj.Pointer == "" &&
+            obj.ColorType == "Regular" && obj.Color == "" && obj.INTENSITY == "" && obj.OVERTONE == "" && obj.FANCY_COLOR == "" &&
+            obj.Clarity == "" &&
+            obj.Cut == "" &&
+            obj.Polish == "" &&
+            obj.Symm == "" &&
+            obj.Fls == "" &&
+            obj.BGM == "" &&
+            obj.Lab == "" &&
+            obj.CrownBlack == "" && obj.TableBlack == "" && obj.TableWhite == "" && obj.CrownWhite == "" &&
+            obj.TableOpen == "" && obj.CrownOpen == "" && obj.PavOpen == "" && obj.GirdleOpen == "" &&
+            obj.KTSBlank == "" && obj.Keytosymbol == "-" && obj.CheckKTS == "" && obj.UNCheckKTS == "" &&
+            obj.RCommentBlank == "" && obj.RComment == "-" && obj.CheckRComment == "" && obj.UNCheckRComment == "" &&
+            obj.FromDisc == "" && obj.ToDisc == "" &&
+            obj.FromTotAmt == "" && obj.ToTotAmt == "" &&
+            obj.LengthBlank == "" && obj.FromLength == "" && obj.ToLength == "" &&
+            obj.WidthBlank == "" && obj.FromWidth == "" && obj.ToWidth == "" &&
+            obj.DepthBlank == "" && obj.FromDepth == "" && obj.ToDepth == "" &&
+            obj.DepthPerBlank == "" && obj.FromDepthPer == "" && obj.ToDepthPer == "" &&
+            obj.TablePerBlank == "" && obj.FromTablePer == "" && obj.ToTablePer == "" &&
+            obj.GirdlePerBlank == "" && obj.FromGirdlePer == "" && obj.ToGirdlePer == "" &&
+            obj.Img == "" && obj.Vdo == "" && obj.Certi == "" &&
+            obj.CrAngBlank == "" && obj.FromCrAng == "" && obj.ToCrAng == "" &&
+            obj.CrHtBlank == "" && obj.FromCrHt == "" && obj.ToCrHt == "" &&
+            obj.PavAngBlank == "" && obj.FromPavAng == "" && obj.ToPavAng == "" &&
+            obj.PavHtBlank == "" && obj.FromPavHt == "" && obj.ToPavHt == "" &&
+            obj.StarLengthBlank == "" && obj.FromStarLength == "" && obj.ToStarLength == "" &&
+            obj.LowerHalfBlank == "" && obj.FromLowerHalf == "" && obj.ToLowerHalf == "" &&
+            obj.View == false && obj.Download == true &&
+            (obj.PricingDisc == undefined || obj.PricingDisc == "") &&
+            Stock_Disc_Count == 0) {
             debugger
             $.ajax({
                 url: "/User/Get_Auto_Excel_Download",
@@ -1691,6 +1717,10 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
     var KeyToSymLst_uncheck = _.pluck(UnCheckKeyToSymbolList, 'Symbol').join(",");
 
 
+    var RCommentLst_Check = _.pluck(CheckRCommentList, 'Symbol').join(",");
+    var RCommentLst_uncheck = _.pluck(UnCheckRCommentList, 'Symbol').join(",");
+
+
     if ($('#ddlUserId').val() != undefined) {
         if ($('#ddlUserId').val() == "") {
             obj.UserId = $('#hdn_UserId').val();
@@ -1749,6 +1779,11 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
     obj.CheckKTS = KeyToSymLst_Check;
     obj.UNCheckKTS = KeyToSymLst_uncheck;
 
+    obj.RCommentBlank = (RCommentBlank == true ? true : "");
+    obj.RComment = RCommentLst_Check + '-' + RCommentLst_uncheck;
+    obj.CheckRComment = RCommentLst_Check;
+    obj.UNCheckRComment = RCommentLst_uncheck;
+
     obj.FromDisc = $('#FromDiscount').val();
     obj.ToDisc = $('#ToDiscount').val();
 
@@ -1775,6 +1810,10 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
     obj.FromTablePer = $('#FromTablePer').val();
     obj.ToTablePer = $('#ToTablePer').val();
 
+    obj.GirdlePerBlank = (GirdlePerBlank == true ? true : "");
+    obj.FromGirdlePer = $('#FromGirdlePer').val();
+    obj.ToGirdlePer = $('#ToGirdlePer').val();
+
     obj.Img = $('#SearchImage').hasClass('active') ? "YES" : "";
     obj.Vdo = $('#SearchVideo').hasClass('active') ? "YES" : "";
     obj.Certi = $('#SearchCerti').hasClass('active') ? "YES" : "";
@@ -1794,6 +1833,14 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
     obj.PavHtBlank = (PavHtBlank == true ? true : "");
     obj.FromPavHt = $('#FromPavHt').val();
     obj.ToPavHt = $('#ToPavHt').val();
+
+    obj.StarLengthBlank = (StarLengthBlank == true ? true : "");
+    obj.FromStarLength = $('#FromStarLength').val();
+    obj.ToStarLength = $('#ToStarLength').val();
+
+    obj.LowerHalfBlank = (LowerHalfBlank == true ? true : "");
+    obj.FromLowerHalf = $('#FromLowerHalf').val();
+    obj.ToLowerHalf = $('#ToLowerHalf').val();
 
     obj.Type = Type;
 
@@ -2123,10 +2170,13 @@ var WidthBlank = false;
 var DepthBlank = false;
 var DepthPerBlank = false;
 var TablePerBlank = false;
+var GirdlePerBlank = false;
 var CrAngBlank = false;
 var CrHtBlank = false;
 var PavAngBlank = false;
 var PavHtBlank = false;
+var StarLengthBlank = false;
+var LowerHalfBlank = false;
 
 var TableOpenList = [];
 var CrownOpenList = [];
@@ -3192,11 +3242,11 @@ function SetActive(flag, value) {
         }
     }
     else if (flag == "RCommentBlank") {
-        if (KTSBlank) {
-            KTSBlank = false;
+        if (RCommentBlank) {
+            RCommentBlank = false;
             $("#RCommentBlank").removeClass("active");
         } else {
-            KTSBlank = true;
+            RCommentBlank = true;
             $("#RCommentBlank").addClass("active");
         }
     }
@@ -3245,6 +3295,15 @@ function SetActive(flag, value) {
             $("#TablePerBlank").addClass("active");
         }
     }
+    else if (flag == "GirdlePerBlank") {
+        if (GirdlePerBlank) {
+            GirdlePerBlank = false;
+            $("#GirdlePerBlank").removeClass("active");
+        } else {
+            GirdlePerBlank = true;
+            $("#GirdlePerBlank").addClass("active");
+        }
+    }
     else if (flag == "CrAngBlank") {
         if (CrAngBlank) {
             CrAngBlank = false;
@@ -3281,6 +3340,24 @@ function SetActive(flag, value) {
             $("#PavHtBlank").addClass("active");
         }
     }
+    else if (flag == "StarLengthBlank") {
+        if (StarLengthBlank) {
+            StarLengthBlank = false;
+            $("#StarLengthBlank").removeClass("active");
+        } else {
+            StarLengthBlank = true;
+            $("#StarLengthBlank").addClass("active");
+        }
+    }
+    else if (flag == "LowerHalfBlank") {
+        if (LowerHalfBlank) {
+            LowerHalfBlank = false;
+            $("#LowerHalfBlank").removeClass("active");
+        } else {
+            LowerHalfBlank = true;
+            $("#LowerHalfBlank").addClass("active");
+        }
+    }
 }
 function Reset() {
     GetTransId();
@@ -3304,6 +3381,7 @@ function Reset() {
     _.map(CrwnInclList, function (data) { return data.isActive = false; });
     _.map(CrwnNattsList, function (data) { return data.isActive = false; });
     _.map(CaratList, function (data) { return data.isActive = false; });
+    _.map(LocationList, function (data) { return data.isActive = false; });
 
     $('#SearchImage').removeClass('active');
     $('#SearchVideo').removeClass('active');
@@ -3336,7 +3414,7 @@ function Reset() {
     //    $('#searchshape').append('<li class="wow zoomIn animated" data-wow-delay="0.8s"><a href="javascript:void(0);" onclick="SetActive(\'Shape\',\'' + shape.Value + '\')" class="common-ico"><div class="icon-image one"><img src="' + shape.UrlValue + '" class="first-ico"><img src="' + shape.UrlValueHov + '" class="second-ico"></div><span>' + shape.Value + '</span></a></li>');
     //});
     $('#searchlocation').html("");
-    _(ClarityList).each(function (location, i) {
+    _(LocationList).each(function (location, i) {
         $('#searchlocation').append('<li onclick="SetActive(\'LOCATION\',\'' + location.Value + '\')">' + location.Value + '</li>');
     });
     $('#searchcolor').html("");
@@ -3446,11 +3524,21 @@ function Reset() {
     $('#ToPavAng').val("");
     $('#FromPavHt').val("");
     $('#ToPavHt').val("");
+    $('#FromGirdlePer').val("");
+    $('#ToGirdlePer').val("");
+    $('#FromStarLength').val("");
+    $('#ToStarLength').val("");
+    $('#FromLowerHalf').val("");
+    $('#ToLowerHalf').val("");
 
     resetKeytoSymbol();
+    resetRComment();
+
 
     KTSBlank = false;
     $("#KTSBlank").removeClass("active");
+    RCommentBlank = false;
+    $("#RCommentBlank").removeClass("active");
     LengthBlank = false;
     $("#LengthBlank").removeClass("active");
     WidthBlank = false;
@@ -3535,6 +3623,7 @@ function Key_to_symbolShow() {
 }
 function RCommentShow() {
     setTimeout(function () {
+      
         if (RC == 0) {
             $("#sym-sec1 .carat-dropdown-main").hide();
             $("#sym-sec2 .carat-dropdown-main").hide();
@@ -3625,7 +3714,7 @@ function GetCheck_KTS_List(item) {
     }
     setTimeout(function () {
         $("#sym-sec0 .carat-dropdown-main").show();
-        KTS = 0;
+        KTS = 1;
         return;
     }, 2);
 }
@@ -3644,7 +3733,7 @@ function GetUnCheck_KTS_List(item) {
     }
     setTimeout(function () {
         $("#sym-sec0 .carat-dropdown-main").show();
-        KTS = 0;
+        KTS = 1;
         return;
     }, 2);
 }
@@ -3663,7 +3752,7 @@ function GetCheck_RC_List(item) {
     }
     setTimeout(function () {
         $("#sym-sec4 .carat-dropdown-main").show();
-        RC = 0;
+        RC = 1;
         return;
     }, 2);
 }
@@ -3682,7 +3771,7 @@ function GetUnCheck_RC_List(item) {
     }
     setTimeout(function () {
         $("#sym-sec4 .carat-dropdown-main").show();
-        RC = 0;
+        RC = 1;
         return;
     }, 2);
 }
@@ -3760,14 +3849,18 @@ var LeaveTextBox = function (ele, fromid, toid, point) {
         var cal_toval = 999999;
     }
     else if (((fromid == "FromLength" && toid == "ToLength") || (fromid == "FromWidth" && toid == "ToWidth") || (fromid == "FromDepth" && toid == "ToDepth")
-        || (fromid == "FromDepthPer" && toid == "ToDepthPer") || (fromid == "FromTablePer" && toid == "ToTablePer") || (fromid == "FromGirdlePer" && toid == "ToGirdlePer")
+        || (fromid == "FromDepthPer" && toid == "ToDepthPer") || (fromid == "FromGirdlePer" && toid == "ToGirdlePer")
         || (fromid == "FromCrAng" && toid == "ToCrAng") || (fromid == "FromCrHt" && toid == "ToCrHt") || (fromid == "FromPavAng" && toid == "ToPavAng")
         || (fromid == "FromPavHt" && toid == "ToPavHt") || (fromid == "FromStarLength" && toid == "ToStarLength") || (fromid == "FromLowerHalf" && toid == "ToLowerHalf"))
         && $("#" + fromid).val() != "" && $("#" + toid).val() != "") {
         var cal_fromval = 0.01;
         var cal_toval = 99.99;
     }
-    debugger
+    else if (fromid == "FromTablePer" && toid == "ToTablePer" && $("#" + fromid).val() != "" && $("#" + toid).val() != "") {
+        var cal_fromval = 1;
+        var cal_toval = 99;
+    }
+
     if (cal_fromval != "" && cal_toval != "") {
         if (f >= cal_fromval && f <= cal_toval) {
             if (t >= cal_fromval && t <= cal_toval) {
@@ -3778,7 +3871,12 @@ var LeaveTextBox = function (ele, fromid, toid, point) {
         } else {
             $("#" + fromid).val("");
             $("#" + toid).val("");
-            toastr.error("You can enter only " + formatNumber(cal_fromval) + " to " + formatNumber(cal_toval));
+            if (fromid == "FromTablePer" && toid == "ToTablePer") {
+                toastr.error("You can enter only " + cal_fromval + " to " + cal_toval);
+            }
+            else {
+                toastr.error("You can enter only " + formatNumber(cal_fromval) + " to " + formatNumber(cal_toval));
+            }
         }
     }
 }

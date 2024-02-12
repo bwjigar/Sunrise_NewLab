@@ -601,6 +601,11 @@ namespace Lib.Model
         public string CheckKTS { get; set; }
         public string UNCheckKTS { get; set; }
 
+        public string RCommentBlank { get; set; }
+        public string RComment { get; set; }
+        public string CheckRComment { get; set; }
+        public string UNCheckRComment { get; set; }
+
         public string FromDisc { get; set; }
         public string ToDisc { get; set; }
 
@@ -627,6 +632,10 @@ namespace Lib.Model
         public string FromTablePer { get; set; }
         public string ToTablePer { get; set; }
 
+        public string GirdlePerBlank { get; set; }
+        public string FromGirdlePer { get; set; }
+        public string ToGirdlePer { get; set; }
+
         public string Img { get; set; }
         public string Vdo { get; set; }
         public string Certi { get; set; }
@@ -646,6 +655,14 @@ namespace Lib.Model
         public string PavHtBlank { get; set; }
         public string FromPavHt { get; set; }
         public string ToPavHt { get; set; }
+
+        public string StarLengthBlank { get; set; }
+        public string FromStarLength { get; set; }
+        public string ToStarLength { get; set; }
+
+        public string LowerHalfBlank { get; set; }
+        public string FromLowerHalf { get; set; }
+        public string ToLowerHalf { get; set; }
 
         public string Type { get; set; }
         public bool View { get; set; }
