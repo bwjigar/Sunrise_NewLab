@@ -12544,9 +12544,9 @@ namespace API.Controllers
             catch (Exception ex)
             {
                 Lib.Model.Common.InsertErrorLog(ex, null, Request);
-                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                return Ok(new ServiceResponse<SearchDiamondsResponse>
                 {
-                    Data = new List<Get_SearchStock_Res>(),
+                    Data = new List<SearchDiamondsResponse>(),
                     Message = "Input Parameters are not in the proper format",
                     Status = "0"
                 });
@@ -12554,27 +12554,59 @@ namespace API.Controllers
 
             try
             {
+                List<SearchDiamondsResponse> searchDiamondsResponses = new List<SearchDiamondsResponse>();
+
                 DataTable Stock_dt = LabEntry(req);
 
-                List<Get_SearchStock_Res> List_Res = new List<Get_SearchStock_Res>();
                 if (Stock_dt != null && Stock_dt.Rows.Count > 0)
                 {
-                    List_Res = Stock_dt.ToList<Get_SearchStock_Res>();
+                    DataRow[] dra = Stock_dt.Select("iSr IS NULL");
+                    SearchSummary searchSummary = new SearchSummary();
+                    if (dra.Length > 0)
+                    {
+                        searchSummary.TOT_PAGE = Convert.ToInt32(dra[0]["TOTAL_PAGE"]);
+                        searchSummary.PAGE_SIZE = Convert.ToInt32(dra[0]["PAGE_SIZE"]);
+                        searchSummary.TOT_PCS = Convert.ToInt32(dra[0]["Ref_No"]);
+                        searchSummary.TOT_CTS = Convert.ToDouble(dra[0]["Cts"]);
+                        searchSummary.TOT_RAP_AMOUNT = Convert.ToDouble((Convert.ToString(dra[0]["Rap_Amount"]) != "" && Convert.ToString(dra[0]["Rap_Amount"]) != null ? dra[0]["Rap_Amount"] : "0"));
+                        searchSummary.AVG_PRICE_PER_CTS = Convert.ToDouble(dra[0]["Base_Price_Cts"]);
+                        searchSummary.AVG_SALES_DISC_PER = Convert.ToDouble((Convert.ToString(dra[0]["CUSTOMER_COST_DISC"]) != "" && Convert.ToString(dra[0]["CUSTOMER_COST_DISC"]) != null ? dra[0]["CUSTOMER_COST_DISC"] : "0"));
+                        searchSummary.TOT_NET_AMOUNT = Convert.ToDouble(dra[0]["CUSTOMER_COST_VALUE"]);
+                    }
+
+                    Stock_dt.DefaultView.RowFilter = "iSr IS NOT NULL";
+                    Stock_dt = Stock_dt.DefaultView.ToTable();
+
+                    SearchDiamondsResponse searchDiamondsResponse = new SearchDiamondsResponse();
+
+                    List<Get_SearchStock_Res> listSearchStone = new List<Get_SearchStock_Res>();
+                    listSearchStone = DataTableExtension.ToList<Get_SearchStock_Res>(Stock_dt);
+
+
+                    if (listSearchStone.Count > 0)
+                    {
+                        searchDiamondsResponses.Add(new SearchDiamondsResponse()
+                        {
+                            DataList = listSearchStone,
+                            DataSummary = searchSummary
+                        });
+                    }
                 }
 
-                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                return Ok(new ServiceResponse<SearchDiamondsResponse>
                 {
-                    Data = List_Res,
+                    Data = searchDiamondsResponses,
                     Message = "SUCCESS",
                     Status = "1"
                 });
+
             }
             catch (Exception ex)
             {
                 Lib.Model.Common.InsertErrorLog(ex, null, Request);
-                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                return Ok(new ServiceResponse<SearchDiamondsResponse>
                 {
-                    Data = new List<Get_SearchStock_Res>(),
+                    Data = new List<SearchDiamondsResponse>(),
                     Message = "Something Went wrong.\nPlease try again later",
                     Status = "0"
                 });
@@ -12605,6 +12637,9 @@ namespace API.Controllers
 
                 if (Stock_dt != null && Stock_dt.Rows.Count > 0)
                 {
+                    Stock_dt.DefaultView.RowFilter = "iSr IS NOT NULL";
+                    Stock_dt = Stock_dt.DefaultView.ToTable();
+
                     string filename = "Lab Entry " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
                     string _path = ConfigurationManager.AppSettings["data"];
                     _path = _path.Replace("Temp", "ExcelFile");
@@ -13456,9 +13491,9 @@ namespace API.Controllers
             catch (Exception ex)
             {
                 Lib.Model.Common.InsertErrorLog(ex, null, Request);
-                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                return Ok(new ServiceResponse<SearchDiamondsResponse>
                 {
-                    Data = new List<Get_SearchStock_Res>(),
+                    Data = new List<SearchDiamondsResponse>(),
                     Message = "Input Parameters are not in the proper format",
                     Status = "0"
                 });
@@ -13466,17 +13501,48 @@ namespace API.Controllers
 
             try
             {
+                List<SearchDiamondsResponse> searchDiamondsResponses = new List<SearchDiamondsResponse>();
+
                 DataTable Stock_dt = LabAvailibility(req);
 
-                List<Get_SearchStock_Res> List_Res = new List<Get_SearchStock_Res>();
                 if (Stock_dt != null && Stock_dt.Rows.Count > 0)
                 {
-                    List_Res = Stock_dt.ToList<Get_SearchStock_Res>();
+                    DataRow[] dra = Stock_dt.Select("iSr IS NULL");
+                    SearchSummary searchSummary = new SearchSummary();
+                    if (dra.Length > 0)
+                    {
+                        searchSummary.TOT_PAGE = Convert.ToInt32(dra[0]["TOTAL_PAGE"]);
+                        searchSummary.PAGE_SIZE = Convert.ToInt32(dra[0]["PAGE_SIZE"]);
+                        searchSummary.TOT_PCS = Convert.ToInt32(dra[0]["Ref_No"]);
+                        searchSummary.TOT_CTS = Convert.ToDouble(dra[0]["Cts"]);
+                        searchSummary.TOT_RAP_AMOUNT = Convert.ToDouble((Convert.ToString(dra[0]["Rap_Amount"]) != "" && Convert.ToString(dra[0]["Rap_Amount"]) != null ? dra[0]["Rap_Amount"] : "0"));
+                        searchSummary.AVG_PRICE_PER_CTS = Convert.ToDouble(dra[0]["Base_Price_Cts"]);
+                        searchSummary.AVG_SALES_DISC_PER = Convert.ToDouble((Convert.ToString(dra[0]["CUSTOMER_COST_DISC"]) != "" && Convert.ToString(dra[0]["CUSTOMER_COST_DISC"]) != null ? dra[0]["CUSTOMER_COST_DISC"] : "0"));
+                        searchSummary.TOT_NET_AMOUNT = Convert.ToDouble(dra[0]["CUSTOMER_COST_VALUE"]);
+                    }
+
+                    Stock_dt.DefaultView.RowFilter = "iSr IS NOT NULL";
+                    Stock_dt = Stock_dt.DefaultView.ToTable();
+
+                    SearchDiamondsResponse searchDiamondsResponse = new SearchDiamondsResponse();
+
+                    List<Get_SearchStock_Res> listSearchStone = new List<Get_SearchStock_Res>();
+                    listSearchStone = DataTableExtension.ToList<Get_SearchStock_Res>(Stock_dt);
+
+
+                    if (listSearchStone.Count > 0)
+                    {
+                        searchDiamondsResponses.Add(new SearchDiamondsResponse()
+                        {
+                            DataList = listSearchStone,
+                            DataSummary = searchSummary
+                        });
+                    }
                 }
 
-                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                return Ok(new ServiceResponse<SearchDiamondsResponse>
                 {
-                    Data = List_Res,
+                    Data = searchDiamondsResponses,
                     Message = "SUCCESS",
                     Status = "1"
                 });
@@ -13484,9 +13550,9 @@ namespace API.Controllers
             catch (Exception ex)
             {
                 Lib.Model.Common.InsertErrorLog(ex, null, Request);
-                return Ok(new ServiceResponse<Get_SearchStock_Res>
+                return Ok(new ServiceResponse<SearchDiamondsResponse>
                 {
-                    Data = new List<Get_SearchStock_Res>(),
+                    Data = new List<SearchDiamondsResponse>(),
                     Message = "Something Went wrong.\nPlease try again later",
                     Status = "0"
                 });
@@ -13519,6 +13585,9 @@ namespace API.Controllers
 
                 if (Stock_dt != null && Stock_dt.Rows.Count > 0)
                 {
+                    Stock_dt.DefaultView.RowFilter = "iSr IS NOT NULL";
+                    Stock_dt = Stock_dt.DefaultView.ToTable();
+
                     string filename = req.Type + " " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
                     string _path = ConfigurationManager.AppSettings["data"];
                     _path = _path.Replace("Temp", "ExcelFile");

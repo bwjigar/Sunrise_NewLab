@@ -521,8 +521,8 @@ namespace SunriseLabWeb_New.Controllers
             API _api = new API();
             Data_Get_From_File_Req req = new Data_Get_From_File_Req();
             string[] Req = arg1.Split('_');
-            
-            if (Req[1] =="1" && Req[2] != "Failed")
+
+            if (Req[1] == "1" && Req[2] != "Failed")
             {
                 req.UserId = Convert.ToInt32(Req[0]);
                 req.Id = Convert.ToInt32(Req[2]);
@@ -877,7 +877,7 @@ namespace SunriseLabWeb_New.Controllers
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_LabEntry, inputJson);
-            ServiceResponse<Get_SearchStock_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_Res>>(response);
+            ServiceResponse<SearchDiamondsResponse> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Excel_LabEntry(Get_SearchStock_Req req)
@@ -887,11 +887,11 @@ namespace SunriseLabWeb_New.Controllers
             string data = (new JavaScriptSerializer()).Deserialize<string>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        public List<Get_SearchStock_Res> Get_LabEntry_By_RefNo(Get_SearchStock_Req req)
+        public List<SearchDiamondsResponse> Get_LabEntry_By_RefNo(Get_SearchStock_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_LabEntry, inputJson);
-            ServiceResponse<Get_SearchStock_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_Res>>(response);
+            ServiceResponse<SearchDiamondsResponse> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
             return data.Data;
         }
         public static string CapitalizeFirstLetterAfterSpace(string input)
@@ -944,7 +944,7 @@ namespace SunriseLabWeb_New.Controllers
                     Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 25%;\"><center><b>Sunrise Value($)</b></center></td>";
                     Error_msg += "</tr>";
 
-                    string RefNo = "";
+                    string RefNo = "", SuppRefNo_SuppId_List = "";
                     string Fix_Lab_Status = "CONFIRM HOLD, CONFIRM, HOLD, BIDDED, WAITING, QC PENDING, QC REJECT, BID REJECT, SOLD, TRANSIT, BUSY, CANCEL, OTHER";
                     for (int rw = 2; rw <= ws.Dimension.End.Row; rw++)
                     {
@@ -956,7 +956,7 @@ namespace SunriseLabWeb_New.Controllers
                     Req.RefNo = RefNo;
                     Req.UserId = req.UserId;
 
-                    List<Get_SearchStock_Res> Res = new List<Get_SearchStock_Res>();
+                    List<SearchDiamondsResponse> Res = new List<SearchDiamondsResponse>();
                     Res = Get_LabEntry_By_RefNo(Req);
 
 
@@ -968,33 +968,42 @@ namespace SunriseLabWeb_New.Controllers
                         {
                             status_1 = false;
 
-                            for (int i = 0; i < Res.Count; i++)
+                            if (Res.Count() > 0)
                             {
-                                if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[i].Ref_No)
+                                for (int i = 0; i < Res[0].DataList.Count(); i++)
                                 {
-                                    string QCRequire = Convert.ToString(ws.Cells[rw, 2].Value).Trim();
-                                    string LabStatus = Convert.ToString(ws.Cells[rw, 3].Value).Trim();
-
-                                    decimal Supplier_Cost_Value = Convert.ToDecimal(RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 4].Value)));
-                                    decimal Supplier_Cost_Disc = ((-1 * (1 - (Supplier_Cost_Value / Res[i].Rap_Amount)) * 100));
-
-                                    decimal Offer_Value = Convert.ToDecimal(RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 5].Value)));
-                                    decimal Offer_Disc = ((-1 * (1 - (Offer_Value / Res[i].Rap_Amount)) * 100));
-
-
-                                    if (!Fix_Lab_Status.Contains(LabStatus.ToUpper()))
+                                    if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[0].DataList[i].Ref_No)
                                     {
-                                        LabStatus = "";
-                                    }
-                                    Res[i].QCRequire = (QCRequire != "" ? QCRequire : "REGULAR");
-                                    Res[i].LabEntry_Status = CapitalizeFirstLetterAfterSpace(LabStatus);
-                                    Res[i].SUPPLIER_COST_DISC = Supplier_Cost_Disc;
-                                    Res[i].SUPPLIER_COST_VALUE = Supplier_Cost_Value;
-                                    Res[i].CUSTOMER_COST_DISC = Offer_Disc;
-                                    Res[i].CUSTOMER_COST_VALUE = Offer_Value;
+                                        string SuppRefNo_SuppId = Res[0].DataList[i].Supplier_Stone_Id + "_" + Convert.ToString(Res[0].DataList[i].SupplierId);
+                                        
+                                        if (!SuppRefNo_SuppId_List.Contains(SuppRefNo_SuppId))
+                                        {
+                                            string QCRequire = Convert.ToString(ws.Cells[rw, 2].Value).Trim();
+                                            string LabStatus = Convert.ToString(ws.Cells[rw, 3].Value).Trim();
 
-                                    lst.Add(Res[i]);
-                                    status_1 = true;
+                                            decimal Supplier_Cost_Value = Convert.ToDecimal(RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 4].Value)));
+                                            decimal Supplier_Cost_Disc = ((-1 * (1 - (Supplier_Cost_Value / Res[0].DataList[i].Rap_Amount)) * 100));
+
+                                            decimal Offer_Value = Convert.ToDecimal(RemoveNonNumericAndDotAndNegativeCharacters(Convert.ToString(ws.Cells[rw, 5].Value)));
+                                            decimal Offer_Disc = ((-1 * (1 - (Offer_Value / Res[0].DataList[i].Rap_Amount)) * 100));
+
+
+                                            if (!Fix_Lab_Status.Contains(LabStatus.ToUpper()))
+                                            {
+                                                LabStatus = "";
+                                            }
+                                            Res[0].DataList[i].QCRequire = (QCRequire != "" ? QCRequire : "REGULAR");
+                                            Res[0].DataList[i].LabEntry_Status = CapitalizeFirstLetterAfterSpace(LabStatus);
+                                            Res[0].DataList[i].SUPPLIER_COST_DISC = Supplier_Cost_Disc;
+                                            Res[0].DataList[i].SUPPLIER_COST_VALUE = Supplier_Cost_Value;
+                                            Res[0].DataList[i].CUSTOMER_COST_DISC = Offer_Disc;
+                                            Res[0].DataList[i].CUSTOMER_COST_VALUE = Offer_Value;
+
+                                            lst.Add(Res[0].DataList[i]);
+                                        }
+                                        status_1 = true;
+                                        SuppRefNo_SuppId_List += SuppRefNo_SuppId + ",";
+                                    }
                                 }
                             }
                             if (status_1 == false)
@@ -1093,7 +1102,7 @@ namespace SunriseLabWeb_New.Controllers
             }
             return Json(data_1, JsonRequestBehavior.AllowGet);
         }
-        
+
         public ActionResult MyCart()
         {
             return View();
@@ -1131,18 +1140,18 @@ namespace SunriseLabWeb_New.Controllers
         {
             return View();
         }
-        public List<Get_SearchStock_Res> Get_LabAvailibility_By_RefNo(Get_SearchStock_Req req)
+        public List<SearchDiamondsResponse> Get_LabAvailibility_By_RefNo(Get_SearchStock_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_LabAvailibility, inputJson);
-            ServiceResponse<Get_SearchStock_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_Res>>(response);
+            ServiceResponse<SearchDiamondsResponse> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
             return data.Data;
         }
         public JsonResult Get_LabAvailibility(Get_SearchStock_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_LabAvailibility, inputJson);
-            ServiceResponse<Get_SearchStock_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SearchStock_Res>>(response);
+            ServiceResponse<SearchDiamondsResponse> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Excel_LabAvailibility(Get_SearchStock_Req req)
@@ -1186,7 +1195,7 @@ namespace SunriseLabWeb_New.Controllers
                     Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 30%;\"><center><b>Ref No / Certi No</b></center></td>";
                     Error_msg += "</tr>";
 
-                    string RefNo = "", RefNo1 = "";
+                    string RefNo = "", RefNo1 = "", SuppRefNo_SuppId_List = "";
                     for (int rw = 2; rw <= ws.Dimension.End.Row; rw++)
                     {
                         RefNo += Convert.ToString(ws.Cells[rw, 1].Value).Trim() + ",";
@@ -1196,7 +1205,7 @@ namespace SunriseLabWeb_New.Controllers
                     Get_SearchStock_Req Req = new Get_SearchStock_Req();
                     Req.RefNo = RefNo;
 
-                    List<Get_SearchStock_Res> Res = new List<Get_SearchStock_Res>();
+                    List<SearchDiamondsResponse> Res = new List<SearchDiamondsResponse>();
                     Res = Get_LabAvailibility_By_RefNo(Req);
 
 
@@ -1206,15 +1215,23 @@ namespace SunriseLabWeb_New.Controllers
                         if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() != "")
                         {
                             status_1 = false;
-
-                            for (int i = 0; i < Res.Count; i++)
+                            if (Res.Count() > 0)
                             {
-                                if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[i].Ref_No || Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[i].Certificate_No)
+                                for (int i = 0; i < Res[0].DataList.Count(); i++)
                                 {
-                                    RefNo1 += Convert.ToString(ws.Cells[rw, 1].Value).Trim() + ",";
+                                    if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[0].DataList[i].Ref_No || Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[0].DataList[i].Certificate_No)
+                                    {
+                                        string SuppRefNo_SuppId = Res[0].DataList[i].Supplier_Stone_Id + "_" + Convert.ToString(Res[0].DataList[i].SupplierId);
 
-                                    lst.Add(Res[i]);
-                                    status_1 = true;
+                                        if (!SuppRefNo_SuppId_List.Contains(SuppRefNo_SuppId))
+                                        {
+                                            RefNo1 += Convert.ToString(ws.Cells[rw, 1].Value).Trim() + ",";
+
+                                            lst.Add(Res[0].DataList[i]);
+                                        }
+                                        status_1 = true;
+                                        SuppRefNo_SuppId_List += SuppRefNo_SuppId + ",";
+                                    }
                                 }
                             }
                             if (status_1 == false)
@@ -1279,7 +1296,7 @@ namespace SunriseLabWeb_New.Controllers
                 return Json(lst, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
         private static Byte[] Key_64 = { 42, 16, 93, 156, 78, 4, 218, 32 };
         private static Byte[] Iv_64 = { 55, 103, 246, 79, 36, 99, 167, 3 };
         public static string Encrypt(string cValue, bool isFile = false)
@@ -1372,7 +1389,7 @@ namespace SunriseLabWeb_New.Controllers
                     Response.AddHeader("Content-Disposition", "attachment;filename=\"" + pathArr.Last() + "\"");
                     Response.TransmitFile(_data.Message);
                     Response.End();
-                    
+
                     data_1.Status = "1";
                     data_1.Message = "Success";
                 }

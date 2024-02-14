@@ -211,6 +211,7 @@ function onBodyScroll(params) {
     });
 }
 function onSelectionChanged(event) {
+    Total_Calculate();
 }
 function onGridReady(params) {
     if (navigator.userAgent.indexOf('Windows') > -1) {
@@ -329,15 +330,24 @@ columnDefs.push({ headerName: "Girdle Open", field: "Girdle_Open", width: 70, to
 columnDefs.push({ headerName: "Culet", field: "Culet", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Culet", params); } });
 
 
-
-function ddl_User_change() {
+function hideall() {
+    TempData_Array = [];
     $(".gridview").hide();
+    $(".tab1TCount_pc").hide();
     $("#li_LabEntry").hide();
+    $("#li_LabExcel").hide();
+}
+function ddl_User_change() {
+    hideall();
+    if (gridOptions.api != undefined) {
+        gridOptions.api.destroy();
+    }
 }
 var gridOptions = {};
 function GetSearch() {
+    hideall();
+
     if ($("#ddl_User").val() != "") {
-        $(".gridview").show();
         loaderShow();
         if (gridOptions.api != undefined) {
             gridOptions.api.destroy();
@@ -414,13 +424,14 @@ function GetSearch() {
         });
     }
     else {
-        $(".gridview").hide();
         toastr.warning("Please Select User");
     }
 }
 
 var SortColumn = "";
 var SortDirection = "";
+var Rowdata = [];
+var summary = [];
 const datasource1 = {
     getRows(params) {
         var PageNo = gridOptions.api.paginationGetCurrentPage() + 1;
@@ -434,7 +445,7 @@ const datasource1 = {
         obj.PgSize = pgSize;
         obj.RefNo = $("#txtStoneId").val();
 
-        Rowdata = [];
+        Rowdata = [], summary = [];
         $.ajax({
             url: "/User/Get_LabEntry",
             async: false,
@@ -445,33 +456,46 @@ const datasource1 = {
                     MoveToErrorPage(0);
                 }
                 if (data.Data.length > 0) {
-                    Rowdata = data.Data;
-                    params.successCallback(data.Data, data.Data[0].iTotalRec);
-                    $("#li_LabEntry").show();
+                    summary = data.Data[0].DataSummary;
+                    Rowdata = data.Data[0].DataList;
+                    //$.map(data.Data[0].DataList, function (obj) {
+                    //    Rowdata.push(obj);
+                    //});
+                    params.successCallback(data.Data[0].DataList, summary.TOT_PCS);
 
                     TempData_Array = [];
-                    for (var i = 0; i < data.Data.length; i++) {
-                        var SUPPLIER_COST_DISC = (data.Data[i].SUPPLIER_COST_DISC != "" ? parseFloat(data.Data[i].SUPPLIER_COST_DISC).toFixed(2) : "0");
-                        var SUPPLIER_COST_VALUE = (data.Data[i].SUPPLIER_COST_VALUE != "" ? parseFloat(data.Data[i].SUPPLIER_COST_VALUE).toFixed(2) : "0")
-                        var CUSTOMER_COST_DISC = (data.Data[i].CUSTOMER_COST_DISC != "" ? parseFloat(data.Data[i].CUSTOMER_COST_DISC).toFixed(2) : "0")
-                        var CUSTOMER_COST_VALUE = (data.Data[i].CUSTOMER_COST_VALUE != "" ? parseFloat(data.Data[i].CUSTOMER_COST_VALUE).toFixed(2) : "0")
+                    for (var i = 0; i < data.Data[0].DataList.length; i++) {
+                        var SUPPLIER_COST_DISC = (data.Data[0].DataList[i].SUPPLIER_COST_DISC != "" ? parseFloat(data.Data[0].DataList[i].SUPPLIER_COST_DISC).toFixed(2) : "0");
+                        var SUPPLIER_COST_VALUE = (data.Data[0].DataList[i].SUPPLIER_COST_VALUE != "" ? parseFloat(data.Data[0].DataList[i].SUPPLIER_COST_VALUE).toFixed(2) : "0")
+                        var CUSTOMER_COST_DISC = (data.Data[0].DataList[i].CUSTOMER_COST_DISC != "" ? parseFloat(data.Data[0].DataList[i].CUSTOMER_COST_DISC).toFixed(2) : "0")
+                        var CUSTOMER_COST_VALUE = (data.Data[0].DataList[i].CUSTOMER_COST_VALUE != "" ? parseFloat(data.Data[0].DataList[i].CUSTOMER_COST_VALUE).toFixed(2) : "0")
                         var PROFIT = ((parseFloat(CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE)) * 100) / parseFloat(SUPPLIER_COST_VALUE);
                         var PROFIT_AMOUNT = parseFloat(CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE);
                         PROFIT = (PROFIT != "" ? parseFloat(PROFIT).toFixed(2) : "0");
                         PROFIT_AMOUNT = (PROFIT_AMOUNT != "" ? parseFloat(PROFIT_AMOUNT).toFixed(2) : "0");
 
-                        TempData_Array.push([data.Data[i].Ref_No, data.Data[i].SupplierId, "REGULAR", (data.Data[i].LabEntry_Status != null ? data.Data[i].LabEntry_Status : ""), SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT]);
+                        TempData_Array.push([data.Data[0].DataList[i].Ref_No, data.Data[0].DataList[i].SupplierId, "REGULAR", (data.Data[0].DataList[i].LabEntry_Status != null ? data.Data[0].DataList[i].LabEntry_Status : ""), SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT, data.Data[0].DataList[i].Cts, data.Data[0].DataList[i].Rap_Rate, data.Data[0].DataList[i].Rap_Amount]);
                     }
-
-                    gridOptions.api.forEachNode(function (node) {
-                        node.setSelected(true);
-                    });
                 }
                 else {
                     Rowdata = [];
                     toastr.error("No Data Found", { timeOut: 2500 });
                     params.successCallback([], 0);
                 }
+
+                if (TempData_Array.length > 0) {
+                    $(".gridview").show();
+                    $(".tab1TCount_pc").show();
+                    $("#li_LabEntry").show();
+                    $("#li_LabExcel").show();
+                    gridOptions.api.forEachNode(function (node) {
+                        node.setSelected(true);
+                    });
+                }
+                else {
+                    hideall();
+                }
+
                 setInterval(function () {
                     $(".ag-header-cell-text").addClass("grid_prewrap");
                 }, 30);
@@ -485,6 +509,47 @@ const datasource1 = {
         });
     }
 };
+var Final_Rows = [];
+function Total_Calculate() {
+    var selectedRows = (gridOptions.api != undefined ? gridOptions.api.getSelectedRows() : 0);
+    Final_Rows = [];
+    if (selectedRows.length > 0) {
+        for (var i = 0; i < selectedRows.length; i++) {
+            for (var j = 0; j < TempData_Array.length; j++) {
+                if (selectedRows[i].Ref_No == TempData_Array[j][0] && selectedRows[i].SupplierId == TempData_Array[j][1]) {
+                    Final_Rows.push(TempData_Array[j]);
+                }
+            }
+        }
+    }
+    else {
+        for (var j = 0; j < TempData_Array.length; j++) {
+            Final_Rows.push(TempData_Array[j]);
+        }
+    }
+
+    var Pcs = Final_Rows.length;
+    var Cts = _.reduce(_.pluck(Final_Rows, 10), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
+    var Rap_Rate = _.reduce(_.pluck(Final_Rows, 11), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
+    var Rap_Amount = _.reduce(_.pluck(Final_Rows, 12), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
+    var CUSTOMER_COST_DISC = _.reduce(_.pluck(Final_Rows, 6), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
+    var CUSTOMER_COST_VALUE = _.reduce(_.pluck(Final_Rows, 7), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
+
+
+    var AVG_SALES_DISC_PER = (CUSTOMER_COST_VALUE > 0 ? (-1 * (((Rap_Amount - CUSTOMER_COST_VALUE) / Rap_Amount) * 100)) : 0).toFixed(2);
+    var AVG_PRICE_PER_CTS = (CUSTOMER_COST_VALUE > 0 ? CUSTOMER_COST_VALUE / Cts : 0).toFixed(2);
+    
+    setTimeout(function () {
+        $('.tab1Pcs').html(formatIntNumber(Pcs));
+        $('.tab1CTS').html(formatNumber(Cts));
+        $('.tab1OfferDisc').html(formatNumber(AVG_SALES_DISC_PER));
+        $('.tab1OfferValue').html(formatNumber(CUSTOMER_COST_VALUE));
+        $('.tab1PriceCts').html(formatNumber(AVG_PRICE_PER_CTS));
+    });
+}
+function formatIntNumber(number) {
+    return (parseInt(number)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
 function CommaSeperatedStone_list(e) {
     var data = document.getElementById("txtStoneId").value;
     var lines = data.split(' ');
@@ -494,7 +559,7 @@ function contentHeight() {
     var winH = $(window).height(),
         navbarHei = $(".order-title").height(),
         serachHei = $(".order-history-data").height(),
-        contentHei = winH - serachHei - navbarHei - 125;
+        contentHei = winH - serachHei - navbarHei - 158;
     $("#Cart-Gride").css("height", contentHei);
 }
 $(window).resize(function () {
@@ -504,7 +569,6 @@ function Reset() {
     $('#ddl_User').val("");
     $('#txtStoneId').val("");
     $("#file_upload").val("");
-    $("#li_LabEntry").hide();
     ddl_User_change();
 }
 
@@ -545,7 +609,7 @@ function LabEntry() {
                 }
             }
             debugger
-            
+
             if (labCount > 0) {
                 debugger
                 //return toastr.warning("Please Select Lab Status");
@@ -637,43 +701,50 @@ function Save_LabEntry() {
     }
 }
 function Excel_LabEntry() {
-    if (gridOptions.api != undefined) {
-        loaderShow();
-        setTimeout(function () {
-            var selectedRows = gridOptions.api.getSelectedRows();
-            var list = '';
-            var i = 0, tot = selectedRows.length;
-            for (; i < tot; i++) {
-                list += selectedRows[i].SupplierId + "_" + selectedRows[i].Ref_No + "_" + selectedRows[i].Supplier_Stone_Id + ',';
-            }
-            list = (list != '' ? list.substr(0, (list.length - 1)) : '');
-
-            var obj = {};
-            obj.UserId = $("#ddl_User").val();
-            obj.SupplierId_RefNo_SupplierRefNo = list;
-            obj.RefNo = (list == "" ? $("#txtStoneId").val() : "");
-
-            $.ajax({
-                url: "/User/Excel_LabEntry",
-                async: false,
-                type: "POST",
-                data: { req: obj },
-                success: function (data, textStatus, jqXHR) {
-                    loaderHide();
-                    if (data.search('.xlsx') == -1) {
-                        if (data.indexOf('Something Went wrong') > -1) {
-                            MoveToErrorPage(0);
-                        }
-                        toastr.error(data);
-                    } else {
-                        location.href = data;
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    loaderHide();
+    if ($("#ddl_User").val() != "") {debugger
+        if (gridOptions.api != undefined) {
+            debugger
+            loaderShow();
+            setTimeout(function () {
+                debugger
+                var selectedRows = gridOptions.api.getSelectedRows();
+                var list = '';
+                var i = 0, tot = selectedRows.length;
+                for (; i < tot; i++) {
+                    list += selectedRows[i].SupplierId + "_" + selectedRows[i].Ref_No + "_" + selectedRows[i].Supplier_Stone_Id + ',';
                 }
-            });
-        }, 50);
+                list = (list != '' ? list.substr(0, (list.length - 1)) : '');
+
+                var obj = {};
+                obj.UserId = $("#ddl_User").val();
+                obj.SupplierId_RefNo_SupplierRefNo = list;
+                obj.RefNo = (list == "" ? $("#txtStoneId").val() : "");
+
+                $.ajax({
+                    url: "/User/Excel_LabEntry",
+                    async: false,
+                    type: "POST",
+                    data: { req: obj },
+                    success: function (data, textStatus, jqXHR) {
+                        loaderHide();
+                        if (data.search('.xlsx') == -1) {
+                            if (data.indexOf('Something Went wrong') > -1) {
+                                MoveToErrorPage(0);
+                            }
+                            toastr.error(data);
+                        } else {
+                            location.href = data;
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        loaderHide();
+                    }
+                });
+            }, 50);
+        }
+    }
+    else {
+        toastr.warning("Please Select User");
     }
 }
 
@@ -682,12 +753,14 @@ function Excel_LabEntry() {
 
 
 function UploadExcelFile() {
+    hideall();
+
     if ($("#ddl_User").val() != "") {
         var file = document.getElementById('file_upload').files[0];
         if (file == undefined) {
             return toastr.warning("Please Select Excel File For Upload");
         }
-
+       
         loaderShow();
 
         const formData = new FormData();
@@ -794,7 +867,7 @@ function UploadExcelFile() {
                         Excel_Invalid_RefNo(Invalid_Stone_Body);
                     }
 
-                    $("#li_LabEntry").show();
+                    
                     TempData_Array = [];
                     for (var i = 0; i < data.length; i++) {
                         var SUPPLIER_COST_DISC = (data[i].SUPPLIER_COST_DISC != "" ? parseFloat(data[i].SUPPLIER_COST_DISC).toFixed(2) : "0");
@@ -809,16 +882,19 @@ function UploadExcelFile() {
                         var QCRequire = (data[i].QCRequire != null ? data[i].QCRequire : "");
                         var LabEntry_Status = (data[i].LabEntry_Status != null ? data[i].LabEntry_Status : "");
 
-                        TempData_Array.push([data[i].Ref_No, data[i].SupplierId, QCRequire, LabEntry_Status, SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT]);
+                        TempData_Array.push([data[i].Ref_No, data[i].SupplierId, QCRequire, LabEntry_Status, SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT, data[i].Cts, data[i].Rap_Rate, data[i].Rap_Amount]);
                     }
                     if (TempData_Array.length > 0) {
                         $(".gridview").show();
+                        $(".tab1TCount_pc").show();
+                        $("#li_LabEntry").show();
+                        $("#li_LabExcel").show();
                         gridOptions.api.forEachNode(function (node) {
                             node.setSelected(true);
                         });
                     }
                     else {
-                        $(".gridview").hide();
+                        hideall();
                     }
                 }
 
@@ -904,20 +980,20 @@ function input_Lab_Status_Indicator(params) {
         + '" Ref_No = "' + params.data.Ref_No
         + '" SupplierId = "' + params.data.SupplierId
         + '" onblur="LabStatus(this);">'
-        + '<option ' + ((LabStatus == "") ? 'selected' : '') +' value="">Select</option>'
-        + '<option ' + ((LabStatus == "Confirm Hold") ? 'selected' : '') +' value="Confirm Hold">Confirm Hold</option>'
+        + '<option ' + ((LabStatus == "") ? 'selected' : '') + ' value="">Select</option>'
+        + '<option ' + ((LabStatus == "Confirm Hold") ? 'selected' : '') + ' value="Confirm Hold">Confirm Hold</option>'
         + '<option ' + ((LabStatus == "Confirm") ? 'selected' : '') + ' value="Confirm">Confirm</option>'
-        + '<option ' + ((LabStatus == "Hold") ? 'selected' : '') +' value="Hold">Hold</option>'
-        + '<option ' + ((LabStatus == "Bidded") ? 'selected' : '') +' value="Bidded">Bidded</option>'
-        + '<option ' + ((LabStatus == "Waiting") ? 'selected' : '') +' value="Waiting">Waiting</option>'
-        + '<option ' + ((LabStatus == "Qc Pending") ? 'selected' : '') +' value="Qc Pending">Qc Pending</option>'
-        + '<option ' + ((LabStatus == "Qc Reject") ? 'selected' : '') +' value="Qc Reject">Qc Reject</option>'
-        + '<option ' + ((LabStatus == "Bid Reject") ? 'selected' : '') +' value="Bid Reject">Bid Reject</option>'
-        + '<option ' + ((LabStatus == "Sold") ? 'selected' : '') +' value="Sold">Sold</option>'
-        + '<option ' + ((LabStatus == "Transit") ? 'selected' : '') +' value="Transit">Transit</option>'
-        + '<option ' + ((LabStatus == "Busy") ? 'selected' : '') +' value="Busy">Busy</option>'
-        + '<option ' + ((LabStatus == "Cancel") ? 'selected' : '') +' value="Cancel">Cancel</option>'
-        + '<option ' + ((LabStatus == "Other") ? 'selected' : '') +' value="Other">Other</option>'
+        + '<option ' + ((LabStatus == "Hold") ? 'selected' : '') + ' value="Hold">Hold</option>'
+        + '<option ' + ((LabStatus == "Bidded") ? 'selected' : '') + ' value="Bidded">Bidded</option>'
+        + '<option ' + ((LabStatus == "Waiting") ? 'selected' : '') + ' value="Waiting">Waiting</option>'
+        + '<option ' + ((LabStatus == "Qc Pending") ? 'selected' : '') + ' value="Qc Pending">Qc Pending</option>'
+        + '<option ' + ((LabStatus == "Qc Reject") ? 'selected' : '') + ' value="Qc Reject">Qc Reject</option>'
+        + '<option ' + ((LabStatus == "Bid Reject") ? 'selected' : '') + ' value="Bid Reject">Bid Reject</option>'
+        + '<option ' + ((LabStatus == "Sold") ? 'selected' : '') + ' value="Sold">Sold</option>'
+        + '<option ' + ((LabStatus == "Transit") ? 'selected' : '') + ' value="Transit">Transit</option>'
+        + '<option ' + ((LabStatus == "Busy") ? 'selected' : '') + ' value="Busy">Busy</option>'
+        + '<option ' + ((LabStatus == "Cancel") ? 'selected' : '') + ' value="Cancel">Cancel</option>'
+        + '<option ' + ((LabStatus == "Other") ? 'selected' : '') + ' value="Other">Other</option>'
         + '</select>'
     return element;
 }
@@ -1037,7 +1113,7 @@ function input_CUSTOMER_COST_VALUE_Indicator(params) {
     }
 
     var element = document.createElement("span");
-    element.title = 'Final Sale Amt US($)'; 
+    element.title = 'Final Sale Amt US($)';
     element.innerHTML = '<input type="text" style="text-align: center;" class="input-inc CUSTOMER_COST_VALUE" value = "' + CUSTOMER_COST_VALUE
         + '" onkeypress="return isNumberKeyWithNegative(event)" Ref_No = "' + params.data.Ref_No
         + '" SupplierId = "' + params.data.SupplierId
@@ -1059,7 +1135,7 @@ function CUSTOMER_COST_VALUE(e) {
     var SUPPLIER_COST_VALUE = $(e).parent().parent().parent().find('.SUPPLIER_COST_VALUE').val();
 
     var PROFIT = '', PROFIT_AMOUNT = '';
-    
+
     if ($(e).val() != 0 && $(e).val() != "") {
         var CUSTOMER_COST_VALUE = parseFloat($(e).val());
         var CUSTOMER_COST_DISC = ((- 1 * (1 - (parseFloat(CUSTOMER_COST_VALUE) / parseFloat(Rap_Amount))) * 100));
@@ -1160,4 +1236,5 @@ function TEMP_SAVE(WHEN, Ref_No, SupplierId, QC_Require, Lab_Status, SUPPLIER_CO
     if (exists == false) {
         TempData_Array.push([Ref_No, SupplierId, QC_Require, Lab_Status, SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT]);
     }
+    Total_Calculate();
 }

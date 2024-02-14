@@ -1250,11 +1250,20 @@ function GetHoldDataGrid() {
     //loaderShow();
     //$('#tab1TCount').hide();
 
+    if (Type == "Buyer List") {
+        $(".totdisc").html("Supplier Final Disc(%)");
+        $(".totval").html("Supplier Final Value($)");
+    }
+    else if (Type == "Supplier List" || Type == "Customer List") {
+        $(".totdisc").html("Final Disc(%)");
+        $(".totval").html("Final Amt US($)");
+    }
+
     $(".tab1Pcs").html("0");
-    $(".tab1CTS").html("0");
-    $(".tab1OfferDisc").html("0");
-    $(".tab1OfferValue").html("0");
-    $(".tab1PriceCts").html("0");
+    $(".tab1CTS").html("0.0");
+    $(".tab1OfferDisc").html("0.0");
+    $(".tab1OfferValue").html("0.0");
+    $(".tab1PriceCts").html("0.0");
 
 
     if (gridOptions.api != undefined) {
@@ -1465,15 +1474,6 @@ const datasource1 = {
                     //$('#tab1TCount').show();
                     $('.tab1Pcs').html(formatIntNumber(summary.TOT_PCS));
                     $('.tab1CTS').html(formatNumber(summary.TOT_CTS));
-
-                    if (Type == "Buyer List") {
-                        $(".totdisc").html("Supplier Final Disc(%)");
-                        $(".totval").html("Supplier Final Value($)");
-                    }
-                    else if (Type == "Supplier List" || Type == "Customer List") {
-                        $(".totdisc").html("Final Disc(%)");
-                        $(".totval").html("Final Amt US($)");
-                    }
                     $('.tab1OfferDisc').html(formatNumber(summary.AVG_SALES_DISC_PER));
                     $('.tab1OfferValue').html(formatNumber(summary.TOT_NET_AMOUNT));
                     $('.tab1PriceCts').html(formatNumber(summary.AVG_PRICE_PER_CTS));

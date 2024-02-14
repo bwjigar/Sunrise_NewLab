@@ -164,6 +164,64 @@ function onBodyScroll(params) {
     });
 }
 function onSelectionChanged(event) {
+    var TOT_CTS = 0;
+    var AVG_SALES_DISC_PER = 0;
+    var AVG_PRICE_PER_CTS = 0;
+    var TOT_NET_AMOUNT = 0;
+    var TOT_PCS = 0;
+    var TOT_RAP_AMOUNT = 0;
+    var CUR_RAP_RATE = 0;
+    var dDisc = 0, dRepPrice = 0, DCTS = 0, dNetPrice = 0, Web_Benefit = 0, Final_Disc = 0, Net_Value = 0;
+
+    if (gridOptions.api.getSelectedRows().length > 0) {
+        dDisc = _.reduce(_.pluck(gridOptions.api.getSelectedRows(), 'CUSTOMER_COST_DISC'), function (memo, num) { return memo + num; }, 0);
+        TOT_NET_AMOUNT = _.reduce(_.pluck(gridOptions.api.getSelectedRows(), 'CUSTOMER_COST_VALUE'), function (memo, num) { return memo + num; }, 0);
+        TOT_CTS = _.reduce(_.pluck(gridOptions.api.getSelectedRows(), 'Cts'), function (memo, num) { return memo + num; }, 0);
+        TOT_RAP_AMOUNT = _.reduce(_.pluck(gridOptions.api.getSelectedRows(), 'Rap_Amount'), function (memo, num) { return memo + num; }, 0);
+        CUR_RAP_RATE = _.reduce(_.pluck(gridOptions.api.getSelectedRows(), 'Rap_Rate'), function (memo, num) { return memo + num; }, 0);
+
+        AVG_SALES_DISC_PER = (-1 * (((TOT_RAP_AMOUNT - TOT_NET_AMOUNT) / TOT_RAP_AMOUNT) * 100)).toFixed(2);
+        AVG_PRICE_PER_CTS = TOT_NET_AMOUNT / TOT_CTS;
+        TOT_PCS = gridOptions.api.getSelectedRows().length;
+
+        if (CUR_RAP_RATE == 0) {
+            Final_Disc = 0;
+            AVG_SALES_DISC_PER = 0;
+        }
+    } else {debugger
+        if (summary.length == 0) {
+            debugger
+            dDisc = _.reduce(_.pluck(Rowdata, 'CUSTOMER_COST_DISC'), function (memo, num) { return memo + num; }, 0);
+            TOT_NET_AMOUNT = _.reduce(_.pluck(Rowdata, 'CUSTOMER_COST_VALUE'), function (memo, num) { return memo + num; }, 0);
+            TOT_CTS = _.reduce(_.pluck(Rowdata, 'Cts'), function (memo, num) { return memo + num; }, 0);
+            TOT_RAP_AMOUNT = _.reduce(_.pluck(Rowdata, 'Rap_Amount'), function (memo, num) { return memo + num; }, 0);
+            CUR_RAP_RATE = _.reduce(_.pluck(Rowdata, 'Rap_Rate'), function (memo, num) { return memo + num; }, 0);
+
+            AVG_SALES_DISC_PER = (-1 * (((TOT_RAP_AMOUNT - TOT_NET_AMOUNT) / TOT_RAP_AMOUNT) * 100)).toFixed(2);
+            AVG_PRICE_PER_CTS = TOT_NET_AMOUNT / TOT_CTS;
+            TOT_PCS = Rowdata.length;
+
+            if (CUR_RAP_RATE == 0) {
+                Final_Disc = 0;
+                AVG_SALES_DISC_PER = 0;
+            }
+        } else {
+            debugger
+            TOT_CTS = summary.TOT_CTS;
+            AVG_SALES_DISC_PER = summary.AVG_SALES_DISC_PER;
+            AVG_PRICE_PER_CTS = summary.AVG_PRICE_PER_CTS;
+            TOT_NET_AMOUNT = summary.TOT_NET_AMOUNT;
+            TOT_PCS = summary.TOT_PCS;
+        }
+        
+    }
+    setTimeout(function () {
+        $('.tab1Pcs').html(formatIntNumber(TOT_PCS));
+        $('.tab1CTS').html(formatNumber(TOT_CTS));
+        $('.tab1OfferDisc').html(formatNumber(AVG_SALES_DISC_PER));
+        $('.tab1OfferValue').html(formatNumber(TOT_NET_AMOUNT));
+        $('.tab1PriceCts').html(formatNumber(AVG_PRICE_PER_CTS));
+    });
 }
 function onGridReady(params) {
     if (navigator.userAgent.indexOf('Windows') > -1) {
@@ -232,9 +290,14 @@ columnDefs.push({ headerName: "Culet", field: "Culet", width: 80, tooltip: funct
 
 var gridOptions = {};
 function GetSearch() {
+    $(".tab1TCount_pc").hide();
+    $(".gridview").hide();
+    $(".excel").hide();
+    summary = [];
+    Rowdata = [];
+
     ExcelUploadRefNo = "";
     if ($("#txtStoneId").val() != "") {
-        $(".gridview").show();
         loaderShow();
         if (gridOptions.api != undefined) {
             gridOptions.api.destroy();
@@ -298,14 +361,12 @@ function GetSearch() {
             onSelectionChanged();
         });
     }
-    else {
-        $(".gridview").hide();
-        $(".excel").hide();
-    }
 }
 
 var SortColumn = "";
 var SortDirection = "";
+var Rowdata = [];
+var summary = [];
 const datasource1 = {
     getRows(params) {
         var PageNo = gridOptions.api.paginationGetCurrentPage() + 1;
@@ -318,7 +379,6 @@ const datasource1 = {
         obj.PgSize = pgSize;
         obj.RefNo = $("#txtStoneId").val();
 
-        Rowdata = [];
         $.ajax({
             url: "/User/Get_LabAvailibility",
             async: false,
@@ -329,23 +389,23 @@ const datasource1 = {
                     MoveToErrorPage(0);
                 }
                 if (data.Data.length > 0) {
+                    $(".tab1TCount_pc").show();
+                    $(".gridview").show();
                     $(".excel").show();
-                    Rowdata = data.Data;
-                    params.successCallback(data.Data, data.Data[0].iTotalRec);
+
+                    summary = data.Data[0].DataSummary;
+                    Rowdata = data.Data[0].DataList;
+                    //Rowdata = data.Data;
+                    //params.successCallback(data.Data, data.Data[0].iTotalRec);
+                    params.successCallback(data.Data[0].DataList, summary.TOT_PCS);
 
                     gridOptions.api.forEachNode(function (node) {
                         node.setSelected(true);
                     });
                 }
                 else {
-                    if (data.Data.length == 0) {
-                        $(".gridview").hide();
-                        $(".excel").hide();
-                        toastr.error("No Stock found as per filter criteria !");
-                    }
-
-                    Rowdata = [];
                     params.successCallback([], 0);
+                    toastr.error("No Stock found as per filter criteria !");
                 }
                 setInterval(function () {
                     $(".ag-header-cell-text").addClass("grid_prewrap");
@@ -370,7 +430,7 @@ function contentHeight() {
     var winH = $(window).height(),
         navbarHei = $(".order-title").height(),
         serachHei = $(".order-history-data").height(),
-        contentHei = winH - serachHei - navbarHei - 125;
+        contentHei = winH - serachHei - navbarHei - 110;
     $("#Cart-Gride").css("height", contentHei);
 }
 $(window).resize(function () {
@@ -425,7 +485,9 @@ function ExcelExport(Type) {
 
 
 
-
+function formatIntNumber(number) {
+    return (parseInt(number)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+}
 function formatNumber(number) {
     return (parseFloat(number).toFixed(2)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
@@ -445,6 +507,12 @@ function isNumberKeyWithNegative(evt) {
 
 
 function UploadExcelFile() {
+    $(".tab1TCount_pc").hide();
+    $(".gridview").hide();
+    $(".excel").hide();
+    summary = [];
+    Rowdata = [];
+
     var file = document.getElementById('file_upload').files[0];
     if (file == undefined) {
         return toastr.warning("Please Select Excel File For Upload");
@@ -454,7 +522,6 @@ function UploadExcelFile() {
 
     const formData = new FormData();
     formData.append("file", file);
-
 
     $.ajax({
         url: "/User/UploadExcelforLabAvailibility",
@@ -473,6 +540,7 @@ function UploadExcelFile() {
                 ExcelUploadRefNo = data[data.length - 1].Supplier_Comments;
 
                 data.splice(data.length - 1);
+                Rowdata = data;
 
                 loaderHide();
 
@@ -546,12 +614,13 @@ function UploadExcelFile() {
                 }
                 
                 if (data.length > 0) {
+                    $(".tab1TCount_pc").show();
                     $(".gridview").show();
                     $(".excel").show();
-                }
-                else {
-                    $(".gridview").hide();
-                    $(".excel").hide();
+
+                    gridOptions.api.forEachNode(function (node) {
+                        node.setSelected(true);
+                    });
                 }
             }
 
