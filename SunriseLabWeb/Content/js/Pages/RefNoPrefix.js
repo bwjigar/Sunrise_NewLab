@@ -88,16 +88,16 @@ function RefNo_AddNewRow() {
         '<tr>' +
         '<td class="tblbody_sr">' + row + '</td>' +
         '<td>' +
-        '<select class="form-control Shape">' +
+        '<select class="form-control common-control Shape">' +
         shape +
         '</select>' +
         '</td>' +
         '<td>' +
-        '<select class="form-control Pointer">' +
+        '<select class="form-control common-control Pointer">' +
         pointer +
         '</select>' +
         '</td>' +
-        '<td><input type="text" class="form-control Prefix" maxlength="100" autocomplete="off"></td>' +
+        '<td><input type="text" class="form-control common-control Prefix" maxlength="100" autocomplete="off"></td>' +
         '<td style="width: 50px"><i style="cursor:pointer;" class="error RemoveCate"><img src="/Content/images/trash-delete-icon.png" style="width: 20px;" /></i></td>' +
         '</tr>';
 
@@ -164,16 +164,16 @@ function GetSearch() {
                             "<tr>" +
                             "<td class='tblbody_sr'>" + row + "</td>" +
                             "<td>" +
-                            "<select class='form-control Shape'>" +
+                            "<select class='form-control common-control Shape'>" +
                             shape +
                             "</select>" +
                             "</td>" +
                             "<td>" +
-                            "<select class='form-control Pointer'>" +
+                            "<select class='form-control common-control Pointer'>" +
                             pointer +
                             "</select>" +
                             "</td>" +
-                            "<td><input value=\"" + (_obj.Prefix != null ? _obj.Prefix : '') + "\" type='text' class='form-control Prefix' maxlength='100' autocomplete='off'></td>" +
+                            "<td><input value=\"" + (_obj.Prefix != null ? _obj.Prefix : '') + "\" type='text' class='form-control common-control Prefix' maxlength='100' autocomplete='off'></td>" +
                             "<td style='width: 50px'><i style='cursor:pointer;' class='error RemoveCate'><img src='/Content/images/trash-delete-icon.png' style='width: 20px;' /></i></td>" +
                             "</tr>"
                         );

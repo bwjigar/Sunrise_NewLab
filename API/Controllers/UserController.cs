@@ -7490,6 +7490,10 @@ namespace API.Controllers
 
                                 try
                                 {
+                                    var t = json;
+                                    var json_1 = JsonConvert.DeserializeObject<List<dynamic>>(t);
+                                    json = JsonConvert.SerializeObject(json_1);
+
                                     json = json.Replace("[", "").Replace("]", "");
                                     json = json.Replace("null", "");
 

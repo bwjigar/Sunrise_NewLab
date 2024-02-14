@@ -27,6 +27,15 @@
     <input type="hidden" id="hdn_PageName" />
     @RenderSection("styles", required: false)
     <style>
+        .o-h-remove {
+            background-color: none;
+            padding: none;
+            box-shadow: none;
+            margin-bottom: none;
+            border-radius: none;
+            width: none;
+            float: none;
+        }
         .ag-icon-filter {
             color: red !important;
         }
@@ -736,24 +745,27 @@ var loaderHide = function () {
                 return "";
             }
         }
-        function Lab(params) {
-            if (params.data.Certificate_No != "") {
-                var certi_url = (params.data.Certificate_URL == null ? "" : params.data.Certificate_URL);
+        function Lab(params) {debugger
+            if (params.data != undefined) {
+                debugger
+                if (params.data.Certificate_No != "") {
+                    var certi_url = (params.data.Certificate_URL == null ? "" : params.data.Certificate_URL);
 
-                if (certi_url != "") {
-                    return '<a href="' + certi_url + '" target="_blank" style="text-decoration: underline; color :blue;">' + params.value + '</a>';
-                }
-                else if (params.value == "GIA") {
-                    return '<a href="http://www.gia.edu/cs/Satellite?pagename=GST%2FDispatcher&childpagename=GIA%2FPage%2FReportCheck&c=Page&cid=1355954554547&reportno=' + params.data.Certificate_No + '" target="_blank" style="text-decoration: underline; color :blue;">' + params.value + '</a>';
-                }
-                else if (params.value == "HRD") {
-                    return '<a href="https://my.hrdantwerp.com/?id=34&record_number=' + params.data.Certificate_No + '" target="_blank" style="text-decoration: underline; color :blue;">' + params.value + '</a>';
-                }
-                else if (params.value == "IGI") {
-                    return '<a href="https://www.igi.org/reports/verify-your-report?r=' + params.data.Certificate_No + '" target="_blank" style="text-decoration: underline; color :blue;">' + params.value + '</a>';
-                }
-                else {
-                    return params.value;
+                    if (certi_url != "") {
+                        return '<a href="' + certi_url + '" target="_blank" style="text-decoration: underline; color :blue;">' + params.value + '</a>';
+                    }
+                    else if (params.value == "GIA") {
+                        return '<a href="http://www.gia.edu/cs/Satellite?pagename=GST%2FDispatcher&childpagename=GIA%2FPage%2FReportCheck&c=Page&cid=1355954554547&reportno=' + params.data.Certificate_No + '" target="_blank" style="text-decoration: underline; color :blue;">' + params.value + '</a>';
+                    }
+                    else if (params.value == "HRD") {
+                        return '<a href="https://my.hrdantwerp.com/?id=34&record_number=' + params.data.Certificate_No + '" target="_blank" style="text-decoration: underline; color :blue;">' + params.value + '</a>';
+                    }
+                    else if (params.value == "IGI") {
+                        return '<a href="https://www.igi.org/reports/verify-your-report?r=' + params.data.Certificate_No + '" target="_blank" style="text-decoration: underline; color :blue;">' + params.value + '</a>';
+                    }
+                    else {
+                        return params.value;
+                    }
                 }
             }
         }

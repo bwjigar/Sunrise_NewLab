@@ -387,7 +387,7 @@ const datasource1 = {
             success: function (data, textStatus, jqXHR) {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
-                }
+                }debugger
                 if (data.Data.length > 0) {
                     $(".tab1TCount_pc").show();
                     $(".gridview").show();
@@ -404,8 +404,9 @@ const datasource1 = {
                     });
                 }
                 else {
+                    toastr.error("No Data Found", { timeOut: 2500 });
+                    gridOptions.api.showNoRowsOverlay();
                     params.successCallback([], 0);
-                    toastr.error("No Stock found as per filter criteria !");
                 }
                 setInterval(function () {
                     $(".ag-header-cell-text").addClass("grid_prewrap");

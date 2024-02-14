@@ -202,7 +202,7 @@ function Get_SupplierColumnSetting_FromFile() {
                                                 });
 
                                                 $('#myTableBody').append('<tr><td>' + (parseInt(i) + parseInt(1)) + '</td><td><input type="hidden" class="SunriseColumn" value="' + obj.Col_Id + '" />' + obj.Column_Name +
-                                                    '</td><td><center><select style="margin-top: -9px;margin-bottom: -9px;" onchange="ddlOnChange(\'' + obj.Col_Id + '\');" id="ddl_' + obj.Col_Id + '" class="col-md-7 form-control select2 SupplierColumn">' + SupplierColumn_ddl +
+                                                    '</td><td><center><select style="margin-top: -9px;margin-bottom: -9px;" onchange="ddlOnChange(\'' + obj.Col_Id + '\');" id="ddl_' + obj.Col_Id + '" class="col-md-7 form-control common-control select2 SupplierColumn">' + SupplierColumn_ddl +
                                                     '</select></center></td></tr>');
                                             });
 
@@ -358,10 +358,10 @@ function DeleteData() {
         });
     }
 }
-function contentHeight() {debugger
+function contentHeight() {
     var winH = $(window).height(),
         head = $(".order-history-data").height(),
-        contentHei = winH - head - 280;
+        contentHei = winH - head - 245;
     $("#mytable").css("height", contentHei);
 }
 $(window).resize(function () {

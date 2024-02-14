@@ -4,7 +4,7 @@
             <button type="button" onclick="AddNewRow();" class="offer-btn"><i class="fa fa-plus"></i>Add Row</button>
         </div>
         <div style="width:100%;overflow-x:auto">
-            <table id="tbl" class="table table-bordered">
+            <table id="tbl" class="table table-bordered order-history-data o-h-remove common-order">
                 <thead style="background-color: #143f58;color: white;">
                     <tr>
                         <th style="width: 1%;">Sr.</th>
@@ -84,7 +84,7 @@
             '<tr>' +
             '<td class="tblbody_sr">' + row + '</td>' +
             '<td><textarea type="text" class="form-control Synonyms" maxlength="700" autocomplete="off"></textarea></td>' +
-            '<td><select class="form-control input-sm CategoryValue" tabindex="1">' + CategoryValue + '</select></td>' +
+            '<td><select class="form-control common-control input-sm CategoryValue" tabindex="1">' + CategoryValue + '</select></td>' +
             '<td><input type="checkbox" class="Status" checked></td>' +
             '<td style="width: 50px"><i style="cursor:pointer;" class="error RemoveCate"><img src="/Content/images/trash-delete-icon.png" style="width: 20px;" /></i></td>' +
             '</tr>';
@@ -144,7 +144,7 @@
                                 "<tr>" +
                                 "<td class='tblbody_sr'>" + row + "</td>" +
                                 "<td><textarea type='text' class='form-control Synonyms' maxlength='700' autocomplete='off'>" + (_obj.Supp_Cat_name != null ? _obj.Supp_Cat_name : '') + "</textarea></td>" +
-                                "<td><select class='form-control input-sm CategoryValue' tabindex='1'>" + CategoryValue + "</select></td>" +
+                                "<td><select class='form-control common-control input-sm CategoryValue' tabindex='1'>" + CategoryValue + "</select></td>" +
                                 "<td><input type='checkbox' class='Status' " + (_obj.Status == true ? 'checked' : '') + "></td>" +
                                 "<td style='width: 50px'><i style='cursor:pointer;' class='error RemoveCate'><img src='/Content/images/trash-delete-icon.png' style='width: 20px;' /></i></td>" +
                                 "</tr>"

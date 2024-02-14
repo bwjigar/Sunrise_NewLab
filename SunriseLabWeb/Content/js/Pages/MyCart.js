@@ -352,6 +352,7 @@ const datasource1 = {
                 else {
                     Rowdata = [];
                     toastr.error("No Data Found", { timeOut: 2500 });
+                    gridOptions.api.showNoRowsOverlay();
                     params.successCallback([], 0);
                 }
                 setInterval(function () {

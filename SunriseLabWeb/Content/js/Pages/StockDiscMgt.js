@@ -4256,7 +4256,7 @@ function Get_API_ColumnSetting_UserWise() {
                     html += '<td><i style="cursor: move;" class="fa fa-bars" aria-hidden="true"></i></td>';
                     html += '<td id="lblFieldName" class="onbinding">' + itm.Column_Name +'</td>';
                     html += '<td class="CustName">';
-                    html += '<input onblur="" type="text" class="form-control form-control onpristine onvalid onnot-empty onvalid-maxlength ontouched" value="' + itm.API_Column_Name +'" maxlength="100">';
+                    html += '<input onblur="" type="text" class="form-control common-control form-control onpristine onvalid onnot-empty onvalid-maxlength ontouched" value="' + itm.API_Column_Name +'" maxlength="100">';
                     html += '</td>';
                     html += '<td id="lblColId" style="display: none;" class="onbinding">' + itm.Id +'</td>';
                     html += '<td id="lblOrder" class="ColumnOrder onbinding">' + itm.OrderBy +'</td>';

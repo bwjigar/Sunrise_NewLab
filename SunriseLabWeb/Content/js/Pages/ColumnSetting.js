@@ -280,7 +280,7 @@ function contentHeight() {
     var winH = $(window).height(),
         serachHei = $(".gridview").height(),
         serachHei1 = 0,
-        contentHei = winH - serachHei - serachHei1 - 235;
+        contentHei = winH - serachHei - serachHei1 - 210;
     $("#div_Buyer").css("height", contentHei);
     $("#div_Employee").css("height", contentHei);
     $("#div_Customer").css("height", contentHei);
