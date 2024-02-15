@@ -3496,7 +3496,7 @@ namespace API.Controllers
                     if (_dtuserchk.Rows.Count != 0)
                     {
                         resp.Status = "0";
-                        resp.Message = "Username is already exist.";
+                        resp.Message = "User Name is already exist.";
                         return Ok(resp);
                     }
                 }

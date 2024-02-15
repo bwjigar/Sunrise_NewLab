@@ -3,6 +3,7 @@ var FortuneCodeValid_Msg = "";
 var UserCodeValid = true;
 var UserCodeValid_Msg = "";
 var Rowdata = [];
+var view = "Add";
 
 var gridOptions = {};
 var iUserid = 0;
@@ -143,11 +144,13 @@ var GoToUserDetail = function (sUserType, iUserid, sUsername) {
 function EditView(UserId) {
     var data = filterByProperty(Rowdata, "UserId", UserId);
     if (data.length == 1) {
+        view = "Edit";
+        $(".pwd").hide();
         AssistBy_Get();
 
         $("#hdn_Mng_UserId").val(data[0].UserId);
         $("#txt_UserName").val(data[0].UserName);
-        $("#txt_Password").val(data[0].Password);
+        //$("#txt_Password").val(data[0].Password);
         $("#chk_Active").prop('checked', data[0].IsActive);
 
         if (data[0].UserTypeId != "") {
@@ -437,6 +440,8 @@ $(window).resize(function () {
 });
 
 function AddNew() {
+    view = "Add";
+    $(".pwd").show();
     Clear()
     $(".gridview").hide();
     $(".AddEdit").show();
@@ -605,17 +610,19 @@ var GetError = function () {
         }
     }
 
-    if ($("#txt_Password").val() == "") {
-        ErrorMsg.push({
-            'Error': "Please Enter Password.",
-        });
-    }
-    else {
-        var newlength = $("#txt_Password").val().length;
-        if (newlength < 6) {
+    if (view == "Add") {
+        if ($("#txt_Password").val() == "") {
             ErrorMsg.push({
-                'Error': "Please Enter Minimum 6 Character Password.",
+                'Error': "Please Enter Password.",
             });
+        }
+        else {
+            var newlength = $("#txt_Password").val().length;
+            if (newlength < 6) {
+                ErrorMsg.push({
+                    'Error': "Please Enter Minimum 6 Character Password.",
+                });
+            }
         }
     }
 
