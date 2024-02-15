@@ -142,3 +142,12 @@
 /SunriseLabWeb/obj/Release/Package/PackageTmp/Content/js/Pages/SupplierPriceList.js
 /SunriseLabWeb/obj/Release/Package/PackageTmp/Views/DashBoard/Index.cshtml
 /SunriseLabWeb/obj/Release/Package/PackageTmp/Views/User/Category.cshtml
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Views/User/Category_Master.cshtml
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Views/User/ColumnSetting.cshtml
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Views/User/CustomerDisc.cshtml
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Views/User/RefNoPrefix.cshtml
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Views/User/SupplierColumnSetting.cshtml
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Views/User/SupplierColumnSettingFromFile.cshtml
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Views/User/SupplierPriceList.cshtml
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Views/User/SupplierStockUpload.cshtml
+/SunriseLabWeb/obj/Release/Package/PackageTmp/Views/User/SupplierValue.cshtml
