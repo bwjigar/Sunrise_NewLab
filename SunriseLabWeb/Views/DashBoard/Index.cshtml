@@ -173,7 +173,7 @@
             color: #2594d5;
             text-decoration: underline;
         }
-        @@media screen and (min-width: 550px) and (max-width: 1500px) {
+        @@media screen and (min-width: 550px) and (max-width: 5000px) {
             .service-panel {
                 padding: 26px;
             }
@@ -182,13 +182,16 @@
             .service-panel {
                 margin-top: 26px;
             }
+            .table td, .table th {
+                border-right: 1px solid #dee2e6;
+            }
         }
     </style>
 
 
 }
 <div class="container-fluid">
-    <div class="service-panel" style="">
+    <div class="service-panel" style="margin-bottom: -50px;">
         <div class="row">
             <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('TotalStock')">
                 <div class="card top border-left-primary shadow h-100">
@@ -238,20 +241,20 @@
         </div>
         <p><b style="color: #143f58;">Cart</b></p>
         <div style="width: 100%; overflow-x: auto;" id="tblCart">
-            <table class="table">
+            <table class="table" style="display: table;width: 100%;">
                 <thead style="background-color: #143f58; color: white; font-size: 13px; border: 1px solid #143f5887; ">
                     <tr>
-                        <th style="width: 4%;"><center>Stock</center></th>
-                        <th style="width: 4%;"><center>Shape</center></th>
-                        <th style="width: 4%;"><center>Color</center></th>
-                        <th style="width: 4%;"><center>Clarity</center></th>
-                        <th style="width: 4%;"><center>Cts</center></th>
-                        <th style="width: 4%;"><center>Cut</center></th>
-                        <th style="width: 4%;"><center>Polish</center></th>
-                        <th style="width: 4%;"><center>Symm</center></th>
-                        <th style="width: 4%;"><center>Rap</center></th>
-                        <th style="width: 4%;"><center>Disc</center></th>
-                        <th style="width: 4%;"><center>Value</center></th>
+                        <th><center>Stock</center></th>
+                        <th><center>Shape</center></th>
+                        <th><center>Color</center></th>
+                        <th><center>Clarity</center></th>
+                        <th><center>Cts</center></th>
+                        <th><center>Cut</center></th>
+                        <th><center>Polish</center></th>
+                        <th><center>Symm</center></th>
+                        <th><center>Rap</center></th>
+                        <th><center>Disc</center></th>
+                        <th><center>Value</center></th>
                     </tr>
                 </thead>
                 <tbody style="color: #143f58; background-color: white; border: 1px solid #143f5887; " id="tblBodyCart">
@@ -264,12 +267,12 @@
 
         <p><b style="color: #143f58;">Save Search</b></p>
         <div style="width: 100%; overflow-x: auto;" id="tblSaveSearch">
-            <table class="table">
+            <table class="table" style="display: table;width: 100%;">
                 <thead style="background-color: #143f58; color: white; font-size: 13px; border: 1px solid #143f5887; ">
                     <tr>
-                        <th style="width: 4%;"><center>Date</center></th>
-                        <th style="width: 4%;"><center>Name</center></th>
-                        <th style="width: 4%;"><center>Criteria</center></th>
+                        <th style="width: 1%;"><center>Date</center></th>
+                        <th style="width: 3%;"><center>Name</center></th>
+                        <th style="width: 1%;"><center>Criteria</center></th>
                     </tr>
                 </thead>
                 <tbody style="color: #143f58; background-color: white; border: 1px solid #143f5887; " id="tblBodySaveSearch">
@@ -283,16 +286,16 @@
 
         <p><b style="color: #143f58;">Order History</b></p>
         <div style="width: 100%; overflow-x: auto;" id="tblOrder">
-            <table class="table">
+            <table class="table" style="display: table;width: 100%;">
                 <thead style="background-color: #143f58; color: white; font-size: 13px; border: 1px solid #143f5887; ">
                     <tr>
-                        <th style="width: 4%;"><center>Order Id</center></th>
-                        <th style="width: 4%;"><center>Order Date</center></th>
-                        <th style="width: 4%;"><center>Customer Name</center></th>
-                        <th style="width: 4%;"><center>Remarks</center></th>
-                        <th style="width: 4%;"><center>Total Pcs</center></th>
-                        <th style="width: 4%;"><center>Total Cts</center></th>
-                        <th style="width: 4%;"><center>Total Amt</center></th>
+                        <th><center>Order Id</center></th>
+                        <th><center>Order Date</center></th>
+                        <th><center>Customer Name</center></th>
+                        <th><center>Remarks</center></th>
+                        <th><center>Total Pcs</center></th>
+                        <th><center>Total Cts</center></th>
+                        <th><center>Total Amt</center></th>
                     </tr>
                 </thead>
                 <tbody style="color: #143f58; background-color: white; border: 1px solid #143f5887; " id="tblBodyOrder">

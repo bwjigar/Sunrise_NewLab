@@ -5167,6 +5167,21 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("KTS_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
 
+                if (!string.IsNullOrEmpty(req.CheckRComment))
+                    para.Add(db.CreateParam("CheckRComment", DbType.String, ParameterDirection.Input, req.CheckRComment));
+                else
+                    para.Add(db.CreateParam("CheckRComment", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.UNCheckRComment))
+                    para.Add(db.CreateParam("UNCheckRComment", DbType.String, ParameterDirection.Input, req.UNCheckRComment));
+                else
+                    para.Add(db.CreateParam("UNCheckRComment", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.RCommentBlank))
+                    para.Add(db.CreateParam("RComment_IsBlank", DbType.Boolean, ParameterDirection.Input, req.RCommentBlank));
+                else
+                    para.Add(db.CreateParam("RComment_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
                 if (!string.IsNullOrEmpty(req.FromDisc))
                     para.Add(db.CreateParam("FromFinalDisc", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromDisc)));
                 else
@@ -5262,6 +5277,21 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("TablePer_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
 
+                if (!string.IsNullOrEmpty(req.FromGirdlePer))
+                    para.Add(db.CreateParam("FromGirdlePer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromGirdlePer)));
+                else
+                    para.Add(db.CreateParam("FromGirdlePer", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToGirdlePer))
+                    para.Add(db.CreateParam("ToGirdlePer", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToGirdlePer)));
+                else
+                    para.Add(db.CreateParam("ToGirdlePer", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.GirdlePerBlank))
+                    para.Add(db.CreateParam("GirdlePer_IsBlank", DbType.Boolean, ParameterDirection.Input, req.GirdlePerBlank));
+                else
+                    para.Add(db.CreateParam("GirdlePer_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
                 if (!string.IsNullOrEmpty(req.Img))
                     para.Add(db.CreateParam("Image", DbType.String, ParameterDirection.Input, req.Img));
                 else
@@ -5336,6 +5366,36 @@ namespace API.Controllers
                     para.Add(db.CreateParam("PavHt_IsBlank", DbType.Boolean, ParameterDirection.Input, req.PavHtBlank));
                 else
                     para.Add(db.CreateParam("PavHt_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromStarLength))
+                    para.Add(db.CreateParam("FromStarLength", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromStarLength)));
+                else
+                    para.Add(db.CreateParam("FromStarLength", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToStarLength))
+                    para.Add(db.CreateParam("ToStarLength", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToStarLength)));
+                else
+                    para.Add(db.CreateParam("ToStarLength", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.StarLengthBlank))
+                    para.Add(db.CreateParam("StarLength_IsBlank", DbType.Boolean, ParameterDirection.Input, req.StarLengthBlank));
+                else
+                    para.Add(db.CreateParam("StarLength_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromLowerHalf))
+                    para.Add(db.CreateParam("FromLowerHalf", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromLowerHalf)));
+                else
+                    para.Add(db.CreateParam("FromLowerHalf", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToLowerHalf))
+                    para.Add(db.CreateParam("ToLowerHalf", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToLowerHalf)));
+                else
+                    para.Add(db.CreateParam("ToLowerHalf", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.LowerHalfBlank))
+                    para.Add(db.CreateParam("LowerHalf_IsBlank", DbType.Boolean, ParameterDirection.Input, req.LowerHalfBlank));
+                else
+                    para.Add(db.CreateParam("LowerHalf_IsBlank", DbType.Boolean, ParameterDirection.Input, DBNull.Value));
 
                 if (!string.IsNullOrEmpty(req.Location))
                     para.Add(db.CreateParam("Location", DbType.String, ParameterDirection.Input, req.Location));

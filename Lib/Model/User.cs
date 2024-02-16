@@ -1261,5 +1261,17 @@ namespace Lib.Model
         public string ToPavHt { get; set; }
         public bool PavHt_IsBlank { get; set; }
         public string Location { get; set; }
+        public string CheckRComment { get; set; }
+        public string UNCheckRComment { get; set; }
+        public bool RComment_IsBlank { get; set; }
+        public string FromGirdlePer { get; set; }
+        public string ToGirdlePer { get; set; }
+        public bool GirdlePer_IsBlank { get; set; }
+        public string FromStarLength { get; set; }
+        public string ToStarLength { get; set; }
+        public bool StarLength_IsBlank { get; set; }
+        public string FromLowerHalf { get; set; }
+        public string ToLowerHalf { get; set; }
+        public bool LowerHalf_IsBlank { get; set; }
     }
 }

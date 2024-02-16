@@ -112,6 +112,14 @@ function GetSaveSearch() {
                             str += (str != "" ? ", " : "");
                             str += "<span style='font-weight: 600;'>Carat :&nbsp;</span>" + data.Data[i].Carat;
                         }
+                        if (data.Data[i].FromFinalDisc != null && data.Data[i].ToFinalDisc != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Discount % :&nbsp;</span>" + data.Data[i].FromFinalDisc + "-" + data.Data[i].ToFinalDisc;
+                        }
+                        if (data.Data[i].FromFinalVal != null && data.Data[i].ToFinalVal != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Amount :&nbsp;</span>" + data.Data[i].FromFinalVal + "-" + data.Data[i].ToFinalVal;
+                        }
                         if (data.Data[i].ColorType != null) {
                             if (data.Data[i].ColorType == "Regular" && data.Data[i].Color == null) {
                                 str += (str != "" ? ", " : "");
@@ -160,61 +168,41 @@ function GetSaveSearch() {
                             str += (str != "" ? ", " : "");
                             str += "<span style='font-weight: 600;'>Cut :&nbsp;</span>" + data.Data[i].Cut;
                         }
+                        if (data.Data[i].Sym != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Symmetry :&nbsp;</span>" + data.Data[i].Sym;
+                        }
                         if (data.Data[i].Polish != null) {
                             str += (str != "" ? ", " : "");
                             str += "<span style='font-weight: 600;'>Polish :&nbsp;</span>" + data.Data[i].Polish;
                         }
-                        if (data.Data[i].Sym != null) {
-                            str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Sym :&nbsp;</span>" + data.Data[i].Sym;
-                        }
                         if (data.Data[i].Fls != null) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Fls :&nbsp;</span>" + data.Data[i].Fls;
+                            str += "<span style='font-weight: 600;'>Fluorescence :&nbsp;</span>" + data.Data[i].Fls;
                         }
                         if (data.Data[i].BGM != null) {
                             str += (str != "" ? ", " : "");
                             str += "<span style='font-weight: 600;'>BGM :&nbsp;</span>" + data.Data[i].BGM;
                         }
+                        if (data.Data[i].Image != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Image :&nbsp;</span>" + data.Data[i].Image;
+                        }
+                        if (data.Data[i].Video != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Video :&nbsp;</span>" + data.Data[i].Video;
+                        }
+                        if (data.Data[i].Certi != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Certi :&nbsp;</span>" + data.Data[i].Certi;
+                        }
                         if (data.Data[i].Lab != null) {
                             str += (str != "" ? ", " : "");
                             str += "<span style='font-weight: 600;'>Lab :&nbsp;</span>" + data.Data[i].Lab;
                         }
-                        if (data.Data[i].CrownBlack != null) {
-                            str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Crown Black :&nbsp;</span>" + data.Data[i].CrownBlack;
-                        }
-                        if (data.Data[i].TableBlack != null) {
-                            str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Table Black :&nbsp;</span>" + data.Data[i].TableBlack;
-                        }
-                        if (data.Data[i].CrownWhite != null) {
-                            str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Crown White :&nbsp;</span>" + data.Data[i].CrownWhite;
-                        }
-                        if (data.Data[i].TableWhite != null) {
-                            str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Table White :&nbsp;</span>" + data.Data[i].TableWhite;
-                        }
-                        if (data.Data[i].TableOpen != null) {
-                            str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Table Open :&nbsp;</span>" + data.Data[i].TableOpen;
-                        }
-                        if (data.Data[i].CrownOpen != null) {
-                            str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Crown Open :&nbsp;</span>" + data.Data[i].CrownOpen;
-                        }
-                        if (data.Data[i].PavillionOpen != null) {
-                            str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Pav Open :&nbsp;</span>" + data.Data[i].PavillionOpen;
-                        }
-                        if (data.Data[i].GirdleOpen != null) {
-                            str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Girdle Open :&nbsp;</span>" + data.Data[i].GirdleOpen;
-                        }
                         if (data.Data[i].KTS_IsBlank != 0 || data.Data[i].CheckKTS != null || data.Data[i].UNCheckKTS != null) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Key to symbol :&nbsp;</span>";
+                            str += "<span style='font-weight: 600;'>Key to Symbol :&nbsp;</span>";
 
                             if (data.Data[i].KTS_IsBlank == 1) {
                                 str += "BLANK";
@@ -235,13 +223,32 @@ function GetSaveSearch() {
                                 str += "<span style='color:red;'>" + data.Data[i].UNCheckKTS + "</span>";
                             }
                         }
-                        if (data.Data[i].FromFinalDisc != null && data.Data[i].ToFinalDisc != null) {
+                        if (data.Data[i].RComment_IsBlank != 0 || data.Data[i].CheckRComment != null || data.Data[i].UNCheckRComment != null) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Final Disc(%) :&nbsp;</span>" + data.Data[i].FromFinalDisc + "-" + data.Data[i].ToFinalDisc;
+                            str += "<span style='font-weight: 600;'>Report Comments :&nbsp;</span>";
+
+                            if (data.Data[i].RComment_IsBlank == 1) {
+                                str += "BLANK";
+                            }
+                            if (data.Data[i].CheckRComment != null) {
+                                if (str.charAt(str.length - 1) == "K") {
+                                    str += " & ";
+                                }
+                                str += "<span style='color:green;'>" + data.Data[i].CheckRComment + "</span>";
+                            }
+                            if (data.Data[i].UNCheckRComment != null) {
+                                if (str.charAt(str.length - 1) == "K") {
+                                    str += " & ";
+                                }
+                                if (data.Data[i].CheckRComment != null) {
+                                    str += " ";
+                                }
+                                str += "<span style='color:red;'>" + data.Data[i].UNCheckRComment + "</span>";
+                            }
                         }
-                        if (data.Data[i].FromFinalVal != null && data.Data[i].ToFinalVal != null) {
+                        if (data.Data[i].Location != null) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Final Amt US($) :&nbsp;</span>" + data.Data[i].FromFinalVal + "-" + data.Data[i].ToFinalVal;
+                            str += "<span style='font-weight: 600;'>Location :&nbsp;</span>" + data.Data[i].Location;
                         }
                         if (data.Data[i].Length_IsBlank != 0 || (data.Data[i].FromLength != null && data.Data[i].ToLength != null)) {
                             str += (str != "" ? ", " : "");
@@ -287,7 +294,7 @@ function GetSaveSearch() {
                         }
                         if (data.Data[i].DepthPer_IsBlank != 0 || (data.Data[i].FromDepthinPer != null && data.Data[i].ToDepthinPer != null)) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Depth Per :&nbsp;</span>";
+                            str += "<span style='font-weight: 600;'>Depth % :&nbsp;</span>";
 
                             if (data.Data[i].DepthPer_IsBlank == 1) {
                                 str += "BLANK";
@@ -301,7 +308,7 @@ function GetSaveSearch() {
                         }
                         if (data.Data[i].TablePer_IsBlank != 0 || (data.Data[i].FromTableinPer != null && data.Data[i].ToTableinPer != null)) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Table Per :&nbsp;</span>";
+                            str += "<span style='font-weight: 600;'>Table % :&nbsp;</span>";
 
                             if (data.Data[i].TablePer_IsBlank == 1) {
                                 str += "BLANK";
@@ -313,21 +320,23 @@ function GetSaveSearch() {
                                 str += data.Data[i].FromTableinPer + "-" + data.Data[i].ToTableinPer;
                             }
                         }
-                        if (data.Data[i].Image != null) {
+                        if (data.Data[i].GirdlePer_IsBlank != 0 || (data.Data[i].FromGirdlePer != null && data.Data[i].ToGirdlePer != null)) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Image :&nbsp;</span>" + data.Data[i].Image;
-                        }
-                        if (data.Data[i].Video != null) {
-                            str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Video :&nbsp;</span>" + data.Data[i].Video;
-                        }
-                        if (data.Data[i].Certi != null) {
-                            str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Certi :&nbsp;</span>" + data.Data[i].Certi;
+                            str += "<span style='font-weight: 600;'>Girdle % :&nbsp;</span>";
+
+                            if (data.Data[i].GirdlePer_IsBlank == 1) {
+                                str += "BLANK";
+                            }
+                            if (data.Data[i].FromGirdlePer != null && data.Data[i].ToGirdlePer != null) {
+                                if (str.charAt(str.length - 1) == "K") {
+                                    str += " & ";
+                                }
+                                str += data.Data[i].FromGirdlePer + "-" + data.Data[i].ToGirdlePer;
+                            }
                         }
                         if (data.Data[i].CrAng_IsBlank != 0 || (data.Data[i].FromCrAng != null && data.Data[i].ToCrAng != null)) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Cr Ang :&nbsp;</span>";
+                            str += "<span style='font-weight: 600;'>Crown Angle :&nbsp;</span>";
 
                             if (data.Data[i].CrAng_IsBlank == 1) {
                                 str += "BLANK";
@@ -341,7 +350,7 @@ function GetSaveSearch() {
                         }
                         if (data.Data[i].CrHt_IsBlank != 0 || (data.Data[i].FromCrHt != null && data.Data[i].ToCrHt != null)) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Cr Ht :&nbsp;</span>";
+                            str += "<span style='font-weight: 600;'>Crown Height :&nbsp;</span>";
 
                             if (data.Data[i].CrHt_IsBlank == 1) {
                                 str += "BLANK";
@@ -355,7 +364,7 @@ function GetSaveSearch() {
                         }
                         if (data.Data[i].PavAng_IsBlank != 0 || (data.Data[i].FromPavAng != null && data.Data[i].ToPavAng != null)) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Pav Ang :&nbsp;</span>";
+                            str += "<span style='font-weight: 600;'>Pavilion Angle :&nbsp;</span>";
 
                             if (data.Data[i].PavAng_IsBlank == 1) {
                                 str += "BLANK";
@@ -369,7 +378,7 @@ function GetSaveSearch() {
                         }
                         if (data.Data[i].PavHt_IsBlank != 0 || (data.Data[i].FromPavHt != null && data.Data[i].ToPavHt != null)) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Pav Ht :&nbsp;</span>";
+                            str += "<span style='font-weight: 600;'>Pav Height :&nbsp;</span>";
 
                             if (data.Data[i].PavHt_IsBlank == 1) {
                                 str += "BLANK";
@@ -381,9 +390,67 @@ function GetSaveSearch() {
                                 str += data.Data[i].FromPavHt + "-" + data.Data[i].ToPavHt;
                             }
                         }
-                        if (data.Data[i].Location != null) {
+                        if (data.Data[i].StarLength_IsBlank != 0 || (data.Data[i].FromStarLength != null && data.Data[i].ToStarLength != null)) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Location :&nbsp;</span>" + data.Data[i].Location;
+                            str += "<span style='font-weight: 600;'>Star Length :&nbsp;</span>";
+
+                            if (data.Data[i].StarLength_IsBlank == 1) {
+                                str += "BLANK";
+                            }
+                            if (data.Data[i].FromStarLength != null && data.Data[i].ToStarLength != null) {
+                                if (str.charAt(str.length - 1) == "K") {
+                                    str += " & ";
+                                }
+                                str += data.Data[i].FromStarLength + "-" + data.Data[i].ToStarLength;
+                            }
+                        }
+                        if (data.Data[i].LowerHalf_IsBlank != 0 || (data.Data[i].FromLowerHalf != null && data.Data[i].ToLowerHalf != null)) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Lower Half :&nbsp;</span>";
+
+                            if (data.Data[i].LowerHalf_IsBlank == 1) {
+                                str += "BLANK";
+                            }
+                            if (data.Data[i].FromLowerHalf != null && data.Data[i].ToLowerHalf != null) {
+                                if (str.charAt(str.length - 1) == "K") {
+                                    str += " & ";
+                                }
+                                str += data.Data[i].FromLowerHalf + "-" + data.Data[i].ToLowerHalf;
+                            }
+                        }
+
+
+                        if (data.Data[i].TableBlack != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Table Black :&nbsp;</span>" + data.Data[i].TableBlack;
+                        }
+                        if (data.Data[i].CrownBlack != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Crown Black :&nbsp;</span>" + data.Data[i].CrownBlack;
+                        }
+                        if (data.Data[i].TableWhite != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Table White :&nbsp;</span>" + data.Data[i].TableWhite;
+                        }
+                        if (data.Data[i].CrownWhite != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Crown White :&nbsp;</span>" + data.Data[i].CrownWhite;
+                        }
+                        if (data.Data[i].TableOpen != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Table Open :&nbsp;</span>" + data.Data[i].TableOpen;
+                        }
+                        if (data.Data[i].CrownOpen != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Crown Open :&nbsp;</span>" + data.Data[i].CrownOpen;
+                        }
+                        if (data.Data[i].PavillionOpen != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Pav Open :&nbsp;</span>" + data.Data[i].PavillionOpen;
+                        }
+                        if (data.Data[i].GirdleOpen != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Girdle Open :&nbsp;</span>" + data.Data[i].GirdleOpen;
                         }
 
                         html += '<tr>';
@@ -508,6 +575,11 @@ function SaveSearch_LoadSearchData(Id) {
         obj.CheckKTS = SavedSearchList_1.CheckKTS;
         obj.UNCheckKTS = SavedSearchList_1.UNCheckKTS;
 
+        obj.RCommentBlank = (SavedSearchList_1.RComment_IsBlank == true ? true : "");
+        obj.RComment = (SavedSearchList_1.CheckRComment != null ? SavedSearchList_1.CheckRComment : "") + '-' + (SavedSearchList_1.UNCheckRComment != null ? SavedSearchList_1.UNCheckRComment : "");
+        obj.CheckRComment = SavedSearchList_1.CheckRComment;
+        obj.UNCheckRComment = SavedSearchList_1.UNCheckRComment;
+
         obj.FromDisc = SavedSearchList_1.FromFinalDisc;
         obj.ToDisc = SavedSearchList_1.ToFinalDisc;
 
@@ -533,6 +605,19 @@ function SaveSearch_LoadSearchData(Id) {
         obj.TablePerBlank = (SavedSearchList_1.TablePer_IsBlank == true ? true : "");
         obj.FromTablePer = SavedSearchList_1.FromTableinPer;
         obj.ToTablePer = SavedSearchList_1.ToTableinPer;
+
+        obj.GirdlePerBlank = (SavedSearchList_1.GirdlePer_IsBlank == true ? true : "");
+        obj.FromGirdlePer = SavedSearchList_1.FromGirdlePer;
+        obj.ToGirdlePer = SavedSearchList_1.ToGirdlePer;
+
+        obj.StarLengthBlank = (SavedSearchList_1.StarLength_IsBlank == true ? true : "");
+        obj.FromStarLength = SavedSearchList_1.FromStarLength;
+        obj.ToStarLength = SavedSearchList_1.ToStarLength;
+
+        obj.LowerHalfBlank = (SavedSearchList_1.LowerHalf_IsBlank == true ? true : "");
+        obj.FromLowerHalf = SavedSearchList_1.FromLowerHalf;
+        obj.ToLowerHalf = SavedSearchList_1.ToLowerHalf;
+
 
         obj.Img = SavedSearchList_1.Image != null ? "YES" : "";
         obj.Vdo = SavedSearchList_1.Video != null ? "YES" : "";
@@ -610,7 +695,7 @@ function formatNumber_with_point(number) {
 
 
 $(document).ready(function (e) {
-    $("#content").addClass("bg-color");
+    $("#body").addClass("bg-color");
     $("#li_Dashboard").addClass("menuActive");
     GetDashboardCount();
     GetMyCart();
