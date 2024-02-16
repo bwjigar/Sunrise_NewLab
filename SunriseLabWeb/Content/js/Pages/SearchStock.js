@@ -4747,7 +4747,4 @@ function SetSavedSearchParameter() {
             }
         });
     }
-    else {
-        $("#divFilter").show();
-    }
 }
