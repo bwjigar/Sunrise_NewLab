@@ -13756,7 +13756,7 @@ namespace API.Controllers
             }
         }
         
-        /*
+     
         [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult Get_URL([FromBody] JObject data)
@@ -14317,7 +14317,7 @@ namespace API.Controllers
                 });
             }
         }
-        */
+        
 
         private static Byte[] Key_64 = { 42, 16, 93, 156, 78, 4, 218, 32 };
         private static Byte[] Iv_64 = { 55, 103, 246, 79, 36, 99, 167, 3 };

@@ -725,17 +725,17 @@ namespace SunriseLabWeb_New.Controllers
         }
         public JsonResult AddUpdate_Customer_Stock_Disc(Save_Supplier_Disc_Req req)
         {
-            //Uri url = new Uri(System.Web.HttpContext.Current.Request.Url.AbsoluteUri);
+            Uri url = new Uri(System.Web.HttpContext.Current.Request.Url.AbsoluteUri);
 
-            //string AbsoluteUri = url.AbsoluteUri;
-            //string AbsolutePath = url.AbsolutePath;
-            //string mainurl = AbsoluteUri.Replace(AbsolutePath, "");
-            string apiUrl = ConfigurationManager.AppSettings["APIURL"];
+            string AbsoluteUri = url.AbsoluteUri;
+            string AbsolutePath = url.AbsolutePath;
+            string mainurl = AbsoluteUri.Replace(AbsolutePath, "");
+            //string apiUrl = ConfigurationManager.AppSettings["APIURL"];
 
             string DecodedUsername = WebUtility.UrlEncode(Encrypt(req.UserName));
             //string DecodedPassword = WebUtility.UrlEncode(Encrypt(req.Password));
-            //req.URL = mainurl + "/User/URL?UN=" + DecodedUsername + "&TransId=";
-            req.URL = apiUrl + "/User/URL?UN=" + DecodedUsername + "&type=excel&TransId=";
+            req.URL = mainurl + "/User/URL?UN=" + DecodedUsername + "&TransId=";
+            //req.URL = apiUrl + "/User/URL?UN=" + DecodedUsername + "&type=excel&TransId=";
 
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.AddUpdate_Customer_Stock_Disc, inputJson);
@@ -1356,7 +1356,7 @@ namespace SunriseLabWeb_New.Controllers
         {
             return Encoding.UTF8.GetString(Convert.FromBase64String(encodedServername));
         }
-        /*
+       
         public JsonResult URL(string UN, int TransId)
         {
             string username = Decrypt(UN);
@@ -1409,6 +1409,5 @@ namespace SunriseLabWeb_New.Controllers
             }
             return Json(data_1.Message, JsonRequestBehavior.AllowGet);
         }
-        */
     }
 }
