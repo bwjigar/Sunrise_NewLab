@@ -64,7 +64,7 @@ function BindCategoryTab() {
 
         var obj = {};
         obj.OrderBy = "Col_Id asc";
-        obj.Not_Col_Id = "9,67,48,49,46";
+        obj.Not_Col_Id = "9,67,48,49,46,51";
         
         $.ajax({
             url: "/User/Get_CategoryMas",
