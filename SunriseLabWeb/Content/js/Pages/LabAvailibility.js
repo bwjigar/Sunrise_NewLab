@@ -188,9 +188,8 @@ function onSelectionChanged(event) {
             Final_Disc = 0;
             AVG_SALES_DISC_PER = 0;
         }
-    } else {debugger
+    } else {
         if (summary.length == 0) {
-            debugger
             dDisc = _.reduce(_.pluck(Rowdata, 'CUSTOMER_COST_DISC'), function (memo, num) { return memo + num; }, 0);
             TOT_NET_AMOUNT = _.reduce(_.pluck(Rowdata, 'CUSTOMER_COST_VALUE'), function (memo, num) { return memo + num; }, 0);
             TOT_CTS = _.reduce(_.pluck(Rowdata, 'Cts'), function (memo, num) { return memo + num; }, 0);
@@ -206,7 +205,6 @@ function onSelectionChanged(event) {
                 AVG_SALES_DISC_PER = 0;
             }
         } else {
-            debugger
             TOT_CTS = summary.TOT_CTS;
             AVG_SALES_DISC_PER = summary.AVG_SALES_DISC_PER;
             AVG_PRICE_PER_CTS = summary.AVG_PRICE_PER_CTS;
@@ -290,7 +288,7 @@ columnDefs.push({ headerName: "Culet", field: "Culet", width: 80, tooltip: funct
 
 var gridOptions = {};
 function GetSearch() {
-    $(".tab1TCount_pc").hide();
+    $(".tab1TCount").hide();
     $(".gridview").hide();
     $(".excel").hide();
     summary = [];
@@ -387,9 +385,9 @@ const datasource1 = {
             success: function (data, textStatus, jqXHR) {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
-                }debugger
+                }
                 if (data.Data.length > 0) {
-                    $(".tab1TCount_pc").show();
+                    $(".tab1TCount").show();
                     $(".gridview").show();
                     $(".excel").show();
 
@@ -432,6 +430,7 @@ function contentHeight() {
         navbarHei = $(".order-title").height(),
         serachHei = $(".order-history-data").height(),
         contentHei = winH - serachHei - navbarHei - 110;
+    contentHei = (contentHei < 200 ? 369 : contentHei);
     $("#Cart-Gride").css("height", contentHei);
 }
 $(window).resize(function () {
@@ -508,7 +507,7 @@ function isNumberKeyWithNegative(evt) {
 
 
 function UploadExcelFile() {
-    $(".tab1TCount_pc").hide();
+    $(".tab1TCount").hide();
     $(".gridview").hide();
     $(".excel").hide();
     summary = [];
@@ -615,7 +614,7 @@ function UploadExcelFile() {
                 }
                 
                 if (data.length > 0) {
-                    $(".tab1TCount_pc").show();
+                    $(".tab1TCount").show();
                     $(".gridview").show();
                     $(".excel").show();
 

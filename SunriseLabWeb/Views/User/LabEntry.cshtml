@@ -338,6 +338,28 @@
         border-radius: 16px;
         font-weight: bold;
     }
+    .ag-theme-balham .ag-cell {
+        line-height: 25px !important;
+    }
+    @@media screen and (min-width: 0px) and (max-width: 650px) {
+        .tab1TCount_mob {
+            display: inline-flex !important;
+        }
+
+        .tab1TCount_pc {
+            display: none !important;
+        }
+    }
+
+    @@media screen and (min-width: 649px) and (max-width: 5000px) {
+        .tab1TCount_mob {
+            display: none !important;
+        }
+
+        .tab1TCount_pc {
+            display: inline-flex !important;
+        }
+    }
 </style>
 
 <input type="hidden" id="hdn_Id" />
@@ -382,8 +404,8 @@
                         <input type="text" tabindex="2" class="form-control common-control" id="txtStoneId" maxlength="2000" autocomplete="off" placeholder="Ref No (Comma or Space)..." onkeyup="CommaSeperatedStone_list(event)">
                     </div>
                 </div>
-                <div class="offset-5 col-xl-7 col-lg-4 col-md-5 col-sm-12">
-                    <ul class="offer-inbtn pull-right mrtop src-rest-topbtn mt-2 mb-2" style="margin: 20px 54px 0;">
+                <div class="offset-xl-5 col-xl-7 col-lg-4 col-md-5 col-sm-12">
+                    <ul class="offer-inbtn pull-right mrtop src-rest-topbtn mt-2 mb-2">
                         <li>
                             <button class="offer-btn" onclick="UploadExcelFile();"><i class="fa fa-upload" aria-hidden="true"></i>Upload Excel </button>
                         </li>
@@ -405,13 +427,54 @@
         </div>
     </div>
 
-    <div class="mt-3 tab1TCount_pc" style="display:none;">
+    <div class="mt-3 tab1TCount" style="display:none;">
         <div class="col-xl-12 col-lg-12 col-md-12 col-12 row tab1TCount_pc">
             <div><center><span class="g-head-t">Pcs</span></center><center><span class="g-amt-t tab1Pcs">0</span></center></div>
             <div><center><span class="g-head-t">CTS</span></center><center><span class="g-amt-t tab1CTS">0.0</span></center></div>
             <div><center><span class="g-head-t">Final Sale Disc.(%)</span></center><center><span class="g-amt-t tab1OfferDisc">0.0</span></center></div>
             <div><center><span class="g-head-t">Final Sale Amt US($)</span></center><center><span class="g-amt-t tab1OfferValue">0.0</span></center></div>
             <div><center><span class="g-head-t">Price/Cts</span></center><center><span class="g-amt-t tab1PriceCts">0.0</span></center></div>
+            <div><center><span class="g-head-t">Supplier Base Offer Disc(%)</span></center><center><span class="g-amt-t tab1BaseDisc">0.0</span></center></div>
+            <div><center><span class="g-head-t">Supplier Base Value($)</span></center><center><span class="g-amt-t tab1BaseValue">0.0</span></center></div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-12 row tab1TCount_mob" style="display:none;">
+            <table>
+                <tr>
+                    <td><span class="g-head-t">Pcs</span></td>
+                    <td>:</td>
+                    <td><span class="g-amt-t tab1Pcs">0</span></td>
+                </tr>
+                <tr>
+                    <td><span class="g-head-t">CTS</span></td>
+                    <td>:</td>
+                    <td><span class="g-amt-t tab1CTS">0.0</span></td>
+                </tr>
+                <tr>
+                    <td><span class="g-head-t totdisc">Final Sale Disc.(%)</span></td>
+                    <td>:</td>
+                    <td><span class="g-amt-t tab1OfferDisc">0.0</span></td>
+                </tr>
+                <tr>
+                    <td><span class="g-head-t totval">Final Sale Amt US($)</span></td>
+                    <td>:</td>
+                    <td><span class="g-amt-t tab1OfferValue">0.0</span></td>
+                </tr>
+                <tr>
+                    <td><span class="g-head-t">Price/Cts</span></td>
+                    <td>:</td>
+                    <td><span class="g-amt-t tab1PriceCts">0.0</span></td>
+                </tr>
+                <tr>
+                    <td><span class="g-head-t">Supplier Base Offer Disc(%)</span></td>
+                    <td>:</td>
+                    <td><span class="g-amt-t tab1BaseDisc">0.0</span></td>
+                </tr>
+                <tr>
+                    <td><span class="g-head-t">Supplier Base Value($)</span></td>
+                    <td>:</td>
+                    <td><span class="g-amt-t tab1BaseValue">0.0</span></td>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="aggrid-section gridview" style="margin-top: 0px;">

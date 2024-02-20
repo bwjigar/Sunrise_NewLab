@@ -943,7 +943,7 @@ namespace SunriseLabWeb_New.Controllers
                     Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 7%;\"><center><b>No.</b></center></td>";
                     Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 27%;\"><center><b>Ref No</b></center></td>";
                     Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 25%;\"><center><b>Supplier Cost Value($)</b></center></td>";
-                    Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 25%;\"><center><b>Sunrise Value($)</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 25%;\"><center><b>Final Sale Amt US($)</b></center></td>";
                     Error_msg += "</tr>";
 
                     string RefNo = "", SuppRefNo_SuppId_List = "";
@@ -1221,7 +1221,7 @@ namespace SunriseLabWeb_New.Controllers
                             {
                                 for (int i = 0; i < Res[0].DataList.Count(); i++)
                                 {
-                                    if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[0].DataList[i].Ref_No || Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[0].DataList[i].Certificate_No)
+                                    if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[0].DataList[i].Ref_No || Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[0].DataList[i].Certificate_No || Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[0].DataList[i].Supplier_Stone_Id)
                                     {
                                         string SuppRefNo_SuppId = Res[0].DataList[i].Supplier_Stone_Id + "_" + Convert.ToString(Res[0].DataList[i].SupplierId);
 

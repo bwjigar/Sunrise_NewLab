@@ -333,7 +333,7 @@ columnDefs.push({ headerName: "Culet", field: "Culet", width: 80, tooltip: funct
 function hideall() {
     TempData_Array = [];
     $(".gridview").hide();
-    $(".tab1TCount_pc").hide();
+    $(".tab1TCount").hide();
     $("#li_LabEntry").hide();
     $("#li_LabExcel").hide();
 }
@@ -391,6 +391,7 @@ function GetSearch() {
             cacheBlockSize: pgSize, // you can have your custom page size
             paginationPageSize: pgSize, //pagesize
             getContextMenuItems: getContextMenuItems,
+            getRowHeight: function (params) { return 35; },
             paginationNumberFormatter: function (params) {
                 return '[' + params.value.toLocaleString() + ']';
             }
@@ -474,7 +475,7 @@ const datasource1 = {
                         PROFIT = (PROFIT != "" ? parseFloat(PROFIT).toFixed(2) : "0");
                         PROFIT_AMOUNT = (PROFIT_AMOUNT != "" ? parseFloat(PROFIT_AMOUNT).toFixed(2) : "0");
 
-                        TempData_Array.push([data.Data[0].DataList[i].Ref_No, data.Data[0].DataList[i].SupplierId, "REGULAR", (data.Data[0].DataList[i].LabEntry_Status != null ? data.Data[0].DataList[i].LabEntry_Status : ""), SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT, data.Data[0].DataList[i].Cts, data.Data[0].DataList[i].Rap_Rate, data.Data[0].DataList[i].Rap_Amount]);
+                        TempData_Array.push([data.Data[0].DataList[i].Ref_No, data.Data[0].DataList[i].SupplierId, "REGULAR", (data.Data[0].DataList[i].LabEntry_Status != null ? data.Data[0].DataList[i].LabEntry_Status : ""), SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT, data.Data[0].DataList[i].Cts, data.Data[0].DataList[i].Rap_Rate, data.Data[0].DataList[i].Rap_Amount, data.Data[0].DataList[i].Disc, data.Data[0].DataList[i].Value]);
                     }
                 }
                 else {
@@ -485,7 +486,7 @@ const datasource1 = {
 
                 if (TempData_Array.length > 0) {
                     $(".gridview").show();
-                    $(".tab1TCount_pc").show();
+                    $(".tab1TCount").show();
                     $("#li_LabEntry").show();
                     $("#li_LabExcel").show();
                     gridOptions.api.forEachNode(function (node) {
@@ -534,17 +535,23 @@ function Total_Calculate() {
     var Rap_Amount = _.reduce(_.pluck(Final_Rows, 12), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
     var CUSTOMER_COST_DISC = _.reduce(_.pluck(Final_Rows, 6), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
     var CUSTOMER_COST_VALUE = _.reduce(_.pluck(Final_Rows, 7), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
+    var Disc = _.reduce(_.pluck(Final_Rows, 13), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
+    var Value = _.reduce(_.pluck(Final_Rows, 14), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
 
 
     var AVG_SALES_DISC_PER = (CUSTOMER_COST_VALUE > 0 ? (-1 * (((Rap_Amount - CUSTOMER_COST_VALUE) / Rap_Amount) * 100)) : 0).toFixed(2);
     var AVG_PRICE_PER_CTS = (CUSTOMER_COST_VALUE > 0 ? CUSTOMER_COST_VALUE / Cts : 0).toFixed(2);
-    
+
+    var AVG_Disc_PER = (Value > 0 ? (-1 * (((Rap_Amount - Value) / Rap_Amount) * 100)) : 0).toFixed(2);
+
     setTimeout(function () {
         $('.tab1Pcs').html(formatIntNumber(Pcs));
         $('.tab1CTS').html(formatNumber(Cts));
         $('.tab1OfferDisc').html(formatNumber(AVG_SALES_DISC_PER));
         $('.tab1OfferValue').html(formatNumber(CUSTOMER_COST_VALUE));
         $('.tab1PriceCts').html(formatNumber(AVG_PRICE_PER_CTS));
+        $('.tab1BaseDisc').html(formatNumber(AVG_Disc_PER));
+        $('.tab1BaseValue').html(formatNumber(Value));
     });
 }
 function formatIntNumber(number) {
@@ -560,6 +567,7 @@ function contentHeight() {
         navbarHei = $(".order-title").height(),
         serachHei = $(".order-history-data").height(),
         contentHei = winH - serachHei - navbarHei - 158;
+    contentHei = (contentHei < 200 ? 369 : contentHei);
     $("#Cart-Gride").css("height", contentHei);
 }
 $(window).resize(function () {
@@ -826,6 +834,7 @@ function UploadExcelFile() {
                         cacheBlockSize: pgSize,
                         paginationPageSize: pgSize,
                         getContextMenuItems: getContextMenuItems,
+                        getRowHeight: function (params) { return 35; },
                         paginationNumberFormatter: function (params) {
                             return '[' + params.value.toLocaleString() + ']';
                         }
@@ -882,11 +891,11 @@ function UploadExcelFile() {
                         var QCRequire = (data[i].QCRequire != null ? data[i].QCRequire : "");
                         var LabEntry_Status = (data[i].LabEntry_Status != null ? data[i].LabEntry_Status : "");
 
-                        TempData_Array.push([data[i].Ref_No, data[i].SupplierId, QCRequire, LabEntry_Status, SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT, data[i].Cts, data[i].Rap_Rate, data[i].Rap_Amount]);
+                        TempData_Array.push([data[i].Ref_No, data[i].SupplierId, QCRequire, LabEntry_Status, SUPPLIER_COST_DISC, SUPPLIER_COST_VALUE, CUSTOMER_COST_DISC, CUSTOMER_COST_VALUE, PROFIT, PROFIT_AMOUNT, data[i].Cts, data[i].Rap_Rate, data[i].Rap_Amount, data[i].Disc, data[i].Value]);
                     }
                     if (TempData_Array.length > 0) {
                         $(".gridview").show();
-                        $(".tab1TCount_pc").show();
+                        $(".tab1TCount").show();
                         $("#li_LabEntry").show();
                         $("#li_LabExcel").show();
                         gridOptions.api.forEachNode(function (node) {
