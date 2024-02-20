@@ -2815,7 +2815,12 @@ function isNumberKey_ISD(evt) {
     }
     return true;
 }
-
+function customSortByKeyName(keyName) {
+    return function (a, b) {
+        // Using localeCompare for string comparison
+        return a[keyName].localeCompare(b[keyName]);
+    };
+}
 function GetSearchParameter() {
     loaderShow();
 
@@ -2989,7 +2994,14 @@ function GetSearchParameter() {
 
 
                 KeyToSymbolList = _.filter(ParameterList, function (e) { return e.Type == 'Key to Symbol' });
+                if (KeyToSymbolList.length > 0) {
+                    KeyToSymbolList.sort(customSortByKeyName("Value"));
+                }
+                
                 RCommentList = _.filter(ParameterList, function (e) { return e.Type == 'Comment' });
+                if (RCommentList.length > 0) {
+                    RCommentList.sort(customSortByKeyName("Value"));
+                }
 
                 loaderHide();
             }
