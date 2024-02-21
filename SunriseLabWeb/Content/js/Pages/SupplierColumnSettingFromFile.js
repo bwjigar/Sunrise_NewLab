@@ -11,6 +11,7 @@ $(document).ready(function () {
         filetype = fileExtension;
         if (!(fileExtension == "xlsx" || fileExtension == "xls" || fileExtension == "csv")) {
             $('#file_upload').val('');
+            toastr.remove();
             toastr.error("Allowed only .XLSX, .XLS, .CSV file format.");
         }
         else if (fileExtension == "xlsx" || fileExtension == "xls") {
@@ -55,11 +56,13 @@ function Get_SheetName_From_File() {
                         }
                         else {
                             debugger
+                            toastr.remove();
                             toastr.error(data.Message);
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         loaderHide();
+                        toastr.remove();
                         toastr.error(errorThrown);
                     }
                 });
@@ -67,10 +70,12 @@ function Get_SheetName_From_File() {
             }, 50);
         }
         else {
+            toastr.remove();
             toastr.error("Please Select File (.XLSX, .XLS, .CSV)");
         }
     }
     else {
+        toastr.remove();
         toastr.error("Please Select Supplier Name");
     }
 }
@@ -236,6 +241,7 @@ function Get_SupplierColumnSetting_FromFile() {
                             }
                             else {
                                 debugger
+                                toastr.remove();
                                 toastr.error(data.Message);
                             }
                         },
@@ -247,14 +253,17 @@ function Get_SupplierColumnSetting_FromFile() {
                 }, 50);
             }
             else {
+                toastr.remove();
                 toastr.error("Please Select Sheet Name");
             }
         }
         else {
+            toastr.remove();
             toastr.error("Please Select File (.XLSX, .XLS, .CSV)");
         }
     }
     else {
+        toastr.remove();
         toastr.error("Please Select Supplier Name");
     }
 }
@@ -299,6 +308,7 @@ function SaveData() {
                 debugger
                 loaderHide();
                 if (data.Status == "1") {
+                    toastr.remove();
                     toastr.success(data.Message);
                     //Get_SupplierColumnSetting();
                     $(".Save_btn").html("<i class='fa fa-save' aria-hidden='true'></i>&nbsp;Update");
@@ -308,6 +318,7 @@ function SaveData() {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
                         MoveToErrorPage(0);
                     }
+                    toastr.remove();
                     toastr.error(data.Message);
                 }
             },
@@ -338,6 +349,7 @@ function DeleteData() {
             success: function (data) {
                 loaderHide();
                 if (data.Status == "1") {
+                    toastr.remove();
                     toastr.success(data.Message);
                     $("#DeleteModal").modal("hide");
                     $("#Save_btn").hide();
@@ -349,6 +361,7 @@ function DeleteData() {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
                         MoveToErrorPage(0);
                     }
+                    toastr.remove();
                     toastr.error(data.Message);
                 }
             },

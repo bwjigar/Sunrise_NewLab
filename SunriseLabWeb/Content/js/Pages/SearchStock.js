@@ -130,9 +130,11 @@ function onPageSizeChanged() {
 function SupplierList() {
     if ($("#txtDisc_1_1").val() != undefined) {
         if ($("#PricingMethod_1").val() == "" && $("#txtDisc_1_1").val() != "") {
+            toastr.remove();
             return toastr.warning("Please Select Pricing Method");
         }
         if ($("#PricingMethod_1").val() != "" && $("#txtDisc_1_1").val() == "") {
+            toastr.remove();
             return toastr.warning("Please Enter Pricing Method " + $("#PricingMethod_1").val());
         }
     }
@@ -152,6 +154,7 @@ function SupplierList() {
             if (data.Status == "1" && data.Data.length == 0) {
                 $("#divFilter").show();
                 $("#divGridView").hide();
+                toastr.remove();
                 toastr.error("No Columns Found.");
             }
             else if (data.Status == "1" && data.Data.length > 0) {
@@ -453,6 +456,7 @@ function SupplierList() {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
+                toastr.remove();
                 toastr.error(data.Message);
             }
             //loaderHide();
@@ -465,9 +469,11 @@ function SupplierList() {
 function BuyerList() {
     if ($("#txtDisc_1_1").val() != undefined) {
         if ($("#PricingMethod_1").val() == "" && $("#txtDisc_1_1").val() != "") {
+            toastr.remove();
             return toastr.warning("Please Select Pricing Method");
         }
         if ($("#PricingMethod_1").val() != "" && $("#txtDisc_1_1").val() == "") {
+            toastr.remove();
             return toastr.warning("Please Enter Pricing Method " + $("#PricingMethod_1").val());
         }
     }
@@ -487,6 +493,7 @@ function BuyerList() {
             if (data.Status == "1" && data.Data.length == 0) {
                 $("#divFilter").show();
                 $("#divGridView").hide();
+                toastr.remove();
                 toastr.error("No Columns Found.");
             }
             else if (data.Status == "1" && data.Data.length > 0) {
@@ -854,6 +861,7 @@ function BuyerList() {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
+                toastr.remove();
                 toastr.error(data.Message);
             }
             //loaderHide();
@@ -866,9 +874,11 @@ function BuyerList() {
 function CustomerList() {
     if ($("#txtDisc_1_1").val() != undefined) {
         if ($("#PricingMethod_1").val() == "" && $("#txtDisc_1_1").val() != "") {
+            toastr.remove();
             return toastr.warning("Please Select Pricing Method");
         }
         if ($("#PricingMethod_1").val() != "" && $("#txtDisc_1_1").val() == "") {
+            toastr.remove();
             return toastr.warning("Please Enter Pricing Method " + $("#PricingMethod_1").val());
         }
     }
@@ -888,6 +898,7 @@ function CustomerList() {
             if (data.Status == "1" && data.Data.length == 0) {
                 $("#divFilter").show();
                 $("#divGridView").hide();
+                toastr.remove();
                 toastr.error("No Columns Found.");
             }
             else if (data.Status == "1" && data.Data.length > 0) {
@@ -1177,6 +1188,7 @@ function CustomerList() {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
+                toastr.remove();
                 toastr.error(data.Message);
             }
             //loaderHide();
@@ -1491,6 +1503,7 @@ const datasource1 = {
                         $('.tab1OfferDisc').html(formatNumber(0));
                         $('.tab1OfferValue').html(formatNumber(0));
                         $('.tab1PriceCts').html(formatNumber(0));
+                        toastr.remove();
                         toastr.error("No Stock found as per filter criteria !");
                     }
 
@@ -1514,9 +1527,11 @@ const datasource1 = {
 function ExcelFilter(type, from) {
     if ($("#txtDisc_1_1").val() != undefined) {
         if ($("#PricingMethod_1").val() == "" && $("#txtDisc_1_1").val() != "") {
+            toastr.remove();
             return toastr.warning("Please Select Pricing Method");
         }
         if ($("#PricingMethod_1").val() != "" && $("#txtDisc_1_1").val() == "") {
+            toastr.remove();
             return toastr.warning("Please Enter Pricing Method " + $("#PricingMethod_1").val());
         }
     }
@@ -1629,6 +1644,7 @@ function ExcelDownload(where, from) {
                         if (data.indexOf('Something Went wrong') > -1) {
                             MoveToErrorPage(0);
                         }
+                        toastr.remove();
                         toastr.error(data);
                     } else {
                         location.href = data;
@@ -1653,6 +1669,7 @@ function ExcelDownload(where, from) {
                         if (data.indexOf('Something Went wrong') > -1) {
                             MoveToErrorPage(0);
                         }
+                        toastr.remove();
                         toastr.error(data);
                     } else {
                         location.href = data;
@@ -2741,6 +2758,7 @@ function NewSizeGroup() {
     tcarat = $('#txttocarat').val();
 
     if (fcarat == "" && tcarat == "" || fcarat == 0 && tcarat == 0) {
+        toastr.remove();
         toastr.warning("Please Enter Carat.");
         return false;
     }
@@ -2772,6 +2790,7 @@ function NewSizeGroup() {
     else {
         $('#txtfromcarat').val("");
         $('#txttocarat').val("");
+        toastr.remove();
         toastr.warning("Carat is already exist.");
     }
     //SetSearchParameter();
@@ -3885,9 +3904,11 @@ var LeaveTextBox = function (ele, fromid, toid, point) {
             $("#" + fromid).val("");
             $("#" + toid).val("");
             if (fromid == "FromTablePer" && toid == "ToTablePer") {
+                toastr.remove();
                 toastr.error("You can enter only " + cal_fromval + " to " + cal_toval);
             }
             else {
+                toastr.remove();
                 toastr.error("You can enter only " + formatNumber(cal_fromval) + " to " + formatNumber(cal_toval));
             }
         }
@@ -3929,6 +3950,7 @@ function DownloadExcel() {
             var REF_NO = _.pluck(gridOptions.api.getSelectedRows(), 'REF_NO').join(",");
             obj.RefNo = REF_NO;
         } else {
+            toastr.remove();
             toastr.warning("No stone selected for download as a excel !");
             $('.loading-overlay-image-container').hide();
             $('.loading-overlay').hide();
@@ -4063,12 +4085,14 @@ function DownloadExcel() {
                 MoveToErrorPage(0);
             }
             else if (data.indexOf('No data found.') > -1) {
+                toastr.remove();
                 toastr.error(data);
             }
             else if (data.indexOf('ExcelFile') > -1) {
                 window.location = data;
             }
             else {
+                toastr.remove();
                 toastr.error(data);
             }
         },
@@ -4111,9 +4135,11 @@ function AddToCart() {
                         MoveToErrorPage(0);
                     }
                     if (data.Status == "1") {
+                        toastr.remove();
                         toastr.success(data.Message);
                     }
                     else {
+                        toastr.remove();
                         toastr.error(data.Message);
                     }
                 },
@@ -4159,6 +4185,7 @@ function SendMail() {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
                         MoveToErrorPage(0);
                     }
+                    toastr.remove();
                     toastr.error(data.Message);
                 } else {
                     toastr.success(data.Message);
@@ -4201,8 +4228,10 @@ function SendMail() {
                         if (data.Message.indexOf('Something Went wrong') > -1) {
                             MoveToErrorPage(0);
                         }
+                        toastr.remove();
                         toastr.error(data.Message);
                     } else {
+                        toastr.remove();
                         toastr.success(data.Message);
                         $('#EmailModal').modal('hide');
                     }
@@ -4216,6 +4245,7 @@ function SendMail() {
                 }
             });
         } else {
+            toastr.remove();
             toastr.warning("No stones selected to send email");
             loaderHide();
         }
@@ -4245,8 +4275,10 @@ function SaveSearch() {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
+                toastr.remove();
                 toastr.error(data.Message);
             } else {
+                toastr.remove();
                 toastr.success(data.Message);
                 $('#SaveSearchModal').modal('hide');
             }

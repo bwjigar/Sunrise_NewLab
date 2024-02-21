@@ -77,6 +77,7 @@ function greaterThanDate(evt) {
             }
             else {
                 evt.currentTarget.value = "";
+                toastr.remove();
                 toastr.warning("To date must be greater than From date");
                 FromTo_Date();
                 return false;
@@ -209,11 +210,13 @@ var DeleteUser = function () {
             loaderHide();
             
             if (data.Status == "-1") {
+                toastr.remove();
                 toastr.warning(data.Message, { timeOut: 3000 });
             }
             else {
                 ClearRemoveModel();
                 GetSearch();
+                toastr.remove();
                 toastr.success(data.Message, { timeOut: 3000 });
             }
             
@@ -317,6 +320,7 @@ var SortDirection = "";const datasource1 = {
                 }
                 else {
                     Rowdata = [];
+                    toastr.remove();
                     toastr.error(data.Message, { timeOut: 2500 });
                     params.successCallback([], 0);
                 }
@@ -716,6 +720,7 @@ var SaveCompanyUser = function () {
                 success: function (data) {
                     loaderHide();
                     if (data.Status == "1") {
+                        toastr.remove();
                         toastr.success(data.Message);
                         Back();
                     }
@@ -723,6 +728,7 @@ var SaveCompanyUser = function () {
                         if (data.Message.indexOf('Something Went wrong') > -1) {
                             MoveToErrorPage(0);
                         }
+                        toastr.remove();
                         toastr.error(data.Message);
                     }
                 },

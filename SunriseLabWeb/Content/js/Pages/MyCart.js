@@ -351,6 +351,7 @@ const datasource1 = {
                 }
                 else {
                     Rowdata = [];
+                    toastr.remove();
                     toastr.error("No Data Found", { timeOut: 2500 });
                     gridOptions.api.showNoRowsOverlay();
                     params.successCallback([], 0);
@@ -430,6 +431,7 @@ function Excel_MyCart() {
                         if (data.indexOf('Something Went wrong') > -1) {
                             MoveToErrorPage(0);
                         }
+                        toastr.remove();
                         toastr.error(data);
                     } else {
                         location.href = data;
@@ -470,10 +472,12 @@ function RemoveStone() {
                             MoveToErrorPage(0);
                         }
                         if (data.Status == "1") {
+                            toastr.remove();
                             toastr.success(data.Message);
                             GetSearch();
                         }
                         else {
+                            toastr.remove();
                             toastr.error(data.Message);
                         }
                     },
@@ -483,6 +487,7 @@ function RemoveStone() {
                 });
             }
             else {
+                toastr.remove();
                 toastr.warning("Please Select atlease One Stone");
                 return;
             }

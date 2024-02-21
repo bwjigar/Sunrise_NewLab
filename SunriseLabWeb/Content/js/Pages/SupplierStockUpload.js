@@ -9,6 +9,7 @@ $(document).ready(function () {
         filetype = fileExtension;
         if (!(fileExtension == "xlsx" || fileExtension == "xls" || fileExtension == "csv")) {
             $('#file_upload').val('');
+            toastr.remove();
             toastr.error("Allowed only .XLSX, .XLS, .CSV file format.");
         }
         else if (fileExtension == "xlsx" || fileExtension == "xls") {
@@ -56,6 +57,7 @@ function Get_SheetName_From_File() {
                         }
                         else {
                             debugger
+                            toastr.remove();
                             toastr.error(data.Message);
                         }
                     },
@@ -67,10 +69,12 @@ function Get_SheetName_From_File() {
             }, 50);
         }
         else {
+            toastr.remove();
             toastr.error("Please Select File (.XLSX, .XLS, .CSV)");
         }
     }
     else {
+        toastr.remove();
         toastr.error("Please Select Supplier Name");
     }
 }
@@ -150,9 +154,11 @@ function Stock_Upload() {
                                 debugger
                                 var myArray = data.split("_");
                                 if (myArray[0] == "1") {
+                                    toastr.remove();
                                     toastr.success(myArray[1]);
                                 }
                                 else {
+                                    toastr.remove();
                                     toastr.error(myArray[1]);
                                 }
                                 //if (data.Status == "1") {
@@ -174,21 +180,25 @@ function Stock_Upload() {
                 }
                 else {
                     $("#DdlSheetName").focus();
+                    toastr.remove();
                     toastr.error("Please Select Sheet Name");
                 }
             }
             else {
                 $("#file_upload").focus();
+                toastr.remove();
                 toastr.error("Please Select File (.XLSX, .XLS, .CSV)");
             }
         }
         else {
             $("#txtValidityDays").focus();
+            toastr.remove();
             toastr.error("Please Enter Validity Days");
         }
     }
     else {
         $("#DdlSupplierName").focus();
+        toastr.remove();
         toastr.error("Please Select Supplier Name");
     }
 }

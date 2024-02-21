@@ -276,6 +276,7 @@ var Save = function () {
             success: function (data) {
                 loaderHide();
                 if (data.Status == "1") {
+                    toastr.remove();
                     toastr.success(data.Message);
                     $(".DeleteAll").show();
                 }
@@ -283,6 +284,7 @@ var Save = function () {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
                         MoveToErrorPage(0);
                     }
+                    toastr.remove();
                     toastr.error(data.Message);
                 }
             },
@@ -314,6 +316,7 @@ var Delete = function () {
             success: function (data) {
                 loaderHide();
                 if (data.Status == "1") {
+                    toastr.remove();
                     toastr.success(data.Message);
                     $("#DeleteAll").modal("hide");
                     GetSearch();
@@ -322,6 +325,7 @@ var Delete = function () {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
                         MoveToErrorPage(0);
                     }
+                    toastr.remove();
                     toastr.error(data.Message);
                 }
             },

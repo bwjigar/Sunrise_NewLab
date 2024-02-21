@@ -235,6 +235,7 @@ function StockUploadView(Id) {
             success: function (data) {
                 debugger
                 loaderHide();
+                toastr.remove();
                 toastr.success(data);
                 //loaderHide_stk_upload();
                 //if (data.Status == "1") {
@@ -268,6 +269,7 @@ function NotMappedStockExcelDownload(Id) {
                     if (data.indexOf('Something Went wrong') > -1) {
                         MoveToErrorPage(0);
                     }
+                    toastr.remove();
                     toastr.error(data);
                 } else {
                     location.href = data;
@@ -382,6 +384,7 @@ var Delete = function () {
         success: function (data) {
             loaderHide();
             if (data.Status == "1") {
+                toastr.remove();
                 toastr.success(data.Message);
                 $("#Remove").modal("hide");
                 GetSearch();
@@ -390,6 +393,7 @@ var Delete = function () {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
+                toastr.remove();
                 toastr.error(data.Message);
             }
         },
@@ -523,6 +527,7 @@ const datasource1 = {
                 }
                 else {
                     Rowdata = [];
+                    toastr.remove();
                     toastr.error(data.Message, { timeOut: 2500 });
                     params.successCallback([], 0);
                 }
@@ -954,6 +959,7 @@ var Save = function () {
             success: function (data) {
                 loaderHide();
                 if (data.Status == "1") {
+                    toastr.remove();
                     toastr.success(data.Message);
                     Back();
                 }
@@ -961,6 +967,7 @@ var Save = function () {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
                         MoveToErrorPage(0);
                     }
+                    toastr.remove();
                     toastr.error(data.Message);
                 }
             },

@@ -183,7 +183,7 @@ const datasource1 = {
                 else {
                     $("#divGrid").hide();
                     Rowdata = [];
-                    toastr.clear();
+                    toastr.remove();
                     toastr.error("No Data Found", { timeOut: 2500 });
                     params.successCallback([], 0);
                     gridOptions.api.showNoRowsOverlay();
@@ -301,9 +301,11 @@ function AddFilters() {
         Get_API_ColumnSetting_UserWise();
     }
     else if (_.filter(gridOptions.api.getSelectedRows()).length == 0) {
+        toastr.remove();
         toastr.warning("Please select user for Add Stock & Disc Filters");
     }
     else {
+        toastr.remove();
         toastr.warning("Please select only 1 user for Add Stock & Disc Filters");
     }
 }
@@ -616,6 +618,7 @@ function greaterThanDate(evt, from, to, type) {
         }
         else {
             evt.currentTarget.value = "";
+            toastr.remove();
             toastr.warning("To date must be greater than From date !");
             FromTo_Date(type);
             return false;
@@ -1797,6 +1800,7 @@ function NewSizeGroup() {
     tcarat = $('#txttocarat').val();
 
     if (fcarat == "" && tcarat == "" || fcarat == 0 && tcarat == 0) {
+        toastr.remove();
         toastr.warning("Please Enter Carat !!");
         return false;
     }
@@ -1839,6 +1843,7 @@ function NewSizeGroup() {
     else {
         $('#txtfromcarat').val("");
         $('#txttocarat').val("");
+        toastr.remove();
         toastr.warning("Carat is already exist !!");
     }
     //SetSearchParameter();
@@ -4007,6 +4012,7 @@ function SaveData() {
                 debugger
                 loaderHide();
                 if (data.Status == "1") {
+                    toastr.remove();
                     toastr.success(data.Message);
                     Get_Customer_Stock_Disc();
                     Get_Customer_Stock_Disc_Mas();
@@ -4016,6 +4022,7 @@ function SaveData() {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
                         MoveToErrorPage(0);
                     }
+                    toastr.remove();
                     toastr.error(data.Message);
                 }
             },
@@ -4208,6 +4215,7 @@ function Get_Customer_Stock_Disc() {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
+                toastr.remove();
                 toastr.error(data.Message);
             }
         },
@@ -4307,6 +4315,7 @@ function Get_API_ColumnSetting_UserWise() {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
+                toastr.remove();
                 toastr.error(data.Message);
             }
         },
@@ -4385,6 +4394,7 @@ var Delete = function () {
         success: function (data) {
             loaderHide();
             if (data.Status == "1") {
+                toastr.remove();
                 toastr.success(data.Message);
                 $(".DeleteAll").modal("hide");
                 ClearRemoveModel();
@@ -4395,6 +4405,7 @@ var Delete = function () {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
+                toastr.remove();
                 toastr.error(data.Message);
             }
         },

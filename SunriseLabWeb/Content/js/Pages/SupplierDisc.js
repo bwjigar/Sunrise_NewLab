@@ -295,6 +295,7 @@ function greaterThanDate(evt, from, to, type) {
         }
         else {
             evt.currentTarget.value = "";
+            toastr.remove();
             toastr.warning("To date must be greater than From date !");
             FromTo_Date(type);
             return false;
@@ -1407,6 +1408,7 @@ function NewSizeGroup() {
     tcarat = $('#txttocarat').val();
 
     if (fcarat == "" && tcarat == "" || fcarat == 0 && tcarat == 0) {
+        toastr.remove();
         toastr.warning("Please Enter Carat !!");
         return false;
     }
@@ -1449,6 +1451,7 @@ function NewSizeGroup() {
     else {
         $('#txtfromcarat').val("");
         $('#txttocarat').val("");
+        toastr.remove();
         toastr.warning("Carat is already exist !!");
     }
     //SetSearchParameter();
@@ -3584,6 +3587,7 @@ function SaveData() {
             success: function (data) {
                 loaderHide();
                 if (data.Status == "1") {
+                    toastr.remove();
                     toastr.success(data.Message);
                     Get_Supplier_Disc();
                     $(window).scrollTop(130);
@@ -3592,6 +3596,7 @@ function SaveData() {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
                         MoveToErrorPage(0);
                     }
+                    toastr.remove();
                     toastr.error(data.Message);
                 }
             },
@@ -3786,6 +3791,7 @@ function Get_Supplier_Disc() {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
                         MoveToErrorPage(0);
                     }
+                    toastr.remove();
                     toastr.error(data.Message);
                 }
                 loaderHide();

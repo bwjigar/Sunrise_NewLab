@@ -176,6 +176,7 @@ function onchange_User() {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
                         MoveToErrorPage(0);
                     }
+                    toastr.remove();
                     toastr.error(data.Message);
                 }
                 loaderHide();
@@ -304,6 +305,7 @@ function SaveData() {
             }
         });
         if (BUYERSave.length == 0) {
+            toastr.remove();
             toastr.warning("Please Select Minimum 1 Column in Buyer !");
             return;
         }
@@ -322,6 +324,7 @@ function SaveData() {
             }
         });
         if (SUPPLIERSave.length == 0) {
+            toastr.remove();
             toastr.warning("Please Select Minimum 1 Column in Employee !");
             return;
         }
@@ -340,6 +343,7 @@ function SaveData() {
             }
         });
         if (CUSTOMERSave.length == 0) {
+            toastr.remove();
             toastr.warning("Please Select Minimum 1 Column in Customer !");
             return;
         }
@@ -358,12 +362,14 @@ function SaveData() {
         success: function (data) {
             loaderHide();
             if (data.Status == "1") {
+                toastr.remove();
                 toastr.success(data.Message);
             }
             else {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
                     MoveToErrorPage(0);
                 }
+                toastr.remove();
                 toastr.error(data.Message);
             }
         },

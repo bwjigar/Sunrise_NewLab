@@ -360,6 +360,7 @@ const datasource1 = {
                 }
                 else {
                     Rowdata = [];
+                    toastr.remove();
                     toastr.error("No Data Found", { timeOut: 2500 });
                     gridOptions.api.showNoRowsOverlay();
                     params.successCallback([], 0);
@@ -471,6 +472,7 @@ function Excel_OderHistory() {
                         if (data.indexOf('Something Went wrong') > -1) {
                             MoveToErrorPage(0);
                         }
+                        toastr.remove();
                         toastr.error(data);
                     } else {
                         location.href = data;

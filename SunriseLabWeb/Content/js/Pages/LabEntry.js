@@ -425,6 +425,7 @@ function GetSearch() {
         });
     }
     else {
+        toastr.remove();
         toastr.warning("Please Select User");
     }
 }
@@ -479,6 +480,7 @@ const datasource1 = {
                     }
                 }
                 else {
+                    toastr.remove();
                     toastr.error("No Data Found", { timeOut: 2500 });
                     gridOptions.api.showNoRowsOverlay();
                     params.successCallback([], 0);
@@ -670,11 +672,13 @@ function LabEntry() {
             }
         }
         else {
+            toastr.remove();
             toastr.warning("Please Select atleast One Stone");
         }
     }
     else {
         $(".gridview").hide();
+        toastr.remove();
         toastr.warning("Please Select User");
     }
 }
@@ -693,12 +697,14 @@ function Save_LabEntry() {
                 loaderHide();
                 if (data.Status == "1") {
                     $('#LabEntry_Modal').modal('hide');
+                    toastr.remove();
                     toastr.success(data.Message);
                 }
                 else {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
                         MoveToErrorPage(0);
                     }
+                    toastr.remove();
                     toastr.error(data.Message);
                 }
             },
@@ -739,6 +745,7 @@ function Excel_LabEntry() {
                             if (data.indexOf('Something Went wrong') > -1) {
                                 MoveToErrorPage(0);
                             }
+                            toastr.remove();
                             toastr.error(data);
                         } else {
                             location.href = data;
@@ -752,6 +759,7 @@ function Excel_LabEntry() {
         }
     }
     else {
+        toastr.remove();
         toastr.warning("Please Select User");
     }
 }
@@ -766,6 +774,7 @@ function UploadExcelFile() {
     if ($("#ddl_User").val() != "") {
         var file = document.getElementById('file_upload').files[0];
         if (file == undefined) {
+            toastr.remove();
             return toastr.warning("Please Select Excel File For Upload");
         }
        
@@ -786,6 +795,7 @@ function UploadExcelFile() {
                 var Culet = data[data.length - 1].Culet;
 
                 if (Culet == "0") {
+                    toastr.remove();
                     return toastr.warning(data[data.length - 1].Lab_Comments);
                 }
                 else {
@@ -916,6 +926,7 @@ function UploadExcelFile() {
     }
     else {
         $(".gridview").hide();
+        toastr.remove();
         toastr.warning("Please Select User");
     }
 }

@@ -402,6 +402,7 @@ const datasource1 = {
                     });
                 }
                 else {
+                    toastr.remove();
                     toastr.error("No Data Found", { timeOut: 2500 });
                     gridOptions.api.showNoRowsOverlay();
                     params.successCallback([], 0);
@@ -470,6 +471,7 @@ function ExcelExport(Type) {
                         if (data.indexOf('Something Went wrong') > -1) {
                             MoveToErrorPage(0);
                         }
+                        toastr.remove();
                         toastr.error(data);
                     } else {
                         location.href = data;
@@ -515,6 +517,7 @@ function UploadExcelFile() {
 
     var file = document.getElementById('file_upload').files[0];
     if (file == undefined) {
+        toastr.remove();
         return toastr.warning("Please Select Excel File For Upload");
     }
 
@@ -533,6 +536,7 @@ function UploadExcelFile() {
             var Culet = data[data.length - 1].Culet;
 
             if (Culet == "0") {
+                toastr.remove();
                 return toastr.warning(data[data.length - 1].Lab_Comments);
             }
             else {

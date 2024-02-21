@@ -19,6 +19,7 @@ function isPositiveNumber(evt) {
     if ((charCode >= 48 && charCode <= 57) || charCode == 46)
         return true;
     else {
+        toastr.remove();
         toastr.warning($("#hdn_Enter_only_positive_numbers").val() + " !");
         return false;
     }
@@ -28,6 +29,7 @@ function isNumberKey(evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     if (charCode != 46 && charCode > 31
         && (charCode < 48 || charCode > 57)) {
+        toastr.remove();
         toastr.warning($("#hdn_Please_Enter_Only_Number_only").val() + " !");
         return false;
     }
@@ -48,6 +50,7 @@ function greaterThanDate(evt, from, to) {
         }
         else {
             evt.currentTarget.value = "";
+            toastr.remove();
             toastr.warning("To date must be greater than From date !");
             FromTo_Date();
             return false;

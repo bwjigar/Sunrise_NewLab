@@ -284,6 +284,7 @@
                     }
                     else {
                         CateMas_Rowdata = [];
+                        toastr.remove();
                         toastr.error(data.Message, { timeOut: 2500 });
                         params.successCallback([], 0);
                     }
@@ -341,14 +342,17 @@
     }
     var CateMas_Save = function () {debugger
         if ($("#CateMas_ddl_CategoryName").val() == "") {
+            toastr.remove();
             toastr.error("Please Select Category Name.");
             return;
         }
         if ($("#CateMas_txt_CategoryValue").val() == "") {
+            toastr.remove();
             toastr.error("Please Enter Category Value.");
             return;
         }
         if ($("#CateMas_txt_Synonyms").val() == "") {
+            toastr.remove();
             toastr.error("Please Enter Synonyms.");
             return;
         }
@@ -367,6 +371,7 @@
             success: function (data) {
                 debugger
                 if (data.Status == "1") {
+                    toastr.remove();
                     toastr.success(data.Message);
                     CateMas_Back();
                 }
@@ -374,6 +379,7 @@
                     if (data.Message.indexOf('Something Went wrong') > -1) {
                         MoveToErrorPage(0);
                     }
+                    toastr.remove();
                     toastr.error(data.Message);
                 }
             },
