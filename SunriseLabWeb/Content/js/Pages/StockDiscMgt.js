@@ -3731,7 +3731,7 @@ function EditCriteria(new_id) {
                 //}
 
                 SetSearchParameter();
-                $(window).scrollTop(100);
+                $(window).scrollTop(128);
             }
         });
 

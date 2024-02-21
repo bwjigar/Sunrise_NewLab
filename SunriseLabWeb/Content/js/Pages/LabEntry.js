@@ -241,14 +241,14 @@ columnDefs.push({ headerName: "Company Name", field: "CompName", width: 190, too
 columnDefs.push({
     headerName: "QC Require",
     field: "QC_Require",
-    width: 135,
+    width: 145,
     sortable: false,
     cellRenderer: 'input_QC_Require_Indicator'
 });
 columnDefs.push({
     headerName: "Lab Status",
     field: "Lab_Status",
-    width: 130,
+    width: 145,
     sortable: false,
     cellRenderer: 'input_Lab_Status_Indicator'
 });
@@ -270,28 +270,28 @@ columnDefs.push({
 columnDefs.push({
     headerName: "Supplier Cost Value($)",
     field: "SUPPLIER_COST_VALUE",
-    width: 115,
+    width: 125,
     sortable: false,
     cellRenderer: 'input_SUPPLIER_COST_VALUE_Indicator'
 });
 columnDefs.push({
     headerName: "Final Sale Disc(%)",
     field: "CUSTOMER_COST_DISC",
-    width: 110,
+    width: 105,
     sortable: false,
     cellRenderer: 'input_CUSTOMER_COST_DISC_Indicator'
 });
 columnDefs.push({
     headerName: "Final Sale Amt US($)",
     field: "CUSTOMER_COST_VALUE",
-    width: 110,
+    width: 125,
     sortable: false,
     cellRenderer: 'input_CUSTOMER_COST_VALUE_Indicator'
 });
 columnDefs.push({
     headerName: "Profit(%)",
     field: "PROFIT",
-    width: 110,
+    width: 105,
     sortable: false,
     cellRenderer: 'input_PROFIT_Indicator'
 });
@@ -961,7 +961,7 @@ function input_QC_Require_Indicator(params) {
     }
     var element = document.createElement("span");
     element.title = 'QC Require';
-    element.innerHTML = '<input type="text" style="text-align: center;width: 120px;" class="input-inc QC_Require" value = "' + QC_Require
+    element.innerHTML = '<input type="text" style="text-align: center;width: 132px;" class="input-inc QC_Require lab-input" value = "' + QC_Require
         + '" Ref_No = "' + params.data.Ref_No
         + '" SupplierId = "' + params.data.SupplierId
         + '" onblur="QC_Require(this);">';
@@ -985,7 +985,7 @@ function input_Lab_Status_Indicator(params) {
     }
     var element = document.createElement("span");
     element.title = 'Lab Status';
-    element.innerHTML = '<select class="input-inc LabStatus" style="width: 100px;"'
+    element.innerHTML = '<select class="input-inc LabStatus lab-input" style="width: 120px;"'
         + '" Ref_No = "' + params.data.Ref_No
         + '" SupplierId = "' + params.data.SupplierId
         + '" onblur="LabStatus(this);">'
@@ -1043,7 +1043,7 @@ function input_SUPPLIER_COST_VALUE_Indicator(params) {
 
     var element = document.createElement("span");
     element.title = 'Supplier Cost Value($)';
-    element.innerHTML = '<input type="text" style="text-align: center;" class="input-inc SUPPLIER_COST_VALUE" value = "' + SUPPLIER_COST_VALUE
+    element.innerHTML = '<input type="text" style="text-align: center;" class="input-inc SUPPLIER_COST_VALUE lab-input" value = "' + SUPPLIER_COST_VALUE
         + '" onkeypress="return isNumberKeyWithNegative(event)" Ref_No = "' + params.data.Ref_No
         + '" SupplierId = "' + params.data.SupplierId
         + '" Rap_Amount = "' + params.data.Rap_Amount
@@ -1123,7 +1123,7 @@ function input_CUSTOMER_COST_VALUE_Indicator(params) {
 
     var element = document.createElement("span");
     element.title = 'Final Sale Amt US($)';
-    element.innerHTML = '<input type="text" style="text-align: center;" class="input-inc CUSTOMER_COST_VALUE" value = "' + CUSTOMER_COST_VALUE
+    element.innerHTML = '<input type="text" style="text-align: center;" class="input-inc CUSTOMER_COST_VALUE lab-input" value = "' + CUSTOMER_COST_VALUE
         + '" onkeypress="return isNumberKeyWithNegative(event)" Ref_No = "' + params.data.Ref_No
         + '" SupplierId = "' + params.data.SupplierId
         + '" Rap_Amount = "' + params.data.Rap_Amount

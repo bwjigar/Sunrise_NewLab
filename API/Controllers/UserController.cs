@@ -1511,6 +1511,7 @@ namespace API.Controllers
                 dt.Columns.Add("Culet", typeof(string));
                 dt.Columns.Add("CheckKTS", typeof(string));
                 dt.Columns.Add("UNCheckKTS", typeof(string));
+                dt.Columns.Add("Status", typeof(string));
                 dt.Columns.Add("BGM", typeof(string));
                 dt.Columns.Add("CrownBlack", typeof(string));
                 dt.Columns.Add("TableBlack", typeof(string));
@@ -1608,6 +1609,7 @@ namespace API.Controllers
                         dr["Culet"] = req.SuppDisc[i].Culet;
                         dr["CheckKTS"] = req.SuppDisc[i].CheckKTS;
                         dr["UNCheckKTS"] = req.SuppDisc[i].UNCheckKTS;
+                        dr["Status"] = req.SuppDisc[i].Status;
                         dr["BGM"] = req.SuppDisc[i].BGM;
                         dr["CrownBlack"] = req.SuppDisc[i].CrownBlack;
                         dr["TableBlack"] = req.SuppDisc[i].TableBlack;

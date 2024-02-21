@@ -194,6 +194,20 @@
                 </div>
                 <div class="row m-0">
                     <div class="col-sm-3 col-xs-12 api-plr">
+                        <strong>Status</strong>
+                    </div>
+                    <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
+                        <p class="divCheckedStatusValue"></p>
+                    </div>
+                    <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center; ">
+                        <div class="list-icn">
+                            <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedStatusValue',StatusList)"></i>
+                            <a href="javascript:void(0);" onclick="ModalShow('Status',StatusList)"><i class="fa fa-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0">
+                    <div class="col-sm-3 col-xs-12 api-plr">
                         <strong>Goods Type</strong>
                     </div>
                     <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
@@ -742,6 +756,7 @@
                         <th rowspan="3" style="vertical-align: middle;">Lab</th>
                         <th rowspan="3" style="vertical-align: middle;">BGM</th>
                         <th rowspan="3" style="vertical-align: middle;">Key to symbol</th>
+                        <th rowspan="3" style="vertical-align: middle;">Status</th>
                         <th rowspan="3" style="vertical-align: middle;">Goods Type</th>
 
                         @*<th rowspan="3" style="vertical-align: middle;">From Length</th>

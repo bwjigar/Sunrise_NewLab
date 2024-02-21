@@ -2,6 +2,7 @@
 var SupplierList = [];
 var PointerList = [];
 var GoodsTypeList = [];
+var StatusList = [];
 var LocationList = [];
 var ShapeList = [];
 var CaratList = [];
@@ -22,6 +23,7 @@ var TableWhiteList = [];
 var CheckedSupplierValue = "";
 var CheckedPointerValue = "";
 var CheckedGoodsTypeValue = "";
+var CheckedStatusValue = "";
 var CheckedLocationValue = "";
 var CheckedShapeValue = "";
 var CheckedColorValue = "";
@@ -498,6 +500,9 @@ function Get_API_StockFilter() {
                     if (data.Data[k].Col_Id == 66) {
                         GoodsTypeList.push(data.Data[k]);
                     }
+                    if (data.Data[k].Col_Id == 42) {
+                        StatusList.push(data.Data[k]);
+                    }
                 }
 
 
@@ -548,6 +553,9 @@ function Get_API_StockFilter() {
                 }
                 if (GoodsTypeList.length > 1) {
                     GoodsTypeList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Goods Type', isActive: false, Col_Id: 67 });
+                }
+                if (StatusList.length > 1) {
+                    StatusList.unshift({ Id: 0, Value: 'ALL', SORT_NO: 0, Type: 'Status', isActive: false, Col_Id: 42 });
                 }
 
                 INTENSITY = ['W-X', 'Y-Z', 'FAINT', 'VERY LIGHT', 'LIGHT', 'FANCY LIGHT', 'FANCY', 'FANCY INTENSE', 'FANCY GREEN', 'FANCY DARK', 'FANCY DEEP', 'FANCY VIVID', 'FANCY FAINT', 'DARK'];
@@ -649,7 +657,7 @@ var ModalShow = function (ParameterLabel, ObjLst) {
                 || ParameterLabel == "Clarity" || ParameterLabel == "Cut" || ParameterLabel == "Polish" || ParameterLabel == "Sym"
                 || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM" || ParameterLabel == "CrownBlack"
                 || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
-                || ParameterLabel == "GoodsType" || ParameterLabel == "Culet") {
+                || ParameterLabel == "GoodsType" || ParameterLabel == "Culet" || ParameterLabel == "Status") {
                 IsAllActiveC = parseInt(IsAllActiveC) + 1;
             }
         }
@@ -666,7 +674,7 @@ var ModalShow = function (ParameterLabel, ObjLst) {
         || ParameterLabel == "Clarity" || ParameterLabel == "Cut" || ParameterLabel == "Polish" || ParameterLabel == "Sym"
         || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM" || ParameterLabel == "CrownBlack"
         || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
-        || ParameterLabel == "GoodsType" || ParameterLabel == "Culet") {
+        || ParameterLabel == "GoodsType" || ParameterLabel == "Culet" || ParameterLabel == "Status") {
         if (IsAllActiveC == ObjLst.length - 1) {
             $("#li_" + ParameterLabel + "_0").addClass('active');
         }
@@ -754,6 +762,9 @@ var ItemClicked = function (ParameterLabel, item, c, curritem) {
     if (ParameterLabel == 'GoodsType') {
         list = GoodsTypeList;
     }
+    if (ParameterLabel == 'Status') {
+        list = StatusList;
+    }
     if (ParameterLabel == 'Location') {
         list = LocationList;
     }
@@ -804,7 +815,7 @@ var ItemClicked = function (ParameterLabel, item, c, curritem) {
             || ParameterLabel == "Clarity" || ParameterLabel == "Cut" || ParameterLabel == "Polish" || ParameterLabel == "Sym"
             || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM" || ParameterLabel == "CrownBlack"
             || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
-            || ParameterLabel == "GoodsType" || ParameterLabel == "Culet") {
+            || ParameterLabel == "GoodsType" || ParameterLabel == "Culet" || ParameterLabel == "Status") {
             if (ParameterLabel == "Color" && item == "ALL" && $("#li_" + ParameterLabel + "_0").hasClass("active") == true) {
                 R_F_All_Only_Checkbox_Clr_Rst("1");
             }
@@ -857,7 +868,7 @@ var ItemClicked = function (ParameterLabel, item, c, curritem) {
             || ParameterLabel == "Clarity" || ParameterLabel == "Cut" || ParameterLabel == "Polish" || ParameterLabel == "Sym"
             || ParameterLabel == "Lab" || ParameterLabel == "Fls" || ParameterLabel == "BGM" || ParameterLabel == "CrownBlack"
             || ParameterLabel == "TableBlack" || ParameterLabel == "CrownWhite" || ParameterLabel == "TableWhite"
-            || ParameterLabel == "GoodsType" || ParameterLabel == "Culet") {
+            || ParameterLabel == "GoodsType" || ParameterLabel == "Culet" || ParameterLabel == "Status") {
             var IsAllActiveC = 0;
             for (var j = 0; j <= list.length - 1; j++) {
                 if (list[j].Value != "ALL") {
@@ -897,6 +908,7 @@ var SetSearchParameter = function () {
     var crnwhitelst = _.pluck(_.filter(CrownWhiteList, function (e) { return e.isActive == true }), 'Value').join(",");
     var tblwhitelst = _.pluck(_.filter(TableWhiteList, function (e) { return e.isActive == true }), 'Value').join(",");
     var goodstypeLst = _.pluck(_.filter(GoodsTypeList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var statusLst = _.pluck(_.filter(StatusList, function (e) { return e.isActive == true }), 'Value').join(",");
 
     //CheckedSupplierValue = supplierLst;
     CheckedPointerValue = pointerLst;
@@ -916,6 +928,7 @@ var SetSearchParameter = function () {
     CheckedCrnWhiteValue = crnwhitelst;
     CheckedTblWhiteValue = tblwhitelst;
     CheckedGoodsTypeValue = goodstypeLst;
+    CheckedStatusValue = statusLst;
 
     if (CheckedSupplierValue.split(",").length >= 1) {
         $(".divCheckedSupplierValue").empty();
@@ -929,6 +942,13 @@ var SetSearchParameter = function () {
         $(".divCheckedGoodsTypeValue").append(CheckedGoodsTypeValue);
         $(".divCheckedGoodsTypeValue").attr({
             "title": CheckedGoodsTypeValue
+        });
+    }
+    if (CheckedStatusValue.split(",").length >= 1) {
+        $(".divCheckedStatusValue").empty();
+        $(".divCheckedStatusValue").append(CheckedStatusValue);
+        $(".divCheckedStatusValue").attr({
+            "title": CheckedStatusValue
         });
     }
     if (CheckedLocationValue.split(",").length >= 1) {
@@ -1099,6 +1119,7 @@ function Reset_API_Filter() {
     ResetSelectedAttr('.divCheckedSupplierValue', SupplierList);
     ResetSelectedAttr('.divCheckedLocationValue', LocationList);
     ResetSelectedAttr('.divCheckedGoodsTypeValue', GoodsTypeList);
+    ResetSelectedAttr('.divCheckedStatusValue', StatusList);
     ResetSelectedAttr('.divCheckedShapeValue', ShapeList);
     ResetCheckCarat();
     ResetCheckColors();
@@ -1208,6 +1229,8 @@ function Reset_API_Filter() {
     CheckedLocationValue = "";
     CheckedShapeValue = "";
     CheckedPointerValue = "";
+    CheckedGoodsTypeValue = "";
+    CheckedStatusValue = "";
     CheckedColorValue = "";
     CheckedClarityValue = "";
     CheckedCutValue = "";
@@ -2025,7 +2048,7 @@ function HTML_CREATE(
     FromFinalDisc, ToFinalDisc, FinalDisc_IsBlank,
     FromFinalAmt, ToFinalAmt, FinalAmt_IsBlank,
     Culet,
-    Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
+    Keytosymbol, dCheckKTS, dUNCheckKTS, Status, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
     PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
     Chk_Speci_Additional_1, txtFromDate, txtToDate,
     PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5,
@@ -2055,6 +2078,7 @@ function HTML_CREATE(
     html += "<td><span class='Fi-Criteria Keytosymbol'>" + Keytosymbol + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dCheckKTS'>" + dCheckKTS + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckKTS'>" + dUNCheckKTS + "</span></td>";
+    html += "<td><span class='Fi-Criteria Status'>" + Status + "</span></td>";
     html += "<td><span class='Fi-Criteria GoodsType'>" + GoodsType + "</span></td>";
 
     //html += "<td><span class='Fi-Criteria FromLength'>" + FromLength + "</span></td>";
@@ -2461,6 +2485,7 @@ var AddNewRow = function () {
             var CrownWhite = _.pluck(_.filter(CrownWhiteList, function (e) { return e.isActive == true }), 'Value').join(",");
             var TableWhite = _.pluck(_.filter(TableWhiteList, function (e) { return e.isActive == true }), 'Value').join(",");
             var GoodsType = _.pluck(_.filter(GoodsTypeList, function (e) { return e.isActive == true }), 'Value').join(",");
+            var Status = _.pluck(_.filter(StatusList, function (e) { return e.isActive == true }), 'Value').join(",");
             var Image = $('#Img:checked').val();
             var Video = $('#Vdo:checked').val();
 
@@ -2520,7 +2545,7 @@ var AddNewRow = function () {
                 FromFinalDisc, ToFinalDisc, 0,
                 FromFinalAmt, ToFinalAmt, 0,
                 Culet,
-                Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
+                Keytosymbol, dCheckKTS, dUNCheckKTS, Status, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
                 PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
                 Chk_Speci_Additional_1, txtFromDate, txtToDate,
                 PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5,
@@ -2731,6 +2756,8 @@ function UpdateRow() {
                 $(this).find('.Keytosymbol').html(Keytosymbol);
                 $(this).find('.dCheckKTS').html(dCheckKTS);
                 $(this).find('.dUNCheckKTS').html(dUNCheckKTS);
+                var Status = _.pluck(_.filter(StatusList, function (e) { return e.isActive == true }), 'Value').join(",");
+                $(this).find('.Status').html(Status);
 
                 var BGM = _.pluck(_.filter(BGMList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.BGM').html(BGM);
@@ -3177,6 +3204,19 @@ function EditCriteria(new_id) {
                     }
                 }
 
+                var Status = htmlDecode($(this).find('.Status').html());
+                if (Status != "") {
+                    for (var i in Status.split(',')) {
+                        for (var j in StatusList) {
+                            if (j > 0) {
+                                if (Status.split(',')[i] == StatusList[j].Value) {
+                                    StatusList[j].isActive = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 var BGM = htmlDecode($(this).find('.BGM').html());
                 if (BGM != "") {
                     for (var i in BGM.split(',')) {
@@ -3392,7 +3432,7 @@ function EditCriteria(new_id) {
                 }
 
                 SetSearchParameter();
-                $(window).scrollTop(100);
+                $(window).scrollTop(130);
             }
         });
 
@@ -3482,6 +3522,7 @@ function SaveData() {
                 Culet: htmlDecode($(this).find('.Culet').html()),
                 CheckKTS: htmlDecode($(this).find('.dCheckKTS').html()),
                 UNCheckKTS: htmlDecode($(this).find('.dUNCheckKTS').html()),
+                Status: htmlDecode($(this).find('.Status').html()),
                 BGM: htmlDecode($(this).find('.BGM').html()),
                 CrownBlack: htmlDecode($(this).find('.CrownBlack').html()),
                 TableBlack: htmlDecode($(this).find('.TableBlack').html()),
@@ -3545,7 +3586,7 @@ function SaveData() {
                 if (data.Status == "1") {
                     toastr.success(data.Message);
                     Get_Supplier_Disc();
-                    $(window).scrollTop(100);
+                    $(window).scrollTop(130);
                 }
                 else {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
@@ -3654,6 +3695,7 @@ function Get_Supplier_Disc() {
                         var dCheckKTS = KeyToSymLst_Check1;
                         var dUNCheckKTS = KeyToSymLst_uncheck1;
                         var BGM = NullReplace(itm.BGM);
+                        var Status = NullReplace(itm.Status);
                         var CrownBlack = NullReplace(itm.CrownBlack);
                         var TableBlack = NullReplace(itm.TableBlack);
                         var CrownWhite = NullReplace(itm.CrownWhite);
@@ -3717,7 +3759,7 @@ function Get_Supplier_Disc() {
                             FromBaseAmt, ToBaseAmt, 0,
                             FromFinalDisc, ToFinalDisc, 0,
                             FromFinalAmt, ToFinalAmt, 0,
-                            Culet, Keytosymbol, dCheckKTS, dUNCheckKTS, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
+                            Culet, Keytosymbol, dCheckKTS, dUNCheckKTS, Status, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
                             PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5, Chk_Speci_Additional_1, txtFromDate, txtToDate,
                             PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5, PricingMethod_3, PricingSign_3, txtDisc_3_1, txtValue_3_1,
                             txtValue_3_2, txtValue_3_3, txtValue_3_4, txtValue_3_5, Chk_Speci_Additional_2, txtFromDate1, txtToDate1, PricingMethod_4, PricingSign_4, txtDisc_4_1, txtValue_4_1,

@@ -3323,7 +3323,7 @@ function EditCriteria(new_id) {
                 //}
 
                 SetSearchParameter();
-                $(window).scrollTop(100);
+                $(window).scrollTop(50);
             }
         });
 
@@ -3463,7 +3463,7 @@ function SaveData() {
                 if (data.Status == "1") {
                     toastr.success(data.Message);
                     Get_Customer_Disc();
-                    $(window).scrollTop(100);
+                    $(window).scrollTop(50);
                 }
                 else {
                     if (data.Message.indexOf('Something Went wrong') > -1) {
