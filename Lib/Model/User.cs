@@ -821,6 +821,12 @@ namespace Lib.Model
         public string Para_Grade { get; set; }
         public string QCRequire { get; set; }
         public string LabEntry_Status { get; set; }
+        public decimal PROFIT { get; set; }
+        public decimal PROFIT_AMOUNT { get; set; }
+        public string LabDate { get; set; }
+        public string CustName { get; set; }
+        public int LabId { get; set; }
+        public int LabDetId { get; set; }
         public int PAGE_SIZE { get; set; }
         public float TOTAL_PAGE { get; set; }
     }
@@ -1061,6 +1067,19 @@ namespace Lib.Model
         public string CUSTOMER_COST_VALUE { get; set; }
         public string PROFIT { get; set; }
         public string PROFIT_AMOUNT { get; set; }
+    }
+    public class Get_LabEntryReport_Req
+    {
+        public int UserId { get; set; }
+        public long PgNo { get; set; }
+        public long PgSize { get; set; }
+        public string OrderBy { get; set; }
+        public string StoneId { get; set; }
+        public string CustName { get; set; }
+        public string LabDetId { get; set; }
+        public string Filter { get; set; }
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
     }
     public class Add_MyCart_Req
     {

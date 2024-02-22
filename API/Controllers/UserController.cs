@@ -15005,5 +15005,203 @@ namespace API.Controllers
                 });
             }
         }
+        [NonAction]
+        private DataTable LabEntryReport(Get_LabEntryReport_Req req)
+        {
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+                
+                int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+                para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, UserId));
+
+                if (req.PgNo > 0)
+                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, req.PgNo));
+                else
+                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                if (req.PgSize > 0)
+                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, req.PgSize));
+                else
+                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.OrderBy))
+                    para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, req.OrderBy));
+                else
+                    para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.StoneId))
+                    para.Add(db.CreateParam("StoneId", DbType.String, ParameterDirection.Input, req.StoneId));
+                else
+                    para.Add(db.CreateParam("StoneId", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.CustName))
+                    para.Add(db.CreateParam("CustName", DbType.String, ParameterDirection.Input, req.CustName));
+                else
+                    para.Add(db.CreateParam("CustName", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.LabDetId))
+                    para.Add(db.CreateParam("LabDetId", DbType.String, ParameterDirection.Input, req.LabDetId));
+                else
+                    para.Add(db.CreateParam("LabDetId", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Filter))
+                    para.Add(db.CreateParam("Filter", DbType.String, ParameterDirection.Input, req.Filter));
+                else
+                    para.Add(db.CreateParam("Filter", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromDate))
+                    para.Add(db.CreateParam("FromDate", DbType.String, ParameterDirection.Input, req.FromDate));
+                else
+                    para.Add(db.CreateParam("FromDate", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToDate))
+                    para.Add(db.CreateParam("ToDate", DbType.String, ParameterDirection.Input, req.ToDate));
+                else
+                    para.Add(db.CreateParam("ToDate", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                DataTable Stock_dt = db.ExecuteSP("Get_LabEntryReport", para.ToArray(), false);
+                return Stock_dt;
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, null);
+                return null;
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult Get_LabEntryReport([FromBody] JObject data)
+        {
+            Get_LabEntryReport_Req req = new Get_LabEntryReport_Req();
+
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_LabEntryReport_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<SearchDiamondsResponse>
+                {
+                    Data = new List<SearchDiamondsResponse>(),
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+
+            try
+            {
+                List<SearchDiamondsResponse> searchDiamondsResponses = new List<SearchDiamondsResponse>();
+
+                DataTable Stock_dt = LabEntryReport(req);
+
+                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
+                {
+                    DataRow[] dra = Stock_dt.Select("Sr IS NULL");
+                    SearchSummary searchSummary = new SearchSummary();
+                    if (dra.Length > 0)
+                    {
+                        searchSummary.TOT_PAGE = Convert.ToInt32(dra[0]["TOTAL_PAGE"]);
+                        searchSummary.PAGE_SIZE = Convert.ToInt32(dra[0]["PAGE_SIZE"]);
+                        searchSummary.TOT_PCS = Convert.ToInt32(dra[0]["Ref_No"]);
+                        searchSummary.TOT_CTS = Convert.ToDouble(dra[0]["Cts"]);
+                        searchSummary.TOT_RAP_AMOUNT = Convert.ToDouble((Convert.ToString(dra[0]["Rap_Amount"]) != "" && Convert.ToString(dra[0]["Rap_Amount"]) != null ? dra[0]["Rap_Amount"] : "0"));
+                        searchSummary.AVG_PRICE_PER_CTS = Convert.ToDouble(dra[0]["Base_Price_Cts"]);
+                        searchSummary.AVG_SALES_DISC_PER = Convert.ToDouble((Convert.ToString(dra[0]["CUSTOMER_COST_DISC"]) != "" && Convert.ToString(dra[0]["CUSTOMER_COST_DISC"]) != null ? dra[0]["CUSTOMER_COST_DISC"] : "0"));
+                        searchSummary.TOT_NET_AMOUNT = Convert.ToDouble(dra[0]["CUSTOMER_COST_VALUE"]);
+                    }
+
+                    Stock_dt.DefaultView.RowFilter = "Sr IS NOT NULL";
+                    Stock_dt = Stock_dt.DefaultView.ToTable();
+
+                    SearchDiamondsResponse searchDiamondsResponse = new SearchDiamondsResponse();
+
+                    List<Get_SearchStock_Res> listSearchStone = new List<Get_SearchStock_Res>();
+                    listSearchStone = DataTableExtension.ToList<Get_SearchStock_Res>(Stock_dt);
+
+
+                    if (listSearchStone.Count > 0)
+                    {
+                        searchDiamondsResponses.Add(new SearchDiamondsResponse()
+                        {
+                            DataList = listSearchStone,
+                            DataSummary = searchSummary
+                        });
+                    }
+                }
+
+                return Ok(new ServiceResponse<SearchDiamondsResponse>
+                {
+                    Data = searchDiamondsResponses,
+                    Message = "SUCCESS",
+                    Status = "1"
+                });
+
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<SearchDiamondsResponse>
+                {
+                    Data = new List<SearchDiamondsResponse>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public IHttpActionResult Excel_LabEntryReport([FromBody] JObject data)
+        {
+            Get_LabEntryReport_Req req = new Get_LabEntryReport_Req();
+
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_LabEntryReport_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok("Input Parameters are not in the proper format");
+            }
+            try
+            {
+                DataTable Stock_dt = LabEntryReport(req);
+
+                if (Stock_dt != null && Stock_dt.Rows.Count > 0)
+                {
+                    Stock_dt.DefaultView.RowFilter = "Sr IS NOT NULL";
+                    Stock_dt = Stock_dt.DefaultView.ToTable();
+
+                    string filename = "Lab Entry Report " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string _path = ConfigurationManager.AppSettings["data"];
+                    _path = _path.Replace("Temp", "ExcelFile");
+                    string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
+
+                    if (!Directory.Exists(realpath))
+                    {
+                        Directory.CreateDirectory(realpath);
+                    }
+
+                    EpExcelExport.LabEntryReport_Excel(Stock_dt, realpath, realpath + filename + ".xlsx");
+
+                    string _strxml = _path + filename + ".xlsx";
+                    return Ok(_strxml);
+                }
+                else
+                {
+                    return Ok("No Data Found");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                throw ex;
+            }
+        }
     }
 }

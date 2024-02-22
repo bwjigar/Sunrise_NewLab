@@ -1,10 +1,14 @@
 var TempData_Array = [];
+
+let today = new Date();
+// Add 2.5 hours to the current date
+today.setHours(today.getHours() + 2, today.getMinutes() + 30);
+
 function SetCurrentDate() {
     var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
-    var d = new Date();
-    var curr_date = d.getDate();
-    var curr_month = d.getMonth();
-    var curr_year = d.getFullYear();
+    var curr_date = today.getDate();
+    var curr_month = today.getMonth();
+    var curr_year = today.getFullYear();
     var FinalDate = (curr_date + "-" + m_names[curr_month] + "-" + curr_year);
     return FinalDate;
 }
@@ -27,13 +31,13 @@ $(document).ready(function () {
     $("#txtLabDate").val(SetCurrentDate());
     $('#txtLabDate').daterangepicker({
         singleDatePicker: true,
-        startDate: moment(),
+        startDate: SetCurrentDate(),
         showDropdowns: true,
         locale: {
             separator: "-",
             format: 'DD-MMM-YYYY'
         },
-        maxDate: new Date(),
+        maxDate: today,
         minYear: parseInt(moment().format('YYYY'), 10) - 10
     });
 
@@ -237,7 +241,7 @@ columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cell
 columnDefs.push({ headerName: "Supplier Stone Id", field: "Supplier_Stone_Id", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Supplier_Stone_Id", params); } });
 columnDefs.push({ headerName: "Certificate No", field: "Certificate_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Certificate_No", params); } });
 columnDefs.push({ headerName: "Supplier Name", field: "SupplierName", width: 230, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("SupplierName", params); } });
-columnDefs.push({ headerName: "Company Name", field: "CompName", width: 190, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CompName", params); } });
+columnDefs.push({ headerName: "Company Name", field: "CompName", width: 220, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CompName", params); } });
 columnDefs.push({
     headerName: "QC Require",
     field: "QC_Require",

@@ -1409,5 +1409,24 @@ namespace SunriseLabWeb_New.Controllers
             }
             return Json(data_1.Message, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult LabEntryReport()
+        {
+            return View();
+        }
+        public JsonResult Get_LabEntryReport(Get_LabEntryReport_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Get_LabEntryReport, inputJson);
+            ServiceResponse<SearchDiamondsResponse> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Excel_LabEntryReport(Get_LabEntryReport_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Excel_LabEntryReport, inputJson);
+            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
     }
 }

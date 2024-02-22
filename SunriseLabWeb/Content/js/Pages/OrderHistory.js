@@ -211,8 +211,8 @@ columnDefs.push({ headerName: "Order Date", field: "OrderDate", width: 100, tool
 columnDefs.push({ headerName: "Order No", field: "OrderId", width: 90, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("OrderId", params); } });
 
 if ($("#hdn_UserType").val().includes("1") || $("#hdn_UserType").val().includes("2") || $("#hdn_UserType").val().includes("4")) {
-    columnDefs.push({ headerName: "Customer Name", field: "UserFullName", width: 120, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("UserFullName", params); } });
-    columnDefs.push({ headerName: "Company Name", field: "CompName", width: 200, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CompName", params); } });
+    columnDefs.push({ headerName: "Customer Name", field: "UserFullName", width: 140, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("UserFullName", params); } });
+    columnDefs.push({ headerName: "Company Name", field: "CompName", width: 220, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CompName", params); } });
 }
 columnDefs.push({ headerName: "Ref No", field: "Ref_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("RefNo", params); } });
 columnDefs.push({ headerName: "Status", field: "Final_Order_Status", width: 125, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Order_Status", params); } });
@@ -331,6 +331,7 @@ const datasource1 = {
 
         if (params.request.sortModel.length > 0) {
             obj.OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
+            OrderBy = obj.OrderBy;
         }
         obj.PgNo = PageNo;
         obj.PgSize = pgSize;
@@ -341,8 +342,7 @@ const datasource1 = {
         obj.Hold = Hold;
         obj.Sold = Sold;
         obj.QCReject = QCReject;
-
-        OrderBy = obj.OrderBy;
+        
 
         Rowdata = [];
         $.ajax({

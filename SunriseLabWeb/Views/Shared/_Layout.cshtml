@@ -413,6 +413,12 @@
                                 Lab Entry
                             </a>
                         </li>
+                        <li id="li_User_LabEntryReport">
+                            <a href="@Url.Action("LabEntryReport", "User")">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                                Lab Entry Report
+                            </a>
+                        </li>
                         <li id="li_User_LabAvailibility">
                             <a href="@Url.Action("LabAvailibility", "User")">
                                 <i class="fa fa-file-text" aria-hidden="true"></i>
@@ -692,9 +698,11 @@ var loaderHide = function () {
                 if (data.Status == "1" && data.Message == "SUCCESS" && data.Data.length > 0) {
                     _(data.Data).each(function (obj, i) {
                         if (obj.Status == "1") {
+                            toastr.remove();
                             toastr.success(obj.Message);
                         }
                         else {
+                            toastr.remove();
                             toastr.error(obj.Message);
                         }
                     });
@@ -780,6 +788,7 @@ var loaderHide = function () {
                 if ($("#Comments").val().trim() == "") {
                     $("#Comments").val("");
                     $("#Comments").focus();
+                    toastr.remove();
                     toastr.warning("Please Enter Comments");
                     return;
                 }
@@ -820,6 +829,7 @@ var loaderHide = function () {
                         loaderHide();
                         if (data.Status == "1") {
                             $('#PlaceOrderModal').modal('hide');
+                            toastr.remove();
                             toastr.success(data.Message);
 
                             if ($("#hdn_PageName").val() == "SearchStock") {
@@ -833,6 +843,7 @@ var loaderHide = function () {
                             if (data.Message.indexOf('Something Went wrong') > -1) {
                                 MoveToErrorPage(0);
                             }
+                            toastr.remove();
                             toastr.error(data.Message);
                         }
                     },
