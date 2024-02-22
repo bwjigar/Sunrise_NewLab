@@ -94,6 +94,12 @@ function cellStyle(field, params) {
         if (params.data.Cut == '3EX' && (field == 'Cut' || field == 'Polish' || field == 'Symm')) {
             return { 'font-size': '11px', 'font-weight': 'bold' };
         }
+        else if (field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE") {
+            return { 'color': '#143f58', 'font-weight': '600', 'background-color': '#ff99cc', 'text-align': 'center', 'font-size': '11px' };
+        }
+        else if (field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE") {
+            return { 'color': '#143f58', 'font-weight': '600', 'background-color': '#ccffff', 'text-align': 'center', 'font-size': '11px' };
+        }
         else if (field == "Profit" || field == "Profit Amount" || field == "Disc" || field == "Value" || field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE" || field == "MAX_DISC" || field == "MAX_VALUE" ||
             field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE" || field == "Bid_Disc" || field == "Bid_Amt" || field == "Avg_Stock_Disc" ||
             field == "Avg_Pur_Disc" || field == "Avg_Sales_Disc") {

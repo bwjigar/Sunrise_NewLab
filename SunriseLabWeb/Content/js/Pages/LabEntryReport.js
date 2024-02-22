@@ -157,6 +157,12 @@ function cellStyle(field, params) {
         if (params.data.Cut == '3EX' && (field == 'Cut' || field == 'Polish' || field == 'Symm')) {
             return { 'font-size': '11px', 'font-weight': 'bold' };
         }
+        else if (field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE") {
+            return { 'color': '#143f58', 'font-weight': '600', 'background-color': '#ff99cc', 'text-align': 'center', 'font-size': '11px' };
+        }
+        else if (field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE") {
+            return { 'color': '#143f58', 'font-weight': '600', 'background-color': '#ccffff', 'text-align': 'center', 'font-size': '11px' };
+        }
         else if (field == "Disc" || field == "Value" || field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE" || field == "MAX_DISC" || field == "MAX_VALUE" ||
             field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE" || field == "Bid_Disc" || field == "Bid_Amt" || field == "Avg_Stock_Disc" ||
             field == "Avg_Pur_Disc" || field == "Avg_Sales_Disc" || field == "PROFIT" || field == "PROFIT_AMOUNT") {
@@ -268,8 +274,8 @@ columnDefs.push({ headerName: "Supplier Cost Disc(%)", field: "SUPPLIER_COST_DIS
 columnDefs.push({ headerName: "Supplier Cost Value($)", field: "SUPPLIER_COST_VALUE", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("SUPPLIER_COST_VALUE", params); } });
 columnDefs.push({ headerName: "Final Sale Disc(%)", field: "CUSTOMER_COST_DISC", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_DISC", params); } });
 columnDefs.push({ headerName: "Final Sale Amt US($)", field: "CUSTOMER_COST_VALUE",  width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_VALUE", params); } });
-columnDefs.push({ headerName: "Profit(%)", field: "PROFIT", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_DISC", params); } });
-columnDefs.push({ headerName: "Profit Amount($)", field: "PROFIT_AMOUNT", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_VALUE", params); } });
+columnDefs.push({ headerName: "Profit(%)", field: "PROFIT", width: 105, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("PROFIT", params); } });
+columnDefs.push({ headerName: "Profit Amount($)", field: "PROFIT_AMOUNT", width: 115, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("PROFIT_AMOUNT", params); } });
 columnDefs.push({ headerName: "Supplier Base Offer Disc(%)", field: "Disc", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Disc", params); } });
 columnDefs.push({ headerName: "Supplier Base Value($)", field: "Value", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Value", params); } });
 columnDefs.push({ headerName: "Cut", field: "Cut", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Cut", params); } });
@@ -430,7 +436,8 @@ function onGridReady(params) {
 var Reset = function () {
     FromTo_Date();
     $('#txt_S_StoneId').val('');
-
+    $('#txt_S_CustName').val('');
+    
     filter = "";
     ConfirmHold = false;
     Confirm = false;

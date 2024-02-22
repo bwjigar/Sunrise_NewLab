@@ -81,11 +81,14 @@ function cellStyle(field, params) {
         if (params.data.Cut == '3EX' && (field == 'Cut' || field == 'Polish' || field == 'Symm')) {
             return { 'font-size': '11px', 'font-weight': 'bold' };
         }
+        else if (field == "RATIO") {
+            return { 'color': '#143f58', 'font-weight': '600', 'background-color': '#BDD7EE', 'text-align': 'center', 'font-size': '11px' };
+        }
         else if (field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE") {
-            return { 'font-weight': '600', 'background-color': '#ccffff', 'text-align': 'center', 'font-size': '11px' };
+            return { 'color': '#143f58', 'font-weight': '600', 'background-color': '#ccffff', 'text-align': 'center', 'font-size': '11px' };
         }
         else if (field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE") {
-            return { 'font-weight': '600', 'background-color': '#ff99cc', 'text-align': 'center', 'font-size': '11px' };
+            return { 'color': '#143f58', 'font-weight': '600', 'background-color': '#ff99cc', 'text-align': 'center', 'font-size': '11px' };
         }
         else if (field == "Disc" || field == "Value" || field == "MAX_DISC" || field == "MAX_VALUE" ||
             field == "Bid_Disc" || field == "Bid_Amt" || field == "Avg_Stock_Disc" ||

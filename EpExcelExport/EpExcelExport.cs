@@ -5888,6 +5888,8 @@ namespace EpExcelExportLib
                     Color colFromHex_Dis = System.Drawing.ColorTranslator.FromHtml("#ccffff");
                     Color colFromHexTotal = System.Drawing.ColorTranslator.FromHtml("#d9e1f2");
                     Color tcpg_bg_clr = System.Drawing.ColorTranslator.FromHtml("#fff2cc");
+                    Color cellBg = System.Drawing.ColorTranslator.FromHtml("#ccffff");
+                    Color cellBg1 = System.Drawing.ColorTranslator.FromHtml("#ff99cc");
 
                     #region Company Detail on Header
 
@@ -6224,6 +6226,11 @@ namespace EpExcelExportLib
                     worksheet.Cells[inStartIndex, 29, (inwrkrow - 1), 32].Style.Numberformat.Format = "0.00";
                     worksheet.Cells[inStartIndex, 35, (inwrkrow - 1), 39].Style.Numberformat.Format = "0.00";
 
+                    worksheet.Cells[inStartIndex, 17, (inwrkrow - 1), 18].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells[inStartIndex, 17, (inwrkrow - 1), 18].Style.Fill.BackgroundColor.SetColor(cellBg1);
+
+                    worksheet.Cells[inStartIndex, 19, (inwrkrow - 1), 20].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells[inStartIndex, 19, (inwrkrow - 1), 20].Style.Fill.BackgroundColor.SetColor(cellBg);
 
 
                     worksheet.Cells[2, 5].Formula = "ROUND(SUBTOTAL(102," + GetExcelColumnLetter(14) + "" + inStartIndex + ":" + GetExcelColumnLetter(14) + "" + (inwrkrow - 1) + "),2)";
@@ -6352,6 +6359,8 @@ namespace EpExcelExportLib
                     Color colFromHex_Dis = System.Drawing.ColorTranslator.FromHtml("#ccffff");
                     Color colFromHexTotal = System.Drawing.ColorTranslator.FromHtml("#d9e1f2");
                     Color tcpg_bg_clr = System.Drawing.ColorTranslator.FromHtml("#fff2cc");
+                    Color cellBg = System.Drawing.ColorTranslator.FromHtml("#ccffff");
+                    Color cellBg1 = System.Drawing.ColorTranslator.FromHtml("#ff99cc");
 
                     #region Company Detail on Header
 
@@ -6776,7 +6785,11 @@ namespace EpExcelExportLib
                     worksheet.Cells[inStartIndex, 34, (inwrkrow - 1), 37].Style.Numberformat.Format = "0.00";
                     worksheet.Cells[inStartIndex, 40, (inwrkrow - 1), 44].Style.Numberformat.Format = "0.00";
 
+                    worksheet.Cells[inStartIndex, 22, (inwrkrow - 1), 23].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells[inStartIndex, 22, (inwrkrow - 1), 23].Style.Fill.BackgroundColor.SetColor(cellBg1);
 
+                    worksheet.Cells[inStartIndex, 24, (inwrkrow - 1), 25].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells[inStartIndex, 24, (inwrkrow - 1), 25].Style.Fill.BackgroundColor.SetColor(cellBg);
 
                     worksheet.Cells[2, 7].Formula = "ROUND(SUBTOTAL(102," + GetExcelColumnLetter(19) + "" + inStartIndex + ":" + GetExcelColumnLetter(19) + "" + (inwrkrow - 1) + "),2)";
                     worksheet.Cells[2, 7].Style.Fill.PatternType = ExcelFillStyle.Solid;

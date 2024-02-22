@@ -145,6 +145,12 @@ function cellStyle(field, params) {
         if (params.data.Cut == '3EX' && (field == 'Cut' || field == 'Polish' || field == 'Symm')) {
             return { 'font-size': '11px', 'font-weight': 'bold' };
         }
+        else if (field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE") {
+            return { 'color': '#143f58', 'font-weight': '600', 'background-color': '#ff99cc', 'text-align': 'center', 'font-size': '11px' };
+        }
+        else if (field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE") {
+            return { 'color': '#143f58', 'font-weight': '600', 'background-color': '#ccffff', 'text-align': 'center', 'font-size': '11px' };
+        }
         else if (field == "Profit" || field == "Profit Amount" || field == "Disc" || field == "Value" || field == "SUPPLIER_COST_DISC" || field == "SUPPLIER_COST_VALUE" || field == "MAX_DISC" || field == "MAX_VALUE" ||
             field == "CUSTOMER_COST_DISC" || field == "CUSTOMER_COST_VALUE" || field == "Bid_Disc" || field == "Bid_Amt" || field == "Avg_Stock_Disc" ||
             field == "Avg_Pur_Disc" || field == "Avg_Sales_Disc") {
@@ -269,28 +275,32 @@ columnDefs.push({
     field: "SUPPLIER_COST_DISC",
     width: 105,
     sortable: false,
-    cellRenderer: 'input_SUPPLIER_COST_DISC_Indicator'
+    cellRenderer: 'input_SUPPLIER_COST_DISC_Indicator',
+    cellStyle: function (params) { return cellStyle("SUPPLIER_COST_DISC", params); }
 });
 columnDefs.push({
     headerName: "Supplier Cost Value($)",
     field: "SUPPLIER_COST_VALUE",
     width: 125,
     sortable: false,
-    cellRenderer: 'input_SUPPLIER_COST_VALUE_Indicator'
+    cellRenderer: 'input_SUPPLIER_COST_VALUE_Indicator',
+    cellStyle: function (params) { return cellStyle("SUPPLIER_COST_VALUE", params); }
 });
 columnDefs.push({
     headerName: "Final Sale Disc(%)",
     field: "CUSTOMER_COST_DISC",
     width: 105,
     sortable: false,
-    cellRenderer: 'input_CUSTOMER_COST_DISC_Indicator'
+    cellRenderer: 'input_CUSTOMER_COST_DISC_Indicator',
+    cellStyle: function (params) { return cellStyle("CUSTOMER_COST_DISC", params); }
 });
 columnDefs.push({
     headerName: "Final Sale Amt US($)",
     field: "CUSTOMER_COST_VALUE",
     width: 125,
     sortable: false,
-    cellRenderer: 'input_CUSTOMER_COST_VALUE_Indicator'
+    cellRenderer: 'input_CUSTOMER_COST_VALUE_Indicator',
+    cellStyle: function (params) { return cellStyle("CUSTOMER_COST_VALUE", params); }
 });
 columnDefs.push({
     headerName: "Profit(%)",
