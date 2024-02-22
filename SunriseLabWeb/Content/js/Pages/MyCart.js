@@ -23,7 +23,7 @@ function SetCurrentDate() {
     var FinalDate = (curr_date + "-" + m_names[curr_month] + "-" + curr_year);
     return FinalDate;
 }
-var pgSize = 50;
+var pgSize = 200;
 function onPageSizeChanged() {
     var value = $("#ddlPagesize").val();
     pgSize = Number(value);
@@ -31,7 +31,6 @@ function onPageSizeChanged() {
 }
 var showEntryHtml = '<div class="show_entry"><label>'
     + 'Show <select onchange = "onPageSizeChanged()" id = "ddlPagesize">'
-    + '<option value="50">50</option>'
     + '<option value="200">200</option>'
     + '<option value="500">500</option>'
     + '<option value="1000">1000</option>'
