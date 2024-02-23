@@ -12711,7 +12711,7 @@ namespace API.Controllers
                     Stock_dt.DefaultView.RowFilter = "iSr IS NOT NULL";
                     Stock_dt = Stock_dt.DefaultView.ToTable();
 
-                    string filename = "Lab Entry " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string filename = "Entry " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
                     string _path = ConfigurationManager.AppSettings["data"];
                     _path = _path.Replace("Temp", "ExcelFile");
                     string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
@@ -15182,7 +15182,7 @@ namespace API.Controllers
                     Stock_dt.DefaultView.RowFilter = "Sr IS NOT NULL";
                     Stock_dt = Stock_dt.DefaultView.ToTable();
 
-                    string filename = "Lab Entry Report " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string filename = "Entry Report " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
                     string _path = ConfigurationManager.AppSettings["data"];
                     _path = _path.Replace("Temp", "ExcelFile");
                     string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
