@@ -482,6 +482,9 @@ namespace Lib.Model
         public string CheckKTS { get; set; }
         public string UNCheckKTS { get; set; }
         public bool KTS_IsBlank { get; set; }
+        public string CheckRC { get; set; }
+        public string UNCheckRC { get; set; }
+        public bool RC_IsBlank { get; set; }
         public string Status { get; set; }
         public string Culet { get; set; }
         public string BGM { get; set; }

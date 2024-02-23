@@ -15,6 +15,7 @@ var FlsList = [];
 var LabList = [];
 var CuletList = [];
 var KTSList = [];
+var RCList = [];
 var BGMList = [];
 var CrownBlackList = [];
 var TableBlackList = [];
@@ -108,10 +109,14 @@ var Carat = "";
 var KeyToSymbolList = [];
 var CheckKeyToSymbolList = [];
 var UnCheckKeyToSymbolList = [];
+var ReportCommentsList = [];
+var CheckReportCommentsList = [];
+var UnCheckReportCommentsList = [];
+
 var Regular = true, Fancy = false;
 var Regular_All = false, Fancy_All = false;
 var INTENSITY = [], OVERTONE = [], FANCY_COLOR = [];
-var KTS = 0, C1 = 0, C2 = 0, C3 = 0;
+var RC = 0, KTS = 0, C1 = 0, C2 = 0, C3 = 0;
 var Check_Color_1 = [], Check_Color_2 = [], Check_Color_3 = [];
 var FC = "";
 var Exists_Record = 0;
@@ -310,6 +315,7 @@ $(document).ready(function () {
     Reset_API_Filter();
     Get_API_StockFilter();
     BindKeyToSymbolList();
+    BindReportCommentsList();
 
     $("#tblFilters").on('click', '.RemoveCriteria', function () {
         $(this).closest('tr').remove();
@@ -497,6 +503,9 @@ function Get_API_StockFilter() {
                     }
                     if (data.Data[k].Col_Id == 49) {
                         KeyToSymbolList.push(data.Data[k]);
+                    }
+                    if (data.Data[k].Col_Id == 51) {
+                        ReportCommentsList.push(data.Data[k]);
                     }
                     if (data.Data[k].Col_Id == 66) {
                         GoodsTypeList.push(data.Data[k]);
@@ -1168,6 +1177,7 @@ function Reset_API_Filter() {
     $("#ToFinalAmt").val("");
 
     resetKeytoSymbol();
+    resetReportComments();
     ResetSelectedAttr('.divCheckedBGMValue', BGMList);
     ResetSelectedAttr('.divCheckedCrnBlackValue', CrownBlackList);
     ResetSelectedAttr('.divCheckedTblBlackValue', CrownWhiteList);
@@ -1246,6 +1256,7 @@ function Reset_API_Filter() {
     CheckedCrnWhiteValue = "";
     CheckedTblWhiteValue = "";
 }
+
 function BindKeyToSymbolList() {
     $('#searchkeytosymbol').html("");
     if (KeyToSymbolList.length > 0) {
@@ -1255,13 +1266,13 @@ function BindKeyToSymbolList() {
                 + '<li class="carat-dropdown-chkbox">'
                 + '<div class="main-cust-check">'
                 + '<label class="cust-rdi-bx mn-check">'
-                + '<input type="radio" class="checkradio" id="CHK_KTS_Radio_' + (i + 1) + '" name="radio' + (i + 1) + '" onclick="GetCheck_KTS_List(\'' + itm.Value + '\');">'
+                + '<input type="radio" class="checkradio" id="CHK_KTS_Radio_' + (i + 1) + '" name="radio_KTS_' + (i + 1) + '" onclick="GetCheck_KTS_List(\'' + itm.Value + '\');">'
                 + '<span class="cust-rdi-check">'
                 + '<i class="fa fa-check"></i>'
                 + '</span>'
                 + '</label>'
                 + '<label class="cust-rdi-bx mn-time">'
-                + '<input type="radio" id="UNCHK_KTS_Radio_' + (i + 1) + '" class="checkradio" name="radio' + (i + 1) + '" onclick="GetUnCheck_KTS_List(\'' + itm.Value + '\');">'
+                + '<input type="radio" id="UNCHK_KTS_Radio_' + (i + 1) + '" class="checkradio" name="radio_KTS_' + (i + 1) + '" onclick="GetUnCheck_KTS_List(\'' + itm.Value + '\');">'
                 + '<span class="cust-rdi-check">'
                 + '<i class="fa fa-times"></i>'
                 + '</span>'
@@ -1276,61 +1287,17 @@ function BindKeyToSymbolList() {
         });
         $('#searchkeytosymbol').append('<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>');
     }
-
-
-    //$.ajax({
-    //    url: "/User/get_key_to_symbol",
-    //    async: false,
-    //    type: "POST",
-    //    data: null,
-    //    success: function (data, textStatus, jqXHR) {
-    //        var KeytoSymbolList = data.Data;
-    //        $('#searchkeytosymbol').html("");
-    //        if (KeytoSymbolList != null) {
-    //            if (KeytoSymbolList.length > 0) {
-    //                $.each(KeytoSymbolList, function (i, itm) {
-    //                    $('#searchkeytosymbol').append('<div class="col-12 pl-0 pr-0 ng-scope">'
-    //                        + '<ul class="row m-0">'
-    //                        + '<li class="carat-dropdown-chkbox">'
-    //                        + '<div class="main-cust-check">'
-    //                        + '<label class="cust-rdi-bx mn-check">'
-    //                        + '<input type="radio" class="checkradio" id="CHK_KTS_Radio_' + (i + 1) + '" name="radio' + (i + 1) + '" onclick="GetCheck_KTS_List(\'' + itm.sSymbol + '\');">'
-    //                        + '<span class="cust-rdi-check">'
-    //                        + '<i class="fa fa-check"></i>'
-    //                        + '</span>'
-    //                        + '</label>'
-    //                        + '<label class="cust-rdi-bx mn-time">'
-    //                        + '<input type="radio" id="UNCHK_KTS_Radio_' + (i + 1) + '" class="checkradio" name="radio' + (i + 1) + '" onclick="GetUnCheck_KTS_List(\'' + itm.sSymbol + '\');">'
-    //                        + '<span class="cust-rdi-check">'
-    //                        + '<i class="fa fa-times"></i>'
-    //                        + '</span>'
-    //                        + '</label>'
-    //                        + '</div>'
-    //                        + '</li>'
-    //                        + '<li class="col" style="text-align: left;margin-left: -15px;">'
-    //                        + '<span>' + itm.sSymbol + '</span>'
-    //                        + '</li>'
-    //                        + '</ul>'
-    //                        + '</div>')
-    //                    //itm.ACTIVE = false;
-    //                    //itm.INACTIVE = false;
-    //                });
-    //                $('#searchkeytosymbol').append('<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>');
-    //            }
-    //        }
-    //    },
-    //    error: function (jqXHR, textStatus, errorThrown) {
-    //    }
-    //});
 }
 function Key_to_symbolShow() {
     setTimeout(function () {
         if (KTS == 0) {
-            $(".carat-dropdown-main").show();
+            $("#sym-sec0 .carat-dropdown-main").show();
             KTS = 1;
+            $("#sym-sec4 .carat-dropdown-main").hide();
+            RC = 0;
         }
         else {
-            $(".carat-dropdown-main").hide();
+            $("#sym-sec0 .carat-dropdown-main").hide();
             KTS = 0;
         }
     }, 2);
@@ -1372,6 +1339,90 @@ function GetUnCheck_KTS_List(item) {
         $('#spanunselected').html('' + UnCheckKeyToSymbolList.length + ' - Deselected');
     }
 }
+
+function BindReportCommentsList() {
+    $('#searchreportcomments').html("");
+    if (ReportCommentsList.length > 0) {
+        $.each(ReportCommentsList, function (i, itm) {
+            $('#searchreportcomments').append('<div class="col-12 pl-0 pr-0 ng-scope">'
+                + '<ul class="row m-0">'
+                + '<li class="carat-dropdown-chkbox">'
+                + '<div class="main-cust-check">'
+                + '<label class="cust-rdi-bx mn-check">'
+                + '<input type="radio" class="checkradio" id="CHK_RC_Radio_' + (i + 1) + '" name="radio_RC_' + (i + 1) + '" onclick="GetCheck_RC_List(\'' + itm.Value + '\');">'
+                + '<span class="cust-rdi-check">'
+                + '<i class="fa fa-check"></i>'
+                + '</span>'
+                + '</label>'
+                + '<label class="cust-rdi-bx mn-time">'
+                + '<input type="radio" id="UNCHK_RC_Radio_' + (i + 1) + '" class="checkradio" name="radio_RC_' + (i + 1) + '" onclick="GetUnCheck_RC_List(\'' + itm.Value + '\');">'
+                + '<span class="cust-rdi-check">'
+                + '<i class="fa fa-times"></i>'
+                + '</span>'
+                + '</label>'
+                + '</div>'
+                + '</li>'
+                + '<li class="col" style="text-align: left;margin-left: -15px;">'
+                + '<span>' + itm.Value + '</span>'
+                + '</li>'
+                + '</ul>'
+                + '</div>')
+        });
+        $('#searchreportcomments').append('<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>');
+    }
+}
+function ReportComments_Show() {
+    setTimeout(function () {
+        if (RC == 0) {
+            $("#sym-sec4 .carat-dropdown-main").show();
+            RC = 1;
+            $("#sym-sec0 .carat-dropdown-main").hide();
+            KTS = 0;
+        }
+        else {
+            $("#sym-sec4 .carat-dropdown-main").hide();
+            RC = 0;
+        }
+    }, 2);
+}
+function resetReportComments() {
+    CheckReportCommentsList = [];
+    UnCheckReportCommentsList = [];
+    $('#spanselected_1').html('' + CheckReportCommentsList.length + ' - Selected');
+    $('#spanunselected_1').html('' + UnCheckReportCommentsList.length + ' - Deselected');
+    $('#searchreportcomments input[type="radio"]').prop('checked', false);
+    RC = 1;
+    ReportComments_Show();
+}
+function GetCheck_RC_List(item) {
+    var SList = _.reject(UnCheckReportCommentsList, function (e) { return e.Symbol == item });
+    UnCheckReportCommentsList = SList;
+
+    var res = _.filter(CheckReportCommentsList, function (e) { return (e.Symbol == item) });
+    if (res.length == 0) {
+        CheckReportCommentsList.push({
+            "NewID": CheckReportCommentsList.length + 1,
+            "Symbol": item,
+        });
+        $('#spanselected_1').html('' + CheckReportCommentsList.length + ' - Selected');
+        $('#spanunselected_1').html('' + UnCheckReportCommentsList.length + ' - Deselected');
+    }
+}
+function GetUnCheck_RC_List(item) {
+    var SList = _.reject(CheckReportCommentsList, function (e) { return e.Symbol == item });
+    CheckReportCommentsList = SList
+
+    var res = _.filter(UnCheckReportCommentsList, function (e) { return (e.Symbol == item) });
+    if (res.length == 0) {
+        UnCheckReportCommentsList.push({
+            "NewID": UnCheckReportCommentsList.length + 1,
+            "Symbol": item,
+        });
+        $('#spanselected_1').html('' + CheckReportCommentsList.length + ' - Selected');
+        $('#spanunselected_1').html('' + UnCheckReportCommentsList.length + ' - Deselected');
+    }
+}
+
 function setFromCarat() {
     if ($('#txtfromcarat').val() != "") {
         $('#txtfromcarat').val(parseFloat($('#txtfromcarat').val()).toFixed(2));
@@ -1477,11 +1528,12 @@ var ResetCheckColors = function () {
     $('#ddl_FANCY_COLOR input[type="checkbox"]').prop('checked', false);
 
     $("#sym-sec0 .carat-dropdown-main").hide();
+    $("#sym-sec4 .carat-dropdown-main").hide();
     $("#sym-sec1 .carat-dropdown-main").hide();
     $("#sym-sec2 .carat-dropdown-main").hide();
     $("#sym-sec3 .carat-dropdown-main").hide();
 
-    C3 = 0, C1 = 0, KTS = 0, C2 = 0;
+    C3 = 0, C1 = 0, KTS = 0, C2 = 0,RC=0;
     _.each(ColorList, function (itm) {
         itm.isActive = false;
     });
@@ -1822,11 +1874,11 @@ function INTENSITYShow() {
             $("#sym-sec3 .carat-dropdown-main").hide();
             $("#sym-sec1 .carat-dropdown-main").show();
             C1 = 1;
-            KTS = 0, C2 = 0, C3 = 0;
+            RC = 0, KTS = 0, C2 = 0, C3 = 0;
         }
         else {
             $("#sym-sec1 .carat-dropdown-main").hide();
-            C1 = 0, KTS = 0, C2 = 0, C3 = 0;
+            C1 = 0, RC = 0, KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
@@ -1838,11 +1890,11 @@ function OVERTONEShow() {
             $("#sym-sec3 .carat-dropdown-main").hide();
             $("#sym-sec2 .carat-dropdown-main").show();
             C2 = 1;
-            C1 = 0, KTS = 0, C3 = 0;
+            C1 = 0, RC = 0, KTS = 0, C3 = 0;
         }
         else {
             $("#sym-sec2 .carat-dropdown-main").hide();
-            C1 = 0, KTS = 0, C2 = 0, C3 = 0;
+            C1 = 0, RC = 0, KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
@@ -1854,11 +1906,11 @@ function FANCY_COLORShow() {
             $("#sym-sec2 .carat-dropdown-main").hide();
             $("#sym-sec3 .carat-dropdown-main").show();
             C3 = 1;
-            C1 = 0, KTS = 0, C2 = 0;
+            C1 = 0, RC = 0, KTS = 0, C2 = 0;
         }
         else {
             $("#sym-sec3 .carat-dropdown-main").hide();
-            C1 = 0, KTS = 0, C2 = 0, C3 = 0;
+            C1 = 0, RC = 0, KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
@@ -2051,7 +2103,7 @@ function HTML_CREATE(
     FromFinalDisc, ToFinalDisc, FinalDisc_IsBlank,
     FromFinalAmt, ToFinalAmt, FinalAmt_IsBlank,
     Culet,
-    Keytosymbol, dCheckKTS, dUNCheckKTS, Status, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
+    Keytosymbol, dCheckKTS, dUNCheckKTS, Reportcomments, dCheckRC, dUNCheckRC, Status, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
     PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
     Chk_Speci_Additional_1, txtFromDate, txtToDate,
     PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5,
@@ -2078,9 +2130,15 @@ function HTML_CREATE(
     html += "<td><span class='Fi-Criteria Fls'>" + Fls + "</span></td>";
     html += "<td><span class='Fi-Criteria Lab'>" + Lab + "</span></td>";
     html += "<td><span class='Fi-Criteria BGM'>" + BGM + "</span></td>";
+
     html += "<td><span class='Fi-Criteria Keytosymbol'>" + Keytosymbol + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dCheckKTS'>" + dCheckKTS + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckKTS'>" + dUNCheckKTS + "</span></td>";
+
+    html += "<td><span class='Fi-Criteria Reportcomments'>" + Reportcomments + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria dCheckRC'>" + dCheckRC + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckRC'>" + dUNCheckRC + "</span></td>";
+
     html += "<td><span class='Fi-Criteria Status'>" + Status + "</span></td>";
     html += "<td><span class='Fi-Criteria GoodsType'>" + GoodsType + "</span></td>";
 
@@ -2482,6 +2540,13 @@ var AddNewRow = function () {
             var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : "-") + KeyToSymLst_uncheck1;
             var dCheckKTS = KeyToSymLst_Check1;
             var dUNCheckKTS = KeyToSymLst_uncheck1;
+
+            var ReportCommentsLst_Check1 = _.pluck(CheckReportCommentsList, 'Symbol').join(",");
+            var ReportCommentsLst_uncheck1 = _.pluck(UnCheckReportCommentsList, 'Symbol').join(",");
+            var ReportComments = ReportCommentsLst_Check1 + (ReportCommentsLst_Check1 == "" || ReportCommentsLst_uncheck1 == "" ? "" : "-") + ReportCommentsLst_uncheck1;
+            var dCheckRC = ReportCommentsLst_Check1;
+            var dUNCheckRC = ReportCommentsLst_uncheck1;
+
             var BGM = _.pluck(_.filter(BGMList, function (e) { return e.isActive == true }), 'Value').join(",");
             var CrownBlack = _.pluck(_.filter(CrownBlackList, function (e) { return e.isActive == true }), 'Value').join(",");
             var TableBlack = _.pluck(_.filter(TableBlackList, function (e) { return e.isActive == true }), 'Value').join(",");
@@ -2548,7 +2613,7 @@ var AddNewRow = function () {
                 FromFinalDisc, ToFinalDisc, 0,
                 FromFinalAmt, ToFinalAmt, 0,
                 Culet,
-                Keytosymbol, dCheckKTS, dUNCheckKTS, Status, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
+                Keytosymbol, dCheckKTS, dUNCheckKTS, ReportComments, dCheckRC, dUNCheckRC, Status, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
                 PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5,
                 Chk_Speci_Additional_1, txtFromDate, txtToDate,
                 PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5,
@@ -2759,6 +2824,17 @@ function UpdateRow() {
                 $(this).find('.Keytosymbol').html(Keytosymbol);
                 $(this).find('.dCheckKTS').html(dCheckKTS);
                 $(this).find('.dUNCheckKTS').html(dUNCheckKTS);
+
+                var ReportCommentsLst_Check1 = _.pluck(CheckReportCommentsList, 'Symbol').join(",");
+                var ReportCommentsLst_uncheck1 = _.pluck(UnCheckReportCommentsList, 'Symbol').join(",");
+                var ReportComments = ReportCommentsLst_Check1 + (ReportCommentsLst_Check1 == "" || ReportCommentsLst_uncheck1 == "" ? "" : "-") + ReportCommentsLst_uncheck1;
+                var dCheckRC = ReportCommentsLst_Check1;
+                var dUNCheckRC = ReportCommentsLst_uncheck1;
+
+                $(this).find('.Reportcomments').html(ReportComments);
+                $(this).find('.dCheckRC').html(dCheckRC);
+                $(this).find('.dUNCheckRC').html(dUNCheckRC);
+
                 var Status = _.pluck(_.filter(StatusList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.Status').html(Status);
 
@@ -3207,6 +3283,30 @@ function EditCriteria(new_id) {
                     }
                 }
 
+                var dCheckRC = htmlDecode($(this).find('.dCheckRC').html());
+                var dUNCheckRC = htmlDecode($(this).find('.dUNCheckRC').html());
+
+                if (dCheckRC != "") {
+                    for (var i in dCheckRC.split(',')) {
+                        for (var j in ReportCommentsList) {
+                            if (dCheckRC.split(',')[i] == ReportCommentsList[j].Value) {
+                                document.getElementById("CHK_RC_Radio_" + (parseInt(j) + 1)).checked = true;
+                                GetCheck_RC_List(ReportCommentsList[j].Value);
+                            }
+                        }
+                    }
+                }
+                if (dUNCheckRC != "") {
+                    for (var i in dUNCheckRC.split(',')) {
+                        for (var j in ReportCommentsList) {
+                            if (dUNCheckRC.split(',')[i] == ReportCommentsList[j].Value) {
+                                document.getElementById("UNCHK_RC_Radio_" + (parseInt(j) + 1)).checked = true;
+                                GetUnCheck_RC_List(ReportCommentsList[j].Value);
+                            }
+                        }
+                    }
+                }
+
                 var Status = htmlDecode($(this).find('.Status').html());
                 if (Status != "") {
                     for (var i in Status.split(',')) {
@@ -3525,6 +3625,10 @@ function SaveData() {
                 Culet: htmlDecode($(this).find('.Culet').html()),
                 CheckKTS: htmlDecode($(this).find('.dCheckKTS').html()),
                 UNCheckKTS: htmlDecode($(this).find('.dUNCheckKTS').html()),
+
+                CheckRC: htmlDecode($(this).find('.dCheckRC').html()),
+                UNCheckRC: htmlDecode($(this).find('.dUNCheckRC').html()),
+                
                 Status: htmlDecode($(this).find('.Status').html()),
                 BGM: htmlDecode($(this).find('.BGM').html()),
                 CrownBlack: htmlDecode($(this).find('.CrownBlack').html()),
@@ -3699,6 +3803,13 @@ function Get_Supplier_Disc() {
                         var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : "-") + KeyToSymLst_uncheck1;
                         var dCheckKTS = KeyToSymLst_Check1;
                         var dUNCheckKTS = KeyToSymLst_uncheck1;
+
+                        var ReportCommentsLst_Check1 = NullReplace(itm.CheckRC);
+                        var ReportCommentsLst_uncheck1 = NullReplace(itm.UNCheckRC);
+                        var ReportComments = ReportCommentsLst_Check1 + (ReportCommentsLst_Check1 == "" || ReportCommentsLst_uncheck1 == "" ? "" : "-") + ReportCommentsLst_uncheck1;
+                        var dCheckRC = ReportCommentsLst_Check1;
+                        var dUNCheckRC = ReportCommentsLst_uncheck1;
+
                         var BGM = NullReplace(itm.BGM);
                         var Status = NullReplace(itm.Status);
                         var CrownBlack = NullReplace(itm.CrownBlack);
@@ -3764,7 +3875,7 @@ function Get_Supplier_Disc() {
                             FromBaseAmt, ToBaseAmt, 0,
                             FromFinalDisc, ToFinalDisc, 0,
                             FromFinalAmt, ToFinalAmt, 0,
-                            Culet, Keytosymbol, dCheckKTS, dUNCheckKTS, Status, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
+                            Culet, Keytosymbol, dCheckKTS, dUNCheckKTS, ReportComments, dCheckRC, dUNCheckRC, Status, BGM, CrownBlack, TableBlack, CrownWhite, TableWhite, GoodsType, Image, Video,
                             PricingMethod_1, PricingSign_1, txtDisc_1_1, txtValue_1_1, txtValue_1_2, txtValue_1_3, txtValue_1_4, txtValue_1_5, Chk_Speci_Additional_1, txtFromDate, txtToDate,
                             PricingMethod_2, PricingSign_2, txtDisc_2_1, txtValue_2_1, txtValue_2_2, txtValue_2_3, txtValue_2_4, txtValue_2_5, PricingMethod_3, PricingSign_3, txtDisc_3_1, txtValue_3_1,
                             txtValue_3_2, txtValue_3_3, txtValue_3_4, txtValue_3_5, Chk_Speci_Additional_2, txtFromDate1, txtToDate1, PricingMethod_4, PricingSign_4, txtDisc_4_1, txtValue_4_1,
