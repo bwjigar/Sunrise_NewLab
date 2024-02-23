@@ -986,7 +986,7 @@ function input_QC_Require_Indicator(params) {
     }
     var element = document.createElement("span");
     element.title = 'QC Require';
-    element.innerHTML = '<input type="text" style="text-align: center;width: 132px;" class="input-inc QC_Require lab-input" value = "' + QC_Require
+    element.innerHTML = '<input type="text" style="text-align: center;width: 132px;" maxlength="50" class="input-inc QC_Require lab-input" value = "' + QC_Require
         + '" Ref_No = "' + params.data.Ref_No
         + '" SupplierId = "' + params.data.SupplierId
         + '" onblur="QC_Require(this);">';

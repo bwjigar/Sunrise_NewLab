@@ -994,7 +994,11 @@ namespace SunriseLabWeb_New.Controllers
                                             {
                                                 LabStatus = "";
                                             }
-                                            Res[0].DataList[i].QCRequire = (QCRequire != "" ? QCRequire : "REGULAR");
+
+                                            QCRequire = (QCRequire != "" ? QCRequire : "REGULAR");
+                                            QCRequire = (QCRequire.Length > 50 ? QCRequire.Substring(0, 50) : QCRequire);
+
+                                            Res[0].DataList[i].QCRequire = QCRequire;
                                             Res[0].DataList[i].LabEntry_Status = CapitalizeFirstLetterAfterSpace(LabStatus);
                                             Res[0].DataList[i].SUPPLIER_COST_DISC = Supplier_Cost_Disc;
                                             Res[0].DataList[i].SUPPLIER_COST_VALUE = Supplier_Cost_Value;
