@@ -797,7 +797,7 @@ function UploadExcelFile() {
         const formData = new FormData();
         formData.append('UserId', $("#ddl_User").val());
         formData.append("file", file);
-
+        debugger
 
         $.ajax({
             url: "/User/UploadExcelforLabEntry",
@@ -806,6 +806,9 @@ function UploadExcelFile() {
             type: "POST",
             data: formData,
             success: function (data, textStatus, jqXHR) {
+                debugger
+                loaderHide();
+
                 var Culet = data[data.length - 1].Culet;
 
                 if (Culet == "0") {
@@ -815,8 +818,6 @@ function UploadExcelFile() {
                 else {
                     var Invalid_Stone_Body = data[data.length - 1].Lab_Comments;
                     data.splice(data.length - 1);
-
-                    loaderHide();
 
                     var gridDiv = document.querySelector('#Cart-Gride');
                     if (gridOptions.api != undefined) {
@@ -930,8 +931,6 @@ function UploadExcelFile() {
                         hideall();
                     }
                 }
-
-                loaderHide();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 loaderHide();
