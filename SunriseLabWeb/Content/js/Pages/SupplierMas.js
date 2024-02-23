@@ -216,7 +216,9 @@ var StockUpload = function (params) {
 }
 var NotMappedStock = function (params) {
     var element = "";
-    element = '<a title="Last Not Mapped Stock Download" onclick="NotMappedStockExcelDownload(\'' + params.data.Id + '\')" ><i class="fa fa-download" aria-hidden="true" style="font-size: 18px;cursor:pointer;"></i></a>';
+    if (params.data.Not_Uploaded_Stone > 0) {
+        element = '<a title="Last Not Mapped Stock Download" onclick="NotMappedStockExcelDownload(\'' + params.data.Id + '\')" ><i class="fa fa-download" aria-hidden="true" style="font-size: 18px;cursor:pointer;"></i></a>';
+    }
     return element;
 }
 function StockUploadView(Id) {
