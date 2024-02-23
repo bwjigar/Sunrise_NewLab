@@ -1152,7 +1152,7 @@ namespace SunriseLabWeb_New.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult LabAvailibility()
+        public ActionResult LabAvailability()
         {
             return View();
         }

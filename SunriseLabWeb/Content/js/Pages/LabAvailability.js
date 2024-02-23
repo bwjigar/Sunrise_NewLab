@@ -436,7 +436,7 @@ function contentHeight() {
     var winH = $(window).height(),
         navbarHei = $(".order-title").height(),
         serachHei = $(".order-history-data").height(),
-        contentHei = winH - serachHei - navbarHei - 110;
+        contentHei = winH - serachHei - navbarHei - 115;
     contentHei = (contentHei < 200 ? 369 : contentHei);
     $("#Cart-Gride").css("height", contentHei);
 }
@@ -444,9 +444,12 @@ $(window).resize(function () {
     contentHeight();
 });
 function Reset() {
+    $("#txtStoneId").focus();
     $('#txtStoneId').val("");
+    $("#file_upload").val("");
     $(".excel").hide();
     $(".gridview").hide();
+    $(".tab1TCount").hide();
 }
 
 function ExcelExport(Type) {
@@ -466,27 +469,33 @@ function ExcelExport(Type) {
             obj.RefNo = (ExcelUploadRefNo != "" ? ExcelUploadRefNo : (list == "" ? $("#txtStoneId").val() : ""));
             obj.Type = Type;
 
-            $.ajax({
-                url: "/User/Excel_LabAvailibility",
-                async: false,
-                type: "POST",
-                data: { req: obj },
-                success: function (data, textStatus, jqXHR) {
-                    loaderHide();
-                    if (data.search('.xlsx') == -1) {
-                        if (data.indexOf('Something Went wrong') > -1) {
-                            MoveToErrorPage(0);
+            if (obj.SupplierId_RefNo_SupplierRefNo != "" || obj.RefNo != "") {
+                $.ajax({
+                    url: "/User/Excel_LabAvailibility",
+                    async: false,
+                    type: "POST",
+                    data: { req: obj },
+                    success: function (data, textStatus, jqXHR) {
+                        loaderHide();
+                        if (data.search('.xlsx') == -1) {
+                            if (data.indexOf('Something Went wrong') > -1) {
+                                MoveToErrorPage(0);
+                            }
+                            toastr.remove();
+                            toastr.error(data);
+                        } else {
+                            location.href = data;
                         }
-                        toastr.remove();
-                        toastr.error(data);
-                    } else {
-                        location.href = data;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        loaderHide();
                     }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    loaderHide();
-                }
-            });
+                });
+            }
+            else {
+                Reset();
+                loaderHide();
+            }
         }, 50);
     }
 }
