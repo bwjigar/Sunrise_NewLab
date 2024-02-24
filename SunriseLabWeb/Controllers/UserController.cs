@@ -925,20 +925,20 @@ namespace SunriseLabWeb_New.Controllers
                     string mimeType = file.ContentType;
                     System.IO.Stream fileContent = file.InputStream;
 
-                    string path = Server.MapPath("~/Upload/LabExcel/");
+                    string path = Server.MapPath("~/Upload/Entry/");
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
                     }
-                    file.SaveAs(Server.MapPath("~/Upload/LabExcel/") + NewFileName);
+                    file.SaveAs(Server.MapPath("~/Upload/Entry/") + NewFileName);
 
-                    var ep = new ExcelPackage(new FileInfo(Server.MapPath("~/Upload/LabExcel/") + NewFileName));
-                    var ws = ep.Workbook.Worksheets["StoneSelection"];
+                    var ep = new ExcelPackage(new FileInfo(Server.MapPath("~/Upload/Entry/") + NewFileName));
+                    var ws = ep.Workbook.Worksheets["EntryUpload"];
 
                     if (ws == null)
                     {
                         Get_SearchStock_Res obj3 = new Get_SearchStock_Res();
-                        obj3.Lab_Comments = "Please use Entry_Format.xlsx format.";
+                        obj3.Lab_Comments = "Please use Entry_Upload_Format.xlsx format.";
                         obj3.Culet = "0";
                         lst.Add(obj3);
 
@@ -984,7 +984,7 @@ namespace SunriseLabWeb_New.Controllers
                             {
                                 for (int i = 0; i < Res[0].DataList.Count(); i++)
                                 {
-                                    if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[0].DataList[i].Ref_No)
+                                    if (Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[0].DataList[i].Ref_No || Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[0].DataList[i].Certificate_No || Convert.ToString(ws.Cells[rw, 1].Value).Trim() == Res[0].DataList[i].Supplier_Stone_Id)
                                     {
                                         string SuppRefNo_SuppId = Res[0].DataList[i].Supplier_Stone_Id + "_" + Convert.ToString(Res[0].DataList[i].SupplierId);
                                         
@@ -1192,20 +1192,20 @@ namespace SunriseLabWeb_New.Controllers
                     string mimeType = file.ContentType;
                     System.IO.Stream fileContent = file.InputStream;
 
-                    string path = Server.MapPath("~/Upload/LabAvailibility/");
+                    string path = Server.MapPath("~/Upload/Availability/");
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
                     }
-                    file.SaveAs(Server.MapPath("~/Upload/LabAvailibility/") + NewFileName);
+                    file.SaveAs(Server.MapPath("~/Upload/Availability/") + NewFileName);
 
-                    var ep = new ExcelPackage(new FileInfo(Server.MapPath("~/Upload/LabAvailibility/") + NewFileName));
-                    var ws = ep.Workbook.Worksheets["StoneSelection"];
+                    var ep = new ExcelPackage(new FileInfo(Server.MapPath("~/Upload/Availability/") + NewFileName));
+                    var ws = ep.Workbook.Worksheets["AvailabilityUpload"];
 
                     if (ws == null)
                     {
                         Get_SearchStock_Res obj3 = new Get_SearchStock_Res();
-                        obj3.Lab_Comments = "Please use Availability_Format.xlsx format.";
+                        obj3.Lab_Comments = "Please use Availability_Upload_Format.xlsx format.";
                         obj3.Culet = "0";
                         lst.Add(obj3);
 
