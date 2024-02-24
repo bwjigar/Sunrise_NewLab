@@ -548,6 +548,9 @@ function UploadExcelFile() {
         type: "POST",
         data: formData,
         success: function (data, textStatus, jqXHR) {
+            debugger
+            loaderHide();
+
             var Culet = data[data.length - 1].Culet;
 
             if (Culet == "0") {
@@ -560,8 +563,6 @@ function UploadExcelFile() {
 
                 data.splice(data.length - 1);
                 Rowdata = data;
-
-                loaderHide();
 
                 var gridDiv = document.querySelector('#Cart-Gride');
                 if (gridOptions.api != undefined) {
@@ -642,8 +643,6 @@ function UploadExcelFile() {
                     });
                 }
             }
-
-            loaderHide();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             loaderHide();

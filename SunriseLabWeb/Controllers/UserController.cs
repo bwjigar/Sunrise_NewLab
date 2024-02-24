@@ -938,7 +938,7 @@ namespace SunriseLabWeb_New.Controllers
                     if (ws == null)
                     {
                         Get_SearchStock_Res obj3 = new Get_SearchStock_Res();
-                        obj3.Lab_Comments = "Please use LabEntry_Format.xlsx format.";
+                        obj3.Lab_Comments = "Please use Entry_Format.xlsx format.";
                         obj3.Culet = "0";
                         lst.Add(obj3);
 
@@ -1201,6 +1201,17 @@ namespace SunriseLabWeb_New.Controllers
 
                     var ep = new ExcelPackage(new FileInfo(Server.MapPath("~/Upload/LabAvailibility/") + NewFileName));
                     var ws = ep.Workbook.Worksheets["StoneSelection"];
+
+                    if (ws == null)
+                    {
+                        Get_SearchStock_Res obj3 = new Get_SearchStock_Res();
+                        obj3.Lab_Comments = "Please use Availability_Format.xlsx format.";
+                        obj3.Culet = "0";
+                        lst.Add(obj3);
+
+                        return Json(lst, JsonRequestBehavior.AllowGet);
+                    }
+
                     string Error_msg = string.Empty, Error_msg_1 = string.Empty;
                     int Error_count = 0;
 
