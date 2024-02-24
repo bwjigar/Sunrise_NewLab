@@ -655,7 +655,7 @@ function Excel_Invalid_RefNo(Body) {
     str = str.replace(/&gt;/g, '>');
 
     var final_msg = ''
-    final_msg = '<label class="offerComment" style="word-break:break-word;">Below Ref No / Certi No are Not Found !!</label>';
+    final_msg = '<label class="offerComment" style="word-break:break-word;">Below Ref No / Certi No / Supplier Ref No are Not Found !!</label>';
     final_msg += str;
     $("#Excel_Stone_Invalid_Modal .form-group").html(final_msg);
     $('#Excel_Stone_Invalid_Modal').modal('show');

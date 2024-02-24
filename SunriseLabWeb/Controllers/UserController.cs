@@ -951,7 +951,7 @@ namespace SunriseLabWeb_New.Controllers
                     Error_msg += "<tbody>";
                     Error_msg += "<tr>";
                     Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 7%;\"><center><b>No.</b></center></td>";
-                    Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 27%;\"><center><b>Ref No</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 27%;\"><center><b>Ref No / <br> Certi No / <br> Supplier Ref No</b></center></td>";
                     Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 25%;\"><center><b>Supplier Cost Value($)</b></center></td>";
                     Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 25%;\"><center><b>Final Sale Amt US($)</b></center></td>";
                     Error_msg += "</tr>";
@@ -1040,10 +1040,10 @@ namespace SunriseLabWeb_New.Controllers
                             Error_count += 1;
 
                             Error_msg_1 += "<tr>";
-                            Error_msg_1 += "<td>center><b>" + Error_count + "</b></center></td>";
-                            Error_msg_1 += "<td>center>" + ws.Cells[rw, 1].Value + "</center></td>";
-                            Error_msg_1 += "<td style='color: #143f58;font-weight:600'>center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 4].Value)) + "</center></td>";
-                            Error_msg_1 += "<td style='color: #143f58;font-weight:600'>center>" + string.Format("{0:N2}", Convert.ToDouble(ws.Cells[rw, 5].Value)) + "</center></td>";
+                            Error_msg_1 += "<td><center><b>" + Error_count + "</b></center></td>";
+                            Error_msg_1 += "<td><center>" + ws.Cells[rw, 1].Value + "</center></td>";
+                            Error_msg_1 += "<td style='color: #143f58;font-weight:600'><center>" + string.Format("{0:N2}", ws.Cells[rw, 4].Value) + "</center></td>";
+                            Error_msg_1 += "<td style='color: #143f58;font-weight:600'><center>" + string.Format("{0:N2}", ws.Cells[rw, 5].Value) + "</center></td>";
                             Error_msg_1 += "</tr>";
                         }
                     }
@@ -1219,7 +1219,7 @@ namespace SunriseLabWeb_New.Controllers
                     Error_msg += "<tbody>";
                     Error_msg += "<tr>";
                     Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 5%;\"><center><b>No.</b></center></td>";
-                    Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 30%;\"><center><b>Ref No / Certi No</b></center></td>";
+                    Error_msg += "<td style=\"background-color: #143f58;color: white;padding: 3px;width: 30%;\"><center><b>Ref No / <br> Certi No / <br> Supplier Ref No</b></center></td>";
                     Error_msg += "</tr>";
 
                     string RefNo = "", RefNo1 = "", SuppRefNo_SuppId_List = "";

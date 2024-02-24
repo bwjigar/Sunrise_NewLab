@@ -648,7 +648,7 @@ function LabEntry() {
             }
             else {
 
-                var msg = "<label class='offerComment' style='word -break: break-word;'>Are you sure you want to Add Below Ref No in Lab Entry ?</label>"
+                var msg = "<label class='offerComment' style='word -break: break-word;'>Are you sure you want to Entry of Below Ref No ?</label>"
                 msg += "<table border='1' style='font-size:12px; width:100%; margin-top:5px; display:block; max-height:360px; overflow-y:auto;'>";
                 msg += "<tbody>";
                 msg += "<tr>";
@@ -949,7 +949,7 @@ function Excel_Invalid_RefNo(Body) {
     str = str.replace(/&gt;/g, '>');
 
     var final_msg = ''
-    final_msg = '<label class="offerComment" style="word-break:break-word;">Below Ref No are Not Found !!</label>';
+    final_msg = '<label class="offerComment" style="word-break:break-word;">Below Ref No / Certi No / Supplier Ref No are Not Found or Values are invalid !!</label>';
     final_msg += str;
     $("#Excel_Stone_Invalid_Modal .form-group").html(final_msg);
     $('#Excel_Stone_Invalid_Modal').modal('show');
