@@ -331,6 +331,7 @@ var SymList = [];
 var FlsList = [];
 var LabList = [];
 var KTSList = [];
+var RCList = [];
 var BGMList = [];
 var CrownBlackList = [];
 var TableBlackList = [];
@@ -431,10 +432,13 @@ var Carat = "";
 var KeyToSymbolList = [];
 var CheckKeyToSymbolList = [];
 var UnCheckKeyToSymbolList = [];
+var ReportCommentsList = [];
+var CheckReportCommentsList = [];
+var UnCheckReportCommentsList = [];
 var Regular = true, Fancy = false;
 var Regular_All = false, Fancy_All = false;
 var INTENSITY = [], OVERTONE = [], FANCY_COLOR = [];
-var KTS = 0, C1 = 0, C2 = 0, C3 = 0;
+var RC = 0, KTS = 0, C1 = 0, C2 = 0, C3 = 0;
 var Check_Color_1 = [], Check_Color_2 = [], Check_Color_3 = [];
 var FC = "";
 var Exists_Record = 0;
@@ -638,6 +642,7 @@ $(document).ready(function () {
     Reset_API_Filter();
     Get_API_StockFilter();
     BindKeyToSymbolList();
+    BindReportCommentsList();
 
     $("#tblFilters").on('click', '.RemoveCriteria', function () {
         $(this).closest('tr').remove();
@@ -827,6 +832,9 @@ function Get_API_StockFilter() {
                     }
                     if (data.Data[k].Col_Id == 49) {
                         KeyToSymbolList.push(data.Data[k]);
+                    }
+                    if (data.Data[k].Col_Id == 51) {
+                        ReportCommentsList.push(data.Data[k]);
                     }
                     if (data.Data[k].Col_Id == 66) {
                         GoodsTypeList.push(data.Data[k]);
@@ -1552,7 +1560,9 @@ function Reset_API_Filter() {
     $("#PavHt_Blank").prop("checked", false);
 
     resetKeytoSymbol();
+    resetReport_Comments();
     $("#Key_to_symbol_Blank").prop("checked", false);
+    $("#Report_Comments_Blank").prop("checked", false);
     ResetSelectedAttr('.divCheckedBGMValue', BGMList);
     ResetSelectedAttr('.divCheckedCrnBlackValue', CrownBlackList);
     ResetSelectedAttr('.divCheckedTblBlackValue', CrownWhiteList);
@@ -1647,13 +1657,13 @@ function BindKeyToSymbolList() {
                 + '<li class="carat-dropdown-chkbox">'
                 + '<div class="main-cust-check">'
                 + '<label class="cust-rdi-bx mn-check">'
-                + '<input type="radio" class="checkradio" id="CHK_KTS_Radio_' + (i + 1) + '" name="radio' + (i + 1) + '" onclick="GetCheck_KTS_List(\'' + itm.Value + '\');">'
+                + '<input type="radio" class="checkradio" id="CHK_KTS_Radio_' + (i + 1) + '" name="radio_KTS_' + (i + 1) + '" onclick="GetCheck_KTS_List(\'' + itm.Value + '\');">'
                 + '<span class="cust-rdi-check">'
                 + '<i class="fa fa-check"></i>'
                 + '</span>'
                 + '</label>'
                 + '<label class="cust-rdi-bx mn-time">'
-                + '<input type="radio" id="UNCHK_KTS_Radio_' + (i + 1) + '" class="checkradio" name="radio' + (i + 1) + '" onclick="GetUnCheck_KTS_List(\'' + itm.Value + '\');">'
+                + '<input type="radio" id="UNCHK_KTS_Radio_' + (i + 1) + '" class="checkradio" name="radio_KTS_' + (i + 1) + '" onclick="GetUnCheck_KTS_List(\'' + itm.Value + '\');">'
                 + '<span class="cust-rdi-check">'
                 + '<i class="fa fa-times"></i>'
                 + '</span>'
@@ -1718,11 +1728,13 @@ function BindKeyToSymbolList() {
 function Key_to_symbolShow() {
     setTimeout(function () {
         if (KTS == 0) {
-            $(".carat-dropdown-main").show();
+            $("#sym-sec0 .carat-dropdown-main").show();
             KTS = 1;
+            $("#sym-sec4 .carat-dropdown-main").hide();
+            RC = 0;
         }
         else {
-            $(".carat-dropdown-main").hide();
+            $("#sym-sec0 .carat-dropdown-main").hide();
             KTS = 0;
         }
     }, 2);
@@ -1762,6 +1774,89 @@ function GetUnCheck_KTS_List(item) {
         });
         $('#spanselected').html('' + CheckKeyToSymbolList.length + ' - Selected');
         $('#spanunselected').html('' + UnCheckKeyToSymbolList.length + ' - Deselected');
+    }
+}
+
+function BindReportCommentsList() {
+    $('#searchReport_Comments').html("");
+    if (ReportCommentsList.length > 0) {
+        $.each(ReportCommentsList, function (i, itm) {
+            $('#searchReport_Comments').append('<div class="col-12 pl-0 pr-0 ng-scope">'
+                + '<ul class="row m-0">'
+                + '<li class="carat-dropdown-chkbox">'
+                + '<div class="main-cust-check">'
+                + '<label class="cust-rdi-bx mn-check">'
+                + '<input type="radio" class="checkradio" id="CHK_RC_Radio_' + (i + 1) + '" name="radio_RC_' + (i + 1) + '" onclick="GetCheck_RC_List(\'' + itm.Value + '\');">'
+                + '<span class="cust-rdi-check">'
+                + '<i class="fa fa-check"></i>'
+                + '</span>'
+                + '</label>'
+                + '<label class="cust-rdi-bx mn-time">'
+                + '<input type="radio" id="UNCHK_RC_Radio_' + (i + 1) + '" class="checkradio" name="radio_RC_' + (i + 1) + '" onclick="GetUnCheck_RC_List(\'' + itm.Value + '\');">'
+                + '<span class="cust-rdi-check">'
+                + '<i class="fa fa-times"></i>'
+                + '</span>'
+                + '</label>'
+                + '</div>'
+                + '</li>'
+                + '<li class="col" style="text-align: left;margin-left: -15px;">'
+                + '<span>' + itm.Value + '</span>'
+                + '</li>'
+                + '</ul>'
+                + '</div>')
+        });
+        $('#searchReport_Comments').append('<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>');
+    }
+}
+function Report_CommentsShow() {
+    setTimeout(function () {
+        if (RC == 0) {
+            $("#sym-sec4 .carat-dropdown-main").show();
+            RC = 1;
+            $("#sym-sec0 .carat-dropdown-main").hide();
+            KTS = 0;
+        }
+        else {
+            $("#sym-sec4 .carat-dropdown-main").hide();
+            RC = 0;
+        }
+    }, 2);
+}
+function resetReport_Comments() {
+    CheckReportCommentsList = [];
+    UnCheckReportCommentsList = [];
+    $('#spanselected_1').html('' + CheckReportCommentsList.length + ' - Selected');
+    $('#spanunselected_1').html('' + UnCheckReportCommentsList.length + ' - Deselected');
+    $('#searchReport_Comments input[type="radio"]').prop('checked', false);
+    RC = 1;
+    Report_CommentsShow();
+}
+function GetCheck_RC_List(item) {
+    var SList = _.reject(UnCheckReportCommentsList, function (e) { return e.Symbol == item });
+    UnCheckReportCommentsList = SList;
+
+    var res = _.filter(CheckReportCommentsList, function (e) { return (e.Symbol == item) });
+    if (res.length == 0) {
+        CheckReportCommentsList.push({
+            "NewID": CheckReportCommentsList.length + 1,
+            "Symbol": item,
+        });
+        $('#spanselected_1').html('' + CheckReportCommentsList.length + ' - Selected');
+        $('#spanunselected_1').html('' + UnCheckReportCommentsList.length + ' - Deselected');
+    }
+}
+function GetUnCheck_RC_List(item) {
+    var SList = _.reject(CheckReportCommentsList, function (e) { return e.Symbol == item });
+    CheckReportCommentsList = SList
+
+    var res = _.filter(UnCheckReportCommentsList, function (e) { return (e.Symbol == item) });
+    if (res.length == 0) {
+        UnCheckReportCommentsList.push({
+            "NewID": UnCheckReportCommentsList.length + 1,
+            "Symbol": item,
+        });
+        $('#spanselected_1').html('' + CheckReportCommentsList.length + ' - Selected');
+        $('#spanunselected_1').html('' + UnCheckReportCommentsList.length + ' - Deselected');
     }
 }
 function setFromCarat() {
@@ -1872,8 +1967,9 @@ var ResetCheckColors = function () {
     $("#sym-sec1 .carat-dropdown-main").hide();
     $("#sym-sec2 .carat-dropdown-main").hide();
     $("#sym-sec3 .carat-dropdown-main").hide();
+    $("#sym-sec4 .carat-dropdown-main").hide();
 
-    C3 = 0, C1 = 0, KTS = 0, C2 = 0;
+    C3 = 0, C1 = 0, KTS = 0, C2 = 0, RC = 0;
     _.each(ColorList, function (itm) {
         itm.isActive = false;
     });
@@ -2210,15 +2306,16 @@ function INTENSITYShow() {
     setTimeout(function () {
         if (C1 == 0) {
             $("#sym-sec0 .carat-dropdown-main").hide();
+            $("#sym-sec4 .carat-dropdown-main").hide();
             $("#sym-sec2 .carat-dropdown-main").hide();
             $("#sym-sec3 .carat-dropdown-main").hide();
             $("#sym-sec1 .carat-dropdown-main").show();
             C1 = 1;
-            KTS = 0, C2 = 0, C3 = 0;
+            RC=0, KTS = 0, C2 = 0, C3 = 0;
         }
         else {
             $("#sym-sec1 .carat-dropdown-main").hide();
-            C1 = 0, KTS = 0, C2 = 0, C3 = 0;
+            C1 = 0, RC=0,KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
@@ -2226,15 +2323,16 @@ function OVERTONEShow() {
     setTimeout(function () {
         if (C2 == 0) {
             $("#sym-sec0 .carat-dropdown-main").hide();
+            $("#sym-sec4 .carat-dropdown-main").hide();
             $("#sym-sec1 .carat-dropdown-main").hide();
             $("#sym-sec3 .carat-dropdown-main").hide();
             $("#sym-sec2 .carat-dropdown-main").show();
             C2 = 1;
-            C1 = 0, KTS = 0, C3 = 0;
+            C1 = 0, RC=0,KTS = 0, C3 = 0;
         }
         else {
             $("#sym-sec2 .carat-dropdown-main").hide();
-            C1 = 0, KTS = 0, C2 = 0, C3 = 0;
+            C1 = 0, RC=0,KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
@@ -2242,15 +2340,16 @@ function FANCY_COLORShow() {
     setTimeout(function () {
         if (C3 == 0) {
             $("#sym-sec0 .carat-dropdown-main").hide();
+            $("#sym-sec4 .carat-dropdown-main").hide();
             $("#sym-sec1 .carat-dropdown-main").hide();
             $("#sym-sec2 .carat-dropdown-main").hide();
             $("#sym-sec3 .carat-dropdown-main").show();
             C3 = 1;
-            C1 = 0, KTS = 0, C2 = 0;
+            C1 = 0, RC=0,KTS = 0, C2 = 0;
         }
         else {
             $("#sym-sec3 .carat-dropdown-main").hide();
-            C1 = 0, KTS = 0, C2 = 0, C3 = 0;
+            C1 = 0, RC=0,KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
@@ -2258,6 +2357,7 @@ function color_ddl_close() {
     $("#sym-sec1 .carat-dropdown-main").hide();
     $("#sym-sec2 .carat-dropdown-main").hide();
     $("#sym-sec3 .carat-dropdown-main").hide();
+    $("#sym-sec4 .carat-dropdown-main").hide();
 }
 var SetFinalColors = function () {
     //$(".divCheckedCaratValue").empty();
@@ -2416,6 +2516,7 @@ function HTML_CREATE(
     FromPavAng, ToPavAng, PavAng_IsBlank,
     FromPavHt, ToPavHt, PavHt_IsBlank,
     Keytosymbol, dCheckKTS, dUNCheckKTS, Keytosymbol_IsBlank,
+    ReportComments, dCheckRC, dUNCheckRC, ReportComments_IsBlank,
     BGM,
     CrownBlack, TableBlack, CrownWhite, TableWhite,
     TableOpen, GirdleOpen, CrownOpen, PavillionOpen,
@@ -2443,14 +2544,18 @@ function HTML_CREATE(
     html += "<td><span class='Fi-Criteria Fls' style='margin: -20px -20px -20px -20px;'>" + Fls + "</span></td>";
     html += "<td><span class='Fi-Criteria Lab' style='margin: -20px -20px -20px -20px;'>" + Lab + "</span></td>";
     html += "<td><span class='Fi-Criteria BGM' style='margin: -20px -20px -20px -20px;'>" + BGM + "</span></td>";
+    html += "<td><span class='Fi-Criteria GoodsType' style='margin: -20px -20px -20px -20px;'>" + GoodsType + "</span></td>";
 
     html += "<td><span class='Fi-Criteria Keytosymbol' style='margin: -20px -20px -20px -20px;'>" + (Keytosymbol_IsBlank == 1 ? (Keytosymbol.toString() != "" ? "BLANK&nbsp;" : "BLANK") : "")  +" "+ Keytosymbol + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dCheckKTS'>" + dCheckKTS + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckKTS'>" + dUNCheckKTS + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria Keytosymbol_IsBlank'>" + Keytosymbol_IsBlank + "</span></td>";
-    
 
-    html += "<td><span class='Fi-Criteria GoodsType' style='margin: -20px -20px -20px -20px;'>" + GoodsType + "</span></td>";
+    html += "<td><span class='Fi-Criteria ReportComments' style='margin: -20px -20px -20px -20px;'>" + (ReportComments_IsBlank == 1 ? (ReportComments.toString() != "" ? "BLANK&nbsp;" : "BLANK") : "") + " " + ReportComments + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria dCheckRC'>" + dCheckRC + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckRC'>" + dUNCheckRC + "</span></td>";
+    html += "<td style='display:none;'><span class='Fi-Criteria ReportComments_IsBlank'>" + ReportComments_IsBlank + "</span></td>";
+    
 
     //html += "<td><span class='Fi-Criteria FromLength'>" + FromLength + "</span></td>";
     //html += "<td><span class='Fi-Criteria ToLength'>" + ToLength + "</span></td>";
@@ -2838,6 +2943,17 @@ var AddNewRow = function () {
             var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : " - ") + KeyToSymLst_uncheck1;
             var Keytosymbol_IsBlank = (document.getElementById("Key_to_symbol_Blank").checked == true ? true : "");
 
+            var ReportCommentsLst_Check1 = _.pluck(CheckReportCommentsList, 'Symbol').join(",");
+            var ReportCommentsLst_uncheck1 = _.pluck(UnCheckReportCommentsList, 'Symbol').join(",");
+            var dCheckRC = ReportCommentsLst_Check1;
+            var dUNCheckRC = ReportCommentsLst_uncheck1;
+
+            ReportCommentsLst_Check1 = (ReportCommentsLst_Check1 != "" ? '<span style="color: green;">' + ReportCommentsLst_Check1 + '</span>' : '');
+            ReportCommentsLst_uncheck1 = (ReportCommentsLst_uncheck1 != "" ? '<span style="color: red;">' + ReportCommentsLst_uncheck1 + '</span>' : '');
+
+            var ReportComments = ReportCommentsLst_Check1 + (ReportCommentsLst_Check1 == "" || ReportCommentsLst_uncheck1 == "" ? "" : " - ") + ReportCommentsLst_uncheck1;
+            var ReportComments_IsBlank = (document.getElementById("Report_Comments_Blank").checked == true ? true : "");
+
             var BGM = _.pluck(_.filter(BGMList, function (e) { return e.isActive == true }), 'Value').join(",");
             var CrownBlack = _.pluck(_.filter(CrownBlackList, function (e) { return e.isActive == true }), 'Value').join(",");
             var TableBlack = _.pluck(_.filter(TableBlackList, function (e) { return e.isActive == true }), 'Value').join(",");
@@ -2888,6 +3004,7 @@ var AddNewRow = function () {
                 FromPavHt, ToPavHt, PavHt_IsBlank,
 
                 Keytosymbol, dCheckKTS, dUNCheckKTS, Keytosymbol_IsBlank,
+                ReportComments, dCheckRC, dUNCheckRC, ReportComments_IsBlank,
                 BGM,
                 CrownBlack, TableBlack, CrownWhite, TableWhite,
                 TableOpen, GirdleOpen, CrownOpen, PavillionOpen,
@@ -3077,6 +3194,25 @@ function UpdateRow() {
                 $(this).find('.dCheckKTS').html(dCheckKTS);
                 $(this).find('.dUNCheckKTS').html(dUNCheckKTS);
                 $(this).find('.Keytosymbol_IsBlank').html(Keytosymbol_IsBlank);
+
+
+                var ReportCommentsLst_Check1 = _.pluck(CheckReportCommentsList, 'Symbol').join(",");
+                var ReportCommentsLst_uncheck1 = _.pluck(UnCheckReportCommentsList, 'Symbol').join(",");
+                var dCheckRC = ReportCommentsLst_Check1;
+                var dUNCheckRC = ReportCommentsLst_uncheck1;
+
+                ReportCommentsLst_Check1 = (ReportCommentsLst_Check1 != "" ? '<span style="color: green;">' + ReportCommentsLst_Check1 + '</span>' : '');
+                ReportCommentsLst_uncheck1 = (ReportCommentsLst_uncheck1 != "" ? '<span style="color: red;">' + ReportCommentsLst_uncheck1 + '</span>' : '');
+
+                var ReportComments = ReportCommentsLst_Check1 + (ReportCommentsLst_Check1 == "" || ReportCommentsLst_uncheck1 == "" ? "" : " - ") + ReportCommentsLst_uncheck1;
+                var ReportComments_IsBlank = (document.getElementById("Key_to_symbol_Blank").checked == true ? true : "");
+                ReportComments = (ReportComments_IsBlank == 1 ? (ReportComments.toString() != "" ? "BLANK&nbsp;" : "BLANK") : "") + " " + ReportComments;
+
+                $(this).find('.ReportComments').html(ReportComments);
+                $(this).find('.dCheckRC').html(dCheckRC);
+                $(this).find('.dUNCheckRC').html(dUNCheckRC);
+                $(this).find('.ReportComments_IsBlank').html(ReportComments_IsBlank);
+
 
                 var BGM = _.pluck(_.filter(BGMList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.BGM').html(BGM);
@@ -3474,6 +3610,31 @@ function EditCriteria(new_id) {
                     }
                 }
 
+                var dCheckRC = htmlDecode($(this).find('.dCheckRC').html());
+                var dUNCheckRC = htmlDecode($(this).find('.dUNCheckRC').html());
+                $("#Report_Comments_Blank").prop("checked", ($(this).find('.ReportComments_IsBlank').html() == "true" ? true : false));
+
+                if (dCheckRC != "") {
+                    for (var i in dCheckRC.split(',')) {
+                        for (var j in ReportCommentsList) {
+                            if (dCheckRC.split(',')[i] == ReportCommentsList[j].Value) {
+                                document.getElementById("CHK_RC_Radio_" + (parseInt(j) + 1)).checked = true;
+                                GetCheck_RC_List(ReportCommentsList[j].Value);
+                            }
+                        }
+                    }
+                }
+                if (dUNCheckRC != "") {
+                    for (var i in dUNCheckRC.split(',')) {
+                        for (var j in ReportCommentsList) {
+                            if (dUNCheckRC.split(',')[i] == ReportCommentsList[j].Value) {
+                                document.getElementById("UNCHK_RC_Radio_" + (parseInt(j) + 1)).checked = true;
+                                GetUnCheck_RC_List(ReportCommentsList[j].Value);
+                            }
+                        }
+                    }
+                }
+
                 var BGM = htmlDecode($(this).find('.BGM').html());
                 if (BGM != "") {
                     for (var i in BGM.split(',')) {
@@ -3798,7 +3959,7 @@ var GetError_1 = function () {
 
     if (parseInt($("#tblFilters #tblBodyFilters").find('tr').length) == 0 && Exists_Record == 0) {
         ErrorMsg.push({
-            'Error': "Stock & Disc Pricing Filter Not Found.",
+            'Error': "Customer Wise Sell Price Filter Not Found.",
         });
     }
 
@@ -3907,6 +4068,10 @@ function SaveData() {
                 CheckKTS: htmlDecode($(this).find('.dCheckKTS').html()),
                 UNCheckKTS: htmlDecode($(this).find('.dUNCheckKTS').html()),
                 KTS_IsBlank: $(this).find('.Keytosymbol_IsBlank').html(),
+
+                CheckRC: htmlDecode($(this).find('.dCheckRC').html()),
+                UNCheckRC: htmlDecode($(this).find('.dUNCheckRC').html()),
+                RC_IsBlank: $(this).find('.ReportComments_IsBlank').html(),
 
                 BGM: htmlDecode($(this).find('.BGM').html()),
                 CrownBlack: htmlDecode($(this).find('.CrownBlack').html()),
@@ -4133,6 +4298,17 @@ function Get_Customer_Stock_Disc() {
                     var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : " - ") + KeyToSymLst_uncheck1;
                     var Keytosymbol_IsBlank = itm.KTS_IsBlank;
 
+                    var ReportCommentsLst_Check1 = NullReplace(itm.CheckRC);
+                    var ReportCommentsLst_uncheck1 = NullReplace(itm.UNCheckRC);
+                    var dCheckRC = ReportCommentsLst_Check1;
+                    var dUNCheckRC = ReportCommentsLst_uncheck1;
+
+                    ReportCommentsLst_Check1 = (ReportCommentsLst_Check1 != "" ? '<span style="color: green;">' + ReportCommentsLst_Check1 + '</span>' : '');
+                    ReportCommentsLst_uncheck1 = (ReportCommentsLst_uncheck1 != "" ? '<span style="color: red;">' + ReportCommentsLst_uncheck1 + '</span>' : '');
+
+                    var ReportComments = ReportCommentsLst_Check1 + (ReportCommentsLst_Check1 == "" || ReportCommentsLst_uncheck1 == "" ? "" : " - ") + ReportCommentsLst_uncheck1;
+                    var ReportComments_IsBlank = itm.RC_IsBlank;
+
                     var BGM = NullReplace(itm.BGM);
                     var CrownBlack = NullReplace(itm.CrownBlack);
                     var TableBlack = NullReplace(itm.TableBlack);
@@ -4184,6 +4360,7 @@ function Get_Customer_Stock_Disc() {
                         FromPavAng, ToPavAng, PavAng_IsBlank,
                         FromPavHt, ToPavHt, PavHt_IsBlank,
                         Keytosymbol, dCheckKTS, dUNCheckKTS, Keytosymbol_IsBlank,
+                        ReportComments, dCheckRC, dUNCheckRC, ReportComments_IsBlank,
                         BGM,
                         CrownBlack, TableBlack, CrownWhite, TableWhite,
                         TableOpen, GirdleOpen, CrownOpen, PavillionOpen,

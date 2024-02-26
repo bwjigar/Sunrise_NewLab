@@ -1033,6 +1033,10 @@ namespace API.Controllers
                 dt.Columns.Add("UNCheckKTS", typeof(string));
                 dt.Columns.Add("KTS_IsBlank", typeof(string));
 
+                dt.Columns.Add("CheckRC", typeof(string));
+                dt.Columns.Add("UNCheckRC", typeof(string));
+                dt.Columns.Add("RC_IsBlank", typeof(string));
+
                 dt.Columns.Add("BGM", typeof(string));
                 dt.Columns.Add("CrownBlack", typeof(string));
                 dt.Columns.Add("TableBlack", typeof(string));
@@ -1133,6 +1137,10 @@ namespace API.Controllers
                         dr["CheckKTS"] = req.SuppDisc[i].CheckKTS;
                         dr["UNCheckKTS"] = req.SuppDisc[i].UNCheckKTS;
                         dr["KTS_IsBlank"] = req.SuppDisc[i].KTS_IsBlank;
+
+                        dr["CheckRC"] = req.SuppDisc[i].CheckRC;
+                        dr["UNCheckRC"] = req.SuppDisc[i].UNCheckRC;
+                        dr["RC_IsBlank"] = req.SuppDisc[i].RC_IsBlank;
 
                         dr["BGM"] = req.SuppDisc[i].BGM;
                         dr["CrownBlack"] = req.SuppDisc[i].CrownBlack;
