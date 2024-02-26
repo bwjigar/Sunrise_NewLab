@@ -459,16 +459,24 @@ function ExcelExport(Type) {
             var selectedRows = gridOptions.api.getSelectedRows();
             var list = '';
             var i = 0, tot = selectedRows.length;
+
+            if (tot == 0) {
+                gridOptions.api.forEachNode(function (node) {
+                    selectedRows.push(node.data);
+                });
+                tot = selectedRows.length;
+            }
+
             for (; i < tot; i++) {
                 list += selectedRows[i].SupplierId + "_" + selectedRows[i].Ref_No + "_" + selectedRows[i].Supplier_Stone_Id + ',';
             }
             list = (list != '' ? list.substr(0, (list.length - 1)) : '');
-            debugger
+            
             var obj = {};
             obj.SupplierId_RefNo_SupplierRefNo = list;
-            obj.RefNo = (ExcelUploadRefNo != "" ? ExcelUploadRefNo : (list == "" ? $("#txtStoneId").val() : ""));
+            obj.RefNo = (list == "" ? $("#txtStoneId").val() : "");
             obj.Type = Type;
-
+            
             if (obj.SupplierId_RefNo_SupplierRefNo != "" || obj.RefNo != "") {
                 $.ajax({
                     url: "/User/Excel_LabAvailibility",

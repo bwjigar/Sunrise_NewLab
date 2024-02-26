@@ -253,14 +253,22 @@ columnDefs.push({
     field: "QC_Require",
     width: 145,
     sortable: false,
-    cellRenderer: 'input_QC_Require_Indicator'
+    editable: true,
+    cellEditor: 'input_QC_Require_Indicator',
+    cellRenderer: 'input_QC_Require_Indicator',
+    editable: function (params) {
+        return true; // Always make cells in this column editable
+    },
+    
 });
 columnDefs.push({
     headerName: "Lab Status",
     field: "Lab_Status",
     width: 145,
     sortable: false,
-    cellRenderer: 'input_Lab_Status_Indicator'
+    cellRenderer: 'input_Lab_Status_Indicator',
+    cellEditor: 'input_Lab_Status_Indicator',
+    editable: true,
 });
 columnDefs.push({ headerName: "Shape", field: "Shape", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Shape", params); } });
 columnDefs.push({ headerName: "Pointer", field: "Pointer", width: 80, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Pointer", params); } });
@@ -284,6 +292,8 @@ columnDefs.push({
     width: 125,
     sortable: false,
     cellRenderer: 'input_SUPPLIER_COST_VALUE_Indicator',
+    cellEditor: 'input_SUPPLIER_COST_VALUE_Indicator',
+    editable: true,
     cellStyle: function (params) { return cellStyle("SUPPLIER_COST_VALUE", params); }
 });
 columnDefs.push({
@@ -300,6 +310,8 @@ columnDefs.push({
     width: 125,
     sortable: false,
     cellRenderer: 'input_CUSTOMER_COST_VALUE_Indicator',
+    cellEditor: 'input_CUSTOMER_COST_VALUE_Indicator',
+    editable: true,
     cellStyle: function (params) { return cellStyle("CUSTOMER_COST_VALUE", params); }
 });
 columnDefs.push({
@@ -406,6 +418,19 @@ function GetSearch() {
             paginationPageSize: pgSize, //pagesize
             getContextMenuItems: getContextMenuItems,
             getRowHeight: function (params) { return 35; },
+            onCellClicked: function (params) {
+                var colId = params.column.getId();
+                var cellEditingStarted = params.api.startEditingCell({
+                    rowIndex: params.node.rowIndex,
+                    colKey: colId
+                });
+                if (cellEditingStarted) {
+                    params.api.focusCell({
+                        rowIndex: params.node.rowIndex,
+                        colKey: colId
+                    });
+                }
+            },
             paginationNumberFormatter: function (params) {
                 return '[' + params.value.toLocaleString() + ']';
             }
@@ -738,6 +763,14 @@ function Excel_LabEntry() {
                 var selectedRows = gridOptions.api.getSelectedRows();
                 var list = '';
                 var i = 0, tot = selectedRows.length;
+
+                if (tot == 0) {
+                    gridOptions.api.forEachNode(function (node) {
+                        selectedRows.push(node.data);
+                    });
+                    tot = selectedRows.length;
+                }
+                debugger
                 for (; i < tot; i++) {
                     list += selectedRows[i].SupplierId + "_" + selectedRows[i].Ref_No + "_" + selectedRows[i].Supplier_Stone_Id + ',';
                 }
@@ -860,6 +893,19 @@ function UploadExcelFile() {
                         paginationPageSize: pgSize,
                         getContextMenuItems: getContextMenuItems,
                         getRowHeight: function (params) { return 35; },
+                        onCellClicked: function (params) {
+                            var colId = params.column.getId();
+                            var cellEditingStarted = params.api.startEditingCell({
+                                rowIndex: params.node.rowIndex,
+                                colKey: colId
+                            });
+                            if (cellEditingStarted) {
+                                params.api.focusCell({
+                                    rowIndex: params.node.rowIndex,
+                                    colKey: colId
+                                });
+                            }
+                        },
                         paginationNumberFormatter: function (params) {
                             return '[' + params.value.toLocaleString() + ']';
                         }
@@ -994,7 +1040,8 @@ function input_QC_Require_Indicator(params) {
 function QC_Require(e) {
     var Ref_No = $(e).attr("Ref_No");
     var SupplierId = $(e).attr("SupplierId");
-    var QC_Require = $(e).val();
+    var QC_Require = ($(e).val().trim() == "" ? "REGULAR" : $(e).val().trim());
+    $(e).val(QC_Require);
 
     TEMP_SAVE("QC_REQUIRE", Ref_No, SupplierId, QC_Require, "", "", "", "", "", "", "", "");
 }
@@ -1088,9 +1135,12 @@ function SUPPLIER_COST_VALUE(e) {
     var CUSTOMER_COST_VALUE = $(e).parent().parent().parent().find('.CUSTOMER_COST_VALUE').val();
 
     var PROFIT = '', PROFIT_AMOUNT = '';
-
+    debugger
     if ($(e).val() != 0 && $(e).val() != "") {
-        var SUPPLIER_COST_VALUE = parseFloat($(e).val());
+        var SUPPLIER_COST_VALUE = parseFloat($(e).val().replaceAll(",",""));
+        if (isNaN(SUPPLIER_COST_VALUE)) {
+            SUPPLIER_COST_VALUE = OLD_SUPPLIER_COST_VALUE;
+        }
         var SUPPLIER_COST_DISC = ((- 1 * (1 - (parseFloat(SUPPLIER_COST_VALUE) / parseFloat(Rap_Amount))) * 100));
 
         PROFIT = ((parseFloat(CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE)) * 100) / parseFloat(SUPPLIER_COST_VALUE);
@@ -1168,9 +1218,12 @@ function CUSTOMER_COST_VALUE(e) {
     var SUPPLIER_COST_VALUE = $(e).parent().parent().parent().find('.SUPPLIER_COST_VALUE').val();
 
     var PROFIT = '', PROFIT_AMOUNT = '';
-
+    debugger
     if ($(e).val() != 0 && $(e).val() != "") {
-        var CUSTOMER_COST_VALUE = parseFloat($(e).val());
+        var CUSTOMER_COST_VALUE = parseFloat($(e).val().replaceAll(",", ""));
+        if (isNaN(CUSTOMER_COST_VALUE)) {
+            CUSTOMER_COST_VALUE = OLD_CUSTOMER_COST_VALUE;
+        }
         var CUSTOMER_COST_DISC = ((- 1 * (1 - (parseFloat(CUSTOMER_COST_VALUE) / parseFloat(Rap_Amount))) * 100));
 
         PROFIT = ((parseFloat(CUSTOMER_COST_VALUE) - parseFloat(SUPPLIER_COST_VALUE)) * 100) / parseFloat(SUPPLIER_COST_VALUE);
