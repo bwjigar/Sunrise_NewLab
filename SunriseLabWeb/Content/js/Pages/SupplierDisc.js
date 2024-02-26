@@ -2476,6 +2476,7 @@ var AddNewRow = function () {
             ErrorMsg.forEach(function (item) {
                 $("#divError").append('<li>' + item.Error + '</li>');
             });
+            $("#ErrorModel .ErrorModelInner").addClass("modal-lg");
             $("#ErrorModel").modal("show");
         }
         else {
@@ -2646,6 +2647,7 @@ function UpdateRow() {
         ErrorMsg.forEach(function (item) {
             $("#divError").append('<li>' + item.Error + '</li>');
         });
+        $("#ErrorModel .ErrorModelInner").addClass("modal-lg");
         $("#ErrorModel").modal("show");
     }
     else {
@@ -3562,7 +3564,7 @@ var GetError_1 = function () {
     ErrorMsg = [];
     if (parseInt($("#tblFilters #tblBodyFilters").find('tr').length) == 0 && Exists_Record == 0) {
         ErrorMsg.push({
-            'Error': "Supplier Disc Pricing Filter Not Found.",
+            'Error': "Cost Calculation Filter Not Found.",
         });
     }
     return ErrorMsg;
@@ -3574,6 +3576,7 @@ function SaveData() {
         ErrorMsg.forEach(function (item) {
             $("#divError").append('<li>' + item.Error + '</li>');
         });
+        $("#ErrorModel .ErrorModelInner").removeClass("modal-lg");
         $("#ErrorModel").modal("show");
     }
     else {
