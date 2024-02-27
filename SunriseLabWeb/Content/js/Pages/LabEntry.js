@@ -2,7 +2,8 @@ var TempData_Array = [];
 
 let today = new Date();
 // Add 2.5 hours to the current date
-today.setHours(today.getHours() + 2, today.getMinutes() + 30);
+//today.setHours(today.getHours() + 2, today.getMinutes() + 30);
+today.setHours(today.getHours() + 0, today.getMinutes() + 0);
 
 function SetCurrentDate() {
     var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");

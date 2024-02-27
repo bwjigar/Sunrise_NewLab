@@ -9,13 +9,15 @@ var iUserid = 0;
 
 let today = new Date();
 // Add 2.5 hours to the current date
-today.setHours(today.getHours() + 2, today.getMinutes() + 30);
+//today.setHours(today.getHours() + 2, today.getMinutes() + 30);
+today.setHours(today.getHours() + 0, today.getMinutes() + 0);
 
 var lastWeekDate = new Date(today.setDate(today.getDate() - 7));
 
 today = new Date();
 // Add 2.5 hours to the current date
-today.setHours(today.getHours() + 2, today.getMinutes() + 30);
+//today.setHours(today.getHours() + 2, today.getMinutes() + 30);
+today.setHours(today.getHours() + 0, today.getMinutes() + 0);
 
 var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
 var date = new Date(lastWeekDate),
