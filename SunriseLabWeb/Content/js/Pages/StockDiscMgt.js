@@ -1,6 +1,7 @@
 ﻿var pgSize = 50;
 var showEntryVar = null;
 var total_record = null;
+var UserId = "";
 var Rowdata = [];
 var orderBy = '';
 var lbl = '<div style="float: left;font-size: 14px;position: absolute;left: 5%;transform: translateX(-50%);text-transform: capitalize;">'
@@ -14,15 +15,19 @@ var showEntryHtml = '<div class="show_entry">'
 var gridOptions = {};
 var ErrorMsg = [];
 var columnDefs = [
+    //{
+    //    headerName: "", field: "",
+    //    headerCheckboxSelection: true,
+    //    checkboxSelection: true, width: 40,
+    //    suppressSorting: true,
+    //    suppressMenu: true,
+    //    headerCheckboxSelectionFilteredOnly: true,
+    //    headerCellRenderer: selectAllRendererDetail,
+    //    suppressMovable: false
+    //},
     {
-        headerName: "", field: "",
-        headerCheckboxSelection: true,
-        checkboxSelection: true, width: 40,
-        suppressSorting: true,
-        suppressMenu: true,
-        headerCheckboxSelectionFilteredOnly: true,
-        headerCellRenderer: selectAllRendererDetail,
-        suppressMovable: false
+        headerName: "Add Filter", field: "Action", tooltip: function (params) { return (params.value); }, width: 50, cellRenderer: 'Action', sortable: false,
+        menuTabs: ['filterMenuTab'], suppressMenu: true
     },
     { headerName: "UserId", field: "UserId", hide: true },
     { headerName: "Sr", field: "iSr", tooltip: function (params) { return (params.value); }, sortable: false, hide: true, width: 40 },
@@ -45,6 +50,12 @@ var columnDefs = [
     { headerName: "Email Id 2", field: "EmailId_2", tooltip: function (params) { return (params.value); }, width: 140 },
     { headerName: "URL", field: "URL", tooltip: function (params) { return (params.value); }, width: 440 },
 ];
+var Action = function (params) {
+    var element = "";
+    element = '<a title="Add Filter" onclick="AddFilters(\'' + params.data.UserId + '\')" ><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 18px;cursor:pointer;"></i></a>';
+    //element += '&nbsp;&nbsp;<a title="Delete" onclick="DeleteView(\'' + params.data.Id + '\')"><i class="fa fa-trash-o" aria-hidden="true" style="cursor:pointer;"></i></a>';
+    return element;
+}
 var faIndicator = function (params) {
     var element = document.createElement("a");
     element.title = '';
@@ -75,6 +86,7 @@ function GetUserList() {
             filter: true
         },
         components: {
+            Action: Action,
             faIndicator: faIndicator,
         },
         pagination: true,
@@ -108,7 +120,7 @@ function GetUserList() {
     setTimeout(function () {
         if ($('#myGrid .ag-paging-panel').length > 0) {
             $("").appendTo('#myGrid .ag-paging-panel');
-            $(lbl).appendTo('#myGrid .ag-paging-panel');
+            //$(lbl).appendTo('#myGrid .ag-paging-panel');
             $("").appendTo('#myGrid .ag-paging-panel');
             $(showEntryHtml).appendTo('#myGrid .ag-paging-panel');
             $('#ddlPagesize').val(pgSize);
@@ -159,11 +171,11 @@ const datasource1 = {
         else {
             obj.URL_Exists = false;
         }
-        
+
         if (!($("#hdn_UserType").val().includes("1")) && ($("#hdn_UserType").val().includes("2"))) {
             obj.Assist_UserId = $("#hdn_UserId").val();
         }
-        
+
         Rowdata = [];
 
         $.ajax({
@@ -271,6 +283,7 @@ $(window).resize(function () {
     contentHeight();
 });
 function Back() {
+    UserId = "";
     $("#h2Title").show();
     $("#h2AddTitle").hide();
     $("#divGrid").show();
@@ -281,7 +294,29 @@ function Back() {
     //$(".import").show();
     UpdateCancelRow();
 }
-function AddFilters() {
+function AddFilters(_UserId) {
+    var data = filterByProperty(Rowdata, "UserId", _UserId);
+    if (data.length == 1) {
+        UserId = _UserId;
+
+        $("#h2Title").hide();
+        $("#h2AddTitle").show();
+        $("#divSearchFilter").hide();
+        $("#divGrid").hide();
+        $("#divAddFilters").show();
+        $("#spnUsernmList").html('<span style="font-weight:600;">User Name :&nbsp;</span>' + data[0].UserName);
+        //$(".import").hide();
+        $(".order-title").addClass("col-xl-12");
+        $("#btnBack").show();
+        //$("#txt_S_UserName").val("");
+        //$("#txt_S_Password").val("");
+        $("#URL").html("");
+        $("#ExportType").val("");
+        Get_Customer_Stock_Disc();
+        Get_Customer_Stock_Disc_Mas();
+        Get_API_ColumnSetting_UserWise();
+    }
+    /*
     if (_.filter(gridOptions.api.getSelectedRows()).length == 1) {
         $("#h2Title").hide();
         $("#h2AddTitle").show();
@@ -308,8 +343,19 @@ function AddFilters() {
         toastr.remove();
         toastr.warning("Please select only 1 user for Add Stock & Disc Filters");
     }
+    */
 }
-
+//single node get from Multi diamension Array List
+function filterByProperty(data, prop, value) {
+    var filtered = [];
+    for (var i = 0; i < data.length; i++) {
+        var obj = data[i];
+        if (obj[prop] == value) {
+            filtered.push(data[i]);
+        }
+    }
+    return filtered;
+}
 
 
 
@@ -2311,11 +2357,11 @@ function INTENSITYShow() {
             $("#sym-sec3 .carat-dropdown-main").hide();
             $("#sym-sec1 .carat-dropdown-main").show();
             C1 = 1;
-            RC=0, KTS = 0, C2 = 0, C3 = 0;
+            RC = 0, KTS = 0, C2 = 0, C3 = 0;
         }
         else {
             $("#sym-sec1 .carat-dropdown-main").hide();
-            C1 = 0, RC=0,KTS = 0, C2 = 0, C3 = 0;
+            C1 = 0, RC = 0, KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
@@ -2328,11 +2374,11 @@ function OVERTONEShow() {
             $("#sym-sec3 .carat-dropdown-main").hide();
             $("#sym-sec2 .carat-dropdown-main").show();
             C2 = 1;
-            C1 = 0, RC=0,KTS = 0, C3 = 0;
+            C1 = 0, RC = 0, KTS = 0, C3 = 0;
         }
         else {
             $("#sym-sec2 .carat-dropdown-main").hide();
-            C1 = 0, RC=0,KTS = 0, C2 = 0, C3 = 0;
+            C1 = 0, RC = 0, KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
@@ -2345,11 +2391,11 @@ function FANCY_COLORShow() {
             $("#sym-sec2 .carat-dropdown-main").hide();
             $("#sym-sec3 .carat-dropdown-main").show();
             C3 = 1;
-            C1 = 0, RC=0,KTS = 0, C2 = 0;
+            C1 = 0, RC = 0, KTS = 0, C2 = 0;
         }
         else {
             $("#sym-sec3 .carat-dropdown-main").hide();
-            C1 = 0, RC=0,KTS = 0, C2 = 0, C3 = 0;
+            C1 = 0, RC = 0, KTS = 0, C2 = 0, C3 = 0;
         }
     }, 2);
 }
@@ -2546,7 +2592,7 @@ function HTML_CREATE(
     html += "<td><span class='Fi-Criteria BGM' style='margin: -20px -20px -20px -20px;'>" + BGM + "</span></td>";
     html += "<td><span class='Fi-Criteria GoodsType' style='margin: -20px -20px -20px -20px;'>" + GoodsType + "</span></td>";
 
-    html += "<td><span class='Fi-Criteria Keytosymbol' style='margin: -20px -20px -20px -20px;'>" + (Keytosymbol_IsBlank == 1 ? (Keytosymbol.toString() != "" ? "BLANK&nbsp;" : "BLANK") : "")  +" "+ Keytosymbol + "</span></td>";
+    html += "<td><span class='Fi-Criteria Keytosymbol' style='margin: -20px -20px -20px -20px;'>" + (Keytosymbol_IsBlank == 1 ? (Keytosymbol.toString() != "" ? "BLANK&nbsp;" : "BLANK") : "") + " " + Keytosymbol + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dCheckKTS'>" + dCheckKTS + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckKTS'>" + dUNCheckKTS + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria Keytosymbol_IsBlank'>" + Keytosymbol_IsBlank + "</span></td>";
@@ -2555,7 +2601,7 @@ function HTML_CREATE(
     html += "<td style='display:none;'><span class='Fi-Criteria dCheckRC'>" + dCheckRC + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria dUNCheckRC'>" + dUNCheckRC + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria ReportComments_IsBlank'>" + ReportComments_IsBlank + "</span></td>";
-    
+
 
     //html += "<td><span class='Fi-Criteria FromLength'>" + FromLength + "</span></td>";
     //html += "<td><span class='Fi-Criteria ToLength'>" + ToLength + "</span></td>";
@@ -2619,7 +2665,7 @@ function HTML_CREATE(
     html += "<td style='display:none;'><span class='Fi-Criteria ToPavHt'>" + ToPavHt + "</span></td>";
     html += "<td style='display:none;'><span class='Fi-Criteria PavHt_IsBlank'>" + PavHt_IsBlank + "</span></td>";
     html += "<td style=''><span class='Fi-Criteria PavHt' style='margin: -20px -20px -20px -20px;'>" + (FromPavHt == "" && ToPavHt == "" ? "" : FromPavHt + "-" + ToPavHt) + "" + (PavHt_IsBlank == 1 ? (FromPavHt.toString() != "" && ToPavHt.toString() != "" ? ", BLANK" : "BLANK") : "") + "</span></td>";
-    
+
     html += "<td><span class='Fi-Criteria TableBlack' style='margin: -20px -20px -20px -20px;'>" + TableBlack + "</span></td>";
     html += "<td><span class='Fi-Criteria CrownBlack' style='margin: -20px -20px -20px -20px;'>" + CrownBlack + "</span></td>";
     html += "<td><span class='Fi-Criteria TableWhite' style='margin: -20px -20px -20px -20px;'>" + TableWhite + "</span></td>";
@@ -2907,7 +2953,7 @@ var AddNewRow = function () {
             var FromDepth = NullReplaceDecimalToFixed($("#FromDepth").val());
             var ToDepth = NullReplaceDecimalToFixed($("#ToDepth").val());
             var Depth_IsBlank = (document.getElementById("Depth_Blank").checked == true ? true : "");
-            
+
             var FromDepthinPer = NullReplaceDecimalToFixed($("#FromDepthPer").val());
             var ToDepthinPer = NullReplaceDecimalToFixed($("#ToDepthPer").val());
             var DepthPer_IsBlank = (document.getElementById("DepthPer_Blank").checked == true ? true : "");
@@ -3105,7 +3151,7 @@ function UpdateRow() {
                 var Lab = _.pluck(_.filter(LabList, function (e) { return e.isActive == true }), 'Value').join(",");
                 $(this).find('.Lab').html(Lab);
 
-                
+
                 var FromLength = NullReplaceDecimalToFixed($("#FromLength").val());
                 var ToLength = NullReplaceDecimalToFixed($("#ToLength").val());
                 var Length_IsBlank = (document.getElementById("Length_Blank").checked == true ? true : "");
@@ -3129,7 +3175,7 @@ function UpdateRow() {
                 $(this).find('.ToDepth').html(ToDepth);
                 $(this).find('.Depth_IsBlank').html(Depth_IsBlank);
                 $(this).find('.Depth').html((FromDepth == "" && ToDepth == "" ? "" : FromDepth + "-" + ToDepth) + "" + (Depth_IsBlank == 1 ? (FromDepth.toString() != "" && ToDepth.toString() != "" ? ", BLANK" : "BLANK") : ""));
-                
+
                 var FromDepthinPer = NullReplaceDecimalToFixed($("#FromDepthPer").val());
                 var ToDepthinPer = NullReplaceDecimalToFixed($("#ToDepthPer").val());
                 var DepthPer_IsBlank = (document.getElementById("DepthPer_Blank").checked == true ? true : "");
@@ -3183,8 +3229,8 @@ function UpdateRow() {
                 var dCheckKTS = KeyToSymLst_Check1;
                 var dUNCheckKTS = KeyToSymLst_uncheck1;
 
-                KeyToSymLst_Check1 = (KeyToSymLst_Check1 != "" ? '<span style="color: green;">' + KeyToSymLst_Check1 +'</span>' : '');
-                KeyToSymLst_uncheck1 = (KeyToSymLst_uncheck1 != "" ? '<span style="color: red;">' + KeyToSymLst_uncheck1 +'</span>' : '');
+                KeyToSymLst_Check1 = (KeyToSymLst_Check1 != "" ? '<span style="color: green;">' + KeyToSymLst_Check1 + '</span>' : '');
+                KeyToSymLst_uncheck1 = (KeyToSymLst_uncheck1 != "" ? '<span style="color: red;">' + KeyToSymLst_uncheck1 + '</span>' : '');
 
                 var Keytosymbol = KeyToSymLst_Check1 + (KeyToSymLst_Check1 == "" || KeyToSymLst_uncheck1 == "" ? "" : " - ") + KeyToSymLst_uncheck1;
                 var Keytosymbol_IsBlank = (document.getElementById("Key_to_symbol_Blank").checked == true ? true : "");
@@ -3548,7 +3594,7 @@ function EditCriteria(new_id) {
                         }
                     }
                 }
-                
+
                 $("#FromLength").val(NullReplaceDecimalToFixed($(this).find('.FromLength').html()));
                 $("#ToLength").val(NullReplaceDecimalToFixed($(this).find('.ToLength').html()));
                 $("#Length_Blank").prop("checked", ($(this).find('.Length_IsBlank').html() == "true" ? true : false));
@@ -4035,35 +4081,35 @@ function SaveData() {
 
                 FromWidth: $(this).find('.FromWidth').html(),
                 ToWidth: $(this).find('.ToWidth').html(),
-                Width_IsBlank : $(this).find('.Width_IsBlank').html(),
+                Width_IsBlank: $(this).find('.Width_IsBlank').html(),
 
                 FromDepth: $(this).find('.FromDepth').html(),
                 ToDepth: $(this).find('.ToDepth').html(),
-                Depth_IsBlank : $(this).find('.Depth_IsBlank').html(),
+                Depth_IsBlank: $(this).find('.Depth_IsBlank').html(),
 
                 FromDepthinPer: $(this).find('.FromDepthinPer').html(),
                 ToDepthinPer: $(this).find('.ToDepthinPer').html(),
-                DepthPer_IsBlank : $(this).find('.DepthPer_IsBlank').html(),
+                DepthPer_IsBlank: $(this).find('.DepthPer_IsBlank').html(),
 
                 FromTableinPer: $(this).find('.FromTableinPer').html(),
                 ToTableinPer: $(this).find('.ToTableinPer').html(),
-                TablePer_IsBlank : $(this).find('.TablePer_IsBlank').html(),
+                TablePer_IsBlank: $(this).find('.TablePer_IsBlank').html(),
 
                 FromCrAng: $(this).find('.FromCrAng').html(),
                 ToCrAng: $(this).find('.ToCrAng').html(),
-                CrAng_IsBlank : $(this).find('.CrAng_IsBlank').html(),
+                CrAng_IsBlank: $(this).find('.CrAng_IsBlank').html(),
 
                 FromCrHt: $(this).find('.FromCrHt').html(),
                 ToCrHt: $(this).find('.ToCrHt').html(),
-                CrHt_IsBlank : $(this).find('.CrHt_IsBlank').html(),
+                CrHt_IsBlank: $(this).find('.CrHt_IsBlank').html(),
 
                 FromPavAng: $(this).find('.FromPavAng').html(),
                 ToPavAng: $(this).find('.ToPavAng').html(),
-                PavAng_IsBlank : $(this).find('.PavAng_IsBlank').html(),
+                PavAng_IsBlank: $(this).find('.PavAng_IsBlank').html(),
 
                 FromPavHt: $(this).find('.FromPavHt').html(),
                 ToPavHt: $(this).find('.ToPavHt').html(),
-                PavHt_IsBlank : $(this).find('.PavHt_IsBlank').html(),
+                PavHt_IsBlank: $(this).find('.PavHt_IsBlank').html(),
 
                 CheckKTS: htmlDecode($(this).find('.dCheckKTS').html()),
                 UNCheckKTS: htmlDecode($(this).find('.dUNCheckKTS').html()),
@@ -4156,52 +4202,57 @@ function SaveData() {
                 "OrderBy": e.iPriority + 1
             });
         });
-        
 
-
-        debugger
-        var obj = {};
-        obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
-        obj.UserName = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserName').join(",");
-        obj.ExportType = $("#ExportType").val();
-        //obj.Password = $("#txt_S_Password").val();
-        obj.SuppDisc = list;
-        obj.CUSTOMER = List1;
-        debugger
-        loaderShow();
-        $.ajax({
-            url: '/User/AddUpdate_Customer_Stock_Disc',
-            type: "POST",
-            data: { req: obj },
-            success: function (data) {
-                debugger
-                loaderHide();
-                if (data.Status == "1") {
-                    toastr.remove();
-                    toastr.success(data.Message);
-                    Get_Customer_Stock_Disc();
-                    Get_Customer_Stock_Disc_Mas();
-                    $(window).scrollTop(0);
-                }
-                else {
-                    if (data.Message.indexOf('Something Went wrong') > -1) {
-                        MoveToErrorPage(0);
+        var data = filterByProperty(Rowdata, "UserId", UserId);
+        if (data.length == 1) {
+            debugger
+            var obj = {};
+            //obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
+            //obj.UserName = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserName').join(",");
+            obj.UserId = UserId;
+            obj.UserName = data[0].UserName;
+            obj.ExportType = $("#ExportType").val();
+            //obj.Password = $("#txt_S_Password").val();
+            obj.SuppDisc = list;
+            obj.CUSTOMER = List1;
+            debugger
+            loaderShow();
+            $.ajax({
+                url: '/User/AddUpdate_Customer_Stock_Disc',
+                type: "POST",
+                data: { req: obj },
+                success: function (data) {
+                    debugger
+                    loaderHide();
+                    if (data.Status == "1") {
+                        toastr.remove();
+                        toastr.success(data.Message);
+                        Get_Customer_Stock_Disc();
+                        Get_Customer_Stock_Disc_Mas();
+                        $(window).scrollTop(0);
                     }
-                    toastr.remove();
-                    toastr.error(data.Message);
+                    else {
+                        if (data.Message.indexOf('Something Went wrong') > -1) {
+                            MoveToErrorPage(0);
+                        }
+                        toastr.remove();
+                        toastr.error(data.Message);
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    loaderHide();
                 }
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                loaderHide();
-            }
-        });
+            });
+        }
+
     }
 }
 
 function Get_Customer_Stock_Disc() {
     loaderShow();
     var obj = {};
-    obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
+    //obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
+    obj.UserId = UserId;
 
     $.ajax({
         url: '/User/Get_Customer_Stock_Disc',
@@ -4319,7 +4370,7 @@ function Get_Customer_Stock_Disc() {
                     var GirdleOpen = NullReplace(itm.GirdleOpen);
                     var CrownOpen = NullReplace(itm.CrownOpen);
                     var PavillionOpen = NullReplace(itm.PavillionOpen);
-                    
+
                     var GoodsType = NullReplace(itm.GoodsType);
 
                     var View = itm.View;
@@ -4349,7 +4400,7 @@ function Get_Customer_Stock_Disc() {
                     var txtValue_2_5 = NullReplaceDecimal4ToFixed(itm.Value_2_5);
 
                     html += HTML_CREATE(Supplier, Location, Shape, Carat, Color_Type, Color, F_INTENSITY, F_OVERTONE, F_FANCY_COLOR, MixColor, Clarity, Cut, Polish,
-                        Sym, Fls, Lab, 
+                        Sym, Fls, Lab,
                         FromLength, ToLength, Length_IsBlank,
                         FromWidth, ToWidth, Width_IsBlank,
                         FromDepth, ToDepth, Depth_IsBlank,
@@ -4432,7 +4483,8 @@ function showTooltip() {
 }
 function Get_Customer_Stock_Disc_Mas() {
     var obj = {};
-    obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
+    //obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
+    obj.UserId = UserId;
 
     $.ajax({
         url: '/User/Get_Customer_Stock_Disc_Mas',
@@ -4455,7 +4507,8 @@ function Get_Customer_Stock_Disc_Mas() {
 function Get_API_ColumnSetting_UserWise() {
     loaderShow();
     var obj = {};
-    obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
+    //obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
+    obj.UserId = UserId;
 
     $.ajax({
         url: '/User/Get_API_ColumnSetting_UserWise',
@@ -4468,12 +4521,12 @@ function Get_API_ColumnSetting_UserWise() {
                     html += '<tr>';
                     html += '<td id="lblCoolName" style="display: none;"></td>';
                     html += '<td><i style="cursor: move;" class="fa fa-bars" aria-hidden="true"></i></td>';
-                    html += '<td id="lblFieldName" class="onbinding">' + itm.Column_Name +'</td>';
+                    html += '<td id="lblFieldName" class="onbinding">' + itm.Column_Name + '</td>';
                     html += '<td class="CustName">';
-                    html += '<input onblur="" type="text" class="form-control common-control form-control onpristine onvalid onnot-empty onvalid-maxlength ontouched" value="' + itm.API_Column_Name +'" maxlength="100">';
+                    html += '<input onblur="" type="text" class="form-control common-control form-control onpristine onvalid onnot-empty onvalid-maxlength ontouched" value="' + itm.API_Column_Name + '" maxlength="100">';
                     html += '</td>';
-                    html += '<td id="lblColId" style="display: none;" class="onbinding">' + itm.Id +'</td>';
-                    html += '<td id="lblOrder" class="ColumnOrder onbinding">' + itm.OrderBy +'</td>';
+                    html += '<td id="lblColId" style="display: none;" class="onbinding">' + itm.Id + '</td>';
+                    html += '<td id="lblOrder" class="ColumnOrder onbinding">' + itm.OrderBy + '</td>';
                     html += '<td><center>';
                     if (itm.Visible == true) {
                         html += '<img src="/Content/images/chebox-fill.png" class="chebox-fill img-block" id="chebox_fillImg_' + itm.Id + '" onclick="chebox_fill(' + itm.Id + ')" style="cursor: pointer; width: 20px;" />';
@@ -4553,15 +4606,21 @@ function SetTableOrder() {
     });
 };
 var DeleteAll = function () {
-    $("#DeleteAll").modal("show");
-    $("#DeleteAll .modal-body li").html("Are You Sure You Want To Delete All Pricing Filter of " + _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'FirstName')[0] + " " + _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'LastName')[0] + " User ?");
+    var data = filterByProperty(Rowdata, "UserId", UserId);
+    if (data.length == 1) {
+        debugger
+        var name = data[0].FirstName + " " + data[0].LastName;
+        $("#DeleteAll").modal("show");
+        $("#DeleteAll .modal-body li").html("Are You Sure You Want To Delete All Pricing Filter of " + name + " User ?");
+    }
 }
 var ClearRemoveModel = function () {
     $("#DeleteAll").modal("hide");
 }
 var Delete = function () {
     var obj = {};
-    obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
+    //obj.UserId = _.pluck(_.filter(gridOptions.api.getSelectedRows()), 'UserId').join(",");
+    obj.UserId = UserId;
 
     loaderShow();
     $.ajax({
