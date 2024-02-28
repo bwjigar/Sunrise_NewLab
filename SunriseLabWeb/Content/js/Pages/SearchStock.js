@@ -1549,6 +1549,9 @@ function ExcelFilter(type, from) {
     else if (type == "3") {
         Type = "Customer List";
     }
+    else if (type == "4") {
+        Type = "Status";
+    }
     if (Type != "") {
         ExcelDownload('Filter', from);
     }

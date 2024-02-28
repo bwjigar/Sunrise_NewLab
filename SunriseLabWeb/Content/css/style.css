@@ -1674,7 +1674,7 @@ span.res-btn {
         }
 
         .search-page-content .bottom-button-bar ul li a:active {
-            margin-top: -4px;
+            margin-top: 0px;
             box-shadow: none;
         }
 

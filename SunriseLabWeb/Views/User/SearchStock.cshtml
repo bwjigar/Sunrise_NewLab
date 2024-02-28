@@ -30,7 +30,7 @@
 
     .search-page-content .bottom-button-bar {
         width: 100%;
-        /*margin: 0 15px 0 15px;*/
+        margin: 0 0 0px 8px;
     }
 
     @@media screen and (min-width: 321px) and (max-width: 411px) {
@@ -1235,6 +1235,7 @@
             if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
             {
                 <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Download</a></li>
+                <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(4, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Status Download</a></li>
             }
         }
         else
@@ -1282,6 +1283,7 @@
                 if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
                 {
                     <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(2, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Admin Download</a></li>
+                    <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(4, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Status Download</a></li>
                 }
             }
         }

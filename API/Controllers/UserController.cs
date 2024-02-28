@@ -4800,6 +4800,38 @@ namespace API.Controllers
                             File.AppendAllText(path, sb.ToString());
                             sb.Clear();
                         }
+                        else if (req.Type == "Status")
+                        {
+                            Database db = new Database();
+                            List<IDbDataParameter> para;
+                            para = new List<IDbDataParameter>();
+
+                            //int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                            para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+                            para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, "CUSTOMER"));
+
+                            DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
+
+                            string path = HttpContext.Current.Server.MapPath("~/Search_Stock_and_Excel_Time.txt");
+                            if (!File.Exists(@"" + path + ""))
+                            {
+                                File.Create(@"" + path + "").Dispose();
+                            }
+                            StringBuilder sb = new StringBuilder();
+
+                            sb.Append(DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt") + " :: Status Excel Make Start");
+                            sb.AppendLine("");
+                            File.AppendAllText(path, sb.ToString());
+                            sb.Clear();
+
+                            EpExcelExport.Status_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+
+                            sb.Append(DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt") + " :: Status Excel Make End");
+                            sb.AppendLine("");
+                            File.AppendAllText(path, sb.ToString());
+                            sb.Clear();
+                        }
 
                         string _strxml = _path + filename + ".xlsx";
                         return Ok(_strxml);
@@ -10361,6 +10393,7 @@ namespace API.Controllers
                 para.Add(db.CreateParam("BuyerExcel_Uploaded", DbType.Boolean, ParameterDirection.Input, false));
                 para.Add(db.CreateParam("SupplierExcel_Uploaded", DbType.Boolean, ParameterDirection.Input, false));
                 para.Add(db.CreateParam("CustomerExcel_Uploaded", DbType.Boolean, ParameterDirection.Input, false));
+                para.Add(db.CreateParam("StatusExcel_Uploaded", DbType.Boolean, ParameterDirection.Input, false));
                 db.ExecuteSP("Update_Auto_Excel_Download", para.ToArray(), false);
 
                 string _path = ConfigurationManager.AppSettings["data"];
@@ -10433,6 +10466,7 @@ namespace API.Controllers
 
                     string customer_filename = "";
                     string supplier_filename = "";
+                    string status_filename = "";
 
                     if (Stock_dt != null && Stock_dt.Rows.Count > 0)
                     {
@@ -10482,6 +10516,30 @@ namespace API.Controllers
                         para.Add(db.CreateParam("SupplierExcel_Path", DbType.String, ParameterDirection.Input, supplier_filename));
 
                         db.ExecuteSP("Update_Auto_Excel_Download", para.ToArray(), false);
+
+
+                        status_filename = "Status";
+
+                        sb.Append(DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt") + " :: Auto Status Excel Make Start");
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
+
+                        EpExcelExport.Status_Excel(Stock_dt, null, realpath, realpath + status_filename + ".xlsx");
+
+                        sb.Append(DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt") + " :: Auto Status Excel Make End");
+                        sb.AppendLine("");
+                        File.AppendAllText(path, sb.ToString());
+                        sb.Clear();
+
+                        status_filename = _path + status_filename + ".xlsx";
+
+                        db = new Database();
+                        para = new List<IDbDataParameter>();
+                        para.Add(db.CreateParam("StatusExcel_Uploaded", DbType.Boolean, ParameterDirection.Input, true));
+                        para.Add(db.CreateParam("StatusExcel_Path", DbType.String, ParameterDirection.Input, status_filename));
+
+                        db.ExecuteSP("Update_Auto_Excel_Download", para.ToArray(), false);
                     }
                 }
                 else
@@ -10490,6 +10548,7 @@ namespace API.Controllers
                     para = new List<IDbDataParameter>();
                     para.Add(db.CreateParam("SupplierExcel_Uploaded", DbType.Boolean, ParameterDirection.Input, false));
                     para.Add(db.CreateParam("CustomerExcel_Uploaded", DbType.Boolean, ParameterDirection.Input, false));
+                    para.Add(db.CreateParam("StatusExcel_Uploaded", DbType.Boolean, ParameterDirection.Input, false));
 
                     db.ExecuteSP("Update_Auto_Excel_Download", para.ToArray(), false);
                 }
@@ -10507,6 +10566,7 @@ namespace API.Controllers
                 para.Add(db.CreateParam("BuyerExcel_Uploaded", DbType.Boolean, ParameterDirection.Input, true));
                 para.Add(db.CreateParam("SupplierExcel_Uploaded", DbType.Boolean, ParameterDirection.Input, true));
                 para.Add(db.CreateParam("CustomerExcel_Uploaded", DbType.Boolean, ParameterDirection.Input, true));
+                para.Add(db.CreateParam("StatusExcel_Uploaded", DbType.Boolean, ParameterDirection.Input, true));
                 db.ExecuteSP("Update_Auto_Excel_Download", para.ToArray(), false);
 
                 return Ok(new CommonResponse
