@@ -514,7 +514,7 @@
         </div>
     </div>
 
-    <div class="modal fade social-model" id="PlaceOrderModal" role="dialog">
+    <div class="modal fade social-model" id="PlaceOrderModal" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -544,6 +544,26 @@
             </div>
         </div>
     </div>
+    <div class="modal social-model fade" id="StockUploadResponse_Model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog search-width api-filter-popup modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title ng-binding" id="exampleModalLabel">Stock Upload Response</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="divMsg" style="max-height: 450px; overflow-y: auto;">
+
+                    </div>
+                </div>
+                <div id="modal-footer" class="modal-footer search-model-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="~/Content/js/jquery.min.js"></script>
     <script src="~/Content/Plugins/jqueryUI/jquery-ui.js"></script>
     <script src="~/Content/js/popper.min.js"></script>
@@ -618,8 +638,10 @@
                     $("#txtCompanyName_hidden").val("");
                     $("#txtCompanyName").val("");
                 }
-                
+
             });
+            $("#StockUploadResponse_Model").modal("hide");
+            $("#StockUploadResponse_Model #divMsg").html("");
         });
 var loaderShow = function () {
     $('.loading-overlay-image-container').show();
@@ -696,14 +718,20 @@ var loaderHide = function () {
             data: { req: obj },
             success: function (data) {
                 if (data.Status == "1" && data.Message == "SUCCESS" && data.Data.length > 0) {
+                    if (document.getElementById('StockUploadResponse_Model').style.display == "none") {
+                        $("#StockUploadResponse_Model").modal("show");
+                        $("#StockUploadResponse_Model #divMsg").html("");
+                    }
                     _(data.Data).each(function (obj, i) {
                         if (obj.Status == "1") {
-                            toastr.remove();
-                            toastr.success(obj.Message);
+                            //toastr.remove();
+                            //toastr.success(obj.Message);
+                            $("#StockUploadResponse_Model #divMsg").append("<li style='color:green;'>" + obj.Message +"</li>");
                         }
                         else {
-                            toastr.remove();
-                            toastr.error(obj.Message);
+                            //toastr.remove();
+                            //toastr.error(obj.Message);
+                            $("#StockUploadResponse_Model #divMsg").append("<li style='color:red;'>" + obj.Message + "</li>");
                         }
                     });
                 }
