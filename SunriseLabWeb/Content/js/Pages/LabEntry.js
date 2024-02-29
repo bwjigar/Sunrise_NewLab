@@ -575,16 +575,25 @@ function Total_Calculate() {
     var Cts = _.reduce(_.pluck(Final_Rows, 10), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
     var Rap_Rate = _.reduce(_.pluck(Final_Rows, 11), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
     var Rap_Amount = _.reduce(_.pluck(Final_Rows, 12), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
+
     var CUSTOMER_COST_DISC = _.reduce(_.pluck(Final_Rows, 6), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
     var CUSTOMER_COST_VALUE = _.reduce(_.pluck(Final_Rows, 7), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
+    var AVG_SALES_DISC_PER = (CUSTOMER_COST_VALUE > 0 ? (-1 * (((Rap_Amount - CUSTOMER_COST_VALUE) / Rap_Amount) * 100)) : 0).toFixed(2);
+
     var Disc = _.reduce(_.pluck(Final_Rows, 13), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
     var Value = _.reduce(_.pluck(Final_Rows, 14), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
+    var AVG_Disc_PER = (Value > 0 ? (-1 * (((Rap_Amount - Value) / Rap_Amount) * 100)) : 0).toFixed(2);
 
+    var SUPPLIER_COST_DISC = _.reduce(_.pluck(Final_Rows, 4), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
+    var SUPPLIER_COST_VALUE = _.reduce(_.pluck(Final_Rows, 5), function (memo, num) { return parseFloat(memo) + parseFloat(num); }, 0);
+    var AVG_SUPPLIER_COST_DISC = (SUPPLIER_COST_VALUE > 0 ? (-1 * (((Rap_Amount - SUPPLIER_COST_VALUE) / Rap_Amount) * 100)) : 0).toFixed(2);
 
-    var AVG_SALES_DISC_PER = (CUSTOMER_COST_VALUE > 0 ? (-1 * (((Rap_Amount - CUSTOMER_COST_VALUE) / Rap_Amount) * 100)) : 0).toFixed(2);
+    
     var AVG_PRICE_PER_CTS = (CUSTOMER_COST_VALUE > 0 ? CUSTOMER_COST_VALUE / Cts : 0).toFixed(2);
 
-    var AVG_Disc_PER = (Value > 0 ? (-1 * (((Rap_Amount - Value) / Rap_Amount) * 100)) : 0).toFixed(2);
+    
+
+    
 
     setTimeout(function () {
         $('.tab1Pcs').html(formatIntNumber(Pcs));
@@ -594,6 +603,8 @@ function Total_Calculate() {
         $('.tab1PriceCts').html(formatNumber(AVG_PRICE_PER_CTS));
         $('.tab1BaseDisc').html(formatNumber(AVG_Disc_PER));
         $('.tab1BaseValue').html(formatNumber(Value));
+        $('.tab1CostDisc').html(formatNumber(AVG_SUPPLIER_COST_DISC));
+        $('.tab1CostAmt').html(formatNumber(SUPPLIER_COST_VALUE));
     });
 }
 function formatIntNumber(number) {
