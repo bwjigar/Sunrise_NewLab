@@ -252,7 +252,7 @@ columnDefs.push({ headerName: "Company Name", field: "CompName", width: 220, too
 columnDefs.push({
     headerName: "QC Require",
     field: "QC_Require",
-    width: 145,
+    width: 270,
     sortable: false,
     editable: true,
     cellEditor: 'input_QC_Require_Indicator',
@@ -1043,7 +1043,7 @@ function input_QC_Require_Indicator(params) {
     }
     var element = document.createElement("span");
     element.title = 'QC Require';
-    element.innerHTML = '<input type="text" style="text-align: center;width: 132px;" maxlength="50" class="input-inc QC_Require lab-input" value = "' + QC_Require
+    element.innerHTML = '<input type="text" style="text-align: center;width: 250px;" maxlength="500" class="input-inc QC_Require lab-input" value = "' + QC_Require
         + '" Ref_No = "' + params.data.Ref_No
         + '" SupplierId = "' + params.data.SupplierId
         + '" onblur="QC_Require(this);">';

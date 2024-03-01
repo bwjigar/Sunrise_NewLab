@@ -7011,7 +7011,7 @@ namespace EpExcelExportLib
                     worksheet.Cells[3, 7].AutoFitColumns(12);
 
                     worksheet.Cells[3, 8].Value = "QC Require";
-                    worksheet.Cells[3, 8].AutoFitColumns(15);
+                    worksheet.Cells[3, 8].AutoFitColumns(25);
 
                     worksheet.Cells[3, 9].Value = "Lab Entry Status";
                     worksheet.Cells[3, 9].AutoFitColumns(12);
@@ -7364,8 +7364,7 @@ namespace EpExcelExportLib
                     worksheet.Cells[inStartIndex, 28, (inwrkrow - 1), 29].Style.Font.Bold = true;
 
                     worksheet.Cells[inStartIndex, 19, (inwrkrow - 1), 19].Style.Numberformat.Format = "0.00";
-                    worksheet.Cells[inStartIndex, 20, (inwrkrow - 1), 25].Style.Numberformat.Format = "#,##0.00";
-                    worksheet.Cells[inStartIndex, 28, (inwrkrow - 1), 29].Style.Numberformat.Format = "#,##0.00";
+                    worksheet.Cells[inStartIndex, 20, (inwrkrow - 1), 29].Style.Numberformat.Format = "#,##0.00";
 
                     worksheet.Cells[inStartIndex, 34, (inwrkrow - 1), 37].Style.Numberformat.Format = "0.00";
                     worksheet.Cells[inStartIndex, 40, (inwrkrow - 1), 44].Style.Numberformat.Format = "0.00";

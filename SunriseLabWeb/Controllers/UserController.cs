@@ -1006,7 +1006,7 @@ namespace SunriseLabWeb_New.Controllers
                                             }
 
                                             QCRequire = (QCRequire != "" ? QCRequire : "REGULAR");
-                                            QCRequire = (QCRequire.Length > 50 ? QCRequire.Substring(0, 50) : QCRequire);
+                                            QCRequire = (QCRequire.Length > 500 ? QCRequire.Substring(0, 500) : QCRequire);
 
                                             Res[0].DataList[i].QCRequire = QCRequire;
                                             Res[0].DataList[i].LabEntry_Status = CapitalizeFirstLetterAfterSpace(LabStatus);
