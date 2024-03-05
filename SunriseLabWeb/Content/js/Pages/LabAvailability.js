@@ -1,5 +1,6 @@
-var pgSize = 200;
+var pgSize = 500;
 var ExcelUploadRefNo = "";
+var EntryFrom = "";
 function onPageSizeChanged() {
     var value = $("#ddlPagesize").val();
     pgSize = Number(value);
@@ -7,24 +8,60 @@ function onPageSizeChanged() {
 }
 var showEntryHtml = '<div class="show_entry"><label>'
     + 'Show <select onchange = "onPageSizeChanged()" id = "ddlPagesize">'
-    + '<option value="200">200</option>'
     + '<option value="500">500</option>'
-    + '<option value="1000">1000</option>'
+    + '<option value="800">800</option>'
     + '</select> entries'
     + '</label>'
     + '</div>';
 
 $(document).ready(function () {
-    $("#txtStoneId").focus();
+    //$("#txtStoneId").focus();
+    if ($("#hdn_UserType").val().includes("2")) {
+        Master_Get()
+    }
     contentHeight();
-    $("#txtStoneId").keyup(function (event) {
-        if (event.keyCode === 13) {
-            GetSearch();
-        }
-    });
+    //$("#txtStoneId").keyup(function (event) {
+    //    if (event.keyCode === 13) {
+    //        GetSearch();
+    //    }
+    //});
     $("#li_User_LabAvailibility").addClass("menuActive");
 });
+function _checkValue(textbox) {
+    const value = textbox.value.trim();
+    const numericValue = parseFloat(value);
+    if (numericValue >= 0 && numericValue <= 100) {
+        textbox.value = NullReplaceDecimal4ToFixed(numericValue);
+    } else {
+        textbox.value = '';
+    }
+}
+function Master_Get() {
+    $("#ddlUserId").html("<option value=''>Select</option>");
+    var obj = {};
+    obj.Assist_UserId = $("#hdn_UserId").val();
 
+    $.ajax({
+        url: "/User/GetUsers",
+        async: false,
+        type: "POST",
+        data: { req: obj },
+        success: function (data, textStatus, jqXHR) {
+            if (data.Message.indexOf('Something Went wrong') > -1) {
+                MoveToErrorPage(0);
+            }
+            if (data != null && data.Data.length > 0) {
+                for (var k in data.Data) {
+                    if (data.Data[k].StockDiscMgt_Count > 0) {
+                        $("#ddlUserId").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].CompName + " [" + data.Data[k].UserName + "]" + "</option>");
+                    }
+                }
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        }
+    });
+}
 function filterByProperty(data, prop, value) {
     var filtered = [];
     for (var i = 0; i < data.length; i++) {
@@ -297,6 +334,7 @@ function GetSearch() {
     $(".tab1TCount").hide();
     $(".gridview").hide();
     $(".excel").hide();
+    EntryFrom = "";
     summary = [];
     Rowdata = [];
 
@@ -383,6 +421,25 @@ const datasource1 = {
         obj.PgSize = pgSize;
         obj.RefNo = $("#txtStoneId").val();
 
+        if ($('#ddlUserId').val() != undefined) {
+            if ($('#ddlUserId').val() == "") {
+                obj.UserId = $('#hdn_UserId').val();
+            }
+            else {
+                obj.UserId = $('#ddlUserId').val();
+            }
+        }
+        else {
+            obj.UserId = $("#hdn_UserId").val();
+        }
+        if ($("#txtDisc_1_1").val() != undefined && $("#txtDisc_1_1").val() != "") {
+            obj.PricingMethod = $("#PricingMethod_1").val();
+            obj.PricingSign = $("#PricingSign_1").val();
+            obj.PricingDisc = $("#txtDisc_1_1").val();
+        }
+        obj.View = true;
+        obj.Download = false;
+
         $.ajax({
             url: "/User/Get_LabAvailibility",
             async: false,
@@ -396,6 +453,7 @@ const datasource1 = {
                     $(".tab1TCount").show();
                     $(".gridview").show();
                     $(".excel").show();
+                    EntryFrom = "Search";
 
                     summary = data.Data[0].DataSummary;
                     Rowdata = data.Data[0].DataList;
@@ -436,7 +494,7 @@ function contentHeight() {
     var winH = $(window).height(),
         navbarHei = $(".order-title").height(),
         serachHei = $(".order-history-data").height(),
-        contentHei = winH - serachHei - navbarHei - 115;
+        contentHei = winH - serachHei - navbarHei - 112;
     contentHei = (contentHei < 200 ? 369 : contentHei);
     $("#Cart-Gride").css("height", contentHei);
 }
@@ -444,12 +502,18 @@ $(window).resize(function () {
     contentHeight();
 });
 function Reset() {
-    $("#txtStoneId").focus();
+    //$("#txtStoneId").focus();
     $('#txtStoneId').val("");
     $("#file_upload").val("");
     $(".excel").hide();
     $(".gridview").hide();
     $(".tab1TCount").hide();
+    EntryFrom = "";
+
+    $("#ddlUserId").val("");
+    $("#PricingMethod_1").val("");
+    $("#PricingSign_1").val("Plus");
+    $("#txtDisc_1_1").val("");
 }
 
 function ExcelExport(Type) {
@@ -460,11 +524,13 @@ function ExcelExport(Type) {
             var list = '';
             var i = 0, tot = selectedRows.length;
 
-            if (tot == 0) {
-                gridOptions.api.forEachNode(function (node) {
-                    selectedRows.push(node.data);
-                });
-                tot = selectedRows.length;
+            if (EntryFrom == "Excel") {
+                if (tot == 0) {
+                    gridOptions.api.forEachNode(function (node) {
+                        selectedRows.push(node.data);
+                    });
+                    tot = selectedRows.length;
+                }
             }
 
             for (; i < tot; i++) {
@@ -476,7 +542,26 @@ function ExcelExport(Type) {
             obj.SupplierId_RefNo_SupplierRefNo = list;
             obj.RefNo = (list == "" ? $("#txtStoneId").val() : "");
             obj.Type = Type;
-            
+
+            if ($('#ddlUserId').val() != undefined) {
+                if ($('#ddlUserId').val() == "") {
+                    obj.UserId = $('#hdn_UserId').val();
+                }
+                else {
+                    obj.UserId = $('#ddlUserId').val();
+                }
+            }
+            else {
+                obj.UserId = $("#hdn_UserId").val();
+            }
+            if ($("#txtDisc_1_1").val() != undefined && $("#txtDisc_1_1").val() != "") {
+                obj.PricingMethod = $("#PricingMethod_1").val();
+                obj.PricingSign = $("#PricingSign_1").val();
+                obj.PricingDisc = $("#txtDisc_1_1").val();
+            }
+            obj.View = false;
+            obj.Download = true;
+
             if (obj.SupplierId_RefNo_SupplierRefNo != "" || obj.RefNo != "") {
                 $.ajax({
                     url: "/User/Excel_LabAvailibility",
@@ -535,6 +620,7 @@ function UploadExcelFile() {
     $(".tab1TCount").hide();
     $(".gridview").hide();
     $(".excel").hide();
+    EntryFrom = "";
     summary = [];
     Rowdata = [];
 
@@ -549,6 +635,27 @@ function UploadExcelFile() {
     const formData = new FormData();
     formData.append("file", file);
 
+    if ($('#ddlUserId').val() != undefined) {
+        if ($('#ddlUserId').val() == "") {
+            formData.append("UserId", $('#hdn_UserId').val());
+        }
+        else {
+            formData.append("UserId", $('#ddlUserId').val());
+        }
+    }
+    else {
+        formData.append("UserId", $('#hdn_UserId').val());
+    }
+    if ($("#txtDisc_1_1").val() != undefined && $("#txtDisc_1_1").val() != "") {
+        formData.append("PricingMethod", $("#PricingMethod_1").val());
+        formData.append("PricingSign", $("#PricingSign_1").val());
+        formData.append("PricingDisc", $("#txtDisc_1_1").val());
+    }
+    formData.append("View", true);
+    formData.append("Download", false);
+
+    
+
     $.ajax({
         url: "/User/UploadExcelforLabAvailibility",
         processData: false,
@@ -558,7 +665,7 @@ function UploadExcelFile() {
         success: function (data, textStatus, jqXHR) {
             debugger
             loaderHide();
-
+            
             var Culet = data[data.length - 1].Culet;
 
             if (Culet == "0") {
@@ -605,7 +712,7 @@ function UploadExcelFile() {
                         return '[' + params.value.toLocaleString() + ']';
                     }
                 };
-                $("#file_upload").val("");
+                //$("#file_upload").val("");
 
                 var gridDiv = document.querySelector('#Cart-Gride');
                 new agGrid.Grid(gridDiv, gridOptions);
@@ -635,7 +742,8 @@ function UploadExcelFile() {
 
                 setInterval(function () {
                     $(".ag-header-cell-text").addClass("grid_prewrap");
-                }, 30);
+                    contentHeight();
+                }, 5);
 
                 if (Invalid_Stone_Body != '' && Invalid_Stone_Body != 'undefined') {
                     Excel_Invalid_RefNo(Invalid_Stone_Body);
@@ -645,6 +753,7 @@ function UploadExcelFile() {
                     $(".tab1TCount").show();
                     $(".gridview").show();
                     $(".excel").show();
+                    EntryFrom = "Excel";
 
                     gridOptions.api.forEachNode(function (node) {
                         node.setSelected(true);
@@ -656,6 +765,7 @@ function UploadExcelFile() {
             loaderHide();
         }
     });
+    
 }
 function Excel_Invalid_RefNo(Body) {
     var str = Body;

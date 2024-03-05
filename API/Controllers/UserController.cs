@@ -9119,7 +9119,7 @@ namespace API.Controllers
                                     foreach (string str4 in strArray)
                                     {
                                         //if (str.Trim().ToUpper() == str4.Trim().ToUpper() || str4.Trim().ToUpper() == "BLANK")
-                                        if (str.Trim().ToUpper() == str4.Trim().ToUpper())
+                                        if (str.Trim().ToUpper() == str4.Trim().ToUpper() && Record_Map != true)
                                         {
                                             Final_row[Convert.ToString(CatColMas_Map_Row["Column_Name"])] = str2;
                                             Record_Map = true;
@@ -13603,6 +13603,29 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("SupplierId_RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, DBNull.Value));
 
+                if (req.UserId > 0)
+                    para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, req.UserId));
+                else
+                    para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.PricingMethod))
+                    para.Add(db.CreateParam("PricingMethod", DbType.String, ParameterDirection.Input, req.PricingMethod));
+                else
+                    para.Add(db.CreateParam("PricingMethod", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.PricingSign))
+                    para.Add(db.CreateParam("PricingSign", DbType.String, ParameterDirection.Input, req.PricingSign));
+                else
+                    para.Add(db.CreateParam("PricingSign", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (req.PricingDisc > 0)
+                    para.Add(db.CreateParam("PricingDisc", DbType.Decimal, ParameterDirection.Input, Convert.ToDecimal(req.PricingDisc)));
+                else
+                    para.Add(db.CreateParam("PricingDisc", DbType.Decimal, ParameterDirection.Input, DBNull.Value));
+
+                para.Add(db.CreateParam("View", DbType.Boolean, ParameterDirection.Input, req.View));
+                para.Add(db.CreateParam("Download", DbType.Boolean, ParameterDirection.Input, req.Download));
+
                 DataTable Stock_dt = db.ExecuteSP("Get_LabAvailibility", para.ToArray(), false);
                 return Stock_dt;
             }
@@ -13775,6 +13798,12 @@ namespace API.Controllers
                         DataTable Col_dt = db.ExecuteSP("Get_SearchStock_ColumnSetting", para.ToArray(), false);
 
                         EpExcelExport.Customer_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
+                    }
+                    else if (req.Type == "Status List")
+                    {
+                        DataTable Col_dt = new DataTable(); ;
+
+                        EpExcelExport.Status_Excel(Stock_dt, Col_dt, realpath, realpath + filename + ".xlsx");
                     }
 
                     string _strxml = _path + filename + ".xlsx";

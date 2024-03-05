@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="~/Content/Plugins/multiselect/bootstrap-multiselect.css" type="text/css">
 }
 <style>
+    .btn-li {
+        padding: 0px 0px 8px 0px;
+    }
+
     .btn-group > .btn:first-child {
         width: 355px;
     }
@@ -374,12 +378,12 @@
         </div>
     </div>
     <div class="order-history-data admin">
-        <div class="row">
+        <div class="row" style="margin-bottom: -20px;">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <div class="col-xl-6 col-lg-6 col-md-7 col-sm-6 col-12 float-left">
                     <div class="order-stone-id common-order">
                         <div class="offer-label">Ref No: <span style="color:red;">*</span></div>
-                        <input type="text" tabindex="2" class="form-control common-control" @*onFocusout="GetSearch()"*@ id="txtStoneId" maxlength="2000" autocomplete="off" placeholder="Ref No, Certi No, Supplier Ref No (Comma or Space)..." onblur="CommaSeperatedStone_list(event)" onkeyup="CommaSeperatedStone_list(event)">
+                        <input type="text" tabindex="2" class="form-control common-control" @*onFocusout="GetSearch()"*@ id="txtStoneId" autocomplete="off" placeholder="Ref No, Certi No, Supplier Ref No (Comma or Space)..." onblur="CommaSeperatedStone_list(event)" onkeyup="CommaSeperatedStone_list(event)">
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 float-left mb-2">
@@ -392,9 +396,46 @@
                     <a style="cursor:pointer; font-size: 11.5px; font-style: normal; font-weight: 600; color: #143f58" href="~/Content/images/Availability_Upload_Format.xlsx" target="_blank">Availability_Upload_Format.xlsx</a>
                 </div>
             </div>
+            @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))
+            {
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-xl-3 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
+                        <div class="order-company-name common-order">
+                            <div class="offer-label sp-c">User: </div>
+                            <select id="ddlUserId" class="form-control common-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2 common-order">
+                        <div class="order-company-name">
+                            <div class="offer-label sp-c">Price Method: </div>
+                            <div class="row price-fil">
+                                <div class="col-lg-2 col-md-6 col-sm-2 col-xs-10 custom-box-list api-plr">
+                                    <select class="form-control common-control select2" id="PricingSign_1" name="PricingSign_1">
+                                        <option value="Plus">+</option>
+                                        @*<option value="Minus">-</option>*@
+                                    </select>
+                                </div>
+                                <div class="col-ld-2 col-md-6 col-sm-5 col-sm-4 col-xs-10 custom-box-list api-plr">
+                                    <select class="form-control common-control select2" id="PricingMethod_1" name="PricingMethod_1">
+                                        <option value="">Select Method</option>
+                                        <option value="Disc">Discount</option>
+                                        <option value="Value">Value</option>
+                                    </select>
+                                </div>
+                                <div class="col-ld-2 col-md-4 col-sm-4 col-sm-4 col-xs-10 custom-box-list api-plr api-plr-d">
+                                    <div class="api-plr txtDisc_1" style="margin-top: 0px;">
+                                        <input onchange="_checkValue(this)" type="text" id="txtDisc_1_1" class="form-control common-control dis_val val-txtbx" autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
 
             <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <div class="col-xl-5 col-lg-4 col-md-5 col-sm-12">
+                <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12">
                     <div class="tab1TCount" style="display:none;">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-12 row tab1TCount_pc">
                             <div><center><span class="g-head-t">Pcs</span></center><center><span class="g-amt-t tab1Pcs">0</span></center></div>
@@ -405,21 +446,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-7 col-lg-4 col-md-5 col-sm-12">
+                <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12">
                     <ul class="offer-inbtn pull-right mrtop src-rest-topbtn mt-2 mb-2">
-                        <li>
+                        <li class="btn-li">
                             <button class="offer-btn" onclick="UploadExcelFile();"><i class="fa fa-upload" aria-hidden="true"></i>Upload Excel </button>
                         </li>
-                        <li>
+                        <li class="btn-li">
                             <button class="offer-btn" onclick="GetSearch()"><i class="fa fa-search" aria-hidden="true"></i>Search </button>
                         </li>
-                        <li class="excel" style="display:none;">
+                        <li class="btn-li excel" style="display:none;">
                             <button class="offer-btn" onclick="ExcelExport('Supplier List')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel </button>
                         </li>
-                        <li class="excel" style="display:none;">
+                        <li class="btn-li excel" style="display:none;">
                             <button class="offer-btn" onclick="ExcelExport('Customer List')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel </button>
                         </li>
-                        <li>
+                        @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1"))
+                        {
+                            <li class="btn-li excel" style="display:none;">
+                                <button class="offer-btn" onclick="ExcelExport('Status List')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Status Excel </button>
+                            </li>
+                        }
+                        <li class="btn-li">
                             <button class="offer-btn" onclick="Reset()"><i class="fa fa-refresh" aria-hidden="true"></i>Reset </button>
                         </li>
                     </ul>

@@ -1,9 +1,11 @@
 ﻿using Lib.Model;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using SunriseLabWeb_New.Data;
 using SunriseLabWeb_New.Filter;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -21,6 +23,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Services.Description;
+using System.Web.UI.WebControls;
 
 namespace SunriseLabWeb_New.Controllers
 {
@@ -661,7 +664,9 @@ namespace SunriseLabWeb_New.Controllers
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_SearchStock, inputJson);
-            ServiceResponse<SearchDiamondsResponse> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = 2147483647;
+            ServiceResponse<SearchDiamondsResponse> data = serializer.Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Excel_SearchStock(Get_SearchStock_Req req)
@@ -860,7 +865,9 @@ namespace SunriseLabWeb_New.Controllers
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.Get_OrderHistory, inputJson);
-            ServiceResponse<Get_OrderHistory_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_OrderHistory_Res>>(response);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = 2147483647;
+            ServiceResponse<Get_OrderHistory_Res> data = serializer.Deserialize<ServiceResponse<Get_OrderHistory_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Excel_OrderHistory(Get_OrderHistory_Req req)
@@ -879,7 +886,9 @@ namespace SunriseLabWeb_New.Controllers
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_LabEntry, inputJson);
-            ServiceResponse<SearchDiamondsResponse> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = 2147483647;
+            ServiceResponse<SearchDiamondsResponse> data = serializer.Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Excel_LabEntry(Get_SearchStock_Req req)
@@ -893,7 +902,9 @@ namespace SunriseLabWeb_New.Controllers
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_LabEntry, inputJson);
-            ServiceResponse<SearchDiamondsResponse> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = 2147483647;
+            ServiceResponse<SearchDiamondsResponse> data = serializer.Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
             return data.Data;
         }
         public static string CapitalizeFirstLetterAfterSpace(string input)
@@ -1141,7 +1152,9 @@ namespace SunriseLabWeb_New.Controllers
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.Get_MyCart, inputJson);
-            ServiceResponse<Get_MyCart_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_MyCart_Res>>(response);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = 2147483647;
+            ServiceResponse<Get_MyCart_Res> data = serializer.Deserialize<ServiceResponse<Get_MyCart_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Excel_MyCart(Get_MyCart_Req req)
@@ -1160,14 +1173,18 @@ namespace SunriseLabWeb_New.Controllers
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_LabAvailibility, inputJson);
-            ServiceResponse<SearchDiamondsResponse> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = 2147483647;
+            ServiceResponse<SearchDiamondsResponse> data = serializer.Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
             return data.Data;
         }
         public JsonResult Get_LabAvailibility(Get_SearchStock_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_LabAvailibility, inputJson);
-            ServiceResponse<SearchDiamondsResponse> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = 2147483647;
+            ServiceResponse<SearchDiamondsResponse> data = serializer.Deserialize<ServiceResponse<SearchDiamondsResponse>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Excel_LabAvailibility(Get_SearchStock_Req req)
@@ -1178,7 +1195,7 @@ namespace SunriseLabWeb_New.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public JsonResult UploadExcelforLabAvailibility(LabEntry_Req req)
+        public JsonResult UploadExcelforLabAvailibility(Get_SearchStock_Req req)
         {
             List<Get_SearchStock_Res> lst = new List<Get_SearchStock_Res>();
             try
@@ -1231,8 +1248,15 @@ namespace SunriseLabWeb_New.Controllers
 
                     Get_SearchStock_Req Req = new Get_SearchStock_Req();
                     Req.RefNo = RefNo;
+                    Req.UserId = req.UserId;
+                    Req.PricingMethod = req.PricingMethod;
+                    Req.PricingSign = req.PricingSign;
+                    Req.PricingDisc = req.PricingDisc;
+                    Req.View = req.View;
+                    Req.Download = req.Download;
+                    
 
-                    List<SearchDiamondsResponse> Res = new List<SearchDiamondsResponse>();
+                    List <SearchDiamondsResponse> Res = new List<SearchDiamondsResponse>();
                     Res = Get_LabAvailibility_By_RefNo(Req);
 
 
