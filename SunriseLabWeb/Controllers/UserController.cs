@@ -1477,5 +1477,16 @@ namespace SunriseLabWeb_New.Controllers
             string data = (new JavaScriptSerializer()).Deserialize<string>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        public JsonResult _ChangePassword(UserDetails_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.ChangePassword, inputJson);
+            CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(_data, JsonRequestBehavior.AllowGet);
+        }
     }
 }

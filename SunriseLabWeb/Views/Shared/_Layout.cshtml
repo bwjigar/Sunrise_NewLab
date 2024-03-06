@@ -27,6 +27,9 @@
     <input type="hidden" id="hdn_PageName" />
     @RenderSection("styles", required: false)
     <style>
+        .pwd-field {
+            -webkit-text-security: disc;
+        }
         .o-h-remove {
             background-color: none;
             padding: none;
@@ -36,6 +39,7 @@
             width: none;
             float: none;
         }
+
         .ag-icon-filter {
             color: red !important;
         }
@@ -276,21 +280,24 @@
         #txtCompanyName_suggestion, #_txtCompanyName_suggestion, #___txtCompanyName_suggestion {
             font-size: 11.5px;
         }
+
         .bg-color {
             background-color: #dbd7d76e;
         }
+
         .menuActive {
             background-color: white;
             color: #143f58;
         }
+
         .text-head {
             color: #143f58;
             font-weight: 600;
         }
-       /* body {
+        /* body {
             font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
         }*/
-        
+
     </style>
 
 </head>
@@ -502,6 +509,10 @@
                             <img class="img-profile rounded-circle" src="~/Content/images/user.png">
                         </a>
                         <div class="dropdown-menu user-drop dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="@Url.Action("ChangePassword","User")">
+                                <i class="fa fa-key mr-2 text-gray-400" aria-hidden="true"></i>
+                                Change Password
+                            </a>
                             <a class="dropdown-item" href="@Url.Action("Logout","Login")">
                                 <i class="fa fa-sign-out mr-2 text-gray-400" aria-hidden="true"></i>
                                 Log Out
@@ -644,7 +655,7 @@
                 }
 
             });
-            
+
         });
 var loaderShow = function () {
     $('.loading-overlay-image-container').show();

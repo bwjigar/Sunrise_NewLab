@@ -135,7 +135,7 @@ namespace SunriseLabWeb_New.Data
         public static string Get_Customer_Stock_Disc_Mas = "/User/Get_Customer_Stock_Disc_Mas";
         public static string Get_API_ColumnSetting_UserWise = "/User/Get_API_ColumnSetting_UserWise";
         public static string Get_Customer_Stock_Disc_Count = "/User/Get_Customer_Stock_Disc_Count";
-        
+        public static string ChangePassword = "/User/ChangePassword";
 
         public static string GetUserProfilePicture = "/User/GetUserProfilePicture";
 
@@ -155,6 +155,8 @@ namespace SunriseLabWeb_New.Data
 
         public static string SaveLab = "/LabStock/SaveLab";
         public static string GetLab = "/LabStock/GetLab";
+        
 
+        
     }
 }

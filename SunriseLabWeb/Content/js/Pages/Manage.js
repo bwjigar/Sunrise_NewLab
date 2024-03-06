@@ -147,11 +147,14 @@ function EditView(UserId) {
     if (data.length == 1) {
         view = "Edit";
         $(".pwd").hide();
+        if ($("#hdn_UserType").val().includes("1")) {
+            $(".pwd").show();
+            $("#txt_Password").val(data[0].Password);
+        }
         AssistBy_Get();
 
         $("#hdn_Mng_UserId").val(data[0].UserId);
         $("#txt_UserName").val(data[0].UserName);
-        //$("#txt_Password").val(data[0].Password);
         $("#chk_Active").prop('checked', data[0].IsActive);
 
         if (data[0].UserTypeId != "") {
@@ -629,10 +632,27 @@ var GetError = function () {
             }
         }
     }
+    else if (view == "Edit") {
+        if ($("#hdn_UserType").val().includes("1")) {
+            if ($("#txt_Password").val() == "") {
+                ErrorMsg.push({
+                    'Error': "Please Enter Password.",
+                });
+            }
+            else {
+                var newlength = $("#txt_Password").val().length;
+                if (newlength < 6) {
+                    ErrorMsg.push({
+                        'Error': "Please Enter Minimum 6 Character Password.",
+                    });
+                }
+            }
+        }
+    }
 
     if ($("#txt_FirstName").val() == "") {
         ErrorMsg.push({
-            'Error': "Please Enter First Name .",
+            'Error': "Please Enter First Name.",
         });
     }
     if ($("#txt_LastName").val() == "") {

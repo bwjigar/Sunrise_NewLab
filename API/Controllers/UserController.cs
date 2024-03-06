@@ -15306,5 +15306,63 @@ namespace API.Controllers
                 throw ex;
             }
         }
+        [HttpPost]
+        public IHttpActionResult ChangePassword([FromBody] JObject data)
+        {
+            UserDetails_Req req = new UserDetails_Req();
+            try
+            {
+                req = JsonConvert.DeserializeObject<UserDetails_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+
+            try
+            {
+                CommonResponse resp = new CommonResponse();
+               
+                int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                if (userID > 0)
+                    para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, userID));
+                else
+                    para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Password))
+                    para.Add(db.CreateParam("Password", DbType.String, ParameterDirection.Input, req.Password));
+                else
+                    para.Add(db.CreateParam("Password", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                DataTable dt = db.ExecuteSP("ChangePassword", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    resp.Status = dt.Rows[0]["Status"].ToString();
+                    resp.Message = dt.Rows[0]["Message"].ToString();
+
+                }
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = ex.StackTrace,
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
     }
 }
