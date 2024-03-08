@@ -1603,6 +1603,7 @@ function ExcelDownload(where, from) {
         debugger
         if (obj.PgNo == "" && obj.PgSize == "" && obj.OrderBy == "" &&
             obj.Location == "" &&
+            obj.Culet == "" &&
             obj.RefNo == "" &&
             obj.SupplierId == "" &&
             obj.Shape == "" &&
@@ -1620,6 +1621,7 @@ function ExcelDownload(where, from) {
             obj.KTSBlank == "" && obj.Keytosymbol == "-" && obj.CheckKTS == "" && obj.UNCheckKTS == "" &&
             obj.RCommentBlank == "" && obj.RComment == "-" && obj.CheckRComment == "" && obj.UNCheckRComment == "" &&
             obj.FromDisc == "" && obj.ToDisc == "" &&
+            obj.FromPriceCts == "" && obj.ToPriceCts == "" &&
             obj.FromTotAmt == "" && obj.ToTotAmt == "" &&
             obj.LengthBlank == "" && obj.FromLength == "" && obj.ToLength == "" &&
             obj.WidthBlank == "" && obj.FromWidth == "" && obj.ToWidth == "" &&
@@ -1734,6 +1736,7 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
     var pavopen = _.pluck(_.filter(PavOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
     var girdleopen = _.pluck(_.filter(GirdleOpenList, function (e) { return e.isActive == true }), 'Value').join(",");
     var location = _.pluck(_.filter(LocationList, function (e) { return e.isActive == true }), 'Value').join(",");
+    var culet = _.pluck(_.filter(CuletList, function (e) { return e.isActive == true }), 'Value').join(",");
 
 
     var KeyToSymLst_Check = _.pluck(CheckKeyToSymbolList, 'Symbol').join(",");
@@ -1761,6 +1764,7 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
 
     obj.RefNo = (Selected_Ref_No == "" ? refno : Selected_Ref_No);
     obj.Location = location;
+    obj.Culet = culet;
     obj.SupplierId = supplier;
     obj.Shape = shapeLst;
     obj.Pointer = SizeLst;
@@ -1809,6 +1813,9 @@ function ObjectCreate(PageNo, pgSize, OrderBy, where) {
 
     obj.FromDisc = $('#FromDiscount').val();
     obj.ToDisc = $('#ToDiscount').val();
+
+    obj.FromPriceCts = $('#FromPriceCts').val();
+    obj.ToPriceCts = $('#ToPriceCts').val();
 
     obj.FromTotAmt = $('#FromTotalAmt').val();
     obj.ToTotAmt = $('#ToTotalAmt').val();
@@ -2168,6 +2175,7 @@ function NullReplaceDecimalToFixed(value) {
 
 var isCustomer = false;
 var ParameterList;
+var CuletList = [];
 var LocationList = [];
 var ShapeList = [];
 var CaratList = [];
@@ -3016,8 +3024,11 @@ function GetSearchParameter() {
                     $('#searchlocation').append('<li onclick="SetActive(\'LOCATION\',\'' + location.Value + '\')">' + location.Value + '</li>');
                 });
 
-
-
+                $('#searchCulet').html("");
+                CuletList = _.filter(ParameterList, function (e) { return e.Type == 'Culet' });
+                _(CuletList).each(function (culet, i) {
+                    $('#searchCulet').append('<li onclick="SetActive(\'CULET\',\'' + culet.Value + '\')">' + culet.Value + '</li>');
+                });
                 KeyToSymbolList = _.filter(ParameterList, function (e) { return e.Type == 'Key to Symbol' });
                 if (KeyToSymbolList.length > 0) {
                     KeyToSymbolList.sort(customSortByKeyName("Value"));
@@ -3138,6 +3149,13 @@ function SetActive(flag, value) {
             _.findWhere(LocationList, { Value: value }).isActive = false;
         } else {
             _.findWhere(LocationList, { Value: value }).isActive = true;
+        }
+    }
+    else if (flag == "CULET") {
+        if (_.find(CuletList, function (num) { return num.isActive == true && num.Value == value; })) {
+            _.findWhere(CuletList, { Value: value }).isActive = false;
+        } else {
+            _.findWhere(CuletList, { Value: value }).isActive = true;
         }
     }
     else if (flag == "COLOR") {
@@ -3419,7 +3437,8 @@ function Reset() {
     _.map(CrwnNattsList, function (data) { return data.isActive = false; });
     _.map(CaratList, function (data) { return data.isActive = false; });
     _.map(LocationList, function (data) { return data.isActive = false; });
-
+    _.map(CuletList, function (data) { return data.isActive = false; });
+    
     $('#SearchImage').removeClass('active');
     $('#SearchVideo').removeClass('active');
     $('#SearchCerti').removeClass('active');
@@ -3454,6 +3473,11 @@ function Reset() {
     _(LocationList).each(function (location, i) {
         $('#searchlocation').append('<li onclick="SetActive(\'LOCATION\',\'' + location.Value + '\')">' + location.Value + '</li>');
     });
+    $('#searchCulet').html("");
+    _(CuletList).each(function (culet, i) {
+        $('#searchCulet').append('<li onclick="SetActive(\'CULET\',\'' + culet.Value + '\')">' + culet.Value + '</li>');
+    });
+    
     $('#searchcolor').html("");
     _(ColorList).each(function (color, i) {
         $('#searchcolor').append('<li onclick="SetActive(\'COLOR\',\'' + color.Value + '\')">' + color.Value + '</li>');
@@ -3539,6 +3563,8 @@ function Reset() {
 
     $('#FromDiscount').val("");
     $('#ToDiscount').val("");
+    $('#FromPriceCts').val("");
+    $('#ToPriceCts').val("");
     $('#txtPrCtsFrom').val("");
     $('#txtPrCtsTo').val("");
     $('#FromTotalAmt').val("");
@@ -4681,6 +4707,8 @@ function SetSavedSearchParameter() {
 
                 $('#FromDiscount').val(data.FromDisc);
                 $('#ToDiscount').val(data.ToDisc);
+                $('#FromPriceCts').val(data.FromPriceCts);
+                $('#ToPriceCts').val(data.ToPriceCts);
                 $('#FromTotalAmt').val(data.FromTotAmt);
                 $('#ToTotalAmt').val(data.ToTotAmt);
 
@@ -4774,6 +4802,17 @@ function SetSavedSearchParameter() {
                         if (_.find(LocationList, function (num) { return num.Value == res; })) {
                             _.findWhere(LocationList, { Value: res }).isActive = true;
                             $('#searchlocation li[onclick="SetActive(\'LOCATION\',\'' + res + '\')"]').addClass('active');
+                        }
+                    });
+                }
+                var culet = data.Culet;
+                if (culet != null) {
+                    culet = culet.split(',');
+                    $(culet).each(function (i, res) {
+
+                        if (_.find(CuletList, function (num) { return num.Value == res; })) {
+                            _.findWhere(CuletList, { Value: res }).isActive = true;
+                            $('#searchCulet li[onclick="SetActive(\'CULET\',\'' + res + '\')"]').addClass('active');
                         }
                     });
                 }

@@ -895,6 +895,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row m-0">
+                        <div class="col-sm-3 col-xs-12 api-plr">
+                            <strong>Culet</strong>
+                        </div>
+                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr">
+                            <p class="divCheckedCuletValue"></p>
+                        </div>
+                        <div class="col-sm-1 col-xs-2 api-plr p-0" style="text-align: center; ">
+                            <div class="list-icn">
+                                <i style="cursor: pointer;" class="fa fa-refresh" aria-hidden="true" onclick="ResetSelectedAttr('.divCheckedCuletValue',CuletList)"></i>
+                                <a href="javascript:void(0);" onclick="ModalShow('Culet',CuletList)"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row m-0" style="margin-top: 8px !important;">
                         <div class="col-sm-4 col-xs-12 api-plr">
@@ -968,37 +982,37 @@
                         </div>
                     </div>
                     @*<div class="row m-0" style="margin-top: 6px !important;">
-                        <div class="col-sm-3 col-xs-12 api-plr">
-                            <strong>Price Method <span style="color:red;">*</span></strong>
-                        </div>
-                        <div class="col-sm-5 col-sm-5 col-xs-10 custom-box-list api-plr">
-                            <select class="form-control select2" id="PricingMethod" name="PricingMethod" onchange="PricingMethodDDL();">
-                                <option value="">Select Method</option>
-                                <option value="Disc">Discount</option>
-                                <option value="Value">Value</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-3 col-sm-3 col-xs-10 custom-box-list api-plr">
-                            <select class="form-control select2" id="PricingSign" name="PricingSign">
-                                <option value="=">=</option>
-                                <option value="+">+</option>
-                                <option value="-">-</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row m-0">
-                        <div class="col-sm-3 col-xs-12 api-plr">
-                            <strong>Percentage <span style="color:red;">*</span></strong>
-                        </div>
-                        <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
-                            <div class="col-md-3 api-plr txtDisc"><input type="text" id="txtDisc1" name="txtDisc1" onkeypress="return DisValValid('Disc', event)" onkeyup="LenCheckr('Disc')" class="form-control" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue1" name="txtValue1" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue2" name="txtValue2" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue3" name="txtValue3" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                            <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue4" name="txtValue4" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
-                            <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr"></label>
-                        </div>
-                    </div>*@
+            <div class="col-sm-3 col-xs-12 api-plr">
+                <strong>Price Method <span style="color:red;">*</span></strong>
+            </div>
+            <div class="col-sm-5 col-sm-5 col-xs-10 custom-box-list api-plr">
+                <select class="form-control select2" id="PricingMethod" name="PricingMethod" onchange="PricingMethodDDL();">
+                    <option value="">Select Method</option>
+                    <option value="Disc">Discount</option>
+                    <option value="Value">Value</option>
+                </select>
+            </div>
+            <div class="col-sm-3 col-sm-3 col-xs-10 custom-box-list api-plr">
+                <select class="form-control select2" id="PricingSign" name="PricingSign">
+                    <option value="=">=</option>
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                </select>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-sm-3 col-xs-12 api-plr">
+                <strong>Percentage <span style="color:red;">*</span></strong>
+            </div>
+            <div class="col-sm-8 col-sm-8 col-xs-10 custom-box-list api-plr row">
+                <div class="col-md-3 api-plr txtDisc"><input type="text" id="txtDisc1" name="txtDisc1" onkeypress="return DisValValid('Disc', event)" onkeyup="LenCheckr('Disc')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue1" name="txtValue1" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue2" name="txtValue2" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue3" name="txtValue3" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <div class="col-md-3 api-plr txtValue"><input type="text" id="txtValue4" name="txtValue4" onkeypress="return DisValValid('Value', event)" onkeyup="LenCheckr('Value')" class="form-control" autocomplete="off"></div>
+                <label style="font-size: 12px;color: red;font-weight: 600;display:none;" id="lblPMErr"></label>
+            </div>
+        </div>*@
                 </div>
             </div>
         </div>
@@ -1137,7 +1151,7 @@
                             <th rowspan="3" style="vertical-align: middle;">Goods Type</th>
                             <th rowspan="3" style="vertical-align: middle;">Key to Symbol</th>
                             <th rowspan="3" style="vertical-align: middle;">Report Comments</th>
-                            
+
                             @*
         <th rowspan="3" style="vertical-align: middle;">From Length</th>
         <th rowspan="3" style="vertical-align: middle;">To Length</th>*@
@@ -1184,6 +1198,7 @@
                             <th rowspan="3" style="vertical-align: middle;">Crown Open</th>
                             <th rowspan="3" style="vertical-align: middle;">Pavillion Open</th>
                             <th rowspan="3" style="vertical-align: middle;">Girdle Open</th>
+                            <th rowspan="3" style="vertical-align: middle;">Culet</th>
 
                             <th rowspan="3" style="vertical-align: middle;">Used For</th>
                             <th rowspan="3" style="vertical-align: middle;">Image</th>

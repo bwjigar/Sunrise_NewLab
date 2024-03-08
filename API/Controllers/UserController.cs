@@ -1046,6 +1046,7 @@ namespace API.Controllers
                 dt.Columns.Add("GirdleOpen", typeof(string));
                 dt.Columns.Add("CrownOpen", typeof(string));
                 dt.Columns.Add("PavillionOpen", typeof(string));
+                dt.Columns.Add("Culet", typeof(string));
                 dt.Columns.Add("GoodsType", typeof(string));
                 dt.Columns.Add("Image", typeof(string));
                 dt.Columns.Add("Video", typeof(string));
@@ -1151,6 +1152,7 @@ namespace API.Controllers
                         dr["GirdleOpen"] = req.SuppDisc[i].GirdleOpen;
                         dr["CrownOpen"] = req.SuppDisc[i].CrownOpen;
                         dr["PavillionOpen"] = req.SuppDisc[i].PavillionOpen;
+                        dr["Culet"] = req.SuppDisc[i].Culet;
                         dr["GoodsType"] = req.SuppDisc[i].GoodsType;
                         dr["Image"] = req.SuppDisc[i].Image;
                         dr["Video"] = req.SuppDisc[i].Video;
@@ -4089,6 +4091,11 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("Location", DbType.String, ParameterDirection.Input, DBNull.Value));
 
+                if (!string.IsNullOrEmpty(req.Culet))
+                    para.Add(db.CreateParam("Culet", DbType.String, ParameterDirection.Input, req.Culet));
+                else
+                    para.Add(db.CreateParam("Culet", DbType.String, ParameterDirection.Input, DBNull.Value));
+
                 if (!string.IsNullOrEmpty(req.RefNo))
                     para.Add(db.CreateParam("RefNo", DbType.String, ParameterDirection.Input, req.RefNo));
                 else
@@ -4268,6 +4275,16 @@ namespace API.Controllers
                     para.Add(db.CreateParam("ToDisc", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToDisc)));
                 else
                     para.Add(db.CreateParam("ToDisc", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromPriceCts))
+                    para.Add(db.CreateParam("FromPriceCts", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromPriceCts)));
+                else
+                    para.Add(db.CreateParam("FromPriceCts", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToPriceCts))
+                    para.Add(db.CreateParam("ToPriceCts", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToPriceCts)));
+                else
+                    para.Add(db.CreateParam("ToPriceCts", DbType.String, ParameterDirection.Input, DBNull.Value));
 
                 if (!string.IsNullOrEmpty(req.FromTotAmt))
                     para.Add(db.CreateParam("FromTotAmt", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromTotAmt)));
@@ -5239,6 +5256,16 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("ToFinalDisc", DbType.String, ParameterDirection.Input, DBNull.Value));
 
+                if (!string.IsNullOrEmpty(req.FromPriceCts))
+                    para.Add(db.CreateParam("FromPriceCts", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromPriceCts)));
+                else
+                    para.Add(db.CreateParam("FromPriceCts", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToPriceCts))
+                    para.Add(db.CreateParam("ToPriceCts", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.ToPriceCts)));
+                else
+                    para.Add(db.CreateParam("ToPriceCts", DbType.String, ParameterDirection.Input, DBNull.Value));
+
                 if (!string.IsNullOrEmpty(req.FromTotAmt))
                     para.Add(db.CreateParam("FromFinalVal", DbType.String, ParameterDirection.Input, Convert.ToDecimal(req.FromTotAmt)));
                 else
@@ -5448,6 +5475,11 @@ namespace API.Controllers
                     para.Add(db.CreateParam("Location", DbType.String, ParameterDirection.Input, req.Location));
                 else
                     para.Add(db.CreateParam("Location", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Culet))
+                    para.Add(db.CreateParam("Culet", DbType.String, ParameterDirection.Input, req.Culet));
+                else
+                    para.Add(db.CreateParam("Culet", DbType.String, ParameterDirection.Input, DBNull.Value));
 
                 DataTable dt = db.ExecuteSP("AddUpdate_Save_Search", para.ToArray(), false);
 

@@ -114,11 +114,15 @@ function GetSaveSearch() {
                         }
                         if (data.Data[i].FromFinalDisc != null && data.Data[i].ToFinalDisc != null) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Discount % :&nbsp;</span>" + data.Data[i].FromFinalDisc + "-" + data.Data[i].ToFinalDisc;
+                            str += "<span style='font-weight: 600;'>Discount % :&nbsp;</span>" + NullReplaceCommaPointDecimalToFixed(data.Data[i].FromFinalDisc, 2) + "-" + NullReplaceCommaPointDecimalToFixed(data.Data[i].ToFinalDisc,2);
+                        }
+                        if (data.Data[i].FromPriceCts != null && data.Data[i].ToPriceCts != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Final Price/Ct :&nbsp;</span>" + NullReplaceCommaPointDecimalToFixed(data.Data[i].FromPriceCts, 2) + "-" + NullReplaceCommaPointDecimalToFixed(data.Data[i].ToPriceCts,2);
                         }
                         if (data.Data[i].FromFinalVal != null && data.Data[i].ToFinalVal != null) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Amount :&nbsp;</span>" + data.Data[i].FromFinalVal + "-" + data.Data[i].ToFinalVal;
+                            str += "<span style='font-weight: 600;'>Amount :&nbsp;</span>" + NullReplaceCommaPointDecimalToFixed(data.Data[i].FromFinalVal, 2) + "-" + NullReplaceCommaPointDecimalToFixed(data.Data[i].ToFinalVal,2);
                         }
                         if (data.Data[i].ColorType != null) {
                             if (data.Data[i].ColorType == "Regular" && data.Data[i].Color == null) {
@@ -245,6 +249,10 @@ function GetSaveSearch() {
                                 }
                                 str += "<span style='color:red;'>" + data.Data[i].UNCheckRComment + "</span>";
                             }
+                        }
+                        if (data.Data[i].Culet != null) {
+                            str += (str != "" ? ", " : "");
+                            str += "<span style='font-weight: 600;'>Culet :&nbsp;</span>" + data.Data[i].Culet;
                         }
                         if (data.Data[i].Location != null) {
                             str += (str != "" ? ", " : "");
@@ -535,6 +543,7 @@ function SaveSearch_LoadSearchData(Id) {
     if (SavedSearchList_1.Id > 0) {
         obj.SearchID = SavedSearchList_1.Id;
         obj.SearchName = SavedSearchList_1.SearchName;
+        obj.Culet = SavedSearchList_1.Culet;
         obj.Location = SavedSearchList_1.Location;
         obj.SupplierId = SavedSearchList_1.SupplierId;
         obj.Shape = SavedSearchList_1.Shape;
@@ -582,6 +591,9 @@ function SaveSearch_LoadSearchData(Id) {
 
         obj.FromDisc = SavedSearchList_1.FromFinalDisc;
         obj.ToDisc = SavedSearchList_1.ToFinalDisc;
+
+        obj.FromPriceCts = SavedSearchList_1.FromPriceCts;
+        obj.ToPriceCts = SavedSearchList_1.ToPriceCts;
 
         obj.FromTotAmt = SavedSearchList_1.FromFinalVal;
         obj.ToTotAmt = SavedSearchList_1.ToFinalVal;

@@ -573,6 +573,7 @@ namespace Lib.Model
         public int PgSize { get; set; }
         public string OrderBy { get; set; }
         public string Location { get; set; }
+        public string Culet { get; set; }
         public string RefNo { get; set; }
         public string SupplierId_RefNo_SupplierRefNo { get; set; }
         public string SupplierId { get; set; }
@@ -612,7 +613,8 @@ namespace Lib.Model
 
         public string FromDisc { get; set; }
         public string ToDisc { get; set; }
-
+        public string FromPriceCts { get; set; }
+        public string ToPriceCts { get; set; }
         public string FromTotAmt { get; set; }
         public string ToTotAmt { get; set; }
 
@@ -1251,6 +1253,8 @@ namespace Lib.Model
         public bool KTS_IsBlank { get; set; }
         public string FromFinalDisc { get; set; }
         public string ToFinalDisc { get; set; }
+        public string FromPriceCts { get; set; }
+        public string ToPriceCts { get; set; }
         public string FromFinalVal { get; set; }
         public string ToFinalVal { get; set; }
         public string FromLength { get; set; }
@@ -1284,6 +1288,7 @@ namespace Lib.Model
         public string ToPavHt { get; set; }
         public bool PavHt_IsBlank { get; set; }
         public string Location { get; set; }
+        public string Culet { get; set; }
         public string CheckRComment { get; set; }
         public string UNCheckRComment { get; set; }
         public bool RComment_IsBlank { get; set; }

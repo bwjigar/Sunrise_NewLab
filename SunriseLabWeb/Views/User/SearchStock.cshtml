@@ -215,7 +215,7 @@
         -webkit-transition: all 0.3s;
         -moz-transition: all 0.3s;
     }
-    
+
     #sym-sec0.active .carat-dropdown-main {
         display: block;
         transition: all 0.3s;
@@ -364,86 +364,108 @@
             padding-left: 13px;
             padding-right: 13px;
         }
+
         .api-plr-d {
             padding-left: 0px;
             padding-right: 34px;
         }
     }
+
     @@media screen and (min-width: 550px) and (max-width: 1500px) {
         .price-fil {
             padding-left: 15px;
         }
+
         #searchshape {
             /*margin-left: -27px;*/
         }
     }
+
     @@media screen and (min-width: 0px) and (max-width: 768px) {
         .fclr {
             padding-top: 10px;
         }
+
         .pra_dv {
             margin-left: -35px;
         }
     }
+
     @@media screen and (min-width: 0px) and (max-width: 1192px) {
         .cut_m {
             margin-top: -7px !important;
         }
+
         .sym_m {
             margin-top: -4px !important;
         }
+
         .pls_m {
             margin-top: -6px !important;
         }
+
         .fgml_ttl_m {
             margin-left: 0px !important;
             margin-top: 10px !important;
         }
+
         .flst_m {
             margin-left: -30px !important;
         }
+
         .fls_m {
             margin-left: -22px !important;
             margin-top: -7px !important;
         }
+
         .bgmt_m {
             margin-left: -30px !important;
         }
+
         .bgm_m {
             margin-left: -22px !important;
             margin-top: -7px !important;
         }
+
         .mediat_m {
             margin-left: -30px !important;
         }
+
         .media_m {
             margin-left: -22px !important;
             margin-top: -7px !important;
         }
+
         .labt_m {
             margin-left: -30px !important;
         }
+
         .lab_m {
             margin-left: -22px !important;
             margin-top: -7px !important;
         }
     }
+
     @@media screen and (min-width: 0px) and (max-width: 1172px) {
         .para_txt {
             width: 85px !important;
         }
     }
+
     @@media screen and (min-width: 0px) and (max-width: 650px) {
         .tab1TCount_mob {
             display: inline-flex !important;
         }
+
         .grid-optn {
             margin-top: 10px !important;
         }
+
         .tab1TCount_pc {
             display: none !important;
         }
     }
+
     @@media screen and (min-width: 649px) and (max-width: 5000px) {
         .tab1TCount_mob {
             display: none !important;
@@ -454,16 +476,17 @@
         }
     }
 
-    
+
 
 
     .sp-c {
         color: #143f58 !important;
     }
+
     .btn-li {
-       padding-bottom: 12px;
+        padding-bottom: 12px;
     }
-        /* .li-content-width {
+    /* .li-content-width {
         padding: 0px;
     }*/
 </style>
@@ -545,7 +568,7 @@
                 }
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12 float-left" style="margin-left: -14px; margin-top: -14px;">
                     <div class="order-stone-id common-order form-inline ml-md-3 mt-3 navbar-search">
-                        <input type="text" autocomplete="off" maxlength="2000" class="form-control border-0 small searchStock" id="txtRefNo" onblur="CommaSeperated_list(event)" onkeyup="CommaSeperated_list(event)" placeholder="Ref No / Supplier Ref No / Certificate No (Comma or Space)...">
+                        <input type="text" autocomplete="off" class="form-control border-0 small searchStock" id="txtRefNo" onblur="CommaSeperated_list(event)" onkeyup="CommaSeperated_list(event)" placeholder="Ref No / Supplier Ref No / Certificate No (Comma or Space)...">
                     </div>
                 </div>
             </div>
@@ -562,70 +585,68 @@
                             </ul>
                         </div>
                         <div class="col-xl-12" style="border-bottom: 1px solid #80808091;border-radius: 0px;margin-left: 2px;margin-top: 0px;margin-bottom: 7px;"></div>
-                        <div class="col-xl-6">
-                            <ul class="carat ">
-                                <li class="sp-c"><b>Carat</b></li>
-                                <ul class="nav specific-ul" id="CaratTab" role="tablist" style="width: 57%;display:none;">
-                                    <li>
-                                        <a class="active" id="home" data-toggle="tab" href="#carat1" role="tab" aria-controls="home" aria-selected="true">Specific</a>
-                                    </li>
-                                    <li>
-                                        <a class="" id="profile" data-toggle="tab" href="#carat2" role="tab" aria-controls="profile" aria-selected="false">General</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content row col-md-12" id="myTabContent">
-                                    <div class="tab-pane fade show active row col-md-12" id="carat1" role="tabpanel" aria-labelledby="home-tab" style="margin-left: -21px; padding-right: 0px;">
-                                        <div class="li-content-width one wow fadeInLeft animated dv_Crt_Wgt" data-wow-delay="0.1s" style=" width: 104%;">
-                                <li class="carat-li-top"><input type="text" id="txtfromcarat" onblur="LeaveTextBox('FROM','txtfromcarat','txttocarat', 2);" onkeypress="return isNumberKey(event)" autocomplete="off"><span class="from-to">From</span></li>
-                                <li class="carat-li-top"><input type="text" id="txttocarat" onblur="LeaveTextBox('TO','txtfromcarat','txttocarat', 2);" onkeypress="return isNumberKey(event)" autocomplete="off"><span class="from-to">To</span></li>
-                                <li class="carat-li-top"><a href="javascript:void(0);" onclick="NewSizeGroup()"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
+
+
+
+
+                        <div class="col-xl-3">
+                            <ul class="part2">
+                                <li class="sp-c" style="margin-bottom: 15px;"><b>Carat</b></li>
+                                <div class="li-content-width sec" style="margin-left: -7px;">
+                                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','txtfromcarat','txttocarat', 2);" onkeypress="return isNumberKey(event,'-')" id="txtfromcarat" class="numeric_value" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','txtfromcarat','txttocarat', 2);" onkeypress="return isNumberKey(event,'-')" id="txttocarat" class="numeric_value" type="text" autocomplete="off"><span class="from-to">To</span></li>
+                                <li class="wow flipInY animated" data-wow-delay="0.8s" style="margin-top: -5px;"><a href="javascript:void(0);" onclick="NewSizeGroup()"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
                         </div>
-                        <div id="searchcaratspecific" class="li-content-width two wow fadeInLeft animated dv_Crt_Wgt1" data-wow-delay="0.1s" style="width: 104%;">
+                        <div id="searchcaratspecific" class="li-content-width row two wow fadeInLeft animated dv_Crt_Wgt1" data-wow-delay="0.1s" style="width: 130%;">
 
                         </div>
+                        </ul>
                     </div>
-                    <div class="tab-pane fade carat2 common-li" id="carat2" role="tabpanel" aria-labelledby="home-tab">
-                        <div id="searchcaratgen" class="li-content-width  fadeInRight animated" data-wow-delay="0.8s">
-                        </div>
+
+
+
+                    <div class="col-xl-3">
+                        <ul class="part2">
+                            <li class="sp-c" style="margin-bottom: 15px;"><b>Discount %</b></li>
+                            <div class="li-content-width sec" style="margin-left: -7px;">
+                            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromDiscount','ToDiscount', 2);" onkeypress="return isNumberKey(event,'-')" id="FromDiscount" class="numeric_value" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromDiscount','ToDiscount', 2);" onkeypress="return isNumberKey(event,'-')" id="ToDiscount" class="numeric_value" type="text" autocomplete="off"><span class="from-to">To</span></li>
                     </div>
+                    </ul>
+                </div>
+
+                <div class="col-xl-3">
+                    <ul class="part2">
+                        <li class="sp-c" style="margin-bottom: 15px;"><b>Final Price/Ct</b></li>
+                        <div class="li-content-width sec" style="margin-left: -7px;">
+                        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromPriceCts','ToPriceCts', 2);" onkeypress="return isNumberKey(event,'-')" id="FromPriceCts" class="numeric_value" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromPriceCts','ToPriceCts', 2);" onkeypress="return isNumberKey(event,'-')" id="ToPriceCts" class="numeric_value" type="text" autocomplete="off"><span class="from-to">To</span></li>
                 </div>
                 </ul>
             </div>
-
-
-
             <div class="col-xl-3">
                 <ul class="part2">
-                    <li class="sp-c" style="margin-bottom: 15px;"><b>Discount %</b></li>
+                    <li class="sp-c" style="margin-bottom: 15px;"><b>Amount</b></li>
                     <div class="li-content-width sec" style="margin-left: -7px;">
-                    <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromDiscount','ToDiscount', 2);" onkeypress="return isNumberKey(event,'-')" id="FromDiscount" class="numeric_value" type="text" autocomplete="off"><span class="from-to">From</span></li>
-                    <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromDiscount','ToDiscount', 2);" onkeypress="return isNumberKey(event,'-')" id="ToDiscount" class="numeric_value" type="text" autocomplete="off"><span class="from-to">To</span></li>
+                    <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return isNumberKey(event)" id="FromTotalAmt" class="numeric_value" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                    <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return isNumberKey(event)" id="ToTotalAmt" class="numeric_value" type="text" autocomplete="off"><span class="from-to">To</span></li>
             </div>
             </ul>
         </div>
-        <div class="col-xl-3">
-            <ul class="part2">
-                <li class="sp-c" style="margin-bottom: 15px;"><b>Amount</b></li>
-                <div class="li-content-width sec" style="margin-left: -7px;">
-                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return isNumberKey(event)" id="FromTotalAmt" class="numeric_value" type="text" autocomplete="off"><span class="from-to">From</span></li>
-                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromTotalAmt','ToTotalAmt', 2);" onkeypress="return isNumberKey(event)" id="ToTotalAmt" class="numeric_value" type="text" autocomplete="off"><span class="from-to">To</span></li>
+
+        <div class="col-xl-12" style="border-bottom: 1px solid #80808091;border-radius: 0px;margin-left: 2px;margin-top: 0px;margin-bottom: 7px;"></div>
+
+        <div class="col-xl-12" id="div_Color" style="margin-top: -6px;">
+            <ul class="color cl common-li" style="padding-top: 10px; padding-bottom: 0px;">
+                <div class="row" style="margin-left: 0px;">
+                    <span class="sp-c" style="margin-bottom: 10px;"><b>Color</b></span>
+                    <div style="margin-left: 10px; margin-top: -5px;">
+                <li onclick="Color_Hide_Show('1')" id="Color_Hide_Show_1" class="active">Regular</li>
+                <li onclick="Color_Hide_Show('2')" id="Color_Hide_Show_2">Fancy</li>
         </div>
-        </ul>
     </div>
-
-    <div class="col-xl-12" style="border-bottom: 1px solid #80808091;border-radius: 0px;margin-left: 2px;margin-top: 0px;margin-bottom: 7px;"></div>
-
-    <div class="col-xl-12" id="div_Color" style="margin-top: -6px;">
-        <ul class="color cl common-li" style="padding-top: 10px; padding-bottom: 0px;">
-            <div class="row" style="margin-left: 0px;">
-                <span class="sp-c" style="margin-bottom: 10px;"><b>Color</b></span>
-                <div style="margin-left: 10px; margin-top: -5px;">
-            <li onclick="Color_Hide_Show('1')" id="Color_Hide_Show_1" class="active">Regular</li>
-            <li onclick="Color_Hide_Show('2')" id="Color_Hide_Show_2">Fancy</li>
+    <div id="searchcolor" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s" style="margin-left: -7px; padding-right: 0px;">
     </div>
-</div>
-<div id="searchcolor" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s" style="margin-left: -7px; padding-right: 0px;">
-</div>
     </ul>
 </div>
 <div class="col-xl-12" id="div_Fancy_Color" style="display: none; margin-top: 4px;">
@@ -881,9 +902,17 @@
     </ul>
 </div>
 
+<div class="col-xl-3" style="margin-top: 10px;">
+    <ul class="color common-li">
+        <span class="sp-c"><b>Culet</b></span>
+        <div id="searchCulet" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s" style="margin-left: -7px;">
+        </div>
+    </ul>
+</div>
+
 @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
 {
-    <div class="col-xl-6" style="margin-top: 10px;">
+    <div class="col-xl-3" style="margin-top: 10px;">
         <ul class="color common-li">
             <span class="sp-c"><b>Location</b></span>
             <div id="searchlocation" class="li-content-width wow fadeInLeft animated" data-wow-delay="0.8s" style="margin-left: -7px;">
@@ -898,41 +927,41 @@
 
 <span style="background-color: #143f58; padding: 3px; padding-right: 12px; padding-left: 8px; color: white; border-radius: 9px; margin-bottom: 7px; margin-left: 12px;">Search Parameters <i class="fa fa-search" style="margin-left: 23px;"></i> </span>
 
-    <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 float-left mb-2 order-history-data admin" style="margin-left: 0px; margin-right: 5px; margin-bottom: 10px; padding-left: 20px; padding-bottom: 0px;">
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="padding-right: 0px; margin-left: -35px;">
-            <div class="row col-lg-12" style="margin-bottom: -12px;">
-                <div class="col-lg-3">
-                    <span class="sp-c">Length  &nbsp;</span>
-                </div>
-                <div class="col-lg-9">
-                    <ul class="part2">
-
-                        <div class="li-content-width sec">
-
-                        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromLength','ToLength', 2);" onkeypress="return isNumberKey(event)" id="FromLength" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">From</span></li>
-                        <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromLength','ToLength', 2);" onkeypress="return isNumberKey(event)" id="ToLength" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">To</span></li>
-                        <div id="divLengthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px; margin-top: -4px; margin-bottom: -8px; width: 10%;">
-                        <li class="wow flipInY animated" data-wow-delay="0.8s" id="LengthBlank" onclick="SetActive('LengthBlank','BLANK')">BLANK</li>
-                </div>
-
+<div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 float-left mb-2 order-history-data admin" style="margin-left: 0px; margin-right: 5px; margin-bottom: 10px; padding-left: 20px; padding-bottom: 0px;">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12" style="padding-right: 0px; margin-left: -35px;">
+        <div class="row col-lg-12" style="margin-bottom: -12px;">
+            <div class="col-lg-3">
+                <span class="sp-c">Length  &nbsp;</span>
             </div>
-            </ul>
-        </div>
-    </div>
+            <div class="col-lg-9">
+                <ul class="part2">
 
-    <div class="row col-lg-12" style="margin-bottom: -12px;">
-        <div class="col-lg-3">
-            <span class="sp-c">Width  &nbsp;</span>
+                    <div class="li-content-width sec">
+
+                    <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromLength','ToLength', 2);" onkeypress="return isNumberKey(event)" id="FromLength" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">From</span></li>
+                    <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromLength','ToLength', 2);" onkeypress="return isNumberKey(event)" id="ToLength" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">To</span></li>
+                    <div id="divLengthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px; margin-top: -4px; margin-bottom: -8px; width: 10%;">
+                    <li class="wow flipInY animated" data-wow-delay="0.8s" id="LengthBlank" onclick="SetActive('LengthBlank','BLANK')">BLANK</li>
+            </div>
+
         </div>
-        <div class="col-lg-9">
-            <ul class="part2">
-                <div class="li-content-width sec">
-                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromWidth','ToWidth', 2);" onkeypress="return isNumberKey(event)" id="FromWidth" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">From</span></li>
-                <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromWidth','ToWidth', 2);" onkeypress="return isNumberKey(event)" id="ToWidth" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">To</span></li>
-                <div id="divWidthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px; margin-top: -4px; margin-bottom: -8px; width: 10%;">
-                <li class="wow flipInY animated" data-wow-delay="0.8s" id="WidthBlank" onclick="SetActive('WidthBlank','BLANK')">BLANK</li>
-        </div>
+        </ul>
     </div>
+</div>
+
+<div class="row col-lg-12" style="margin-bottom: -12px;">
+    <div class="col-lg-3">
+        <span class="sp-c">Width  &nbsp;</span>
+    </div>
+    <div class="col-lg-9">
+        <ul class="part2">
+            <div class="li-content-width sec">
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('FROM','FromWidth','ToWidth', 2);" onkeypress="return isNumberKey(event)" id="FromWidth" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">From</span></li>
+            <li class="wow flipInY animated" data-wow-delay="0.8s"><input onblur="LeaveTextBox('TO','FromWidth','ToWidth', 2);" onkeypress="return isNumberKey(event)" id="ToWidth" class="numeric_value para_txt" type="text" autocomplete="off"><span class="from-to">To</span></li>
+            <div id="divWidthBlank" class="li-content-width wow flipInY animated color common-li ul-b col-md-1" style="margin-left: -11px; margin-top: -4px; margin-bottom: -8px; width: 10%;">
+            <li class="wow flipInY animated" data-wow-delay="0.8s" id="WidthBlank" onclick="SetActive('WidthBlank','BLANK')">BLANK</li>
+    </div>
+</div>
     </ul>
 </div>
     </div>
@@ -1127,7 +1156,7 @@
     </div>
 
     </div>
-    
+
 
 
 
