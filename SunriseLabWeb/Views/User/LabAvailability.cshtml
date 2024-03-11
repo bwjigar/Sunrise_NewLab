@@ -454,6 +454,12 @@
                         <li class="btn-li">
                             <button class="offer-btn" onclick="GetSearch()"><i class="fa fa-search" aria-hidden="true"></i>Search </button>
                         </li>
+                        @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
+                        {
+                            <li class="btn-li excel"  style="display:none;">
+                                <button class="offer-btn" onclick="PlaceOrder()"><i class="fa fa-check-circle" aria-hidden="true"></i>Place Order </button>
+                            </li>
+                        }
                         <li class="btn-li excel" style="display:none;">
                             <button class="offer-btn" onclick="ExcelExport('Supplier List')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel </button>
                         </li>

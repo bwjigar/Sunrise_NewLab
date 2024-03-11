@@ -14,7 +14,7 @@ var showEntryHtml = '<div class="show_entry"><label>'
     + '</select> entries'
     + '</label>'
     + '</div>';
-
+OrderFrom = "Search Stock";
 
 var gridOptions = {};
 var iUserid = 0;
@@ -2574,7 +2574,6 @@ function Color_Hide_Show(type) {
 
 
 $(document).ready(function () {
-    $("#hdn_PageName").val("SearchStock");
     // For Shape selection
     var icon_selected = new Array();
     $('ul.search').on('click', ".common-ico", function () {

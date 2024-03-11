@@ -11964,6 +11964,7 @@ namespace API.Controllers
                 para.Add(db.CreateParam("OrderFrom_UserId", DbType.Int32, ParameterDirection.Input, UserId));
                 para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
                 para.Add(db.CreateParam("Comments", DbType.String, ParameterDirection.Input, req.Comments));
+                para.Add(db.CreateParam("OrderFrom", DbType.String, ParameterDirection.Input, req.OrderFrom));
                 para.Add(db.CreateParam("SupplierId_RefNo_SupplierRefNo", DbType.String, ParameterDirection.Input, req.SupplierId_RefNo_SupplierRefNo));
 
                 if (!string.IsNullOrEmpty(req.PricingMethod))

@@ -2,7 +2,7 @@ var FortuneCodeValid = true;
 var FortuneCodeValid_Msg = "";
 var Rowdata = [];
 var OrderBy = "";
-
+OrderFrom = "My Cart";
 var gridOptions = {};
 var iUserid = 0;
 var today = new Date();
@@ -399,7 +399,6 @@ function contentHeight() {
 }
 
 $(document).ready(function (e) {
-    $("#hdn_PageName").val("MyCart");
     GetSearch();
     contentHeight();
     $("#li_User_MyCart").addClass("menuActive");

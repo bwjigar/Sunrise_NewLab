@@ -24,7 +24,6 @@
     <link href="//cdn.syncfusion.com/17.4.0.46/js/web/flat-azure/ej.web.all.min.css" rel="stylesheet" />
     <link href="17.4.0.46/themes/web/content/default.css" rel="stylesheet" />
     <link href="17.4.0.46/themes/web/content/default-responsive.css" rel="stylesheet" />
-    <input type="hidden" id="hdn_PageName" />
     @RenderSection("styles", required: false)
     <style>
         .pwd-field {
@@ -596,7 +595,8 @@
         var L_month = L_d.getMonth()+1;
         var L_day = L_d.getDate();
         var L_curdate = L_d.getFullYear() + '' + (L_month<10 ? '0' : '') + L_month + '' + (L_day<10 ? '0' : '') + '' + L_day + '' + L_d.getHours() + '' + L_d.getMinutes() + '' + L_d.getSeconds();
-
+        var OrderFrom;
+        
         $(document).ready(function () {
              $('[data-toggle="tooltip"],[data-toggle="modal"]').tooltip();
             $('#sidebarCollapse').on('click', function () {
@@ -826,7 +826,8 @@ var loaderHide = function () {
             $('#PlaceOrderModal').modal('show');
         }
         function SaveOrder() {
-            if (gridOptions.api != undefined) {
+            debugger
+            if (gridOptions.api != undefined && OrderFrom != "") {
                 if ($("#Comments").val().trim() == "") {
                     $("#Comments").val("");
                     $("#Comments").focus();
@@ -847,7 +848,7 @@ var loaderHide = function () {
                 var obj = {};
                 obj.SupplierId_RefNo_SupplierRefNo = list;
                 obj.Comments = $("#Comments").val();
-
+                obj.OrderFrom = OrderFrom;
                 debugger
                 if ($("#txtDisc_1_1").val() != undefined && $("#txtDisc_1_1").val() != "") {
                     obj.PricingMethod = $("#PricingMethod_1").val();
@@ -859,7 +860,13 @@ var loaderHide = function () {
                     obj.UserId = $("#txtCompanyName_hidden").val().split("__")[0];
                 }
                 else {
-                    obj.UserId = $("#hdn_UserId").val();
+                    debugger
+                    if ($("#ddlUserId").val() != undefined && $("#ddlUserId").val() != "") {
+                        obj.UserId = $("#ddlUserId").val();
+                    }
+                    else {
+                        obj.UserId = $("#hdn_UserId").val();
+                    }
                 }
                 debugger
                 $.ajax({
@@ -874,11 +881,14 @@ var loaderHide = function () {
                             toastr.remove();
                             toastr.success(data.Message);
 
-                            if ($("#hdn_PageName").val() == "SearchStock") {
+                            if (OrderFrom == "Search Stock") {
                                 Search();
                             }
-                            else if ($("#hdn_PageName").val() == "MyCart") {
+                            else if (OrderFrom == "My Cart") {
                                 GetSearch();
+                            }
+                            else if (OrderFrom == "Lab Availability") {
+                                Reset();
                             }
                         }
                         else {

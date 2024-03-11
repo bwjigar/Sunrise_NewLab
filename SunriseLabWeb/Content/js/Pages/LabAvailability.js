@@ -13,7 +13,7 @@ var showEntryHtml = '<div class="show_entry"><label>'
     + '</select> entries'
     + '</label>'
     + '</div>';
-
+OrderFrom = "Lab Availability";
 $(document).ready(function () {
     //$("#txtStoneId").focus();
     if ($("#hdn_UserType").val().includes("2")) {
@@ -26,6 +26,7 @@ $(document).ready(function () {
     //    }
     //});
     $("#li_User_LabAvailibility").addClass("menuActive");
+    GetCompanyList();
 });
 function _checkValue(textbox) {
     const value = textbox.value.trim();

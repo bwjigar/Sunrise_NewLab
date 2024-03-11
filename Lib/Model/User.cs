@@ -892,6 +892,7 @@ namespace Lib.Model
         public int UserId { get; set; }
         public string SupplierId_RefNo_SupplierRefNo { get; set; }
         public string Comments { get; set; }
+        public string OrderFrom { get; set; }
         public string PricingMethod { get; set; }
         public string PricingSign { get; set; }
         public decimal PricingDisc { get; set; }
