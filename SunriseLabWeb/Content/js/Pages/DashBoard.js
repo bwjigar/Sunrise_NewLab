@@ -510,7 +510,7 @@ function GetOrderHistory() {
                         html += '<tr>';
                         html += '<td><center><span onclick="OrderHistory_LoadSearchData(' + data.Data[i].OrderId + ')" style="cursor:pointer;" class="Fi-Criteria order">&nbsp;' + data.Data[i].OrderId + '&nbsp;</span></center></td>';
                         html += '<td><center><span class="Fi-Criteria">' + data.Data[i].OrderDate + '</span></center></td>';
-                        html += '<td><center><span class="Fi-Criteria">' + breakString(data.Data[i].CustName,50) + '</span></center></td>';
+                        html += '<td><center><span class="Fi-Criteria">' + data.Data[i].CompName + '</span></center></td>';
                         html += '<td><center><span class="Fi-Criteria">' + breakString(data.Data[i].Remarks,65) + '</span></center></td>';
                         html += '<td><center><span class="Fi-Criteria">' + data.Data[i].TotPcs + '</span></center></td>';
                         html += '<td><center><span class="Fi-Criteria">' + parseFloat(data.Data[i].TotCts).toFixed(2) + '</span></center></td>';
