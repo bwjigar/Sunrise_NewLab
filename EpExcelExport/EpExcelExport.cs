@@ -4266,26 +4266,25 @@ namespace EpExcelExportLib
                                     (dtDiamonds.Rows[i - inStartIndex]["Rap_Amount"].GetType().Name != "DBNull" ?
                                     Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Rap_Amount"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 17].Value = ((Double?)null);
+                        worksheet.Cells[inwrkrow, 17].Formula = "IF(SUBTOTAL(109," + GetExcelColumnLetter(16) + "" + inwrkrow + ":" + GetExcelColumnLetter(16) + "" + inwrkrow + ")=0,0,ROUND((1-(" + GetExcelColumnLetter(18) + "" + inwrkrow + "/" + GetExcelColumnLetter(16) + "" + inwrkrow + "))*(-100),2))";
+                        
                         worksheet.Cells[inwrkrow, 18].Value = ((Double?)null);
-                        worksheet.Cells[inwrkrow, 19].Value = ((Double?)null);
+
+                        worksheet.Cells[inwrkrow, 19].Formula = GetExcelColumnLetter(18) + "" + inwrkrow + "-" + GetExcelColumnLetter(23) + "" + inwrkrow;
 
                         worksheet.Cells[inwrkrow, 20].Formula = "IF(SUBTOTAL(109," + GetExcelColumnLetter(16) + "" + inwrkrow + ":" + GetExcelColumnLetter(16) + "" + inwrkrow + ")=0,0,ROUND((1-(" + GetExcelColumnLetter(21) + "" + inwrkrow + "/" + GetExcelColumnLetter(16) + "" + inwrkrow + "))*(-100),2))";
-                        worksheet.Cells[inwrkrow, 20].Style.Numberformat.Format = "#,##0.00";
 
                         worksheet.Cells[inwrkrow, 21].Value = ((dtDiamonds.Rows[i - inStartIndex]["SUPPLIER_COST_VALUE"] != null) ?
                                      (dtDiamonds.Rows[i - inStartIndex]["SUPPLIER_COST_VALUE"].GetType().Name != "DBNull" ?
                                      Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["SUPPLIER_COST_VALUE"]) : ((Double?)null)) : null);
 
                         worksheet.Cells[inwrkrow, 22].Formula = "IF(SUBTOTAL(109," + GetExcelColumnLetter(16) + "" + inwrkrow + ":" + GetExcelColumnLetter(16) + "" + inwrkrow + ")=0,0,ROUND((1-(" + GetExcelColumnLetter(23) + "" + inwrkrow + "/" + GetExcelColumnLetter(16) + "" + inwrkrow + "))*(-100),2))";
-                        worksheet.Cells[inwrkrow, 22].Style.Numberformat.Format = "#,##0.00";
 
                         worksheet.Cells[inwrkrow, 23].Value = ((dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_VALUE"] != null) ?
                                      (dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_VALUE"].GetType().Name != "DBNull" ?
                                      Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["CUSTOMER_COST_VALUE"]) : ((Double?)null)) : null);
 
                         worksheet.Cells[inwrkrow, 24].Formula = "IF(SUBTOTAL(109," + GetExcelColumnLetter(16) + "" + inwrkrow + ":" + GetExcelColumnLetter(16) + "" + inwrkrow + ")=0,0,ROUND((1-(" + GetExcelColumnLetter(25) + "" + inwrkrow + "/" + GetExcelColumnLetter(16) + "" + inwrkrow + "))*(-100),2))";
-                        worksheet.Cells[inwrkrow, 24].Style.Numberformat.Format = "#,##0.00";
 
                         worksheet.Cells[inwrkrow, 25].Value = ((dtDiamonds.Rows[i - inStartIndex]["Value"] != null) ?
                                      (dtDiamonds.Rows[i - inStartIndex]["Value"].GetType().Name != "DBNull" ?
@@ -9550,6 +9549,146 @@ namespace EpExcelExportLib
                         System.IO.File.WriteAllBytes(_strFilePath, bin);
 
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, null);
+                throw ex;
+            }
+        }
+        public static void LoginDetail_Excel(DataTable Log_dt, string _strFolderPath, string _strFilePath)
+        {
+            try
+            {
+                using (ExcelPackage p = new ExcelPackage())
+                {
+                    int inStartIndex = 4;
+                    int inwrkrow = 4;
+                    int inEndCounter = Log_dt.Rows.Count + inStartIndex;
+                    int TotalRow = Log_dt.Rows.Count;
+                    int i;
+                    string values_1, Image_URL, Video_URL, cut, status, ForCust_Hold;
+                    Int64 number_1;
+                    bool success1;
+
+                    Color colFromHex_Pointer = System.Drawing.ColorTranslator.FromHtml("#c6e0b4");
+                    Color colFromHex_Dis = System.Drawing.ColorTranslator.FromHtml("#ccffff");
+                    Color colFromHexTotal = System.Drawing.ColorTranslator.FromHtml("#d9e1f2");
+                    Color tcpg_bg_clr = System.Drawing.ColorTranslator.FromHtml("#fff2cc");
+                    Color cellBg = System.Drawing.ColorTranslator.FromHtml("#ccffff");
+                    Color cellBg1 = System.Drawing.ColorTranslator.FromHtml("#ff99cc");
+
+                    #region Company Detail on Header
+
+                    //p.Workbook.Properties.Author = "SUNRISE DIAMOND";
+                    //p.Workbook.Properties.Title = "SUNRISE DIAMOND PVT. LTD.";
+                    p.Workbook.Worksheets.Add("Login Detail");
+
+                    ExcelWorksheet worksheet = p.Workbook.Worksheets[1];
+                    worksheet.Name = DateTime.Now.ToString("dd-MM-yyyy");
+                    worksheet.Cells.Style.Font.Size = 11;
+                    worksheet.Cells.Style.Font.Name = "Calibri";
+
+
+                    Color colFromHex_H1 = System.Drawing.ColorTranslator.FromHtml("#8497b0");
+                    Color col_color_Red = System.Drawing.ColorTranslator.FromHtml("#ff0000");
+
+                    worksheet.Row(3).Height = 40;
+                    worksheet.Row(3).Style.WrapText = true;
+
+                    worksheet.Cells[3, 1, 3, 7].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[3, 1, 3, 7].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                    worksheet.Cells[3, 1, 3, 7].Style.Font.Size = 10;
+                    worksheet.Cells[3, 1, 3, 7].Style.Font.Bold = true;
+
+                    worksheet.Cells[3, 1, 3, 7].AutoFilter = true;
+
+                    var cellBackgroundColor1 = worksheet.Cells[3, 1, 3, 7].Style.Fill;
+                    cellBackgroundColor1.PatternType = ExcelFillStyle.Solid;
+                    Color colFromHex = System.Drawing.ColorTranslator.FromHtml("#d3d3d3");
+                    cellBackgroundColor1.BackgroundColor.SetColor(colFromHex);
+
+                    #endregion
+
+                    #region Header Name Declaration and Set AutoFit and Decimal Number Format
+
+                    worksheet.Cells[3, 1].Value = "Login Date";
+                    worksheet.Cells[3, 1].AutoFitColumns(14);
+
+                    worksheet.Cells[3, 2].Value = "Login Time";
+                    worksheet.Cells[3, 2].AutoFitColumns(10);
+
+                    worksheet.Cells[3, 3].Value = "User Name";
+                    worksheet.Cells[3, 3].AutoFitColumns(19);
+
+                    worksheet.Cells[3, 4].Value = "Company Name";
+                    worksheet.Cells[3, 4].AutoFitColumns(29);
+
+                    worksheet.Cells[3, 5].Value = "Customer Name";
+                    worksheet.Cells[3, 5].AutoFitColumns(22);
+
+                    worksheet.Cells[3, 6].Value = "IP Address";
+                    worksheet.Cells[3, 6].AutoFitColumns(17);
+
+                    worksheet.Cells[3, 7].Value = "Device Type";
+                    worksheet.Cells[3, 7].AutoFitColumns(15);
+
+
+                    ExcelStyle cellStyleHeader1 = worksheet.Cells[3, 1, 3, 7].Style;
+                    cellStyleHeader1.Border.Left.Style = cellStyleHeader1.Border.Right.Style
+                            = cellStyleHeader1.Border.Top.Style = cellStyleHeader1.Border.Bottom.Style
+                            = ExcelBorderStyle.Medium;
+
+                    #endregion
+
+
+                    worksheet.View.FreezePanes(4, 1);
+
+                    //Set Cell Faoat value with Alignment
+                    worksheet.Cells[inStartIndex, 1, inEndCounter, 7].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                    var asTitleCase = Thread.CurrentThread.CurrentCulture.TextInfo;
+
+                    for (i = inStartIndex; i < inEndCounter; i++)
+                    {
+                        #region Assigns Value to Cell
+
+                        
+                        worksheet.Cells[inwrkrow, 1].Value = Convert.ToString(Log_dt.Rows[i - inStartIndex]["LoginDate"]);
+
+                        worksheet.Cells[inwrkrow, 2].Value = Convert.ToString(Log_dt.Rows[i - inStartIndex]["LoginTime"]);
+
+                        worksheet.Cells[inwrkrow, 3].Value = Convert.ToString(Log_dt.Rows[i - inStartIndex]["UserName"]);
+
+                        worksheet.Cells[inwrkrow, 4].Value = Convert.ToString(Log_dt.Rows[i - inStartIndex]["CompName"]);
+
+                        worksheet.Cells[inwrkrow, 5].Value = Convert.ToString(Log_dt.Rows[i - inStartIndex]["CustomerName"]);
+
+                        worksheet.Cells[inwrkrow, 6].Value = Convert.ToString(Log_dt.Rows[i - inStartIndex]["IPAddress"]);
+
+                        worksheet.Cells[inwrkrow, 7].Value = Convert.ToString(Log_dt.Rows[i - inStartIndex]["DeviceType"]);
+
+
+                        inwrkrow++;
+
+                        #endregion
+                    }
+
+                    worksheet.Cells[inStartIndex, 1, (inwrkrow - 1), 7].Style.Font.Size = 9;
+
+                    int rowEnd = worksheet.Dimension.End.Row;
+                    removingGreenTagWarning(worksheet, worksheet.Cells[1, 1, rowEnd, 100].Address);
+
+                    Byte[] bin = p.GetAsByteArray();
+
+                    if (!Directory.Exists(_strFolderPath))
+                    {
+                        Directory.CreateDirectory(_strFolderPath);
+                    }
+
+                    System.IO.File.WriteAllBytes(_strFilePath, bin);
+
                 }
             }
             catch (Exception ex)

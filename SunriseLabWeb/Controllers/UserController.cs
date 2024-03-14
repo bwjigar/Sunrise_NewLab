@@ -1488,5 +1488,25 @@ namespace SunriseLabWeb_New.Controllers
             CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
             return Json(_data, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult LoginDetail()
+        {
+            return View();
+        }
+        public JsonResult Get_LoginDetail(Get_LabEntryReport_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Get_LoginDetail, inputJson);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = 2147483647;
+            ServiceResponse<Get_LoginDetail_Res> data = serializer.Deserialize<ServiceResponse<Get_LoginDetail_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Excel_LoginDetail(Get_LabEntryReport_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Excel_LoginDetail, inputJson);
+            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
     }
 }

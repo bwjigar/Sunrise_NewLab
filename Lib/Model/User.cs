@@ -1087,6 +1087,20 @@ namespace Lib.Model
         public string FromDate { get; set; }
         public string ToDate { get; set; }
     }
+    public class Get_LoginDetail_Res
+    {
+        public long iTotalRec { get; set; }
+        public long Sr { get; set; }
+        public string LoginDate { get; set; }
+        public string LoginTime { get; set; }
+        public int UserID { get; set; }
+        public string IPAddress { get; set; }
+        public string UserName { get; set; }
+        public string CompName { get; set; }
+        public string CustomerName { get; set; }
+        public string DeviceType { get; set; }
+    }
+
     public class Add_MyCart_Req
     {
         public string SupplierId_RefNo_SupplierRefNo { get; set; }

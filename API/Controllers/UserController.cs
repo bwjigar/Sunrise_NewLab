@@ -15397,5 +15397,149 @@ namespace API.Controllers
                 });
             }
         }
+        [NonAction]
+        private DataTable LoginDetail(Get_LabEntryReport_Req req)
+        {
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+                para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, UserId));
+
+                if (req.PgNo > 0)
+                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, req.PgNo));
+                else
+                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                if (req.PgSize > 0)
+                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, req.PgSize));
+                else
+                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.OrderBy))
+                    para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, req.OrderBy));
+                else
+                    para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.CustName))
+                    para.Add(db.CreateParam("Search", DbType.String, ParameterDirection.Input, req.CustName));
+                else
+                    para.Add(db.CreateParam("Search", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromDate))
+                    para.Add(db.CreateParam("FromDate", DbType.String, ParameterDirection.Input, req.FromDate));
+                else
+                    para.Add(db.CreateParam("FromDate", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToDate))
+                    para.Add(db.CreateParam("ToDate", DbType.String, ParameterDirection.Input, req.ToDate));
+                else
+                    para.Add(db.CreateParam("ToDate", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                DataTable Stock_dt = db.ExecuteSP("Get_LoginDetail", para.ToArray(), false);
+                return Stock_dt;
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, null);
+                return null;
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Get_LoginDetail([FromBody] JObject data)
+        {
+            Get_LabEntryReport_Req req = new Get_LabEntryReport_Req();
+
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_LabEntryReport_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_LoginDetail_Res>
+                {
+                    Data = new List<Get_LoginDetail_Res>(),
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+            try
+            {
+                DataTable Log_dt = LoginDetail(req);
+
+                List<Get_LoginDetail_Res> List_Res = new List<Get_LoginDetail_Res>();
+                if (Log_dt != null && Log_dt.Rows.Count > 0)
+                {
+                    List_Res = Log_dt.ToList<Get_LoginDetail_Res>();
+                }
+
+                return Ok(new ServiceResponse<Get_LoginDetail_Res>
+                {
+                    Data = List_Res,
+                    Message = "SUCCESS",
+                    Status = "1"
+                });
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_LoginDetail_Res>
+                {
+                    Data = new List<Get_LoginDetail_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Excel_LoginDetail([FromBody] JObject data)
+        {
+            Get_LabEntryReport_Req req = new Get_LabEntryReport_Req();
+
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_LabEntryReport_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok("Input Parameters are not in the proper format");
+            }
+            try
+            {
+                DataTable Log_dt = LoginDetail(req);
+
+                if (Log_dt != null && Log_dt.Rows.Count > 0)
+                {
+                    string filename = "Login Detail " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string _path = ConfigurationManager.AppSettings["data"];
+                    _path = _path.Replace("Temp", "ExcelFile");
+                    string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
+
+                    if (!Directory.Exists(realpath))
+                    {
+                        Directory.CreateDirectory(realpath);
+                    }
+
+                    EpExcelExport.LoginDetail_Excel(Log_dt, realpath, realpath + filename + ".xlsx");
+
+                    string _strxml = _path + filename + ".xlsx";
+                    return Ok(_strxml);
+                }
+                else
+                {
+                    return Ok("No Data Found");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                throw ex;
+            }
+        }
     }
 }

@@ -359,6 +359,7 @@
     <Content Include="Content\js\Pages\detailCellRenderer.js" />
     <Content Include="Content\js\Pages\LabAvailability.js" />
     <Content Include="Content\js\Pages\LabEntry.js" />
+    <Content Include="Content\js\Pages\LoginDetail.js" />
     <Content Include="Content\js\Pages\Manage.js" />
     <Content Include="Content\js\Pages\MyCart.js" />
     <Content Include="Content\js\Pages\LabEntryReport.js" />
@@ -610,6 +611,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\User\LabEntryReport.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\User\LoginDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
