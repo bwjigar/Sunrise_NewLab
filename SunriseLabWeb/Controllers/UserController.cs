@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using OfficeOpenXml;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
+using SunriseLabWeb.Helper;
 using SunriseLabWeb_New.Data;
 using SunriseLabWeb_New.Filter;
 using System;
@@ -662,6 +663,10 @@ namespace SunriseLabWeb_New.Controllers
         }
         public JsonResult Get_SearchStock(Get_SearchStock_Req req)
         {
+            req.IPAddress = SessionFacade.UserSession.IPAddress;
+            req.DeviceType = SessionFacade.UserSession.DeviceType;
+            req.MacID = SessionFacade.UserSession.MacID;
+
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Get_SearchStock, inputJson);
             JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -671,6 +676,10 @@ namespace SunriseLabWeb_New.Controllers
         }
         public JsonResult Excel_SearchStock(Get_SearchStock_Req req)
         {
+            req.IPAddress = SessionFacade.UserSession.IPAddress;
+            req.DeviceType = SessionFacade.UserSession.DeviceType;
+            req.MacID = SessionFacade.UserSession.MacID;
+
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Excel_SearchStock, inputJson);
             string data = (new JavaScriptSerializer()).Deserialize<string>(response);
@@ -686,6 +695,10 @@ namespace SunriseLabWeb_New.Controllers
 
         public JsonResult Email_SearchStock(Get_SearchStock_Req req)
         {
+            req.IPAddress = SessionFacade.UserSession.IPAddress;
+            req.DeviceType = SessionFacade.UserSession.DeviceType;
+            req.MacID = SessionFacade.UserSession.MacID;
+
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPIUrlEncodedWithWebReq(Constants.Email_SearchStock, inputJson);
             CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
@@ -1505,6 +1518,26 @@ namespace SunriseLabWeb_New.Controllers
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.Excel_LoginDetail, inputJson);
+            string data = (new JavaScriptSerializer()).Deserialize<string>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult UserActivity()
+        {
+            return View();
+        }
+        public JsonResult Get_UserActivity(Get_LabEntryReport_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Get_UserActivity, inputJson);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            serializer.MaxJsonLength = 2147483647;
+            ServiceResponse<Get_UserActivity> data = serializer.Deserialize<ServiceResponse<Get_UserActivity>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Excel_UserActivity(Get_LabEntryReport_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Excel_UserActivity, inputJson);
             string data = (new JavaScriptSerializer()).Deserialize<string>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }

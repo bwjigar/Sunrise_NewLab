@@ -425,7 +425,7 @@
                                 </div>
                                 <div class="col-ld-2 col-md-4 col-sm-4 col-sm-4 col-xs-10 custom-box-list api-plr api-plr-d">
                                     <div class="api-plr txtDisc_1" style="margin-top: 0px;">
-                                        <input onchange="_checkValue(this)" type="text" id="txtDisc_1_1" class="form-control common-control dis_val val-txtbx" autocomplete="off">
+                                        <input onblur="LeaveTextBox('txtDisc_1_1', 4);" onkeypress="return isNumberKey(event)" type="text" id="txtDisc_1_1" class="form-control common-control dis_val val-txtbx" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -456,20 +456,20 @@
                         </li>
                         @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
                         {
-                            <li class="btn-li excel"  style="display:none;">
+                            <li class="btn-li excel" style="display:none;">
                                 <button class="offer-btn" onclick="PlaceOrder()"><i class="fa fa-check-circle" aria-hidden="true"></i>Place Order </button>
                             </li>
                         }
-                        <li class="btn-li excel" style="display:none;">
-                            <button class="offer-btn" onclick="ExcelExport('Supplier List')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel </button>
+                        <li class="btn-li">
+                            <button class="offer-btn" onclick="FileNameModal('Supplier List')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Supplier Excel </button>
                         </li>
-                        <li class="btn-li excel" style="display:none;">
-                            <button class="offer-btn" onclick="ExcelExport('Customer List')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel </button>
+                        <li class="btn-li">
+                            <button class="offer-btn" onclick="FileNameModal('Customer List')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Customer Excel </button>
                         </li>
                         @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1"))
                         {
-                            <li class="btn-li excel" style="display:none;">
-                                <button class="offer-btn" onclick="ExcelExport('Status List')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Status Excel </button>
+                            <li class="btn-li">
+                                <button class="offer-btn" onclick="FileNameModal('Status List')"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Status Excel </button>
                             </li>
                         }
                         <li class="btn-li">
@@ -542,6 +542,28 @@
                 <button id="btnsaveOfferclose" class="btn btn-primary" type="button" onclick="CloseExcel_Stone_InvalidPopup()">Cancel</button>
             </div>
 
+        </div>
+    </div>
+</div>
+<div class="modal fade social-model" id="Excel_Download_FileName_Modal" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="margin-top: -50px;display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <form class="form-horizontal" id="frmFileName">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="email">File Name : <span class="reqvalidation"> * </span></label>
+                        <input class="input-main" id="txtFileName" type="text" placeholder="File Name" style="font-size:14px; height: 40px;" autocomplete="off" maxlength="100">
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" onclick="FileDownload();">Download</button>
+                <button class="btn btn-darkblue" tabindex="4" type="button" data-dismiss="modal">Cancel</button>
+            </div>
         </div>
     </div>
 </div>

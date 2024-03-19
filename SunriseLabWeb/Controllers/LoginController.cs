@@ -97,6 +97,10 @@ namespace SunriseLabWeb_New.Controllers
 
                             if (_objresponse.Data != null && _objresponse.Data.Count > 0)
                             {
+                                _objresponse.Data[0].IPAddress = _ipAddress;
+                                _objresponse.Data[0].DeviceType = "Web";
+                                _objresponse.Data[0].MacID = "";
+
                                 SessionFacade.UserSession = _objresponse.Data.FirstOrDefault();
 
                                 var obj = _objresponse.Data.FirstOrDefault();

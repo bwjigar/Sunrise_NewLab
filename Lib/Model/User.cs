@@ -565,6 +565,13 @@ namespace Lib.Model
     
     public class Get_SearchStock_Req
     {
+        
+        public string FormName { get; set; }
+        public string Activity { get; set; }
+        public string IPAddress { get; set; }
+        public string DeviceType { get; set; }
+        public string MacID { get; set; }
+
         public int SearchID { get; set; }
         public string SearchName { get; set; }
         public string SP_Name { get; set; }
@@ -1100,7 +1107,83 @@ namespace Lib.Model
         public string CustomerName { get; set; }
         public string DeviceType { get; set; }
     }
-
+    public class Get_UserActivity
+    {
+        public long iTotalRec { get; set; }
+        public long Sr { get; set; }
+        public int Id { get; set; }
+        public string SearchDate { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public string CompName { get; set; }
+        public string CustomerName { get; set; }
+        public string FormName { get; set; }
+        public string Activity { get; set; }
+        public string IPAddress { get; set; }
+        public string DeviceType { get; set; }
+        public string MacID { get; set; }
+        public string SupplierId { get; set; }
+        public string SupplierName { get; set; }
+        public string RefNo { get; set; }
+        public string Shape { get; set; }
+        public string Carat { get; set; }
+        public string Discount { get; set; }
+        public string Final_Price_Ct { get; set; }
+        public string Amount { get; set; }
+        public string ColorType { get; set; }
+        public string Color { get; set; }
+        public string Intensity { get; set; }
+        public string Overtone { get; set; }
+        public string FancyColor { get; set; }
+        public string Clarity { get; set; }
+        public string Cut { get; set; }
+        public string Symmetry { get; set; }
+        public string Polish { get; set; }
+        public string Fluorescence { get; set; }
+        public string BGM { get; set; }
+        public string Media { get; set; }
+        public string Lab { get; set; }
+        public string KTS_Blank { get; set; }
+        public string KTS_Check { get; set; }
+        public string KTS_UnCheck { get; set; }
+        public string RC_Blank { get; set; }
+        public string RC_Check { get; set; }
+        public string RC_UnCheck { get; set; }
+        public string Culet { get; set; }
+        public string Location { get; set; }
+        public string Length { get; set; }
+        public string Length_Blank { get; set; }
+        public string Width { get; set; }
+        public string Width_Blank { get; set; }
+        public string Depth { get; set; }
+        public string Depth_Blank { get; set; }
+        public string Depth_Per { get; set; }
+        public string Depth_Per_Blank { get; set; }
+        public string Table_Per { get; set; }
+        public string Table_Per_Blank { get; set; }
+        public string Girdle { get; set; }
+        public string Girdle_Blank { get; set; }
+        public string CrownAngle { get; set; }
+        public string CrownAngle_Blank { get; set; }
+        public string CrownHeight { get; set; }
+        public string CrownHeight_Blank { get; set; }
+        public string PavilionAngle { get; set; }
+        public string PavilionAngle_Blank { get; set; }
+        public string PavHeight { get; set; }
+        public string PavHeight_Blank { get; set; }
+        public string StarLengh { get; set; }
+        public string StarLengh_Blank { get; set; }
+        public string LowerHalf { get; set; }
+        public string LowerHalf_Blank { get; set; }
+        public string TableBlack { get; set; }
+        public string CrownBlack { get; set; }
+        public string TableWhite { get; set; }
+        public string CrownWhite { get; set; }
+        public string TableOpen { get; set; }
+        public string CrownOpen { get; set; }
+        public string PavOpen { get; set; }
+        public string GirdleOpen { get; set; }
+    }
     public class Add_MyCart_Req
     {
         public string SupplierId_RefNo_SupplierRefNo { get; set; }

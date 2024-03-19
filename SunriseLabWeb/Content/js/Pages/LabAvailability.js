@@ -14,6 +14,7 @@ var showEntryHtml = '<div class="show_entry"><label>'
     + '</label>'
     + '</div>';
 OrderFrom = "Lab Availability";
+var Download_Type = "";
 $(document).ready(function () {
     //$("#txtStoneId").focus();
     if ($("#hdn_UserType").val().includes("2")) {
@@ -27,14 +28,67 @@ $(document).ready(function () {
     //});
     $("#li_User_LabAvailibility").addClass("menuActive");
     GetCompanyList();
+
+    $('#Excel_Download_FileName_Modal').on('show.bs.modal', function (event) {
+        if (Download_Type == "Supplier List") {
+            $('#Excel_Download_FileName_Modal .modal-title').html("Supplier Excel");
+            $('#Excel_Download_FileName_Modal #txtFileName').val("Supplier");
+        }
+        else if (Download_Type == "Customer List") {
+            $('#Excel_Download_FileName_Modal .modal-title').html("Customer Excel");
+            $('#Excel_Download_FileName_Modal #txtFileName').val("Customer");
+        }
+        else if (Download_Type == "Status List") {
+            $('#Excel_Download_FileName_Modal .modal-title').html("Status Excel");
+            $('#Excel_Download_FileName_Modal #txtFileName').val("Status");
+        }
+    });
+    $('#Excel_Download_FileName_Modal').on('hide.bs.modal', function (event) {
+        Download_Type = "";
+    });
+    $('#txtFileName').on('keypress', function (event) {
+        debugger
+        var charCode = event.which || event.keyCode; // For cross-browser compatibility
+        // Allow alphanumeric characters (a-z, A-Z, 0-9, Blank space)
+        if (((charCode >= 48 && charCode <= 57) || // 0-9
+            (charCode >= 65 && charCode <= 90) || // A-Z
+            (charCode >= 97 && charCode <= 122) || // a-z
+            charCode === 32 || // Blank space
+            charCode === 45 || // -
+            charCode === 95 || // _
+            charCode === 64 || // @
+            charCode === 33  // !
+        )) {
+            return true;
+        } else {
+            event.preventDefault();
+            return false;
+        }
+    });
 });
-function _checkValue(textbox) {
-    const value = textbox.value.trim();
-    const numericValue = parseFloat(value);
-    if (numericValue >= 0 && numericValue <= 100) {
-        textbox.value = NullReplaceDecimal4ToFixed(numericValue);
-    } else {
-        textbox.value = '';
+
+
+function isNumberKey(evt, sign = "") {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    // Allow numbers (0-9)
+    if ((charCode < 48 || charCode > 57) && charCode !== 46) {
+        return false;
+    }
+    return true;
+}
+var LeaveTextBox = function (fromid, point) {
+    debugger
+    if ($("#" + fromid).val().trim() != "") {
+        var f = parseFloat(parseFloat(($("#" + fromid).val() == "" ? "0" : $("#" + fromid).val())).toFixed(point));
+        var cal_fromval = 0;
+        var cal_toval = 99.99;
+
+        if (f >= cal_fromval && f <= cal_toval) {
+            $("#" + fromid).val(f.toFixed(point));
+        }
+        else {
+            $("#" + fromid).val("");
+        }
     }
 }
 function Master_Get() {
@@ -255,7 +309,7 @@ function onSelectionChanged(event) {
             TOT_NET_AMOUNT = summary.TOT_NET_AMOUNT;
             TOT_PCS = summary.TOT_PCS;
         }
-        
+
     }
     setTimeout(function () {
         $('.tab1Pcs').html(formatIntNumber(TOT_PCS));
@@ -340,7 +394,7 @@ function GetSearch() {
     Rowdata = [];
 
     ExcelUploadRefNo = "";
-    if ($("#txtStoneId").val() != "") {
+    if ($("#txtStoneId").val().trim() != "") {
         loaderShow();
         if (gridOptions.api != undefined) {
             gridOptions.api.destroy();
@@ -404,6 +458,9 @@ function GetSearch() {
             onSelectionChanged();
         });
     }
+    else {
+        $("#txtStoneId").focus();
+    }
 }
 
 var SortColumn = "";
@@ -420,7 +477,7 @@ const datasource1 = {
         }
         obj.PgNo = PageNo;
         obj.PgSize = pgSize;
-        obj.RefNo = $("#txtStoneId").val();
+        obj.RefNo = $("#txtStoneId").val().trim();
 
         if ($('#ddlUserId').val() != undefined) {
             if ($('#ddlUserId').val() == "") {
@@ -515,9 +572,14 @@ function Reset() {
     $("#PricingMethod_1").val("");
     $("#PricingSign_1").val("Plus");
     $("#txtDisc_1_1").val("");
+
+    if (gridOptions.api != undefined) {
+        gridOptions.api.destroy();
+    }
 }
 
-function ExcelExport(Type) {
+function ExcelExport(Type, FileName) {
+    debugger
     if (gridOptions.api != undefined) {
         loaderShow();
         setTimeout(function () {
@@ -538,11 +600,12 @@ function ExcelExport(Type) {
                 list += selectedRows[i].SupplierId + "_" + selectedRows[i].Ref_No + "_" + selectedRows[i].Supplier_Stone_Id + ',';
             }
             list = (list != '' ? list.substr(0, (list.length - 1)) : '');
-            
+
             var obj = {};
             obj.SupplierId_RefNo_SupplierRefNo = list;
-            obj.RefNo = (list == "" ? $("#txtStoneId").val() : "");
+            obj.RefNo = (list == "" ? $("#txtStoneId").val().trim() : "");
             obj.Type = Type;
+            obj.FormName = FileName;
 
             if ($('#ddlUserId').val() != undefined) {
                 if ($('#ddlUserId').val() == "") {
@@ -592,9 +655,86 @@ function ExcelExport(Type) {
             }
         }, 50);
     }
+    else if ($("#txtStoneId").val().trim() != "") {
+        debugger
+        loaderShow();
+        setTimeout(function () {
+            var obj = {};
+            obj.SupplierId_RefNo_SupplierRefNo = "";
+            obj.RefNo = $("#txtStoneId").val().trim();
+            obj.Type = Type;
+            obj.FormName = FileName;
+
+            if ($('#ddlUserId').val() != undefined) {
+                if ($('#ddlUserId').val() == "") {
+                    obj.UserId = $('#hdn_UserId').val();
+                }
+                else {
+                    obj.UserId = $('#ddlUserId').val();
+                }
+            }
+            else {
+                obj.UserId = $("#hdn_UserId").val();
+            }
+            if ($("#txtDisc_1_1").val() != undefined && $("#txtDisc_1_1").val() != "") {
+                obj.PricingMethod = $("#PricingMethod_1").val();
+                obj.PricingSign = $("#PricingSign_1").val();
+                obj.PricingDisc = $("#txtDisc_1_1").val();
+            }
+            obj.View = false;
+            obj.Download = true;
+            debugger
+            $.ajax({
+                url: "/User/Excel_LabAvailibility",
+                async: false,
+                type: "POST",
+                data: { req: obj },
+                success: function (data, textStatus, jqXHR) {
+                    loaderHide();
+                    if (data.search('.xlsx') == -1) {
+                        if (data.indexOf('Something Went wrong') > -1) {
+                            MoveToErrorPage(0);
+                        }
+                        toastr.remove();
+                        toastr.error(data);
+                    } else {
+                        location.href = data;
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    loaderHide();
+                }
+            });
+        }, 50);
+    }
+    else {
+        $("#txtStoneId").focus();
+    }
 }
-
-
+function FileNameModal(Type) {
+    if (gridOptions.api != undefined) {
+        Download_Type = Type;
+        $('#Excel_Download_FileName_Modal').modal('show');
+    }
+    else if ($("#txtStoneId").val().trim() != "") {
+        Download_Type = Type;
+        $('#Excel_Download_FileName_Modal').modal('show');
+    }
+    else {
+        $("#txtStoneId").focus();
+    }
+}
+function FileDownload() {
+    if ($("#txtFileName").val().trim() == "") {
+        $("#txtFileName").val("");
+        $("#txtFileName").focus();
+        toastr.remove();
+        return toastr.warning("File Name is required");
+    } else {
+        ExcelExport(Download_Type, $("#txtFileName").val().trim());
+        $('#Excel_Download_FileName_Modal').modal('hide');
+    }
+}
 
 function formatIntNumber(number) {
     return (parseInt(number)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -602,20 +742,6 @@ function formatIntNumber(number) {
 function formatNumber(number) {
     return (parseFloat(number).toFixed(2)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
-function isNumberKeyWithNegative(evt) {
-
-    var charCode = (evt.which) ? evt.which : evt.keyCode;
-
-    if (charCode == 45)
-        return true;
-
-    if (charCode != 46 && charCode > 31
-        && (charCode < 48 || charCode > 57))
-        return false;
-
-    return true;
-}
-
 
 function UploadExcelFile() {
     $(".tab1TCount").hide();
@@ -655,7 +781,7 @@ function UploadExcelFile() {
     formData.append("View", true);
     formData.append("Download", false);
 
-    
+
 
     $.ajax({
         url: "/User/UploadExcelforLabAvailibility",
@@ -666,7 +792,7 @@ function UploadExcelFile() {
         success: function (data, textStatus, jqXHR) {
             debugger
             loaderHide();
-            
+
             var Culet = data[data.length - 1].Culet;
 
             if (Culet == "0") {
@@ -749,7 +875,7 @@ function UploadExcelFile() {
                 if (Invalid_Stone_Body != '' && Invalid_Stone_Body != 'undefined') {
                     Excel_Invalid_RefNo(Invalid_Stone_Body);
                 }
-                
+
                 if (data.length > 0) {
                     $(".tab1TCount").show();
                     $(".gridview").show();
@@ -766,7 +892,7 @@ function UploadExcelFile() {
             loaderHide();
         }
     });
-    
+
 }
 function Excel_Invalid_RefNo(Body) {
     var str = Body;

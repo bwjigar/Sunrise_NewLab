@@ -81,6 +81,9 @@ namespace SunriseLabWeb_New.Data
         public static string Get_LoginDetail = "/User/Get_LoginDetail";
         public static string Excel_LoginDetail = "/User/Excel_LoginDetail";
 
+        public static string Get_UserActivity = "/User/Get_UserActivity";
+        public static string Excel_UserActivity = "/User/Excel_UserActivity";
+
         public static string Add_LabEntry_Request = "/User/Add_LabEntry_Request";
         public static string Save_LabEntry = "/User/Save_LabEntry";
         public static string Excel_LabEntry = "/User/Excel_LabEntry";

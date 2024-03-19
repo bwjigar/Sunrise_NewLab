@@ -76,6 +76,9 @@ namespace Lib.Model
         public int UserCode { get; set; }
         public bool View { get; set; }
         public bool Download { get; set; }
+        public string IPAddress { get; set; }
+        public string DeviceType { get; set; }
+        public string MacID { get; set; }
     }
     public class IP_Wise_Login_Detail
     {

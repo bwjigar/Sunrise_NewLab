@@ -4061,6 +4061,31 @@ namespace API.Controllers
 
                 //int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
 
+                if (!string.IsNullOrEmpty(req.FormName))
+                    para.Add(db.CreateParam("FormName", DbType.String, ParameterDirection.Input, req.FormName));
+                else
+                    para.Add(db.CreateParam("FormName", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.Activity))
+                    para.Add(db.CreateParam("Activity", DbType.String, ParameterDirection.Input, req.Activity));
+                else
+                    para.Add(db.CreateParam("Activity", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.IPAddress))
+                    para.Add(db.CreateParam("IPAddress", DbType.String, ParameterDirection.Input, req.IPAddress));
+                else
+                    para.Add(db.CreateParam("IPAddress", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.DeviceType))
+                    para.Add(db.CreateParam("DeviceType", DbType.String, ParameterDirection.Input, req.DeviceType));
+                else
+                    para.Add(db.CreateParam("DeviceType", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.MacID))
+                    para.Add(db.CreateParam("MacID", DbType.String, ParameterDirection.Input, req.MacID));
+                else
+                    para.Add(db.CreateParam("MacID", DbType.String, ParameterDirection.Input, DBNull.Value)); 
+                
                 if (!string.IsNullOrEmpty(req.Type))
                     para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, req.Type));
                 else
@@ -13783,7 +13808,8 @@ namespace API.Controllers
                     Stock_dt.DefaultView.RowFilter = "iSr IS NOT NULL";
                     Stock_dt = Stock_dt.DefaultView.ToTable();
 
-                    string filename = req.Type + " " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    //string filename = req.Type + " " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string filename = req.FormName;
                     string _path = ConfigurationManager.AppSettings["data"];
                     _path = _path.Replace("Temp", "ExcelFile");
                     string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
@@ -15525,6 +15551,150 @@ namespace API.Controllers
                     }
 
                     EpExcelExport.LoginDetail_Excel(Log_dt, realpath, realpath + filename + ".xlsx");
+
+                    string _strxml = _path + filename + ".xlsx";
+                    return Ok(_strxml);
+                }
+                else
+                {
+                    return Ok("No Data Found");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                throw ex;
+            }
+        }
+        [NonAction]
+        private DataTable UserActivity(Get_LabEntryReport_Req req)
+        {
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
+                para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, UserId));
+
+                if (req.PgNo > 0)
+                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, req.PgNo));
+                else
+                    para.Add(db.CreateParam("PgNo", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                if (req.PgSize > 0)
+                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, req.PgSize));
+                else
+                    para.Add(db.CreateParam("PgSize", DbType.Int64, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.OrderBy))
+                    para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, req.OrderBy));
+                else
+                    para.Add(db.CreateParam("OrderBy", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.CustName))
+                    para.Add(db.CreateParam("Search", DbType.String, ParameterDirection.Input, req.CustName));
+                else
+                    para.Add(db.CreateParam("Search", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.FromDate))
+                    para.Add(db.CreateParam("FromDate", DbType.String, ParameterDirection.Input, req.FromDate));
+                else
+                    para.Add(db.CreateParam("FromDate", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.ToDate))
+                    para.Add(db.CreateParam("ToDate", DbType.String, ParameterDirection.Input, req.ToDate));
+                else
+                    para.Add(db.CreateParam("ToDate", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                DataTable Stock_dt = db.ExecuteSP("Get_UserActivity", para.ToArray(), false);
+                return Stock_dt;
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, null);
+                return null;
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Get_UserActivity([FromBody] JObject data)
+        {
+            Get_LabEntryReport_Req req = new Get_LabEntryReport_Req();
+
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_LabEntryReport_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_UserActivity>
+                {
+                    Data = new List<Get_UserActivity>(),
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+            try
+            {
+                DataTable Log_dt = UserActivity(req);
+
+                List<Get_UserActivity> List_Res = new List<Get_UserActivity>();
+                if (Log_dt != null && Log_dt.Rows.Count > 0)
+                {
+                    List_Res = Log_dt.ToList<Get_UserActivity>();
+                }
+
+                return Ok(new ServiceResponse<Get_UserActivity>
+                {
+                    Data = List_Res,
+                    Message = "SUCCESS",
+                    Status = "1"
+                });
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<Get_UserActivity>
+                {
+                    Data = new List<Get_UserActivity>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Excel_UserActivity([FromBody] JObject data)
+        {
+            Get_LabEntryReport_Req req = new Get_LabEntryReport_Req();
+
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_LabEntryReport_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok("Input Parameters are not in the proper format");
+            }
+            try
+            {
+                DataTable Log_dt = UserActivity(req);
+
+                if (Log_dt != null && Log_dt.Rows.Count > 0)
+                {
+                    string filename = "User Activity " + DateTime.Now.ToString("ddMMyyyy-HHmmss");
+                    string _path = ConfigurationManager.AppSettings["data"];
+                    _path = _path.Replace("Temp", "ExcelFile");
+                    string realpath = HostingEnvironment.MapPath("~/ExcelFile/");
+
+                    if (!Directory.Exists(realpath))
+                    {
+                        Directory.CreateDirectory(realpath);
+                    }
+
+                    EpExcelExport.UserActivity_Excel(Log_dt, realpath, realpath + filename + ".xlsx");
 
                     string _strxml = _path + filename + ".xlsx";
                     return Ok(_strxml);

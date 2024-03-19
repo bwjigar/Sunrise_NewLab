@@ -1386,6 +1386,15 @@ const datasource1 = {
         obj.View = true;
         obj.Download = false;
 
+        if ($('#hdnType').val() == 'SaveSearch') {
+            obj.FormName = "Save Search";
+            obj.Activity = "View Stock";
+        }
+        else {
+            obj.FormName = "Search Stock";
+            obj.Activity = "View Stock";
+        }
+
         if (params.request.filterModel.Cts) {
             var str = "";
             if (params.request.filterModel.Cts.operator == "AND" || params.request.filterModel.Cts.operator == "OR") {
@@ -1563,6 +1572,15 @@ function ExcelDownload(where, from) {
         obj = ObjectCreate("", "", OrderBy, where);
         obj.View = false;
         obj.Download = true;
+
+        if ($('#hdnType').val() == 'SaveSearch') {
+            obj.FormName = "Save Search";
+            obj.Activity = "Excel Download";
+        }
+        else {
+            obj.FormName = "Search Stock";
+            obj.Activity = "Excel Download";
+        }
 
         if (from == 'In') {
             obj.Pointer = (Filter_Pointer != "" ? Filter_Pointer : obj.Pointer);
@@ -2231,15 +2249,7 @@ var INTENSITY = [], OVERTONE = [], FANCY_COLOR = [];
 var Color_Type = 'Regular';
 var IsFiltered = true;
 var ActivityType = "";
-function _checkValue(textbox) {
-    const value = textbox.value.trim();
-    const numericValue = parseFloat(value);
-    if (numericValue >= 0 && numericValue <= 100) {
-        textbox.value = NullReplaceDecimal4ToFixed(numericValue);
-    } else {
-        textbox.value = '';
-    }
-}
+
 function FancyDDLHide() {
     $("#sym-sec1 .carat-dropdown-main").hide();
     $("#sym-sec2 .carat-dropdown-main").hide();
@@ -3851,14 +3861,27 @@ function CommaSeperated_list(e) {
     //    return false;
     //}
 }
-function checkValue(textbox, point) {
-    const value = textbox.value.trim();
-    const numericValue = parseFloat(value).toFixed(point);
-    if (isNaN(numericValue)) {
-        textbox.value = '';
+function Disc_isNumberKey(evt, sign = "") {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    // Allow numbers (0-9)
+    if ((charCode < 48 || charCode > 57) && charCode !== 46) {
+        return false;
     }
-    else {
-        textbox.value = numericValue;
+    return true;
+}
+var Disc_LeaveTextBox = function (fromid, point) {
+    debugger
+    if ($("#" + fromid).val().trim() != "") {
+        var f = parseFloat(parseFloat(($("#" + fromid).val() == "" ? "0" : $("#" + fromid).val())).toFixed(point));
+        var cal_fromval = 0;
+        var cal_toval = 99.99;
+
+        if (f >= cal_fromval && f <= cal_toval) {
+            $("#" + fromid).val(f.toFixed(point));
+        }
+        else {
+            $("#" + fromid).val("");
+        }
     }
 }
 var LeaveTextBox = function (ele, fromid, toid, point) {
@@ -4204,6 +4227,15 @@ function SendMail() {
         obj.ToAddress = $('#txtemail').val();
         obj.Comments = $('#txtNotes').val();
 
+        if ($('#hdnType').val() == 'SaveSearch') {
+            obj.FormName = "Save Search";
+            obj.Activity = "Excel Email";
+        }
+        else {
+            obj.FormName = "Search Stock";
+            obj.Activity = "Excel Email";
+        }
+
         loaderShow();
 
         $.ajax({
@@ -4248,6 +4280,15 @@ function SendMail() {
             obj.ToAddress = $('#txtemail').val();
             obj.Comments = $('#txtNotes').val();
             obj.RefNo = stoneno;
+
+            if ($('#hdnType').val() == 'SaveSearch') {
+                obj.FormName = "Save Search";
+                obj.Activity = "Excel Email";
+            }
+            else {
+                obj.FormName = "Search Stock";
+                obj.Activity = "Excel Email";
+            }
 
             $.ajax({
                 url: "/User/Email_SearchStock",

@@ -750,6 +750,7 @@ function Save_LabEntry() {
                     $('#LabEntry_Modal').modal('hide');
                     toastr.remove();
                     toastr.success(data.Message);
+                    Reset();
                 }
                 else {
                     if (data.Message.indexOf('Something Went wrong') > -1) {

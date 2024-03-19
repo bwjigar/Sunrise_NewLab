@@ -558,7 +558,7 @@
                                 </div>
                                 <div class="col-ld-2 col-md-4 col-sm-4 col-sm-4 col-xs-10 custom-box-list api-plr api-plr-d">
                                     <div class="api-plr txtDisc_1" style="margin-top: 0px;">
-                                        <input onchange="_checkValue(this)" type="text" id="txtDisc_1_1" class="form-control common-control dis_val val-txtbx" autocomplete="off">
+                                        <input onblur="Disc_LeaveTextBox('txtDisc_1_1', 4);" onkeypress="return Disc_isNumberKey(event)" type="text" id="txtDisc_1_1" class="form-control common-control dis_val val-txtbx" autocomplete="off">
                                     </div>
                                 </div>
                             </div>
@@ -1468,7 +1468,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="email">Search Name : <span class="reqvalidation"> * </span></label>
-                        <input class="input-main required" id="txtSearchName" type="text" placeholder="Search Name" style="height: 40px;" autocomplete="off" maxlength="100">
+                        <input class="input-main required" id="txtSearchName" type="text" placeholder="Search Name" style="font-size: 14px; height: 40px;" autocomplete="off" maxlength="100">
                     </div>
                 </div>
                 <div class="modal-footer">

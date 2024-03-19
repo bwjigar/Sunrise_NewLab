@@ -51,7 +51,7 @@ function greaterThanDate(evt, from, to) {
         else {
             evt.currentTarget.value = "";
             toastr.remove();
-            toastr.warning("To date must be greater than From Date !");
+            toastr.warning("To Date must be greater than From Date !");
             FromTo_Date();
             return false;
         }
