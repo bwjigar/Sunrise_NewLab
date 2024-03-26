@@ -27,6 +27,8 @@ namespace SunriseLabWeb_New.Data
         public static string get_UserType = "/User/get_UserType";
 
         public static string GetUsers = "/User/GetUsers";
+        public static string Get_SubUserMas = "/User/Get_SubUserMas";
+        
         public static string Get_CategoryMas = "/User/Get_CategoryMas";
         public static string AddUpdate_CategoryMas = "/User/AddUpdate_CategoryMas";
         public static string Get_Category_Value = "/User/Get_Category_Value";

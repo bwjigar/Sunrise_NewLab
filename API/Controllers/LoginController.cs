@@ -76,16 +76,22 @@ namespace API.Controllers
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    if (dt.Rows[0]["User_Code"].ToString().Length == 0)
+                    if (Convert.ToString(dt.Rows[0]["User_Code"]).Length == 0)
                     {
                         resp = new LoginResponse();
                         resp.Status = "0";
 
-                        int AssistId = (dt.Rows[0]["AssistBy"] != null && dt.Rows[0]["AssistBy"].ToString() != "") ? Convert.ToInt32(dt.Rows[0]["AssistBy"].ToString()) : 0;
-                        string AssistDetail = GetAssistDetail(AssistId);
+                        //int AssistId = (Convert.ToString(dt.Rows[0]["AssistBy"]) != "") ? Convert.ToInt32(Convert.ToString(dt.Rows[0]["AssistBy"])) : 0;
+                        //string AssistDetail = GetAssistDetail(AssistId);
 
                         //resp.Message = "<div style=\"color:red\">User Name '" + UserName + "' or Password is Wrong, Kindly Contact : </div>" + AssistDetail;
                         resp.Message = "<div style=\"color:red\">User Name '" + UserName + "' or Password is Wrong</div>";
+                    }
+                    else if (Convert.ToBoolean(dt.Rows[0]["Active"]) == false)
+                    {
+                        resp = new LoginResponse();
+                        resp.Status = "0";
+                        resp.Message = "<div style=\"color:red\">User Name '" + UserName + "' is In-Active</div>";
                     }
                     else
                     {
@@ -94,9 +100,9 @@ namespace API.Controllers
                         resp.Status = "1";
                         resp.Message = "SUCCESS";
                         resp.UserID = Convert.ToInt32(dt.Rows[0]["User_Code"]);
-                        resp.UserTypeId = dt.Rows[0]["UserTypeId"].ToString();
-                        resp.UserType = dt.Rows[0]["UserType"].ToString();
-                        resp.TransID = Convert.ToInt32(dt.Rows[0]["Trans_Id"]);
+                        resp.UserTypeId = Convert.ToString(dt.Rows[0]["UserTypeId"]);
+                        resp.UserType = Convert.ToString(dt.Rows[0]["UserType"]);
+                        resp.TransID = Convert.ToInt32(Convert.ToString(dt.Rows[0]["Trans_Id"]) == "" ? 0 : dt.Rows[0]["Trans_Id"]);
                     }
                 }
             }
@@ -122,9 +128,9 @@ namespace API.Controllers
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    AssistName1 = dt.Rows[0]["FirstName"].ToString() + " " + dt.Rows[0]["LastName"].ToString();
-                    AssistMobile1 = (dt.Rows[0]["MobileNo"] != null && dt.Rows[0]["MobileNo"].ToString() != "" ? dt.Rows[0]["MobileNo"].ToString() : "85227235100");
-                    AssistEmail1 = (dt.Rows[0]["EmailId"] != null && dt.Rows[0]["EmailId"].ToString() != "" ? dt.Rows[0]["EmailId"].ToString() : "support@sunrisediam.com");
+                    AssistName1 = Convert.ToString(dt.Rows[0]["FirstName"]) + " " + Convert.ToString(dt.Rows[0]["LastName"]);
+                    AssistMobile1 = (Convert.ToString(dt.Rows[0]["MobileNo"]) != "" ? Convert.ToString(dt.Rows[0]["MobileNo"]) : "85227235100");
+                    AssistEmail1 = (Convert.ToString(dt.Rows[0]["EmailId"]) != "" ? Convert.ToString(dt.Rows[0]["EmailId"]) : "support@sunrisediam.com");
 
                     AssistDetail = "<table><tbody>";
                     AssistDetail += "<tr><td><i class=\"fa fa-user\" style=\"font-size: 20px; color: teal;\"></i></td>";

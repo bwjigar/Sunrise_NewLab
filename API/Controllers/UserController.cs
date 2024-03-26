@@ -31,6 +31,7 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
+using SunriseLabWeb.Helper;
 
 namespace API.Controllers
 {
@@ -1519,7 +1520,7 @@ namespace API.Controllers
                 dt.Columns.Add("ToFinalAmt", typeof(string));
 
                 dt.Columns.Add("Culet", typeof(string));
-                
+
                 dt.Columns.Add("CheckKTS", typeof(string));
                 dt.Columns.Add("UNCheckKTS", typeof(string));
                 dt.Columns.Add("CheckRC", typeof(string));
@@ -3477,6 +3478,11 @@ namespace API.Controllers
 
                 para.Add(db.CreateParam("URL_Exists", DbType.Boolean, ParameterDirection.Input, Req.URL_Exists));
 
+                if (!string.IsNullOrEmpty(Req.FormName))
+                    para.Add(db.CreateParam("FormName", DbType.String, ParameterDirection.Input, Req.FormName));
+                else
+                    para.Add(db.CreateParam("FormName", DbType.String, ParameterDirection.Input, DBNull.Value));
+
                 DataTable dt = db.ExecuteSP("Get_UserMas", para.ToArray(), false);
 
                 return dt;
@@ -3484,6 +3490,68 @@ namespace API.Controllers
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+        [HttpPost]
+        public IHttpActionResult Get_SubUserMas([FromBody] JObject data)
+        {
+            GetUsers_Req Req = new GetUsers_Req();
+            try
+            {
+                Req = JsonConvert.DeserializeObject<GetUsers_Req>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<GetUsers_Res>
+                {
+                    Data = new List<GetUsers_Res>(),
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+
+            }
+
+            try
+            {
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, Req.UserId));
+
+                DataTable dt = db.ExecuteSP("Get_SubUserMas", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    List<GetUsers_Res> List_Res = new List<GetUsers_Res>();
+                    List_Res = DataTableExtension.ToList<GetUsers_Res>(dt);
+
+                    return Ok(new ServiceResponse<GetUsers_Res>
+                    {
+                        Data = List_Res,
+                        Message = "SUCCESS",
+                        Status = "1"
+                    });
+                }
+                else
+                {
+                    return Ok(new ServiceResponse<GetUsers_Res>
+                    {
+                        Data = new List<GetUsers_Res>(),
+                        Message = "No records found.",
+                        Status = "1"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<GetUsers_Res>
+                {
+                    Data = new List<GetUsers_Res>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
             }
         }
         [HttpPost]
@@ -3507,15 +3575,13 @@ namespace API.Controllers
             try
             {
                 CommonResponse resp = new CommonResponse();
-                DataTable _dtuserchk = CheckUserName(req.UserName, req.UserId);
-                if (_dtuserchk != null)
+                DataTable _dtuserchk = New_CheckUserName(req);
+
+                if (_dtuserchk != null && _dtuserchk.Rows.Count > 0 && Convert.ToString(_dtuserchk.Rows[0]["Message"]) != "")
                 {
-                    if (_dtuserchk.Rows.Count != 0)
-                    {
-                        resp.Status = "0";
-                        resp.Message = "User Name is already exist.";
-                        return Ok(resp);
-                    }
+                    resp.Status = "0";
+                    resp.Message = Convert.ToString(_dtuserchk.Rows[0]["Message"]);
+                    return Ok(resp);
                 }
                 int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
 
@@ -3598,6 +3664,49 @@ namespace API.Controllers
 
                 para.Add(db.CreateParam("View", DbType.Boolean, ParameterDirection.Input, req.View));
                 para.Add(db.CreateParam("Download", DbType.Boolean, ParameterDirection.Input, req.Download));
+
+                DataTable dt_SubUser = new DataTable();
+                dt_SubUser.Columns.Add("UserId", typeof(int));
+                dt_SubUser.Columns.Add("FirstName", typeof(string));
+                dt_SubUser.Columns.Add("LastName", typeof(string));
+                dt_SubUser.Columns.Add("MobileNo", typeof(string));
+                dt_SubUser.Columns.Add("EmailId", typeof(string));
+                dt_SubUser.Columns.Add("UserName", typeof(string));
+                dt_SubUser.Columns.Add("Password", typeof(string));
+                dt_SubUser.Columns.Add("SearchStock", typeof(bool));
+                dt_SubUser.Columns.Add("OrderHistoryAll", typeof(bool));
+                dt_SubUser.Columns.Add("OrderHistoryByHisUser", typeof(bool));
+                dt_SubUser.Columns.Add("PlaceOrder", typeof(bool));
+                dt_SubUser.Columns.Add("MyCart", typeof(bool));
+                dt_SubUser.Columns.Add("StockDownload", typeof(bool));
+                dt_SubUser.Columns.Add("OrderHistoryDownload", typeof(bool));
+                dt_SubUser.Columns.Add("OrderHistoryShowPricing", typeof(bool));
+
+                for (int j = 0; j < req.SubUser.Count(); j++)
+                {
+                    DataRow dr1 = dt_SubUser.NewRow();
+                    dr1["UserId"] = req.SubUser[j].UserId;
+                    dr1["FirstName"] = req.SubUser[j].FirstName;
+                    dr1["LastName"] = req.SubUser[j].LastName;
+                    dr1["MobileNo"] = req.SubUser[j].MobileNo;
+                    dr1["EmailId"] = req.SubUser[j].EmailId;
+                    dr1["UserName"] = req.SubUser[j].UserName;
+                    dr1["Password"] = req.SubUser[j].Password;
+                    dr1["SearchStock"] = req.SubUser[j].SearchStock;
+                    dr1["OrderHistoryAll"] = req.SubUser[j].OrderHistoryAll;
+                    dr1["OrderHistoryByHisUser"] = req.SubUser[j].OrderHistoryByHisUser;
+                    dr1["PlaceOrder"] = req.SubUser[j].PlaceOrder;
+                    dr1["MyCart"] = req.SubUser[j].MyCart;
+                    dr1["StockDownload"] = req.SubUser[j].StockDownload;
+                    dr1["OrderHistoryDownload"] = req.SubUser[j].OrderHistoryDownload;
+                    dr1["OrderHistoryShowPricing"] = req.SubUser[j].OrderHistoryShowPricing;
+                    dt_SubUser.Rows.Add(dr1);
+                }
+
+
+                SqlParameter param = new SqlParameter("table_SubUser", SqlDbType.Structured);
+                param.Value = dt_SubUser;
+                para.Add(param);
 
                 DataTable dt = db.ExecuteSP("AddUpdate_User", para.ToArray(), false);
 
@@ -3759,6 +3868,35 @@ namespace API.Controllers
             para.Add(db.CreateParam("sUserName", DbType.String, ParameterDirection.Input, suserName));
             DataTable dt = db.ExecuteSP("get_user_Detail", para.ToArray(), false);
             return dt;
+        }
+        [NonAction]
+        private DataTable New_CheckUserName(UserDetails_Req req)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("UserId", typeof(int));
+            dt.Columns.Add("UserName", typeof(string));
+
+            DataRow dr = dt.NewRow();
+            dr["UserId"] = req.UserId;
+            dr["UserName"] = req.UserName;
+            dt.Rows.Add(dr);
+
+            for (int j = 0; j < req.SubUser.Count(); j++)
+            {
+                DataRow dr1 = dt.NewRow();
+                dr1["UserId"] = req.SubUser[j].UserId;
+                dr1["UserName"] = req.SubUser[j].UserName;
+                dt.Rows.Add(dr1);
+            }
+
+            Database db = new Database();
+            List<SqlParameter> para = new List<SqlParameter>();
+            SqlParameter param = new SqlParameter("tabledt", SqlDbType.Structured);
+            param.Value = dt;
+            para.Add(param);
+
+            DataTable dtData = db.ExecuteSP("Validate_UserName", para.ToArray(), false);
+            return dtData;
         }
         [HttpPost]
         public IHttpActionResult FortunePartyCode_Exist([FromBody] JObject data)
@@ -4084,8 +4222,8 @@ namespace API.Controllers
                 if (!string.IsNullOrEmpty(req.MacID))
                     para.Add(db.CreateParam("MacID", DbType.String, ParameterDirection.Input, req.MacID));
                 else
-                    para.Add(db.CreateParam("MacID", DbType.String, ParameterDirection.Input, DBNull.Value)); 
-                
+                    para.Add(db.CreateParam("MacID", DbType.String, ParameterDirection.Input, DBNull.Value));
+
                 if (!string.IsNullOrEmpty(req.Type))
                     para.Add(db.CreateParam("Type", DbType.String, ParameterDirection.Input, req.Type));
                 else
@@ -12661,7 +12799,7 @@ namespace API.Controllers
                         Directory.CreateDirectory(realpath);
                     }
 
-                    EpExcelExport.OrderHistory_Excel(Order_dt, realpath, realpath + filename + ".xlsx", req.UserTypeList);
+                    EpExcelExport.OrderHistory_Excel(Order_dt, realpath, realpath + filename + ".xlsx", req.UserTypeList, req.IsPrimaryUser, req.IsSubUser, req.OrderHistoryAll, req.OrderHistoryShowPricing, req.SubUserCount);
 
                     string _strxml = _path + filename + ".xlsx";
                     return Ok(_strxml);
@@ -13613,8 +13751,8 @@ namespace API.Controllers
                     {
                         Directory.CreateDirectory(realpath);
                     }
-
-                    EpExcelExport.MyCart_Excel(Cart_dt, realpath, realpath + filename + ".xlsx", req.UserTypeList);
+                    
+                    EpExcelExport.MyCart_Excel(Cart_dt, realpath, realpath + filename + ".xlsx", req.UserTypeList, req.IsPrimaryUser, req.SubUserCount);
 
                     string _strxml = _path + filename + ".xlsx";
                     return Ok(_strxml);
@@ -13923,8 +14061,8 @@ namespace API.Controllers
                 });
             }
         }
-        
-     
+
+
         [AllowAnonymous]
         [HttpPost]
         public IHttpActionResult Get_URL([FromBody] JObject data)
@@ -14485,7 +14623,7 @@ namespace API.Controllers
                 });
             }
         }
-        
+
 
         private static Byte[] Key_64 = { 42, 16, 93, 156, 78, 4, 218, 32 };
         private static Byte[] Iv_64 = { 55, 103, 246, 79, 36, 99, 167, 3 };
@@ -15132,7 +15270,7 @@ namespace API.Controllers
             */
         }
 
-    
+
         [HttpPost]
         public IHttpActionResult Add_Stock_FileUpload_Request([FromBody] JObject data)
         {
@@ -15178,7 +15316,7 @@ namespace API.Controllers
             {
                 Database db = new Database();
                 List<IDbDataParameter> para = new List<IDbDataParameter>();
-                
+
                 int UserId = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
                 para.Add(db.CreateParam("UserId", DbType.Int64, ParameterDirection.Input, UserId));
 
@@ -15390,7 +15528,7 @@ namespace API.Controllers
             try
             {
                 CommonResponse resp = new CommonResponse();
-               
+
                 int userID = Convert.ToInt32((Request.GetRequestContext().Principal as ClaimsPrincipal).Claims.Where(e => e.Type == "UserID").FirstOrDefault().Value);
 
                 Database db = new Database();

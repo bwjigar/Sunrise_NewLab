@@ -403,9 +403,16 @@
                         <li class="mr-2">
                             <button type="button" id="btnSearch" onclick="GetSearch();" class="offer-btn"><i class="fa fa-search" aria-hidden="true"></i>Search</button>
                         </li>
-                        <li>
-                            <button class="offer-btn" onclick="Excel_OderHistory()"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Excel</button>
-                        </li>
+                        @if (
+                            (SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true)
+                            ||
+                            (SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true && SunriseLabWeb.Helper.SessionFacade.UserSession.OrderHistoryDownload == true)
+                            )
+                        {
+                            <li>
+                                <button class="offer-btn" onclick="Excel_OderHistory()"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Excel</button>
+                            </li>
+                        }
                         <li>
                             <button type="button" id="btnReset" onclick="Reset();" class="offer-btn"><i class="fa fa-refresh" aria-hidden="true"></i>Reset</button>
                         </li>

@@ -31,6 +31,7 @@ namespace Lib.Model
         public string CompanyUserCustomer { get; set; }
         public int Assist_UserId { get; set; }
         public bool URL_Exists { get; set; }
+        public string FormName { get; set; }
     }
     public class GetUsers_Res
     {
@@ -64,6 +65,14 @@ namespace Lib.Model
         public bool Download { get; set; }
         public int StockDiscMgt_Count { get; set; }
         public string URL { get; set; }
+        public bool SearchStock { get; set; }
+        public bool OrderHistoryAll { get; set; }
+        public bool OrderHistoryByHisUser { get; set; }
+        public bool PlaceOrder { get; set; }
+        public bool MyCart { get; set; }
+        public bool StockDownload { get; set; }
+        public bool OrderHistoryDownload { get; set; }
+        public bool OrderHistoryShowPricing { get; set; }
     }
     public class Exist_Request
     {
@@ -90,6 +99,29 @@ namespace Lib.Model
         public int UserCode { get; set; }
         public bool View { get; set; }
         public bool Download { get; set; }
+        public List<Sub_UserDetails_Req> SubUser { get; set; }
+        public UserDetails_Req()
+        {
+            SubUser = new List<Sub_UserDetails_Req>();
+        }
+    }
+    public class Sub_UserDetails_Req
+    {
+        public int UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string MobileNo { get; set; }
+        public string EmailId { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public bool SearchStock { get; set; }
+        public bool OrderHistoryAll { get; set; }
+        public bool OrderHistoryByHisUser { get; set; }
+        public bool PlaceOrder { get; set; }
+        public bool MyCart { get; set; }
+        public bool StockDownload { get; set; }
+        public bool OrderHistoryDownload { get; set; }
+        public bool OrderHistoryShowPricing { get; set; }
     }
     public class UserType_Res
     {
@@ -919,7 +951,11 @@ namespace Lib.Model
         public bool Hold { get; set; }
         public bool Sold { get; set; }
         public bool QCReject { get; set; }
-
+        public bool IsPrimaryUser { get; set; }
+        public bool IsSubUser { get; set; }
+        public bool OrderHistoryAll { get; set; }
+        public bool OrderHistoryShowPricing { get; set; }
+        public int SubUserCount { get; set; }
     }
     public class Get_OrderHistory_Res
     {
@@ -1196,6 +1232,8 @@ namespace Lib.Model
         public string RefNo_SupplierRefNo { get; set; }
         public string UserTypeList { get; set; }
         public string CartId { get; set; }
+        public bool IsPrimaryUser { get; set; }
+        public int SubUserCount { get; set; }
     }
     public class Get_MyCart_Res
     {

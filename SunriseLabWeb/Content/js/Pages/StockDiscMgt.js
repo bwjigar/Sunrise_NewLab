@@ -171,10 +171,11 @@ const datasource1 = {
         else {
             obj.URL_Exists = false;
         }
-
+        
         if (!($("#hdn_UserType").val().includes("1")) && ($("#hdn_UserType").val().includes("2"))) {
             obj.Assist_UserId = $("#hdn_UserId").val();
         }
+        obj.FormName = "StockDiscMgt";
 
         Rowdata = [];
 

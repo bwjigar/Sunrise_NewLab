@@ -69,7 +69,7 @@
             .active, .collapsible:hover {
                 background-color: #555;
             }
-       
+
         .content {
             padding: 0 18px;
             max-height: 0;
@@ -161,27 +161,32 @@
         .table th {
             padding: 0.40rem;
         }
+
         .tooltip-inner {
             max-width: 800px !important;
             background-color: white;
             color: #143f58;
             border: 1.1px solid #143f58;
             opacity: 1 !important;
-            text-align:left;
+            text-align: left;
         }
+
         .order:hover {
             color: #2594d5;
             text-decoration: underline;
         }
+
         @@media screen and (min-width: 550px) and (max-width: 5000px) {
             .service-panel {
                 padding: 26px;
             }
         }
+
         @@media screen and (min-width: 0px) and (max-width: 550px) {
             .service-panel {
                 margin-top: 26px;
             }
+
             .table td, .table th {
                 border-right: 1px solid #dee2e6;
             }
@@ -193,123 +198,214 @@
 <div class="container-fluid">
     <div class="service-panel" style="margin-bottom: -50px;">
         <div class="row">
-            <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('TotalStock')">
-                <div class="card top border-left-primary shadow h-100">
-                    <div class="card-body top one bg-cl-1" style="background: none;">
-                        <div class="row no-gutters align-items-center">
-                            <div class="">
-                                <div class="text-xs mb-1">Total Stock</div>
-                                <div id="cntTotalStock" class="cart-value h5 mb-0 font-weight-bold text-gray-800 bx-cnt"></div>
-                            </div>
-                            <div class="cart-icon bx-icn">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('Cart')">
-                <div class="card top border-left-primary shadow h-100">
-                    <div class="card-body top one bg-cl-1" style="background: none;">
-                        <div class="row no-gutters align-items-center">
-                            <div class="">
-                                <div class="text-xs mb-1">Cart</div>
-                                <div id="cntCart" class="cart-value h5 mb-0 font-weight-bold text-gray-800 bx-cnt"></div>
-                            </div>
-                            <div class="cart-icon bx-icn">
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('Order')">
-                <div class="card top border-left-primary shadow h-100">
-                    <div class="card-body top one bg-cl-1" style="background: none;">
-                        <div class="row no-gutters align-items-center">
-                            <div class="">
-                                <div class="text-xs mb-1">Order</div>
-                                <div id="cntOrder" class="cart-value h5 mb-0 font-weight-bold text-gray-800 bx-cnt"></div>
-                            </div>
-                            <div class="cart-icon bx-icn">
-                                <i class="fa fa-file-text" aria-hidden="true"></i>
+            @if (
+                    (
+                        SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true
+                        &&
+                        (
+                            SunriseLabWeb.Helper.SessionFacade.UserSession.View == true || SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true
+                        )
+                    )
+                    ||
+                    (
+                        SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true
+                        &&
+                        (
+                            SunriseLabWeb.Helper.SessionFacade.UserSession.SearchStock == true || SunriseLabWeb.Helper.SessionFacade.UserSession.StockDownload == true
+                        )
+                    )
+                )
+            {
+                <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('TotalStock')">
+                    <div class="card top border-left-primary shadow h-100">
+                        <div class="card-body top one bg-cl-1" style="background: none;">
+                            <div class="row no-gutters align-items-center">
+                                <div class="">
+                                    <div class="text-xs mb-1">Total Stock</div>
+                                    <div id="cntTotalStock" class="cart-value h5 mb-0 font-weight-bold text-gray-800 bx-cnt"></div>
+                                </div>
+                                <div class="cart-icon bx-icn">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            }
+
+            @if (
+                    (SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true)
+                    ||
+                    (
+                        SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true && SunriseLabWeb.Helper.SessionFacade.UserSession.MyCart == true
+                    )
+                )
+            {
+                <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('Cart')">
+                    <div class="card top border-left-primary shadow h-100">
+                        <div class="card-body top one bg-cl-1" style="background: none;">
+                            <div class="row no-gutters align-items-center">
+                                <div class="">
+                                    <div class="text-xs mb-1">Cart</div>
+                                    <div id="cntCart" class="cart-value h5 mb-0 font-weight-bold text-gray-800 bx-cnt"></div>
+                                </div>
+                                <div class="cart-icon bx-icn">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (
+                    (SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true)
+                    ||
+                    (
+                        SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true
+                        &&
+                        (
+                            SunriseLabWeb.Helper.SessionFacade.UserSession.OrderHistoryAll == true || SunriseLabWeb.Helper.SessionFacade.UserSession.OrderHistoryByHisUser == true
+                        )
+                    )
+                )
+            {
+                <div class="col-xl col-md-4 col-6 mb-4 comm-width" onclick="redirectPage('Order')">
+                    <div class="card top border-left-primary shadow h-100">
+                        <div class="card-body top one bg-cl-1" style="background: none;">
+                            <div class="row no-gutters align-items-center">
+                                <div class="">
+                                    <div class="text-xs mb-1">Order</div>
+                                    <div id="cntOrder" class="cart-value h5 mb-0 font-weight-bold text-gray-800 bx-cnt"></div>
+                                </div>
+                                <div class="cart-icon bx-icn">
+                                    <i class="fa fa-file-text" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (
+                (SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true)
+                ||
+                (
+                    SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true && SunriseLabWeb.Helper.SessionFacade.UserSession.MyCart == true
+                )
+            )
+        {
+            <p><b style="color: #143f58;">Cart</b></p>
+            <div style="width: 100%; overflow-x: auto;" id="tblCart">
+                <table class="table" style="display: table;width: 100%;">
+                    <thead style="background-color: #143f58; color: white; font-size: 13px; border: 1px solid #143f5887; ">
+                        <tr>
+                            <th><center>Stock</center></th>
+                            <th><center>Shape</center></th>
+                            <th><center>Color</center></th>
+                            <th><center>Clarity</center></th>
+                            <th><center>Cts</center></th>
+                            <th><center>Cut</center></th>
+                            <th><center>Polish</center></th>
+                            <th><center>Symm</center></th>
+                            <th><center>Rap</center></th>
+                            <th><center>Disc</center></th>
+                            <th><center>Value</center></th>
+                        </tr>
+                    </thead>
+                    <tbody style="color: #143f58; background-color: white; border: 1px solid #143f5887; " id="tblBodyCart">
+                        <tr>
+                            <td colspan="11"><center><span class='Fi-Criteria'>No Data Found</span></center></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        }
+
+        @if (
+                (
+                    SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true
+                    &&
+                    (
+                        SunriseLabWeb.Helper.SessionFacade.UserSession.View == true
+                    )
+                )
+                ||
+                (
+                    SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true
+                    &&
+                    (
+                        SunriseLabWeb.Helper.SessionFacade.UserSession.SearchStock == true
+                    )
+                )
+            )
+        {
+            <p><b style="color: #143f58;">Save Search</b></p>
+            <div style="width: 100%; overflow-x: auto;" id="tblSaveSearch">
+                <table class="table" style="display: table;width: 100%;">
+                    <thead style="background-color: #143f58; color: white; font-size: 13px; border: 1px solid #143f5887; ">
+                        <tr>
+                            <th style="width: 1%;"><center>Date</center></th>
+                            <th style="width: 3%;"><center>Name</center></th>
+                            <th style="width: 1%;"><center>Criteria</center></th>
+                        </tr>
+                    </thead>
+                    <tbody style="color: #143f58; background-color: white; border: 1px solid #143f5887; " id="tblBodySaveSearch">
+                        <tr>
+                            <td colspan="3"><center><span class='Fi-Criteria'>No Data Found</span></center></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+
+
+        @if (
+                (SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true)
+                ||
+                (
+                    SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true
+                    &&
+                    (
+                        SunriseLabWeb.Helper.SessionFacade.UserSession.OrderHistoryAll == true || SunriseLabWeb.Helper.SessionFacade.UserSession.OrderHistoryByHisUser == true
+                    )
+                )
+            )
+        {
+            <p><b style="color: #143f58;">Order History</b></p>
+            <div style="width: 100%; overflow-x: auto;" id="tblOrder">
+                <table class="table" style="display: table;width: 100%;">
+                    <thead style="background-color: #143f58; color: white; font-size: 13px; border: 1px solid #143f5887; ">
+                        <tr>
+                            <th><center>Order Id</center></th>
+                            <th><center>Order Date</center></th>
+                            <th><center>Company Name</center></th>
+                            <th><center>Remarks</center></th>
+                            <th><center>Total Pcs</center></th>
+                            <th><center>Total Cts</center></th>
+                            @if (
+                                    (SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true)
+                                    ||
+                                    (SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true && SunriseLabWeb.Helper.SessionFacade.UserSession.OrderHistoryShowPricing == true)
+                                )
+                            {
+                                <th><center>Total Amt</center></th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody style="color: #143f58; background-color: white; border: 1px solid #143f5887; " id="tblBodyOrder">
+                        <tr>
+                            <td colspan="7"><center><span class='Fi-Criteria'>No Data Found</span></center></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+
+
+
         </div>
-        <p><b style="color: #143f58;">Cart</b></p>
-        <div style="width: 100%; overflow-x: auto;" id="tblCart">
-            <table class="table" style="display: table;width: 100%;">
-                <thead style="background-color: #143f58; color: white; font-size: 13px; border: 1px solid #143f5887; ">
-                    <tr>
-                        <th><center>Stock</center></th>
-                        <th><center>Shape</center></th>
-                        <th><center>Color</center></th>
-                        <th><center>Clarity</center></th>
-                        <th><center>Cts</center></th>
-                        <th><center>Cut</center></th>
-                        <th><center>Polish</center></th>
-                        <th><center>Symm</center></th>
-                        <th><center>Rap</center></th>
-                        <th><center>Disc</center></th>
-                        <th><center>Value</center></th>
-                    </tr>
-                </thead>
-                <tbody style="color: #143f58; background-color: white; border: 1px solid #143f5887; " id="tblBodyCart">
-                    <tr>
-                        <td colspan="11"><center><span class='Fi-Criteria'>No Data Found</span></center></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <p><b style="color: #143f58;">Save Search</b></p>
-        <div style="width: 100%; overflow-x: auto;" id="tblSaveSearch">
-            <table class="table" style="display: table;width: 100%;">
-                <thead style="background-color: #143f58; color: white; font-size: 13px; border: 1px solid #143f5887; ">
-                    <tr>
-                        <th style="width: 1%;"><center>Date</center></th>
-                        <th style="width: 3%;"><center>Name</center></th>
-                        <th style="width: 1%;"><center>Criteria</center></th>
-                    </tr>
-                </thead>
-                <tbody style="color: #143f58; background-color: white; border: 1px solid #143f5887; " id="tblBodySaveSearch">
-                    <tr>
-                        <td colspan="3"><center><span class='Fi-Criteria'>No Data Found</span></center></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-
-        <p><b style="color: #143f58;">Order History</b></p>
-        <div style="width: 100%; overflow-x: auto;" id="tblOrder">
-            <table class="table" style="display: table;width: 100%;">
-                <thead style="background-color: #143f58; color: white; font-size: 13px; border: 1px solid #143f5887; ">
-                    <tr>
-                        <th><center>Order Id</center></th>
-                        <th><center>Order Date</center></th>
-                        <th><center>Company Name</center></th>
-                        <th><center>Remarks</center></th>
-                        <th><center>Total Pcs</center></th>
-                        <th><center>Total Cts</center></th>
-                        <th><center>Total Amt</center></th>
-                    </tr>
-                </thead>
-                <tbody style="color: #143f58; background-color: white; border: 1px solid #143f5887; " id="tblBodyOrder">
-                    <tr>
-                        <td colspan="7"><center><span class='Fi-Criteria'>No Data Found</span></center></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-
-        
-
-    </div>
 </div>
 @section scripts{
     <script src="~/Content/js/Pages/DashBoard.js"></script>

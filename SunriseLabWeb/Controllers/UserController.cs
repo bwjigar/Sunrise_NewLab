@@ -92,6 +92,13 @@ namespace SunriseLabWeb_New.Controllers
             ServiceResponse<GetUsers_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<GetUsers_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Get_SubUserMas(GetUsers_Req req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Get_SubUserMas, inputJson);
+            ServiceResponse<GetUsers_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<GetUsers_Res>>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult SaveUserData(UserDetails_Req req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
@@ -885,6 +892,12 @@ namespace SunriseLabWeb_New.Controllers
         }
         public JsonResult Excel_OrderHistory(Get_OrderHistory_Req req)
         {
+            req.IsPrimaryUser = SessionFacade.UserSession.IsPrimaryUser;
+            req.IsSubUser = SessionFacade.UserSession.IsSubUser;
+            req.OrderHistoryAll = SessionFacade.UserSession.OrderHistoryAll;
+            req.OrderHistoryShowPricing = SessionFacade.UserSession.OrderHistoryShowPricing;
+            req.SubUserCount = SessionFacade.UserSession.SubUserCount;
+
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.Excel_OrderHistory, inputJson);
             string data = (new JavaScriptSerializer()).Deserialize<string>(response);
@@ -1172,6 +1185,9 @@ namespace SunriseLabWeb_New.Controllers
         }
         public JsonResult Excel_MyCart(Get_MyCart_Req req)
         {
+            req.IsPrimaryUser = SessionFacade.UserSession.IsPrimaryUser;
+            req.SubUserCount = SessionFacade.UserSession.SubUserCount;
+
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
             string response = _api.CallAPI(Constants.Excel_MyCart, inputJson);
             string data = (new JavaScriptSerializer()).Deserialize<string>(response);

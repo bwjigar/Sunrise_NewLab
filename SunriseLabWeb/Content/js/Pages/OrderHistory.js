@@ -218,7 +218,12 @@ columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cell
 columnDefs.push({ headerName: "Order Date", field: "OrderDate", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("OrderDate", params); } });
 columnDefs.push({ headerName: "Order No", field: "OrderId", width: 90, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("OrderId", params); } });
 
-if ($("#hdn_UserType").val().includes("1") || $("#hdn_UserType").val().includes("2") || $("#hdn_UserType").val().includes("4")) {
+if (
+    ($("#hdn_IsPrimaryUser").val() == "True" && ($("#hdn_SubUserCount").val() != "0" || $("#hdn_UserType").val().includes("1") || $("#hdn_UserType").val().includes("2") || $("#hdn_UserType").val().includes("4")))
+    ||
+    ($("#hdn_IsSubUser").val() == "True" && $("#hdn_OrderHistoryAll").val() == "True")
+)
+{
     columnDefs.push({ headerName: "Customer Name", field: "UserFullName", width: 140, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("UserFullName", params); } });
     columnDefs.push({ headerName: "Company Name", field: "CompName", width: 220, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CompName", params); } });
 }
@@ -233,9 +238,16 @@ columnDefs.push({ headerName: "Clarity", field: "Clarity", width: 70, tooltip: f
 columnDefs.push({ headerName: "Cts", field: "Cts", width: 70, tooltip: function (params) { return parseFloat(params.value).toFixed(2) }, cellRenderer: function (params) { return parseFloat(params.value).toFixed(2) }, cellStyle: function (params) { return cellStyle("Cts", params); } });
 columnDefs.push({ headerName: "Rap Rate($)", field: "Rap_Rate", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Rate", params); } });
 columnDefs.push({ headerName: "Rap Amount($)", field: "Rap_Amount", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Rap_Amount", params); } });
-columnDefs.push({ headerName: "Final Disc(%)", field: "CUSTOMER_COST_DISC", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_DISC", params); } });
-columnDefs.push({ headerName: "Final Amt US($)", field: "CUSTOMER_COST_VALUE", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_VALUE", params); } });
-columnDefs.push({ headerName: "Price / Cts", field: "Base_Price_Cts", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Base_Price_Cts", params); } });
+
+if (
+    ($("#hdn_IsPrimaryUser").val() == "True")
+    ||
+    ($("#hdn_IsSubUser").val() == "True" && $("#hdn_OrderHistoryShowPricing").val() == "True")
+) {
+    columnDefs.push({ headerName: "Final Disc(%)", field: "CUSTOMER_COST_DISC", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_DISC", params); } });
+    columnDefs.push({ headerName: "Final Amt US($)", field: "CUSTOMER_COST_VALUE", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("CUSTOMER_COST_VALUE", params); } });
+    columnDefs.push({ headerName: "Price / Cts", field: "Base_Price_Cts", width: 110, tooltip: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellRenderer: function (params) { return NullReplaceCommaPointDecimalToFixed(params.value, 2); }, cellStyle: function (params) { return cellStyle("Base_Price_Cts", params); } });
+}
 columnDefs.push({ headerName: "Cut", field: "Cut", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Cut", params); } });
 columnDefs.push({ headerName: "Polish", field: "Polish", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Polish", params); } });
 columnDefs.push({ headerName: "Symm", field: "Symm", tooltip: function (params) { return (params.value); }, width: 70, cellStyle: function (params) { return cellStyle("Symm", params); } });

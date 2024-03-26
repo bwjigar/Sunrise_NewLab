@@ -4,6 +4,22 @@
     <link href="~/Content/css/daterangepicker.css" rel="stylesheet" />
 }
 <style>
+    .apifilter .table tbody tr td {
+        padding: 5px 15px 5px 15px !important;
+        white-space: nowrap !important;
+    }
+
+    .ag-paging-page-summary-panel {
+        left: 10px;
+        position: relative;
+    }
+
+    .ag-theme-balham .ag-cell {
+        white-space: normal !important;
+        line-height: inherit;
+        overflow-y: auto;
+    }
+
     .ui-menu .ui-menu-item {
         width: 362px !important;
     }
@@ -306,24 +322,49 @@
                                 </div>
                             </div>
 
-                           
 
-
-
-
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 pt-2" style="border-top:1px solid #ddd;">
-                                <ul class="offer-inbtn pull-right mrtop">
-                                    <li>
-                                        <button onclick="SaveCompanyUser()" tabindex="12" class="offer-btn">Save</button>
-                                    </li>
-                                    <li>
-                                        <button onclick="Clear()" tabindex="13" class="offer-btn">Reset</button>
-                                    </li>
-                                </ul>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 pt-2 api-plr cateDetail apifilter" style="border-top:1px solid #ddd;">
+                                <div class="mb-3 mt-2 pull-right" style="margin-right: 12px;">
+                                    <button type="button" onclick="SubUser_AddNewRow('0');" class="offer-btn"><i class="fa fa-plus"></i>Add New Sub User</button>
+                                </div>
+                                <div style="width: 100%; overflow-x: auto;">
+                                    <table id="tbl_SubUser" class="table table-bordered order-history-data o-h-remove common-order" style="display:none;">
+                                        <thead style="background-color: #143f58;color: white;">
+                                            <tr>
+                                                <th style="vertical-align: middle;">Delete</th>
+                                                <th style="vertical-align: middle;">Sr. </th>
+                                                <th style="vertical-align: middle;">First Name <span style="color:red;">*</span></th>
+                                                <th style="vertical-align: middle;">Last Name <span style="color:red;">*</span></th>
+                                                <th style="vertical-align: middle;">Mobile No <span style="color:red;">*</span></th>
+                                                <th style="vertical-align: middle;">Email Id <span style="color:red;">*</span></th>
+                                                <th style="vertical-align: middle;">User Name <span style="color:red;">*</span></th>
+                                                <th style="vertical-align: middle;">Password <span style="color:red;">*</span></th>
+                                                <th style="vertical-align: middle;">Confirm Password <span style="color:red;">*</span></th>
+                                                <th style="vertical-align: middle;">All</th>
+                                                <th style="vertical-align: middle;">Search Stock</th>
+                                                <th style="vertical-align: middle;">Stock Download</th>
+                                                <th style="vertical-align: middle;">Place Order</th>
+                                                <th style="vertical-align: middle;">My Cart</th>
+                                                <th style="vertical-align: middle;">Order History<br /> - <br />(All)</th>
+                                                <th style="vertical-align: middle;">Order History<br /> - <br />(By His User)</th>
+                                                <th style="vertical-align: middle;">Order History<br /> - <br />(Download)</th>
+                                                <th style="vertical-align: middle;">Order History<br /> - <br />(Show Pricing)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="color: #143f58;" id="tblbody_SubUser" class="fl-sec-form">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-
-                            <input type="hidden" id="hdnCityCode" />
-                            <input type="hidden" id="hdnCountryCode" />
+                            
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 pt-2" style="border-top:1px solid #ddd;">
+                                <div class="mb-3 mt-2 pull-right" style="margin-left: 6px;">
+                                    <button type="button" onclick="Clear();" class="offer-btn"><i class="fa fa-refresh"></i>Reset</button>
+                                </div>
+                                <div class="mb-3 mt-2 pull-right">
+                                    <button type="button" onclick="SaveCompanyUser();" class="offer-btn"><i class="fa fa-save"></i>Save</button>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -351,19 +392,18 @@
         </div>
     </div>
 </div>
-<div class="modal fade social-model" id="ErrorModel">
-    <div class="modal-dialog modal-dialog-centered">
+
+<div class="modal social-model fade" id="ErrorModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog search-width api-filter-popup modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Validation</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-
-                <div id="divError">
+                <div id="divError" style="max-height: 415px;overflow-y:auto;">
 
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button id="btnremove" class="btn btn-primary" type="button" data-dismiss="modal">Ok</button>

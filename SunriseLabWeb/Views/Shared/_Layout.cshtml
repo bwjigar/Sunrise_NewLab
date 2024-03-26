@@ -29,6 +29,7 @@
         .pwd-field {
             -webkit-text-security: disc;
         }
+
         .o-h-remove {
             background-color: none;
             padding: none;
@@ -312,6 +313,20 @@
     <input type="hidden" id="hdn_UserId" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.UserId" />
     <input type="hidden" id="hdn_UserType" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId" />
     <input type="hidden" id="hdn_UserTypeList" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeList" />
+
+    <input type="hidden" id="hdn_IsPrimaryUser" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser.ToString()" />
+    <input type="hidden" id="hdn_IsSubUser" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser.ToString()" />
+    <input type="hidden" id="hdn_SearchStock" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.SearchStock.ToString()" />
+    <input type="hidden" id="hdn_StockDownload" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.StockDownload.ToString()" />
+    <input type="hidden" id="hdn_PlaceOrder" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.PlaceOrder.ToString()" />
+    <input type="hidden" id="hdn_MyCart" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.MyCart.ToString()" />
+    <input type="hidden" id="hdn_OrderHistoryAll" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.OrderHistoryAll.ToString()" />
+    <input type="hidden" id="hdn_OrderHistoryByHisUser" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.OrderHistoryByHisUser.ToString()" />
+    <input type="hidden" id="hdn_OrderHistoryDownload" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.OrderHistoryDownload.ToString()" />
+    <input type="hidden" id="hdn_OrderHistoryShowPricing" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.OrderHistoryShowPricing.ToString()" />
+    <input type="hidden" id="hdn_SubUserCount" value="@SunriseLabWeb.Helper.SessionFacade.UserSession.SubUserCount" />
+    
+
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar" class="active">
@@ -327,145 +342,55 @@
                             Dashboard
                         </a>
                     </li>
-                    @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1"))
+                    @if (SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true)
                     {
-                        <li id="li_User_SearchStock">
-                            <a href="@Url.Action("SearchStock", "User")">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                                Search Stock
-                            </a>
-                        </li>
-                        <li id="li_User_Manage">
-                            <a href="@Url.Action("Manage", "User")">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                Manage User
-                            </a>
-                        </li>
-                        <li id="li_User_SupplierMas">
-                            <a href="@Url.Action("SupplierMas", "User")">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                Supplier Master
-                            </a>
-                        </li>
-                        <li id="li_User_LabAvailibility">
-                            <a href="@Url.Action("LabAvailability", "User")">
-                                <i class="fa fa-file-text" aria-hidden="true"></i>
-                                Availability
-                            </a>
-                        </li>
-                        <li id="li_User_LabEntry">
-                            <a href="@Url.Action("LabEntry", "User")">
-                                <i class="fa fa-file-text" aria-hidden="true"></i>
-                                Entry
-                            </a>
-                        </li>
-                        <li id="li_User_LabEntryReport">
-                            <a href="@Url.Action("LabEntryReport", "User")">
-                                <i class="fa fa-file-text" aria-hidden="true"></i>
-                                Entry Report
-                            </a>
-                        </li>
-                        <li id="li_User_SupplierStockUpload">
-                            <a href="@Url.Action("SupplierStockUpload", "User")">
-                                <i class="fa fa-upload" aria-hidden="true"></i>
-                                Manual Upload
-                            </a>
-                        </li>
-                        <li id="li_User_OrderHistory">
-                            <a href="@Url.Action("OrderHistory", "User")">
-                                <i class="fa fa-file-text" aria-hidden="true"></i>
-                                Order History
-                            </a>
-                        </li>
-                        <li id="li_User_MyCart">
-                            <a href="@Url.Action("MyCart", "User")">
-                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                My Cart
-                            </a>
-                        </li>
-                        <li id="li_User_SupplierColumnSetting">
-                            <a href="@Url.Action("SupplierColumnSetting", "User")">
-                                <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
-                                Column Mapping API/FTP
-                            </a>
-                        </li>
-                        <li id="li_User_SupplierColumnSettingFromFile">
-                            <a href="@Url.Action("SupplierColumnSettingFromFile", "User")">
-                                <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
-                                Mapping Manual Upload
-                            </a>
-                        </li>
-                        <li id="li_User_SupplierPriceList">
-                            <a href="@Url.Action("SupplierPriceList", "User")">
-                                <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
-                                Cost Calculation
-                            </a>
-                        </li>
-                        <li id="li_User_CustomerPriceList">
-                            <a href="@Url.Action("CustomerPriceList", "User")">
-                                <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
-                                Sell Price Calculation
-                            </a>
-                        </li>
-                        <li id="li_User_StockDiscMgt">
-                            <a href="@Url.Action("StockDiscMgt", "User")">
-                                <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
-                                Customer Wise Sell Price
-                            </a>
-                        </li>
-                        <li id="li_User_Category">
-                            <a href="@Url.Action("Category", "User")">
-                                <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
-                                Master Values
-                            </a>
-                        </li>
-                        <li id="li_User_SupplierValue">
-                            <a href="@Url.Action("SupplierValue", "User")">
-                                <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
-                                Value Mapping
-                            </a>
-                        </li>
-                        <li id="li_User_ColumnSetting">
-                            <a href="@Url.Action("ColumnSetting", "User")">
-                                <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
-                                Column Customization
-                            </a>
-                        </li>
-                        <li id="li_User_LoginDetail">
-                            <a href="@Url.Action("LoginDetail", "User")">
-                                <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                Login Detail
-                            </a>
-                        </li>
-                        <li id="li_User_UserActivity">
-                            <a href="@Url.Action("UserActivity", "User")">
-                                <i class="fa fa-tasks" aria-hidden="true"></i>
-                                User Activity
-                            </a>
-                        </li>
-                    }
-                    else
-                    {
-                        if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
+                        if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1"))
                         {
-                            <li id="li_User_SearchStock">
-                                <a href="@Url.Action("SearchStock", "User")">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search Stock
-                                </a>
-                            </li>
-                            if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserId == 8)
+                            if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true || SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
                             {
-                                <li id="li_User_Manage">
-                                    <a href="@Url.Action("Manage", "User")">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                        Manage User
+                                <li id="li_User_SearchStock">
+                                    <a href="@Url.Action("SearchStock", "User")">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                        Search Stock
                                     </a>
                                 </li>
                             }
-                        }
-                        if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
-                        {
+                            <li id="li_User_Manage">
+                                <a href="@Url.Action("Manage", "User")">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    Manage User
+                                </a>
+                            </li>
+                            <li id="li_User_SupplierMas">
+                                <a href="@Url.Action("SupplierMas", "User")">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    Supplier Master
+                                </a>
+                            </li>
+                            <li id="li_User_LabAvailibility">
+                                <a href="@Url.Action("LabAvailability", "User")">
+                                    <i class="fa fa-file-text" aria-hidden="true"></i>
+                                    Availability
+                                </a>
+                            </li>
+                            <li id="li_User_LabEntry">
+                                <a href="@Url.Action("LabEntry", "User")">
+                                    <i class="fa fa-file-text" aria-hidden="true"></i>
+                                    Entry
+                                </a>
+                            </li>
+                            <li id="li_User_LabEntryReport">
+                                <a href="@Url.Action("LabEntryReport", "User")">
+                                    <i class="fa fa-file-text" aria-hidden="true"></i>
+                                    Entry Report
+                                </a>
+                            </li>
+                            <li id="li_User_SupplierStockUpload">
+                                <a href="@Url.Action("SupplierStockUpload", "User")">
+                                    <i class="fa fa-upload" aria-hidden="true"></i>
+                                    Manual Upload
+                                </a>
+                            </li>
                             <li id="li_User_OrderHistory">
                                 <a href="@Url.Action("OrderHistory", "User")">
                                     <i class="fa fa-file-text" aria-hidden="true"></i>
@@ -478,19 +403,52 @@
                                     My Cart
                                 </a>
                             </li>
-                        }
-                        if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))
-                        {
-                            <li id="li_User_LabAvailibility">
-                                <a href="@Url.Action("LabAvailability", "User")">
-                                    <i class="fa fa-file-text" aria-hidden="true"></i>
-                                    Availability
+                            <li id="li_User_SupplierColumnSetting">
+                                <a href="@Url.Action("SupplierColumnSetting", "User")">
+                                    <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                                    Column Mapping API/FTP
+                                </a>
+                            </li>
+                            <li id="li_User_SupplierColumnSettingFromFile">
+                                <a href="@Url.Action("SupplierColumnSettingFromFile", "User")">
+                                    <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                                    Mapping Manual Upload
+                                </a>
+                            </li>
+                            <li id="li_User_SupplierPriceList">
+                                <a href="@Url.Action("SupplierPriceList", "User")">
+                                    <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                                    Cost Calculation
+                                </a>
+                            </li>
+                            <li id="li_User_CustomerPriceList">
+                                <a href="@Url.Action("CustomerPriceList", "User")">
+                                    <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                                    Sell Price Calculation
                                 </a>
                             </li>
                             <li id="li_User_StockDiscMgt">
                                 <a href="@Url.Action("StockDiscMgt", "User")">
                                     <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
                                     Customer Wise Sell Price
+                                </a>
+                            </li>
+                            <li id="li_User_Category">
+                                <a href="@Url.Action("Category", "User")">
+                                    <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                                    Master Values
+                                </a>
+                            </li>
+                            <li id="li_User_SupplierValue">
+                                <a href="@Url.Action("SupplierValue", "User")">
+                                    <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                                    Value Mapping
+                                </a>
+                            </li>
+                            <li id="li_User_ColumnSetting">
+                                <a href="@Url.Action("ColumnSetting", "User")">
+                                    <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                                    Column Customization
                                 </a>
                             </li>
                             <li id="li_User_LoginDetail">
@@ -503,6 +461,102 @@
                                 <a href="@Url.Action("UserActivity", "User")">
                                     <i class="fa fa-tasks" aria-hidden="true"></i>
                                     User Activity
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
+                            {
+                                if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true || SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+                                {
+                                    <li id="li_User_SearchStock">
+                                        <a href="@Url.Action("SearchStock", "User")">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                            Search Stock
+                                        </a>
+                                    </li>
+                                }
+                                if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserId == 8)
+                                {
+                                    <li id="li_User_Manage">
+                                        <a href="@Url.Action("Manage", "User")">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            Manage User
+                                        </a>
+                                    </li>
+                                }
+                            }
+                            if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
+                            {
+                                <li id="li_User_OrderHistory">
+                                    <a href="@Url.Action("OrderHistory", "User")">
+                                        <i class="fa fa-file-text" aria-hidden="true"></i>
+                                        Order History
+                                    </a>
+                                </li>
+                                <li id="li_User_MyCart">
+                                    <a href="@Url.Action("MyCart", "User")">
+                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                        My Cart
+                                    </a>
+                                </li>
+                            }
+                            if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))
+                            {
+                                <li id="li_User_LabAvailibility">
+                                    <a href="@Url.Action("LabAvailability", "User")">
+                                        <i class="fa fa-file-text" aria-hidden="true"></i>
+                                        Availability
+                                    </a>
+                                </li>
+                                <li id="li_User_StockDiscMgt">
+                                    <a href="@Url.Action("StockDiscMgt", "User")">
+                                        <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                                        Customer Wise Sell Price
+                                    </a>
+                                </li>
+                                <li id="li_User_LoginDetail">
+                                    <a href="@Url.Action("LoginDetail", "User")">
+                                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                                        Login Detail
+                                    </a>
+                                </li>
+                                <li id="li_User_UserActivity">
+                                    <a href="@Url.Action("UserActivity", "User")">
+                                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                                        User Activity
+                                    </a>
+                                </li>
+                            }
+                        }
+                    }
+                    else if (SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true)
+                    {
+                        if (SunriseLabWeb.Helper.SessionFacade.UserSession.SearchStock == true || SunriseLabWeb.Helper.SessionFacade.UserSession.StockDownload == true)
+                        {
+                            <li id="li_User_SearchStock">
+                                <a href="@Url.Action("SearchStock", "User")">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                    Search Stock
+                                </a>
+                            </li>
+                        }
+                        if (SunriseLabWeb.Helper.SessionFacade.UserSession.MyCart == true)
+                        {
+                            <li id="li_User_MyCart">
+                                <a href="@Url.Action("MyCart", "User")">
+                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                    My Cart
+                                </a>
+                            </li>
+                        }
+                        if (SunriseLabWeb.Helper.SessionFacade.UserSession.OrderHistoryAll == true || SunriseLabWeb.Helper.SessionFacade.UserSession.OrderHistoryByHisUser == true)
+                        {
+                            <li id="li_User_OrderHistory">
+                                <a href="@Url.Action("OrderHistory", "User")">
+                                    <i class="fa fa-file-text" aria-hidden="true"></i>
+                                    Order History
                                 </a>
                             </li>
                         }
@@ -620,7 +674,7 @@
         var L_day = L_d.getDate();
         var L_curdate = L_d.getFullYear() + '' + (L_month<10 ? '0' : '') + L_month + '' + (L_day<10 ? '0' : '') + '' + L_day + '' + L_d.getHours() + '' + L_d.getMinutes() + '' + L_d.getSeconds();
         var OrderFrom;
-        
+
         $(document).ready(function () {
              $('[data-toggle="tooltip"],[data-toggle="modal"]').tooltip();
             $('#sidebarCollapse').on('click', function () {
@@ -658,7 +712,7 @@
                     $('#frmSaveOrder #NotSelected').hide();
                     $('.modal-footer #btnsaveOrderstone').show();
 
-                    if ($("#hdn_UserType").val().includes("1") || $("#hdn_UserType").val().includes("2")) {
+                    if ($("#hdn_IsPrimaryUser").val() == "True" && ($("#hdn_UserType").val().includes("1") || $("#hdn_UserType").val().includes("2"))) {
                         $("#divPlaceOrderHoldCompany").show();
                         $("#txtCompanyName_hidden").val("");
                         $("#txtCompanyName").val("");

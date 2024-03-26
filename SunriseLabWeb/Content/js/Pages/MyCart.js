@@ -217,7 +217,8 @@ columnDefs.push({
 columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
 columnDefs.push({ headerName: "Date", field: "TransDate", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("OrderDate", params); } });
 
-if ($("#hdn_UserType").val().includes("1") || $("#hdn_UserType").val().includes("2") || $("#hdn_UserType").val().includes("4")) {
+if ($("#hdn_IsPrimaryUser").val() == "True" && ($("#hdn_SubUserCount").val() != "0" || $("#hdn_UserType").val().includes("1") || $("#hdn_UserType").val().includes("2") || $("#hdn_UserType").val().includes("4")))
+{
     columnDefs.push({ headerName: "Customer Name", field: "UserFullName", width: 140, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("UserFullName", params); } });
     columnDefs.push({ headerName: "Company Name", field: "CompName", width: 220, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CompName", params); } });
 }

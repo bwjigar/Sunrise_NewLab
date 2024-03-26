@@ -114,15 +114,15 @@ function GetSaveSearch() {
                         }
                         if (data.Data[i].FromFinalDisc != null && data.Data[i].ToFinalDisc != null) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Discount % :&nbsp;</span>" + NullReplaceCommaPointDecimalToFixed(data.Data[i].FromFinalDisc, 2) + "-" + NullReplaceCommaPointDecimalToFixed(data.Data[i].ToFinalDisc,2);
+                            str += "<span style='font-weight: 600;'>Discount % :&nbsp;</span>" + NullReplaceCommaPointDecimalToFixed(data.Data[i].FromFinalDisc, 2) + "-" + NullReplaceCommaPointDecimalToFixed(data.Data[i].ToFinalDisc, 2);
                         }
                         if (data.Data[i].FromPriceCts != null && data.Data[i].ToPriceCts != null) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Final Price/Ct :&nbsp;</span>" + NullReplaceCommaPointDecimalToFixed(data.Data[i].FromPriceCts, 2) + "-" + NullReplaceCommaPointDecimalToFixed(data.Data[i].ToPriceCts,2);
+                            str += "<span style='font-weight: 600;'>Final Price/Ct :&nbsp;</span>" + NullReplaceCommaPointDecimalToFixed(data.Data[i].FromPriceCts, 2) + "-" + NullReplaceCommaPointDecimalToFixed(data.Data[i].ToPriceCts, 2);
                         }
                         if (data.Data[i].FromFinalVal != null && data.Data[i].ToFinalVal != null) {
                             str += (str != "" ? ", " : "");
-                            str += "<span style='font-weight: 600;'>Amount :&nbsp;</span>" + NullReplaceCommaPointDecimalToFixed(data.Data[i].FromFinalVal, 2) + "-" + NullReplaceCommaPointDecimalToFixed(data.Data[i].ToFinalVal,2);
+                            str += "<span style='font-weight: 600;'>Amount :&nbsp;</span>" + NullReplaceCommaPointDecimalToFixed(data.Data[i].FromFinalVal, 2) + "-" + NullReplaceCommaPointDecimalToFixed(data.Data[i].ToFinalVal, 2);
                         }
                         if (data.Data[i].ColorType != null) {
                             if (data.Data[i].ColorType == "Regular" && data.Data[i].Color == null) {
@@ -511,10 +511,15 @@ function GetOrderHistory() {
                         html += '<td><center><span onclick="OrderHistory_LoadSearchData(' + data.Data[i].OrderId + ')" style="cursor:pointer;" class="Fi-Criteria order">&nbsp;' + data.Data[i].OrderId + '&nbsp;</span></center></td>';
                         html += '<td><center><span class="Fi-Criteria">' + data.Data[i].OrderDate + '</span></center></td>';
                         html += '<td><center><span class="Fi-Criteria">' + data.Data[i].CompName + '</span></center></td>';
-                        html += '<td><center><span class="Fi-Criteria">' + breakString(data.Data[i].Remarks,65) + '</span></center></td>';
+                        html += '<td><center><span class="Fi-Criteria">' + breakString(data.Data[i].Remarks, 65) + '</span></center></td>';
                         html += '<td><center><span class="Fi-Criteria">' + data.Data[i].TotPcs + '</span></center></td>';
                         html += '<td><center><span class="Fi-Criteria">' + parseFloat(data.Data[i].TotCts).toFixed(2) + '</span></center></td>';
-                        html += '<td><center><span class="Fi-Criteria">' + NullReplaceCommaPointDecimalToFixed(data.Data[i].TotAmt, 2) + '</span></center></td>';
+                        
+                        if (($("#hdn_IsPrimaryUser").val() == "True")
+                            ||
+                            ($("#hdn_IsSubUser").val() == "True" && $("#hdn_OrderHistoryShowPricing").val() == "True")) {
+                            html += '<td><center><span class="Fi-Criteria">' + NullReplaceCommaPointDecimalToFixed(data.Data[i].TotAmt, 2) + '</span></center></td>';
+                        }
                         html += '</tr>';
                     }
                 }
@@ -689,14 +694,14 @@ function OrderHistory_LoadSearchData(OrderId) {
 }
 function breakString(str, nxt) {
     // Use regular expression to break the string every 45 characters, preserving whole words
-    const regex = new RegExp(`.{1,` + nxt +`}(\\s|$)`, 'g');
+    const regex = new RegExp(`.{1,` + nxt + `}(\\s|$)`, 'g');
     const splitString = str.match(regex);
-    var har="";
+    var har = "";
     // Now 'splitString' is an array of substrings, each containing up to 45 characters without splitting words
     splitString.forEach(part => {
-        har += part +"<br/>"
+        har += part + "<br/>"
     });
-    return har.substring(0, har.length - 5); ;
+    return har.substring(0, har.length - 5);;
 }
 function formatNumber(number) {
     return (parseInt(number)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");

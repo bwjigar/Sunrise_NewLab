@@ -395,11 +395,28 @@
                         <ul class="pull-right">
                             <li><a class="effect-one" onclick="RemoveStone();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Remove Stone"><i class="fa fa-trash-o" style="font-size: 26px;"></i></a></li>
 
-                            @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
+                            @if (
+                                    (
+                                        SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true
+                                        &&
+                                        (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
+                                    )
+                                    ||
+                                    (
+                                        SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true && SunriseLabWeb.Helper.SessionFacade.UserSession.PlaceOrder == true
+                                    )
+                                )
                             {
                                 <li><a class="effect-one" onclick="PlaceOrder();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Place Order"><i class="flaticon-checked"></i></a></li>
                             }
-                            <li id="li_excel"><a class="effect-one" onclick="Excel_MyCart();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="flaticon-file"></i></a></li>
+                            @if (
+                                (SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true)
+                                ||
+                                (SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true && SunriseLabWeb.Helper.SessionFacade.UserSession.MyCart == true)
+                                )
+                            {
+                                <li id="li_excel"><a class="effect-one" onclick="Excel_MyCart();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="flaticon-file"></i></a></li>
+                            }
                         </ul>
                     </div>
                 </div>

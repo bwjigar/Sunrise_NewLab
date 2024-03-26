@@ -79,6 +79,18 @@ namespace Lib.Model
         public string IPAddress { get; set; }
         public string DeviceType { get; set; }
         public string MacID { get; set; }
+        public bool IsPrimaryUser { get; set; }
+        public bool IsSubUser { get; set; }
+        public int PrimaryUserId { get; set; }
+        public bool SearchStock { get; set; }
+        public bool OrderHistoryAll { get; set; }
+        public bool OrderHistoryByHisUser { get; set; }
+        public bool PlaceOrder { get; set; }
+        public bool MyCart { get; set; }
+        public bool StockDownload { get; set; }
+        public bool OrderHistoryDownload { get; set; }
+        public bool OrderHistoryShowPricing { get; set; }
+        public int SubUserCount { get; set; }
     }
     public class IP_Wise_Login_Detail
     {

@@ -507,64 +507,67 @@
         <div class="row rw_mar_rmv" style="margin-left: 2px;margin-bottom: 10px;">
 
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 order-history-data admin" style="box-shadow: none; margin-bottom: -42px;">
-                @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
+                @if (SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true)
                 {
+                    if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
+                    {
+                        if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))
+                        {
+                            <div class="col-xl-4 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
+                                <div class="order-company-name common-order" style="margin-left: -10px;">
+                                    <div class="offer-label sp-c">Supplier: </div>
+                                    <select id="ddlSupplierId" class="form-control common-control" multiple="multiple" style="width: 100%">
+                                    </select>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-xl-5 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
+                                <div class="order-company-name common-order" style="margin-left: -10px;">
+                                    <div class="offer-label sp-c">Supplier: </div>
+                                    <select id="ddlSupplierId" class="form-control common-control" multiple="multiple" style="width: 100%">
+                                    </select>
+                                </div>
+                            </div>
+                        }
+                    }
                     if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))
                     {
-                        <div class="col-xl-4 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
-                            <div class="order-company-name common-order" style="margin-left: -10px;">
-                                <div class="offer-label sp-c">Supplier: </div>
-                                <select id="ddlSupplierId" class="form-control common-control" multiple="multiple" style="width: 100%">
+                        <div class="col-xl-3 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
+                            <div class="order-company-name common-order">
+                                <div class="offer-label sp-c">User: </div>
+                                <select id="ddlUserId" class="form-control common-control">
                                 </select>
                             </div>
                         </div>
-                    }
-                    else
-                    {
                         <div class="col-xl-5 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
-                            <div class="order-company-name common-order" style="margin-left: -10px;">
-                                <div class="offer-label sp-c">Supplier: </div>
-                                <select id="ddlSupplierId" class="form-control common-control" multiple="multiple" style="width: 100%">
-                                </select>
-                            </div>
-                        </div>
-                    }
-                }
-                @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))
-                {
-                    <div class="col-xl-3 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
-                        <div class="order-company-name common-order">
-                            <div class="offer-label sp-c">User: </div>
-                            <select id="ddlUserId" class="form-control common-control">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
-                        <div class="order-company-name common-order">
-                            <div class="offer-label sp-c">Price Method: </div>
-                            <div class="row price-fil">
-                                <div class="col-lg-2 col-md-6 col-sm-2 col-xs-10 custom-box-list api-plr">
-                                    <select class="form-control common-control select2" id="PricingSign_1" name="PricingSign_1">
-                                        <option value="Plus">+</option>
-                                        @*<option value="Minus">-</option>*@
-                                    </select>
-                                </div>
-                                <div class="col-ld-2 col-md-6 col-sm-5 col-sm-4 col-xs-10 custom-box-list api-plr">
-                                    <select class="form-control common-control select2" id="PricingMethod_1" name="PricingMethod_1">
-                                        <option value="">Select Method</option>
-                                        <option value="Disc">Discount</option>
-                                        <option value="Value">Value</option>
-                                    </select>
-                                </div>
-                                <div class="col-ld-2 col-md-4 col-sm-4 col-sm-4 col-xs-10 custom-box-list api-plr api-plr-d">
-                                    <div class="api-plr txtDisc_1" style="margin-top: 0px;">
-                                        <input onblur="Disc_LeaveTextBox('txtDisc_1_1', 4);" onkeypress="return Disc_isNumberKey(event)" type="text" id="txtDisc_1_1" class="form-control common-control dis_val val-txtbx" autocomplete="off">
+                            <div class="order-company-name common-order">
+                                <div class="offer-label sp-c">Price Method: </div>
+                                <div class="row price-fil">
+                                    <div class="col-lg-2 col-md-6 col-sm-2 col-xs-10 custom-box-list api-plr">
+                                        <select class="form-control common-control select2" id="PricingSign_1" name="PricingSign_1">
+                                            <option value="Plus">+</option>
+                                            @*<option value="Minus">-</option>*@
+                                        </select>
+                                    </div>
+                                    <div class="col-ld-2 col-md-6 col-sm-5 col-sm-4 col-xs-10 custom-box-list api-plr">
+                                        <select class="form-control common-control select2" id="PricingMethod_1" name="PricingMethod_1">
+                                            <option value="">Select Method</option>
+                                            <option value="Disc">Discount</option>
+                                            <option value="Value">Value</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-ld-2 col-md-4 col-sm-4 col-sm-4 col-xs-10 custom-box-list api-plr api-plr-d">
+                                        <div class="api-plr txtDisc_1" style="margin-top: 0px;">
+                                            <input onblur="Disc_LeaveTextBox('txtDisc_1_1', 4);" onkeypress="return Disc_isNumberKey(event)" type="text" id="txtDisc_1_1" class="form-control common-control dis_val val-txtbx" autocomplete="off">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    }
                 }
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12 float-left" style="margin-left: -14px; margin-top: -14px;">
                     <div class="order-stone-id common-order form-inline ml-md-3 mt-3 navbar-search">
@@ -1238,38 +1241,16 @@
 </div>
 <div class="bottom-button-bar text-right" style="position: sticky; padding-bottom: 0px; ">
     <ul class="two">
-        <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" data-toggle="modal" data-target="#SaveSearchModal"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Search</a></li>
-        @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1"))
+
+
+
+        @if (SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true)
         {
             if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
             {
-                <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="BuyerList();"><i class="fa fa-search" aria-hidden="true"></i>Buyer Search</a></li>
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" data-toggle="modal" data-target="#SaveSearchModal"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Search</a></li>
             }
-            if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
-            {
-                <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(1, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer Download</a></li>
-            }
-            if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
-            {
-                <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="SupplierList();"><i class="fa fa-search" aria-hidden="true"></i>Admin Search</a></li>
-            }
-            if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
-            {
-                <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(2, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Admin Download</a></li>
-            }
-            if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
-            {
-                <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Search</a></li>
-            }
-            if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
-            {
-                <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Download</a></li>
-                <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(4, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Status Download</a></li>
-            }
-        }
-        else
-        {
-            if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1"))
             {
                 if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
                 {
@@ -1279,32 +1260,6 @@
                 {
                     <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(1, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer Download</a></li>
                 }
-            }
-
-            if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))
-            {
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
-                {
-                    <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Search</a></li>
-                }
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
-                {
-                    <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Download</a></li>
-                }
-            }
-            else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
-            {
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
-                {
-                    <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Search</a></li>
-                }
-                if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
-                {
-                    <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Download</a></li>
-                }
-            }
-            if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserId == 8)
-            {
                 if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
                 {
                     <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="SupplierList();"><i class="fa fa-search" aria-hidden="true"></i>Admin Search</a></li>
@@ -1312,11 +1267,79 @@
                 if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
                 {
                     <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(2, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Admin Download</a></li>
+                }
+                if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
+                {
+                    <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Search</a></li>
+                }
+                if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+                {
+                    <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Download</a></li>
                     <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(4, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Status Download</a></li>
                 }
             }
-        }
+            else
+            {
+                if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("4"))
+                {
+                    if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
+                    {
+                        <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="BuyerList();"><i class="fa fa-search" aria-hidden="true"></i>Buyer Search</a></li>
+                    }
+                    if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+                    {
+                        <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(1, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Buyer Download</a></li>
+                    }
+                }
 
+                if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2"))
+                {
+                    if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
+                    {
+                        <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Search</a></li>
+                    }
+                    if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+                    {
+                        <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Download</a></li>
+                    }
+                }
+                else if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
+                {
+                    if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
+                    {
+                        <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Search</a></li>
+                    }
+                    if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+                    {
+                        <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Download</a></li>
+                    }
+                }
+                if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserId == 8)
+                {
+                    if (SunriseLabWeb.Helper.SessionFacade.UserSession.View == true)
+                    {
+                        <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="SupplierList();"><i class="fa fa-search" aria-hidden="true"></i>Admin Search</a></li>
+                    }
+                    if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+                    {
+                        <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(2, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Admin Download</a></li>
+                        <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(4, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Status Download</a></li>
+                    }
+                }
+            }
+        }
+        else if (SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true)
+        {
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.SearchStock == true)
+            {
+                <li><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" data-toggle="modal" data-target="#SaveSearchModal"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save Search</a></li>
+                <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="CustomerList();"><i class="fa fa-search" aria-hidden="true"></i>Search</a></li>
+            }
+            if (SunriseLabWeb.Helper.SessionFacade.UserSession.StockDownload == true)
+            {
+                <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn excelbtn" onclick="ExcelFilter(3, 'Out');"><i class="fa fa-file-excel-o" aria-hidden="true"></i>Download</a></li>
+            }
+        }
 
         <li class="btn-li"><a style="width: 100% !important;" href="javascript:void(0);" class="obtn" onclick="Reset();"><i class="fa fa-refresh" aria-hidden="true"></i>Reset</a></li>
     </ul>
@@ -1373,39 +1396,62 @@
         <div class="col-md-6 result-three pull-right grid-optn" style="margin-top: -20px;">
             <ul class="pull-right">
                 <li><a class="effect-one" onclick="SetModifyParameter();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Modify"><i class="flaticon-edit"></i></a></li>
-                <li><a class="effect-one" onclick="AddToCart()" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Add to Cart"><i class="flaticon-shopping-cart"></i></a></li>
-                @if (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
+
+                @if (
+                        (SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true)
+                        || 
+                        (SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true && SunriseLabWeb.Helper.SessionFacade.UserSession.MyCart == true)
+                    )
+                {
+                    <li><a class="effect-one" onclick="AddToCart()" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Add to Cart"><i class="flaticon-shopping-cart"></i></a></li>
+                }
+
+                @if (
+                        (
+                            SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true 
+                            && 
+                            (SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("2") || SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("3"))
+                        )
+                        ||
+                        (
+                            SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true && SunriseLabWeb.Helper.SessionFacade.UserSession.PlaceOrder == true
+                        )
+                    )
                 {
                     <li><a class="effect-one" onclick="PlaceOrder();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Place Order"><i class="flaticon-checked"></i></a></li>
                 }
-                @if (SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true)
+
+                @if ((SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true && SunriseLabWeb.Helper.SessionFacade.UserSession.Download == true) 
+                    || 
+                    (SunriseLabWeb.Helper.SessionFacade.UserSession.IsSubUser == true && SunriseLabWeb.Helper.SessionFacade.UserSession.StockDownload == true))
                 {
                     <li><a class="effect-one aEmailStone" href="javascript:void(0);" data-toggle="modal" data-placement="bottom" data-target="#EmailModal" title="Email Stone"><i class="flaticon-email"></i></a></li>
                     <li id="li_excel"><a class="effect-one" onclick="ExcelDownload('Grid','In');" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="flaticon-file"></i></a></li>
                 }
+
                 <li style="display:none;"><a class="effect-one" onclick="ByRequestCart();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Buy Cart"><i class="flaticon-shopping-cart"></i></a></li>
                 <li style="display:none;"><a class="effect-one" onclick="Download();" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="Excel Download"><i class="fa fa-file-excel-o"></i></a></li>
 
                 @*<li>
-                        <a onclick="OpenDownloadCheck()" class="effect-one download-popup" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="@LanguageProvider.get("download")"><i class="flaticon-file"></i></a>
-                        <ul class="download-toggle tab_2">
-                            <li id="liAll_2">
-                            <a href="javascript:void(0);" onclick="ALLDownload()" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel"), @LanguageProvider.get("image"), @LanguageProvider.get("video"), @LanguageProvider.get("certificate")">@LanguageProvider.get("All")</a>
-                        </li>
-                            <li>
-                                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Excel')" id="Export" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel")">@LanguageProvider.get("excel")</a>
-                            </li>
-                            <li class="excel-modelAll">
-                            <a href="javascript:void(0);" onclick="OpenDownloadPopup('Image')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("image")">@LanguageProvider.get("image")</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" onclick="OpenDownloadPopup('Video')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("video")">@LanguageProvider.get("video")</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" onclick="OpenDownloadPopup('Certificate')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("certificate")">@LanguageProvider.get("certificate")</a>
-                        </li>
-                        </ul>
-                    </li>*@
+            <a onclick="OpenDownloadCheck()" class="effect-one download-popup" href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="@LanguageProvider.get("download")"><i class="flaticon-file"></i></a>
+            <ul class="download-toggle tab_2">
+                <li id="liAll_2">
+                <a href="javascript:void(0);" onclick="ALLDownload()" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel"), @LanguageProvider.get("image"), @LanguageProvider.get("video"), @LanguageProvider.get("certificate")">@LanguageProvider.get("All")</a>
+            </li>
+                <li>
+                    <a href="javascript:void(0);" onclick="OpenDownloadPopup('Excel')" id="Export" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("excel")">@LanguageProvider.get("excel")</a>
+                </li>
+                <li class="excel-modelAll">
+                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Image')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("image")">@LanguageProvider.get("image")</a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Video')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("video")">@LanguageProvider.get("video")</a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" onclick="OpenDownloadPopup('Certificate')" data-placement="bottom" data-toggle="tooltip" title="@LanguageProvider.get("download") @LanguageProvider.get("certificate")">@LanguageProvider.get("certificate")</a>
+            </li>
+            </ul>
+        </li>*@
             </ul>
         </div>
     </div>

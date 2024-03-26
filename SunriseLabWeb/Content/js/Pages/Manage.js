@@ -111,19 +111,19 @@ var columnDefs = [
     { headerName: "UserTypeId", field: "UserTypeId", hide: true },
     { headerName: "User Type", field: "UserType", sortable: false, tooltip: function (params) { return (params.value); }, width: 190 },
     { headerName: "Active", field: "IsActive", cellRenderer: 'faIndicator', tooltip: function (params) { if (params.value == true) { return 'Yes'; } else { return 'No'; } }, cellClass: ['muser-fa-font'], width: 55 },
-    { headerName: "User Name", field: "UserName", tooltip: function (params) { return (params.value); }, width: 120 },
+    { headerName: "User Name", field: "UserName", tooltip: function (params) { return (params.value); }, width: 160 },
     { headerName: "Password", field: "Password", hide: true },
     { headerName: "FirstName", field: "FirstName", hide: true },
     { headerName: "LastName", field: "LastName", hide: true },
-    { headerName: "Customer Name", field: "FullName", tooltip: function (params) { return (params.value); }, width: 120 },
-    { headerName: "Company Name", field: "CompName", tooltip: function (params) { return (params.value); }, width: 200 },
+    { headerName: "Customer Name", field: "FullName", tooltip: function (params) { return (params.value); }, width: 175 },
+    { headerName: "Company Name", field: "CompName", tooltip: function (params) { return (params.value); }, width: 210 },
     { headerName: "Fortune Party Code", field: "FortunePartyCode", tooltip: function (params) { return (params.data.FortunePartyCode > 0 ? params.data.FortunePartyCode : ""); }, cellRenderer: function (params) { return (params.data.FortunePartyCode > 0 ? params.data.FortunePartyCode : ""); }, width: 75 },
     { headerName: "User Code", field: "UserCode", tooltip: function (params) { return (params.value); }, cellRenderer: function (params) { return (params.data.UserCode > 0 ? params.data.UserCode : ""); }, width: 75 },
-    { headerName: "Assist", field: "AssistByName", tooltip: function (params) { return (params.value); }, width: 120 },
-    { headerName: "Sub Assist", field: "SubAssistByName", tooltip: function (params) { return (params.value); }, width: 120 },
-    { headerName: "Mobile", field: "MobileNo", tooltip: function (params) { return (params.value); }, width: 120 },
-    { headerName: "Email Id", field: "EmailId", tooltip: function (params) { return (params.value); }, width: 140 },
-    { headerName: "Email Id 2", field: "EmailId_2", tooltip: function (params) { return (params.value); }, width: 140 },
+    { headerName: "Assist", field: "AssistByName", tooltip: function (params) { return (params.value); }, width: 150 },
+    { headerName: "Sub Assist", field: "SubAssistByName", tooltip: function (params) { return (params.value); }, width: 150 },
+    { headerName: "Mobile", field: "MobileNo", tooltip: function (params) { return (params.value); }, width: 140 },
+    { headerName: "Email Id", field: "EmailId", tooltip: function (params) { return (params.value); }, width: 155 },
+    { headerName: "Email Id 2", field: "EmailId_2", tooltip: function (params) { return (params.value); }, width: 155 },
 ];var deltaIndicator = function (params) {
     var element = "";
     element = '<a title="Edit" onclick="EditView(\'' + params.data.UserId + '\')" ><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 17px;cursor:pointer;"></i></a>';
@@ -176,7 +176,7 @@ function EditView(UserId) {
         $("#txt_MobileNo").val(data[0].MobileNo);
         $("#ddl_AssistBy").val((data[0].AssistBy > 0 ? data[0].AssistBy : ""));
         $("#ddl_SubAssistBy").val((data[0].SubAssistBy > 0 ? data[0].SubAssistBy : ""));
-        debugger
+
         $("#View").prop("checked", data[0].View);
         $("#Download").prop("checked", data[0].Download);
 
@@ -186,6 +186,8 @@ function EditView(UserId) {
         $("#btn_Back").show();
         $("#h2_titl").html("Edit User");
         $("#hdn_Mng_UserId").val(data[0].UserId);
+        
+        Get_SubUser(UserId);
     }
 }
 function DeleteView(iUserid) {
@@ -211,7 +213,7 @@ var DeleteUser = function () {
                 MoveToErrorPage(0);
             }
             loaderHide();
-            
+
             if (data.Status == "-1") {
                 toastr.remove();
                 toastr.warning(data.Message, { timeOut: 3000 });
@@ -222,7 +224,7 @@ var DeleteUser = function () {
                 toastr.remove();
                 toastr.success(data.Message, { timeOut: 3000 });
             }
-            
+
         }
     });
 }
@@ -349,81 +351,7 @@ var SortDirection = "";const datasource1 = {
     $('#ddlIsActive').val('');
     ddlFilterType();
     GetSearch();
-}//var DownloadUser = function () {
-//    loaderShow();
-
-//    setTimeout(function () {
-
-//        var CountryName = "";
-//        var UserName = "";
-//        var UserFullName = "";
-//        var CompanyName = "";
-//        var _FortunePartyCode = "";
-
-//        if ($("#ddlFilterType").val() == "CT") {
-//            CountryName = $("#txtCommonName").val();
-//        }
-//        if ($("#ddlFilterType").val() == "CUN") {
-//            UserFullName = $("#txtCommonName").val();
-//        }
-//        if ($("#ddlFilterType").val() == "UN") {
-//            UserName = $("#txtCommonName").val();
-//        }
-//        if ($("#ddlFilterType").val() == "CM") {
-//            CompanyName = $("#txtCommonName").val();
-//        }
-//        if ($("#ddlFilterType").val() == "FPC") {
-//            _FortunePartyCode = $("#txtCommonName").val();
-//        }
-
-//        var _FilterType, _FromDate, _ToDate;
-//        if ($("#ddlFilterType").val() == "CD" || $("#ddlFilterType").val() == "LAD" || $("#ddlFilterType").val() == "LLD") {
-//            _FilterType = $("#ddlFilterType").val();
-//            _FromDate = $("#txtFromDate").val();
-//            _ToDate = $("#txtToDate").val();
-//        }
-
-//        var UserType = $('#ddlUserType').val();
-//        var UserStatus = $('#ddlIsActive').val();
-
-//        var FormName = 'Manage User';
-//        var ActivityType = 'Excel Export';
-
-//        $.ajax({
-//            url: '/User/DownloadUser',
-//            async: false,
-//            type: "POST",
-//            data: {
-//                CompanyName: CompanyName,
-//                CountryName: CountryName,
-//                UserName: UserName,
-//                UserFullName: UserFullName,
-//                UserType: UserType,
-//                UserStatus: UserStatus,
-//                IsEmployee: $("#hdn_IsEmployee").val(),
-//                SortColumn: SortColumn,
-//                SortDirection: SortDirection,
-//                PrimaryUser: true,
-//                FilterType: _FilterType,
-//                FromDate: _FromDate,
-//                ToDate: _ToDate,
-//                FortunePartyCode: _FortunePartyCode,
-//                FormName: FormName,
-//                ActivityType: ActivityType
-//            },
-//            success: function (data) {
-//                if (data.indexOf('Something Went wrong') > -1) {
-//                    MoveToErrorPage(0);
-//                }
-//                else if (data.indexOf('No record found') > -1) {
-//                    toastr.error(data);
-//                }
-//                else {
-//                    location.href = data;
-//                }
-//                loaderHide();
-//            }
-//        });//    }, 15);//}function contentHeight() {
+}function contentHeight() {
     var winH = $(window).height(),
         navbarHei = $(".order-title").height(),
         serachHei = $(".order-history-data").height(),
@@ -440,6 +368,24 @@ var SortDirection = "";const datasource1 = {
     //    Check_UserCode_Exist();
     //});
     $("#li_User_Manage").addClass("menuActive");
+
+    $("#tbl_SubUser").on('click', '.RemoveUser', function () {
+        $(this).closest('tr').remove();
+        if (parseInt($("#tbl_SubUser #tblbody_SubUser").find('tr').length) == 0) {
+            //SubUser_AddNewRow("0");
+            $("#tbl_SubUser").hide();
+        }
+        row_cnt = 1;
+        row = 1;
+        $("#tbl_SubUser #tblbody_SubUser tr").each(function () {
+            $(this).find("td:eq(1)").html(row_cnt);
+            row_cnt += 1;
+            row += 1;
+        });
+        if (row > 0) {
+            row = parseInt(row) - 1;
+        }
+    });
 });
 
 $(window).resize(function () {
@@ -496,6 +442,13 @@ function Clear() {
     UserCodeValid_Msg = "";
     $("#View").prop("checked", true);
     $("#Download").prop("checked", true);
+
+    $('#tbl_SubUser #tblbody_SubUser').html("");
+    $("#tbl_SubUser").hide();
+    $('#txt_Password').on('paste', function (e) {
+        e.preventDefault();
+        //alert("Pasting is disabled in this textbox.");
+    });
 }
 function isNumberKey(evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -529,8 +482,8 @@ function AssistBy_Get() {
                     //        $("#ddl_SubAssistBy").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].FullName + "</option>");
                     //    }
                     //} else {
-                        $("#ddl_AssistBy").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].FullName + "</option>");
-                        $("#ddl_SubAssistBy").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].FullName + "</option>");
+                    $("#ddl_AssistBy").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].FullName + "</option>");
+                    $("#ddl_SubAssistBy").append("<option value=" + data.Data[k].UserId + ">" + data.Data[k].FullName + "</option>");
                     //}
                 }
             }
@@ -602,67 +555,67 @@ var checkemail1 = function (valemail) {
 var ErrorMsg = [];
 var GetError = function () {
     ErrorMsg = [];
-    if ($("#txt_UserName").val() == "") {
+    if ($("#txt_UserName").val().trim() == "") {
         ErrorMsg.push({
-            'Error': "Please Enter User Name.",
+            'Error': "Please Enter User Name of Primary User.",
         });
     }
     else {
-        var newlength = $("#txt_UserName").val().length;
+        var newlength = $("#txt_UserName").val().trim().length;
 
         if (newlength < 5) {
             ErrorMsg.push({
-                'Error': "Please Enter Minimum 5 Character UserName.",
+                'Error': "Please Enter Minimum 5 Character User Name of Primary User.",
             });
         }
     }
 
     if (view == "Add") {
-        if ($("#txt_Password").val() == "") {
+        if ($("#txt_Password").val().trim() == "") {
             ErrorMsg.push({
-                'Error': "Please Enter Password.",
+                'Error': "Please Enter Password of Primary User.",
             });
         }
         else {
-            var newlength = $("#txt_Password").val().length;
+            var newlength = $("#txt_Password").val().trim().length;
             if (newlength < 6) {
                 ErrorMsg.push({
-                    'Error': "Please Enter Minimum 6 Character Password.",
+                    'Error': "Please Enter Minimum 6 Character Password of Primary User.",
                 });
             }
         }
     }
     else if (view == "Edit") {
         if ($("#hdn_UserType").val().includes("1")) {
-            if ($("#txt_Password").val() == "") {
+            if ($("#txt_Password").val().trim() == "") {
                 ErrorMsg.push({
-                    'Error': "Please Enter Password.",
+                    'Error': "Please Enter Password of Primary User.",
                 });
             }
             else {
-                var newlength = $("#txt_Password").val().length;
+                var newlength = $("#txt_Password").val().trim().length;
                 if (newlength < 6) {
                     ErrorMsg.push({
-                        'Error': "Please Enter Minimum 6 Character Password.",
+                        'Error': "Please Enter Minimum 6 Character Password of Primary User.",
                     });
                 }
             }
         }
     }
 
-    if ($("#txt_FirstName").val() == "") {
+    if ($("#txt_FirstName").val().trim() == "") {
         ErrorMsg.push({
-            'Error': "Please Enter First Name.",
+            'Error': "Please Enter First Name of Primary User.",
         });
     }
-    if ($("#txt_LastName").val() == "") {
+    if ($("#txt_LastName").val().trim() == "") {
         ErrorMsg.push({
-            'Error': "Please Enter Last Name.",
+            'Error': "Please Enter Last Name of Primary User.",
         });
     }
-    if ($("#txt_CompanyName").val() == "") {
+    if ($("#txt_CompanyName").val().trim() == "") {
         ErrorMsg.push({
-            'Error': "Please Enter Company Name.",
+            'Error': "Please Enter Company Name of Primary User.",
         });
     }
 
@@ -677,28 +630,111 @@ var GetError = function () {
         });
     }
 
-    if ($("#txt_EmailId").val() == "") {
+    if ($("#txt_EmailId").val().trim() == "") {
         ErrorMsg.push({
-            'Error': "Please Enter  Bussiness Email Id .",
+            'Error': "Please Enter Email Id of Primary User.",
         });
     }
     else {
-        if (!checkemail1($("#txt_EmailId").val())) {
+        if (!checkemail1($("#txt_EmailId").val().trim())) {
             ErrorMsg.push({
-                'Error': "Please Enter Valid  Email Id Format.",
+                'Error': "Please Enter Valid Email Id Format of Primary User.",
             });
         }
     }
-    if ($("#txt_MobileNo").val() == "") {
+    if ($("#txt_MobileNo").val().trim() == "") {
         ErrorMsg.push({
-            'Error': "Please Enter Mobile No.",
+            'Error': "Please Enter Mobile No of Primary User.",
         });
     }
+
+    var id = 0;
+
+    $("#tbl_SubUser #tblbody_SubUser tr").each(function () {
+        id += 1;
+
+        if ($(this).find('.FirstName').val().trim() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter First Name of Sub User " + id + ".",
+            });
+        }
+        if ($(this).find('.LastName').val().trim() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter Last Name of Sub User " + id + ".",
+            });
+        }
+        if ($(this).find('.MobileNo').val().trim() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter Mobile No. of Sub User " + id + ".",
+            });
+        }
+        if ($(this).find('.EmailId').val().trim() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter Email Id of Sub User " + id + ".",
+            });
+        }
+        else {
+            if (!checkemail1($(this).find('.EmailId').val().trim())) {
+                ErrorMsg.push({
+                    'Error': "Please Enter Valid Email Id Format of Sub User " + id + ".",
+                });
+            }
+        }
+        if ($(this).find('.UserName').val().trim() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter User Name of Sub User " + id + ".",
+            });
+        }
+        else {
+            var newlength = $(this).find('.UserName').val().trim().length;
+            if (newlength < 5) {
+                ErrorMsg.push({
+                    'Error': "Please Enter Minimum 5 Character User Name of Sub User " + id + ".",
+                });
+            }
+        }
+
+        if ($(this).find('.Password').val().trim() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter Password of Sub User " + id + ".",
+            });
+        }
+        else {
+            var newlength = $(this).find('.Password').val().trim().length;
+            if (newlength < 6) {
+                ErrorMsg.push({
+                    'Error': "Please Enter Minimum 6 Character Password of Sub User " + id + ".",
+                });
+            }
+        }
+        if ($(this).find('.CPassword').val().trim() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter Confirm Password of Sub User " + id + ".",
+            });
+        }
+        else {
+            var newlength = $(this).find('.CPassword').val().trim().length;
+            if (newlength < 6) {
+                ErrorMsg.push({
+                    'Error': "Please Enter Minimum 6 Character Confirm Password of Sub User " + id + ".",
+                });
+            }
+        }
+        if ($(this).find('.Password').val().trim() != "" && $(this).find('.CPassword').val().trim() != "") {
+            if ($(this).find('.Password').val().trim() === $(this).find('.CPassword').val().trim()) {
+
+            } else {
+                ErrorMsg.push({
+                    'Error': "Please Enter Confirm Password Same as Password of Sub User " + id + ".",
+                });
+            }
+        }
+
+    });
 
     return ErrorMsg;
 }
 var SaveCompanyUser = function () {
-
     setTimeout(function () {
         ErrorMsg = GetError();
 
@@ -710,8 +746,27 @@ var SaveCompanyUser = function () {
             $("#ErrorModel").modal("show");
         }
         else {
-            
-
+            var List = [];
+            $("#tbl_SubUser #tblbody_SubUser tr").each(function () {
+                List.push({
+                    UserId: $(this).find('.hdn_UserId').val().trim(),
+                    FirstName: $(this).find('.FirstName').val().trim(),
+                    LastName: $(this).find('.LastName').val().trim(),
+                    MobileNo: $(this).find('.MobileNo').val().trim(),
+                    EmailId: $(this).find('.EmailId').val().trim(),
+                    UserName: $(this).find('.UserName').val().trim(),
+                    Password: $(this).find('.Password').val().trim(),
+                    SearchStock: $(this).find('.SearchStock').prop("checked"),
+                    OrderHistoryAll: $(this).find('.OrderHistoryAll').prop("checked"),
+                    OrderHistoryByHisUser: $(this).find('.OrderHistoryByHisUser').prop("checked"),
+                    PlaceOrder: $(this).find('.PlaceOrder').prop("checked"),
+                    MyCart: $(this).find('.MyCart').prop("checked"),
+                    StockDownload: $(this).find('.StockDownload').prop("checked"),
+                    OrderHistoryDownload: $(this).find('.OrderHistoryDownload').prop("checked"),
+                    OrderHistoryShowPricing: $(this).find('.OrderHistoryShowPricing').prop("checked"),
+                });
+            });
+           
             var obj = {};
             obj.UserId = $("#hdn_Mng_UserId").val();
             obj.UserName = $("#txt_UserName").val();
@@ -730,9 +785,9 @@ var SaveCompanyUser = function () {
             obj.SubAssistBy = $("#ddl_SubAssistBy").val();
             obj.View = ($('#View:checked').val() == undefined ? false : true);
             obj.Download = ($('#Download:checked').val() == undefined ? false : true);
+            obj.SubUser = List;
 
             loaderShow();
-
             $.ajax({
                 url: '/User/SaveUserData',
                 type: "POST",
@@ -785,6 +840,167 @@ function UserTypeGet() {
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
+        }
+    });
+}
+function generate_uuidv4() {
+    return 'xxxxxxxx_xxxx_4xxx_yxxx_xxxxxxxxxxxx'.replace(/[xy]/g,
+        function (c) {
+            var uuid = Math.random() * 16 | 0, v = c == 'x' ? uuid : (uuid & 0x3 | 0x8);
+            return uuid.toString(16);
+        });
+}
+var row = $('#tblbody_SubUser').find('tr').length;
+var row_cnt = 0;
+var All = 'All', SearchStock = 'SearchStock', OrderHistoryAll = 'OrderHistoryAll', OrderHistoryByHisUser = 'OrderHistoryByHisUser',
+    PlaceOrder = 'PlaceOrder', MyCart = 'MyCart', StockDownload = 'StockDownload', OrderHistoryDownload = 'OrderHistoryDownload',
+    OrderHistoryShowPricing = 'OrderHistoryShowPricing';
+function SubUser_AddNewRow(UserId) {
+    $("#tbl_SubUser").show();
+    row = parseInt(row) + 1;
+    var new_id = generate_uuidv4();
+    var tbl_html =
+        '<tr id="tr_' + new_id + '">' +
+        '<input type="hidden" class="hdn_UserId" value="' + UserId + '" />' +
+        '<td style="width: 50px"><i style="cursor:pointer;" class="error RemoveUser"><img src="/Content/images/trash-delete-icon.png" style="width: 20px;" /></i></td>' +
+        '<td class="tblbody_sr">' + row + '</td>' +
+        '<td><input type="text" class="form-control common-control FirstName" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
+        '<td><input type="text" class="form-control common-control LastName" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
+        '<td><input type="text" class="form-control common-control MobileNo" onkeypress="return isNumberKey(event)" maxlength="15" autocomplete="off" style="width:180px;"></td>' +
+        '<td><input type="text" class="form-control common-control EmailId" maxlength="255" autocomplete="off" style="width:180px;"></td>' +
+        '<td><input type="text" class="form-control common-control UserName" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
+        '<td><input type="text" class="form-control common-control Password pwd-field" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
+        '<td><input type="text" class="form-control common-control CPassword pwd-field" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
+        '<td><center><input class="onpristine onuntouched onvalid onempty chkBx All" onchange="Chkblur(\'' + new_id + '\',\'' + All + '\');" id="ChkAll_' + new_id + '" name="ChkAll_' + new_id + '" type="checkbox" value="IsAll" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+        '<td><center><input class="onpristine onuntouched onvalid onempty chkBx SearchStock" onchange="Chkblur(\'' + new_id + '\',\'' + SearchStock + '\');" id="ChkSearchStock_' + new_id + '" name="ChkSearchStock_' + new_id + '" type="checkbox" value="IsSearchStock" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+        '<td><center><input class="onpristine onuntouched onvalid onempty chkBx StockDownload" onchange="Chkblur(\'' + new_id + '\',\'' + StockDownload + '\');" id="ChkStockDownload_' + new_id + '" name="ChkStockDownload_' + new_id + '" type="checkbox" value="IsStockDownload" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+        '<td><center><input class="onpristine onuntouched onvalid onempty chkBx PlaceOrder" onchange="Chkblur(\'' + new_id + '\',\'' + PlaceOrder + '\');" id="ChkPlaceOrder_' + new_id + '" name="ChkPlaceOrder_' + new_id + '" type="checkbox" value="IsPlaceOrder" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+        '<td><center><input class="onpristine onuntouched onvalid onempty chkBx MyCart" onchange="Chkblur(\'' + new_id + '\',\'' + MyCart + '\');" id="ChkMyCart_' + new_id + '" name="ChkMyCart_' + new_id + '" type="checkbox" value="IsMyCart" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+        '<td><center><input class="onpristine onuntouched onvalid onempty chkBx OrderHistoryAll" onchange="Chkblur(\'' + new_id + '\',\'' + OrderHistoryAll + '\');" id="ChkOrderHistoryAll_' + new_id + '" name="ChkOrderHistoryAll_' + new_id + '" type="checkbox" value="IsOrderHistoryAll" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+        '<td><center><input class="onpristine onuntouched onvalid onempty chkBx OrderHistoryByHisUser" onchange="Chkblur(\'' + new_id + '\',\'' + OrderHistoryByHisUser + '\');" id="ChkOrderHistoryByHisUser_' + new_id + '" name="ChkOrderHistoryByHisUser_' + new_id + '" type="checkbox" value="IsOrderHistoryByHisUser" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+        '<td><center><input class="onpristine onuntouched onvalid onempty chkBx OrderHistoryDownload" onchange="Chkblur(\'' + new_id + '\',\'' + OrderHistoryDownload + '\');" id="ChkOrderHistoryDownload_' + new_id + '" name="ChkOrderHistoryDownload_' + new_id + '" type="checkbox" value="IsOrderHistoryDownload" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+        '<td><center><input class="onpristine onuntouched onvalid onempty chkBx OrderHistoryShowPricing" onchange="Chkblur(\'' + new_id + '\',\'' + OrderHistoryShowPricing + '\');" id="ChkOrderHistoryShowPricing_' + new_id + '" name="ChkOrderHistoryShowPricing_' + new_id + '" type="checkbox" value="IsOrderHistoryShowPricing" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+        '</tr>';
+
+    //if (parseInt($("#tbl_SubUser #tblbody_SubUser").find('tr').length) == 0) {
+        $('#tbl_SubUser #tblbody_SubUser').append(tbl_html);
+    //}
+    //else {
+    //    $('#tbl_SubUser #tblbody_SubUser > tr').eq(0).before(tbl_html);
+    //}
+
+    row_cnt = 1;
+    row = 1;
+    $("#tbl_SubUser #tblbody_SubUser tr").each(function () {
+        $(this).find("td:eq(1)").html(row_cnt);
+        row_cnt += 1;
+        row += 1;
+    });
+    if (row > 0) {
+        row = parseInt(row) - 1;
+    }
+    $("#ChkAll_" + new_id).prop("checked", true);
+    Chkblur(new_id, "All");
+
+    $('.Password, .CPassword').on('paste', function (e) {
+        e.preventDefault();
+        //alert("Pasting is disabled in this textbox.");
+    });
+}
+function Chkblur(id, type) {
+    if (type == "All") {
+        var val = false;
+        if ($("#ChkAll_" + id).prop("checked") == true) {
+            val = true;
+        }
+        $("#ChkSearchStock_" + id).prop("checked", val);
+        $("#ChkOrderHistoryAll_" + id).prop("checked", val);
+        $("#ChkOrderHistoryByHisUser_" + id).prop("checked", val);
+        $("#ChkPlaceOrder_" + id).prop("checked", val);
+        $("#ChkMyCart_" + id).prop("checked", val);
+        $("#ChkStockDownload_" + id).prop("checked", val);
+        $("#ChkOrderHistoryDownload_" + id).prop("checked", val);
+        $("#ChkOrderHistoryShowPricing_" + id).prop("checked", val);
+    }
+    else {
+        if ($("#ChkSearchStock_" + id).prop("checked") == true && $("#ChkOrderHistoryAll_" + id).prop("checked") == true &&
+            $("#ChkOrderHistoryByHisUser_" + id).prop("checked") == true && $("#ChkPlaceOrder_" + id).prop("checked") == true &&
+            $("#ChkMyCart_" + id).prop("checked") == true && $("#ChkStockDownload_" + id).prop("checked") == true &&
+            $("#ChkOrderHistoryDownload_" + id).prop("checked") == true && $("#ChkOrderHistoryShowPricing_" + id).prop("checked") == true) {
+            $("#ChkAll_" + id).prop("checked", true);
+        }
+        else {
+            $("#ChkAll_" + id).prop("checked", false);
+        }
+    }
+}
+function Get_SubUser(UserId) {
+    loaderShow();
+    var obj = {};
+    obj.UserId = UserId
+
+    $.ajax({
+        url: '/User/Get_SubUserMas',
+        type: "POST",
+        data: { req: obj },
+        success: function (data) {
+            loaderHide();
+            if (data.Status == "1" && data.Message == "SUCCESS" && data.Data.length > 0) {
+                $("#tbl_SubUser").show();
+                $('#tbl_SubUser #tblbody_SubUser').append("");
+                row = $('#tblbody_SubUser').find('tr').length;
+                row_cnt = 0;
+                
+                _(data.Data).each(function (obj, i) {
+                    var new_id = generate_uuidv4();
+                   
+                    var tbl_html =
+                        '<tr id="tr_' + new_id + '">' +
+                        '<input type="hidden" class="hdn_UserId" value="' + obj.UserId + '" />' +
+                        '<td style="width: 50px"><i style="cursor:pointer;" class="error RemoveUser"><img src="/Content/images/trash-delete-icon.png" style="width: 20px;" /></i></td>' +
+                        '<td class="tblbody_sr"></td>' +
+                        '<td><input value="' + obj.FirstName + '" type="text" class="form-control common-control FirstName" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
+                        '<td><input value="' + obj.LastName + '" type="text" class="form-control common-control LastName" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
+                        '<td><input value="' + obj.MobileNo + '" type="text" class="form-control common-control MobileNo" onkeypress="return isNumberKey(event)" maxlength="15" autocomplete="off" style="width:180px;"></td>' +
+                        '<td><input value="' + obj.EmailId + '" type="text" class="form-control common-control EmailId" maxlength="255" autocomplete="off" style="width:180px;"></td>' +
+                        '<td><input value="' + obj.UserName + '" type="text" class="form-control common-control UserName" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
+                        '<td><input value="' + obj.Password + '" type="text" class="form-control common-control Password pwd-field" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
+                        '<td><input value="' + obj.Password + '" type="text" class="form-control common-control CPassword pwd-field" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
+                        '<td><center><input ' + (obj.SearchStock == true && obj.OrderHistoryAll == true && obj.OrderHistoryByHisUser == true && obj.PlaceOrder == true && obj.MyCart == true && obj.StockDownload == true && obj.OrderHistoryDownload == true && obj.OrderHistoryShowPricing == true ? 'checked' : '') + ' class="onpristine onuntouched onvalid onempty chkBx All" onchange="Chkblur(\'' + new_id + '\',\'' + All + '\');" id="ChkAll_' + new_id + '" name="ChkAll_' + new_id + '" type="checkbox" value="IsAll" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+                        '<td><center><input ' + (obj.SearchStock == true ? 'checked' : '') + ' class="onpristine onuntouched onvalid onempty chkBx SearchStock" onchange="Chkblur(\'' + new_id + '\',\'' + SearchStock + '\');" id="ChkSearchStock_' + new_id + '" name="ChkSearchStock_' + new_id + '" type="checkbox" value="IsSearchStock" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+                        '<td><center><input ' + (obj.StockDownload == true ? 'checked' : '') + ' class="onpristine onuntouched onvalid onempty chkBx StockDownload" onchange="Chkblur(\'' + new_id + '\',\'' + StockDownload + '\');" id="ChkStockDownload_' + new_id + '" name="ChkStockDownload_' + new_id + '" type="checkbox" value="IsStockDownload" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+                        '<td><center><input ' + (obj.PlaceOrder == true ? 'checked' : '') + ' class="onpristine onuntouched onvalid onempty chkBx PlaceOrder" onchange="Chkblur(\'' + new_id + '\',\'' + PlaceOrder + '\');" id="ChkPlaceOrder_' + new_id + '" name="ChkPlaceOrder_' + new_id + '" type="checkbox" value="IsPlaceOrder" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+                        '<td><center><input ' + (obj.MyCart == true ? 'checked' : '') + ' class="onpristine onuntouched onvalid onempty chkBx MyCart" onchange="Chkblur(\'' + new_id + '\',\'' + MyCart + '\');" id="ChkMyCart_' + new_id + '" name="ChkMyCart_' + new_id + '" type="checkbox" value="IsMyCart" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+                        '<td><center><input ' + (obj.OrderHistoryAll == true ? 'checked' : '') + ' class="onpristine onuntouched onvalid onempty chkBx OrderHistoryAll" onchange="Chkblur(\'' + new_id + '\',\'' + OrderHistoryAll + '\');" id="ChkOrderHistoryAll_' + new_id + '" name="ChkOrderHistoryAll_' + new_id + '" type="checkbox" value="IsOrderHistoryAll" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+                        '<td><center><input ' + (obj.OrderHistoryByHisUser == true ? 'checked' : '') + ' class="onpristine onuntouched onvalid onempty chkBx OrderHistoryByHisUser" onchange="Chkblur(\'' + new_id + '\',\'' + OrderHistoryByHisUser + '\');" id="ChkOrderHistoryByHisUser_' + new_id + '" name="ChkOrderHistoryByHisUser_' + new_id + '" type="checkbox" value="IsOrderHistoryByHisUser" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+                        '<td><center><input ' + (obj.OrderHistoryDownload == true ? 'checked' : '') + ' class="onpristine onuntouched onvalid onempty chkBx OrderHistoryDownload" onchange="Chkblur(\'' + new_id + '\',\'' + OrderHistoryDownload + '\');" id="ChkOrderHistoryDownload_' + new_id + '" name="ChkOrderHistoryDownload_' + new_id + '" type="checkbox" value="IsOrderHistoryDownload" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+                        '<td><center><input ' + (obj.OrderHistoryShowPricing == true ? 'checked' : '') + ' class="onpristine onuntouched onvalid onempty chkBx OrderHistoryShowPricing" onchange="Chkblur(\'' + new_id + '\',\'' + OrderHistoryShowPricing + '\');" id="ChkOrderHistoryShowPricing_' + new_id + '" name="ChkOrderHistoryShowPricing_' + new_id + '" type="checkbox" value="IsOrderHistoryShowPricing" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
+                        '</tr>';
+
+                    //if (parseInt($("#tbl_SubUser #tblbody_SubUser").find('tr').length) == 0) {
+                        $('#tbl_SubUser #tblbody_SubUser').append(tbl_html);
+                    //}
+                    //else {
+                    //    $('#tbl_SubUser #tblbody_SubUser > tr').eq(0).before(tbl_html);
+                    //}
+                });
+
+                $("#tbl_SubUser #tblbody_SubUser tr").each(function () {
+                    row_cnt += 1;
+                    row += 1;
+                    $(this).find("td:eq(1)").html(row_cnt);
+                });
+                if (row > 0) {
+                    row = parseInt(row) - 1;
+                }
+                $('.Password, .CPassword').on('paste', function (e) {
+                    e.preventDefault();
+                    //alert("Pasting is disabled in this textbox.");
+                });
+            }
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            loaderHide();
         }
     });
 }

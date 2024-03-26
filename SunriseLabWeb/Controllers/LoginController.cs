@@ -130,7 +130,6 @@ namespace SunriseLabWeb_New.Controllers
                                 Response.Cookies["IsRemember"].Value = "false";
                             }
 
-                            //return RedirectToAction("LabList", "Lab");
                             return RedirectToAction("Index", "DashBoard");
                         }
                         else
