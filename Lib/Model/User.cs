@@ -873,6 +873,7 @@ namespace Lib.Model
         public int LabDetId { get; set; }
         public int PAGE_SIZE { get; set; }
         public float TOTAL_PAGE { get; set; }
+        public string Entry_UserName { get; set; }
     }
     public class Data_Get_From_File_Req
     {
@@ -1099,6 +1100,7 @@ namespace Lib.Model
     }
     public class LabEntry_Req
     {
+        public int Entry_UserId { get; set; }
         public int UserId { get; set; }
         public List<LabEntry_List> LabEntry_List { get; set; }
     }
@@ -1129,6 +1131,7 @@ namespace Lib.Model
         public string Filter { get; set; }
         public string FromDate { get; set; }
         public string ToDate { get; set; }
+        public string UserType { get; set; }
     }
     public class Get_LoginDetail_Res
     {

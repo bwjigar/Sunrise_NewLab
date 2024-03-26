@@ -738,6 +738,7 @@ function Save_LabEntry() {
         loaderShow();
 
         var obj = {};
+        obj.Entry_UserId = $("#hdn_UserId").val();
         obj.LabEntry_List = LabEntry_List;
 
         $.ajax({

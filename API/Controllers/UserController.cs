@@ -13092,6 +13092,7 @@ namespace API.Controllers
                 string vEntry_type = "W", vparty_name = "", lab_trans_status = "";
 
 
+                dt.Columns.Add("Entry_UserId", typeof(string));
                 dt.Columns.Add("LabDate", typeof(string));
                 dt.Columns.Add("UserId", typeof(string));
                 dt.Columns.Add("Ref_No", typeof(string));
@@ -13113,6 +13114,7 @@ namespace API.Controllers
 
                         UserId = Convert.ToInt32(req_1.LabEntry_List[i].UserId);
 
+                        dr["Entry_UserId"] = req_1.Entry_UserId;
                         dr["LabDate"] = req_1.LabEntry_List[i].LabDate;
                         dr["UserId"] = req_1.LabEntry_List[i].UserId;
                         dr["Ref_No"] = req_1.LabEntry_List[i].Ref_No;
@@ -15606,6 +15608,11 @@ namespace API.Controllers
                 else
                     para.Add(db.CreateParam("ToDate", DbType.String, ParameterDirection.Input, DBNull.Value));
 
+                if (!string.IsNullOrEmpty(req.UserType))
+                    para.Add(db.CreateParam("UserType", DbType.String, ParameterDirection.Input, req.UserType));
+                else
+                    para.Add(db.CreateParam("UserType", DbType.String, ParameterDirection.Input, DBNull.Value));
+
                 DataTable Stock_dt = db.ExecuteSP("Get_LoginDetail", para.ToArray(), false);
                 return Stock_dt;
             }
@@ -15749,6 +15756,11 @@ namespace API.Controllers
                     para.Add(db.CreateParam("ToDate", DbType.String, ParameterDirection.Input, req.ToDate));
                 else
                     para.Add(db.CreateParam("ToDate", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.UserType))
+                    para.Add(db.CreateParam("UserType", DbType.String, ParameterDirection.Input, req.UserType));
+                else
+                    para.Add(db.CreateParam("UserType", DbType.String, ParameterDirection.Input, DBNull.Value));
 
                 DataTable Stock_dt = db.ExecuteSP("Get_UserActivity", para.ToArray(), false);
                 return Stock_dt;

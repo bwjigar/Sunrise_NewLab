@@ -205,7 +205,7 @@ const datasource1 = {
     getRows(params) {
         var PageNo = gridOptions.api.paginationGetCurrentPage() + 1;
         var obj = {};
-        
+
         if (params.request.sortModel.length > 0) {
             obj.OrderBy = params.request.sortModel[0].colId + ' ' + params.request.sortModel[0].sort;
             OrderBy = obj.OrderBy;
@@ -215,7 +215,8 @@ const datasource1 = {
         obj.CustName = $("#txt_S_Search").val();
         obj.FromDate = $("#txtFromDate").val();
         obj.ToDate = $("#txtToDate").val();
-        
+        obj.UserType = $("#ddl_UserType").val().join(",")
+
         $.ajax({
             url: "/User/Get_UserActivity",
             async: false,
@@ -254,24 +255,42 @@ function onGridReady(params) {
 }
 var Reset = function () {
     FromTo_Date();
+    UserType_Reset();
     $('#txt_S_Search').val('');
     GetSearch();
 }
+function UserType_Reset() {
+    $('#ddl_UserType').multiselect({
+        includeSelectAllOption: true, numberDisplayed: 1
+    });
+    $('#ddl_UserType option:selected').each(function () {
+        $(this).prop('selected', false);
+    })
 
+    var selectedOptions = [3];
+    for (var i in selectedOptions) {
+        var optionVal = selectedOptions[i];
+        $("#ddl_UserType").find("option[value=" + optionVal + "]").prop("selected", "selected");
+    }
+    $("#ddl_UserType").multiselect('refresh');
+}
 function contentHeight() {
     var winH = $(window).height(),
         navbarHei = $(".order-title").height(),
         serachHei = $(".order-history-data").height(),
         contentHei = winH - serachHei - navbarHei - 112;
-        contentHei = (contentHei < 200 ? 369 : contentHei);
+    contentHei = (contentHei < 200 ? 369 : contentHei);
     $("#Cart-Gride").css("height", contentHei);
 }
 
 $(document).ready(function (e) {
     $("#li_User_UserActivity").addClass("menuActive");
-    FromTo_Date();
-    GetSearch();
-    contentHeight();
+    UserTypeGet();
+    setTimeout(function () {
+        FromTo_Date();
+        GetSearch();
+        contentHeight();
+    }, 50);
 });
 
 $(window).resize(function () {
@@ -286,6 +305,7 @@ function Excel_UserActivity() {
             obj.CustName = $("#txt_S_Search").val();
             obj.FromDate = $("#txtFromDate").val();
             obj.ToDate = $("#txtToDate").val();
+            obj.UserType = $("#ddl_UserType").val().join(",")
 
             $.ajax({
                 url: "/User/Excel_UserActivity",
@@ -310,4 +330,24 @@ function Excel_UserActivity() {
             });
         }, 50);
     }
+}
+function UserTypeGet() {
+    $.ajax({
+        url: '/User/get_UserType',
+        type: "POST",
+        async: false,
+        success: function (data, textStatus, jqXHR) {
+            if (data.Message.indexOf('Something Went wrong') > -1) {
+                MoveToErrorPage(0);
+            }
+            if (data != null && data.Data.length > 0) {
+                for (var k in data.Data) {
+                    $("#ddl_UserType").append("<option value=" + data.Data[k].Id + ">" + data.Data[k].UserType + "</option>");
+                }
+                UserType_Reset();
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        }
+    });
 }

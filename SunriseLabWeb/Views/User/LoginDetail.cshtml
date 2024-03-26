@@ -5,9 +5,10 @@
     <link rel="stylesheet" href="~/Content/Plugins/multiselect/bootstrap-multiselect.css" type="text/css">
 }
 <style>
-    .btn-group > .btn:first-child {
+    /*.btn-group > .btn:first-child {
         width: 355px;
-    }
+    }*/
+
 
     .dropdown-menu.show {
         max-height: 450px;
@@ -376,6 +377,18 @@
         color: #fff !important;
         background-color: #003d66 !important;
     }
+
+    .multiselect-native-select {
+        width: 100%;
+    }
+
+    .multiselect-container {
+        width: 100%;
+    }
+
+    .multiselect-selected-text {
+        width: 100px;
+    }
 </style>
 
 <input type="hidden" id="hdn_Id" />
@@ -398,13 +411,20 @@
                         <input type="text" name="To" id="txtToDate" value="" class="offer-input offer-input1" />
                     </div>
                 </div>
-                <div class="col-xl-5 col-lg-4 col-md-6 col-sm-6 col-12 float-left mb-2">
+                <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6 col-12 float-left mb-2">
+                    <div class="order-company-name common-order">
+                        <div class="offer-label">User Type:</div>
+                        <select class="form-control MinWith input-sm" id="ddl_UserType" multiple>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5 col-md-6 col-sm-6 col-12 float-left mb-2">
                     <div class="order-company-name common-order">
                         <div class="offer-label">Search:</div>
                         <input id="txt_S_Search" placeholder="User Name / Comp Name / Cust name / IP Address" type="text" class="form-control common-control" autocomplete="off">
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 float-left mb-2">
+                <div class="col-xl-3 col-lg-12 col-md-6 col-sm-6 col-12 float-left mb-2">
                     <ul class="offer-inbtn pull-right mrtop src-rest-topbtn mt-2 mb-2">
                         <li>
                             <button class="offer-btn" onclick="GetSearch()"><i class="fa fa-search" aria-hidden="true"></i>Search</button>
@@ -441,5 +461,7 @@
     <script src="~/Content/js/ag-grid-enterprise.min.js"></script>
     <script src="~/Content/js/common.js"></script>
     <script src="~/Content/js/Pages/LoginDetail.js"></script>
+    <link href="~/Content/Plugins/multiselect/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="~/Content/Plugins/multiselect/bootstrap-multiselect.js"></script>
     <script src="~/Content/js/Pages/detailCellRenderer.js"></script>
 }

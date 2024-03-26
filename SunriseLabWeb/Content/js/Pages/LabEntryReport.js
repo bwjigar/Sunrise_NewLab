@@ -255,6 +255,7 @@ columnDefs.push({
 columnDefs.push({ headerName: "VIEW", field: "Imag_Video_Certi", width: 65, cellRenderer: function (params) { return Imag_Video_Certi(params, true, true, true); }, suppressSorting: true, suppressMenu: true, sortable: false });
 columnDefs.push({ headerName: "Lab Entry Date", field: "LabDate", width: 100, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("LabDate", params); } });
 columnDefs.push({ headerName: "Lab No", field: "LabId", width: 90, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("LabId", params); } });
+columnDefs.push({ headerName: "User Name", field: "Entry_UserName", width: 140, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("Entry_UserName", params); } });
 columnDefs.push({ headerName: "Customer Name", field: "CustName", width: 140, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CustName", params); } });
 columnDefs.push({ headerName: "Company Name", field: "CompName", width: 220, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("CompName", params); } });
 columnDefs.push({ headerName: "Ref No", field: "Ref_No", width: 110, tooltip: function (params) { return (params.value); }, cellStyle: function (params) { return cellStyle("RefNo", params); } });
