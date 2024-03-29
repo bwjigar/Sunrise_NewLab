@@ -1,4 +1,5 @@
-﻿var pgSize = 50;
+﻿var ipAddresses_Wrong = [];
+var pgSize = 50;
 var showEntryVar = null;
 var total_record = null;
 var UserId = "";
@@ -292,6 +293,7 @@ function Back() {
     $("#btnBack").hide();
     $(".order-title").removeClass("col-xl-12");
     $("#divSearchFilter").show();
+    ipAddresses_Wrong = [];
     //$(".import").show();
     UpdateCancelRow();
 }
@@ -313,6 +315,8 @@ function AddFilters(_UserId) {
         //$("#txt_S_Password").val("");
         $("#URL").html("");
         $("#ExportType").val("");
+        $("#txt_RestrictedIP").val("");
+        ipAddresses_Wrong = [];
         Get_Customer_Stock_Disc();
         Get_Customer_Stock_Disc_Mas();
         Get_API_ColumnSetting_UserWise();
@@ -794,6 +798,50 @@ $(document).ready(function () {
     //        }, 1000);
     //    }
     //});
+
+    $('#txt_RestrictedIP').focusout(function () {
+        var input = $("#txt_RestrictedIP").val().trim();
+        // Remove duplicate commas
+        var step1 = input.replace(/,{2,}/g, ',');
+        // Remove commas not surrounded by integers
+        var step2 = step1.replace(/(?<=,)\D+|(?<=\D),/g, '');
+        // Remove commas at the start or end of the string
+        var step3 = step2.replace(/^,|,$/g, '').trim();
+        $("#txt_RestrictedIP").val(step3);
+
+        if (step3 != "") {
+            var ipAddresses = step3.split(',');
+            ipAddresses_Wrong = [];
+            // Regular expression to validate IP address
+            var ipRegex = /^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+
+            for (var i = 0; i < ipAddresses.length; i++) {
+                var ipAddress = ipAddresses[i].trim(); // Remove leading/trailing spaces
+                if (ipAddress != "") {
+                    if (!ipRegex.test(ipAddress)) {
+                        ipAddresses_Wrong.push(ipAddress);
+                    }
+                }
+            }
+
+        }
+    });
+    $('#txt_RestrictedIP').on('keypress', function (event) {
+        var charCode = event.which || event.keyCode;
+        if ((charCode >= 48 && charCode <= 57) || // 0-9
+            charCode === 46 || //.
+            charCode === 44) //,
+        {
+            return true;
+        } else {
+            event.preventDefault();
+            return false;
+        }
+    });
+    $('#txt_RestrictedIP').on('input', function () {
+        var sanitizedValue = $(this).val().replace(/[^\d.,]/g, ''); // Remove characters that are not digits or +
+        $(this).val(sanitizedValue); // Update input value
+    });
 });
 function checkValue(textbox, type, id) {
     const value = textbox.value.trim();
@@ -3274,7 +3322,7 @@ function UpdateRow() {
                 ReportCommentsLst_uncheck1 = (ReportCommentsLst_uncheck1 != "" ? '<span style="color: red;">' + ReportCommentsLst_uncheck1 + '</span>' : '');
 
                 var ReportComments = ReportCommentsLst_Check1 + (ReportCommentsLst_Check1 == "" || ReportCommentsLst_uncheck1 == "" ? "" : " - ") + ReportCommentsLst_uncheck1;
-                var ReportComments_IsBlank = (document.getElementById("Key_to_symbol_Blank").checked == true ? true : "");
+                var ReportComments_IsBlank = (document.getElementById("Report_Comments_Blank").checked == true ? true : "");
                 ReportComments = (ReportComments_IsBlank == 1 ? (ReportComments.toString() != "" ? "BLANK&nbsp;" : "BLANK") : "") + " " + ReportComments;
 
                 $(this).find('.ReportComments').html(ReportComments);
@@ -3468,8 +3516,8 @@ function EditCriteria(new_id) {
                 _pointerlst = [];
                 if (Carat != "") {
                     for (var i in Carat.split(',')) {
-                        _pointerlst.push({ Id: parseInt(i) + parseInt(1), Value: Carat.split(',')[i], isActive: true })
-                        $('.divCheckedPointerValue').append('<li id="C_' + i + '" class="carat-li-top allcrt">' + Carat.split(',')[i] + '<i class="fa fa-times-circle" aria-hidden="true" onclick="NewSizeGroupRemove(' + i + ');"></i></li>');
+                        _pointerlst.push({ Id: (parseInt(i) + parseInt(1)), Value: Carat.split(',')[i], isActive: true })
+                        $('.divCheckedPointerValue').append('<li id="C_' + (parseInt(i) + parseInt(1)) + '" class="carat-li-top allcrt">' + Carat.split(',')[i] + '<i class="fa fa-times-circle" aria-hidden="true" onclick="NewSizeGroupRemove(' + (parseInt(i) + parseInt(1)) + ');"></i></li>');
                     }
                 }
 
@@ -3980,7 +4028,7 @@ function EditCriteria(new_id) {
                 //}
 
                 SetSearchParameter();
-                $(window).scrollTop(128);
+                $(window).scrollTop(185);
             }
         });
 
@@ -4040,6 +4088,12 @@ var GetError_1 = function () {
         });
     }
 
+    if (ipAddresses_Wrong.length > 0) {
+        ErrorMsg.push({
+            'Error': "Invalid Restricted IP : " + ipAddresses_Wrong.join(', '),
+        });
+    }
+
     if (parseInt($("#tblFilters #tblBodyFilters").find('tr').length) == 0 && Exists_Record == 0) {
         ErrorMsg.push({
             'Error': "Customer Wise Sell Price Filter Not Found.",
@@ -4075,7 +4129,7 @@ var GetError_1 = function () {
 
     if (List1.length == 0) {
         ErrorMsg.push({
-            'Error': "Stock & Disc Columns Not Found.",
+            'Error': "Customer Wise Sell Price Columns Not Found.",
         });
     }
 
@@ -4250,6 +4304,7 @@ function SaveData() {
             obj.UserId = UserId;
             obj.UserName = data[0].UserName;
             obj.ExportType = $("#ExportType").val();
+            obj.RestrictedIP = $("#txt_RestrictedIP").val();
             //obj.Password = $("#txt_S_Password").val();
             obj.SuppDisc = list;
             obj.CUSTOMER = List1;
@@ -4535,6 +4590,7 @@ function Get_Customer_Stock_Disc_Mas() {
                 //$("#txt_S_Password").val(data.Data[0].Password);
                 $("#URL").html(data.Data[0].URL);
                 $("#ExportType").val(data.Data[0].ExportType);
+                $("#txt_RestrictedIP").val(data.Data[0].RestrictedIP);
             }
             loaderHide();
         },

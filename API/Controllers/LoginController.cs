@@ -12,6 +12,8 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Hosting;
 using System.Web.Http;
+using System.Net.NetworkInformation;
+using System.Net.Mail;
 
 namespace API.Controllers
 {
@@ -92,6 +94,12 @@ namespace API.Controllers
                         resp = new LoginResponse();
                         resp.Status = "0";
                         resp.Message = "<div style=\"color:red\">User Name '" + UserName + "' is In-Active</div>";
+                    }
+                    else if (Convert.ToBoolean(dt.Rows[0]["IpValid"]) == false)
+                    {
+                        resp = new LoginResponse();
+                        resp.Status = "0";
+                        resp.Message = "<div style=\"color:red\">Un-Authorize Action - Invalid Ip Address</div>";
                     }
                     else
                     {

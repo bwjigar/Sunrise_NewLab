@@ -3825,7 +3825,7 @@ namespace EpExcelExportLib
 
 
                     //  "Shape"
-                    worksheet.Cells[1, 8].Formula = "ROUND(SUBTOTAL(103," + GetExcelColumnLetter(5) + "" + inStartIndex + ":" + GetExcelColumnLetter(5) + "" + (inwrkrow - 1) + "),2)";
+                    worksheet.Cells[1, 8].Formula = "ROUND(SUBTOTAL(103," + GetExcelColumnLetter(8) + "" + inStartIndex + ":" + GetExcelColumnLetter(8) + "" + (inwrkrow - 1) + "),2)";
                     worksheet.Cells[1, 8].Style.Fill.PatternType = ExcelFillStyle.Solid;
                     worksheet.Cells[1, 8].Style.Fill.BackgroundColor.SetColor(colFromHexTotal);
                     worksheet.Cells[1, 8].Style.Numberformat.Format = "#,##";

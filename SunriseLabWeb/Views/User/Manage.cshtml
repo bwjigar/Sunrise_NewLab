@@ -33,7 +33,7 @@
     }
 
     .multiselect-selected-text {
-        width: 100px;
+        width: 125px;
     }
 
     .spn-Yes1 {
@@ -166,11 +166,128 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                         <div class="row fl-sec-form">
                             <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label">Company Name: <span class="reqvalidation"> * </span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input tabindex="1" onFocusout="Check_CompName_Exist();" type="text" class="form-control" id="txt_CompanyName" autocomplete="off" maxlength="100">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label">Company Address: </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input tabindex="2" type="text" class="form-control" id="txt_CompanyAddress" autocomplete="off" maxlength="50">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label">User Type: <span class="reqvalidation"> * </span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0 cust-main-select">
+                                    <select tabindex="3" class="form-control MinWith input-sm" id="ddl_UserType" multiple onchange="ChangeUserType();">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label" id="lbl_fortun_code">Fortune Party Code: </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input tabindex="4" type="text" class="form-control" autocomplete="off"
+                                           id="txt_FortunePartyCode" maxlength="10"
+                                           onFocusout="Check_FortunePartyCode_Exist();">
+                                    <label class="active" style="color: red;font-size: 12px;display:none;" id="lblfortunepartycode"></label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label">First Name: <span class="reqvalidation"> * </span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input tabindex="5" type="text" class="form-control" id="txt_FirstName" autocomplete="off" maxlength="50">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label">Last Name: <span class="reqvalidation"> * </span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input tabindex="6" type="text" class="form-control" id="txt_LastName" autocomplete="off" maxlength="50">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label" id="lbl_assist_by">1<small style="font-weight: 600;">st</small> Assist By: </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0 cust-main-select">
+                                    <select tabindex="7" class="form-control MinWith input-sm" id="ddl_AssistBy">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label">2<small style="font-weight: 600;">nd</small> Assist By: </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0 cust-main-select">
+                                    <select tabindex="8" class="form-control MinWith input-sm" id="ddl_SubAssistBy">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label">Email Id 1: <span class="reqvalidation"> * </span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input tabindex="9" type="email" class="form-control" id="txt_EmailId" autocomplete="off" maxlength="255">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label">Email Id 2: </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input tabindex="10" type="email" class="form-control" id="txt_EmailId_2" autocomplete="off" maxlength="255">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label">Mobile No: <span class="reqvalidation"> * </span></div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input tabindex="11" type="text" class="form-control" id="txt_MobileNo" autocomplete="off" maxlength="15">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label" id="lbl_user_code">User Code: </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <input tabindex="12" type="text" class="form-control" autocomplete="off"
+                                           id="txt_UserCode" maxlength="10"
+                                           onFocusout="Check_UserCode_Exist();">
+                                    <label class="active" style="color: red;font-size: 12px;display:none;" id="lblUserCode"></label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
                                 <div class="offer-label">User Name: <span class="reqvalidation"> * </span></div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="text" tabindex="1" class="form-control" id="txt_UserName" autocomplete="off" maxlength="50">
+                                    <input tabindex="13" type="text" class="form-control" id="txt_UserName" autocomplete="off" maxlength="50">
                                 </div>
                             </div>
 
@@ -179,7 +296,16 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 pwd">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input autocomplete="off" type="text" tabindex="2" class="form-control pwd-field" id="txt_Password" maxlength="50">
+                                    <input tabindex="14" autocomplete="off" type="text" class="form-control pwd-field" id="txt_Password" maxlength="50">
+                                    @if (SunriseLabWeb.Helper.SessionFacade.UserSession.IsPrimaryUser == true && SunriseLabWeb.Helper.SessionFacade.UserSession.UserTypeId.Contains("1"))
+                                    {
+                                        <div class="row" style="margin-top: -5px;float: right;margin-right: -5px;">
+                                            <input onchange="tick(this,'')" class="onpristine onuntouched onvalid onempty chkBx" id="ChkPwd" name="ChkPwd" type="checkbox" value="Pwd" style="cursor: pointer;">
+                                            <div for="ChkPwd" class="offer-label" style="margin-left: 5px;">
+                                                <label for="ChkPwd" style="cursor: pointer;">Show Password</label>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
 
@@ -189,123 +315,21 @@
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
                                     <label class="cust-chk-bx text-left">
-                                        <input type="checkbox" tabindex="3" id="chk_Active" checked="checked">
+                                        <input tabindex="15" type="checkbox" id="chk_Active" checked="checked">
                                         <span class="cust-chkmark"></span>
                                     </label>
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                <div class="offer-label">User Type: <span class="reqvalidation"> * </span></div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class=" dash-newarrival-select-main text-left w-100 ml-0 cust-main-select">
-                                    <select class="form-control MinWith input-sm" id="ddl_UserType" multiple tabindex="4">
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                <div class="offer-label">First Name: <span class="reqvalidation"> * </span></div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="text" class="form-control" tabindex="5" id="txt_FirstName" autocomplete="off" maxlength="50">
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                <div class="offer-label">Last Name: <span class="reqvalidation"> * </span></div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="text" class="form-control" tabindex="6" id="txt_LastName" autocomplete="off" maxlength="50">
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                <div class="offer-label">Company Name: <span class="reqvalidation"> * </span></div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="text" class="form-control" tabindex="7" id="txt_CompanyName" autocomplete="off" maxlength="50">
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                <div class="offer-label" id="lbl_fortun_code">Fortune Party Code:</div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="text" class="form-control" autocomplete="off"
-                                           id="txt_FortunePartyCode" tabindex="8" maxlength="10"
-                                           onFocusout="Check_FortunePartyCode_Exist();" onkeypress="return isNumberKey(event)">
-                                    <label class="active" style="color: red;font-size: 12px;display:none;" id="lblfortunepartycode"></label>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                <div class="offer-label">Email Id: <span class="reqvalidation"> * </span></div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="email" class="form-control" tabindex="9" id="txt_EmailId" autocomplete="off" maxlength="255">
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                <div class="offer-label">Email Id 2: </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="email" class="form-control" tabindex="9" id="txt_EmailId_2" autocomplete="off" maxlength="255">
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                <div class="offer-label">Assist By: </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class=" dash-newarrival-select-main text-left w-100 ml-0 cust-main-select">
-                                    <select class="form-control MinWith input-sm" id="ddl_AssistBy" tabindex="11">
-                                        <option value="">Select</option>
-                                        <option value="1">Admin</option>
-                                        <option value="2">Employee</option>
-                                        <option value="3">Customer</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                <div class="offer-label">Sub Assist By: </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class=" dash-newarrival-select-main text-left w-100 ml-0 cust-main-select">
-                                    <select class="form-control MinWith input-sm" id="ddl_SubAssistBy" tabindex="11">
-                                        <option value="">Select</option>
-                                        <option value="1">Admin</option>
-                                        <option value="2">Employee</option>
-                                        <option value="3">Customer</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                <div class="offer-label">Mobile No: <span class="reqvalidation"> * </span></div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="text" class="form-control" tabindex="10" id="txt_MobileNo" autocomplete="off" maxlength="15" onkeypress="return isNumberKey(event)">
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
-                                <div class="offer-label" id="lbl_user_code">User Code: </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <input type="text" class="form-control" autocomplete="off"
-                                           id="txt_UserCode" tabindex="8" maxlength="10"
-                                           onFocusout="Check_UserCode_Exist();" onkeypress="return isNumberKey(event)">
-                                    <label class="active" style="color: red;font-size: 12px;display:none;" id="lblUserCode"></label>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
                                 <div class="offer-label" id="lbl_user_code">Stock: </div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                                 <div class=" dash-newarrival-select-main text-left w-100 ml-0">
-                                    <div class="col-sm-3 col-xs-5 api-plr">
+                                    <select tabindex="16" class="form-control MinWith input-sm" id="ddl_Stock" multiple>
+                                    </select>
+                                    
+                                    @*<div class="col-sm-3 col-xs-5 api-plr">
                                         <label class="cust-chk-bx text-left api-check">
                                             <input checked="checked" id="View" name="View" type="checkbox" value="true" class="onpristine onuntouched onvalid onempty UsedFor">
                                             <span>View</span>
@@ -318,10 +342,22 @@
                                             <span>Download</span>
                                             <span class="cust-chkmark"></span>
                                         </label>
-                                    </div>
+                                    </div>*@
                                 </div>
                             </div>
 
+                            <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                <div class="offer-label">
+                                    Restricted IP:
+                                    <br />
+                                    <span style="font-size: 11px;color: #d62004;">(Add Multiple using Comma Separated) <br> Ex : 000.000.000.000,000.00.000.00</span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class=" dash-newarrival-select-main text-left w-100 ml-0">
+                                    <textarea tabindex="17" class="form-control" id="txt_RestrictedIP" maxlength="500" rows="3"></textarea>
+                                </div>
+                            </div>
 
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 pt-2 api-plr cateDetail apifilter" style="border-top:1px solid #ddd;">
                                 <div class="mb-3 mt-2 pull-right" style="margin-right: 12px;">
@@ -356,7 +392,7 @@
                                     </table>
                                 </div>
                             </div>
-                            
+
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-2 pt-2" style="border-top:1px solid #ddd;">
                                 <div class="mb-3 mt-2 pull-right" style="margin-left: 6px;">
                                     <button type="button" onclick="Clear();" class="offer-btn"><i class="fa fa-refresh"></i>Reset</button>

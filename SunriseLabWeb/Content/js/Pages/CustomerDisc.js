@@ -2922,8 +2922,8 @@ function EditCriteria(new_id) {
                 _pointerlst = [];
                 if (Carat != "") {
                     for (var i in Carat.split(',')) {
-                        _pointerlst.push({ Id: parseInt(i) + parseInt(1), Value: Carat.split(',')[i], isActive: true })
-                        $('.divCheckedPointerValue').append('<li id="C_' + i + '" class="carat-li-top allcrt">' + Carat.split(',')[i] + '<i class="fa fa-times-circle" aria-hidden="true" onclick="NewSizeGroupRemove(' + i + ');"></i></li>');
+                        _pointerlst.push({ Id: (parseInt(i) + parseInt(1)), Value: Carat.split(',')[i], isActive: true })
+                        $('.divCheckedPointerValue').append('<li id="C_' + (parseInt(i) + parseInt(1)) + '" class="carat-li-top allcrt">' + Carat.split(',')[i] + '<i class="fa fa-times-circle" aria-hidden="true" onclick="NewSizeGroupRemove(' + (parseInt(i) + parseInt(1)) + ');"></i></li>');
                     }
                 }
 

@@ -1,9 +1,12 @@
-﻿var FortuneCodeValid = true;
+﻿var CompNameValid = true;
+var CompNameValid_Msg = "";
+var FortuneCodeValid = true;
 var FortuneCodeValid_Msg = "";
 var UserCodeValid = true;
 var UserCodeValid_Msg = "";
 var Rowdata = [];
 var view = "Add";
+var ipAddresses_Wrong = [];
 
 var gridOptions = {};
 var iUserid = 0;
@@ -177,8 +180,25 @@ function EditView(UserId) {
         $("#ddl_AssistBy").val((data[0].AssistBy > 0 ? data[0].AssistBy : ""));
         $("#ddl_SubAssistBy").val((data[0].SubAssistBy > 0 ? data[0].SubAssistBy : ""));
 
-        $("#View").prop("checked", data[0].View);
-        $("#Download").prop("checked", data[0].Download);
+        var stock = [];
+        if (data[0].View == true)
+            stock.push('1');
+        if (data[0].Download == true)
+            stock.push('2');
+
+        if (stock.length > 0) {
+            for (var i in stock) {
+                var optionVal = stock[i];
+                $("#ddl_Stock").find("option[value=" + optionVal + "]").prop("selected", "selected");
+            }
+            $("#ddl_Stock").multiselect('refresh');
+        }
+
+        //$("#View").prop("checked", data[0].View);
+        //$("#Download").prop("checked", data[0].Download);
+
+        $("#txt_CompanyAddress").val(data[0].CompAddress);
+        $("#txt_RestrictedIP").val(data[0].RestrictedIP);
 
         $(".gridview").hide();
         $(".AddEdit").show();
@@ -186,7 +206,7 @@ function EditView(UserId) {
         $("#btn_Back").show();
         $("#h2_titl").html("Edit User");
         $("#hdn_Mng_UserId").val(data[0].UserId);
-        
+        ChangeUserType();
         Get_SubUser(UserId);
     }
 }
@@ -359,6 +379,7 @@ var SortDirection = "";const datasource1 = {
     $("#Cart-Gride").css("height", contentHei);
 }$(document).ready(function (e) {
     UserTypeGet();
+    StockDdlGet();
     GetSearch();
     contentHeight();
     //$('#txt_FortunePartyCode').onFocusout(function () {
@@ -385,6 +406,89 @@ var SortDirection = "";const datasource1 = {
         if (row > 0) {
             row = parseInt(row) - 1;
         }
+    });
+
+    $('#txt_FortunePartyCode, #txt_UserCode').on('keypress', function (event) {
+        var charCode = event.which || event.keyCode;
+        if (charCode >= 48 && charCode <= 57) // 0-9
+        {
+            return true;
+        } else {
+            event.preventDefault();
+            return false;
+        }
+    });
+    $('#txt_FortunePartyCode, #txt_UserCode').on('input', function () {
+        var sanitizedValue = $(this).val().replace(/\D/g, ''); // Remove non-integer characters
+        $(this).val(sanitizedValue); // Update input value
+    });
+    $('#txt_MobileNo').on('keypress', function (event) {
+        var charCode = event.which || event.keyCode;
+        if ((charCode >= 48 && charCode <= 57) || // 0-9
+            charCode === 43) //+
+        {
+            return true;
+        } else {
+            event.preventDefault();
+            return false;
+        }
+    });
+    $('#txt_MobileNo').on('input', function () {
+        var sanitizedValue = $(this).val().replace(/[^\d+]/g, ''); // Remove characters that are not digits or +
+        $(this).val(sanitizedValue); // Update input value
+    });
+    $('#txt_Password').on('keypress', function (event) {
+        var charCode = event.which || event.keyCode;
+        if (charCode == 32) // Blank space
+        {
+            event.preventDefault();
+            return false;
+        } else {
+            return true;
+        }
+    });
+    $('#txt_RestrictedIP').focusout(function () {
+        var input = $("#txt_RestrictedIP").val().trim();
+        // Remove duplicate commas
+        var step1 = input.replace(/,{2,}/g, ',');
+        // Remove commas not surrounded by integers
+        var step2 = step1.replace(/(?<=,)\D+|(?<=\D),/g, '');
+        // Remove commas at the start or end of the string
+        var step3 = step2.replace(/^,|,$/g, '').trim();
+        $("#txt_RestrictedIP").val(step3);
+
+        if (step3 != "") {
+            var ipAddresses = step3.split(',');
+            ipAddresses_Wrong = [];
+            // Regular expression to validate IP address
+            var ipRegex = /^(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+
+            for (var i = 0; i < ipAddresses.length; i++) {
+                var ipAddress = ipAddresses[i].trim(); // Remove leading/trailing spaces
+                if (ipAddress != "") {
+                    if (!ipRegex.test(ipAddress)) {
+                        ipAddresses_Wrong.push(ipAddress);
+                    }
+                }
+            }
+
+        }
+    });
+    $('#txt_RestrictedIP').on('keypress', function (event) {
+        var charCode = event.which || event.keyCode;
+        if ((charCode >= 48 && charCode <= 57) || // 0-9
+            charCode === 46 || //.
+            charCode === 44) //,
+        {
+            return true;
+        } else {
+            event.preventDefault();
+            return false;
+        }
+    });
+    $('#txt_RestrictedIP').on('input', function () {
+        var sanitizedValue = $(this).val().replace(/[^\d.,]/g, ''); // Remove characters that are not digits or +
+        $(this).val(sanitizedValue); // Update input value
     });
 });
 
@@ -419,12 +523,23 @@ function Back() {
 function Clear() {
     $("#txt_UserName").val("");
     $("#txt_Password").val("");
+    $("#txt_CompanyAddress").val("");
+    $("#txt_RestrictedIP").val("");
     $("#chk_Active").prop('checked', true);
 
     $('#ddl_UserType option:selected').each(function () {
         $(this).prop('selected', false);
     })
     $('#ddl_UserType').multiselect('refresh');
+
+    $('#ddl_Stock option:selected').each(function () {
+        $(this).prop('selected', false);
+    })
+    $('#ddl_Stock').multiselect('refresh');
+
+    $("#lbl_assist_by").html('1<small style="font-weight: 600;">st</small> Assist By: ');
+    $("#lbl_fortun_code").html('Fortune Party Code: ');
+    $("#lbl_user_code").html('User Code: ');
 
     $("#txt_FirstName").val("");
     $("#txt_LastName").val("");
@@ -436,12 +551,17 @@ function Clear() {
     $("#txt_MobileNo").val("");
     $("#ddl_AssistBy").val("");
     $("#ddl_SubAssistBy").val("");
+    CompNameValid = true;
+    CompNameValid_Msg = "";
     FortuneCodeValid = true;
     FortuneCodeValid_Msg = "";
     UserCodeValid = true;
     UserCodeValid_Msg = "";
-    $("#View").prop("checked", true);
-    $("#Download").prop("checked", true);
+    ipAddresses_Wrong = [];
+    //$("#View").prop("checked", true);
+    //$("#Download").prop("checked", true);
+    $("#ChkPwd").prop("checked", false);
+    $('#txt_Password').addClass("pwd-field");
 
     $('#tbl_SubUser #tblbody_SubUser').html("");
     $("#tbl_SubUser").hide();
@@ -492,12 +612,39 @@ function AssistBy_Get() {
         }
     });
 }
+function Check_CompName_Exist() {
+    if ($("#txt_CompanyName").val().trim() != "") {
+        $.ajax({
+            url: '/User/CompName_Exist',
+            type: "POST",
+            async: false,
+            data: { iUserId: $("#hdn_Mng_UserId").val(), CompName: $("#txt_CompanyName").val().trim() },
+            success: function (data) {
+                if (data != null) {
+                    if (data.Status == "-1") {
+                        CompNameValid_Msg = data.Message;
+                        CompNameValid = false;
+                    }
+                    else {
+                        CompNameValid = true;
+                        CompNameValid_Msg = "";
+                    }
+                }
+            }
+        });
+    }
+    else {
+        CompNameValid = true;
+        CompNameValid_Msg = "";
+    }
+}
 function Check_FortunePartyCode_Exist() {
-    if ($("#txt_FortunePartyCode").val().replace(' ', '') != "") {
+    if ($("#txt_FortunePartyCode").val().trim() != "") {
         $.ajax({
             url: '/User/FortunePartyCode_Exist',
             type: "POST",
-            data: { iUserId: $("#hdn_Mng_UserId").val(), FortunePartyCode: $("#txt_FortunePartyCode").val() },
+            async: false,
+            data: { iUserId: $("#hdn_Mng_UserId").val(), FortunePartyCode: $("#txt_FortunePartyCode").val().trim() },
             success: function (data) {
                 if (data != null) {
                     if (data.Status == "-1") {
@@ -518,11 +665,12 @@ function Check_FortunePartyCode_Exist() {
     }
 }
 function Check_UserCode_Exist() {
-    if ($("#txt_UserCode").val().replace(' ', '') != "") {
+    if ($("#txt_UserCode").val().trim() != "") {
         $.ajax({
             url: '/User/UserCode_Exists',
             type: "POST",
-            data: { iUserId: $("#hdn_Mng_UserId").val(), UserCode: $("#txt_UserCode").val() },
+            async: false,
+            data: { iUserId: $("#hdn_Mng_UserId").val(), UserCode: $("#txt_UserCode").val().trim() },
             success: function (data) {
                 if (data != null) {
                     if (data.Status == "-1") {
@@ -555,6 +703,105 @@ var checkemail1 = function (valemail) {
 var ErrorMsg = [];
 var GetError = function () {
     ErrorMsg = [];
+
+    if ($("#txt_CompanyName").val().trim() == "") {
+        ErrorMsg.push({
+            'Error': "Please Enter Company Name.",
+        });
+    }
+    else {
+        if (CompNameValid == false) {
+            ErrorMsg.push({
+                'Error': CompNameValid_Msg,
+            });
+        }
+    }
+
+    var usertype = $("#ddl_UserType").val().join(",");
+
+    if (usertype == "") {
+        ErrorMsg.push({
+            'Error': "Please Select User Type.",
+        });
+    }
+
+    if (usertype.includes("3")) {
+        if ($("#txt_FortunePartyCode").val().trim() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter Fortune Party Code.",
+            });
+        }
+        else {
+            if (FortuneCodeValid == false) {
+                ErrorMsg.push({
+                    'Error': FortuneCodeValid_Msg,
+                });
+            }
+        }
+    }
+
+    if ($("#txt_FirstName").val().trim() == "") {
+        ErrorMsg.push({
+            'Error': "Please Enter First Name of Primary User.",
+        });
+    }
+
+    if ($("#txt_LastName").val().trim() == "") {
+        ErrorMsg.push({
+            'Error': "Please Enter Last Name of Primary User.",
+        });
+    }
+
+    if (usertype.includes("3")) {
+        if ($("#ddl_AssistBy").val() == "") {
+            ErrorMsg.push({
+                'Error': "Please Select 1<small style='font- weight: 600;'>st</small> Assist By.",
+            });
+        }
+    }
+
+    if ($("#txt_EmailId").val().trim() == "") {
+        ErrorMsg.push({
+            'Error': "Please Enter Email Id 1 of Primary User.",
+        });
+    }
+    else {
+        if (!checkemail1($("#txt_EmailId").val().trim())) {
+            ErrorMsg.push({
+                'Error': "Please Enter Valid Email Id 1 Format of Primary User.",
+            });
+        }
+    }
+
+    if ($("#txt_EmailId_2").val().trim() != "") {
+        if (!checkemail1($("#txt_EmailId").val().trim())) {
+            ErrorMsg.push({
+                'Error': "Please Enter Valid Email Id 2 Format of Primary User.",
+            });
+        }
+    }
+
+    if ($("#txt_MobileNo").val().trim() == "") {
+        ErrorMsg.push({
+            'Error': "Please Enter Mobile No of Primary User.",
+        });
+    }
+
+    if (usertype.includes("1") || usertype.includes("2")) {
+        if ($("#txt_UserCode").val().trim() == "") {
+            ErrorMsg.push({
+                'Error': "Please Enter User Code.",
+            });
+        }
+        else {
+            if (UserCodeValid == false) {
+                ErrorMsg.push({
+                    'Error': UserCodeValid_Msg,
+                });
+            }
+        }
+    }
+
     if ($("#txt_UserName").val().trim() == "") {
         ErrorMsg.push({
             'Error': "Please Enter User Name of Primary User.",
@@ -562,7 +809,6 @@ var GetError = function () {
     }
     else {
         var newlength = $("#txt_UserName").val().trim().length;
-
         if (newlength < 5) {
             ErrorMsg.push({
                 'Error': "Please Enter Minimum 5 Character User Name of Primary User.",
@@ -602,49 +848,10 @@ var GetError = function () {
             }
         }
     }
-
-    if ($("#txt_FirstName").val().trim() == "") {
+    
+    if (ipAddresses_Wrong.length > 0) {
         ErrorMsg.push({
-            'Error': "Please Enter First Name of Primary User.",
-        });
-    }
-    if ($("#txt_LastName").val().trim() == "") {
-        ErrorMsg.push({
-            'Error': "Please Enter Last Name of Primary User.",
-        });
-    }
-    if ($("#txt_CompanyName").val().trim() == "") {
-        ErrorMsg.push({
-            'Error': "Please Enter Company Name of Primary User.",
-        });
-    }
-
-    if (FortuneCodeValid == false) {
-        ErrorMsg.push({
-            'Error': FortuneCodeValid_Msg,
-        });
-    }
-    if (UserCodeValid == false) {
-        ErrorMsg.push({
-            'Error': UserCodeValid_Msg,
-        });
-    }
-
-    if ($("#txt_EmailId").val().trim() == "") {
-        ErrorMsg.push({
-            'Error': "Please Enter Email Id of Primary User.",
-        });
-    }
-    else {
-        if (!checkemail1($("#txt_EmailId").val().trim())) {
-            ErrorMsg.push({
-                'Error': "Please Enter Valid Email Id Format of Primary User.",
-            });
-        }
-    }
-    if ($("#txt_MobileNo").val().trim() == "") {
-        ErrorMsg.push({
-            'Error': "Please Enter Mobile No of Primary User.",
+            'Error': "Invalid Restricted IP : " + ipAddresses_Wrong.join(', '),
         });
     }
 
@@ -735,6 +942,9 @@ var GetError = function () {
     return ErrorMsg;
 }
 var SaveCompanyUser = function () {
+    Check_CompName_Exist();
+    Check_FortunePartyCode_Exist();
+    Check_UserCode_Exist();
     setTimeout(function () {
         ErrorMsg = GetError();
 
@@ -766,13 +976,13 @@ var SaveCompanyUser = function () {
                     OrderHistoryShowPricing: $(this).find('.OrderHistoryShowPricing').prop("checked"),
                 });
             });
-           
+
             var obj = {};
             obj.UserId = $("#hdn_Mng_UserId").val();
             obj.UserName = $("#txt_UserName").val();
             obj.Password = $("#txt_Password").val();
             obj.Active = $("#chk_Active").is(":checked");
-            obj.UserType = $("#ddl_UserType").val().join(",")
+            obj.UserType = $("#ddl_UserType").val().join(",");
             obj.FirstName = $("#txt_FirstName").val();
             obj.LastName = $("#txt_LastName").val();
             obj.CompanyName = $("#txt_CompanyName").val();
@@ -783,14 +993,20 @@ var SaveCompanyUser = function () {
             obj.MobileNo = $("#txt_MobileNo").val();
             obj.AssistBy = $("#ddl_AssistBy").val();
             obj.SubAssistBy = $("#ddl_SubAssistBy").val();
-            obj.View = ($('#View:checked').val() == undefined ? false : true);
-            obj.Download = ($('#Download:checked').val() == undefined ? false : true);
+            //obj.View = ($('#View:checked').val() == undefined ? false : true);
+            //obj.Download = ($('#Download:checked').val() == undefined ? false : true);
+            obj.View = ($("#ddl_Stock").val().join(",").includes("1") ? true : false);
+            obj.Download = ($("#ddl_Stock").val().join(",").includes("2") ? true : false);
+            obj.CompanyAddress = $("#txt_CompanyAddress").val();
+            obj.RestrictedIP = $("#txt_RestrictedIP").val().trim();
+
             obj.SubUser = List;
 
             loaderShow();
             $.ajax({
                 url: '/User/SaveUserData',
                 type: "POST",
+                async: false,
                 data: { req: obj },
                 success: function (data) {
                     loaderHide();
@@ -834,13 +1050,21 @@ function UserTypeGet() {
                 $(function () {
                     $('#ddl_UserType').multiselect({
                         includeSelectAllOption: true, numberDisplayed: 1
-
                     });
                 });
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
         }
+    });
+}
+function StockDdlGet() {
+    $("#ddl_Stock").html("<option value='1'>View</option>");
+    $("#ddl_Stock").append("<option value='2'>Download</option>");
+    $(function () {
+        $('#ddl_Stock').multiselect({
+            includeSelectAllOption: true, numberDisplayed: 1
+        });
     });
 }
 function generate_uuidv4() {
@@ -859,6 +1083,7 @@ function SubUser_AddNewRow(UserId) {
     $("#tbl_SubUser").show();
     row = parseInt(row) + 1;
     var new_id = generate_uuidv4();
+    var blank = "";
     var tbl_html =
         '<tr id="tr_' + new_id + '">' +
         '<input type="hidden" class="hdn_UserId" value="' + UserId + '" />' +
@@ -866,11 +1091,18 @@ function SubUser_AddNewRow(UserId) {
         '<td class="tblbody_sr">' + row + '</td>' +
         '<td><input type="text" class="form-control common-control FirstName" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
         '<td><input type="text" class="form-control common-control LastName" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
-        '<td><input type="text" class="form-control common-control MobileNo" onkeypress="return isNumberKey(event)" maxlength="15" autocomplete="off" style="width:180px;"></td>' +
+        '<td><input type="text" class="form-control common-control MobileNo" maxlength="15" autocomplete="off" style="width:180px;"></td>' +
         '<td><input type="text" class="form-control common-control EmailId" maxlength="255" autocomplete="off" style="width:180px;"></td>' +
         '<td><input type="text" class="form-control common-control UserName" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
-        '<td><input type="text" class="form-control common-control Password pwd-field" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
-        '<td><input type="text" class="form-control common-control CPassword pwd-field" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
+        '<td>' +
+        '<input type="text" id="txtPwd_' + new_id + '" class="form-control common-control Password pwd-field" maxlength="50" autocomplete="off" style="width:180px;" >' +
+        '<div class="row pwdtick" style="margin-top: -25px;float: left;margin-left: -14px;" >' +
+        '<input tabindex="-1" id="Chktick_' + new_id + '" name="Chktick_' + new_id + '" onchange="tick(\'' + blank + '\', \'' + new_id + '\')" class="onpristine onuntouched onvalid onempty chkBx" id="ChkPwd" name="ChkPwd" type="checkbox" value="Pwd" style="cursor: pointer;">' +
+        '<div for="Chktick_' + new_id + '" class="offer-label">' +
+        '</div>' +
+        '</div>' +
+        '</td>' +
+        '<td><input type="text" id="txtCPwd_' + new_id + '" class="form-control common-control CPassword pwd-field" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
         '<td><center><input class="onpristine onuntouched onvalid onempty chkBx All" onchange="Chkblur(\'' + new_id + '\',\'' + All + '\');" id="ChkAll_' + new_id + '" name="ChkAll_' + new_id + '" type="checkbox" value="IsAll" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
         '<td><center><input class="onpristine onuntouched onvalid onempty chkBx SearchStock" onchange="Chkblur(\'' + new_id + '\',\'' + SearchStock + '\');" id="ChkSearchStock_' + new_id + '" name="ChkSearchStock_' + new_id + '" type="checkbox" value="IsSearchStock" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
         '<td><center><input class="onpristine onuntouched onvalid onempty chkBx StockDownload" onchange="Chkblur(\'' + new_id + '\',\'' + StockDownload + '\');" id="ChkStockDownload_' + new_id + '" name="ChkStockDownload_' + new_id + '" type="checkbox" value="IsStockDownload" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
@@ -883,12 +1115,15 @@ function SubUser_AddNewRow(UserId) {
         '</tr>';
 
     //if (parseInt($("#tbl_SubUser #tblbody_SubUser").find('tr').length) == 0) {
-        $('#tbl_SubUser #tblbody_SubUser').append(tbl_html);
+    $('#tbl_SubUser #tblbody_SubUser').append(tbl_html);
     //}
     //else {
     //    $('#tbl_SubUser #tblbody_SubUser > tr').eq(0).before(tbl_html);
     //}
 
+    if (!($("#hdn_IsPrimaryUser").val() == "True" && $("#hdn_UserType").val().includes("1"))) {
+        $(".pwdtick").html("");
+    }
     row_cnt = 1;
     row = 1;
     $("#tbl_SubUser #tblbody_SubUser tr").each(function () {
@@ -902,10 +1137,7 @@ function SubUser_AddNewRow(UserId) {
     $("#ChkAll_" + new_id).prop("checked", true);
     Chkblur(new_id, "All");
 
-    $('.Password, .CPassword').on('paste', function (e) {
-        e.preventDefault();
-        //alert("Pasting is disabled in this textbox.");
-    });
+    Comman_Input_Valid();
 }
 function Chkblur(id, type) {
     if (type == "All") {
@@ -950,10 +1182,9 @@ function Get_SubUser(UserId) {
                 $('#tbl_SubUser #tblbody_SubUser').append("");
                 row = $('#tblbody_SubUser').find('tr').length;
                 row_cnt = 0;
-                
+                var blank = "";
                 _(data.Data).each(function (obj, i) {
                     var new_id = generate_uuidv4();
-                   
                     var tbl_html =
                         '<tr id="tr_' + new_id + '">' +
                         '<input type="hidden" class="hdn_UserId" value="' + obj.UserId + '" />' +
@@ -961,11 +1192,18 @@ function Get_SubUser(UserId) {
                         '<td class="tblbody_sr"></td>' +
                         '<td><input value="' + obj.FirstName + '" type="text" class="form-control common-control FirstName" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
                         '<td><input value="' + obj.LastName + '" type="text" class="form-control common-control LastName" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
-                        '<td><input value="' + obj.MobileNo + '" type="text" class="form-control common-control MobileNo" onkeypress="return isNumberKey(event)" maxlength="15" autocomplete="off" style="width:180px;"></td>' +
+                        '<td><input value="' + obj.MobileNo + '" type="text" class="form-control common-control MobileNo" maxlength="15" autocomplete="off" style="width:180px;"></td>' +
                         '<td><input value="' + obj.EmailId + '" type="text" class="form-control common-control EmailId" maxlength="255" autocomplete="off" style="width:180px;"></td>' +
                         '<td><input value="' + obj.UserName + '" type="text" class="form-control common-control UserName" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
-                        '<td><input value="' + obj.Password + '" type="text" class="form-control common-control Password pwd-field" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
-                        '<td><input value="' + obj.Password + '" type="text" class="form-control common-control CPassword pwd-field" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
+                        '<td>' +
+                        '<input value="' + obj.Password + '" type="text" id="txtPwd_' + new_id + '" class="form-control common-control Password pwd-field" maxlength="50" autocomplete="off" style="width:180px;">' +
+                        '<div class="row pwdtick" style="margin-top: -25px;float: left;margin-left: -14px;" >' +
+                        '<input tabindex="-1" id="Chktick_' + new_id + '" name="Chktick_' + new_id + '" onchange="tick(\'' + blank + '\', \'' + new_id + '\')" class="onpristine onuntouched onvalid onempty chkBx" id="ChkPwd" name="ChkPwd" type="checkbox" value="Pwd" style="cursor: pointer;">' +
+                        '<div for="Chktick_' + new_id + '" class="offer-label">' +
+                        '</div>' +
+                        '</div>' +
+                        '</td>' +
+                        '<td><input value="' + obj.Password + '" type="text" id="txtCPwd_' + new_id + '" class="form-control common-control CPassword pwd-field" maxlength="50" autocomplete="off" style="width:180px;"></td>' +
                         '<td><center><input ' + (obj.SearchStock == true && obj.OrderHistoryAll == true && obj.OrderHistoryByHisUser == true && obj.PlaceOrder == true && obj.MyCart == true && obj.StockDownload == true && obj.OrderHistoryDownload == true && obj.OrderHistoryShowPricing == true ? 'checked' : '') + ' class="onpristine onuntouched onvalid onempty chkBx All" onchange="Chkblur(\'' + new_id + '\',\'' + All + '\');" id="ChkAll_' + new_id + '" name="ChkAll_' + new_id + '" type="checkbox" value="IsAll" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
                         '<td><center><input ' + (obj.SearchStock == true ? 'checked' : '') + ' class="onpristine onuntouched onvalid onempty chkBx SearchStock" onchange="Chkblur(\'' + new_id + '\',\'' + SearchStock + '\');" id="ChkSearchStock_' + new_id + '" name="ChkSearchStock_' + new_id + '" type="checkbox" value="IsSearchStock" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
                         '<td><center><input ' + (obj.StockDownload == true ? 'checked' : '') + ' class="onpristine onuntouched onvalid onempty chkBx StockDownload" onchange="Chkblur(\'' + new_id + '\',\'' + StockDownload + '\');" id="ChkStockDownload_' + new_id + '" name="ChkStockDownload_' + new_id + '" type="checkbox" value="IsStockDownload" style="cursor: pointer;width: 50px; height: 15px;"></center></td>' +
@@ -978,11 +1216,14 @@ function Get_SubUser(UserId) {
                         '</tr>';
 
                     //if (parseInt($("#tbl_SubUser #tblbody_SubUser").find('tr').length) == 0) {
-                        $('#tbl_SubUser #tblbody_SubUser').append(tbl_html);
+                    $('#tbl_SubUser #tblbody_SubUser').append(tbl_html);
                     //}
                     //else {
                     //    $('#tbl_SubUser #tblbody_SubUser > tr').eq(0).before(tbl_html);
                     //}
+                    if (!($("#hdn_IsPrimaryUser").val() == "True" && $("#hdn_UserType").val().includes("1"))) {
+                        $(".pwdtick").html("");
+                    }
                 });
 
                 $("#tbl_SubUser #tblbody_SubUser tr").each(function () {
@@ -993,14 +1234,77 @@ function Get_SubUser(UserId) {
                 if (row > 0) {
                     row = parseInt(row) - 1;
                 }
-                $('.Password, .CPassword').on('paste', function (e) {
-                    e.preventDefault();
-                    //alert("Pasting is disabled in this textbox.");
-                });
+                Comman_Input_Valid();
             }
         },
         error: function (xhr, textStatus, errorThrown) {
             loaderHide();
         }
     });
+}
+function Comman_Input_Valid() {
+    $('.Password, .CPassword').on('paste', function (e) {
+        e.preventDefault();
+        //alert("Pasting is disabled in this textbox.");
+    });
+    $('.Password, .CPassword').on('keypress', function (event) {
+        var charCode = event.which || event.keyCode;
+        if (charCode == 32) // Blank space
+        {
+            event.preventDefault();
+            return false;
+        } else {
+            return true;
+        }
+    });
+    $('.MobileNo').on('keypress', function (event) {
+        var charCode = event.which || event.keyCode;
+        if ((charCode >= 48 && charCode <= 57) || // 0-9
+            charCode === 43) //+
+        {
+            return true;
+        } else {
+            event.preventDefault();
+            return false;
+        }
+    });
+    $('.MobileNo').on('input', function () {
+        var sanitizedValue = $(this).val().replace(/[^\d+]/g, ''); // Remove characters that are not digits or +
+        $(this).val(sanitizedValue); // Update input value
+    });
+}
+function tick(el, new_id) {
+    if (new_id == "") {
+        if (el.checked == true) {
+            $('#txt_Password').removeClass("pwd-field");
+        }
+        else {
+            $('#txt_Password').addClass("pwd-field");
+        }
+    }
+    else {
+        if ($("#Chktick_" + new_id).prop("checked") == true) {
+            $('#txtPwd_' + new_id).removeClass("pwd-field");
+            $('#txtCPwd_' + new_id).removeClass("pwd-field");
+        }
+        else {
+            $('#txtPwd_' + new_id).addClass("pwd-field");
+            $('#txtCPwd_' + new_id).addClass("pwd-field");
+        }
+    }
+}
+function ChangeUserType() {
+    var usertype = $("#ddl_UserType").val().join(",");
+
+    $("#lbl_assist_by").html('1<small style="font-weight: 600;">st</small> Assist By: ');
+    $("#lbl_fortun_code").html('Fortune Party Code: ');
+    $("#lbl_user_code").html('User Code: ');
+
+    if (usertype.includes("3")) {
+        $("#lbl_assist_by").html('1<small style="font-weight: 600;">st</small> Assist By: <span class="reqvalidation"> * </span>');
+        $("#lbl_fortun_code").html('Fortune Party Code: <span class="reqvalidation"> * </span>');
+    }
+    if (usertype.includes("1") || usertype.includes("2")) {
+        $("#lbl_user_code").html('User Code: <span class="reqvalidation"> * </span>');
+    }
 }

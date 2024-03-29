@@ -32,6 +32,7 @@ namespace SunriseLabWeb_New.Controllers
     public class UserController : Controller
     {
         API _api = new API();
+        Data.Common _common = new Data.Common();
         public JsonResult Get_DashboardCnt()
         {
             string response = _api.CallAPI(Constants.Get_DashboardCnt, string.Empty);
@@ -114,6 +115,13 @@ namespace SunriseLabWeb_New.Controllers
             return Json(_data, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult CompName_Exist(Exist_Request req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.CompName_Exist, inputJson);
+            CommonResponse _data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(_data, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult FortunePartyCode_Exist(Exist_Request req)
         {
             string inputJson = (new JavaScriptSerializer()).Serialize(req);
@@ -1438,10 +1446,12 @@ namespace SunriseLabWeb_New.Controllers
         public JsonResult URL(string UN, int TransId)
         {
             string username = Decrypt(UN);
+            string _ipAddress = _common.gUserIPAddresss();
 
             Get_URL_Req Req = new Get_URL_Req();
             Req.UserName = username;
             Req.TransId = TransId;
+            Req.ipAddress = _ipAddress;
 
             string inputJson = (new JavaScriptSerializer()).Serialize(Req);
             string response = _api.CallAPIWithoutToken(Constants.Add_Customer_Stock_Disc_Mas_Request, inputJson);

@@ -976,6 +976,7 @@ namespace API.Controllers
                 dt.Columns.Add("UserId", typeof(string));
                 dt.Columns.Add("UserName", typeof(string));
                 dt.Columns.Add("ExportType", typeof(string));
+                dt.Columns.Add("RestrictedIP", typeof(string));
                 //dt.Columns.Add("Password", typeof(string));
                 dt.Columns.Add("URL", typeof(string));
                 dt.Columns.Add("Supplier", typeof(string));
@@ -1082,6 +1083,7 @@ namespace API.Controllers
                         dr["UserId"] = req.UserId;
                         dr["UserName"] = req.UserName;
                         dr["ExportType"] = req.ExportType;
+                        dr["RestrictedIP"] = req.RestrictedIP;
                         //dr["Password"] = req.Password;
                         dr["URL"] = req.URL;
                         dr["Supplier"] = req.SuppDisc[i].Supplier;
@@ -3665,6 +3667,16 @@ namespace API.Controllers
                 para.Add(db.CreateParam("View", DbType.Boolean, ParameterDirection.Input, req.View));
                 para.Add(db.CreateParam("Download", DbType.Boolean, ParameterDirection.Input, req.Download));
 
+                if (!string.IsNullOrEmpty(req.CompanyAddress))
+                    para.Add(db.CreateParam("CompanyAddress", DbType.String, ParameterDirection.Input, req.CompanyAddress));
+                else
+                    para.Add(db.CreateParam("CompanyAddress", DbType.String, ParameterDirection.Input, DBNull.Value));
+
+                if (!string.IsNullOrEmpty(req.RestrictedIP))
+                    para.Add(db.CreateParam("RestrictedIP", DbType.String, ParameterDirection.Input, req.RestrictedIP));
+                else
+                    para.Add(db.CreateParam("RestrictedIP", DbType.String, ParameterDirection.Input, DBNull.Value));
+
                 DataTable dt_SubUser = new DataTable();
                 dt_SubUser.Columns.Add("UserId", typeof(int));
                 dt_SubUser.Columns.Add("FirstName", typeof(string));
@@ -3897,6 +3909,53 @@ namespace API.Controllers
 
             DataTable dtData = db.ExecuteSP("Validate_UserName", para.ToArray(), false);
             return dtData;
+        }
+        [HttpPost]
+        public IHttpActionResult CompName_Exist([FromBody] JObject data)
+        {
+            Exist_Request req = new Exist_Request();
+            try
+            {
+                req = JsonConvert.DeserializeObject<Exist_Request>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok();
+            }
+
+            try
+            {
+                Database db = new Database();
+                System.Collections.Generic.List<System.Data.IDbDataParameter> para;
+                para = new System.Collections.Generic.List<System.Data.IDbDataParameter>();
+
+                if (req.iUserId > 0)
+                    para.Add(db.CreateParam("iUserId", DbType.Int32, ParameterDirection.Input, req.iUserId));
+                else
+                    para.Add(db.CreateParam("iUserId", DbType.Int32, ParameterDirection.Input, DBNull.Value));
+
+                para.Add(db.CreateParam("CompName", DbType.String, ParameterDirection.Input, req.CompName));
+
+                System.Data.DataTable dt = db.ExecuteSP("Get_CompName_Exists", para.ToArray(), false);
+
+                return Ok(new CommonResponse
+                {
+                    Message = dt.Rows[0]["Message"].ToString(),
+                    Status = dt.Rows[0]["Status"].ToString(),
+                    Error = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new ServiceResponse<CommonResponse>
+                {
+                    Data = new List<CommonResponse>(),
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
         }
         [HttpPost]
         public IHttpActionResult FortunePartyCode_Exist([FromBody] JObject data)
@@ -14108,451 +14167,457 @@ namespace API.Controllers
             {
                 CommonResponse resp = new CommonResponse();
 
-                if (!String.IsNullOrEmpty(Req.UserName) && Req.TransId > 0)
+                if (!String.IsNullOrEmpty(Req.UserName) && Req.TransId > 0 && !String.IsNullOrEmpty(Req.ipAddress))
                 {
                     Database db = new Database();
                     List<IDbDataParameter> para = new List<IDbDataParameter>();
 
-                    if (!String.IsNullOrEmpty(Req.UserName))
-                        para.Add(db.CreateParam("UserName", DbType.String, ParameterDirection.Input, Req.UserName));
-                    else
-                        para.Add(db.CreateParam("UserName", DbType.String, ParameterDirection.Input, DBNull.Value));
-
-                    if (Req.TransId > 0)
-                        para.Add(db.CreateParam("Id", DbType.Int32, ParameterDirection.Input, Req.TransId));
-                    else
-                        para.Add(db.CreateParam("Id", DbType.Int32, ParameterDirection.Input, DBNull.Value));
+                    para.Add(db.CreateParam("UserName", DbType.String, ParameterDirection.Input, Req.UserName));
+                    para.Add(db.CreateParam("Id", DbType.Int32, ParameterDirection.Input, Req.TransId));
+                    para.Add(db.CreateParam("IP_Add", DbType.String, ParameterDirection.Input, Req.ipAddress));
 
                     DataTable dt = db.ExecuteSP("Get_Customer_Stock_Disc_Mas", para.ToArray(), false);
 
                     if (dt != null && dt.Rows.Count > 0)
                     {
-                        if (Convert.ToInt32(dt.Rows[0]["StockDiscMgt_Count"]) > 0)
+                        if (Convert.ToBoolean(dt.Rows[0]["IpValid"]) == true)
                         {
-                            Get_SearchStock_Req req = new Get_SearchStock_Req();
-                            req.UserId = Convert.ToInt32(dt.Rows[0]["UserId"]);
-                            req.View = false;
-                            req.Download = true;
-                            req.Type = "Customer List";
-                            req.SP_Name = "Get_SearchStock_For_Customer_API";
-
-                            DataTable dt_Result = SearchStock(req);
-
-                            if (dt_Result != null && dt_Result.Rows.Count > 0)
+                            if (Convert.ToInt32(dt.Rows[0]["StockDiscMgt_Count"]) > 0)
                             {
-                                dt_Result.DefaultView.RowFilter = "iSr IS NOT NULL";
-                                dt_Result = dt_Result.DefaultView.ToTable();
+                                Get_SearchStock_Req req = new Get_SearchStock_Req();
+                                req.UserId = Convert.ToInt32(dt.Rows[0]["UserId"]);
+                                req.View = false;
+                                req.Download = true;
+                                req.Type = "Customer List";
+                                req.SP_Name = "Get_SearchStock_For_Customer_API";
+
+                                DataTable dt_Result = SearchStock(req);
 
                                 if (dt_Result != null && dt_Result.Rows.Count > 0)
                                 {
-                                    string _path = ConfigurationManager.AppSettings["data"];
-                                    _path = _path.Replace("Temp", "ExcelFile");
-                                    string realPath = HostingEnvironment.MapPath("~/ExcelFile/");
+                                    dt_Result.DefaultView.RowFilter = "iSr IS NOT NULL";
+                                    dt_Result = dt_Result.DefaultView.ToTable();
 
-                                    DateTime now = DateTime.Now;
-                                    string DATE = " " + now.Day + "" + now.Month + "" + now.Year + "" + now.Hour + "" + now.Minute + "" + now.Second;
-
-                                    if (!Directory.Exists(realPath))
+                                    if (dt_Result != null && dt_Result.Rows.Count > 0)
                                     {
-                                        Directory.CreateDirectory(realPath);
-                                    }
+                                        string _path = ConfigurationManager.AppSettings["data"];
+                                        _path = _path.Replace("Temp", "ExcelFile");
+                                        string realPath = HostingEnvironment.MapPath("~/ExcelFile/");
 
-                                    string filename = "";
-                                    if (!string.IsNullOrEmpty(Convert.ToString(dt.Rows[0]["ExportType"])))
-                                    {
-                                        if (Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "EXCEL(.XLSX)" || Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "EXCEL(.XLS)")
+                                        DateTime now = DateTime.Now;
+                                        string DATE = " " + now.Day + "" + now.Month + "" + now.Year + "" + now.Hour + "" + now.Minute + "" + now.Second;
+
+                                        if (!Directory.Exists(realPath))
                                         {
-                                            if (Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "EXCEL(.XLSX)")
-                                            {
-                                                filename = realPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".xlsx";
-                                            }
-                                            else
-                                            {
-                                                filename = realPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".xls";
-                                            }
-                                            if (File.Exists(filename))
-                                            {
-                                                File.Delete(filename);
-                                            }
-                                            EpExcelExport.Customer_Excel(dt_Result, null, realPath, filename);
-
-                                            //if (Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "EXCEL(.XLSX)")
-                                            //{
-                                            //    filename = tempPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".xlsx";
-                                            //}
-                                            //else
-                                            //{
-                                            //    filename = tempPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".xls";
-                                            //}
-
-                                            //if (File.Exists(filename))
-                                            //{
-                                            //    File.Delete(filename);
-                                            //}
-
-                                            //FileInfo newFile = new FileInfo(filename);
-                                            //using (ExcelPackage pck = new ExcelPackage(newFile))
-                                            //{
-                                            //    ExcelWorksheet ws = pck.Workbook.Worksheets.Add(Convert.ToString(dt.Rows[0]["UserName"]));
-                                            //    pck.Workbook.Properties.Title = "API";
-                                            //    ws.Cells["A1"].LoadFromDataTable(dt_data, true);
-
-                                            //    ws.View.FreezePanes(2, 1);
-                                            //    var allCells = ws.Cells[ws.Dimension.Address];
-                                            //    allCells.AutoFilter = true;
-                                            //    allCells.AutoFitColumns();
-
-                                            //    int rowStart = ws.Dimension.Start.Row;
-                                            //    int rowEnd = ws.Dimension.End.Row;
-                                            //    removingGreenTagWarning(ws, ws.Cells[1, 1, rowEnd, 100].Address);
-
-                                            //    var headerCells = ws.Cells[1, 1, 1, ws.Dimension.Columns];
-                                            //    headerCells.Style.Font.Bold = true;
-                                            //    headerCells.Style.Font.Color.SetColor(System.Drawing.Color.Black);
-                                            //    headerCells.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                                            //    headerCells.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightSkyBlue);
-                                            //    pck.Save();
-                                            //}
+                                            Directory.CreateDirectory(realPath);
                                         }
-                                        else
+
+                                        string filename = "";
+                                        if (!string.IsNullOrEmpty(Convert.ToString(dt.Rows[0]["ExportType"])))
                                         {
-                                            db = new Database();
-                                            para = new List<IDbDataParameter>();
-
-                                            para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
-
-                                            DataTable Col_dt = db.ExecuteSP("Get_SearchStock_API_ColumnSetting", para.ToArray(), false);
-                                            DataTable dt_data = new DataTable();
-
-                                            for (int j = 0; j < Col_dt.Rows.Count; j++)
+                                            if (Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "EXCEL(.XLSX)" || Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "EXCEL(.XLS)")
                                             {
-                                                string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
-                                                string API_Column_Name = Convert.ToString(Col_dt.Rows[j]["API_Column_Name"]);
-                                                double AutoFitColumns = Convert.ToDouble(Col_dt.Rows[j]["ExcelWidth"]);
-
-                                                if (Column_Name == "Image-Video-Certi")
+                                                if (Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "EXCEL(.XLSX)")
                                                 {
-                                                    dt_data.Columns.Add("Image", typeof(string));
-                                                    dt_data.Columns.Add("Video", typeof(string));
-                                                    dt_data.Columns.Add("Certi", typeof(string));
+                                                    filename = realPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".xlsx";
                                                 }
                                                 else
                                                 {
-                                                    dt_data.Columns.Add(API_Column_Name, typeof(string));
+                                                    filename = realPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".xls";
                                                 }
-                                            }
-
-                                            for (int j = 0; j < dt_Result.Rows.Count; j++)
-                                            {
-                                                DataRow dr = dt_data.NewRow();
-
-                                                for (int k = 0; k < Col_dt.Rows.Count; k++)
-                                                {
-                                                    string Column_Name = Convert.ToString(Col_dt.Rows[k]["Column_Name"]);
-                                                    string API_Column_Name = Convert.ToString(Col_dt.Rows[k]["API_Column_Name"]);
-
-                                                    if (Column_Name == "Sr No")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["iSr"]);
-                                                    }
-                                                    else if (Column_Name == "Ref No")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Ref_No"]);
-                                                    }
-                                                    else if (Column_Name == "Lab")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Lab"]);
-                                                    }
-                                                    else if (Column_Name == "Image-Video-Certi")
-                                                    {
-                                                        dr["Image"] = Convert.ToString(dt_Result.Rows[j]["Image_URL"]);
-                                                        dr["Video"] = Convert.ToString(dt_Result.Rows[j]["Video_URL"]);
-                                                        dr["Certi"] = Convert.ToString(dt_Result.Rows[j]["Certificate_URL"]);
-                                                    }
-                                                    else if (Column_Name == "Shape")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Shape"]);
-                                                    }
-                                                    else if (Column_Name == "Pointer")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Pointer"]);
-                                                    }
-                                                    else if (Column_Name == "BGM")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["BGM"]);
-                                                    }
-                                                    else if (Column_Name == "Color")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Color"]);
-                                                    }
-                                                    else if (Column_Name == "Clarity")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Clarity"]);
-                                                    }
-                                                    else if (Column_Name == "Cts")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Cts"] != null) ?
-                                                                   (dt_Result.Rows[j]["Cts"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Cts"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Rap Rate($)")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Rap_Rate"] != null) ?
-                                                                   (dt_Result.Rows[j]["Rap_Rate"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Rap_Rate"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Rap Amount($)")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Rap_Amount"] != null) ?
-                                                                   (dt_Result.Rows[j]["Rap_Amount"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Rap_Amount"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Final Disc(%)")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["CUSTOMER_COST_DISC"] != null) ?
-                                                                   (dt_Result.Rows[j]["CUSTOMER_COST_DISC"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["CUSTOMER_COST_DISC"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Final Amt US($)")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["CUSTOMER_COST_VALUE"] != null) ?
-                                                                   (dt_Result.Rows[j]["CUSTOMER_COST_VALUE"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["CUSTOMER_COST_VALUE"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Price / Cts")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Base_Price_Cts"] != null) ?
-                                                                   (dt_Result.Rows[j]["Base_Price_Cts"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Base_Price_Cts"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Cut")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Cut"]);
-                                                    }
-                                                    else if (Column_Name == "Polish")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Polish"]);
-                                                    }
-                                                    else if (Column_Name == "Symm")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Symm"]);
-                                                    }
-                                                    else if (Column_Name == "Fls")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Fls"]);
-                                                    }
-                                                    else if (Column_Name == "RATIO")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["RATIO"] != null) ?
-                                                                   (dt_Result.Rows[j]["RATIO"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["RATIO"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Length")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Length"] != null) ?
-                                                                   (dt_Result.Rows[j]["Length"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Length"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Width")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Width"] != null) ?
-                                                                   (dt_Result.Rows[j]["Width"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Width"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Depth")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Depth"] != null) ?
-                                                                   (dt_Result.Rows[j]["Depth"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Depth"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Depth(%)")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Depth_Per"] != null) ?
-                                                                   (dt_Result.Rows[j]["Depth_Per"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Depth_Per"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Table(%)")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Table_Per"] != null) ?
-                                                                   (dt_Result.Rows[j]["Table_Per"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Table_Per"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Key To Symbol")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Key_To_Symboll"]);
-                                                    }
-                                                    else if (Column_Name == "Comment")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Lab_Comments"]);
-                                                    }
-                                                    else if (Column_Name == "Girdle(%)")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Girdle_Per"] != null) ?
-                                                                   (dt_Result.Rows[j]["Girdle_Per"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Girdle_Per"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Crown Angle")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Crown_Angle"] != null) ?
-                                                                   (dt_Result.Rows[j]["Crown_Angle"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Crown_Angle"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Crown Height")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Crown_Height"] != null) ?
-                                                                   (dt_Result.Rows[j]["Crown_Height"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Crown_Height"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Pav Angle")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Pav_Angle"] != null) ?
-                                                                   (dt_Result.Rows[j]["Pav_Angle"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Pav_Angle"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Pav Height")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["Pav_Height"] != null) ?
-                                                                   (dt_Result.Rows[j]["Pav_Height"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["Pav_Height"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Table Black")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Table_Natts"]);
-                                                    }
-                                                    else if (Column_Name == "Crown Black")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Crown_Natts"]);
-                                                    }
-                                                    else if (Column_Name == "Table White")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Table_Inclusion"]);
-                                                    }
-                                                    else if (Column_Name == "Crown White")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Crown_Inclusion"]);
-                                                    }
-                                                    else if (Column_Name == "Culet")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Culet"]);
-                                                    }
-                                                    else if (Column_Name == "Table Open")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Table_Open"]);
-                                                    }
-                                                    else if (Column_Name == "Crown Open")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Crown_Open"]);
-                                                    }
-                                                    else if (Column_Name == "Pavilion Open")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Pav_Open"]);
-                                                    }
-                                                    else if (Column_Name == "Girdle Open")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Girdle_Open"]);
-                                                    }
-                                                    else if (Column_Name == "Shade")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Shade"]);
-                                                    }
-                                                    else if (Column_Name == "Luster")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Luster"]);
-                                                    }
-                                                    else if (Column_Name == "Measurement")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Measurement"]);
-                                                    }
-                                                    else if (Column_Name == "H&A")
-                                                    {
-                                                        dr[API_Column_Name] = "";
-                                                    }
-                                                    else if (Column_Name == "Milky")
-                                                    {
-                                                        dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Milky"]);
-                                                    }
-                                                    else if (Column_Name == "Location")
-                                                    {
-                                                        dr[API_Column_Name] = "";
-                                                    }
-                                                    else if (Column_Name == "Certi No")
-                                                    {
-                                                        dr[API_Column_Name] = "";
-                                                    }
-                                                    else if (Column_Name == "RO")
-                                                    {
-                                                        dr[API_Column_Name] = "";
-                                                    }
-                                                    else if (Column_Name == "EC")
-                                                    {
-                                                        dr[API_Column_Name] = "";
-                                                    }
-                                                    else if (Column_Name == "Fancy Color")
-                                                    {
-                                                        dr[API_Column_Name] = "";
-                                                    }
-                                                    else if (Column_Name == "Price Of Origin")
-                                                    {
-                                                        dr[API_Column_Name] = ((dt_Result.Rows[j]["CUSTOMER_COST_VALUE"] != null) ?
-                                                                   (dt_Result.Rows[j]["CUSTOMER_COST_VALUE"].GetType().Name != "DBNull" ?
-                                                                   Convert.ToDouble(dt_Result.Rows[j]["CUSTOMER_COST_VALUE"]) : ((Double?)null)) : null);
-                                                    }
-                                                    else if (Column_Name == "Laser Incription")
-                                                    {
-                                                        dr[API_Column_Name] = (Convert.ToString(dt_Result.Rows[j]["Inscription"]) == "" ? "N" : "Y");
-                                                    }
-                                                }
-                                                dt_data.Rows.Add(dr);
-                                            }
-
-                                            if (Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "XML")
-                                            {
-                                                filename = realPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".xml";
                                                 if (File.Exists(filename))
                                                 {
                                                     File.Delete(filename);
                                                 }
+                                                EpExcelExport.Customer_Excel(dt_Result, null, realPath, filename);
 
-                                                dt_data.TableName = "Records";
-                                                dt_data.WriteXml(filename);
+                                                //if (Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "EXCEL(.XLSX)")
+                                                //{
+                                                //    filename = tempPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".xlsx";
+                                                //}
+                                                //else
+                                                //{
+                                                //    filename = tempPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".xls";
+                                                //}
+
+                                                //if (File.Exists(filename))
+                                                //{
+                                                //    File.Delete(filename);
+                                                //}
+
+                                                //FileInfo newFile = new FileInfo(filename);
+                                                //using (ExcelPackage pck = new ExcelPackage(newFile))
+                                                //{
+                                                //    ExcelWorksheet ws = pck.Workbook.Worksheets.Add(Convert.ToString(dt.Rows[0]["UserName"]));
+                                                //    pck.Workbook.Properties.Title = "API";
+                                                //    ws.Cells["A1"].LoadFromDataTable(dt_data, true);
+
+                                                //    ws.View.FreezePanes(2, 1);
+                                                //    var allCells = ws.Cells[ws.Dimension.Address];
+                                                //    allCells.AutoFilter = true;
+                                                //    allCells.AutoFitColumns();
+
+                                                //    int rowStart = ws.Dimension.Start.Row;
+                                                //    int rowEnd = ws.Dimension.End.Row;
+                                                //    removingGreenTagWarning(ws, ws.Cells[1, 1, rowEnd, 100].Address);
+
+                                                //    var headerCells = ws.Cells[1, 1, 1, ws.Dimension.Columns];
+                                                //    headerCells.Style.Font.Bold = true;
+                                                //    headerCells.Style.Font.Color.SetColor(System.Drawing.Color.Black);
+                                                //    headerCells.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                                //    headerCells.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightSkyBlue);
+                                                //    pck.Save();
+                                                //}
                                             }
-                                            else if (Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "CSV")
+                                            else
                                             {
-                                                filename = realPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".csv";
-                                                if (File.Exists(filename))
+                                                db = new Database();
+                                                para = new List<IDbDataParameter>();
+
+                                                para.Add(db.CreateParam("UserId", DbType.Int32, ParameterDirection.Input, req.UserId));
+
+                                                DataTable Col_dt = db.ExecuteSP("Get_SearchStock_API_ColumnSetting", para.ToArray(), false);
+                                                DataTable dt_data = new DataTable();
+
+                                                for (int j = 0; j < Col_dt.Rows.Count; j++)
                                                 {
-                                                    File.Delete(filename);
+                                                    string Column_Name = Convert.ToString(Col_dt.Rows[j]["Column_Name"]);
+                                                    string API_Column_Name = Convert.ToString(Col_dt.Rows[j]["API_Column_Name"]);
+                                                    double AutoFitColumns = Convert.ToDouble(Col_dt.Rows[j]["ExcelWidth"]);
+
+                                                    if (Column_Name == "Image-Video-Certi")
+                                                    {
+                                                        dt_data.Columns.Add("Image", typeof(string));
+                                                        dt_data.Columns.Add("Video", typeof(string));
+                                                        dt_data.Columns.Add("Certi", typeof(string));
+                                                    }
+                                                    else
+                                                    {
+                                                        dt_data.Columns.Add(API_Column_Name, typeof(string));
+                                                    }
                                                 }
 
-                                                StringBuilder sb = new StringBuilder();
-                                                IEnumerable<string> columnNames = dt_data.Columns.Cast<DataColumn>().Select(column => column.ColumnName);
-                                                sb.AppendLine(string.Join(",", columnNames));
-
-                                                foreach (DataRow row in dt_data.Rows)
+                                                for (int j = 0; j < dt_Result.Rows.Count; j++)
                                                 {
-                                                    IEnumerable<string> fields = row.ItemArray.Select(field => field.ToString().Replace(",", " "));
-                                                    sb.AppendLine(string.Join(",", fields));
+                                                    DataRow dr = dt_data.NewRow();
+
+                                                    for (int k = 0; k < Col_dt.Rows.Count; k++)
+                                                    {
+                                                        string Column_Name = Convert.ToString(Col_dt.Rows[k]["Column_Name"]);
+                                                        string API_Column_Name = Convert.ToString(Col_dt.Rows[k]["API_Column_Name"]);
+
+                                                        if (Column_Name == "Sr No")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["iSr"]);
+                                                        }
+                                                        else if (Column_Name == "Ref No")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Ref_No"]);
+                                                        }
+                                                        else if (Column_Name == "Lab")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Lab"]);
+                                                        }
+                                                        else if (Column_Name == "Image-Video-Certi")
+                                                        {
+                                                            dr["Image"] = Convert.ToString(dt_Result.Rows[j]["Image_URL"]);
+                                                            dr["Video"] = Convert.ToString(dt_Result.Rows[j]["Video_URL"]);
+                                                            dr["Certi"] = Convert.ToString(dt_Result.Rows[j]["Certificate_URL"]);
+                                                        }
+                                                        else if (Column_Name == "Shape")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Shape"]);
+                                                        }
+                                                        else if (Column_Name == "Pointer")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Pointer"]);
+                                                        }
+                                                        else if (Column_Name == "BGM")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["BGM"]);
+                                                        }
+                                                        else if (Column_Name == "Color")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Color"]);
+                                                        }
+                                                        else if (Column_Name == "Clarity")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Clarity"]);
+                                                        }
+                                                        else if (Column_Name == "Cts")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Cts"] != null) ?
+                                                                       (dt_Result.Rows[j]["Cts"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Cts"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Rap Rate($)")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Rap_Rate"] != null) ?
+                                                                       (dt_Result.Rows[j]["Rap_Rate"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Rap_Rate"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Rap Amount($)")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Rap_Amount"] != null) ?
+                                                                       (dt_Result.Rows[j]["Rap_Amount"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Rap_Amount"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Final Disc(%)")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["CUSTOMER_COST_DISC"] != null) ?
+                                                                       (dt_Result.Rows[j]["CUSTOMER_COST_DISC"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["CUSTOMER_COST_DISC"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Final Amt US($)")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["CUSTOMER_COST_VALUE"] != null) ?
+                                                                       (dt_Result.Rows[j]["CUSTOMER_COST_VALUE"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["CUSTOMER_COST_VALUE"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Price / Cts")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Base_Price_Cts"] != null) ?
+                                                                       (dt_Result.Rows[j]["Base_Price_Cts"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Base_Price_Cts"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Cut")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Cut"]);
+                                                        }
+                                                        else if (Column_Name == "Polish")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Polish"]);
+                                                        }
+                                                        else if (Column_Name == "Symm")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Symm"]);
+                                                        }
+                                                        else if (Column_Name == "Fls")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Fls"]);
+                                                        }
+                                                        else if (Column_Name == "RATIO")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["RATIO"] != null) ?
+                                                                       (dt_Result.Rows[j]["RATIO"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["RATIO"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Length")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Length"] != null) ?
+                                                                       (dt_Result.Rows[j]["Length"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Length"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Width")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Width"] != null) ?
+                                                                       (dt_Result.Rows[j]["Width"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Width"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Depth")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Depth"] != null) ?
+                                                                       (dt_Result.Rows[j]["Depth"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Depth"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Depth(%)")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Depth_Per"] != null) ?
+                                                                       (dt_Result.Rows[j]["Depth_Per"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Depth_Per"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Table(%)")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Table_Per"] != null) ?
+                                                                       (dt_Result.Rows[j]["Table_Per"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Table_Per"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Key To Symbol")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Key_To_Symboll"]);
+                                                        }
+                                                        else if (Column_Name == "Comment")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Lab_Comments"]);
+                                                        }
+                                                        else if (Column_Name == "Girdle(%)")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Girdle_Per"] != null) ?
+                                                                       (dt_Result.Rows[j]["Girdle_Per"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Girdle_Per"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Crown Angle")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Crown_Angle"] != null) ?
+                                                                       (dt_Result.Rows[j]["Crown_Angle"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Crown_Angle"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Crown Height")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Crown_Height"] != null) ?
+                                                                       (dt_Result.Rows[j]["Crown_Height"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Crown_Height"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Pav Angle")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Pav_Angle"] != null) ?
+                                                                       (dt_Result.Rows[j]["Pav_Angle"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Pav_Angle"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Pav Height")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["Pav_Height"] != null) ?
+                                                                       (dt_Result.Rows[j]["Pav_Height"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["Pav_Height"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Table Black")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Table_Natts"]);
+                                                        }
+                                                        else if (Column_Name == "Crown Black")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Crown_Natts"]);
+                                                        }
+                                                        else if (Column_Name == "Table White")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Table_Inclusion"]);
+                                                        }
+                                                        else if (Column_Name == "Crown White")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Crown_Inclusion"]);
+                                                        }
+                                                        else if (Column_Name == "Culet")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Culet"]);
+                                                        }
+                                                        else if (Column_Name == "Table Open")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Table_Open"]);
+                                                        }
+                                                        else if (Column_Name == "Crown Open")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Crown_Open"]);
+                                                        }
+                                                        else if (Column_Name == "Pavilion Open")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Pav_Open"]);
+                                                        }
+                                                        else if (Column_Name == "Girdle Open")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Girdle_Open"]);
+                                                        }
+                                                        else if (Column_Name == "Shade")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Shade"]);
+                                                        }
+                                                        else if (Column_Name == "Luster")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Luster"]);
+                                                        }
+                                                        else if (Column_Name == "Measurement")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Measurement"]);
+                                                        }
+                                                        else if (Column_Name == "H&A")
+                                                        {
+                                                            dr[API_Column_Name] = "";
+                                                        }
+                                                        else if (Column_Name == "Milky")
+                                                        {
+                                                            dr[API_Column_Name] = Convert.ToString(dt_Result.Rows[j]["Milky"]);
+                                                        }
+                                                        else if (Column_Name == "Location")
+                                                        {
+                                                            dr[API_Column_Name] = "";
+                                                        }
+                                                        else if (Column_Name == "Certi No")
+                                                        {
+                                                            dr[API_Column_Name] = "";
+                                                        }
+                                                        else if (Column_Name == "RO")
+                                                        {
+                                                            dr[API_Column_Name] = "";
+                                                        }
+                                                        else if (Column_Name == "EC")
+                                                        {
+                                                            dr[API_Column_Name] = "";
+                                                        }
+                                                        else if (Column_Name == "Fancy Color")
+                                                        {
+                                                            dr[API_Column_Name] = "";
+                                                        }
+                                                        else if (Column_Name == "Price Of Origin")
+                                                        {
+                                                            dr[API_Column_Name] = ((dt_Result.Rows[j]["CUSTOMER_COST_VALUE"] != null) ?
+                                                                       (dt_Result.Rows[j]["CUSTOMER_COST_VALUE"].GetType().Name != "DBNull" ?
+                                                                       Convert.ToDouble(dt_Result.Rows[j]["CUSTOMER_COST_VALUE"]) : ((Double?)null)) : null);
+                                                        }
+                                                        else if (Column_Name == "Laser Incription")
+                                                        {
+                                                            dr[API_Column_Name] = (Convert.ToString(dt_Result.Rows[j]["Inscription"]) == "" ? "N" : "Y");
+                                                        }
+                                                    }
+                                                    dt_data.Rows.Add(dr);
                                                 }
-                                                File.WriteAllText(filename, sb.ToString());
+
+                                                if (Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "XML")
+                                                {
+                                                    filename = realPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".xml";
+                                                    if (File.Exists(filename))
+                                                    {
+                                                        File.Delete(filename);
+                                                    }
+
+                                                    dt_data.TableName = "Records";
+                                                    dt_data.WriteXml(filename);
+                                                }
+                                                else if (Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "CSV")
+                                                {
+                                                    filename = realPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".csv";
+                                                    if (File.Exists(filename))
+                                                    {
+                                                        File.Delete(filename);
+                                                    }
+
+                                                    StringBuilder sb = new StringBuilder();
+                                                    IEnumerable<string> columnNames = dt_data.Columns.Cast<DataColumn>().Select(column => column.ColumnName);
+                                                    sb.AppendLine(string.Join(",", columnNames));
+
+                                                    foreach (DataRow row in dt_data.Rows)
+                                                    {
+                                                        IEnumerable<string> fields = row.ItemArray.Select(field => field.ToString().Replace(",", " "));
+                                                        sb.AppendLine(string.Join(",", fields));
+                                                    }
+                                                    File.WriteAllText(filename, sb.ToString());
+                                                }
+                                                else if (Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "JSON")
+                                                {
+                                                    filename = realPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".json";
+                                                    if (File.Exists(filename))
+                                                    {
+                                                        File.Delete(filename);
+                                                    }
+                                                    string json = Lib.Model.Common.DataTableToJSONWithStringBuilder(dt_data);
+                                                    File.WriteAllText(filename, json);
+                                                }
                                             }
-                                            else if (Convert.ToString(dt.Rows[0]["ExportType"]).ToUpper() == "JSON")
+
+                                            return Ok(new CommonResponse
                                             {
-                                                filename = realPath + Convert.ToString(dt.Rows[0]["UserName"]) + DATE + ".json";
-                                                if (File.Exists(filename))
-                                                {
-                                                    File.Delete(filename);
-                                                }
-                                                string json = Lib.Model.Common.DataTableToJSONWithStringBuilder(dt_data);
-                                                File.WriteAllText(filename, json);
-                                            }
+                                                Message = filename,
+                                                Status = "1",
+                                                Error = ""
+                                            });
                                         }
-
-                                        return Ok(new CommonResponse
+                                        else
                                         {
-                                            Message = filename,
-                                            Status = "1",
-                                            Error = ""
-                                        });
+                                            return Ok(new CommonResponse
+                                            {
+                                                Message = "",
+                                                Status = "0",
+                                                Error = "404 Export Type Not Found"
+                                            });
+                                        }
                                     }
                                     else
                                     {
@@ -14560,7 +14625,7 @@ namespace API.Controllers
                                         {
                                             Message = "",
                                             Status = "0",
-                                            Error = "404 Export Type Not Found"
+                                            Error = "404 Stock Not Found"
                                         });
                                     }
                                 }
@@ -14590,7 +14655,7 @@ namespace API.Controllers
                             {
                                 Message = "",
                                 Status = "0",
-                                Error = "404 Stock Not Found"
+                                Error = "Un-Authorize Action - Invalid Ip Address"
                             });
                         }
                     }

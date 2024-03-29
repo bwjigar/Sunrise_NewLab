@@ -73,10 +73,13 @@ namespace Lib.Model
         public bool StockDownload { get; set; }
         public bool OrderHistoryDownload { get; set; }
         public bool OrderHistoryShowPricing { get; set; }
+        public string CompAddress { get; set; }
+        public string RestrictedIP { get; set; }
     }
     public class Exist_Request
     {
         public int iUserId { get; set; }
+        public string CompName { get; set; }
         public int FortunePartyCode { get; set; }
         public int UserCode { get; set; }
     }
@@ -99,6 +102,8 @@ namespace Lib.Model
         public int UserCode { get; set; }
         public bool View { get; set; }
         public bool Download { get; set; }
+        public string CompanyAddress { get; set; }
+        public string RestrictedIP { get; set; }
         public List<Sub_UserDetails_Req> SubUser { get; set; }
         public UserDetails_Req()
         {
@@ -457,6 +462,7 @@ namespace Lib.Model
         public string UserName { get; set; }
         public string Password { get; set; }
         public string ExportType { get; set; }
+        public string RestrictedIP { get; set; }
         public string URL { get; set; }
         public List<Obj_Supplier_Disc> SuppDisc { get; set; }
         public List<Obj_ColumnSetting_UserWise> CUSTOMER { get; set; }
@@ -589,6 +595,7 @@ namespace Lib.Model
         public string Password { get; set; }
         public string URL { get; set; }
         public string ExportType { get; set; }
+        public string RestrictedIP { get; set; }
     }
     public class Get_Customer_Stock_Disc_Count
     {
@@ -1354,6 +1361,7 @@ namespace Lib.Model
     {
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string ipAddress { get; set; }
         public int TransId { get; set; }
     }
     public class Get_SaveSearch_Res
