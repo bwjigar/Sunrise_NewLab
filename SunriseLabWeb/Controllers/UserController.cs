@@ -72,6 +72,13 @@ namespace SunriseLabWeb_New.Controllers
             ServiceResponse<Get_SaveSearch_Res> data = (new JavaScriptSerializer()).Deserialize<ServiceResponse<Get_SaveSearch_Res>>(response);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Delete_Save_Search(Get_SaveSearch_Res req)
+        {
+            string inputJson = (new JavaScriptSerializer()).Serialize(req);
+            string response = _api.CallAPI(Constants.Delete_Save_Search, inputJson);
+            CommonResponse data = (new JavaScriptSerializer()).Deserialize<CommonResponse>(response);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult SavedSearchDataSessionStore(Get_SearchStock_Req obj)
         {
             Session["SavedSearchDiamondStock"] = obj;

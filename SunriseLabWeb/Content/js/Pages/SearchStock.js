@@ -3042,7 +3042,7 @@ function GetSearchParameter() {
                 if (KeyToSymbolList.length > 0) {
                     KeyToSymbolList.sort(customSortByKeyName("Value"));
                 }
-                
+
                 RCommentList = _.filter(ParameterList, function (e) { return e.Type == 'Comment' });
                 if (RCommentList.length > 0) {
                     RCommentList.sort(customSortByKeyName("Value"));
@@ -3447,7 +3447,7 @@ function Reset() {
     _.map(CaratList, function (data) { return data.isActive = false; });
     _.map(LocationList, function (data) { return data.isActive = false; });
     _.map(CuletList, function (data) { return data.isActive = false; });
-    
+
     $('#SearchImage').removeClass('active');
     $('#SearchVideo').removeClass('active');
     $('#SearchCerti').removeClass('active');
@@ -3486,7 +3486,7 @@ function Reset() {
     _(CuletList).each(function (culet, i) {
         $('#searchCulet').append('<li onclick="SetActive(\'CULET\',\'' + culet.Value + '\')">' + culet.Value + '</li>');
     });
-    
+
     $('#searchcolor').html("");
     _(ColorList).each(function (color, i) {
         $('#searchcolor').append('<li onclick="SetActive(\'COLOR\',\'' + color.Value + '\')">' + color.Value + '</li>');
@@ -4362,7 +4362,7 @@ function SaveSearch() {
 }
 
 function SetSavedSearchParameter() {
-    if ($('#hdnType').val() == 'SaveSearch') {
+    if ($('#hdnType').val() == 'SaveSearch' || $('#hdnType').val() == 'SaveSearchEdit') {
         loaderShow();
         $.ajax({
             url: "/User/SavedSearchDataSessionGet",
@@ -4867,9 +4867,11 @@ function SetSavedSearchParameter() {
                     $("#sym-sec4 .carat-dropdown-main").hide();
                 }, 2);
 
-
-                CustomerList();
-                //loaderHide();
+                if ($('#hdnType').val() == 'SaveSearch') {
+                    CustomerList();
+                } else if ($('#hdnType').val() == 'SaveSearchEdit') {
+                    loaderHide();
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 loaderHide();

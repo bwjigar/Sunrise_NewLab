@@ -311,6 +311,54 @@ namespace API.Controllers
             }
         }
         [HttpPost]
+        public IHttpActionResult Delete_Save_Search([FromBody] JObject data)
+        {
+            Get_SaveSearch_Res req = new Get_SaveSearch_Res();
+            try
+            {
+                req = JsonConvert.DeserializeObject<Get_SaveSearch_Res>(data.ToString());
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Message = "Input Parameters are not in the proper format",
+                    Status = "0"
+                });
+            }
+
+            try
+            {
+                CommonResponse resp = new CommonResponse();
+
+                Database db = new Database();
+                List<IDbDataParameter> para = new List<IDbDataParameter>();
+
+                para.Add(db.CreateParam("Id", DbType.Int32, ParameterDirection.Input, req.Id));
+
+                DataTable dt = db.ExecuteSP("Delete_Save_Search", para.ToArray(), false);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    resp.Status = dt.Rows[0]["Status"].ToString();
+                    resp.Message = dt.Rows[0]["Message"].ToString();
+
+                }
+                return Ok(resp);
+            }
+            catch (Exception ex)
+            {
+                Lib.Model.Common.InsertErrorLog(ex, null, Request);
+                return Ok(new CommonResponse
+                {
+                    Error = ex.StackTrace,
+                    Message = "Something Went wrong.\nPlease try again later",
+                    Status = "0"
+                });
+            }
+        }
+        [HttpPost]
         public IHttpActionResult AddUpdate_Category_Value([FromBody] JObject data)
         {
             Get_Category_Value_Res res = new Get_Category_Value_Res();

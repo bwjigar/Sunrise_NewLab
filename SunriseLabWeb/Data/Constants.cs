@@ -18,8 +18,9 @@ namespace SunriseLabWeb_New.Data
         public static string Get_MyCart_For_DashBoard = "/User/Get_MyCart_For_DashBoard";
         public static string Get_OrderHistory_For_DashBoard = "/User/Get_OrderHistory_For_DashBoard";
         public static string Get_Save_Search_For_DashBoard = "/User/Get_Save_Search_For_DashBoard";
-
+        public static string Delete_Save_Search = "/User/Delete_Save_Search";
         
+
         public static string CompName_Exist = "/User/CompName_Exist";
         public static string FortunePartyCode_Exist = "/User/FortunePartyCode_Exist";
         public static string UserCode_Exists = "/User/UserCode_Exists";

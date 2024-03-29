@@ -851,7 +851,7 @@ var GetError = function () {
     
     if (ipAddresses_Wrong.length > 0) {
         ErrorMsg.push({
-            'Error': "Invalid Restricted IP : " + ipAddresses_Wrong.join(', '),
+            'Error': "Invalid Restricted IPv4 : " + ipAddresses_Wrong.join(', '),
         });
     }
 

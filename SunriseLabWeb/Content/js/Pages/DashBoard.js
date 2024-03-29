@@ -18,7 +18,7 @@ function GetDashboardCount() {
         $.ajax({
             url: "/User/Get_DashboardCnt",
             type: "POST",
-            async: false,
+            //async: false,
             data: null,
             success: function (data, textStatus, jqXHR) {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
@@ -45,7 +45,7 @@ function GetMyCart() {
         $.ajax({
             url: "/User/Get_MyCart_For_DashBoard",
             type: "POST",
-            async: false,
+            //async: false,
             data: null,
             success: function (data, textStatus, jqXHR) {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
@@ -91,7 +91,7 @@ function GetSaveSearch() {
         $.ajax({
             url: "/User/Get_Save_Search_For_DashBoard",
             type: "POST",
-            async: false,
+            //async: false,
             data: null,
             success: function (data, textStatus, jqXHR) {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
@@ -462,11 +462,13 @@ function GetSaveSearch() {
                         }
 
                         html += '<tr>';
+                        html += '<td><center><a title="Edit" onclick="SaveSearch_LoadSearchData(' + data.Data[i].Id + ',\'Edit\')" ><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 17px;cursor:pointer;color:#003d66;"></i></a>';
+                        html += '&nbsp;&nbsp;<a title="Delete" onclick="DeleteView(\'' + data.Data[i].Id + '\')" ><i class="fa fa-trash-o" aria-hidden="true" style="font-size: 17px;cursor:pointer;color:#d81500;"></i></a></center></td>';
                         html += '<td><center><span class="Fi-Criteria">' + data.Data[i].TransDate + '</span></center></td>';
                         html += '<td><center><span class="Fi-Criteria">' + data.Data[i].SearchName + '</span></center></td>';
                         html += '<td>' +
                             '<center>' +
-                            '<span onclick="SaveSearch_LoadSearchData(' + data.Data[i].Id + ',\'Show\')" class="Fi-Criteria" style="cursor:pointer;" data-toggle="tooltip" data-html="true" data-placement="left" title="' + str + '">' +
+                            '<span onclick="SaveSearch_LoadSearchData(' + data.Data[i].Id + ',\'Search\')" class="Fi-Criteria" style="cursor:pointer;" data-toggle="tooltip" data-html="true" data-placement="left" title="' + str + '">' +
                             'Search' +
                             '</span>' +
                             '</center>' +
@@ -476,7 +478,7 @@ function GetSaveSearch() {
                 }
                 else {
                     html += '<tr>';
-                    html += '<td colspan="3"><center><span class="Fi-Criteria">No Data Found</span></center></td>';
+                    html += '<td colspan="4"><center><span class="Fi-Criteria">No Data Found</span></center></td>';
                     html += '</tr>';
                 }
                 $("#tblBodySaveSearch").html(html);
@@ -499,7 +501,7 @@ function GetOrderHistory() {
         $.ajax({
             url: "/User/Get_OrderHistory_For_DashBoard",
             type: "POST",
-            async: false,
+            //async: false,
             data: null,
             success: function (data, textStatus, jqXHR) {
                 if (data.Message.indexOf('Something Went wrong') > -1) {
@@ -537,7 +539,7 @@ function GetOrderHistory() {
         });
     }, 10);
 }
-function SaveSearch_LoadSearchData(Id) {
+function SaveSearch_LoadSearchData(Id, type) {
     SavedSearchList_1 = [];
     for (var i = 0; i <= SavedSearchList.length - 1; i++) {
         if (SavedSearchList[i].Id == Id) {
@@ -655,7 +657,7 @@ function SaveSearch_LoadSearchData(Id) {
         obj.PavHtBlank = (SavedSearchList_1.PavHt_IsBlank == true ? true : "");
         obj.FromPavHt = SavedSearchList_1.FromPavHt;
         obj.ToPavHt = SavedSearchList_1.ToPavHt;
-        obj.Type = "Buyer List";
+        obj.Type = "Customer List";
 
         loaderShow();
         $.ajax({
@@ -665,13 +667,50 @@ function SaveSearch_LoadSearchData(Id) {
             data: { obj: obj },
             success: function (data, textStatus, jqXHR) {
                 loaderHide();
-                window.location.href = '/User/SearchStock?type=SaveSearch';
+                debugger
+                if (type == "Edit") {
+                    window.location.href = '/User/SearchStock?type=SaveSearchEdit';
+                }
+                else if (type == "Search") {
+                    window.location.href = '/User/SearchStock?type=SaveSearch';
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 loaderHide();
             }
         });
     }
+}
+function DeleteView(_Id) {
+    loaderShow();
+    
+    var obj = {};
+    obj.Id = _Id;
+
+    $.ajax({
+        url: "/User/Delete_Save_Search",
+        async: false,
+        type: "POST",
+        data: { req: obj },
+        success: function (data, textStatus, jqXHR) {
+            loaderHide();
+            if (data.Message.indexOf('Something Went wrong') > -1) {
+                MoveToErrorPage(0);
+            }
+            if (data.Status == "0") {
+                toastr.remove();
+                toastr.warning(data.Message, { timeOut: 3000 });
+            }
+            else {
+                toastr.remove();
+                toastr.success(data.Message, { timeOut: 3000 });
+                GetSaveSearch();
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            loaderHide();
+        }
+    });
 }
 function OrderHistory_LoadSearchData(OrderId) {
     var obj = {};
@@ -680,7 +719,7 @@ function OrderHistory_LoadSearchData(OrderId) {
     loaderShow();
     $.ajax({
         url: "/User/OrderHistory_OrderDataSessionStore",
-        async: false,
+        //async: false,
         type: "POST",
         data: { obj: obj },
         success: function (data, textStatus, jqXHR) {
