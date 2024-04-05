@@ -830,6 +830,8 @@ namespace Lib.Model
         public decimal Girdle_Per { get; set; }
         public string Girdle_Type { get; set; }
         public string Girdle_MM { get; set; }
+        public string Girdle { get; set; }
+        public string GirdleTo { get; set; }
         public string Inscription { get; set; }
         public string Culet_Condition { get; set; }
         public decimal Star_Length { get; set; }
@@ -869,6 +871,7 @@ namespace Lib.Model
         public string KTS_Grade { get; set; }
         public string Comm_Grade { get; set; }
         public string Zone { get; set; }
+        public string Sub_Zone { get; set; }
         public string Para_Grade { get; set; }
         public string QCRequire { get; set; }
         public string LabEntry_Status { get; set; }

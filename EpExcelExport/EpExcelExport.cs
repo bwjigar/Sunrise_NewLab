@@ -2001,129 +2001,147 @@ namespace EpExcelExportLib
                     worksheet.Cells[2, 37].Value = "Zone";
                     worksheet.Cells[2, 37].AutoFitColumns(3.6);
 
-                    worksheet.Cells[2, 38].Value = "Para. Grade";
+                    worksheet.Cells[2, 38].Value = "Sub Zone";
                     worksheet.Cells[2, 38].AutoFitColumns(3.6);
 
-                    worksheet.Cells[2, 39].Value = "Cut";
-                    worksheet.Cells[2, 39].AutoFitColumns(4.7);
+                    worksheet.Cells[2, 39].Value = "Para. Grade";
+                    worksheet.Cells[2, 39].AutoFitColumns(3.6);
 
-                    worksheet.Cells[2, 40].Value = "Polish";
-                    worksheet.Cells[2, 40].AutoFitColumns(5);
+                    worksheet.Cells[2, 40].Value = "Cut";
+                    worksheet.Cells[2, 40].AutoFitColumns(4.7);
 
-                    worksheet.Cells[2, 41].Value = "Symm";
+                    worksheet.Cells[2, 41].Value = "Polish";
                     worksheet.Cells[2, 41].AutoFitColumns(5);
 
-                    worksheet.Cells[2, 42].Value = "Fls";
+                    worksheet.Cells[2, 42].Value = "Symm";
                     worksheet.Cells[2, 42].AutoFitColumns(5);
 
-                    worksheet.Cells[2, 43].Value = "Key To Symbol";
-                    worksheet.Cells[2, 43].AutoFitColumns(15);
+                    worksheet.Cells[2, 43].Value = "Fls";
+                    worksheet.Cells[2, 43].AutoFitColumns(5);
 
-                    worksheet.Cells[2, 44].Value = "Ratio";
-                    worksheet.Cells[2, 44].AutoFitColumns(4.8);
+                    worksheet.Cells[2, 44].Value = "Key To Symbol";
+                    worksheet.Cells[2, 44].AutoFitColumns(15);
 
-                    worksheet.Cells[2, 45].Value = "Length";
+                    worksheet.Cells[2, 45].Value = "Ratio";
                     worksheet.Cells[2, 45].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 46].Value = "Width";
+                    worksheet.Cells[2, 46].Value = "Length";
                     worksheet.Cells[2, 46].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 47].Value = "Depth";
-                    worksheet.Cells[2, 47].AutoFitColumns(0);
+                    worksheet.Cells[2, 47].Value = "Width";
+                    worksheet.Cells[2, 47].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 48].Value = "Depth(%)";
-                    worksheet.Cells[2, 48].AutoFitColumns(4.8);
+                    worksheet.Cells[2, 48].Value = "Depth";
+                    worksheet.Cells[2, 48].AutoFitColumns(0);
 
-                    worksheet.Cells[2, 49].Value = "Table(%)";
+                    worksheet.Cells[2, 49].Value = "Depth(%)";
                     worksheet.Cells[2, 49].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 50].Value = "Crown Angle";
+                    worksheet.Cells[2, 50].Value = "Table(%)";
                     worksheet.Cells[2, 50].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 51].Value = "Crown Height";
+                    worksheet.Cells[2, 51].Value = "Crown Angle";
                     worksheet.Cells[2, 51].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 52].Value = "Pavilion Angle";
+                    worksheet.Cells[2, 52].Value = "Crown Height";
                     worksheet.Cells[2, 52].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 53].Value = "Pavilion Height";
+                    worksheet.Cells[2, 53].Value = "Pavilion Angle";
                     worksheet.Cells[2, 53].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 54].Value = "Girdle(%)";
+                    worksheet.Cells[2, 54].Value = "Pavilion Height";
                     worksheet.Cells[2, 54].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 55].Value = "Luster";
+                    worksheet.Cells[2, 55].Value = "Girdle(%)";
                     worksheet.Cells[2, 55].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 56].Value = "Cert Type";
+                    worksheet.Cells[2, 56].Value = "Star Length";
                     worksheet.Cells[2, 56].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 57].Value = "Table White";
+                    worksheet.Cells[2, 57].Value = "Lower HF";
                     worksheet.Cells[2, 57].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 58].Value = "Crown White";
+                    worksheet.Cells[2, 58].Value = "Luster";
                     worksheet.Cells[2, 58].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 59].Value = "Table Black";
+                    worksheet.Cells[2, 59].Value = "Cert Type";
                     worksheet.Cells[2, 59].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 60].Value = "Crown Black";
+                    worksheet.Cells[2, 60].Value = "Table White";
                     worksheet.Cells[2, 60].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 61].Value = "Culet";
+                    worksheet.Cells[2, 61].Value = "Crown White";
                     worksheet.Cells[2, 61].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 62].Value = "Comment";
-                    worksheet.Cells[2, 62].AutoFitColumns(25);
+                    worksheet.Cells[2, 62].Value = "Table Black";
+                    worksheet.Cells[2, 62].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 63].Value = "Supplier Comment";
-                    worksheet.Cells[2, 63].AutoFitColumns(25);
+                    worksheet.Cells[2, 63].Value = "Crown Black";
+                    worksheet.Cells[2, 63].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 64].Value = "Table Open";
-                    worksheet.Cells[2, 64].AutoFitColumns(4.9);
+                    worksheet.Cells[2, 64].Value = "Culet";
+                    worksheet.Cells[2, 64].AutoFitColumns(4.8);
 
-                    worksheet.Cells[2, 65].Value = "Crown Open";
-                    worksheet.Cells[2, 65].AutoFitColumns(4.9);
+                    worksheet.Cells[2, 65].Value = "Comment";
+                    worksheet.Cells[2, 65].AutoFitColumns(25);
 
-                    worksheet.Cells[2, 66].Value = "Pav Open";
-                    worksheet.Cells[2, 66].AutoFitColumns(4.9);
+                    worksheet.Cells[2, 66].Value = "Supplier Comment";
+                    worksheet.Cells[2, 66].AutoFitColumns(25);
 
-                    worksheet.Cells[2, 67].Value = "Girdle Open";
+                    worksheet.Cells[2, 67].Value = "Table Open";
                     worksheet.Cells[2, 67].AutoFitColumns(4.9);
 
-                    worksheet.Cells[2, 68].Value = "Shade";
-                    worksheet.Cells[2, 68].AutoFitColumns(10);
+                    worksheet.Cells[2, 68].Value = "Crown Open";
+                    worksheet.Cells[2, 68].AutoFitColumns(4.9);
 
-                    worksheet.Cells[2, 69].Value = "Milky";
-                    worksheet.Cells[2, 69].AutoFitColumns(10);
+                    worksheet.Cells[2, 69].Value = "Pav Open";
+                    worksheet.Cells[2, 69].AutoFitColumns(4.9);
+
+                    worksheet.Cells[2, 70].Value = "Girdle Open";
+                    worksheet.Cells[2, 70].AutoFitColumns(4.9);
+
+                    worksheet.Cells[2, 71].Value = "Certi Date";
+                    worksheet.Cells[2, 71].AutoFitColumns(9);
+
+                    worksheet.Cells[2, 72].Value = "Girdle Type";
+                    worksheet.Cells[2, 72].AutoFitColumns(5.4);
+
+                    worksheet.Cells[2, 73].Value = "Girdle";
+                    worksheet.Cells[2, 73].AutoFitColumns(15);
+
+                    worksheet.Cells[2, 74].Value = "Shade";
+                    worksheet.Cells[2, 74].AutoFitColumns(10);
+
+                    worksheet.Cells[2, 75].Value = "Milky";
+                    worksheet.Cells[2, 75].AutoFitColumns(4.8);
 
 
                     worksheet.Cells[1, 1].Value = "Total";
-                    worksheet.Cells[1, 1, 1, 69].Style.Font.Bold = true;
-                    worksheet.Cells[1, 1, 1, 69].Style.Font.Size = 11;
-                    worksheet.Cells[1, 1, 1, 69].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    worksheet.Cells[1, 1, 1, 69].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                    worksheet.Cells[1, 1, 1, 69].Style.Font.Size = 11;
+                    worksheet.Cells[1, 1, 1, 75].Style.Font.Bold = true;
+                    worksheet.Cells[1, 1, 1, 75].Style.Font.Size = 11;
+                    worksheet.Cells[1, 1, 1, 75].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[1, 1, 1, 75].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    worksheet.Cells[1, 1, 1, 75].Style.Font.Size = 11;
 
-                    worksheet.Cells[2, 1, 2, 69].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    worksheet.Cells[2, 1, 2, 69].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
-                    worksheet.Cells[2, 1, 2, 69].Style.Font.Size = 10;
-                    worksheet.Cells[2, 1, 2, 69].Style.Font.Bold = true;
+                    worksheet.Cells[2, 1, 2, 75].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[2, 1, 2, 75].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                    worksheet.Cells[2, 1, 2, 75].Style.Font.Size = 10;
+                    worksheet.Cells[2, 1, 2, 75].Style.Font.Bold = true;
 
-                    worksheet.Cells[2, 1, 2, 69].AutoFilter = true;
+                    worksheet.Cells[2, 1, 2, 75].AutoFilter = true;
 
-                    var cellBackgroundColor1 = worksheet.Cells[2, 1, 2, 69].Style.Fill;
+                    var cellBackgroundColor1 = worksheet.Cells[2, 1, 2, 75].Style.Fill;
                     cellBackgroundColor1.PatternType = ExcelFillStyle.Solid;
                     Color colFromHex = System.Drawing.ColorTranslator.FromHtml("#d3d3d3");
                     cellBackgroundColor1.BackgroundColor.SetColor(colFromHex);
 
-                    ExcelStyle cellStyleHeader1 = worksheet.Cells[2, 1, 2, 69].Style;
+                    ExcelStyle cellStyleHeader1 = worksheet.Cells[2, 1, 2, 75].Style;
                     cellStyleHeader1.Border.Left.Style = cellStyleHeader1.Border.Right.Style
                             = cellStyleHeader1.Border.Top.Style = cellStyleHeader1.Border.Bottom.Style
                             = ExcelBorderStyle.Medium;
 
                     worksheet.View.FreezePanes(3, 1);
-                    worksheet.Cells[inStartIndex, 1, inEndCounter, 69].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[inStartIndex, 1, inEndCounter, 75].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                     #endregion
 
@@ -2352,7 +2370,7 @@ namespace EpExcelExportLib
                         worksheet.Cells[inwrkrow, 35].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["KTS_Grade"]);
                         if (worksheet.Cells[inwrkrow, 35].Value.ToString().ToUpper() == "K3")
                         {
-                            worksheet.Cells[inwrkrow, 1, inwrkrow, 69].Style.Font.Color.SetColor(System.Drawing.Color.Red);
+                            worksheet.Cells[inwrkrow, 1, inwrkrow, 75].Style.Font.Color.SetColor(System.Drawing.Color.Red);
                         }
                         //worksheet.Cells[inwrkrow, 35].Style.Fill.PatternType = ExcelFillStyle.Solid;
                         //worksheet.Cells[inwrkrow, 35].Style.Fill.BackgroundColor.SetColor(AK);
@@ -2365,105 +2383,126 @@ namespace EpExcelExportLib
                         //worksheet.Cells[inwrkrow, 37].Style.Fill.PatternType = ExcelFillStyle.Solid;
                         //worksheet.Cells[inwrkrow, 37].Style.Fill.BackgroundColor.SetColor(AM);
 
-                        worksheet.Cells[inwrkrow, 38].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Para_Grade"]);
+                        worksheet.Cells[inwrkrow, 38].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Sub_Zone"]);
+
+                        worksheet.Cells[inwrkrow, 39].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Para_Grade"]);
                         //worksheet.Cells[inwrkrow, 38].Style.Fill.PatternType = ExcelFillStyle.Solid;
                         //worksheet.Cells[inwrkrow, 38].Style.Fill.BackgroundColor.SetColor(AN);
 
-                        worksheet.Cells[inwrkrow, 39].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Cut"]);
-                        if (Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Cut"]).ToUpper() == "3EX")
-                        {
-                            worksheet.Cells[inwrkrow, 39].Style.Font.Bold = true;
-                        }
-
-                        worksheet.Cells[inwrkrow, 40].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Polish"]);
+                        worksheet.Cells[inwrkrow, 40].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Cut"]);
                         if (Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Cut"]).ToUpper() == "3EX")
                         {
                             worksheet.Cells[inwrkrow, 40].Style.Font.Bold = true;
                         }
 
-                        worksheet.Cells[inwrkrow, 41].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Symm"]);
+                        worksheet.Cells[inwrkrow, 41].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Polish"]);
                         if (Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Cut"]).ToUpper() == "3EX")
                         {
                             worksheet.Cells[inwrkrow, 41].Style.Font.Bold = true;
                         }
 
-                        worksheet.Cells[inwrkrow, 42].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fls"]);
-                        worksheet.Cells[inwrkrow, 43].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Key_To_Symboll"]);
+                        worksheet.Cells[inwrkrow, 42].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Symm"]);
+                        if (Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Cut"]).ToUpper() == "3EX")
+                        {
+                            worksheet.Cells[inwrkrow, 42].Style.Font.Bold = true;
+                        }
 
-                        worksheet.Cells[inwrkrow, 44].Value = ((dtDiamonds.Rows[i - inStartIndex]["RATIO"] != null) ?
+                        worksheet.Cells[inwrkrow, 43].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Fls"]);
+                        worksheet.Cells[inwrkrow, 44].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Key_To_Symboll"]);
+
+                        worksheet.Cells[inwrkrow, 45].Value = ((dtDiamonds.Rows[i - inStartIndex]["RATIO"] != null) ?
                                       (dtDiamonds.Rows[i - inStartIndex]["RATIO"].GetType().Name != "DBNull" ?
                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["RATIO"]) : ((Double?)null)) : null);
                         //worksheet.Cells[inwrkrow, 44].Style.Numberformat.Format = "0.00";
 
-                        worksheet.Cells[inwrkrow, 45].Value = ((dtDiamonds.Rows[i - inStartIndex]["Length"] != null) ?
+                        worksheet.Cells[inwrkrow, 46].Value = ((dtDiamonds.Rows[i - inStartIndex]["Length"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Length"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Length"]) : ((Double?)null)) : null);
                         //worksheet.Cells[inwrkrow, 45].Style.Numberformat.Format = "0.00";
 
-                        worksheet.Cells[inwrkrow, 46].Value = ((dtDiamonds.Rows[i - inStartIndex]["Width"] != null) ?
+                        worksheet.Cells[inwrkrow, 47].Value = ((dtDiamonds.Rows[i - inStartIndex]["Width"] != null) ?
                                    (dtDiamonds.Rows[i - inStartIndex]["Width"].GetType().Name != "DBNull" ?
                                    Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Width"]) : ((Double?)null)) : null);
                         //worksheet.Cells[inwrkrow, 46].Style.Numberformat.Format = "0.00";
 
-                        worksheet.Cells[inwrkrow, 47].Value = ((dtDiamonds.Rows[i - inStartIndex]["Depth"] != null) ?
+                        worksheet.Cells[inwrkrow, 48].Value = ((dtDiamonds.Rows[i - inStartIndex]["Depth"] != null) ?
                                       (dtDiamonds.Rows[i - inStartIndex]["Depth"].GetType().Name != "DBNull" ?
                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Depth"]) : ((Double?)null)) : null);
                         //worksheet.Cells[inwrkrow, 47].Style.Numberformat.Format = "0.00";
 
-                        worksheet.Cells[inwrkrow, 48].Value = ((dtDiamonds.Rows[i - inStartIndex]["Depth_Per"] != null) ?
+                        worksheet.Cells[inwrkrow, 49].Value = ((dtDiamonds.Rows[i - inStartIndex]["Depth_Per"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Depth_Per"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Depth_Per"]) : ((Double?)null)) : null);
                         //worksheet.Cells[inwrkrow, 48].Style.Numberformat.Format = "0.00";
 
-                        worksheet.Cells[inwrkrow, 49].Value = ((dtDiamonds.Rows[i - inStartIndex]["Table_Per"] != null) ?
+                        worksheet.Cells[inwrkrow, 50].Value = ((dtDiamonds.Rows[i - inStartIndex]["Table_Per"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Table_Per"].GetType().Name != "DBNull" ?
                                        Convert.ToInt32(dtDiamonds.Rows[i - inStartIndex]["Table_Per"]) : ((Int32?)null)) : null);
                         //worksheet.Cells[inwrkrow, 49].Style.Numberformat.Format = "0";
 
-                        worksheet.Cells[inwrkrow, 50].Value = ((dtDiamonds.Rows[i - inStartIndex]["Crown_Angle"] != null) ?
+                        worksheet.Cells[inwrkrow, 51].Value = ((dtDiamonds.Rows[i - inStartIndex]["Crown_Angle"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Crown_Angle"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Crown_Angle"]) : ((Double?)null)) : null);
                         //worksheet.Cells[inwrkrow, 50].Style.Numberformat.Format = "0.00";
 
-                        worksheet.Cells[inwrkrow, 51].Value = ((dtDiamonds.Rows[i - inStartIndex]["Crown_Height"] != null) ?
+                        worksheet.Cells[inwrkrow, 52].Value = ((dtDiamonds.Rows[i - inStartIndex]["Crown_Height"] != null) ?
                                       (dtDiamonds.Rows[i - inStartIndex]["Crown_Height"].GetType().Name != "DBNull" ?
                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Crown_Height"]) : ((Double?)null)) : null);
                         //worksheet.Cells[inwrkrow, 51].Style.Numberformat.Format = "0.00";
 
-                        worksheet.Cells[inwrkrow, 52].Value = ((dtDiamonds.Rows[i - inStartIndex]["Pav_Angle"] != null) ?
+                        worksheet.Cells[inwrkrow, 53].Value = ((dtDiamonds.Rows[i - inStartIndex]["Pav_Angle"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Pav_Angle"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Pav_Angle"]) : ((Double?)null)) : null);
                         //worksheet.Cells[inwrkrow, 52].Style.Numberformat.Format = "0.00";
 
-                        worksheet.Cells[inwrkrow, 53].Value = ((dtDiamonds.Rows[i - inStartIndex]["Pav_Height"] != null) ?
+                        worksheet.Cells[inwrkrow, 54].Value = ((dtDiamonds.Rows[i - inStartIndex]["Pav_Height"] != null) ?
                                       (dtDiamonds.Rows[i - inStartIndex]["Pav_Height"].GetType().Name != "DBNull" ?
                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Pav_Height"]) : ((Double?)null)) : null);
                         //worksheet.Cells[inwrkrow, 53].Style.Numberformat.Format = "0.00";
 
-                        worksheet.Cells[inwrkrow, 54].Value = ((dtDiamonds.Rows[i - inStartIndex]["Girdle_Per"] != null) ?
+                        worksheet.Cells[inwrkrow, 55].Value = ((dtDiamonds.Rows[i - inStartIndex]["Girdle_Per"] != null) ?
                                        (dtDiamonds.Rows[i - inStartIndex]["Girdle_Per"].GetType().Name != "DBNull" ?
                                        Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Girdle_Per"]) : ((Double?)null)) : null);
                         //worksheet.Cells[inwrkrow, 54].Style.Numberformat.Format = "0.00";
 
-                        worksheet.Cells[inwrkrow, 55].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Luster"]);
-                        worksheet.Cells[inwrkrow, 56].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Type_2A"]);
-                        worksheet.Cells[inwrkrow, 57].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Inclusion"]);
-                        worksheet.Cells[inwrkrow, 58].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Inclusion"]);
-                        worksheet.Cells[inwrkrow, 59].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Natts"]);
-                        worksheet.Cells[inwrkrow, 60].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Natts"]);
-                        worksheet.Cells[inwrkrow, 61].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Culet"]);
+                        worksheet.Cells[inwrkrow, 56].Value = ((dtDiamonds.Rows[i - inStartIndex]["Star_Length"] != null) ?
+                                       (dtDiamonds.Rows[i - inStartIndex]["Star_Length"].GetType().Name != "DBNull" ?
+                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Star_Length"]) : ((Double?)null)) : null);
 
-                        worksheet.Cells[inwrkrow, 62].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab_Comments"]);
+                        worksheet.Cells[inwrkrow, 57].Value = ((dtDiamonds.Rows[i - inStartIndex]["Lower_Halves"] != null) ?
+                                       (dtDiamonds.Rows[i - inStartIndex]["Lower_Halves"].GetType().Name != "DBNull" ?
+                                       Convert.ToDouble(dtDiamonds.Rows[i - inStartIndex]["Lower_Halves"]) : ((Double?)null)) : null);
+
+                        worksheet.Cells[inwrkrow, 58].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Luster"]);
+                        worksheet.Cells[inwrkrow, 59].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Type_2A"]);
+                        worksheet.Cells[inwrkrow, 60].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Inclusion"]);
+                        worksheet.Cells[inwrkrow, 61].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Inclusion"]);
+                        worksheet.Cells[inwrkrow, 62].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Natts"]);
+                        worksheet.Cells[inwrkrow, 63].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Natts"]);
+                        worksheet.Cells[inwrkrow, 64].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Culet"]);
+
+                        worksheet.Cells[inwrkrow, 65].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Lab_Comments"]);
                         //worksheet.Cells[inwrkrow, 62].Style.Fill.PatternType = ExcelFillStyle.Solid;
                         //worksheet.Cells[inwrkrow, 62].Style.Fill.BackgroundColor.SetColor(BL);
 
-                        worksheet.Cells[inwrkrow, 63].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Supplier_Comments"]);
-                        worksheet.Cells[inwrkrow, 64].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Open"]);
-                        worksheet.Cells[inwrkrow, 65].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
-                        worksheet.Cells[inwrkrow, 66].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
-                        worksheet.Cells[inwrkrow, 67].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
-                        worksheet.Cells[inwrkrow, 68].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Shade"]);
-                        worksheet.Cells[inwrkrow, 69].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Milky"]);
+                        worksheet.Cells[inwrkrow, 66].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Supplier_Comments"]);
+                        worksheet.Cells[inwrkrow, 67].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Table_Open"]);
+                        worksheet.Cells[inwrkrow, 68].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Crown_Open"]);
+                        worksheet.Cells[inwrkrow, 69].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
+                        worksheet.Cells[inwrkrow, 70].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
+                        worksheet.Cells[inwrkrow, 71].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certi_Date"]);
+                        worksheet.Cells[inwrkrow, 72].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Type"]);
+
+                        string Girdle_From = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_MM"]);
+                        string GirdleTo = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["GirdleTo"]);
+                        string Girdle = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle"]);
+                        if (!string.IsNullOrEmpty(Girdle_From) && !string.IsNullOrEmpty(GirdleTo))
+                        {
+                            Girdle = Girdle_From + "-" + GirdleTo;
+                        }
+                        worksheet.Cells[inwrkrow, 73].Value = Girdle;
+                        worksheet.Cells[inwrkrow, 74].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Shade"]);
+                        worksheet.Cells[inwrkrow, 75].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Milky"]);
 
                         inwrkrow++;
 
@@ -2472,7 +2511,7 @@ namespace EpExcelExportLib
 
                     #region  Formulas and Decimal Format
 
-                    worksheet.Cells[inStartIndex, 1, (inwrkrow - 1), 69].Style.Font.Size = 9;
+                    worksheet.Cells[inStartIndex, 1, (inwrkrow - 1), 75].Style.Font.Size = 9;
                     worksheet.Cells[inStartIndex, 6, (inwrkrow - 1), 6].Style.Fill.PatternType = ExcelFillStyle.Solid;
                     worksheet.Cells[inStartIndex, 6, (inwrkrow - 1), 6].Style.Fill.BackgroundColor.SetColor(AM);
                     worksheet.Cells[inStartIndex, 8, (inwrkrow - 1), 8].Style.Fill.PatternType = ExcelFillStyle.Solid;
@@ -2502,17 +2541,16 @@ namespace EpExcelExportLib
                     worksheet.Cells[inStartIndex, 35, (inwrkrow - 1), 35].Style.Fill.BackgroundColor.SetColor(AK);
                     worksheet.Cells[inStartIndex, 36, (inwrkrow - 1), 36].Style.Fill.PatternType = ExcelFillStyle.Solid;
                     worksheet.Cells[inStartIndex, 36, (inwrkrow - 1), 36].Style.Fill.BackgroundColor.SetColor(AL);
-                    worksheet.Cells[inStartIndex, 37, (inwrkrow - 1), 37].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    worksheet.Cells[inStartIndex, 37, (inwrkrow - 1), 37].Style.Fill.BackgroundColor.SetColor(AM);
-                    worksheet.Cells[inStartIndex, 38, (inwrkrow - 1), 38].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    worksheet.Cells[inStartIndex, 38, (inwrkrow - 1), 38].Style.Fill.BackgroundColor.SetColor(AN);
+                    worksheet.Cells[inStartIndex, 37, (inwrkrow - 1), 38].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells[inStartIndex, 37, (inwrkrow - 1), 38].Style.Fill.BackgroundColor.SetColor(AM);
+                    worksheet.Cells[inStartIndex, 39, (inwrkrow - 1), 39].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells[inStartIndex, 39, (inwrkrow - 1), 39].Style.Fill.BackgroundColor.SetColor(AN);
 
-                    worksheet.Cells[inStartIndex, 44, (inwrkrow - 1), 54].Style.Numberformat.Format = "0.00";
-                    worksheet.Cells[inStartIndex, 49, (inwrkrow - 1), 49].Style.Numberformat.Format = "0";
+                    worksheet.Cells[inStartIndex, 45, (inwrkrow - 1), 57].Style.Numberformat.Format = "0.00";
+                    worksheet.Cells[inStartIndex, 50, (inwrkrow - 1), 50].Style.Numberformat.Format = "0";
 
-                    worksheet.Cells[inStartIndex, 62, (inwrkrow - 1), 62].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    worksheet.Cells[inStartIndex, 62, (inwrkrow - 1), 62].Style.Fill.BackgroundColor.SetColor(BL);
-
+                    worksheet.Cells[inStartIndex, 65, (inwrkrow - 1), 65].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    worksheet.Cells[inStartIndex, 65, (inwrkrow - 1), 65].Style.Fill.BackgroundColor.SetColor(BL);
 
                     //  "Supplier Ref No"
                     worksheet.Cells[1, 10].Formula = "ROUND(SUBTOTAL(103," + GetExcelColumnLetter(10) + "" + inStartIndex + ":" + GetExcelColumnLetter(10) + "" + (inwrkrow - 1) + "),2)";
