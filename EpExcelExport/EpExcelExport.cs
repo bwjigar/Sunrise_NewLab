@@ -2103,39 +2103,42 @@ namespace EpExcelExportLib
                     worksheet.Cells[2, 71].Value = "Certi Date";
                     worksheet.Cells[2, 71].AutoFitColumns(9);
 
-                    worksheet.Cells[2, 72].Value = "Girdle Type";
-                    worksheet.Cells[2, 72].AutoFitColumns(5.4);
+                    worksheet.Cells[2, 72].Value = "Country of Origin";
+                    worksheet.Cells[2, 72].AutoFitColumns(9);
 
-                    worksheet.Cells[2, 73].Value = "Girdle";
-                    worksheet.Cells[2, 73].AutoFitColumns(15);
+                    worksheet.Cells[2, 73].Value = "Girdle Type";
+                    worksheet.Cells[2, 73].AutoFitColumns(5.4);
 
-                    worksheet.Cells[2, 74].Value = "Shade";
-                    worksheet.Cells[2, 74].AutoFitColumns(10);
+                    worksheet.Cells[2, 74].Value = "Girdle";
+                    worksheet.Cells[2, 74].AutoFitColumns(15);
 
-                    worksheet.Cells[2, 75].Value = "Milky";
-                    worksheet.Cells[2, 75].AutoFitColumns(4.8);
+                    worksheet.Cells[2, 75].Value = "Shade";
+                    worksheet.Cells[2, 75].AutoFitColumns(10);
+
+                    worksheet.Cells[2, 76].Value = "Milky";
+                    worksheet.Cells[2, 76].AutoFitColumns(4.8);
 
 
                     worksheet.Cells[1, 1].Value = "Total";
-                    worksheet.Cells[1, 1, 1, 75].Style.Font.Bold = true;
-                    worksheet.Cells[1, 1, 1, 75].Style.Font.Size = 11;
-                    worksheet.Cells[1, 1, 1, 75].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    worksheet.Cells[1, 1, 1, 75].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                    worksheet.Cells[1, 1, 1, 75].Style.Font.Size = 11;
+                    worksheet.Cells[1, 1, 1, 76].Style.Font.Bold = true;
+                    worksheet.Cells[1, 1, 1, 76].Style.Font.Size = 11;
+                    worksheet.Cells[1, 1, 1, 76].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[1, 1, 1, 76].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                    worksheet.Cells[1, 1, 1, 76].Style.Font.Size = 11;
 
-                    worksheet.Cells[2, 1, 2, 75].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    worksheet.Cells[2, 1, 2, 75].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
-                    worksheet.Cells[2, 1, 2, 75].Style.Font.Size = 10;
-                    worksheet.Cells[2, 1, 2, 75].Style.Font.Bold = true;
+                    worksheet.Cells[2, 1, 2, 76].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[2, 1, 2, 76].Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                    worksheet.Cells[2, 1, 2, 76].Style.Font.Size = 10;
+                    worksheet.Cells[2, 1, 2, 76].Style.Font.Bold = true;
 
-                    worksheet.Cells[2, 1, 2, 75].AutoFilter = true;
+                    worksheet.Cells[2, 1, 2, 76].AutoFilter = true;
 
-                    var cellBackgroundColor1 = worksheet.Cells[2, 1, 2, 75].Style.Fill;
+                    var cellBackgroundColor1 = worksheet.Cells[2, 1, 2, 76].Style.Fill;
                     cellBackgroundColor1.PatternType = ExcelFillStyle.Solid;
                     Color colFromHex = System.Drawing.ColorTranslator.FromHtml("#d3d3d3");
                     cellBackgroundColor1.BackgroundColor.SetColor(colFromHex);
 
-                    ExcelStyle cellStyleHeader1 = worksheet.Cells[2, 1, 2, 75].Style;
+                    ExcelStyle cellStyleHeader1 = worksheet.Cells[2, 1, 2, 76].Style;
                     cellStyleHeader1.Border.Left.Style = cellStyleHeader1.Border.Right.Style
                             = cellStyleHeader1.Border.Top.Style = cellStyleHeader1.Border.Bottom.Style
                             = ExcelBorderStyle.Medium;
@@ -2370,7 +2373,7 @@ namespace EpExcelExportLib
                         worksheet.Cells[inwrkrow, 35].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["KTS_Grade"]);
                         if (worksheet.Cells[inwrkrow, 35].Value.ToString().ToUpper() == "K3")
                         {
-                            worksheet.Cells[inwrkrow, 1, inwrkrow, 75].Style.Font.Color.SetColor(System.Drawing.Color.Red);
+                            worksheet.Cells[inwrkrow, 1, inwrkrow, 76].Style.Font.Color.SetColor(System.Drawing.Color.Red);
                         }
                         //worksheet.Cells[inwrkrow, 35].Style.Fill.PatternType = ExcelFillStyle.Solid;
                         //worksheet.Cells[inwrkrow, 35].Style.Fill.BackgroundColor.SetColor(AK);
@@ -2491,7 +2494,8 @@ namespace EpExcelExportLib
                         worksheet.Cells[inwrkrow, 69].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Pav_Open"]);
                         worksheet.Cells[inwrkrow, 70].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Open"]);
                         worksheet.Cells[inwrkrow, 71].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Certi_Date"]);
-                        worksheet.Cells[inwrkrow, 72].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Type"]);
+                        worksheet.Cells[inwrkrow, 72].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Country_of_Origin"]);
+                        worksheet.Cells[inwrkrow, 73].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_Type"]);
 
                         string Girdle_From = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Girdle_MM"]);
                         string GirdleTo = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["GirdleTo"]);
@@ -2500,9 +2504,9 @@ namespace EpExcelExportLib
                         {
                             Girdle = Girdle_From + "-" + GirdleTo;
                         }
-                        worksheet.Cells[inwrkrow, 73].Value = Girdle;
-                        worksheet.Cells[inwrkrow, 74].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Shade"]);
-                        worksheet.Cells[inwrkrow, 75].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Milky"]);
+                        worksheet.Cells[inwrkrow, 74].Value = Girdle;
+                        worksheet.Cells[inwrkrow, 75].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Shade"]);
+                        worksheet.Cells[inwrkrow, 76].Value = Convert.ToString(dtDiamonds.Rows[i - inStartIndex]["Milky"]);
 
                         inwrkrow++;
 
@@ -2511,7 +2515,7 @@ namespace EpExcelExportLib
 
                     #region  Formulas and Decimal Format
 
-                    worksheet.Cells[inStartIndex, 1, (inwrkrow - 1), 75].Style.Font.Size = 9;
+                    worksheet.Cells[inStartIndex, 1, (inwrkrow - 1), 76].Style.Font.Size = 9;
                     worksheet.Cells[inStartIndex, 6, (inwrkrow - 1), 6].Style.Fill.PatternType = ExcelFillStyle.Solid;
                     worksheet.Cells[inStartIndex, 6, (inwrkrow - 1), 6].Style.Fill.BackgroundColor.SetColor(AM);
                     worksheet.Cells[inStartIndex, 8, (inwrkrow - 1), 8].Style.Fill.PatternType = ExcelFillStyle.Solid;

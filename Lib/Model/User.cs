@@ -873,6 +873,7 @@ namespace Lib.Model
         public string Zone { get; set; }
         public string Sub_Zone { get; set; }
         public string Para_Grade { get; set; }
+        public string Country_of_Origin { get; set; }
         public string QCRequire { get; set; }
         public string LabEntry_Status { get; set; }
         public decimal PROFIT { get; set; }
