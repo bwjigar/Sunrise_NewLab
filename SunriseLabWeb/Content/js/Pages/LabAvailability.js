@@ -30,6 +30,7 @@ $(document).ready(function () {
     GetCompanyList();
 
     $('#Excel_Download_FileName_Modal').on('show.bs.modal', function (event) {
+        $("#txtFileName").focus();
         if (Download_Type == "Supplier List") {
             $('#Excel_Download_FileName_Modal .modal-title').html("Supplier Excel");
             $('#Excel_Download_FileName_Modal #txtFileName').val("Supplier");
@@ -41,6 +42,12 @@ $(document).ready(function () {
         else if (Download_Type == "Status List") {
             $('#Excel_Download_FileName_Modal .modal-title').html("Status Excel");
             $('#Excel_Download_FileName_Modal #txtFileName').val("Status");
+        }
+    });
+    document.getElementById('txtFileName').addEventListener('keydown', function (event) {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            $("#btnFileDownload").focus();
         }
     });
     $('#Excel_Download_FileName_Modal').on('hide.bs.modal', function (event) {

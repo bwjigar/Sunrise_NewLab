@@ -545,7 +545,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade social-model" id="Excel_Download_FileName_Modal" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="margin-top: -50px;display: none;">
+<div class="modal fade social-model" role="dialog" aria-modal="true"  aria-hidden="true" id="Excel_Download_FileName_Modal" data-backdrop="static" data-keyboard="false" style="margin-top: -50px;">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -556,13 +556,13 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="email">File Name : <span class="reqvalidation"> * </span></label>
-                        <input class="input-main" id="txtFileName" type="text" placeholder="File Name" style="font-size:14px; height: 40px;" autocomplete="off" maxlength="100">
+                        <input tabindex="1" class="input-main" id="txtFileName" type="text" placeholder="File Name" style="font-size:14px; height: 40px;" autocomplete="off" maxlength="100">
                     </div>
                 </div>
             </form>
             <div class="modal-footer">
-                <button class="btn btn-primary" type="button" onclick="FileDownload();">Download</button>
-                <button class="btn btn-darkblue" tabindex="4" type="button" data-dismiss="modal">Cancel</button>
+                <button id="btnFileDownload" class="btn btn-primary" type="button" onclick="FileDownload();">Download</button>
+                <button class="btn btn-darkblue" type="button" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>

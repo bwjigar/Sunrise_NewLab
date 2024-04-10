@@ -2144,7 +2144,7 @@ namespace EpExcelExportLib
                             = ExcelBorderStyle.Medium;
 
                     worksheet.View.FreezePanes(3, 1);
-                    worksheet.Cells[inStartIndex, 1, inEndCounter, 75].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[inStartIndex, 1, inEndCounter, 76].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                     #endregion
 
